@@ -16,10 +16,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: make
       run:
-        echo Building BAL SDK
+        echo "Building BAL SDK"
         make
-        echo BAL SDK built successfully.
-        echo Build artifacts can be found in $GITHUB_WORKSPACE/build/fs        
+        echo "BAL SDK built successfully."
+        echo "Build artifacts can be found in $GITHUB_WORKSPACE/build/fs"
     - uses: actions/upload-artifact@v1
       if: success()
       with:
