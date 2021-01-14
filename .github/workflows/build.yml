@@ -1,0 +1,27 @@
+# Build libbal_host_api.so upon pull request in the main branch
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run:
+        echo Building BAL SDK
+        make
+        echo BAL SDK built successfully.
+        echo Build artifacts can be found in $GITHUB_WORKSPACE/build/fs        
+    - uses: actions/upload-artifact@v1
+      if: success()
+      with:
+        name: build-artifacts
+        path: build/fs
