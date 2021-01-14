@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: make && echo "Build artifacts can be found in $GITHUB_WORKSPACE/build/fs"
+      run: make CCACHE=n && echo "Build artifacts can be found in $GITHUB_WORKSPACE/build/fs"
     - uses: actions/upload-artifact@v1
       if: success()
       with:
