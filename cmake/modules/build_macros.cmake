@@ -1344,11 +1344,15 @@ macro(bcm_create_linux_module_target)
     _bcm_create_linux_common(_KMODULE_SOURCE_CACHE_FILE MODULE ${_KERNEL_TARGET})
 
     # Create the link command we will use. The link command needs to be a string, so we first create a list,
-    # then convert to string.
+    # then convert to string. Note that we only include the CROSS_COMPILE if it is set.
+    if(CROSS_COMPILE)
+        set(_KMODULE_CROSS_COMPILE "-c ${CROSS_COMPILE}")
+    endif(CROSS_COMPILE)
+
     bcm_stringify_flags(_KMODULE_LINK_CMD
-                        ${_KMODULE_LINK_SCRIPT} ${KERNELDIR} ${KERNEL_ARCH} ${CROSS_COMPILE}
-                        ${_MOD_NAME} ${CMAKE_CURRENT_BINARY_DIR} ${_KMODULE_SOURCE_CACHE_FILE}
-                        ${CMAKE_VERBOSE_MAKEFILE})
+                        ${_KMODULE_LINK_SCRIPT} -l ${KERNELDIR} -a ${KERNEL_ARCH} ${_KMODULE_CROSS_COMPILE}
+                        -m ${_MOD_NAME} -b ${CMAKE_CURRENT_BINARY_DIR} -f ${_KMODULE_SOURCE_CACHE_FILE}
+                        -v ${CMAKE_VERBOSE_MAKEFILE})
 
     set_property(TARGET ${_KERNEL_TARGET} PROPERTY RULE_LAUNCH_LINK ${_KMODULE_LINK_CMD})
 

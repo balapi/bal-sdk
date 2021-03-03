@@ -41,6 +41,7 @@ static hash_table *hash_table_create_in_pool(bcmos_blk_pool_parm *pool_parm,
 
     if (pool_parm == NULL)
     {
+        /* most likely a coding error */
         BUG();
         return NULL;
     }
@@ -50,7 +51,6 @@ static hash_table *hash_table_create_in_pool(bcmos_blk_pool_parm *pool_parm,
     ht = bcmos_alloc(sizeof(hash_table));
     if (ht == NULL)
     {
-        BUG();
         return NULL;
     }
 
@@ -64,7 +64,6 @@ static hash_table *hash_table_create_in_pool(bcmos_blk_pool_parm *pool_parm,
     if (ht->look_up_entries_tbl == NULL)
     {
         bcmos_free(ht);
-        BUG();
         return NULL;
     }
 
@@ -75,13 +74,16 @@ static hash_table *hash_table_create_in_pool(bcmos_blk_pool_parm *pool_parm,
     {
         bcmos_free(ht->look_up_entries_tbl);
         bcmos_free(ht);
-        BUG();
         return NULL;
     }
 
     if (ht->ht_max_data_entries > ht->ht_lookup_tbl_entries)
     {
-        BUG();
+        BCMOS_TRACE_ERR("%s: 32 bits unsiged overlow\n", __FUNCTION__);
+        bcmos_free(ht->look_up_entries_tbl);
+        bcmos_blk_pool_destroy(&ht->key_data_pool);
+        bcmos_free(ht);
+        return NULL;
     }
 
     ht->obj_len -= ht->key_len;

@@ -55,6 +55,7 @@ Removed fields:
 - gpon_trx.end_of_burst_data_pattern
 - gpon_trx.end_of_burst_ranging_pattern
 - gpon_trx.energy_detect
+- gpon_trx.global_sgb_timers
 - gpon_trx.guard_bits
 - gpon_trx.la_configuration
 - gpon_trx.la_ranging_after_ed_resync
@@ -92,6 +93,7 @@ Removed fields:
 - xgpon_trx.rssi_normal_config
 - xgpon_trx.rssi_ranging_config
 - xgpon_trx.serdes_configuration
+- xgpon_trx.sgb_global_timers
 - xgpon_trx.transceiver_config
 - xgpon_trx.trx_rst_polarity
 
@@ -274,6 +276,7 @@ Removed types:
 - extra_bw_eligibility_type
 - flush_mac_table_option
 - gate_parameters
+- gpon_global_sgb_timers
 - gpon_iwf_debug_flow_config
 - gpon_mac_table_scan_result
 - gpon_ni_debug
@@ -382,6 +385,7 @@ Removed types:
 - serdes_instance
 - serdes_polarity
 - serdes_ranging_mode
+- sgb_timer_mode
 - shaper_mode
 - sla
 - solicited_scheduler
@@ -420,5 +424,6 @@ Removed types:
 - xgpon_serdes_ranging_mode
 - xgpon_trx_configuration
 - xgpon_trx_debug
+- xgs_xgpon_global_sgb_timers
 
 
