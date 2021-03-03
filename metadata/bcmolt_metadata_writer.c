@@ -507,7 +507,7 @@ static bcmos_errno write_array(
                 writer_write(writer, ",");
             }
             first = BCMOS_FALSE;
-            if (index_mask != 0 && (index_mask & (1 << i)) == 0)
+            if (index_mask != 0 && (index_mask & (1ULL << i)) == 0)
             {
                 writer_write(writer, BCMOLT_PARM_NO_VALUE_STR);
                 continue; /* the list element isn't present */
@@ -526,7 +526,7 @@ static bcmos_errno write_array(
             char idx_prefix[BCMOLT_MAX_METADATA_NAME_LENGTH] = {};
             void *fdata = (void *)((long)data + (td->size * i));
 
-            if (index_mask != 0 && (index_mask & (1 << i)) == 0)
+            if (index_mask != 0 && (index_mask & (1ULL << i)) == 0)
             {
                 continue; /* the list element isn't present */
             }
@@ -547,7 +547,7 @@ static bcmos_errno write_array(
             char elem_prefix[BCMOLT_MAX_METADATA_NAME_LENGTH] = {};
             void *fdata = (void *)((long)data + (td->size * i));
 
-            if (index_mask != 0 && (index_mask & (1 << i)) == 0)
+            if (index_mask != 0 && (index_mask & (1ULL << i)) == 0)
             {
                 continue; /* the list element isn't present */
             }

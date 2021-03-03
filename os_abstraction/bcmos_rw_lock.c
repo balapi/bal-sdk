@@ -40,24 +40,28 @@ bcmos_errno bcmos_rw_lock_create(bcmos_rw_lock **lock)
     *lock = (bcmos_rw_lock*)bcmos_calloc(sizeof(bcmos_rw_lock));
     if (*lock == NULL)
     {
-        BUG();
         return BCM_ERR_NOMEM;
     }
-    if (BCM_ERR_OK != (err = bcmos_mutex_create(&(*lock)->lock, 0, "bcmos_rw_lock_create_lock")))
+    do
     {
-        BUG();
-        return err;
-    }
-    if (BCM_ERR_OK != (err = bcmos_mutex_create(&(*lock)->read_lock, 0, "bcmos_rw_lock_create_rw_lock")))
+        if (BCM_ERR_OK != (err = bcmos_mutex_create(&(*lock)->lock, 0, "bcmos_rw_lock_create_lock")))
+        {
+            break;
+        }
+        if (BCM_ERR_OK != (err = bcmos_mutex_create(&(*lock)->read_lock, 0, "bcmos_rw_lock_create_rw_lock")))
+        {
+            break;
+        }
+    
+        (*lock)->readers = 0;
+        if (BCM_ERR_OK != (err = bcmos_sem_create(&(*lock)->write_lock, 1, 0, "bcmos_rw_lock_create_write_lock")))
+        {
+           break; 
+        }
+    }while(0);
+    if(BCM_ERR_OK != err)
     {
-        BUG();
-        return err;
-    }
-    (*lock)->readers = 0;
-    if (BCM_ERR_OK != (err = bcmos_sem_create(&(*lock)->write_lock, 1, 0, "bcmos_rw_lock_create_write_lock")))
-    {
-        BUG();
-        return err;
+        bcmos_free(lock);
     }
     return err;
 }

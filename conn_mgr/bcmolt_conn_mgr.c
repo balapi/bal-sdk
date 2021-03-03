@@ -99,6 +99,24 @@ static inline void _cm_packet_header_push(bcmos_buf *buf, bcmolt_ldid device, bc
     memcpy(bcmos_buf_head_push(buf, sizeof(cm_hdr)), &cm_hdr, sizeof(cm_hdr));
 }
 
+/* Check connection match */
+static bcmos_bool _check_conn_match(bcmolt_cm_mode_info *info_ptr, const bcmolt_cm_conn *conn,
+    bcmolt_cmll_conn_id ll_conn_id, const bcmolt_cm_addr *addr, bcmolt_ldid device,
+    bcmolt_subchannel subch)
+{
+    if (ll_conn_id == conn->ll_conn_id                                              &&
+        (((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_ADDR) == 0)   ||
+            (cmll_driver.addr_is_equal(&conn->peer_addr, addr)))                    &&
+        (((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_DEV) == 0)    ||
+            (device == conn->device))                                               &&
+        (((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_SUBCH) == 0)  ||
+            (subch == conn->subch)) )
+    {
+        return BCMOS_TRUE;
+    }
+    return BCMOS_FALSE;
+}
+
 /* Handle RX packet */
 static bcmos_errno _cmll_handle_recv(bcmolt_cm_mode_info *info_ptr, bcmolt_cmll_conn_id ll_conn_id, bcmos_buf *buf,
     bcmolt_cm_addr *addr, bcmolt_cm_conn_id *conn_id, bcmolt_ldid *device, bcmolt_subchannel *subch)
@@ -127,16 +145,8 @@ static bcmos_errno _cmll_handle_recv(bcmolt_cm_mode_info *info_ptr, bcmolt_cmll_
             conn = &cm_conn_array[id];
             if (!conn->connected)
                 continue;
-
-            if ((((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_ADDR) == 0)   ||
-                 (cmll_driver.addr_is_equal(&conn->peer_addr, addr)))                       &&
-                (((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_DEV) == 0)    ||
-                 (cm_hdr.device == conn->device))                                           &&
-                (((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_MATCH_BY_SUBCH) == 0)  ||
-                 (cm_hdr.subch == conn->subch)) )
-            {
+            if (_check_conn_match(info_ptr, conn, ll_conn_id, addr, cm_hdr.device, cm_hdr.subch))
                 break;
-            }
         }
         if (id >= cm_init_parms.max_conns)
         {
@@ -144,20 +154,20 @@ static bcmos_errno _cmll_handle_recv(bcmolt_cm_mode_info *info_ptr, bcmolt_cmll_
             conn = NULL;
         }
     }
+    else if (*conn_id < cm_init_parms.max_conns && cm_conn_array[*conn_id].connected)
+    {
+        id = *conn_id;
+        conn = &cm_conn_array[*conn_id];
+    }
 
     /* Identify CM_SETUP and CM_DISCONNECT packets */
     data = bcmos_buf_data(buf);
+
+    /* CONNECT request/response ? */
     if (!memcmp(data, BCMOLT_CM_CONN_MAGIC, 8))
     {
-        CM_LOG(INFO, "Connect request received from the peer: conn_id=%u\n", (unsigned)id);
+        CM_LOG(INFO, "Connect request/response received from the peer: conn_id=%u\n", (unsigned)id);
         _cm_connect_msg_handler(ll_conn_id, id, buf, cm_hdr.device, addr);
-        return BCM_ERR_ALREADY;
-    }
-    if (!memcmp(data, BCMOLT_CM_DISC_MAGIC, 8))
-    {
-        CM_LOG(INFO, "Disconnect request received from the peer: conn_id=%u\n", (unsigned)id);
-        _cmll_notify_disconnect(id);
-        bcmos_buf_free(buf);
         return BCM_ERR_ALREADY;
     }
 
@@ -165,7 +175,6 @@ static bcmos_errno _cmll_handle_recv(bcmolt_cm_mode_info *info_ptr, bcmolt_cmll_
     if (conn == NULL)
     {
         bcmos_errno err;
-
         /* Note that in case of error other than BCM_ERR_ALREADY buf is released by the caller */
         if ((info_ptr->enable_parms.flags & BCMOLT_CM_FLAG_AUTO_ACCEPT) == 0)
             return BCM_ERR_NOT_CONNECTED;
@@ -175,6 +184,14 @@ static bcmos_errno _cmll_handle_recv(bcmolt_cm_mode_info *info_ptr, bcmolt_cmll_
         if (err != BCM_ERR_OK)
             return err;
         conn = &cm_conn_array[id];
+    }
+
+    if (!memcmp(data, BCMOLT_CM_DISC_MAGIC, 8))
+    {
+        CM_LOG(INFO, "Disconnect request received from the peer: conn_id=%u\n", (unsigned)id);
+        _cmll_notify_disconnect(id);
+        bcmos_buf_free(buf);
+        return BCM_ERR_ALREADY;
     }
 
     conn->last_rx_ts = bcmos_timestamp();
@@ -294,6 +311,8 @@ static bcmos_errno _cm_connect_msg_validate(bcmos_buf *buf, bcmolt_conn_type *co
         /* Response. Fill up cm_conn_pending block */
         if (cm_connect_pending.in_progress && cm_connect_pending.corr_tag == connect_msg.corr_tag)
         {
+            CM_LOG(INFO, "Got connect response. pending=%d corr_tag=0x%04x/0x%04x\n",
+                cm_connect_pending.in_progress, cm_connect_pending.corr_tag, connect_msg.corr_tag);
             cm_connect_pending.status = (bcmos_errno)(unsigned long)BCMOS_ENDIAN_BIG_TO_CPU_U16((uint16_t)connect_msg.status);
             cm_connect_pending.got_reply = BCMOS_TRUE;
         }
@@ -309,6 +328,8 @@ static bcmos_errno _cm_connect_msg_validate(bcmos_buf *buf, bcmolt_conn_type *co
         CM_LOG_ERR_RETURN(BCM_ERR_IO, "Connection type %u is invalid\n", connect_msg.type);
     }
     *conn_type = (bcmolt_conn_type)connect_msg.type;
+    CM_LOG(INFO, "Got connect request. corr_tag=0x%04x conn_type=%d\n",
+        connect_msg.corr_tag, *conn_type);
     return BCM_ERR_OK;
 }
 
@@ -338,9 +359,36 @@ static void _cm_connect_store_enable(bcmolt_cm_conn_id conn_id, bcmolt_conn_type
     conn->subch = subch;
     if (cmll_driver.set_conn_id)
         cmll_driver.set_conn_id(ll_conn_id, conn_id);
-    CM_LOG(INFO, "created connection %u. type=%d ip=0x%08x port=%u dev=%u\n",
-        conn_id, conn_type, addr->udp.ip.u32, addr->udp.port, device);
+    CM_LOG(INFO, "created connection %u. type=%d peer:%d.%d.%d.%d:%u dev=%u\n",
+        conn_id, conn_type,
+        addr->udp.ip.u32 >> 24, (addr->udp.ip.u32 >> 16) & 0xff,
+        (addr->udp.ip.u32 >> 8) & 0xff, addr->udp.ip.u32 & 0xff,
+        addr->udp.port, device);
 }
+
+
+/* Check existing connection */
+static bcmos_bool _cm_conn_exists(bcmolt_cmll_conn_id ll_conn_id, bcmolt_conn_type conn_type,
+    const bcmolt_cm_addr *addr, bcmolt_ldid device, bcmolt_subchannel subch)
+{
+    bcmolt_cm_mode_info *info_ptr=cm_mode_ptrs[conn_type];
+    bcmolt_cm_conn_id id;
+
+    if (!cm_conn_array || info_ptr==NULL)
+        return BCMOS_FALSE;
+
+    /* Find a matching connection */
+    for (id = 0; id < cm_init_parms.max_conns; id++)
+    {
+        bcmolt_cm_conn *conn = &cm_conn_array[id];
+        if (!conn->connected)
+            continue;
+        if (_check_conn_match(info_ptr, conn, ll_conn_id, addr, device, subch))
+            break;
+    }
+    return (id < cm_init_parms.max_conns) ? BCMOS_TRUE : BCMOS_FALSE;
+}
+
 
 /* Create a new connection */
 static bcmos_errno _cm_accept_new_connection(bcmolt_cmll_conn_id ll_conn_id, bcmolt_conn_type conn_type,
@@ -349,6 +397,14 @@ static bcmos_errno _cm_accept_new_connection(bcmolt_cmll_conn_id ll_conn_id, bcm
     bcmos_errno err;
 
     bcmos_mutex_lock(&cm_conn_lock);
+
+    /* Make sure that connection with the same peer and conn_type doesn't exist yet */
+    if (_cm_conn_exists(ll_conn_id, conn_type, addr, device, subch))
+    {
+        CM_LOG(ERROR, "Connection exists. New connection request ignored\n");
+        bcmos_mutex_unlock(&cm_conn_lock);
+        return BCM_ERR_ALREADY;
+    }
 
     err = _cm_get_free_conn_block(conn_id);
 
@@ -378,8 +434,9 @@ static void _cm_connect_msg_handler(bcmolt_cmll_conn_id ll_conn_id, bcmolt_cm_co
     bcmolt_conn_type conn_type;
     bcmos_errno err;
 
-    /* Validate connect_msg */
+    /* Validate connect_msg. Returns BCM_ERR_ALREADY in case of expected response */
     err = _cm_connect_msg_validate(buf, &conn_type);
+
     /* Stop here if validation failed */
     if (err != BCM_ERR_OK)
     {
@@ -389,6 +446,11 @@ static void _cm_connect_msg_handler(bcmolt_cmll_conn_id ll_conn_id, bcmolt_cm_co
 
     /* Notify client about the new connection. It has a right to refuse */
     err = _cm_accept_new_connection(ll_conn_id, conn_type, device, addr, 0, &conn_id);
+    if (err != BCM_ERR_OK && err != BCM_ERR_ALREADY)
+    {
+        bcmos_buf_free(buf);
+        return;
+    }
 
     /* Reply to connect message. It frees the buffer */
     _cm_connect_msg_reply(ll_conn_id, buf, err, device, addr);
@@ -765,6 +827,12 @@ bcmos_errno bcmolt_cm_connect(bcmolt_conn_type conn_type, const bcmolt_cm_connec
     if (cm_conn_array==NULL || conn_parms==NULL || conn_id==NULL || info_ptr==NULL)
         return BCM_ERR_PARM;
 
+    CM_LOG(INFO, "Requesting connect: type=%d peer:%d.%d.%d.%d:%u\n",
+        conn_type,
+        conn_parms->remote_addr.udp.ip.u32 >> 24, (conn_parms->remote_addr.udp.ip.u32 >> 16) & 0xff,
+        (conn_parms->remote_addr.udp.ip.u32 >> 8) & 0xff, conn_parms->remote_addr.udp.ip.u32 & 0xff,
+        conn_parms->remote_addr.udp.port);
+
     bcmos_mutex_lock(&cm_conn_lock);
 
     if (cm_connect_pending.in_progress)
@@ -943,6 +1011,12 @@ bcmos_errno bcmolt_cm_disconnect(bcmolt_cm_conn_id conn_id)
     if (!conn->connected)
         return BCM_ERR_NOT_CONNECTED;
 
+    CM_LOG(INFO, "Requesting disconnect: conn_id=%d type=%d peer=%d.%d.%d.%d:%u device=%u\n",
+        conn_id, conn->conn_type,
+        conn->peer_addr.udp.ip.u32 >> 24, (conn->peer_addr.udp.ip.u32 >> 16) & 0xff,
+        (conn->peer_addr.udp.ip.u32 >> 8) & 0xff, conn->peer_addr.udp.ip.u32 & 0xff,
+        conn->peer_addr.udp.port, conn->device);
+
     /* Notify application */
     if (cm_handlers[conn->conn_type].disconnect)
         cm_handlers[conn->conn_type].disconnect(conn->conn_type, conn_id);
@@ -1074,6 +1148,11 @@ bcmos_errno bcmolt_cmll_notify_connect(bcmolt_cmll_conn_id ll_conn_id, void *drv
 
     if (cm_conn_array==NULL || peer_addr==NULL)
         return BCM_ERR_PARM;
+
+    CM_LOG(INFO, "peer: %d.%d.%d.%d:%u\n",
+        peer_addr->udp.ip.u32 >> 24, (peer_addr->udp.ip.u32 >> 16) & 0xff,
+        (peer_addr->udp.ip.u32 >> 8) & 0xff, peer_addr->udp.ip.u32 & 0xff,
+        peer_addr->udp.port);
 
     bcmos_mutex_lock(&cm_conn_lock);
     err = _cm_get_free_conn_block(&conn_id);
