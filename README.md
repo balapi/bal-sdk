@@ -23,11 +23,12 @@ running on the line card.
                                                   |  switch HW  |  MAC HW    |
                                                   ----------------------------
 
-## Building the BAL API SDK and Appliction Example
+## Building the BAL API SDK and Application Example
 
 ### Prerequisites
 
 * cmake version 3.5 or later
+* ccache
 * make
 * gcc compiler
 
