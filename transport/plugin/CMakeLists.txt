@@ -1,7 +1,0 @@
-file(GLOB_RECURSE _DIRS_AND_FILES LIST_DIRECTORIES true ${CMAKE_CURRENT_SOURCE_DIR}/*)
-foreach(_DIR ${_DIRS_AND_FILES})
-    if(IS_DIRECTORY ${_DIR} AND EXISTS ${_DIR}/CMakeLists.txt)
-        get_filename_component(_REL_DIR ${_DIR} NAME)
-        bcm_add_subdirectory(${_REL_DIR})
-    endif()
-endforeach(_DIR)
