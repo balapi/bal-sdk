@@ -33,11 +33,22 @@ endif()
 
 bcm_create_shared_lib_target(fs STRIP)
 
+#====
+# Remove any old library (softlink) left over from a previous build
+#====
+if(EXISTS ${CMAKE_INSTALL_PREFIX}/fs/lib${BAL_HOST_API_NAME}.so)
+    file(REMOVE ${CMAKE_INSTALL_PREFIX}/fs/lib${BAL_HOST_API_NAME}.so)
+endif()
+
+#====
 # Install the libbal_host_api.so as a versioned library
+#====
 install(CODE "execute_process(COMMAND mv ${CMAKE_INSTALL_PREFIX}/fs/lib${BAL_HOST_API_NAME}.so
         ${CMAKE_INSTALL_PREFIX}/fs/lib${BAL_HOST_API_NAME}.${HOST_SW_VERSION}.so)")
 install(CODE "execute_process(COMMAND ln -s lib${BAL_HOST_API_NAME}.${HOST_SW_VERSION}.so
         ${CMAKE_INSTALL_PREFIX}/fs/lib${BAL_HOST_API_NAME}.so)")
 
+#====
 # Add files to the GitHub part of the release tree.
+#====
 bcm_github_install(./* RELEASE github/host_api)
