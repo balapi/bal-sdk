@@ -46,7 +46,7 @@ The following additional build parameters can be specified after the 'make' comm
 #### BAL API SDK Build Artifacts
 
 All build artifacts are created in directory build-directory/fs. The default build directory is 'build'.
-* fs/libbal_host_api.so - shared library for BAL API applications that use dynamic linking
+* fs/libbal_host_api-oss.so - shared library for BAL API applications that use dynamic linking
 * fs/include - directory containing all BAL API header files
 
 ### Building BAL API application example
@@ -64,7 +64,7 @@ No additional steps are required after building BAL API SDK.
 
 2. separate build using a raw Makefile.
 * BAL API SDK must be built first by running 'make' command in the root of the BAL API SDK source tree. It will create the following artifacts:
-  * build/fs/libbal_host_api.so - BAL API shared library
+  * build/fs/libbal_host_api-oss.so - BAL API shared library
   * build/fs/include - directory containing all BAL API header files
 * Build the application using the header files and the shared library built in the previous step.
 
