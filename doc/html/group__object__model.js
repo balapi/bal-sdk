@@ -1103,7 +1103,8 @@ var group__object__model =
     [ "bcmolt_itupon_alloc_cfg_data", "structbcmolt__itupon__alloc__cfg__data.html", [
       [ "state", "structbcmolt__itupon__alloc__cfg__data.html#afca864a7f99cd9c19b11a9a1edd45aad", null ],
       [ "sla", "structbcmolt__itupon__alloc__cfg__data.html#a19acb35a263134b9afe7bf50ec40a030", null ],
-      [ "onu_id", "structbcmolt__itupon__alloc__cfg__data.html#a46e2839c8e92bb7ca1957350afc75191", null ]
+      [ "onu_id", "structbcmolt__itupon__alloc__cfg__data.html#a46e2839c8e92bb7ca1957350afc75191", null ],
+      [ "collect_stats", "structbcmolt__itupon__alloc__cfg__data.html#a009c8721b1dcb41c298c9a1be76613ec", null ]
     ] ],
     [ "bcmolt_itupon_alloc_cfg", "structbcmolt__itupon__alloc__cfg.html", [
       [ "hdr", "structbcmolt__itupon__alloc__cfg.html#a93a147e94b9c706f26782ac1bc1417aa", null ],
@@ -3855,7 +3856,8 @@ var group__object__model =
     ] ],
     [ "bcmolt_ieee_8021_as_tod", "structbcmolt__ieee__8021__as__tod.html", [
       [ "tod_format", "structbcmolt__ieee__8021__as__tod.html#a06be16f85b59638a318f1d7860d1b35f", null ],
-      [ "clock_transport_sample_delay", "structbcmolt__ieee__8021__as__tod.html#a694c54b8a11b5bd301def1f8c8c6c76b", null ]
+      [ "clock_transport_sample_delay", "structbcmolt__ieee__8021__as__tod.html#a694c54b8a11b5bd301def1f8c8c6c76b", null ],
+      [ "tod_read_delay_ms", "structbcmolt__ieee__8021__as__tod.html#aaab3c1057df2a150802b3f07a8324e25", null ]
     ] ],
     [ "bcmolt_inband_config_data", "structbcmolt__inband__config__data.html", [
       [ "control", "structbcmolt__inband__config__data.html#abd93388f40cf0decbd0f79f4461e7adf", null ],
@@ -6672,6 +6674,7 @@ var group__object__model =
     [ "bcmolt_ieee_8021_as_tod_id", "group__object__model.html#ga291c4055dcaeb861b4513030f5592f1f", [
       [ "BCMOLT_IEEE_8021_AS_TOD_ID_TOD_FORMAT", "group__object__model.html#gga291c4055dcaeb861b4513030f5592f1fae80ce59d9d8557049c2ba2e30c7383e4", null ],
       [ "BCMOLT_IEEE_8021_AS_TOD_ID_CLOCK_TRANSPORT_SAMPLE_DELAY", "group__object__model.html#gga291c4055dcaeb861b4513030f5592f1fa466926a3ea4455ead2d0bdcb2b2c68d4", null ],
+      [ "BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS", "group__object__model.html#gga291c4055dcaeb861b4513030f5592f1fa68725e6a06650eb88b062908962456bd", null ],
       [ "BCMOLT_IEEE_8021_AS_TOD_ID__NUM_OF", "group__object__model.html#gga291c4055dcaeb861b4513030f5592f1fa1548ea180c5562d00b17c060e9b4c189", null ]
     ] ],
     [ "bcmolt_inband_config_data_id", "group__object__model.html#gad865324d18677ccf919f0ff80c251b32", [
@@ -7913,6 +7916,7 @@ var group__object__model =
       [ "BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_STATE", "group__object__model.html#gga4c74e71f597a2c3d9a45249e0abc9135ae4569107b2f282414a4c1007acc99a25", null ],
       [ "BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_SLA", "group__object__model.html#gga4c74e71f597a2c3d9a45249e0abc9135a15f84234722124f954ea3657c92fdc4d", null ],
       [ "BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID", "group__object__model.html#gga4c74e71f597a2c3d9a45249e0abc9135a8902f89b52de433a3fe3da6d5b71ed38", null ],
+      [ "BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS", "group__object__model.html#gga4c74e71f597a2c3d9a45249e0abc9135aab483625db1b05f154e978e952fab97c", null ],
       [ "BCMOLT_ITUPON_ALLOC_CFG_DATA_ID__NUM_OF", "group__object__model.html#gga4c74e71f597a2c3d9a45249e0abc9135a40cd6e1aa7bcbd0ce2a47fde6bb70f86", null ]
     ] ],
     [ "bcmolt_itupon_alloc_configuration_completed_data_id", "group__object__model.html#ga1dbc6990fc27835d2fa13d55b99f6e74", [

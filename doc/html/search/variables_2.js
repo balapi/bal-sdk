@@ -35,6 +35,7 @@ var searchData=
   ['clear_5fsoak_5ftime',['clear_soak_time',['../structbcmolt__stat__alarm__soak__config.html#ab27b0899facfe2234c41c2418ffe7612',1,'bcmolt_stat_alarm_soak_config']]],
   ['clock_5ftransport_5fsample_5fdelay',['clock_transport_sample_delay',['../structbcmolt__ieee__8021__as__tod.html#a694c54b8a11b5bd301def1f8c8c6c76b',1,'bcmolt_ieee_8021_as_tod']]],
   ['cmds_5fbitmask',['cmds_bitmask',['../structbcmolt__action.html#a5547edbcfbeaaeac4cbca62f70e3fc5b',1,'bcmolt_action']]],
+  ['collect_5fstats',['collect_stats',['../structbcmolt__itupon__alloc__cfg__data.html#a009c8721b1dcb41c298c9a1be76613ec',1,'bcmolt_itupon_alloc_cfg_data']]],
   ['color_5fawareness',['color_awareness',['../structbcmolt__policer__profile__cfg__data.html#a594b74f57ac3671f5824a715f4c102bc',1,'bcmolt_policer_profile_cfg_data']]],
   ['color_5fmarking',['color_marking',['../structbcmolt__policer__profile__cfg__data.html#a2da869b44dd618d98ad9d65ebe50340f',1,'bcmolt_policer_profile_cfg_data']]],
   ['comm_5fmode',['comm_mode',['../structbcmolt__device__cfg__data.html#a0a48df1c01afad4e730daad8e903e33b',1,'bcmolt_device_cfg_data::comm_mode()'],['../structbcmolt__device__connect__data.html#a0a48df1c01afad4e730daad8e903e33b',1,'bcmolt_device_connect_data::comm_mode()']]],

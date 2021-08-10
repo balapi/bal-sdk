@@ -2089,10 +2089,11 @@ typedef struct
     bcmolt_activation_state state; /**< Current Alloc ID state */
     bcmolt_pon_alloc_sla sla; /**< Alloc ID SLA */
     bcmolt_onu_id onu_id; /**< ONU ID the alloc ID is assigned to */
+    bcmos_bool collect_stats; /**< Enable statistics collection for this alloc ID */
 } bcmolt_itupon_alloc_cfg_data;
 
 /* Constants associated with bcmolt_itupon_alloc_cfg_data. */
-#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_STATE_DEFAULT BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED
 
 /** Transport message definition for "cfg" group of "itupon_alloc" object. */

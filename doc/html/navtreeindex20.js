@@ -1,5 +1,7 @@
 var NAVTREEINDEX20 =
 {
+"structbcmolt__arr__tm__queue__ref__8.html#add46e1c007abbdede0bd96e0fbcc32a4":[2,2,579,1],
+"structbcmolt__arr__u16__2.html":[2,2,580],
 "structbcmolt__arr__u16__2.html#a7099be7adf9ff82b5a23ff8e4802e4e6":[2,2,580,1],
 "structbcmolt__arr__u16__2.html#ad5703886be453704418da32f77b952b1":[2,2,580,0],
 "structbcmolt__arr__u64__4.html":[2,2,581],
@@ -247,7 +249,5 @@ var NAVTREEINDEX20 =
 "structbcmolt__device__disconnection__complete__data.html#a166385a96ba9452d9af056c9e0623b01":[2,2,51,0],
 "structbcmolt__device__host__keep__alive.html":[2,2,32],
 "structbcmolt__device__host__keep__alive.html#a020e63d00b8d8da94e1ce159ef1a6796":[2,2,32,1],
-"structbcmolt__device__host__keep__alive.html#a3355b3dd4ee9be15d26fb917e6349f1a":[2,2,32,2],
-"structbcmolt__device__host__keep__alive.html#af057d495cd87d81f1c5076c966f466cf":[2,2,32,0],
-"structbcmolt__device__host__keep__alive__data.html":[2,2,31]
+"structbcmolt__device__host__keep__alive.html#a3355b3dd4ee9be15d26fb917e6349f1a":[2,2,32,2]
 };

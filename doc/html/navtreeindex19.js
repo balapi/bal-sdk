@@ -1,5 +1,7 @@
 var NAVTREEINDEX19 =
 {
+"object_onu_loki.html":[1,18,20],
+"object_onu_looci.html":[1,18,21],
 "object_onu_memi.html":[1,18,22],
 "object_onu_omci_packet.html":[1,18,23],
 "object_onu_omci_port_id_configuration_completed.html":[1,18,24],
@@ -247,7 +249,5 @@ var NAVTREEINDEX19 =
 "structbcmolt__arr__power__consumption__channel__report__8.html#a94c54a55c7b707ade274f9da6ff13489":[2,2,577,1],
 "structbcmolt__arr__power__consumption__channel__report__8.html#ad5703886be453704418da32f77b952b1":[2,2,577,0],
 "structbcmolt__arr__tm__queue__ref__8.html":[2,2,579],
-"structbcmolt__arr__tm__queue__ref__8.html#ad5703886be453704418da32f77b952b1":[2,2,579,0],
-"structbcmolt__arr__tm__queue__ref__8.html#add46e1c007abbdede0bd96e0fbcc32a4":[2,2,579,1],
-"structbcmolt__arr__u16__2.html":[2,2,580]
+"structbcmolt__arr__tm__queue__ref__8.html#ad5703886be453704418da32f77b952b1":[2,2,579,0]
 };

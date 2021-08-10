@@ -1,5 +1,9 @@
 var NAVTREEINDEX31 =
 {
+"structbcmolt__pon__interface__itu__pon__stats.html#acc1c1d8f6d801f2898a42cad7d5fba84":[2,2,437,2],
+"structbcmolt__pon__interface__itu__pon__stats__alarm__cleared.html":[2,2,506],
+"structbcmolt__pon__interface__itu__pon__stats__alarm__cleared.html#a2e1cfe40871f0a7333c9b1e47e3b1252":[2,2,506,1],
+"structbcmolt__pon__interface__itu__pon__stats__alarm__cleared.html#a5c83c739c54ff31d6c2202987970f617":[2,2,506,0],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__cleared.html#a6cf3ecfedb588858ce131586284f175a":[2,2,506,2],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__cleared__data.html":[2,2,505],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__cleared__data.html#a40fb0c4b7c0935ee1c5f70b03ea1cf68":[2,2,505,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX31 =
 "structbcmolt__pon__interface__standby__pon__monitoring__cycle__completed__data.html#a93dd284161f5315ff1652f1399e8d430":[2,2,478,1],
 "structbcmolt__pon__interface__start__onu__upgrade.html":[2,2,454],
 "structbcmolt__pon__interface__start__onu__upgrade.html#a2e1cfe40871f0a7333c9b1e47e3b1252":[2,2,454,1],
-"structbcmolt__pon__interface__start__onu__upgrade.html#a55362e086b2d3b2c10f0a1ea3d08ad61":[2,2,454,2],
-"structbcmolt__pon__interface__start__onu__upgrade.html#af057d495cd87d81f1c5076c966f466cf":[2,2,454,0],
-"structbcmolt__pon__interface__start__onu__upgrade__data.html":[2,2,453],
-"structbcmolt__pon__interface__start__onu__upgrade__data.html#ab29edb83c97773f385bd8e838a392880":[2,2,453,0],
-"structbcmolt__pon__interface__state__change__completed.html":[2,2,465]
+"structbcmolt__pon__interface__start__onu__upgrade.html#a55362e086b2d3b2c10f0a1ea3d08ad61":[2,2,454,2]
 };

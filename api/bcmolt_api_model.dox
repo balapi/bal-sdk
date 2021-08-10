@@ -1330,6 +1330,7 @@ Object key: bcmolt_itupon_alloc_key\n
 \TABLE_ROW5{state,Current Alloc ID state,\ref bcmolt_activation_state,R,BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED}
 \TABLE_ROW5{sla,Alloc ID SLA,\ref bcmolt_pon_alloc_sla,RW, }
 \TABLE_ROW5{onu_id,ONU ID the alloc ID is assigned to,\ref bcmolt_onu_id,RW, }
+\TABLE_ROW5{collect_stats,Enable statistics collection for this alloc ID,bcmos_bool,RW, }
 </table>
 \n\n */
 

@@ -971,11 +971,15 @@ typedef struct
     Example:
     If the date 2011-12-21 15:23:52 is encoded as "$UTC,152352,21,12,2011*42", then the ToD format string would be "$UTC,%H%M%S,%d,%m,%Y". */
     uint32_t clock_transport_sample_delay; /**< The time (in TQ) that it takes from when a pulse is generated at the external source to when we sample it. */
+    uint32_t tod_read_delay_ms; /**< The delay (in ms) to wait after receving a pulse before reading the ToD. */
 } bcmolt_ieee_8021_as_tod;
 
 /* Constants associated with bcmolt_ieee_8021_as_tod. */
-#define BCMOLT_IEEE_8021_AS_TOD_PRESENCE_MASK_ALL 0x0000000000000003ULL
+#define BCMOLT_IEEE_8021_AS_TOD_PRESENCE_MASK_ALL 0x0000000000000007ULL
 #define BCMOLT_IEEE_8021_AS_TOD_CLOCK_TRANSPORT_SAMPLE_DELAY_DEFAULT 0UL
+#define BCMOLT_IEEE_8021_AS_TOD_TOD_READ_DELAY_MS_DEFAULT 0UL
+#define BCMOLT_IEEE_8021_AS_TOD_TOD_READ_DELAY_MS_MIN 0UL
+#define BCMOLT_IEEE_8021_AS_TOD_TOD_READ_DELAY_MS_MAX 1000UL
 
 /** Configuration for the inband management channel for an NNI port. */
 typedef struct

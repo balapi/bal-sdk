@@ -1,5 +1,9 @@
 var NAVTREEINDEX28 =
 {
+"structbcmolt__onu__get__power__consumption.html":[2,2,305],
+"structbcmolt__onu__get__power__consumption.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,305,1],
+"structbcmolt__onu__get__power__consumption.html#af057d495cd87d81f1c5076c966f466cf":[2,2,305,0],
+"structbcmolt__onu__get__power__level.html":[2,2,304],
 "structbcmolt__onu__get__power__level.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,304,1],
 "structbcmolt__onu__get__power__level.html#af057d495cd87d81f1c5076c966f466cf":[2,2,304,0],
 "structbcmolt__onu__gpon__alarm.html":[2,2,316],
@@ -245,9 +249,5 @@ var NAVTREEINDEX28 =
 "structbcmolt__onu__password__authentication__completed__data.html#a02b3caa84ddd42affa52743631683446":[2,2,372,0],
 "structbcmolt__onu__password__authentication__completed__data.html#a21dcdd02cbffd5174eab6e03788fd8dc":[2,2,372,2],
 "structbcmolt__onu__password__authentication__completed__data.html#ab2db3ad506f297e425a623a3961b5fd4":[2,2,372,1],
-"structbcmolt__onu__pee.html":[2,2,338],
-"structbcmolt__onu__pee.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,338,1],
-"structbcmolt__onu__pee.html#a5545748f6dc347e8a94ad87c783733d0":[2,2,338,2],
-"structbcmolt__onu__pee.html#a5c83c739c54ff31d6c2202987970f617":[2,2,338,0],
-"structbcmolt__onu__pee__data.html":[2,2,337]
+"structbcmolt__onu__pee.html":[2,2,338]
 };

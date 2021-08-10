@@ -3237,6 +3237,14 @@ static bcmolt_field_descr type_descr_bcmolt_ieee_8021_as_tod_fields[] =
         .offset = offsetof(bcmolt_ieee_8021_as_tod, clock_transport_sample_delay),
         .type = &type_descr_uint32_t,
     },
+    {
+        .name = "tod_read_delay_ms",
+        .descr = "The delay (in ms) to wait after receving a pulse before reading the ToD.",
+        .id = BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ieee_8021_as_tod, tod_read_delay_ms),
+        .type = &type_descr_uint32_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_ieee_8021_as_tod =
@@ -13486,6 +13494,14 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_alloc_cfg_data, onu_id),
         .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "collect_stats",
+        .descr = "Enable statistics collection for this alloc ID",
+        .id = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_cfg_data, collect_stats),
+        .type = &type_descr_bcmos_bool,
     },
 };
 
@@ -25011,6 +25027,7 @@ const bcmolt_enum_val bcmolt_ieee_8021_as_tod_id_string_table[] =
 {
     { .name = "tod_format", .val = BCMOLT_IEEE_8021_AS_TOD_ID_TOD_FORMAT, .tags = 0 },
     { .name = "clock_transport_sample_delay", .val = BCMOLT_IEEE_8021_AS_TOD_ID_CLOCK_TRANSPORT_SAMPLE_DELAY, .tags = 0 },
+    { .name = "tod_read_delay_ms", .val = BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28078,6 +28095,7 @@ const bcmolt_enum_val bcmolt_itupon_alloc_cfg_data_id_string_table[] =
     { .name = "state", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_STATE, .tags = 0 },
     { .name = "sla", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_SLA, .tags = 0 },
     { .name = "onu_id", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID, .tags = 0 },
+    { .name = "collect_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 

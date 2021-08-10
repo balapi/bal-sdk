@@ -1,5 +1,7 @@
 var NAVTREEINDEX21 =
 {
+"structbcmolt__device__host__keep__alive.html#af057d495cd87d81f1c5076c966f466cf":[2,2,32,0],
+"structbcmolt__device__host__keep__alive__data.html":[2,2,31],
 "structbcmolt__device__host__keep__alive__data.html#ab42b0f83e39af1af41a8bf2bd652dd89":[2,2,31,1],
 "structbcmolt__device__host__keep__alive__data.html#ac8ba4f30c7f4dbe010e2be1b5f1d5977":[2,2,31,0],
 "structbcmolt__device__image__transfer__complete.html":[2,2,58],
@@ -247,7 +249,5 @@ var NAVTREEINDEX21 =
 "structbcmolt__eth__oam__set__mep__state.html#a7be58cfd56e75e6929161f493c082140":[2,2,95,2],
 "structbcmolt__eth__oam__set__mep__state.html#af057d495cd87d81f1c5076c966f466cf":[2,2,95,0],
 "structbcmolt__eth__oam__set__mep__state__data.html":[2,2,94],
-"structbcmolt__eth__oam__set__mep__state__data.html#abb0498a4cba657eb7be1911bbb575020":[2,2,94,0],
-"structbcmolt__eth__oam__set__mep__state__data.html#adff4d05f2a2437d59143c43a7249907e":[2,2,94,1],
-"structbcmolt__eth__oam__state__change.html":[2,2,97]
+"structbcmolt__eth__oam__set__mep__state__data.html#abb0498a4cba657eb7be1911bbb575020":[2,2,94,0]
 };

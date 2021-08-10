@@ -1,5 +1,8 @@
 var NAVTREEINDEX24 =
 {
+"structbcmolt__internal__nni__nni__stats__cfg__data.html#a4b1aa139a5e56ca09fdae8c5a860951f":[2,2,158,2],
+"structbcmolt__internal__nni__nni__stats__cfg__data.html#a5a49900789d796058b863fa9832607e0":[2,2,158,8],
+"structbcmolt__internal__nni__nni__stats__cfg__data.html#a74538d7df71a121c940b6e3b2676ad0d":[2,2,158,23],
 "structbcmolt__internal__nni__nni__stats__cfg__data.html#a7e065d6770ac8608d9300ebc29cedd6d":[2,2,158,17],
 "structbcmolt__internal__nni__nni__stats__cfg__data.html#a82ef70844dbc40d0a658d07520855cf7":[2,2,158,28],
 "structbcmolt__internal__nni__nni__stats__cfg__data.html#a8327c7cd2aa5f4b92d205ff5fd3c9d67":[2,2,158,9],
@@ -148,6 +151,7 @@ var NAVTREEINDEX24 =
 "structbcmolt__itupon__alloc__cfg.html#a93a147e94b9c706f26782ac1bc1417aa":[2,2,174,0],
 "structbcmolt__itupon__alloc__cfg.html#ae037cfb23e6479cdcb3580b2dccd71d9":[2,2,174,2],
 "structbcmolt__itupon__alloc__cfg__data.html":[2,2,173],
+"structbcmolt__itupon__alloc__cfg__data.html#a009c8721b1dcb41c298c9a1be76613ec":[2,2,173,3],
 "structbcmolt__itupon__alloc__cfg__data.html#a19acb35a263134b9afe7bf50ec40a030":[2,2,173,1],
 "structbcmolt__itupon__alloc__cfg__data.html#a46e2839c8e92bb7ca1957350afc75191":[2,2,173,2],
 "structbcmolt__itupon__alloc__cfg__data.html#afca864a7f99cd9c19b11a9a1edd45aad":[2,2,173,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX24 =
 "structbcmolt__itupon__gem__cfg__data.html#a942feb4f9394dfd093d66ba7e8a5b0ec":[2,2,196,3],
 "structbcmolt__itupon__gem__cfg__data.html#aae342c7627b10213848d56fee1f240bd":[2,2,196,6],
 "structbcmolt__itupon__gem__cfg__data.html#abd93388f40cf0decbd0f79f4461e7adf":[2,2,196,5],
-"structbcmolt__itupon__gem__cfg__data.html#ae0338e6683e12f166a0edc8d1952f4aa":[2,2,196,4],
-"structbcmolt__itupon__gem__cfg__data.html#afca864a7f99cd9c19b11a9a1edd45aad":[2,2,196,2],
-"structbcmolt__itupon__gem__configuration__completed.html":[2,2,203],
-"structbcmolt__itupon__gem__configuration__completed.html#a4d3537e7154f3535543adbf4288b9342":[2,2,203,1],
-"structbcmolt__itupon__gem__configuration__completed.html#a52c67b013064dd315c01d2330fbd70b1":[2,2,203,2]
+"structbcmolt__itupon__gem__cfg__data.html#ae0338e6683e12f166a0edc8d1952f4aa":[2,2,196,4]
 };

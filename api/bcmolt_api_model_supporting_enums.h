@@ -4387,15 +4387,17 @@ typedef enum
     BCMOLT_IEEE_8021_AS_TOD_ID__BEGIN = 0,
     BCMOLT_IEEE_8021_AS_TOD_ID_TOD_FORMAT = 0, /**< 802.1AS ToD Format. */
     BCMOLT_IEEE_8021_AS_TOD_ID_CLOCK_TRANSPORT_SAMPLE_DELAY = 1, /**< Clock Transport Sample Delay. */
+    BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS = 2, /**< ToD Read Delay (ms). */
     BCMOLT_IEEE_8021_AS_TOD_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_ieee_8021_as_tod_id__begin BCMOLT_IEEE_8021_AS_TOD_ID__BEGIN
 #define bcmolt_ieee_8021_as_tod_id_tod_format BCMOLT_IEEE_8021_AS_TOD_ID_TOD_FORMAT
 #define bcmolt_ieee_8021_as_tod_id_clock_transport_sample_delay BCMOLT_IEEE_8021_AS_TOD_ID_CLOCK_TRANSPORT_SAMPLE_DELAY
+#define bcmolt_ieee_8021_as_tod_id_tod_read_delay_ms BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS
 #define bcmolt_ieee_8021_as_tod_id__num_of BCMOLT_IEEE_8021_AS_TOD_ID__NUM_OF
 #define bcmolt_ieee_8021_as_tod_id_all_properties 0xFF
-#define bcmolt_ieee_8021_as_tod_id_full_mask 0x3
+#define bcmolt_ieee_8021_as_tod_id_full_mask 0x7
 
 } bcmolt_ieee_8021_as_tod_id;
 
@@ -8194,6 +8196,7 @@ typedef enum
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_STATE = 0, /**< state. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_SLA = 1, /**< sla. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID = 2, /**< onu_id. */
+    BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS = 3, /**< Enable statistics collection on the alloc id. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -8201,9 +8204,10 @@ typedef enum
 #define bcmolt_itupon_alloc_cfg_data_id_state BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_STATE
 #define bcmolt_itupon_alloc_cfg_data_id_sla BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_SLA
 #define bcmolt_itupon_alloc_cfg_data_id_onu_id BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID
+#define bcmolt_itupon_alloc_cfg_data_id_collect_stats BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS
 #define bcmolt_itupon_alloc_cfg_data_id__num_of BCMOLT_ITUPON_ALLOC_CFG_DATA_ID__NUM_OF
 #define bcmolt_itupon_alloc_cfg_data_id_all_properties 0xFF
-#define bcmolt_itupon_alloc_cfg_data_id_full_mask 0x7
+#define bcmolt_itupon_alloc_cfg_data_id_full_mask 0xF
 
 } bcmolt_itupon_alloc_cfg_data_id;
 

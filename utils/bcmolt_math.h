@@ -65,6 +65,8 @@
 #define MIN3(a, b, c) MIN(MIN(a, b), c)
 #endif
 
+#define ABS(a) (((a)>=0) ? (a) : (-(a)))
+
 #define CEILING(a, b)   (((a) + ((b) - 1)) / (b))
 
 /* Divide a by b (a/b) and round (up or down) to the nearest integer */
