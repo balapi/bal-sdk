@@ -77,7 +77,6 @@ Removed fields:
 - itu_pon_params.external_dba_options
 - itu_pon_params.protection_switching_debug
 - itu_pon_params.rogue_onu_detection_process
-- itupon_alloc.cfg.collect_stats
 - onu.cfg.epon
 - pon_interface.cfg.ae
 - pon_interface.cfg.epon

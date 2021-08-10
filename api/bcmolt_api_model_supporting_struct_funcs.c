@@ -2987,6 +2987,7 @@ void bcmolt_ieee_8021_as_tod_set_default(bcmolt_ieee_8021_as_tod *obj)
     obj->presence_mask = 0;
     bcmolt_str_256_set_default(&obj->tod_format);
     obj->clock_transport_sample_delay = 0UL;
+    obj->tod_read_delay_ms = 0UL;
 }
 
 bcmos_bool bcmolt_ieee_8021_as_tod_validate(const bcmolt_ieee_8021_as_tod *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -3003,6 +3004,15 @@ bcmos_bool bcmolt_ieee_8021_as_tod_validate(const bcmolt_ieee_8021_as_tod *obj, 
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_IEEE_8021_AS_TOD_ID_CLOCK_TRANSPORT_SAMPLE_DELAY))
     {
         /* obj->clock_transport_sample_delay can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_IEEE_8021_AS_TOD_ID_TOD_READ_DELAY_MS))
+    {
+        if (obj->tod_read_delay_ms > 1000UL)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "tod_read_delay_ms: %u is greater than the maximum value of 1000\n", obj->tod_read_delay_ms);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }

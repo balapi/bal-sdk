@@ -1,5 +1,9 @@
 var NAVTREEINDEX34 =
 {
+"structbcmolt__xgpon__onu__params.html#aa1fd69d3e6e12c4cd7aa620ba10fff04":[2,2,640,0],
+"structbcmolt__xgpon__onu__params.html#acc44593b8aa29819b0114bc629bb4b8a":[2,2,640,1],
+"structbcmolt__xgpon__onu__params.html#ad7a2e2781bbd03565bcf663515c38c02":[2,2,640,3],
+"structbcmolt__xgpon__onu__registration__keys.html":[2,2,638],
 "structbcmolt__xgpon__onu__registration__keys.html#a1799532047250245d00ae170903c82c3":[2,2,638,0],
 "structbcmolt__xgpon__onu__registration__keys.html#a8bc523b8b4d5367dc8df6d786805bb8c":[2,2,638,1],
 "structbcmolt__xgpon__onu__registration__keys.html#a8f10a48c1043ce19174c13344e310839":[2,2,638,4],

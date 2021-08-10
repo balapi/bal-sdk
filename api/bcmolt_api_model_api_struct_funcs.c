@@ -4790,6 +4790,7 @@ void bcmolt_itupon_alloc_cfg_data_set_default(bcmolt_itupon_alloc_cfg_data *obj)
     obj->state = BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED;
     bcmolt_pon_alloc_sla_set_default(&obj->sla);
     obj->onu_id = (bcmolt_onu_id)0U;
+    obj->collect_stats = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -4812,6 +4813,10 @@ bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_d
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID))
     {
         /* obj->onu_id can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS))
+    {
+        /* obj->collect_stats can't be invalid. */
     }
     return BCMOS_TRUE;
 }
