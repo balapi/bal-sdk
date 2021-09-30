@@ -33,7 +33,7 @@ add_definitions(-D_XOPEN_SOURCE=600)
 if(OPEN_SOURCE)
     add_definitions(-DBCM_OPEN_SOURCE)
 endif()
-if(DBCM_OPEN_SOURCE_POLT_SIM)
+if(OPEN_SOURCE_SIM)
     add_definitions(-DBCM_OPEN_SOURCE_SIM)
 endif()
 

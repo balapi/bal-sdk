@@ -82,9 +82,8 @@ static bcmos_errno bcmtr_cm_close(bcmtr_plugin_channel ch)
         bcmolt_cm_handlers_set(BCMOLT_CONN_TYPE_APP, NULL);
     }
 
-#ifdef BCM_SUBSYSTEM_HOST
     bcmolt_cm_disconnect((bcmolt_cm_conn_id)(ch & 0xffff));
-#else
+#ifdef BCM_SUBSYSTEM_EMBEDDED
     /* Disable all connection types besides MUX while disconnected. */
     conn_type_mask &= ~BCMOLT_CONN_TYPE_MASK_MUX;
     bcmolt_cm_disable(conn_type_mask);

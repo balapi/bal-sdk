@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -211,6 +211,12 @@ $(document).ready(function(){initNavTree('functions_h.html','');});
 , <a class="el" href="structbcmolt__group__complete__members__update.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_group_complete_members_update</a>
 , <a class="el" href="structbcmolt__group__members__update.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_group_members_update</a>
 , <a class="el" href="structbcmolt__group__multi__cfg.html#ad663195fafb673c0c6dcc79aa64ec73e">bcmolt_group_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__cfg.html#a93a147e94b9c706f26782ac1bc1417aa">bcmolt_host_log_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__cfg.html#a93a147e94b9c706f26782ac1bc1417aa">bcmolt_host_log_file_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__clear.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_host_log_file_clear</a>
+, <a class="el" href="structbcmolt__host__log__file__multi__cfg.html#ad663195fafb673c0c6dcc79aa64ec73e">bcmolt_host_log_file_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__reset__buffer__ptr.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_host_log_file_reset_buffer_ptr</a>
+, <a class="el" href="structbcmolt__host__log__multi__cfg.html#ad663195fafb673c0c6dcc79aa64ec73e">bcmolt_host_log_multi_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__cfg.html#a93a147e94b9c706f26782ac1bc1417aa">bcmolt_inband_mgmt_channel_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__multi__cfg.html#ad663195fafb673c0c6dcc79aa64ec73e">bcmolt_inband_mgmt_channel_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__auto__cfg.html#ab59e228bb178ccd1f8fc337b69cdf54b">bcmolt_internal_nni_auto_cfg</a>
@@ -362,6 +368,7 @@ $(document).ready(function(){initNavTree('functions_h.html','');});
 , <a class="el" href="structbcmolt__onu__state__change.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_onu_state_change</a>
 , <a class="el" href="structbcmolt__onu__sufi.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_onu_sufi</a>
 , <a class="el" href="structbcmolt__onu__tiwi.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_onu_tiwi</a>
+, <a class="el" href="structbcmolt__onu__trap__ploam__received.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_onu_trap_ploam_received</a>
 , <a class="el" href="structbcmolt__onu__tuning__in.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_onu_tuning_in</a>
 , <a class="el" href="structbcmolt__onu__tuning__out.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_onu_tuning_out</a>
 , <a class="el" href="structbcmolt__onu__tuning__response.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_onu_tuning_response</a>
@@ -397,6 +404,7 @@ $(document).ready(function(){initNavTree('functions_h.html','');});
 , <a class="el" href="structbcmolt__pon__interface__multi__cfg.html#ad663195fafb673c0c6dcc79aa64ec73e">bcmolt_pon_interface_multi_cfg</a>
 , <a class="el" href="structbcmolt__pon__interface__multi__itu__pon__stats.html#aadb6a804914cb6145ef30c35ce6e324a">bcmolt_pon_interface_multi_itu_pon_stats</a>
 , <a class="el" href="structbcmolt__pon__interface__onu__discovered.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_pon_interface_onu_discovered</a>
+, <a class="el" href="structbcmolt__pon__interface__onu__upgrade__activate__commit.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_pon_interface_onu_upgrade_activate_commit</a>
 , <a class="el" href="structbcmolt__pon__interface__onu__upgrade__complete.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_pon_interface_onu_upgrade_complete</a>
 , <a class="el" href="structbcmolt__pon__interface__protection__switching__apply__rerange__delta.html#af057d495cd87d81f1c5076c966f466cf">bcmolt_pon_interface_protection_switching_apply_rerange_delta</a>
 , <a class="el" href="structbcmolt__pon__interface__protection__switching__onus__ranged.html#a5c83c739c54ff31d6c2202987970f617">bcmolt_pon_interface_protection_switching_onus_ranged</a>
@@ -449,6 +457,9 @@ $(document).ready(function(){initNavTree('functions_h.html','');});
 <li>host_dma_tx_queue_size
 : <a class="el" href="structbcmolt__pcie__conn__data.html#abb555910b7e637156f33fd00fd74bc59">bcmolt_pcie_conn_data</a>
 </li>
+<li>host_port
+: <a class="el" href="structbcmolt__bal__system__cfg__data.html#a543e25ed000bedbddfa1401767de97e1">bcmolt_bal_system_cfg_data</a>
+</li>
 <li>host_sw_version
 : <a class="el" href="structbcmolt__olt__cfg__data.html#a6d7cef1c7b7d588239774ac2e0c6166e">bcmolt_olt_cfg_data</a>
 </li>
@@ -464,7 +475,7 @@ $(document).ready(function(){initNavTree('functions_h.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

@@ -7,5 +7,5 @@ var searchData=
   ['west_5fport',['west_port',['../structbcmolt__erps__interface__cfg__data.html#aff7123bd91a47bc9096d9fbd2160e1a6',1,'bcmolt_erps_interface_cfg_data']]],
   ['west_5fport_5fstate',['west_port_state',['../structbcmolt__erps__interface__cfg__data.html#ab76552282712142a22a2949316900eb3',1,'bcmolt_erps_interface_cfg_data']]],
   ['window_5fsize',['window_size',['../structbcmolt__ituonu__upgrade__params.html#aabdd1af7616febac1cc54b01b2e9ef21',1,'bcmolt_ituonu_upgrade_params']]],
-  ['wrap_5faround',['wrap_around',['../structbcmolt__log__file__cfg__data.html#a0530feab7603f383e4e76aa359821e30',1,'bcmolt_log_file_cfg_data']]]
+  ['wrap_5faround',['wrap_around',['../structbcmolt__host__log__file__cfg__data.html#a0530feab7603f383e4e76aa359821e30',1,'bcmolt_host_log_file_cfg_data::wrap_around()'],['../structbcmolt__log__file__cfg__data.html#a0530feab7603f383e4e76aa359821e30',1,'bcmolt_log_file_cfg_data::wrap_around()']]]
 ];

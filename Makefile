@@ -21,7 +21,7 @@ ifneq (,$(wildcard ./netconf_server))
     NETCONF_SERVER  ?= y
     NETCONF_SERVER_OPT     := -DNETCONF_SERVER:BOOL=$(NETCONF_SERVER)
 endif
-ifneq (,$(wildcard ./onu_mgmt/tr451_vomci_polt))
+ifneq (,$(wildcard ./onu_mgmt/tr451_vomci_polt)$(wildcard ./tr451_vomci_polt))
     TR451_VOMCI_POLT ?= y
     TR451_VOMCI_POLT_OPT   := -DTR451_VOMCI_POLT:BOOL=$(TR451_VOMCI_POLT)
 endif
@@ -63,8 +63,7 @@ BCM_CMAKE_OPTIONS = $(BCM_CMAKE_USER_VARS) \
                     $(TR451_VOMCI_POLT_OPT) \
                     -DOPEN_SOURCE=$(OPEN_SOURCE) \
                     -DBOARD:STRING=$(BOARD) \
-                    -DCMAKE_VERBOSE_MAKEFILE:BOOL=$(CMAKE_VERBOSE) \
-                    -DMAKE_JOB_FLAG:STRING=$(if $(JOB_FLAG),$(JOB_FLAG),)
+                    -DCMAKE_VERBOSE_MAKEFILE:BOOL=$(CMAKE_VERBOSE) 
 
 #====
 # Definitions of commands used in the build rules. Currently: cmake generation, docker use check and

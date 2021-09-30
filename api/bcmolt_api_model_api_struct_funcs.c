@@ -141,10 +141,10 @@ void bcmolt_access_control_stats_data_set_default(bcmolt_access_control_stats_da
     obj->presence_mask = 0;
     obj->packets = 0ULL;
     obj->bytes = 0ULL;
-    bcmolt_arr_u64_4_set_default(&obj->policer_packets_passed);
-    bcmolt_arr_u64_4_set_default(&obj->policer_packets_dropped);
-    bcmolt_arr_u64_4_set_default(&obj->policer_bytes_passed);
-    bcmolt_arr_u64_4_set_default(&obj->policer_bytes_dropped);
+    bcmolt_arr_u64_4_set_default(&obj->policer_packets_passed_ukmb);
+    bcmolt_arr_u64_4_set_default(&obj->policer_packets_dropped_ukmb);
+    bcmolt_arr_u64_4_set_default(&obj->policer_bytes_passed_ukmb);
+    bcmolt_arr_u64_4_set_default(&obj->policer_bytes_dropped_ukmb);
 }
 
 bcmos_bool bcmolt_access_control_stats_data_validate(const bcmolt_access_control_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -157,37 +157,37 @@ bcmos_bool bcmolt_access_control_stats_data_validate(const bcmolt_access_control
     {
         /* obj->bytes can't be invalid. */
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_packets_passed.");
-        if (!bcmolt_arr_u64_4_validate(&obj->policer_packets_passed, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_packets_passed_ukmb.");
+        if (!bcmolt_arr_u64_4_validate(&obj->policer_packets_passed_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_packets_dropped.");
-        if (!bcmolt_arr_u64_4_validate(&obj->policer_packets_dropped, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_packets_dropped_ukmb.");
+        if (!bcmolt_arr_u64_4_validate(&obj->policer_packets_dropped_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_passed.");
-        if (!bcmolt_arr_u64_4_validate(&obj->policer_bytes_passed, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_passed_ukmb.");
+        if (!bcmolt_arr_u64_4_validate(&obj->policer_bytes_passed_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_dropped.");
-        if (!bcmolt_arr_u64_4_validate(&obj->policer_bytes_dropped, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_dropped_ukmb.");
+        if (!bcmolt_arr_u64_4_validate(&obj->policer_bytes_dropped_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -276,10 +276,10 @@ void bcmolt_access_control_stats_cfg_data_set_default(bcmolt_access_control_stat
     obj->presence_mask = 0;
     bcmolt_stat_alarm_config_set_default(&obj->packets);
     bcmolt_stat_alarm_config_set_default(&obj->bytes);
-    bcmolt_stat_alarm_config_set_default(&obj->policer_packets_passed);
-    bcmolt_stat_alarm_config_set_default(&obj->policer_packets_dropped);
-    bcmolt_stat_alarm_config_set_default(&obj->policer_bytes_passed);
-    bcmolt_stat_alarm_config_set_default(&obj->policer_bytes_dropped);
+    bcmolt_stat_alarm_config_set_default(&obj->policer_packets_passed_ukmb);
+    bcmolt_stat_alarm_config_set_default(&obj->policer_packets_dropped_ukmb);
+    bcmolt_stat_alarm_config_set_default(&obj->policer_bytes_passed_ukmb);
+    bcmolt_stat_alarm_config_set_default(&obj->policer_bytes_dropped_ukmb);
 }
 
 bcmos_bool bcmolt_access_control_stats_cfg_data_validate(const bcmolt_access_control_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -302,37 +302,37 @@ bcmos_bool bcmolt_access_control_stats_cfg_data_validate(const bcmolt_access_con
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_packets_passed.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->policer_packets_passed, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_packets_passed_ukmb.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->policer_packets_passed_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_packets_dropped.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->policer_packets_dropped, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_packets_dropped_ukmb.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->policer_packets_dropped_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_passed.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->policer_bytes_passed, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_passed_ukmb.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->policer_bytes_passed_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED))
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED_UKMB))
     {
-        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_dropped.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->policer_bytes_dropped, err, err_details))
+        int prefix_len = bcmolt_string_append(err_details, "policer_bytes_dropped_ukmb.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->policer_bytes_dropped_ukmb, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -355,10 +355,10 @@ bcmos_bool bcmolt_access_control_stats_alarm_raised_data_validate(const bcmolt_a
         {
         case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_PACKETS:
         case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_BYTES:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED_UKMB:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -383,10 +383,10 @@ bcmos_bool bcmolt_access_control_stats_alarm_cleared_data_validate(const bcmolt_
         {
         case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_PACKETS:
         case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_BYTES:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED:
-        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED_UKMB:
+        case BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED_UKMB:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -427,6 +427,7 @@ void bcmolt_bal_system_cfg_data_set_default(bcmolt_bal_system_cfg_data *obj)
     obj->presence_mask = 0;
     obj->config_state = BCMOLT_CONFIG_STATE_CONFIGURED;
     bcmolt_lag_global_parms_set_default(&obj->lag_parms);
+    bcmolt_host_port_params_set_default(&obj->host_port);
 }
 
 bcmos_bool bcmolt_bal_system_cfg_data_validate(const bcmolt_bal_system_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -441,6 +442,15 @@ bcmos_bool bcmolt_bal_system_cfg_data_validate(const bcmolt_bal_system_cfg_data 
     {
         int prefix_len = bcmolt_string_append(err_details, "lag_parms.");
         if (!bcmolt_lag_global_parms_validate(&obj->lag_parms, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "host_port.");
+        if (!bcmolt_host_port_params_validate(&obj->host_port, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -500,10 +510,16 @@ void bcmolt_device_cfg_data_set_default(bcmolt_device_cfg_data *obj)
     obj->comm_mode = BCMOLT_COMM_MODE_PCIE;
     bcmolt_pcie_conn_data_set_default(&obj->pcie_conn_data);
     obj->itu_multipon_dba_enable = BCMOS_FALSE;
+    obj->itu_low_latency_dba_enable = BCMOS_FALSE;
     obj->logger_enable = BCMOS_TRUE;
     bcmolt_inni_config_set_default(&obj->inni_config);
     obj->ras_ddr_mode = BCMOLT_RAS_DDR_USAGE_MODE_NO_DDR;
     obj->itu_enable_inni_mux = BCMOS_FALSE;
+    bcmolt_arr_ploam_filter_5_set_default(&obj->trap_gpon_ploam);
+    bcmolt_arr_ploam_filter_5_set_default(&obj->trap_xgpon_ploam);
+    obj->debug_uart_port_swap = BCMOS_FALSE;
+    bcmolt_inband_conn_data_set_default(&obj->inband_conn_data);
+    obj->inband_internal_nni = (bcmolt_pon_ni)255;
 }
 
 bcmos_bool bcmolt_device_cfg_data_validate(const bcmolt_device_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -681,6 +697,12 @@ bcmos_bool bcmolt_device_cfg_data_validate(const bcmolt_device_cfg_data *obj, bc
         bcmolt_string_append(err_details, "itu_multipon_dba_enable: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "itu_low_latency_dba_enable: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_LOGGER_ENABLE))
     {
         /* obj->logger_enable can't be invalid. */
@@ -712,6 +734,45 @@ bcmos_bool bcmolt_device_cfg_data_validate(const bcmolt_device_cfg_data *obj, bc
         bcmolt_string_append(err_details, "itu_enable_inni_mux: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_TRAP_GPON_PLOAM))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "trap_gpon_ploam.");
+        if (!bcmolt_arr_ploam_filter_5_validate(&obj->trap_gpon_ploam, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_TRAP_XGPON_PLOAM))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "trap_xgpon_ploam.");
+        if (!bcmolt_arr_ploam_filter_5_validate(&obj->trap_xgpon_ploam, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "debug_uart_port_swap: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "inband_conn_data: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI))
+    {
+        if (obj->inband_internal_nni > (bcmolt_pon_ni)15)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "inband_internal_nni: %u is greater than the maximum value of 15\n", obj->inband_internal_nni);
+            return BCMOS_FALSE;
+        }
+    }
     return BCMOS_TRUE;
 }
 
@@ -727,6 +788,8 @@ void bcmolt_device_connect_data_set_default(bcmolt_device_connect_data *obj)
     obj->ras_ddr_mode = BCMOLT_RAS_DDR_USAGE_MODE_FOUR_DDRS;
     obj->ddr_test_mode = BCMOLT_DDR_TEST_MODE_NO_TEST;
     obj->itu_change_inni_mux_enable = BCMOS_FALSE;
+    obj->itu_low_latency_dba_enable = BCMOS_FALSE;
+    obj->debug_uart_port_swap = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_device_connect_data_validate(const bcmolt_device_connect_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -743,6 +806,7 @@ bcmos_bool bcmolt_device_connect_data_validate(const bcmolt_device_connect_data 
         case BCMOLT_SYSTEM_MODE_XGS_XGPON__2_X_COEX_TDMA:
         case BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G:
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
+        case BCMOLT_SYSTEM_MODE_XGS__1_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -827,6 +891,14 @@ bcmos_bool bcmolt_device_connect_data_validate(const bcmolt_device_connect_data 
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_CHANGE_INNI_MUX_ENABLE))
     {
         /* obj->itu_change_inni_mux_enable can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE))
+    {
+        /* obj->itu_low_latency_dba_enable can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_DEVICE_CONNECT_DATA_ID_DEBUG_UART_PORT_SWAP))
+    {
+        /* obj->debug_uart_port_swap can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -1008,6 +1080,7 @@ bcmos_bool bcmolt_device_device_ready_data_validate(const bcmolt_device_device_r
         case BCMOLT_SYSTEM_MODE_XGS_XGPON__2_X_COEX_TDMA:
         case BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G:
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
+        case BCMOLT_SYSTEM_MODE_XGS__1_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1150,6 +1223,7 @@ bcmos_bool bcmolt_device_connection_complete_data_validate(const bcmolt_device_c
         case BCMOLT_SYSTEM_MODE_XGS_XGPON__2_X_COEX_TDMA:
         case BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G:
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
+        case BCMOLT_SYSTEM_MODE_XGS__1_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -2970,9 +3044,17 @@ bcmos_bool bcmolt_group_cfg_data_validate(const bcmolt_group_cfg_data *obj, bcmo
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_GROUP_CFG_DATA_ID_TYPE))
     {
-        *err = BCM_ERR_READ_ONLY;
-        bcmolt_string_append(err_details, "type: field is read-only and cannot be set\n");
-        return BCMOS_FALSE;
+        switch (obj->type)
+        {
+        case BCMOLT_GROUP_TYPE_NONE:
+        case BCMOLT_GROUP_TYPE_MULTICAST:
+        case BCMOLT_GROUP_TYPE_N_TO_1:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "type: enum value %d is unexpected\n", (int)obj->type);
+            return BCMOS_FALSE;
+        }
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_GROUP_CFG_DATA_ID_STATE))
     {
@@ -3077,6 +3159,156 @@ bcmos_bool bcmolt_group_auto_cfg_data_validate(const bcmolt_group_auto_cfg_data 
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_GROUP_AUTO_CFG_DATA_ID_COMPLETE_MEMBERS_UPDATE))
     {
         /* obj->complete_members_update can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_host_log_key_set_default(bcmolt_host_log_key *obj)
+{
+    bcmolt_str_100_set_default(&obj->name);
+}
+
+bcmos_bool bcmolt_host_log_key_validate(const bcmolt_host_log_key *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    int prefix_len = bcmolt_string_append(err_details, "name.");
+    if (!bcmolt_str_100_validate(&obj->name, err, err_details))
+    {
+        return BCMOS_FALSE;
+    }
+    bcmolt_string_rewind(err_details, prefix_len);
+    return BCMOS_TRUE;
+}
+
+void bcmolt_host_log_cfg_data_set_default(bcmolt_host_log_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->type = BCMOLT_LOG_TYPE_NONE;
+    obj->style = BCMOLT_LOG_STYLE_NORMAL;
+    bcmolt_log_level_per_file_set_default(&obj->level);
+    bcmolt_log_level_msg_count_set_default(&obj->msg_count);
+    obj->lost_msg_count = 0UL;
+}
+
+bcmos_bool bcmolt_host_log_cfg_data_validate(const bcmolt_host_log_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_CFG_DATA_ID_TYPE))
+    {
+        switch (obj->type)
+        {
+        case BCMOLT_LOG_TYPE_NONE:
+        case BCMOLT_LOG_TYPE_PRINT:
+        case BCMOLT_LOG_TYPE_SAVE:
+        case BCMOLT_LOG_TYPE_BOTH:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "type: enum value %d is unexpected\n", (int)obj->type);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_CFG_DATA_ID_STYLE))
+    {
+        switch (obj->style)
+        {
+        case BCMOLT_LOG_STYLE_NORMAL:
+        case BCMOLT_LOG_STYLE_BOLD:
+        case BCMOLT_LOG_STYLE_UNDERLINE:
+        case BCMOLT_LOG_STYLE_BLINK:
+        case BCMOLT_LOG_STYLE_REVERSE_VIDEO:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "style: enum value %d is unexpected\n", (int)obj->style);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_CFG_DATA_ID_LEVEL))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "level.");
+        if (!bcmolt_log_level_per_file_validate(&obj->level, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_CFG_DATA_ID_MSG_COUNT))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "msg_count: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_CFG_DATA_ID_LOST_MSG_COUNT))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "lost_msg_count: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_host_log_file_key_set_default(bcmolt_host_log_file_key *obj)
+{
+    obj->file_id = BCMOLT_HOST_LOG_FILE_ID_SRAM;
+}
+
+bcmos_bool bcmolt_host_log_file_key_validate(const bcmolt_host_log_file_key *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    switch (obj->file_id)
+    {
+    case BCMOLT_HOST_LOG_FILE_ID_SRAM:
+        break;
+    default:
+        *err = BCM_ERR_RANGE;
+        bcmolt_string_append(err_details, "file_id: enum value %d is unexpected\n", (int)obj->file_id);
+        return BCMOS_FALSE;
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_host_log_file_cfg_data_set_default(bcmolt_host_log_file_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->wrap_around = BCMOS_TRUE;
+    obj->clear_after_read = BCMOS_FALSE;
+    obj->msg_count = 0UL;
+    obj->msgs_read = 0UL;
+    obj->msgs_remaining = 0UL;
+    bcmolt_str_2048_set_default(&obj->buffer);
+}
+
+bcmos_bool bcmolt_host_log_file_cfg_data_validate(const bcmolt_host_log_file_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_WRAP_AROUND))
+    {
+        /* obj->wrap_around can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_CLEAR_AFTER_READ))
+    {
+        /* obj->clear_after_read can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSG_COUNT))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "msg_count: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_READ))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "msgs_read: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_REMAINING))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "msgs_remaining: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_BUFFER))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "buffer: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
 }
@@ -4791,6 +5023,7 @@ void bcmolt_itupon_alloc_cfg_data_set_default(bcmolt_itupon_alloc_cfg_data *obj)
     bcmolt_pon_alloc_sla_set_default(&obj->sla);
     obj->onu_id = (bcmolt_onu_id)0U;
     obj->collect_stats = BCMOS_FALSE;
+    obj->onu_tcont_max_queue_size = 0UL;
 }
 
 bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -4817,6 +5050,15 @@ bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_d
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS))
     {
         /* obj->collect_stats can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE))
+    {
+        if (obj->onu_tcont_max_queue_size > 16777215UL)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "onu_tcont_max_queue_size: %u is greater than the maximum value of 16777215\n", obj->onu_tcont_max_queue_size);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -5432,6 +5674,7 @@ void bcmolt_lag_interface_cfg_data_set_default(bcmolt_lag_interface_cfg_data *ob
     obj->member_count = 0;
     obj->member_up_count = 0;
     obj->lag_health = BCMOLT_LAG_HEALTH_DOWN;
+    obj->sub_type = BCMOLT_LAG_SUBTYPE_UNASSIGNED;
 }
 
 bcmos_bool bcmolt_lag_interface_cfg_data_validate(const bcmolt_lag_interface_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -5498,6 +5741,12 @@ bcmos_bool bcmolt_lag_interface_cfg_data_validate(const bcmolt_lag_interface_cfg
         bcmolt_string_append(err_details, "lag_health: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_CFG_DATA_ID_SUB_TYPE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "sub_type: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
     return BCMOS_TRUE;
 }
 
@@ -5513,6 +5762,7 @@ void bcmolt_lag_interface_stats_data_set_default(bcmolt_lag_interface_stats_data
     obj->rx_fcs_error_packets = 0ULL;
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
+    obj->rx_jabber_packets = 0ULL;
     obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
@@ -5522,6 +5772,7 @@ void bcmolt_lag_interface_stats_data_set_default(bcmolt_lag_interface_stats_data
     obj->tx_error_packets = 0ULL;
     obj->tx_undersize_packets = 0ULL;
     obj->tx_oversize_packets = 0ULL;
+    obj->tx_jabber_packets = 0ULL;
     obj->rx_frames_64 = 0ULL;
     obj->rx_frames_65_127 = 0ULL;
     obj->rx_frames_128_255 = 0ULL;
@@ -5582,6 +5833,10 @@ bcmos_bool bcmolt_lag_interface_stats_data_validate(const bcmolt_lag_interface_s
     {
         /* obj->rx_oversize_packets can't be invalid. */
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS))
+    {
+        /* obj->rx_jabber_packets can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         /* obj->rx_unknown_protos can't be invalid. */
@@ -5617,6 +5872,10 @@ bcmos_bool bcmolt_lag_interface_stats_data_validate(const bcmolt_lag_interface_s
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS))
     {
         /* obj->tx_oversize_packets can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS))
+    {
+        /* obj->tx_jabber_packets can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_64))
     {
@@ -5777,6 +6036,8 @@ bcmos_bool bcmolt_lag_interface_state_update_data_validate(const bcmolt_lag_inte
         case BCMOLT_INTERFACE_OPERATION_INACTIVE:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_OPERATION_DISABLE:
+        case BCMOLT_INTERFACE_OPERATION_ENABLE:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -5805,6 +6066,7 @@ bcmos_bool bcmolt_lag_interface_state_updated_data_validate(const bcmolt_lag_int
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -5820,6 +6082,7 @@ bcmos_bool bcmolt_lag_interface_state_updated_data_validate(const bcmolt_lag_int
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -5891,6 +6154,7 @@ void bcmolt_lag_interface_stats_cfg_data_set_default(bcmolt_lag_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->rx_fcs_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
@@ -5900,6 +6164,7 @@ void bcmolt_lag_interface_stats_cfg_data_set_default(bcmolt_lag_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->tx_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->tx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_64);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_65_127);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_128_255);
@@ -6005,6 +6270,15 @@ bcmos_bool bcmolt_lag_interface_stats_cfg_data_validate(const bcmolt_lag_interfa
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
@@ -6081,6 +6355,15 @@ bcmos_bool bcmolt_lag_interface_stats_cfg_data_validate(const bcmolt_lag_interfa
     {
         int prefix_len = bcmolt_string_append(err_details, "tx_oversize_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->tx_oversize_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tx_jabber_packets, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -6290,6 +6573,7 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_raised_data_validate(const bcmolt_la
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_PACKETS:
@@ -6299,6 +6583,7 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_raised_data_validate(const bcmolt_la
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -6350,6 +6635,7 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_cleared_data_validate(const bcmolt_l
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_PACKETS:
@@ -6359,6 +6645,7 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_cleared_data_validate(const bcmolt_l
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -6667,6 +6954,7 @@ bcmos_bool bcmolt_nni_interface_state_change_data_validate(const bcmolt_nni_inte
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -6682,6 +6970,7 @@ bcmos_bool bcmolt_nni_interface_state_change_data_validate(const bcmolt_nni_inte
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -6705,6 +6994,7 @@ void bcmolt_nni_interface_cfg_data_set_default(bcmolt_nni_interface_cfg_data *ob
     obj->speed = 0UL;
     obj->duplex = BCMOLT_DUPLEX_MODE_FULL;
     obj->auto_negotiate = BCMOLT_CONTROL_STATE_DISABLE;
+    obj->sub_type = BCMOLT_NNI_SUBTYPE_NETWORK;
 }
 
 bcmos_bool bcmolt_nni_interface_cfg_data_validate(const bcmolt_nni_interface_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -6772,6 +7062,12 @@ bcmos_bool bcmolt_nni_interface_cfg_data_validate(const bcmolt_nni_interface_cfg
         bcmolt_string_append(err_details, "auto_negotiate: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_CFG_DATA_ID_SUB_TYPE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "sub_type: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
     return BCMOS_TRUE;
 }
 
@@ -6790,6 +7086,8 @@ bcmos_bool bcmolt_nni_interface_set_nni_state_data_validate(const bcmolt_nni_int
         case BCMOLT_INTERFACE_OPERATION_INACTIVE:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_OPERATION_DISABLE:
+        case BCMOLT_INTERFACE_OPERATION_ENABLE:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -6812,6 +7110,7 @@ void bcmolt_nni_interface_stats_data_set_default(bcmolt_nni_interface_stats_data
     obj->rx_fcs_error_packets = 0ULL;
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
+    obj->rx_jabber_packets = 0ULL;
     obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
@@ -6821,6 +7120,7 @@ void bcmolt_nni_interface_stats_data_set_default(bcmolt_nni_interface_stats_data
     obj->tx_error_packets = 0ULL;
     obj->tx_undersize_packets = 0ULL;
     obj->tx_oversize_packets = 0ULL;
+    obj->tx_jabber_packets = 0ULL;
     obj->rx_frames_64 = 0ULL;
     obj->rx_frames_65_127 = 0ULL;
     obj->rx_frames_128_255 = 0ULL;
@@ -6881,6 +7181,10 @@ bcmos_bool bcmolt_nni_interface_stats_data_validate(const bcmolt_nni_interface_s
     {
         /* obj->rx_oversize_packets can't be invalid. */
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS))
+    {
+        /* obj->rx_jabber_packets can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         /* obj->rx_unknown_protos can't be invalid. */
@@ -6916,6 +7220,10 @@ bcmos_bool bcmolt_nni_interface_stats_data_validate(const bcmolt_nni_interface_s
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS))
     {
         /* obj->tx_oversize_packets can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS))
+    {
+        /* obj->tx_jabber_packets can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_64))
     {
@@ -7060,6 +7368,7 @@ void bcmolt_nni_interface_stats_cfg_data_set_default(bcmolt_nni_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->rx_fcs_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
@@ -7069,6 +7378,7 @@ void bcmolt_nni_interface_stats_cfg_data_set_default(bcmolt_nni_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->tx_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->tx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_64);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_65_127);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_128_255);
@@ -7174,6 +7484,15 @@ bcmos_bool bcmolt_nni_interface_stats_cfg_data_validate(const bcmolt_nni_interfa
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
@@ -7250,6 +7569,15 @@ bcmos_bool bcmolt_nni_interface_stats_cfg_data_validate(const bcmolt_nni_interfa
     {
         int prefix_len = bcmolt_string_append(err_details, "tx_oversize_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->tx_oversize_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tx_jabber_packets, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -7459,6 +7787,7 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_raised_data_validate(const bcmolt_nn
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_PACKETS:
@@ -7468,6 +7797,7 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_raised_data_validate(const bcmolt_nn
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -7519,6 +7849,7 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_cleared_data_validate(const bcmolt_n
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_PACKETS:
@@ -7528,6 +7859,7 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_cleared_data_validate(const bcmolt_n
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -9712,6 +10044,36 @@ bcmos_bool bcmolt_onu_xpon_unknown_ploam_data_validate(const bcmolt_onu_xpon_unk
     return BCMOS_TRUE;
 }
 
+void bcmolt_onu_trap_ploam_received_data_set_default(bcmolt_onu_trap_ploam_received_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->message_id = 0;
+    obj->onu_id = 0U;
+    bcmolt_u8_list_u8_hex_set_default(&obj->data);
+}
+
+bcmos_bool bcmolt_onu_trap_ploam_received_data_validate(const bcmolt_onu_trap_ploam_received_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_MESSAGE_ID))
+    {
+        /* obj->message_id can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_ONU_ID))
+    {
+        /* obj->onu_id can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_DATA))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "data.");
+        if (!bcmolt_u8_list_u8_hex_validate(&obj->data, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
 void bcmolt_onu_itu_pon_stats_cfg_data_set_default(bcmolt_onu_itu_pon_stats_cfg_data *obj)
 {
     obj->presence_mask = 0;
@@ -10095,6 +10457,7 @@ void bcmolt_onu_auto_cfg_data_set_default(bcmolt_onu_auto_cfg_data *obj)
     obj->state_change = BCMOS_FALSE;
     obj->sufi = BCMOS_FALSE;
     obj->tiwi = BCMOS_FALSE;
+    obj->trap_ploam_received = BCMOS_FALSE;
     obj->tuning_response = BCMOS_FALSE;
     obj->xgpon_alarm = BCMOS_FALSE;
     obj->xpon_unknown_ploam = BCMOS_FALSE;
@@ -10301,6 +10664,10 @@ bcmos_bool bcmolt_onu_auto_cfg_data_validate(const bcmolt_onu_auto_cfg_data *obj
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_TIWI))
     {
         /* obj->tiwi can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_TRAP_PLOAM_RECEIVED))
+    {
+        /* obj->trap_ploam_received can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_TUNING_RESPONSE))
     {
@@ -11062,6 +11429,8 @@ bcmos_bool bcmolt_pon_interface_set_pon_interface_state_data_validate(const bcmo
         case BCMOLT_INTERFACE_OPERATION_INACTIVE:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_OPERATION_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_OPERATION_DISABLE:
+        case BCMOLT_INTERFACE_OPERATION_ENABLE:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11337,6 +11706,7 @@ bcmos_bool bcmolt_pon_interface_state_change_completed_data_validate(const bcmol
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11352,6 +11722,7 @@ bcmos_bool bcmolt_pon_interface_state_change_completed_data_validate(const bcmol
         case BCMOLT_INTERFACE_STATE_PROCESSING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_WORKING:
         case BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY:
+        case BCMOLT_INTERFACE_STATE_DISABLED:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11749,6 +12120,8 @@ bcmos_bool bcmolt_pon_interface_switch_pon_type_data_validate(const bcmolt_pon_i
         case BCMOLT_PON_TYPE_XGS_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGS_XGPON_TDMR_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGPON_GPON_WDMA:
+        case BCMOLT_PON_TYPE_XGS_XGS_WDMA:
+        case BCMOLT_PON_TYPE_GPON_GPON_WDMA:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11813,6 +12186,8 @@ bcmos_bool bcmolt_pon_interface_switch_pon_type_completed_data_validate(const bc
         case BCMOLT_PON_TYPE_XGS_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGS_XGPON_TDMR_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGPON_GPON_WDMA:
+        case BCMOLT_PON_TYPE_XGS_XGS_WDMA:
+        case BCMOLT_PON_TYPE_GPON_GPON_WDMA:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11834,6 +12209,8 @@ bcmos_bool bcmolt_pon_interface_switch_pon_type_completed_data_validate(const bc
         case BCMOLT_PON_TYPE_XGS_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGS_XGPON_TDMR_GPON_WDMA:
         case BCMOLT_PON_TYPE_XGPON_GPON_WDMA:
+        case BCMOLT_PON_TYPE_XGS_XGS_WDMA:
+        case BCMOLT_PON_TYPE_GPON_GPON_WDMA:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -11895,6 +12272,26 @@ bcmos_bool bcmolt_pon_interface_rogue_detection_tool_done_data_validate(const bc
     {
         int prefix_len = bcmolt_string_append(err_details, "output.");
         if (!bcmolt_u64_list_u32_hex_validate(&obj->output, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_pon_interface_onu_upgrade_activate_commit_data_set_default(bcmolt_pon_interface_onu_upgrade_activate_commit_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_onu_id_list_u32_set_default(&obj->list_of_onu_ids);
+}
+
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_validate(const bcmolt_pon_interface_onu_upgrade_activate_commit_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT_DATA_ID_LIST_OF_ONU_IDS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "list_of_onu_ids.");
+        if (!bcmolt_onu_id_list_u32_validate(&obj->list_of_onu_ids, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -13228,6 +13625,7 @@ void bcmolt_switch_inni_stats_data_set_default(bcmolt_switch_inni_stats_data *ob
     obj->rx_fcs_error_packets = 0ULL;
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
+    obj->rx_jabber_packets = 0ULL;
     obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
@@ -13237,6 +13635,7 @@ void bcmolt_switch_inni_stats_data_set_default(bcmolt_switch_inni_stats_data *ob
     obj->tx_error_packets = 0ULL;
     obj->tx_undersize_packets = 0ULL;
     obj->tx_oversize_packets = 0ULL;
+    obj->tx_jabber_packets = 0ULL;
     obj->rx_frames_64 = 0ULL;
     obj->rx_frames_65_127 = 0ULL;
     obj->rx_frames_128_255 = 0ULL;
@@ -13297,6 +13696,10 @@ bcmos_bool bcmolt_switch_inni_stats_data_validate(const bcmolt_switch_inni_stats
     {
         /* obj->rx_oversize_packets can't be invalid. */
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS))
+    {
+        /* obj->rx_jabber_packets can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         /* obj->rx_unknown_protos can't be invalid. */
@@ -13332,6 +13735,10 @@ bcmos_bool bcmolt_switch_inni_stats_data_validate(const bcmolt_switch_inni_stats
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_OVERSIZE_PACKETS))
     {
         /* obj->tx_oversize_packets can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS))
+    {
+        /* obj->tx_jabber_packets can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_64))
     {
@@ -13428,6 +13835,7 @@ void bcmolt_switch_inni_stats_cfg_data_set_default(bcmolt_switch_inni_stats_cfg_
     bcmolt_stat_alarm_config_set_default(&obj->rx_fcs_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
@@ -13437,6 +13845,7 @@ void bcmolt_switch_inni_stats_cfg_data_set_default(bcmolt_switch_inni_stats_cfg_
     bcmolt_stat_alarm_config_set_default(&obj->tx_error_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_oversize_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->tx_jabber_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_64);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_65_127);
     bcmolt_stat_alarm_config_set_default(&obj->rx_frames_128_255);
@@ -13542,6 +13951,15 @@ bcmos_bool bcmolt_switch_inni_stats_cfg_data_validate(const bcmolt_switch_inni_s
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
@@ -13618,6 +14036,15 @@ bcmos_bool bcmolt_switch_inni_stats_cfg_data_validate(const bcmolt_switch_inni_s
     {
         int prefix_len = bcmolt_string_append(err_details, "tx_oversize_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->tx_oversize_packets, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_JABBER_PACKETS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tx_jabber_packets.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tx_jabber_packets, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -13827,6 +14254,7 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_raised_data_validate(const bcmolt_swit
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_PACKETS:
@@ -13836,6 +14264,7 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_raised_data_validate(const bcmolt_swit
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -13887,6 +14316,7 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_cleared_data_validate(const bcmolt_swi
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FCS_ERROR_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
+        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_PACKETS:
@@ -13896,6 +14326,7 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_cleared_data_validate(const bcmolt_swi
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_ERROR_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_OVERSIZE_PACKETS:
+        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_64:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_65_127:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_128_255:
@@ -14089,6 +14520,8 @@ void bcmolt_tm_queue_cfg_data_set_default(bcmolt_tm_queue_cfg_data *obj)
     obj->rate.pir = 0UL;
     obj->rate.burst = 0UL;
     obj->ref_count = 0U;
+    obj->control_state = BCMOLT_CONTROL_STATE_ENABLE;
+    bcmolt_tm_sched_attachment_point_set_default(&obj->cir_attachment_point);
 }
 
 bcmos_bool bcmolt_tm_queue_cfg_data_validate(const bcmolt_tm_queue_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -14123,6 +14556,28 @@ bcmos_bool bcmolt_tm_queue_cfg_data_validate(const bcmolt_tm_queue_cfg_data *obj
         bcmolt_string_append(err_details, "ref_count: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE))
+    {
+        switch (obj->control_state)
+        {
+        case BCMOLT_CONTROL_STATE_DISABLE:
+        case BCMOLT_CONTROL_STATE_ENABLE:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "control_state: enum value %d is unexpected\n", (int)obj->control_state);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "cir_attachment_point.");
+        if (!bcmolt_tm_sched_attachment_point_validate(&obj->cir_attachment_point, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
     return BCMOS_TRUE;
 }
 
@@ -14148,6 +14603,7 @@ void bcmolt_tm_sched_cfg_data_set_default(bcmolt_tm_sched_cfg_data *obj)
     obj->rate.pir = 0UL;
     obj->rate.burst = 0UL;
     obj->state = BCMOLT_CONFIG_STATE_NOT_CONFIGURED;
+    bcmolt_tm_sched_attachment_point_set_default(&obj->cir_attachment_point);
 }
 
 bcmos_bool bcmolt_tm_sched_cfg_data_validate(const bcmolt_tm_sched_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -14178,10 +14634,10 @@ bcmos_bool bcmolt_tm_sched_cfg_data_validate(const bcmolt_tm_sched_cfg_data *obj
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SCHED_CFG_DATA_ID_NUM_PRIORITIES))
     {
-        if (obj->num_priorities > 8)
+        if (obj->num_priorities > 9)
         {
             *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "num_priorities: %u is greater than the maximum value of 8\n", obj->num_priorities);
+            bcmolt_string_append(err_details, "num_priorities: %u is greater than the maximum value of 9\n", obj->num_priorities);
             return BCMOS_FALSE;
         }
     }
@@ -14199,6 +14655,15 @@ bcmos_bool bcmolt_tm_sched_cfg_data_validate(const bcmolt_tm_sched_cfg_data *obj
         *err = BCM_ERR_READ_ONLY;
         bcmolt_string_append(err_details, "state: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SCHED_CFG_DATA_ID_CIR_ATTACHMENT_POINT))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "cir_attachment_point.");
+        if (!bcmolt_tm_sched_attachment_point_validate(&obj->cir_attachment_point, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
     }
     return BCMOS_TRUE;
 }

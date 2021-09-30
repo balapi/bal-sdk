@@ -382,3 +382,15 @@ bcmolt_pon_type bcmolt_pon_get_type(bcmolt_oltid olt_id, bcmolt_pon_ni pon_ni)
         return BCMOLT_PON_TYPE_UNKNOWN;
     }
 }
+
+bcmolt_tag bcmolt_host_log_file_get_active_tags(bcmolt_devid dev, const bcmolt_host_log_file_key *key)
+{
+    (void)key;
+    return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_HOST_LOG_FILE);
+}
+
+bcmolt_tag bcmolt_host_log_get_active_tags(bcmolt_devid dev, const bcmolt_host_log_key *key)
+{
+    (void)key;
+    return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_HOST_LOG);
+}

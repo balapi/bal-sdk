@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -135,6 +135,9 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
 &#160;
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>range_mode
+: <a class="el" href="structbcmolt__onu__tuning__configuration.html#a1dc272e1d6fc1add471c7d19c1dff140">bcmolt_onu_tuning_configuration</a>
+</li>
 <li>range_value_changed
 : <a class="el" href="structbcmolt__onu__auto__cfg__data.html#a4844c6664a28c0e3f0fa2b2dad00ca5d">bcmolt_onu_auto_cfg_data</a>
 </li>
@@ -232,6 +235,8 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
 , <a class="el" href="structbcmolt__flow__multi__stats.html#a3bab5438638c8577a66c70edcd9ee4f6">bcmolt_flow_multi_stats</a>
 , <a class="el" href="structbcmolt__gpio__multi__cfg.html#ab6bfa897e3cf4f337fc34e5a69f0533c">bcmolt_gpio_multi_cfg</a>
 , <a class="el" href="structbcmolt__group__multi__cfg.html#a2181609f0db908ae291710ed9eea17b9">bcmolt_group_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__multi__cfg.html#a79f61ed209104767d3c4eb453ffc0944">bcmolt_host_log_file_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__multi__cfg.html#a2af57e525bc5afd4190ae3e1061b89ba">bcmolt_host_log_multi_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__multi__cfg.html#a8254a5294f750de5e879c44c0ebf705c">bcmolt_inband_mgmt_channel_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__cfg.html#a4188cd5291a81b19cc2fb4560638dfd8">bcmolt_internal_nni_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__enet__stats.html#a277b67ff7f1696e0f9612c8badfcc865">bcmolt_internal_nni_multi_enet_stats</a>
@@ -301,6 +306,8 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
 , <a class="el" href="structbcmolt__flow__multi__stats.html#aff0cc00c31d0af6e2fa2ba9a40b81679">bcmolt_flow_multi_stats</a>
 , <a class="el" href="structbcmolt__gpio__multi__cfg.html#a3801ed236f947647d915c75793f7971c">bcmolt_gpio_multi_cfg</a>
 , <a class="el" href="structbcmolt__group__multi__cfg.html#a7f98153a0a8fedc098e3763473909417">bcmolt_group_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__multi__cfg.html#abb5f3d1379215f0a7a588da07fa5cbed">bcmolt_host_log_file_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__multi__cfg.html#a11fdab090fb1550cc69d5af8aa2bd280">bcmolt_host_log_multi_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__multi__cfg.html#aa8fdcd3299e7d416505e89e1eade4f50">bcmolt_inband_mgmt_channel_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__cfg.html#aa2c01e5e4436553d1b2edc4585151a62">bcmolt_internal_nni_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__enet__stats.html#a3642280fed8df503035588a9db88d48a">bcmolt_internal_nni_multi_enet_stats</a>
@@ -363,6 +370,9 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
 </li>
 <li>retrans_request_registration
 : <a class="el" href="structbcmolt__ploam__retransmission.html#a4b2de14117abcb7fcfba2bee5c5fc60d">bcmolt_ploam_retransmission</a>
+</li>
+<li>retry_interval
+: <a class="el" href="structbcmolt__onu__tuning__configuration.html#a4f632bad674834a867514b908f77abfe">bcmolt_onu_tuning_configuration</a>
 </li>
 <li>revision
 : <a class="el" href="structbcmolt__firmware__sw__version.html#ab01c6e281b316b1770d5646f3d3101c4">bcmolt_firmware_sw_version</a>
@@ -676,6 +686,14 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
 : <a class="el" href="structbcmolt__internal__nni__nni__stats__cfg__data.html#a8327c7cd2aa5f4b92d205ff5fd3c9d67">bcmolt_internal_nni_nni_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__internal__nni__nni__stats__data.html#ae0655be36e657489a6a786284fda46e3">bcmolt_internal_nni_nni_stats_data</a>
 </li>
+<li>rx_jabber_packets
+: <a class="el" href="structbcmolt__lag__interface__stats__cfg__data.html#adf96d3ca7b7607fa103792359927c335">bcmolt_lag_interface_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__lag__interface__stats__data.html#abbf4c9ef75fa76503cc05efc4a46f7da">bcmolt_lag_interface_stats_data</a>
+, <a class="el" href="structbcmolt__nni__interface__stats__cfg__data.html#adf96d3ca7b7607fa103792359927c335">bcmolt_nni_interface_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__nni__interface__stats__data.html#abbf4c9ef75fa76503cc05efc4a46f7da">bcmolt_nni_interface_stats_data</a>
+, <a class="el" href="structbcmolt__switch__inni__stats__cfg__data.html#adf96d3ca7b7607fa103792359927c335">bcmolt_switch_inni_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__switch__inni__stats__data.html#abbf4c9ef75fa76503cc05efc4a46f7da">bcmolt_switch_inni_stats_data</a>
+</li>
 <li>rx_key_error
 : <a class="el" href="structbcmolt__pon__interface__itu__pon__stats__cfg__data.html#ab9bcb0bce6e8c3a4ce0766f59f01dc8d">bcmolt_pon_interface_itu_pon_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__pon__interface__itu__pon__stats__data.html#a05ba948b099a43d78bd3d2eeee74637e">bcmolt_pon_interface_itu_pon_stats_data</a>
@@ -857,7 +875,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

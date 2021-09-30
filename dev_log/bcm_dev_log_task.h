@@ -117,6 +117,12 @@ typedef enum
 
 typedef enum
 {
+    DEV_LOG_ID_SET_ALL_NONE,
+    DEV_LOG_ID_SET_ALL_DEFAULT
+} bcm_dev_log_id_set_all;
+
+typedef enum
+{
     BCM_DEV_LOG_FLAG_NONE = 0,
 
     /* Even if logger is disabled, BCM_LOG() calls are redirected to bcmos_printf(). */
@@ -439,7 +445,7 @@ bcmos_errno bcm_dev_log_id_set_level(dev_log_id id, bcm_dev_log_level log_level_
 
 /********************************************************************************************/
 /*                                                                                          */
-/* Name: bcm_dev_log_id_set_levels_and_type_to_default                                      */
+/* Name: bcm_dev_log_id_set_level_and_type_to_default                                       */
 /*                                                                                          */
 /* Abstract: Set log_type and log_level to default (creation) values for an ID              */
 /*                                                                                          */
@@ -450,7 +456,22 @@ bcmos_errno bcm_dev_log_id_set_level(dev_log_id id, bcm_dev_log_level log_level_
 /*   bcmos_errno - Success code (BCM_ERR_OK) or Error code (see bcmos_errno.h)              */
 /*                                                                                          */
 /********************************************************************************************/
-bcmos_errno bcm_dev_log_id_set_levels_and_type_to_default(dev_log_id id);
+bcmos_errno bcm_dev_log_id_set_level_and_type_to_default(dev_log_id id);
+
+/********************************************************************************************/
+/*                                                                                          */
+/* Name: bcm_dev_log_id_set_level_and_type_all                                              */
+/*                                                                                          */
+/* Abstract: Set log_type and log_level to either "none" or the default (creation) value    */
+/*                                                                                          */
+/* Arguments:                                                                               */
+/*   - set_all   - Either "none" or "default"                                               */
+/*                                                                                          */
+/* Return Value:                                                                            */
+/*   bcmos_errno - Success code (BCM_ERR_OK) or Error code (see bcmos_errno.h)              */
+/*                                                                                          */
+/********************************************************************************************/
+bcmos_errno bcm_dev_log_set_level_and_type_all(bcm_dev_log_id_set_all set_all);
 
 /********************************************************************************************/
 /*                                                                                          */
@@ -498,6 +519,23 @@ bcmos_errno bcm_dev_log_id_set_style(dev_log_id id, bcm_dev_log_style style);
 /*                                                                                              */
 /************************************************************************************************/
 bcmos_errno bcm_dev_log_id_clear_counters(dev_log_id id);
+
+/********************************************************************************************/
+/*                                                                                          */
+/* Name: bcm_dev_log_id_get_level                                                           */
+/*                                                                                          */
+/* Abstract: Get current log level for an ID                                                */
+/*                                                                                          */
+/* Arguments:                                                                               */
+/*   - id            - The ID in the Dev log (what we got form bcm_dev_log_id_register)     */
+/*   - p_log_level_print, p_log_level_save - print and save levels                          */
+/*                                                                                          */
+/* Return Value:                                                                            */
+/*   bcmos_errno - Success code (BCM_ERR_OK) or Error code (see bcmos_errno.h)              */
+/*                                                                                          */
+/********************************************************************************************/
+bcmos_errno bcm_dev_log_id_get_level(dev_log_id id, bcm_dev_log_level *p_log_level_print,
+    bcm_dev_log_level *p_log_level_save);
 
 /********************************************************************************************/
 /*                                                                                          */

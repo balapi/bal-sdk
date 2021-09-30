@@ -1277,7 +1277,11 @@ static bcmos_errno _bcmcli_line_edit_cmd(bcmcli_session *session, const bcmcli_c
     if (n_parms > 0)
     {
         if ((parm[0].flags & BCMCLI_PARM_FLAG_ASSIGNED))
+        {
             linenoiseSetDumbTerminal(session->ln_session, ! parm[0].value.number);
+            if ((parm[2].flags & BCMCLI_PARM_FLAG_ASSIGNED) && parm[0].value.number && parm[2].value.number)
+                linenoiseForceSmartTerminal(session->ln_session, BCMOS_TRUE);
+        }
         if ((parm[1].flags & BCMCLI_PARM_FLAG_ASSIGNED))
             linenoiseSetMultiLine(session->ln_session, parm[1].value.number);
     }
@@ -1335,6 +1339,8 @@ static void _bcmcli_alloc_root(const bcmcli_session_parm *first_session_parm)
         BCMCLI_MAKE_CMD(NULL, "~", "Enable/disable/query line editing", _bcmcli_line_edit_cmd,
             BCMCLI_MAKE_PARM_ENUM("enable", "Enable line editing", bcmcli_enum_bool_table, BCMCLI_PARM_FLAG_OPTIONAL),
             BCMCLI_MAKE_PARM_ENUM("multiline", "Enable multiline mode", bcmcli_enum_bool_table,
+                BCMCLI_PARM_FLAG_OPTIONAL),
+            BCMCLI_MAKE_PARM_ENUM("force", "Force line editing mode", bcmcli_enum_bool_table,
                 BCMCLI_PARM_FLAG_OPTIONAL));
     }
 #endif

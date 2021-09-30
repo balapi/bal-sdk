@@ -94,18 +94,18 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     uint64_t packets; /**< pkts processed */
     uint64_t bytes; /**< bytes processed */
-    bcmolt_arr_u64_4 policer_packets_passed; /**< passed pkts on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_arr_u64_4 policer_packets_dropped; /**< dropped pkts on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_arr_u64_4 policer_bytes_passed; /**< passed bytes on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_arr_u64_4 policer_bytes_dropped; /**< dropped bytes on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_arr_u64_4 policer_packets_passed_ukmb; /**< passed pkts on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_arr_u64_4 policer_packets_dropped_ukmb; /**< dropped pkts on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_arr_u64_4 policer_bytes_passed_ukmb; /**< passed bytes on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_arr_u64_4 policer_bytes_dropped_ukmb; /**< dropped bytes on policer by traffic type - uu,ku,mc,bc */
 } bcmolt_access_control_stats_data;
 
 /* Constants associated with bcmolt_access_control_stats_data. */
 #define BCMOLT_ACCESS_CONTROL_STATS_DATA_PRESENCE_MASK_ALL 0x000000000000003FULL
-#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_PACKETS_PASSED_LENGTH 4
-#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_PACKETS_DROPPED_LENGTH 4
-#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_BYTES_PASSED_LENGTH 4
-#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_BYTES_DROPPED_LENGTH 4
+#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_PACKETS_PASSED_UKMB_LENGTH 4
+#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_PACKETS_DROPPED_UKMB_LENGTH 4
+#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_BYTES_PASSED_UKMB_LENGTH 4
+#define BCMOLT_ACCESS_CONTROL_STATS_DATA_POLICER_BYTES_DROPPED_UKMB_LENGTH 4
 
 /** Transport message definition for "stats" group of "access_control" object. */
 typedef struct
@@ -175,10 +175,10 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_stat_alarm_config packets; /**< pkts processed */
     bcmolt_stat_alarm_config bytes; /**< bytes processed */
-    bcmolt_stat_alarm_config policer_packets_passed; /**< passed pkts on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_stat_alarm_config policer_packets_dropped; /**< dropped pkts on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_stat_alarm_config policer_bytes_passed; /**< passed bytes on policer by traffic type - uu,ku,mc,bc */
-    bcmolt_stat_alarm_config policer_bytes_dropped; /**< dropped bytes on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_stat_alarm_config policer_packets_passed_ukmb; /**< passed pkts on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_stat_alarm_config policer_packets_dropped_ukmb; /**< dropped pkts on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_stat_alarm_config policer_bytes_passed_ukmb; /**< passed bytes on policer by traffic type - uu,ku,mc,bc */
+    bcmolt_stat_alarm_config policer_bytes_dropped_ukmb; /**< dropped bytes on policer by traffic type - uu,ku,mc,bc */
 } bcmolt_access_control_stats_cfg_data;
 
 /* Constants associated with bcmolt_access_control_stats_cfg_data. */
@@ -263,10 +263,11 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_config_state config_state; /**< Configuration State. */
     bcmolt_lag_global_parms lag_parms; /**< LAG Global Params. */
+    bcmolt_host_port_params host_port; /**< host port. */
 } bcmolt_bal_system_cfg_data;
 
 /* Constants associated with bcmolt_bal_system_cfg_data. */
-#define BCMOLT_BAL_SYSTEM_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000030ULL
+#define BCMOLT_BAL_SYSTEM_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000070ULL
 #define BCMOLT_BAL_SYSTEM_CFG_DATA_CONFIG_STATE_DEFAULT BCMOLT_CONFIG_STATE_CONFIGURED
 
 /** Transport message definition for "cfg" group of "bal_system" object. */
@@ -335,16 +336,22 @@ typedef struct
     
     If no IP traffic is received within the configured period. The watchdog will reset the Maple chip. */
     bcmolt_comm_mode comm_mode; /**< The communication mode being used. */
-    bcmolt_pcie_conn_data pcie_conn_data; /**< If PCIe communications mode is selected, these parameters may be set. */
+    bcmolt_pcie_conn_data pcie_conn_data; /**< Mirror of the PCIe connection parameters supplied in the initial connect operation. */
     bcmos_bool itu_multipon_dba_enable; /**< Enable Multi-PON DBA feature in ITU modes */
+    bcmos_bool itu_low_latency_dba_enable; /**< Enable low latency DBA feature in ITU modes */
     bcmos_bool logger_enable; /**< Set to false to disable all logging in the system */
     bcmolt_inni_config inni_config; /**< INNI configuration */
     bcmolt_ras_ddr_usage_mode ras_ddr_mode; /**< RAS DDR Mode. */
     bcmos_bool itu_enable_inni_mux; /**< Enable INNI mux configuration on the fly */
+    bcmolt_arr_ploam_filter_5 trap_gpon_ploam; /**< Trap gpon ploams according to ploam id */
+    bcmolt_arr_ploam_filter_5 trap_xgpon_ploam; /**< Trap xgpon ploams according to ploam id */
+    bcmos_bool debug_uart_port_swap; /**< If set to false (the default value) UART0 is used for logs/cli, UART1 for TOD. If set to true UART0 is used for TOD, UART1 for logs/cli. */
+    bcmolt_inband_conn_data inband_conn_data; /**< Mirror of the in-band connection parameters supplied in the initial connect operation. */
+    bcmolt_pon_ni inband_internal_nni; /**< Port number of the internal NNI port that is configured for in-band communication. */
 } bcmolt_device_cfg_data;
 
 /* Constants associated with bcmolt_device_cfg_data. */
-#define BCMOLT_DEVICE_CFG_DATA_PRESENCE_MASK_ALL 0x00000001F83F3EFFULL
+#define BCMOLT_DEVICE_CFG_DATA_PRESENCE_MASK_ALL 0x0000007FF83F3EFFULL
 #define BCMOLT_DEVICE_CFG_DATA_KEEPALIVE_INTERVAL_DEFAULT 5UL
 #define BCMOLT_DEVICE_CFG_DATA_KEEPALIVE_INTERVAL_MAX 15UL
 #define BCMOLT_DEVICE_CFG_DATA_KEEPALIVE_TOLERANCE_DEFAULT 3UL
@@ -359,8 +366,13 @@ typedef struct
 #define BCMOLT_DEVICE_CFG_DATA_WD_IP_TRAFFIC_TIMEOUT_MIN 5U
 #define BCMOLT_DEVICE_CFG_DATA_WD_IP_TRAFFIC_TIMEOUT_MAX 65535U
 #define BCMOLT_DEVICE_CFG_DATA_ITU_MULTIPON_DBA_ENABLE_DEFAULT BCMOS_FALSE
+#define BCMOLT_DEVICE_CFG_DATA_ITU_LOW_LATENCY_DBA_ENABLE_DEFAULT BCMOS_FALSE
 #define BCMOLT_DEVICE_CFG_DATA_LOGGER_ENABLE_DEFAULT BCMOS_TRUE
 #define BCMOLT_DEVICE_CFG_DATA_ITU_ENABLE_INNI_MUX_DEFAULT BCMOS_FALSE
+#define BCMOLT_DEVICE_CFG_DATA_TRAP_GPON_PLOAM_LENGTH 5
+#define BCMOLT_DEVICE_CFG_DATA_TRAP_XGPON_PLOAM_LENGTH 5
+#define BCMOLT_DEVICE_CFG_DATA_DEBUG_UART_PORT_SWAP_DEFAULT BCMOS_FALSE
+#define BCMOLT_DEVICE_CFG_DATA_INBAND_INTERNAL_NNI_DEFAULT (bcmolt_pon_ni)255
 
 /** Transport message definition for "cfg" group of "device" object. */
 typedef struct
@@ -398,15 +410,19 @@ typedef struct
     bcmolt_ras_ddr_usage_mode ras_ddr_mode; /**< If ITU PON system is used, this parameter states RAS DDR usage mode. For EPON system modes should be set to no_ddr value. */
     bcmolt_ddr_test_mode ddr_test_mode; /**< DDR test mode */
     bcmos_bool itu_change_inni_mux_enable; /**< Enable changing INNI mux on the fly */
+    bcmos_bool itu_low_latency_dba_enable; /**< Enable low latency DBA feature in ITU modes */
+    bcmos_bool debug_uart_port_swap; /**< Optional paramter. Default value is false. Set to true to use UART1 for logs/CLI, UART0 for TOD */
 } bcmolt_device_connect_data;
 
 /* Constants associated with bcmolt_device_connect_data. */
-#define BCMOLT_DEVICE_CONNECT_DATA_PRESENCE_MASK_ALL 0x00000000000003EFULL
+#define BCMOLT_DEVICE_CONNECT_DATA_PRESENCE_MASK_ALL 0x0000000000000FEFULL
 #define BCMOLT_DEVICE_CONNECT_DATA_COMM_MODE_DEFAULT BCMOLT_COMM_MODE_PCIE
 #define BCMOLT_DEVICE_CONNECT_DATA_ITU_MULTIPON_DBA_ENABLE_DEFAULT BCMOS_FALSE
 #define BCMOLT_DEVICE_CONNECT_DATA_RAS_DDR_MODE_DEFAULT BCMOLT_RAS_DDR_USAGE_MODE_FOUR_DDRS
 #define BCMOLT_DEVICE_CONNECT_DATA_DDR_TEST_MODE_DEFAULT BCMOLT_DDR_TEST_MODE_NO_TEST
 #define BCMOLT_DEVICE_CONNECT_DATA_ITU_CHANGE_INNI_MUX_ENABLE_DEFAULT BCMOS_FALSE
+#define BCMOLT_DEVICE_CONNECT_DATA_ITU_LOW_LATENCY_DBA_ENABLE_DEFAULT BCMOS_FALSE
+#define BCMOLT_DEVICE_CONNECT_DATA_DEBUG_UART_PORT_SWAP_DEFAULT BCMOS_FALSE
 
 /** Transport message definition for "connect" group of "device" object. */
 typedef struct
@@ -1480,13 +1496,14 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_group_member_info_list_u8 members; /**< The list of members associated with this group, updated using operations */
     bcmolt_cookie cookie; /**< Application cookie */
-    bcmolt_group_type type; /**< Type of the group. */
+    bcmolt_group_type type; /**< Configured Group Type is Mulicast or Nto1 */
     bcmolt_group_state state; /**< group state. */
     bcmolt_action action; /**< allowed vlan actions */
 } bcmolt_group_cfg_data;
 
 /* Constants associated with bcmolt_group_cfg_data. */
 #define BCMOLT_GROUP_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000001FULL
+#define BCMOLT_GROUP_CFG_DATA_TYPE_DEFAULT BCMOLT_GROUP_TYPE_NONE
 #define BCMOLT_GROUP_CFG_DATA_STATE_DEFAULT BCMOLT_GROUP_STATE_NOT_CONFIGURED
 
 /** Transport message definition for "cfg" group of "group" object. */
@@ -1566,6 +1583,109 @@ typedef struct
     bcmolt_group_key key; /**< Object key. */
     bcmolt_group_auto_cfg_data data; /**< All properties that must be set by the user. */
 } bcmolt_group_auto_cfg;
+
+/** host log: key */
+typedef struct
+{
+    bcmolt_str_100 name; /**< Log name */
+} bcmolt_host_log_key;
+
+/** host log: cfg */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_log_type type; /**< Log type */
+    bcmolt_log_style style; /**< Log style */
+    bcmolt_log_level_per_file level; /**< Log levels for each file */
+    bcmolt_log_level_msg_count msg_count; /**< Number of messages per log level */
+    uint32_t lost_msg_count; /**< Number of messages lost/dropped */
+} bcmolt_host_log_cfg_data;
+
+/* Constants associated with bcmolt_host_log_cfg_data. */
+#define BCMOLT_HOST_LOG_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000001FULL
+
+/** Transport message definition for "cfg" group of "host_log" object. */
+typedef struct
+{
+    bcmolt_cfg hdr; /**< Transport header. */
+    bcmolt_host_log_key key; /**< Object key. */
+    bcmolt_host_log_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_host_log_cfg;
+
+/** Multi-object message definition for "cfg" group of "host_log" object. */
+typedef struct
+{
+    bcmolt_multi_cfg hdr; /**< Transport header. */
+    bcmolt_host_log_key key; /**< Object key (can include wildcards). */
+    bcmolt_host_log_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_host_log_cfg_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_host_log_cfg *responses; /**< Responses to the last API call. */
+
+    bcmolt_host_log_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_host_log_multi_cfg;
+
+/** Host Log File: key */
+typedef struct
+{
+    bcmolt_host_log_file_id file_id; /**< The log file to access (only SRAM is supported) */
+} bcmolt_host_log_file_key;
+
+/** Host Log File: cfg */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmos_bool wrap_around; /**< Log file wrap-around option. TRUE=wrap around when full. FALSE=stop when full */
+    bcmos_bool clear_after_read; /**< Clear log after last record has been read */
+    uint32_t msg_count; /**< Number of messages currently in the log */
+    uint32_t msgs_read; /**< Number of messages already read */
+    uint32_t msgs_remaining; /**< Number of unread messages remaining in the log file */
+    bcmolt_str_2048 buffer; /**< Contains a section of the log buffer, one message per line. Reading this field causes it to move to the next section. */
+} bcmolt_host_log_file_cfg_data;
+
+/* Constants associated with bcmolt_host_log_file_cfg_data. */
+#define BCMOLT_HOST_LOG_FILE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000003FULL
+#define BCMOLT_HOST_LOG_FILE_CFG_DATA_WRAP_AROUND_DEFAULT BCMOS_TRUE
+#define BCMOLT_HOST_LOG_FILE_CFG_DATA_CLEAR_AFTER_READ_DEFAULT BCMOS_FALSE
+
+/** Transport message definition for "cfg" group of "host_log_file" object. */
+typedef struct
+{
+    bcmolt_cfg hdr; /**< Transport header. */
+    bcmolt_host_log_file_key key; /**< Object key. */
+    bcmolt_host_log_file_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_host_log_file_cfg;
+
+/** Multi-object message definition for "cfg" group of "host_log_file" object. */
+typedef struct
+{
+    bcmolt_multi_cfg hdr; /**< Transport header. */
+    bcmolt_host_log_file_key key; /**< Object key (can include wildcards). */
+    bcmolt_host_log_file_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_host_log_file_cfg_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_host_log_file_cfg *responses; /**< Responses to the last API call. */
+
+    bcmolt_host_log_file_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_host_log_file_multi_cfg;
+
+/** Transport message definition for "clear" group of "host_log_file" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_host_log_file_key key; /**< Object key. */
+} bcmolt_host_log_file_clear;
+
+/** Transport message definition for "reset_buffer_ptr" group of "host_log_file" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_host_log_file_key key; /**< Object key. */
+} bcmolt_host_log_file_reset_buffer_ptr;
 
 /** BAL Inband Management Channel: key */
 typedef struct
@@ -2090,11 +2210,15 @@ typedef struct
     bcmolt_pon_alloc_sla sla; /**< Alloc ID SLA */
     bcmolt_onu_id onu_id; /**< ONU ID the alloc ID is assigned to */
     bcmos_bool collect_stats; /**< Enable statistics collection for this alloc ID */
+    uint32_t onu_tcont_max_queue_size; /**< For better DBA performance, this is the maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. If 0, it means unconfigured. */
 } bcmolt_itupon_alloc_cfg_data;
 
 /* Constants associated with bcmolt_itupon_alloc_cfg_data. */
-#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000001FULL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_STATE_DEFAULT BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_DEFAULT 0UL
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_MIN 0UL
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_MAX 16777215UL
 
 /** Transport message definition for "cfg" group of "itupon_alloc" object. */
 typedef struct
@@ -2529,10 +2653,11 @@ typedef struct
     uint8_t member_count; /**< num of members */
     uint8_t member_up_count; /**< num of link up members */
     bcmolt_lag_health lag_health; /**< health of lag */
+    bcmolt_lag_subtype sub_type; /**< lag interface subtype */
 } bcmolt_lag_interface_cfg_data;
 
 /* Constants associated with bcmolt_lag_interface_cfg_data. */
-#define BCMOLT_LAG_INTERFACE_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000001EB3ULL
+#define BCMOLT_LAG_INTERFACE_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000003EB3ULL
 #define BCMOLT_LAG_INTERFACE_CFG_DATA_CONFIG_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
 #define BCMOLT_LAG_INTERFACE_CFG_DATA_PSC_MODE_DEFAULT BCMOLT_LAG_PSC_MODE_SMOOTH_DIVISION
 #define BCMOLT_LAG_INTERFACE_CFG_DATA_STATE_DEFAULT BCMOLT_INTERFACE_STATE_ACTIVE_WORKING
@@ -2578,6 +2703,7 @@ typedef struct
     uint64_t rx_fcs_error_packets; /**< RFC 2665 */
     uint64_t rx_undersize_packets; /**< Broadcom-Specific */
     uint64_t rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_unknown_protos; /**< RFC 1213 */
     uint64_t tx_bytes; /**< RFC 2233 */
     uint64_t tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -2587,6 +2713,7 @@ typedef struct
     uint64_t tx_error_packets; /**< RFC 1213 */
     uint64_t tx_undersize_packets; /**< Broadcom-Specific */
     uint64_t tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_frames_64; /**< Broadcom-Specific */
     uint64_t rx_frames_65_127; /**< Broadcom-Specific */
     uint64_t rx_frames_128_255; /**< Broadcom-Specific */
@@ -2610,7 +2737,7 @@ typedef struct
 } bcmolt_lag_interface_stats_data;
 
 /* Constants associated with bcmolt_lag_interface_stats_data. */
-#define BCMOLT_LAG_INTERFACE_STATS_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_LAG_INTERFACE_STATS_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats" group of "lag_interface" object. */
 typedef struct
@@ -2743,6 +2870,7 @@ typedef struct
     bcmolt_stat_alarm_config rx_fcs_error_packets; /**< RFC 2665 */
     bcmolt_stat_alarm_config rx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_unknown_protos; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_bytes; /**< RFC 2233 */
     bcmolt_stat_alarm_config tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -2752,6 +2880,7 @@ typedef struct
     bcmolt_stat_alarm_config tx_error_packets; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_frames_64; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_65_127; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_128_255; /**< Broadcom-Specific */
@@ -2775,7 +2904,7 @@ typedef struct
 } bcmolt_lag_interface_stats_cfg_data;
 
 /* Constants associated with bcmolt_lag_interface_stats_cfg_data. */
-#define BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats_cfg" group of "lag_interface" object. */
 typedef struct
@@ -3032,10 +3161,11 @@ typedef struct
     uint32_t speed; /**< ethernet speed in Mbps */
     bcmolt_duplex_mode duplex; /**< ethernet duplex mode */
     bcmolt_control_state auto_negotiate; /**< ethernet auto negotiation mode */
+    bcmolt_nni_subtype sub_type; /**< nni interface subtype */
 } bcmolt_nni_interface_cfg_data;
 
 /* Constants associated with bcmolt_nni_interface_cfg_data. */
-#define BCMOLT_NNI_INTERFACE_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000F7BULL
+#define BCMOLT_NNI_INTERFACE_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000001F7BULL
 #define BCMOLT_NNI_INTERFACE_CFG_DATA_CONFIG_STATE_DEFAULT BCMOLT_CONFIG_STATE_CONFIGURED
 
 /** Transport message definition for "cfg" group of "nni_interface" object. */
@@ -3092,6 +3222,7 @@ typedef struct
     uint64_t rx_fcs_error_packets; /**< RFC 2665 */
     uint64_t rx_undersize_packets; /**< Broadcom-Specific */
     uint64_t rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_unknown_protos; /**< RFC 1213 */
     uint64_t tx_bytes; /**< RFC 2233 */
     uint64_t tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -3101,6 +3232,7 @@ typedef struct
     uint64_t tx_error_packets; /**< RFC 1213 */
     uint64_t tx_undersize_packets; /**< Broadcom-Specific */
     uint64_t tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_frames_64; /**< Broadcom-Specific */
     uint64_t rx_frames_65_127; /**< Broadcom-Specific */
     uint64_t rx_frames_128_255; /**< Broadcom-Specific */
@@ -3124,7 +3256,7 @@ typedef struct
 } bcmolt_nni_interface_stats_data;
 
 /* Constants associated with bcmolt_nni_interface_stats_data. */
-#define BCMOLT_NNI_INTERFACE_STATS_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_NNI_INTERFACE_STATS_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats" group of "nni_interface" object. */
 typedef struct
@@ -3182,6 +3314,7 @@ typedef struct
     bcmolt_stat_alarm_config rx_fcs_error_packets; /**< RFC 2665 */
     bcmolt_stat_alarm_config rx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_unknown_protos; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_bytes; /**< RFC 2233 */
     bcmolt_stat_alarm_config tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -3191,6 +3324,7 @@ typedef struct
     bcmolt_stat_alarm_config tx_error_packets; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_frames_64; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_65_127; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_128_255; /**< Broadcom-Specific */
@@ -3214,7 +3348,7 @@ typedef struct
 } bcmolt_nni_interface_stats_cfg_data;
 
 /* Constants associated with bcmolt_nni_interface_stats_cfg_data. */
-#define BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats_cfg" group of "nni_interface" object. */
 typedef struct
@@ -3481,7 +3615,7 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     uint64_t positive_drift; /**< positive drift. */
     uint64_t negative_drift; /**< negative drift. */
-    uint64_t delimiter_miss_detection; /**< unrecieved bursts */
+    uint64_t delimiter_miss_detection; /**< unreceived bursts */
     uint64_t bip_errors; /**< bip errors. */
     uint64_t bip_units; /**< Number of 4-byte words xgpon or bytes gpon received (word size is 4 bytes regardless of upstream data rate). */
     uint64_t fec_corrected_symbols; /**< fec corrected symbols  (Not relevant in GPON system modes). */
@@ -4659,13 +4793,33 @@ typedef struct
     bcmolt_onu_xpon_unknown_ploam_data data; /**< All properties that must be set by the user. */
 } bcmolt_onu_xpon_unknown_ploam;
 
+/** ONU: trap ploam received */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint8_t message_id; /**< message id. */
+    uint16_t onu_id; /**< onu_id. */
+    bcmolt_u8_list_u8_hex data; /**< data. */
+} bcmolt_onu_trap_ploam_received_data;
+
+/* Constants associated with bcmolt_onu_trap_ploam_received_data. */
+#define BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "trap_ploam_received" group of "onu" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key. */
+    bcmolt_onu_trap_ploam_received_data data; /**< All properties that must be set by the user. */
+} bcmolt_onu_trap_ploam_received;
+
 /** ONU: ITU PON Statistics Configuration */
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
     bcmolt_stat_alarm_config positive_drift; /**< positive drift. */
     bcmolt_stat_alarm_config negative_drift; /**< negative drift. */
-    bcmolt_stat_alarm_config delimiter_miss_detection; /**< unrecieved bursts */
+    bcmolt_stat_alarm_config delimiter_miss_detection; /**< unreceived bursts */
     bcmolt_stat_alarm_config bip_errors; /**< bip errors. */
     bcmolt_stat_alarm_config bip_units; /**< Number of 4-byte words xgpon or bytes gpon received (word size is 4 bytes regardless of upstream data rate). */
     bcmolt_stat_alarm_config fec_corrected_symbols; /**< fec corrected symbols  (Not relevant in GPON system modes). */
@@ -4789,13 +4943,14 @@ typedef struct
     bcmos_bool state_change; /**< If true, indications of type "state_change" will be generated. */
     bcmos_bool sufi; /**< If true, indications of type "sufi" will be generated. */
     bcmos_bool tiwi; /**< If true, indications of type "tiwi" will be generated. */
+    bcmos_bool trap_ploam_received; /**< If true, indications of type "trap_ploam_received" will be generated. */
     bcmos_bool tuning_response; /**< If true, indications of type "tuning_response" will be generated. */
     bcmos_bool xgpon_alarm; /**< If true, indications of type "xgpon_alarm" will be generated. */
     bcmos_bool xpon_unknown_ploam; /**< If true, indications of type "xpon_unknown_ploam" will be generated. */
 } bcmolt_onu_auto_cfg_data;
 
 /* Constants associated with bcmolt_onu_auto_cfg_data. */
-#define BCMOLT_ONU_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x001FFFFFFFFFFFFFULL
+#define BCMOLT_ONU_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x003FFFFFFFFFFFFFULL
 
 /** Transport message definition for "auto_cfg" group of "onu" object. */
 typedef struct
@@ -5679,6 +5834,24 @@ typedef struct
     bcmolt_pon_interface_rogue_detection_tool_done_data data; /**< All properties that must be set by the user. */
 } bcmolt_pon_interface_rogue_detection_tool_done;
 
+/** pon interface: ONU Upgrade Activate Commit */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_onu_id_list_u32 list_of_onu_ids; /**< List of ONU IDs to upgrade the firmware. */
+} bcmolt_pon_interface_onu_upgrade_activate_commit_data;
+
+/* Constants associated with bcmolt_pon_interface_onu_upgrade_activate_commit_data. */
+#define BCMOLT_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "onu_upgrade_activate_commit" group of "pon_interface" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_pon_interface_key key; /**< Object key. */
+    bcmolt_pon_interface_onu_upgrade_activate_commit_data data; /**< All properties that must be set by the user. */
+} bcmolt_pon_interface_onu_upgrade_activate_commit;
+
 /** pon interface: ITU PON Statistics Configuration */
 typedef struct
 {
@@ -6092,6 +6265,7 @@ typedef struct
     uint64_t rx_fcs_error_packets; /**< RFC 2665 */
     uint64_t rx_undersize_packets; /**< Broadcom-Specific */
     uint64_t rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_unknown_protos; /**< RFC 1213 */
     uint64_t tx_bytes; /**< RFC 2233 */
     uint64_t tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -6101,6 +6275,7 @@ typedef struct
     uint64_t tx_error_packets; /**< RFC 1213 */
     uint64_t tx_undersize_packets; /**< Broadcom-Specific */
     uint64_t tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    uint64_t tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     uint64_t rx_frames_64; /**< Broadcom-Specific */
     uint64_t rx_frames_65_127; /**< Broadcom-Specific */
     uint64_t rx_frames_128_255; /**< Broadcom-Specific */
@@ -6124,7 +6299,7 @@ typedef struct
 } bcmolt_switch_inni_stats_data;
 
 /* Constants associated with bcmolt_switch_inni_stats_data. */
-#define BCMOLT_SWITCH_INNI_STATS_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_SWITCH_INNI_STATS_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats" group of "switch_inni" object. */
 typedef struct
@@ -6162,6 +6337,7 @@ typedef struct
     bcmolt_stat_alarm_config rx_fcs_error_packets; /**< RFC 2665 */
     bcmolt_stat_alarm_config rx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_oversize_packets; /**< Rx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config rx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_unknown_protos; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_bytes; /**< RFC 2233 */
     bcmolt_stat_alarm_config tx_packets; /**< RFC 1213 ucast + none-ucast */
@@ -6171,6 +6347,7 @@ typedef struct
     bcmolt_stat_alarm_config tx_error_packets; /**< RFC 1213 */
     bcmolt_stat_alarm_config tx_undersize_packets; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config tx_oversize_packets; /**< Tx component of RFC 2665 snmpEtherStatsOversizePkts */
+    bcmolt_stat_alarm_config tx_jabber_packets; /**< RFC 1757 (EtherStat) */
     bcmolt_stat_alarm_config rx_frames_64; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_65_127; /**< Broadcom-Specific */
     bcmolt_stat_alarm_config rx_frames_128_255; /**< Broadcom-Specific */
@@ -6194,7 +6371,7 @@ typedef struct
 } bcmolt_switch_inni_stats_cfg_data;
 
 /* Constants associated with bcmolt_switch_inni_stats_cfg_data. */
-#define BCMOLT_SWITCH_INNI_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000003FFFFFFFFFULL
+#define BCMOLT_SWITCH_INNI_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x000000FFFFFFFFFFULL
 
 /** Transport message definition for "stats_cfg" group of "switch_inni" object. */
 typedef struct
@@ -6374,12 +6551,15 @@ typedef struct
     bcmolt_tm_sched_param tm_sched_param; /**< Scheduling priority */
     bcmolt_tm_shaping rate; /**< Rate shaping parameters */
     uint16_t ref_count; /**< reference count (flows) */
+    bcmolt_control_state control_state; /**< enable or disable state of the TM queue */
+    bcmolt_tm_sched_attachment_point cir_attachment_point; /**< TM sched and priority line where CIR queue is attached. */
 } bcmolt_tm_queue_cfg_data;
 
 /* Constants associated with bcmolt_tm_queue_cfg_data. */
-#define BCMOLT_TM_QUEUE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000001BULL
+#define BCMOLT_TM_QUEUE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000007BULL
 #define BCMOLT_TM_QUEUE_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
 #define BCMOLT_TM_QUEUE_CFG_DATA_REF_COUNT_DEFAULT 0U
+#define BCMOLT_TM_QUEUE_CFG_DATA_CONTROL_STATE_DEFAULT BCMOLT_CONTROL_STATE_ENABLE
 
 /** Transport message definition for "cfg" group of "tm_queue" object. */
 typedef struct
@@ -6416,14 +6596,16 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_tm_sched_attachment_point attachment_point; /**< The output of the tm_sched object instance */
     bcmolt_tm_sched_type sched_type; /**< Scheduler type */
-    uint8_t num_priorities; /**< Max number of strict priority scheduling elements */
+    uint8_t num_priorities; /**< Max number of strict priority scheduling elements. 
+    Note for SP_WFQ, max 9 priorities [0-8] will be allowed */
     bcmolt_tm_shaping rate; /**< Rate shaping parameters */
     bcmolt_config_state state; /**< Current state of object. (Not Configured or Active) */
+    bcmolt_tm_sched_attachment_point cir_attachment_point; /**< TM sched and priority line where CIR queue can be attached. */
 } bcmolt_tm_sched_cfg_data;
 
 /* Constants associated with bcmolt_tm_sched_cfg_data. */
-#define BCMOLT_TM_SCHED_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000002FULL
-#define BCMOLT_TM_SCHED_CFG_DATA_NUM_PRIORITIES_MAX 8
+#define BCMOLT_TM_SCHED_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000006FULL
+#define BCMOLT_TM_SCHED_CFG_DATA_NUM_PRIORITIES_MAX 9
 #define BCMOLT_TM_SCHED_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
 
 /** Transport message definition for "cfg" group of "tm_sched" object. */

@@ -1404,6 +1404,130 @@ bcmos_bool bcmolt_group_auto_cfg_data_validate(const bcmolt_group_auto_cfg_data 
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_host_log_key_set_default(bcmolt_host_log_key *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_host_log_key_validate(const bcmolt_host_log_key *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_host_log_cfg_data_set_default(bcmolt_host_log_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_host_log_cfg_data_validate(const bcmolt_host_log_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_host_log_multi_cfg_get_packed_length(const bcmolt_host_log_multi_cfg *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_host_log_multi_cfg_pack(const bcmolt_host_log_multi_cfg *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_host_log_multi_cfg_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_host_log_multi_cfg **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_host_log_file_key_set_default(bcmolt_host_log_file_key *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_host_log_file_key_validate(const bcmolt_host_log_file_key *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_host_log_file_cfg_data_set_default(bcmolt_host_log_file_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_host_log_file_cfg_data_validate(const bcmolt_host_log_file_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_host_log_file_multi_cfg_get_packed_length(const bcmolt_host_log_file_multi_cfg *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_host_log_file_multi_cfg_pack(const bcmolt_host_log_file_multi_cfg *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_host_log_file_multi_cfg_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_host_log_file_multi_cfg **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_inband_mgmt_channel_cfg_data_set_default(bcmolt_inband_mgmt_channel_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -3992,6 +4116,22 @@ bcmos_bool bcmolt_onu_xpon_unknown_ploam_data_validate(const bcmolt_onu_xpon_unk
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_onu_trap_ploam_received_data_set_default(bcmolt_onu_trap_ploam_received_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_onu_trap_ploam_received_data_validate(const bcmolt_onu_trap_ploam_received_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_onu_itu_pon_stats_cfg_data_set_default(bcmolt_onu_itu_pon_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -4712,6 +4852,22 @@ void bcmolt_pon_interface_rogue_detection_tool_done_data_set_default(bcmolt_pon_
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_pon_interface_rogue_detection_tool_done_data_validate(const bcmolt_pon_interface_rogue_detection_tool_done_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_pon_interface_onu_upgrade_activate_commit_data_set_default(bcmolt_pon_interface_onu_upgrade_activate_commit_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_validate(const bcmolt_pon_interface_onu_upgrade_activate_commit_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.

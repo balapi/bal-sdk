@@ -432,7 +432,11 @@ bcmos_errno bcmtr_cld_cli_init(void)
 {
     bcmos_errno err = BCM_ERR_OK;
 
-    err = _bcmtr_cld_cli_create();
+    if (cld_cli_dir != NULL)
+        return BCM_ERR_OK;
+
+    err = bcmtr_cld_init(NULL);
+    err = err ? err : _bcmtr_cld_cli_create();
 
     return err;
 }

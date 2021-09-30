@@ -71,6 +71,7 @@ typedef enum
     BCM_ERR_IMAGE_TYPE                         = -38,  /**< Unsupported file/image type */
     BCM_ERR_INCOMPLETE_TERMINATION             = -39,  /**< Incomplete premature termination */
     BCM_ERR_MISMATCH                           = -40,  /**< Parameters mismatch */
+    BCM_ERR_DEPRECATED                         = -41,  /**< Parameters is deprecated */
 } bcmos_errno;
 
 /** Map error code to error string

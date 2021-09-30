@@ -42,6 +42,7 @@ struct bcmolt_api_prop_tree
     uint32_t prop;
     bcmolt_api_prop_tree *sub_tree;
     void *data; /* User data */
+    uint32_t options; /* Generic options pertaining to the user data */
 };
 
 /* The longest depth of path to a leaf. */
@@ -202,13 +203,13 @@ bcmos_errno bcmolt_msg_err(
 #define BCMOLT_MSG_ERR_PATH(msg, log_id, err, path, fmt, args...) \
     bcmolt_msg_err(msg, log_id, err, path, "%s%d| " fmt, dev_log_basename(__FILE__" "), __LINE__, ##args)
 #else
-static inline bcmos_errno bcmolt_msg_err_func(void)
-{
-    return BCM_ERR_OK;
-}
+/* NOTE: The underlying calls tl bcmolt_msg_err will ignore the log_id parameter when ENABLE_LOG is not defined*/
+#define BCMOLT_MSG_ERR(msg, log_id, err, fmt, args...) \
+    bcmolt_msg_err(msg, 0, err, NULL, "%s%d| " fmt, __FILE__" ", __LINE__, ##args)
 
-#define BCMOLT_MSG_ERR(msg, log_id, err, fmt, args...) bcmolt_msg_err_func()
-#define BCMOLT_MSG_ERR_PATH(msg, log_id, err, path, fmt, args...) bcmolt_msg_err_func()
+/* convenience macro for calling above function with field path info, it does include line and file name in the output */
+#define BCMOLT_MSG_ERR_PATH(msg, log_id, err, path, fmt, args...) \
+    bcmolt_msg_err(msg, 0, err, path, "%s%d| " fmt, __FILE__" ", __LINE__, ##args)
 #endif
 
 typedef enum

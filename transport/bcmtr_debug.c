@@ -597,8 +597,13 @@ bcmos_errno bcmtr_capture_dump(bcmcli_session *session, bcmolt_devid olt, uint32
     rc = bcmtr_capture_size_get(olt, &length);
     BCMOS_CHECK_RETURN_ERROR(BCM_ERR_OK != rc, rc);
 
+    bcmos_dynamic_memory_allocation_blocking_suspend();
+
     /* Allocate temp buffer and read data into it */
     data = bcmos_calloc(length);
+
+    bcmos_dynamic_memory_allocation_blocking_resume();
+    
     if (data == NULL)
     {
         bcmcli_session_print(session, "TRACE/%d: no memory\n", olt);
@@ -843,7 +848,12 @@ void bcmtr_cld_notify(bcmolt_devid device, bcmtr_cld_type level, const bcmtr_hdr
 
 bcmos_errno bcmtr_cld_init(bcmcli_session *session)
 {
+    static bcmos_bool initialized;
     bcmos_errno err;
+
+    if (initialized)
+        return BCM_ERR_OK;
+
 #ifdef ENABLE_CLI
     bcmcli_session_parm scratch_session_parm = { .write = bcmtr_log_cli_print };
 #endif
@@ -857,10 +867,7 @@ bcmos_errno bcmtr_cld_init(bcmcli_session *session)
     bcmtr_cld_log_id = bcm_dev_log_id_register("cld", DEV_LOG_LEVEL_INFO, DEV_LOG_ID_TYPE_BOTH);
 #endif
 
-#ifdef ENABLE_CLI
-    err = bcmtr_cld_cli_init();
-    BCMOS_CHECK_RETURN_ERROR(err != BCM_ERR_OK, err);
-#endif
+    initialized = BCMOS_TRUE;
 
     return BCM_ERR_OK;
 }

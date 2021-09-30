@@ -23,8 +23,12 @@
 #ifndef _BCMOLT_MATH_H_
 #define _BCMOLT_MATH_H_
 
-#define ROUND_U32(size_in_bytes) ((uint32_t)((size_in_bytes) + 0.5))
-#define CEIL_U32(size_in_bytes) (((size_in_bytes)-(uint32_t)(size_in_bytes)) > 0 ? ((uint32_t)(size_in_bytes)+1) : (uint32_t)(size_in_bytes))
+/* Works for both float and double. */
+#define ROUND_FLOAT(size_in_bytes) ((typeof(size_in_bytes))((size_in_bytes) + 0.5))
+
+/* Works for integers. */
+#define CEIL_INT(size_in_bytes) (((size_in_bytes) - (typeof(size_in_bytes))(size_in_bytes)) > 0 ? ((typeof(size_in_bytes))(size_in_bytes) + 1) : (typeof(size_in_bytes))(size_in_bytes))
+
 #define SQUARE(x) ((x) * (x))
 #define PERCENT(percent, x) (((float)(percent) * (x)) / 100)
 

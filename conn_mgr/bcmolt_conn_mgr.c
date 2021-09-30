@@ -413,7 +413,7 @@ static bcmos_errno _cm_accept_new_connection(bcmolt_cmll_conn_id ll_conn_id, bcm
     {
         err = cm_handlers[conn_type].connect(conn_type, *conn_id, device, addr, subch);
         if (err != BCM_ERR_OK)
-            CM_LOG(ERROR, "Connection failed: peer refused to connect\n");
+            CM_LOG(ERROR, "Connection refused by the local handler. Error '%s'\n", bcmos_strerror(err));
     }
 
     /* Setup connection if everything is good */
@@ -901,8 +901,6 @@ bcmos_errno bcmolt_cm_cookie_get(bcmolt_cm_conn_id conn_id, bcmolt_cm_cookie *co
     *cookie = 0;
     if (cm_conn_array == NULL || conn_id >= cm_init_parms.max_conns)
         return BCM_ERR_PARM;
-    if (!cm_conn_array[conn_id].connected)
-        return BCM_ERR_NOT_CONNECTED;
     *cookie = cm_conn_array[conn_id].cookie;
     CM_LOG(DEBUG, "%s OUT: conn_id=%u cookie=%ld\n", __FUNCTION__, conn_id, *cookie);
     return BCM_ERR_OK;
@@ -1016,6 +1014,8 @@ bcmos_errno bcmolt_cm_disconnect(bcmolt_cm_conn_id conn_id)
         conn->peer_addr.udp.ip.u32 >> 24, (conn->peer_addr.udp.ip.u32 >> 16) & 0xff,
         (conn->peer_addr.udp.ip.u32 >> 8) & 0xff, conn->peer_addr.udp.ip.u32 & 0xff,
         conn->peer_addr.udp.port, conn->device);
+
+    conn->connected = BCMOS_FALSE;
 
     /* Notify application */
     if (cm_handlers[conn->conn_type].disconnect)

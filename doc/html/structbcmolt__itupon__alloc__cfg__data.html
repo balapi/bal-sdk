@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -118,6 +118,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a46e2839c8e92bb7ca1957350afc75191"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a009c8721b1dcb41c298c9a1be76613ec"><td class="memItemLeft" align="right" valign="top">bcmos_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__itupon__alloc__cfg__data.html#a009c8721b1dcb41c298c9a1be76613ec">collect_stats</a></td></tr>
 <tr class="separator:a009c8721b1dcb41c298c9a1be76613ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b99220ff8f7e9fba10ac1cb9a32d19"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__itupon__alloc__cfg__data.html#ab5b99220ff8f7e9fba10ac1cb9a32d19">onu_tcont_max_queue_size</a></td></tr>
+<tr class="separator:ab5b99220ff8f7e9fba10ac1cb9a32d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="afca864a7f99cd9c19b11a9a1edd45aad"></a>
@@ -172,6 +174,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab5b99220ff8f7e9fba10ac1cb9a32d19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t onu_tcont_max_queue_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For better DBA performance, this is the maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. If 0, it means unconfigured. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__api__structs_8h_source.html">bcmolt_api_model_api_structs.h</a></li>
 </ul>
@@ -184,7 +199,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__itupon__alloc__cfg__data.html">bcmolt_itupon_alloc_cfg_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -265,6 +265,15 @@ $(document).ready(function(){initNavTree('functions_vars_t.html','');});
 <li>trap_config
 : <a class="el" href="structbcmolt__internal__nni__cfg__data.html#a03c64e3a2892d70a6f44c4072cd778ee">bcmolt_internal_nni_cfg_data</a>
 </li>
+<li>trap_gpon_ploam
+: <a class="el" href="structbcmolt__device__cfg__data.html#a99e6f7cce57149639f194c0b328a24b8">bcmolt_device_cfg_data</a>
+</li>
+<li>trap_ploam_received
+: <a class="el" href="structbcmolt__onu__auto__cfg__data.html#a3325d806ffaba9bc4d24065b1ec5c7f9">bcmolt_onu_auto_cfg_data</a>
+</li>
+<li>trap_xgpon_ploam
+: <a class="el" href="structbcmolt__device__cfg__data.html#a6add5a4106ba1039c7beca20b57a2f1e">bcmolt_device_cfg_data</a>
+</li>
 <li>trigger
 : <a class="el" href="structbcmolt__stat__alarm__config.html#a51200ed69b301bd278c63b1259f3c99c">bcmolt_stat_alarm_config</a>
 </li>
@@ -283,6 +292,9 @@ $(document).ready(function(){initNavTree('functions_vars_t.html','');});
 </li>
 <li>tuning_response
 : <a class="el" href="structbcmolt__onu__auto__cfg__data.html#add3c645b12d6f91144cb5203a74be46c">bcmolt_onu_auto_cfg_data</a>
+</li>
+<li>tuning_static_eqd
+: <a class="el" href="structbcmolt__ngpon2__onu__params.html#a9f0ea07994e69d2ad1578b57de69a3c9">bcmolt_ngpon2_onu_params</a>
 </li>
 <li>twdm_channel_count
 : <a class="el" href="structbcmolt__system__profile.html#a125a86afbc3722b90f36fa6267137e04">bcmolt_system_profile</a>
@@ -517,6 +529,14 @@ $(document).ready(function(){initNavTree('functions_vars_t.html','');});
 : <a class="el" href="structbcmolt__internal__nni__nni__stats__cfg__data.html#a0d5505abbb43e73f4fa4dfcfddc3d22e">bcmolt_internal_nni_nni_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__internal__nni__nni__stats__data.html#a77070d0f40664de91786d8ab6d512cea">bcmolt_internal_nni_nni_stats_data</a>
 </li>
+<li>tx_jabber_packets
+: <a class="el" href="structbcmolt__lag__interface__stats__cfg__data.html#a99711fae3cec87d320467c9aa1f7714e">bcmolt_lag_interface_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__lag__interface__stats__data.html#a20fea20495f1a2f0f854de6e3fef9a44">bcmolt_lag_interface_stats_data</a>
+, <a class="el" href="structbcmolt__nni__interface__stats__cfg__data.html#a99711fae3cec87d320467c9aa1f7714e">bcmolt_nni_interface_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__nni__interface__stats__data.html#a20fea20495f1a2f0f854de6e3fef9a44">bcmolt_nni_interface_stats_data</a>
+, <a class="el" href="structbcmolt__switch__inni__stats__cfg__data.html#a99711fae3cec87d320467c9aa1f7714e">bcmolt_switch_inni_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__switch__inni__stats__data.html#a20fea20495f1a2f0f854de6e3fef9a44">bcmolt_switch_inni_stats_data</a>
+</li>
 <li>tx_mcast_packets
 : <a class="el" href="structbcmolt__lag__interface__stats__cfg__data.html#a88c03094e65266485d6f1f0138b0ef75">bcmolt_lag_interface_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__lag__interface__stats__data.html#a3da7b7373401e19a810369d834460286">bcmolt_lag_interface_stats_data</a>
@@ -614,6 +634,7 @@ $(document).ready(function(){initNavTree('functions_vars_t.html','');});
 , <a class="el" href="structbcmolt__eth__oam__set__mep__state__data.html#abb0498a4cba657eb7be1911bbb575020">bcmolt_eth_oam_set_mep_state_data</a>
 , <a class="el" href="structbcmolt__gem__port__configuration.html#af2be0163f7f92cf3ec53ae6c533f1e6a">bcmolt_gem_port_configuration</a>
 , <a class="el" href="structbcmolt__group__cfg__data.html#a04d5f3f4fc744e29ab4bf10947bd484e">bcmolt_group_cfg_data</a>
+, <a class="el" href="structbcmolt__host__log__cfg__data.html#a5e566441e1db5b907add2d10109fe953">bcmolt_host_log_cfg_data</a>
 , <a class="el" href="structbcmolt__log__cfg__data.html#a5e566441e1db5b907add2d10109fe953">bcmolt_log_cfg_data</a>
 , <a class="el" href="structbcmolt__msg.html#ad0f8650f3fef6503defe4914ada71ac9">bcmolt_msg</a>
 , <a class="el" href="structbcmolt__policer__profile__cfg__data.html#abede28e1009a26f3c2dead79db5d6277">bcmolt_policer_profile_cfg_data</a>
@@ -633,7 +654,7 @@ $(document).ready(function(){initNavTree('functions_vars_t.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

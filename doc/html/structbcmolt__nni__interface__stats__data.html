@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -128,6 +128,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a3031f45af6205d8825650ad6a478a513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f016fc832680e45f310783c45fa3b51"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#a5f016fc832680e45f310783c45fa3b51">rx_oversize_packets</a></td></tr>
 <tr class="separator:a5f016fc832680e45f310783c45fa3b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf4c9ef75fa76503cc05efc4a46f7da"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#abbf4c9ef75fa76503cc05efc4a46f7da">rx_jabber_packets</a></td></tr>
+<tr class="separator:abbf4c9ef75fa76503cc05efc4a46f7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac79a0f6ac87c165bc4971b855621df53"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#ac79a0f6ac87c165bc4971b855621df53">rx_unknown_protos</a></td></tr>
 <tr class="separator:ac79a0f6ac87c165bc4971b855621df53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4d50231a494ce01c38a3d19d1bd8434"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#aa4d50231a494ce01c38a3d19d1bd8434">tx_bytes</a></td></tr>
@@ -146,6 +148,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a8b40e55ba3318a3e78a28296bb85accd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa0bcaea8cfd0bcc54afe5e92bea9254"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#aaa0bcaea8cfd0bcc54afe5e92bea9254">tx_oversize_packets</a></td></tr>
 <tr class="separator:aaa0bcaea8cfd0bcc54afe5e92bea9254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20fea20495f1a2f0f854de6e3fef9a44"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#a20fea20495f1a2f0f854de6e3fef9a44">tx_jabber_packets</a></td></tr>
+<tr class="separator:a20fea20495f1a2f0f854de6e3fef9a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd174ccf6fdaa754237c0a28a1687938"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#abd174ccf6fdaa754237c0a28a1687938">rx_frames_64</a></td></tr>
 <tr class="separator:abd174ccf6fdaa754237c0a28a1687938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa972c0d827e7be01e7a182735d62498a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__interface__stats__data.html#aa972c0d827e7be01e7a182735d62498a">rx_frames_65_127</a></td></tr>
@@ -305,6 +309,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abbf4c9ef75fa76503cc05efc4a46f7da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rx_jabber_packets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>RFC 1757 (EtherStat) </p>
+
+</div>
+</div>
 <a class="anchor" id="ac79a0f6ac87c165bc4971b855621df53"></a>
 <div class="memitem">
 <div class="memproto">
@@ -419,6 +436,19 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Tx component of RFC 2665 snmpEtherStatsOversizePkts </p>
+
+</div>
+</div>
+<a class="anchor" id="a20fea20495f1a2f0f854de6e3fef9a44"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t tx_jabber_packets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>RFC 1757 (EtherStat) </p>
 
 </div>
 </div>
@@ -694,7 +724,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__nni__interface__stats__data.html">bcmolt_nni_interface_stats_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -114,11 +114,13 @@ $(document).ready(function(){initNavTree('object_tm_sched_cfg.html','');});
 <tr>
 <td>sched_type</td><td>Scheduler type</td><td><a class="el" href="group__object__model.html#ga3cc746e1bdbd6979a394b3801931c8a0">bcmolt_tm_sched_type</a></td><td>RW</td><td></td><td></td></tr>
 <tr>
-<td>num_priorities</td><td>Max number of strict priority scheduling elements</td><td>uint8_t</td><td>RW</td><td></td><td>8 </td></tr>
+<td>num_priorities</td><td>Max number of strict priority scheduling elements. </td><td>uint8_t</td><td>RW</td><td></td><td>9 </td></tr>
 <tr>
 <td>rate</td><td>Rate shaping parameters</td><td><a class="el" href="structbcmolt__tm__shaping.html">bcmolt_tm_shaping</a></td><td>RW</td><td>0,0,0</td><td></td></tr>
 <tr>
 <td>state</td><td>Current state of object. (Not Configured or Active)</td><td><a class="el" href="group__object__model.html#ga20178745f03b375b9507872f525ea867">bcmolt_config_state</a></td><td>R</td><td>BCMOLT_CONFIG_STATE_NOT_CONFIGURED</td><td></td></tr>
+<tr>
+<td>cir_attachment_point</td><td>TM sched and priority line where CIR queue can be attached</td><td><a class="el" href="structbcmolt__tm__sched__attachment__point.html">bcmolt_tm_sched_attachment_point</a></td><td>RW</td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -133,7 +135,7 @@ $(document).ready(function(){initNavTree('object_tm_sched_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_tm_sched.html">Object: tm_sched - tm_sched</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

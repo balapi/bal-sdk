@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -117,6 +117,10 @@ $(document).ready(function(){initNavTree('object_tm_queue_cfg.html','');});
 <td>rate</td><td>Rate shaping parameters</td><td><a class="el" href="structbcmolt__tm__shaping.html">bcmolt_tm_shaping</a></td><td>RW</td><td>0,0,0 </td></tr>
 <tr>
 <td>ref_count</td><td>reference count (flows)</td><td>uint16_t</td><td>R</td><td>0U </td></tr>
+<tr>
+<td>control_state</td><td>enable or disable state of the TM queue</td><td><a class="el" href="group__object__model.html#gab07f613223cc11fdb211476f9221c7db">bcmolt_control_state</a></td><td>RW</td><td>BCMOLT_CONTROL_STATE_ENABLE </td></tr>
+<tr>
+<td>cir_attachment_point</td><td>TM sched and priority line where CIR queue is attached</td><td><a class="el" href="structbcmolt__tm__sched__attachment__point.html">bcmolt_tm_sched_attachment_point</a></td><td>RW</td><td></td></tr>
 </table>
 <br />
 <br />
@@ -131,7 +135,7 @@ $(document).ready(function(){initNavTree('object_tm_queue_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_tm_queue.html">Object: tm_queue - tm_queue</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

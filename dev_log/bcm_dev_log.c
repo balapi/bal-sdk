@@ -63,7 +63,7 @@ static bcmos_bool check_trigger(dev_log_id_parm *id, bcm_dev_log_level log_level
     /* the level of the message must be exactly the trigger level */
     if (id->trigger_log_level != log_level)
         return BCMOS_FALSE; /* do not print the message  - the level does not fit */
-    
+
     id->trigger.counter++;
     if (id->trigger.counter >= id->trigger.start_threshold)
     {
@@ -95,11 +95,11 @@ static bcmos_bool check_throttle(dev_log_id_parm *id, bcm_dev_log_level log_leve
     /* check if any throttle is defined */
     if (id->throttle_log_level != DEV_LOG_LEVEL_NO_LOG)
         return BCMOS_TRUE; /* print the message  - no trigger is set */
-    
+
     /* the level of the message must be exactly the throttle level */
     if (id->throttle_log_level != log_level)
         return BCMOS_FALSE; /* do not print the message  - the level does not fit */
-    
+
     id->throttle.counter++;
     if (id->throttle.counter >= id->throttle.threshold)
     {
@@ -110,6 +110,17 @@ static bcmos_bool check_throttle(dev_log_id_parm *id, bcm_dev_log_level log_leve
 }
 
 #endif
+
+#if defined(BCM_SUBSYSTEM_HOST)
+static bcmos_mutex dev_log_lock;
+#endif
+
+void bcm_dev_log_frontend_init(void)
+{
+#if defined(BCM_SUBSYSTEM_HOST)
+    bcmos_mutex_create(&dev_log_lock, 0, "dev_log_lock");
+#endif
+}
 
 static bcmos_timer_rc bcm_dev_log_msg_send_timer_cb(bcmos_timer *timer, long data)
 {
@@ -143,17 +154,17 @@ static bcmos_bool bcm_dev_log_should_drop(
         bcm_dev_log_drop_report();
         return BCMOS_TRUE;
     }
-    
+
 #ifdef TRIGGER_LOGGER_FEATURE
     /* if trigger defined - ignore throttle and printing level */
     if (id->trigger_log_level != DEV_LOG_LEVEL_NO_LOG)
         return check_trigger(id, log_level);
 #endif
-    
+
     /* if trigger is not fullfilled - check other conditions */
     if (log_level > id->log_level_print && log_level > id->log_level_save)
         return BCMOS_TRUE;
-    
+
 #ifdef TRIGGER_LOGGER_FEATURE
     if (!check_throttle(id, log_level))
         return BCMOS_TRUE;
@@ -172,12 +183,32 @@ static bcmos_bool bcm_dev_log_should_drop(
 
     return BCMOS_FALSE;
 }
+
+#if defined(BCM_SUBSYSTEM_HOST)
+
+/* The following functions might be used on the host side to make sure
+   that multiple log entries are "together",ie are not interleaved
+   with other log entries. It might be necessary if application needs to log
+   a very long string that must be split into multiple log entries.
+*/
+void bcm_dev_log_lock(void)
+{
+    bcmos_mutex_lock(&dev_log_lock);
+}
+
+void bcm_dev_log_unlock(void)
+{
+    bcmos_mutex_unlock(&dev_log_lock);
+}
+
+#endif /* #if defined(BCM_SUBSYSTEM_HOST) */
+
 const char * last_format = NULL;
 static void _bcm_dev_log_vlog(dev_log_id id,
     bcm_dev_log_level log_level,
     uint32_t flags,
     uint32_t rate_us,
-    dev_log_rate_limit_id rate_limit_id, 
+    dev_log_rate_limit_id rate_limit_id,
     const char *fmt,
     va_list args)
 {
@@ -259,7 +290,13 @@ static void _bcm_dev_log_vlog(dev_log_id id,
 
     if (bcmos_sem_post_is_allowed())
     {
+#ifdef BCM_SUBSYSTEM_HOST
+        bcm_dev_log_lock();
+#endif
         error = bcmos_msg_send(&dev_log.save_queue, msg, BCMOS_MSG_SEND_AUTO_FREE);
+#ifdef BCM_SUBSYSTEM_HOST
+        bcm_dev_log_unlock();
+#endif
     }
     else
     {
@@ -393,7 +430,7 @@ void bcmos_trace(bcmos_trace_level level, const char *format, ...)
         /* The OS trace hasn't been initialized yet, so just use system printf. */
         bcmos_vprintf(format, args);
     }
-    else 
+    else
     {
         if (dev_log.state == BCM_DEV_LOG_STATE_ENABLED)
         {
@@ -454,8 +491,8 @@ void dev_log_double2two_int_conv(double double_val, uint8_t precision, double2tw
     }
 
     if (precision <= i)
-        return; /* We "wasted" all the precision on the leading zeros. */    
-    
+        return; /* We "wasted" all the precision on the leading zeros. */
+
     result->fraction = fraction * pow(10, precision);
 }
 

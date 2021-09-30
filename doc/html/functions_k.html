@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -227,6 +227,12 @@ $(document).ready(function(){initNavTree('functions_k.html','');});
 , <a class="el" href="structbcmolt__group__complete__members__update.html#a1ab039738107821a1ab44ba6785985dc">bcmolt_group_complete_members_update</a>
 , <a class="el" href="structbcmolt__group__members__update.html#a1ab039738107821a1ab44ba6785985dc">bcmolt_group_members_update</a>
 , <a class="el" href="structbcmolt__group__multi__cfg.html#a1ab039738107821a1ab44ba6785985dc">bcmolt_group_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__cfg.html#a656bea013f0d2dcbcd621441ca71e833">bcmolt_host_log_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__cfg.html#ae68564c4622d520de8728e24f5a20e73">bcmolt_host_log_file_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__clear.html#ae68564c4622d520de8728e24f5a20e73">bcmolt_host_log_file_clear</a>
+, <a class="el" href="structbcmolt__host__log__file__multi__cfg.html#ae68564c4622d520de8728e24f5a20e73">bcmolt_host_log_file_multi_cfg</a>
+, <a class="el" href="structbcmolt__host__log__file__reset__buffer__ptr.html#ae68564c4622d520de8728e24f5a20e73">bcmolt_host_log_file_reset_buffer_ptr</a>
+, <a class="el" href="structbcmolt__host__log__multi__cfg.html#a656bea013f0d2dcbcd621441ca71e833">bcmolt_host_log_multi_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__cfg.html#a67807ff753faa9b11808f45adbbc1d9d">bcmolt_inband_mgmt_channel_cfg</a>
 , <a class="el" href="structbcmolt__inband__mgmt__channel__multi__cfg.html#a67807ff753faa9b11808f45adbbc1d9d">bcmolt_inband_mgmt_channel_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__auto__cfg.html#ac1429de738b4a18e8e112eb5a04b70c7">bcmolt_internal_nni_auto_cfg</a>
@@ -377,6 +383,7 @@ $(document).ready(function(){initNavTree('functions_k.html','');});
 , <a class="el" href="structbcmolt__onu__state__change.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_state_change</a>
 , <a class="el" href="structbcmolt__onu__sufi.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_sufi</a>
 , <a class="el" href="structbcmolt__onu__tiwi.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_tiwi</a>
+, <a class="el" href="structbcmolt__onu__trap__ploam__received.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_trap_ploam_received</a>
 , <a class="el" href="structbcmolt__onu__tuning__in.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_tuning_in</a>
 , <a class="el" href="structbcmolt__onu__tuning__out.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_tuning_out</a>
 , <a class="el" href="structbcmolt__onu__tuning__response.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b">bcmolt_onu_tuning_response</a>
@@ -412,6 +419,7 @@ $(document).ready(function(){initNavTree('functions_k.html','');});
 , <a class="el" href="structbcmolt__pon__interface__multi__cfg.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_multi_cfg</a>
 , <a class="el" href="structbcmolt__pon__interface__multi__itu__pon__stats.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_multi_itu_pon_stats</a>
 , <a class="el" href="structbcmolt__pon__interface__onu__discovered.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_onu_discovered</a>
+, <a class="el" href="structbcmolt__pon__interface__onu__upgrade__activate__commit.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_onu_upgrade_activate_commit</a>
 , <a class="el" href="structbcmolt__pon__interface__onu__upgrade__complete.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_onu_upgrade_complete</a>
 , <a class="el" href="structbcmolt__pon__interface__protection__switching__apply__rerange__delta.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_protection_switching_apply_rerange_delta</a>
 , <a class="el" href="structbcmolt__pon__interface__protection__switching__onus__ranged.html#a2e1cfe40871f0a7333c9b1e47e3b1252">bcmolt_pon_interface_protection_switching_onus_ranged</a>
@@ -494,7 +502,7 @@ $(document).ready(function(){initNavTree('functions_k.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

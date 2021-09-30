@@ -127,4 +127,9 @@ void *hash_table_put(hash_table *ht, const uint8_t *key, const void *val);
  */
 bcmos_bool hash_table_remove(hash_table *ht, const uint8_t *key);
 
+/** Deletes a hash table entirely, freeing all memory.
+ *  \param[in] ht   Hash table to delete
+ */
+void hash_table_delete(hash_table *ht);
+
 #endif /* Hash.h */

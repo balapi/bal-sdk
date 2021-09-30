@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -152,6 +152,12 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
 : <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#aa179460fe28109e1a22d7c8ec38f20f8">bcmolt_access_control_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__access__control__stats__data.html#adb1b6cd01b3e3b4a3983dc803210c267">bcmolt_access_control_stats_data</a>
 </li>
+<li>partner_pon_id
+: <a class="el" href="structbcmolt__onu__ps__type__w.html#ad10b5612d1627724fd9a10fe04bb5b7b">bcmolt_onu_ps_type_w</a>
+</li>
+<li>partner_static_eqd
+: <a class="el" href="structbcmolt__onu__ps__type__w.html#a6a074f0989004102663577990aec611b">bcmolt_onu_ps_type_w</a>
+</li>
 <li>password
 : <a class="el" href="structbcmolt__gpon__onu__params.html#a21dcdd02cbffd5174eab6e03788fd8dc">bcmolt_gpon_onu_params</a>
 , <a class="el" href="structbcmolt__onu__password__authentication__completed__data.html#a21dcdd02cbffd5174eab6e03788fd8dc">bcmolt_onu_password_authentication_completed_data</a>
@@ -187,6 +193,9 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
 <li>pir
 : <a class="el" href="structbcmolt__tm__shaping.html#ace53efd88d5480463b539032f28c20f6">bcmolt_tm_shaping</a>
 </li>
+<li>pir_kbps
+: <a class="el" href="structbcmolt__host__port__params.html#a3c570a6c1119fd121455717fdbca1ed5">bcmolt_host_port_params</a>
+</li>
 <li>pkt_modifier_bit_mask
 : <a class="el" href="structbcmolt__access__control__pkt__modifier.html#a6e9cd75bff0162436188dedde179e664">bcmolt_access_control_pkt_modifier</a>
 </li>
@@ -205,6 +214,9 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
 : <a class="el" href="structbcmolt__onu__memi__data.html#a5560150a5129b1adedea8762304e611a">bcmolt_onu_memi_data</a>
 , <a class="el" href="structbcmolt__onu__xpon__unknown__ploam__data.html#a72b71b798cce59b92ad9ccb8055fca30">bcmolt_onu_xpon_unknown_ploam_data</a>
 </li>
+<li>ploam_id
+: <a class="el" href="structbcmolt__ploam__filter.html#acf130aa0227db1251b182c716f39e12d">bcmolt_ploam_filter</a>
+</li>
 <li>ploam_ik
 : <a class="el" href="structbcmolt__xgpon__onu__registration__keys.html#a1799532047250245d00ae170903c82c3">bcmolt_xgpon_onu_registration_keys</a>
 </li>
@@ -220,21 +232,21 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
 <li>policer_action
 : <a class="el" href="structbcmolt__access__control__cfg__data.html#aa20bc962a7d4da186cc2686ab175ea76">bcmolt_access_control_cfg_data</a>
 </li>
-<li>policer_bytes_dropped
-: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#ae9ca5e256883900d51735b27a29fb1c7">bcmolt_access_control_stats_cfg_data</a>
-, <a class="el" href="structbcmolt__access__control__stats__data.html#a0593ed0cf406f8735728c3bc423905d2">bcmolt_access_control_stats_data</a>
+<li>policer_bytes_dropped_ukmb
+: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#a88346bfd95aa6da7bbb66ba975067f9a">bcmolt_access_control_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__access__control__stats__data.html#a7fa77dcd2f99053054b815c27d821f98">bcmolt_access_control_stats_data</a>
 </li>
-<li>policer_bytes_passed
-: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#a015e633b80c3e126b631f9f756aced98">bcmolt_access_control_stats_cfg_data</a>
-, <a class="el" href="structbcmolt__access__control__stats__data.html#a46ec13a2206cb5a307e1fe8387de20ee">bcmolt_access_control_stats_data</a>
+<li>policer_bytes_passed_ukmb
+: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#a865c569bd4eef9fb93a870e4709c9336">bcmolt_access_control_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__access__control__stats__data.html#a6fb5c05f9c681e5c8897f1ca00eb21a6">bcmolt_access_control_stats_data</a>
 </li>
-<li>policer_packets_dropped
-: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#ab9fc1f9a2f517e8fe9207b1e5932c8fc">bcmolt_access_control_stats_cfg_data</a>
-, <a class="el" href="structbcmolt__access__control__stats__data.html#a35c845b330207bafaba68c020ee0595d">bcmolt_access_control_stats_data</a>
+<li>policer_packets_dropped_ukmb
+: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#aa151fd228f9a77eb585496a504d22345">bcmolt_access_control_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__access__control__stats__data.html#a3df9fa915c7e512db541e894204176ae">bcmolt_access_control_stats_data</a>
 </li>
-<li>policer_packets_passed
-: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#a88154427bbb0127916ba89b56f72321d">bcmolt_access_control_stats_cfg_data</a>
-, <a class="el" href="structbcmolt__access__control__stats__data.html#ac1068a55505f6694704b148dbe3ab347">bcmolt_access_control_stats_data</a>
+<li>policer_packets_passed_ukmb
+: <a class="el" href="structbcmolt__access__control__stats__cfg__data.html#aed9a5d583acac4be7561c355616c200c">bcmolt_access_control_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__access__control__stats__data.html#a9525cfc8c3c6ea49472a103c0cdf1577">bcmolt_access_control_stats_data</a>
 </li>
 <li>policer_profile
 : <a class="el" href="structbcmolt__flow__cfg__data.html#a47c78e4f23d23360ee25b0efb091342e">bcmolt_flow_cfg_data</a>
@@ -423,6 +435,9 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
 <li>ps_type_c
 : <a class="el" href="structbcmolt__itu__onu__params.html#a710c0bd641dacee3bf4c67ec65da27b9">bcmolt_itu_onu_params</a>
 </li>
+<li>ps_type_w
+: <a class="el" href="structbcmolt__ngpon2__onu__params.html#abf76555b671402eb8dcc9904eb320ddd">bcmolt_ngpon2_onu_params</a>
+</li>
 <li>psc_mode
 : <a class="el" href="structbcmolt__lag__interface__cfg__data.html#a60f0c9e167a96c303ffcab721647fa97">bcmolt_lag_interface_cfg_data</a>
 </li>
@@ -438,7 +453,7 @@ $(document).ready(function(){initNavTree('functions_vars_p.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

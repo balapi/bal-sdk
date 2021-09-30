@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -146,9 +146,11 @@ $(document).ready(function(){initNavTree('object_device_cfg.html','');});
 <tr>
 <td>comm_mode</td><td>The communication mode being used.</td><td><a class="el" href="group__object__model.html#gade2888d7e31bc8377e56af050efc29f6">bcmolt_comm_mode</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>pcie_conn_data</td><td>If PCIe communications mode is selected, these parameters may be set.</td><td><a class="el" href="structbcmolt__pcie__conn__data.html">bcmolt_pcie_conn_data</a></td><td>R</td><td></td><td></td><td></td></tr>
+<td>pcie_conn_data</td><td>Mirror of the PCIe connection parameters supplied in the initial connect operation.</td><td><a class="el" href="structbcmolt__pcie__conn__data.html">bcmolt_pcie_conn_data</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
 <td>itu_multipon_dba_enable</td><td>Enable Multi-PON DBA feature in ITU modes</td><td>bcmos_bool</td><td>R</td><td>BCMOS_FALSE</td><td></td><td></td></tr>
+<tr>
+<td>itu_low_latency_dba_enable</td><td>Enable low latency DBA feature in ITU modes</td><td>bcmos_bool</td><td>R</td><td>BCMOS_FALSE</td><td></td><td></td></tr>
 <tr>
 <td>logger_enable</td><td>Set to false to disable all logging in the system</td><td>bcmos_bool</td><td>RW</td><td>BCMOS_TRUE</td><td></td><td></td></tr>
 <tr>
@@ -157,6 +159,14 @@ $(document).ready(function(){initNavTree('object_device_cfg.html','');});
 <td>ras_ddr_mode</td><td>RAS DDR Mode</td><td><a class="el" href="group__object__model.html#ga2f9907886e3a1b2edb00249bc81c645b">bcmolt_ras_ddr_usage_mode</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
 <td>itu_enable_inni_mux</td><td>Enable INNI mux configuration on the fly</td><td>bcmos_bool</td><td>R</td><td>BCMOS_FALSE</td><td></td><td></td></tr>
+<tr>
+<td>trap_gpon_ploam</td><td>Trap gpon ploams according to ploam id</td><td><a class="el" href="structbcmolt__arr__ploam__filter__5.html">bcmolt_arr_ploam_filter_5</a></td><td>RW</td><td></td><td></td><td></td></tr>
+<tr>
+<td>trap_xgpon_ploam</td><td>Trap xgpon ploams according to ploam id</td><td><a class="el" href="structbcmolt__arr__ploam__filter__5.html">bcmolt_arr_ploam_filter_5</a></td><td>RW</td><td></td><td></td><td></td></tr>
+<tr>
+<td>inband_conn_data</td><td>Mirror of the in-band connection parameters supplied in the initial connect operation.</td><td><a class="el" href="structbcmolt__inband__conn__data.html">bcmolt_inband_conn_data</a></td><td>R</td><td></td><td></td><td></td></tr>
+<tr>
+<td>inband_internal_nni</td><td>Port number of the internal NNI port that is configured for in-band communication.</td><td><a class="el" href="group__object__model.html#ga13fb09f1259234fb30398d9cd99e02f7">bcmolt_pon_ni</a></td><td>RW</td><td>255</td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -171,7 +181,7 @@ $(document).ready(function(){initNavTree('object_device_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_device.html">Object: device - Device</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

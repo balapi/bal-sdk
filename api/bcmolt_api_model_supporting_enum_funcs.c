@@ -361,6 +361,22 @@ bcmos_bool bcmolt_control_state_unpack(bcmolt_control_state *obj, bcmolt_buf *bu
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_dba_implementation_type_pack(bcmolt_dba_implementation_type obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_dba_implementation_type_unpack(bcmolt_dba_implementation_type *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_dba_implementation_type)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_dba_mode_pack(bcmolt_dba_mode obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -598,6 +614,22 @@ bcmos_bool bcmolt_ext_irq_unpack(bcmolt_ext_irq *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_ext_irq)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_external_dba_options_pack(bcmolt_external_dba_options obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u32(buf, (uint32_t)obj);
+}
+
+bcmos_bool bcmolt_external_dba_options_unpack(bcmolt_external_dba_options *obj, bcmolt_buf *buf)
+{
+    uint32_t num_val;
+    if (!bcmolt_buf_read_u32(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_external_dba_options)num_val;
     return BCMOS_TRUE;
 }
 
@@ -857,6 +889,22 @@ bcmos_bool bcmolt_host_connection_fail_reason_unpack(bcmolt_host_connection_fail
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_host_log_file_id_pack(bcmolt_host_log_file_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_file_id_unpack(bcmolt_host_log_file_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_file_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_image_transfer_status_pack(bcmolt_image_transfer_status obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -1110,6 +1158,22 @@ bcmos_bool bcmolt_lag_psc_mode_unpack(bcmolt_lag_psc_mode *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_lag_psc_mode)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_lag_subtype_pack(bcmolt_lag_subtype obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_lag_subtype_unpack(bcmolt_lag_subtype *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_lag_subtype)num_val;
     return BCMOS_TRUE;
 }
 
@@ -1385,6 +1449,38 @@ bcmos_bool bcmolt_nni_protection_mode_unpack(bcmolt_nni_protection_mode *obj, bc
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_nni_subtype_pack(bcmolt_nni_subtype obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_nni_subtype_unpack(bcmolt_nni_subtype *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_nni_subtype)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_num_of_frames_per_map_pack(bcmolt_num_of_frames_per_map obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_num_of_frames_per_map_unpack(bcmolt_num_of_frames_per_map *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_num_of_frames_per_map)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_odn_class_pack(bcmolt_odn_class obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -1494,6 +1590,22 @@ bcmos_bool bcmolt_onu_state_unpack(bcmolt_onu_state *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_onu_state)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_onu_tuning_range_mode_pack(bcmolt_onu_tuning_range_mode obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_onu_tuning_range_mode_unpack(bcmolt_onu_tuning_range_mode *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_onu_tuning_range_mode)num_val;
     return BCMOS_TRUE;
 }
 
@@ -2630,6 +2742,22 @@ bcmos_bool bcmolt_group_oper_subgroup_unpack(bcmolt_group_oper_subgroup *obj, bc
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_group_oper_subgroup)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_host_log_file_oper_subgroup_pack(bcmolt_host_log_file_oper_subgroup obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_file_oper_subgroup_unpack(bcmolt_host_log_file_oper_subgroup *obj, bcmolt_buf *buf)
+{
+    uint16_t num_val;
+    if (!bcmolt_buf_read_u16(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_file_oper_subgroup)num_val;
     return BCMOS_TRUE;
 }
 
@@ -3801,6 +3929,22 @@ bcmos_bool bcmolt_group_members_update_command_id_unpack(bcmolt_group_members_up
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_host_port_params_id_pack(bcmolt_host_port_params_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_port_params_id_unpack(bcmolt_host_port_params_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_port_params_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_host_sw_version_id_pack(bcmolt_host_sw_version_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -4265,6 +4409,22 @@ bcmos_bool bcmolt_onu_power_management_configuration_id_unpack(bcmolt_onu_power_
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_onu_ps_type_w_id_pack(bcmolt_onu_ps_type_w_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_onu_ps_type_w_id_unpack(bcmolt_onu_ps_type_w_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_onu_ps_type_w_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_onu_tuning_configuration_id_pack(bcmolt_onu_tuning_configuration_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -4358,6 +4518,22 @@ bcmos_bool bcmolt_periodic_standby_pon_monitoring_id_unpack(bcmolt_periodic_stan
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_periodic_standby_pon_monitoring_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_ploam_filter_id_pack(bcmolt_ploam_filter_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_ploam_filter_id_unpack(bcmolt_ploam_filter_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_ploam_filter_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -6214,6 +6390,70 @@ bcmos_bool bcmolt_group_auto_cfg_data_id_unpack(bcmolt_group_auto_cfg_data_id *o
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_group_auto_cfg_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_host_log_key_id_pack(bcmolt_host_log_key_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_key_id_unpack(bcmolt_host_log_key_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_key_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_host_log_cfg_data_id_pack(bcmolt_host_log_cfg_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_cfg_data_id_unpack(bcmolt_host_log_cfg_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_cfg_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_host_log_file_key_id_pack(bcmolt_host_log_file_key_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_file_key_id_unpack(bcmolt_host_log_file_key_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_file_key_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_host_log_file_cfg_data_id_pack(bcmolt_host_log_file_cfg_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_host_log_file_cfg_data_id_unpack(bcmolt_host_log_file_cfg_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_host_log_file_cfg_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -8265,6 +8505,22 @@ bcmos_bool bcmolt_onu_xpon_unknown_ploam_data_id_unpack(bcmolt_onu_xpon_unknown_
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_onu_trap_ploam_received_data_id_pack(bcmolt_onu_trap_ploam_received_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_onu_trap_ploam_received_data_id_unpack(bcmolt_onu_trap_ploam_received_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_onu_trap_ploam_received_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_onu_itu_pon_stats_cfg_data_id_pack(bcmolt_onu_itu_pon_stats_cfg_data_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -8838,6 +9094,22 @@ bcmos_bool bcmolt_pon_interface_rogue_detection_tool_done_data_id_unpack(bcmolt_
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_pon_interface_rogue_detection_tool_done_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_pack(bcmolt_pon_interface_onu_upgrade_activate_commit_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_unpack(bcmolt_pon_interface_onu_upgrade_activate_commit_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_pon_interface_onu_upgrade_activate_commit_data_id)num_val;
     return BCMOS_TRUE;
 }
 

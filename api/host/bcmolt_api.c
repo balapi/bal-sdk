@@ -28,8 +28,7 @@
 #include <bcmolt_api_utils.h>
 #include <bcmolt_msg_pack.h>
 #include <bcmolt_api_tags.h>
-
-dev_log_id bcmolt_api_log_id;
+#include <bcmolt_api_log.h>
 
 /* Initialize API layer */
 bcmos_errno bcmolt_api_init(void)
@@ -38,18 +37,7 @@ bcmos_errno bcmolt_api_init(void)
     err = bcmolt_api_translate_init();
     if (err != BCM_ERR_OK)
         return err;
-#ifdef ENABLE_LOG
-    if (!bcmolt_api_log_id || bcmolt_api_log_id == DEV_LOG_INVALID_ID)
-    {
-        bcmolt_api_log_id = bcm_dev_log_id_register("api", DEV_LOG_LEVEL_INFO, DEV_LOG_ID_TYPE_BOTH);
-        if (bcmolt_api_log_id == DEV_LOG_INVALID_ID)
-        {
-            BCMOS_TRACE_ERR("Can't create a log");
-            return BCM_ERR_INTERNAL;
-        }
-    }
-#endif
-
+    bcmolt_api_log_init();
     bcmolt_api_model_init();
     bcmolt_api_tags_init();
 
@@ -58,11 +46,21 @@ bcmos_errno bcmolt_api_init(void)
 
 static inline bcmos_errno bcmolt_api_call(bcmolt_oltid olt, bcmolt_msg *msg)
 {
-    bcmos_errno err = bcmolt_api_validate_for_api_call(msg);
+    bcmos_errno err;
+
+    /* Log configuration API before it is translated */
+    if ((msg->type & BCMOLT_MSG_TYPE_GET) == 0)
+    {
+        bcmolt_api_log(olt, msg);
+    }
+
+    err = bcmolt_api_validate_for_api_call(msg);
     if (err != BCM_ERR_OK)
     {
         return err;
     }
+
+    /* Translate API based on the OLT topology and invoke the RPC */
     return bcmolt_api_translate_and_call(olt, msg);
 }
 

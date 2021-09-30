@@ -41,6 +41,9 @@
 extern "C" {
 #endif
 
+#define REMOTE_SET_RAW_ON_CHAR    '\x11'
+#define REMOTE_SET_RAW_OFF_CHAR   '\x12'
+
 typedef struct linenoiseSessionIO
 {
     long fd_in;
@@ -66,6 +69,7 @@ int linenoiseHistoryLoad(linenoiseSession *session, const char *filename);
 void linenoiseClearScreen(linenoiseSession *session);
 void linenoiseSetMultiLine(linenoiseSession *session, int ml);
 void linenoiseSetDumbTerminal(linenoiseSession *session, int dumb);
+void linenoiseForceSmartTerminal(linenoiseSession *session, int force);
 int linenoiseGetMultiLine(linenoiseSession *session);
 int linenoiseGetDumbTerminal(linenoiseSession *session);
 int linenoiseSetRaw(linenoiseSession *session, int raw);

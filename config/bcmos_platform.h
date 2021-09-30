@@ -143,7 +143,8 @@ typedef enum
 
     BCMOS_MODULE_ID_ISSU,                       /** Host ISSU */
 
-
+    BCMOS_MODULE_ID_HOST_REMOTE_LOGGER,         /** Host remote logger */
+    
     BCMOS_MODULE_ID__NUM_OF,                    /**< Number of modules */
     BCMOS_MODULE_ID_INVALID = BCMOS_MODULE_ID_NONE
 } bcmos_module_id;
@@ -311,6 +312,7 @@ typedef enum
 #define TASK_PRIORITY_DEV_LOG_KERNEL                     BCMOS_TASK_PRIORITY_20
 #define TASK_PRIORITY_DEV_LOG                            BCMOS_TASK_PRIORITY_30
 #define TASK_PRIORITY_USER_APPL_REMOTE_LOGGER            BCMOS_TASK_PRIORITY_30
+#define TASK_PRIORITY_REMOTE_LOG                         BCMOS_TASK_PRIORITY_30
 
 /* BALIMPORT BEGIN */
 #define TASK_PRIORITY_KEEP_ALIVE                BCMOS_TASK_PRIORITY_2
