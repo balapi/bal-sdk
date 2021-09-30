@@ -1348,11 +1348,14 @@ macro(bcm_create_linux_module_target)
     if(CROSS_COMPILE)
         set(_KMODULE_CROSS_COMPILE "-c ${CROSS_COMPILE}")
     endif(CROSS_COMPILE)
+    if(GCC_VERSION)
+        set(_KMODULE_GCC_VERSION "-h ${GCC_VERSION}")
+    endif(GCC_VERSION)
 
     bcm_stringify_flags(_KMODULE_LINK_CMD
                         ${_KMODULE_LINK_SCRIPT} -l ${KERNELDIR} -a ${KERNEL_ARCH} ${_KMODULE_CROSS_COMPILE}
                         -m ${_MOD_NAME} -b ${CMAKE_CURRENT_BINARY_DIR} -f ${_KMODULE_SOURCE_CACHE_FILE}
-                        -v ${CMAKE_VERBOSE_MAKEFILE})
+                        -v ${CMAKE_VERBOSE_MAKEFILE} ${_KMODULE_GCC_VERSION})
 
     set_property(TARGET ${_KERNEL_TARGET} PROPERTY RULE_LAUNCH_LINK ${_KMODULE_LINK_CMD})
 

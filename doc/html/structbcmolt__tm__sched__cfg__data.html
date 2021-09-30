@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -120,6 +120,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a2502aca68244e590c876280e15936888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af412cef2a995fab9191e47803fb6d6c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__object__model.html#ga20178745f03b375b9507872f525ea867">bcmolt_config_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__sched__cfg__data.html#af412cef2a995fab9191e47803fb6d6c4">state</a></td></tr>
 <tr class="separator:af412cef2a995fab9191e47803fb6d6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de0686d69d3c9e454cca1b31bdadcd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__tm__sched__attachment__point.html">bcmolt_tm_sched_attachment_point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__sched__cfg__data.html#a8de0686d69d3c9e454cca1b31bdadcd5">cir_attachment_point</a></td></tr>
+<tr class="separator:a8de0686d69d3c9e454cca1b31bdadcd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a6a12b97151ab04f46347092f197a1fe4"></a>
@@ -157,7 +159,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Max number of strict priority scheduling elements </p>
+<p>Max number of strict priority scheduling elements. Note for SP_WFQ, max 9 priorities [0-8] will be allowed </p>
 
 </div>
 </div>
@@ -187,6 +189,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8de0686d69d3c9e454cca1b31bdadcd5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__tm__sched__attachment__point.html">bcmolt_tm_sched_attachment_point</a> cir_attachment_point</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>TM sched and priority line where CIR queue can be attached. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__api__structs_8h_source.html">bcmolt_api_model_api_structs.h</a></li>
 </ul>
@@ -199,7 +214,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__tm__sched__cfg__data.html">bcmolt_tm_sched_cfg_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

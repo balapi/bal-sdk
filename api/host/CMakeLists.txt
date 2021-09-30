@@ -1,6 +1,6 @@
 # Host-side API implementation
 bcm_module_name(api_impl)
-bcm_module_dependencies(PUBLIC api api_translation api_conn_mgr transport)
+bcm_module_dependencies(PUBLIC api api_translation api_conn_mgr transport api_log)
 bcm_module_srcs(bcmolt_api.c bcmolt_api_tags.c)
 bcm_create_lib_target()
 

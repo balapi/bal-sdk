@@ -66,6 +66,7 @@ const char *bcmos_strerror(bcmos_errno err)
         [-BCM_ERR_IMAGE_TYPE]                = "Unsupported file/image type",
         [-BCM_ERR_INCOMPLETE_TERMINATION]    = "Incomplete premature termination",
         [-BCM_ERR_MISMATCH]                  = "Parameters mismatch",
+        [-BCM_ERR_DEPRECATED]                = "Parameter is deprecated",
     };
     static const char *unknown = "*unknown*";
 

@@ -42,6 +42,7 @@ var group__system__errno =
       [ "BCM_ERR_CHECKSUM", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa7693bddefffbf77e79ee21001e2510c3", null ],
       [ "BCM_ERR_IMAGE_TYPE", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfad4be3dbb5035c630a6263fe07a4c4bcd", null ],
       [ "BCM_ERR_INCOMPLETE_TERMINATION", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfad08509792746e321b9f7b4e5f8658ed2", null ],
-      [ "BCM_ERR_MISMATCH", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa110072647158d325c2808e45ced0c9c2", null ]
+      [ "BCM_ERR_MISMATCH", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa110072647158d325c2808e45ced0c9c2", null ],
+      [ "BCM_ERR_DEPRECATED", "group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfaf8855628bab3e279c50ad9dc6b27d392", null ]
     ] ]
 ];

@@ -70,6 +70,12 @@ bcmolt_tag bcmolt_gpio_get_active_tags(bcmolt_oltid olt, const bcmolt_gpio_key *
 /** Get all tags that are currently active for a given group based on system state. */
 bcmolt_tag bcmolt_group_get_active_tags(bcmolt_oltid olt, const bcmolt_group_key *key);
 
+/** Get all tags that are currently active for a given host_log based on system state. */
+bcmolt_tag bcmolt_host_log_get_active_tags(bcmolt_oltid olt, const bcmolt_host_log_key *key);
+
+/** Get all tags that are currently active for a given host_log_file based on system state. */
+bcmolt_tag bcmolt_host_log_file_get_active_tags(bcmolt_oltid olt, const bcmolt_host_log_file_key *key);
+
 /** Get all tags that are currently active for a given inband_mgmt_channel based on system state. */
 bcmolt_tag bcmolt_inband_mgmt_channel_get_active_tags(bcmolt_oltid olt, const bcmolt_inband_mgmt_channel_key *key);
 

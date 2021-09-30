@@ -51,7 +51,7 @@ bcm_create_global_compile_definition(BCM_SUBSYSTEM ${SUBSYSTEM})
 #====
 # CMake checks for unused variables from the command-line. Add intentionally unused variables here.
 #====
-set(IGNORED_CLI_ARGS ${CMAKE_TOOLCHAIN_FILE} ${MAKE_JOB_FLAG})
+set(IGNORED_CLI_ARGS ${CMAKE_TOOLCHAIN_FILE})
 
 if(NOT OPEN_SOURCE)
 #====
@@ -71,3 +71,11 @@ endif()
 if(NOT MAIN_BOARD)
     set(MAIN_BOARD ${BOARD})
 endif()
+
+#====
+# Define the BCM_MAKE_PROGRAM which we use as '$(MAKE)' so our generated makefiles will use $(MAKE) for
+# subtending make calls. This will ensure the original parameters are used in the subtending makes. We
+# use this variable instead of the CMAKE_MAKE_PROGRAM.
+#====
+set(BCM_MAKE_PROGRAM "$(MAKE)")
+

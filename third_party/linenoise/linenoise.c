@@ -152,6 +152,7 @@ struct linenoiseSession {
 #endif
     int dumb_terminal;
     int forced_dumb;
+    int forced_smart;
     int ncolreqs;        /* Outstandige get columns requests */
     void *session_data;
 
@@ -252,11 +253,26 @@ int linenoiseGetDumbTerminal(linenoiseSession *session) {
 
 /* Raw mode: 1960 magic shit. */
 static int enableRawMode(linenoiseSession *session) {
+    if (session->rawmode)
+        return 0;
 #ifndef LINENOISE_DISABLE_TERMIOS
     struct termios raw;
 
-    if (tcgetattr(session->state.ifd, &session->orig_termios) == -1) goto fatal;
-
+    if (tcgetattr(session->state.ifd, &session->orig_termios) == -1)
+    {
+        if (session->forced_smart && !session->forced_dumb)
+        {
+            char remote_set_raw_on[2] = { REMOTE_SET_RAW_ON_CHAR, 0 };
+            int n;
+            n = session->io.write(session->io.fd_out, remote_set_raw_on, 1);
+            if (n == 1)
+            {
+                session->rawmode = 1;
+                return 0; /* assume raw mode */
+            }
+        }
+        goto fatal;
+    }
     raw = session->orig_termios;  /* modify the original mode */
     /* input modes: no break, no CR to NL, no parity check, no strip char,
      * no start/stop output control. */
@@ -292,8 +308,15 @@ fatal:
 static void disableRawMode(linenoiseSession *session) {
     /* Don't even check the return value as it's too late. */
 #ifndef LINENOISE_DISABLE_TERMIOS
-    if (session->rawmode && tcsetattr(session->state.ifd,TCSAFLUSH,&session->orig_termios) != -1)
+    if (session->rawmode)
+    {
+        if (tcsetattr(session->state.ifd,TCSAFLUSH,&session->orig_termios) == -1 && session->forced_smart)
+        {
+            char remote_set_raw_off[2] = { REMOTE_SET_RAW_OFF_CHAR, 0 };
+            session->io.write(session->io.fd_out, remote_set_raw_off, 1);
+        }
         session->rawmode = 0;
+    }
 #endif
 }
 
@@ -432,12 +455,21 @@ void *linenoiseSessionData(linenoiseSession *session) {
     return session->session_data;
 }
 
-
 void linenoiseSetDumbTerminal(linenoiseSession *session, int dumb) {
     if (!session->io.dumb_terminal)
     {
         session->dumb_terminal = dumb;
         session->forced_dumb = dumb;
+    }
+}
+
+void linenoiseForceSmartTerminal(linenoiseSession *session, int smart) {
+    if (!session->io.dumb_terminal)
+    {
+        session->dumb_terminal = !smart;
+        session->forced_smart = smart;
+        if (smart)
+            session->ncolreqs = 0;
     }
 }
 
@@ -1216,22 +1248,23 @@ static int linenoiseRaw(linenoiseSession *session, char *buf, size_t buflen, con
 
     lndebug("\n");
 #ifndef LINENOISE_DISABLE_TERMIOS
-    if (!isatty(STDIN_FILENO)) {
-        /* Not a tty: read from file / pipe. */
-	rc = linenoiseNoedit(session, buf, buflen);
-	if (rc >= 0)
-	    session->io.write(session->io.fd_out, "\n", 1);
+    if ((!session->forced_smart || session->forced_dumb) && !isatty(STDIN_FILENO)) {
+            /* Not a tty: read from file / pipe. */
+        rc = linenoiseNoedit(session, buf, buflen);
+        if (rc >= 0)
+            session->io.write(session->io.fd_out, "\n", 1);
     }
     else
 #endif
     {
         /* Interactive editing. */
-        if (enableRawMode(session) == -1) return -1;
-
-        if (!session->dumb_terminal && session->ncolreqs > 1)
+        if (enableRawMode(session) == -1 || session->ncolreqs > 1)
         {
-            session->dumb_terminal = 1;
-            lndebug("dumb_terminal=%d\n", session->dumb_terminal);
+            if (!session->dumb_terminal)
+            {
+                session->dumb_terminal = 1;
+                lndebug("dumb_terminal=%d\n", session->dumb_terminal);
+            }
         }
         if (session->dumb_terminal) {
             session->io.write(session->io.fd_out, prompt, strlen(prompt));

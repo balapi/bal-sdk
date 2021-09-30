@@ -88,6 +88,9 @@ extern uint8_t log_name_table_index;
 
 bcmos_errno _bcm_dev_log_file_clear_no_lock(uint32_t file_index);
 
+/* Internal init function */
+void bcm_dev_log_frontend_init(void);
+
 #endif /* ENABLE_LOG */
 
 #endif /* __BCM_DEV_LOG_TASK_INTERNAL_H_ */

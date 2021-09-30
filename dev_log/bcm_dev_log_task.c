@@ -589,8 +589,6 @@ static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset,
 
     if (read_wrap)
     {
-        /* Reset wrapped read ptr, and write wrap count */
-        log_file->u.mem_file.file_header.file_wrap_cnt = 0;
         *p_offset = end;
     }
     else
@@ -1384,6 +1382,10 @@ bcmos_errno bcm_dev_log_init_default_logger_ext(
         &print_queue_parm,
         &pool_parm);
     BCMOS_TRACE_CHECK_RETURN(err, err, "bcm_dev_log_create");
+
+    /* Init the frontend */
+    bcm_dev_log_frontend_init();
+
     return BCM_ERR_OK;
 }
 
@@ -1626,7 +1628,7 @@ dev_log_id bcm_dev_log_id_register(const char *name,
 
     dev_log_add_log_name_to_table(new_id->name);
 
-    bcm_dev_log_id_set_levels_and_type_to_default((dev_log_id)new_id);
+    bcm_dev_log_id_set_level_and_type_to_default((dev_log_id)new_id);
     new_id->style = BCM_DEV_LOG_STYLE_NORMAL;
     new_id->is_active = BCMOS_TRUE;
 
@@ -1715,7 +1717,7 @@ bcmos_errno bcm_dev_log_id_set_level(dev_log_id id, bcm_dev_log_level log_level_
     return BCM_ERR_OK;
 }
 
-bcmos_errno bcm_dev_log_id_set_levels_and_type_to_default(dev_log_id id)
+bcmos_errno bcm_dev_log_id_set_level_and_type_to_default(dev_log_id id)
 {
     dev_log_id_parm *parm = (dev_log_id_parm *)id;
 
@@ -1741,6 +1743,28 @@ bcmos_errno bcm_dev_log_id_set_levels_and_type_to_default(dev_log_id id)
     if (parm->log_type & DEV_LOG_ID_TYPE_BOTH)
         parm->log_type = DEV_LOG_ID_TYPE_SAVE;
 #endif
+
+    return BCM_ERR_OK;
+}
+
+bcmos_errno bcm_dev_log_set_level_and_type_all(bcm_dev_log_id_set_all set_all)
+{
+    dev_log_id log_id = DEV_LOG_INVALID_ID;
+    bcmos_errno err;
+
+    while ((log_id = bcm_dev_log_id_get_next(log_id)) != DEV_LOG_INVALID_ID)
+    {
+        if (set_all == DEV_LOG_ID_SET_ALL_NONE)
+        {
+            err = bcm_dev_log_id_set_type(log_id, DEV_LOG_ID_TYPE_NONE);
+            if (err == BCM_ERR_OK)
+                err = bcm_dev_log_id_set_level(log_id, DEV_LOG_LEVEL_NO_LOG, DEV_LOG_LEVEL_NO_LOG);
+        }
+        else
+            err = bcm_dev_log_id_set_level_and_type_to_default(log_id);
+        if (err != BCM_ERR_OK)
+            return err;
+    }
 
     return BCM_ERR_OK;
 }
@@ -1789,6 +1813,22 @@ bcmos_errno bcm_dev_log_id_get(dev_log_id id, dev_log_id_parm *parm)
 
     *parm = *(dev_log_id_parm *)id;
 
+    return BCM_ERR_OK;
+}
+
+bcmos_errno bcm_dev_log_id_get_level(dev_log_id id, bcm_dev_log_level *p_log_level_print,
+    bcm_dev_log_level *p_log_level_save)
+{
+    dev_log_id_parm *parm = (dev_log_id_parm *)id;
+    if (!id || (id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: id not valid (0x%x)\n", (unsigned int)id);
+        return BCM_ERR_PARM;
+    }
+    if (p_log_level_print)
+        *p_log_level_print = parm->log_level_print;
+    if (p_log_level_save)
+        *p_log_level_save = parm->log_level_save;
     return BCM_ERR_OK;
 }
 

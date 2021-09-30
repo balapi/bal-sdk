@@ -72,6 +72,7 @@ const bcmolt_enum_val bcmolt_access_control_fwd_action_type_string_table[] =
     { .name = "trap_to_host", .val = BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_TRAP_TO_HOST, .tags = 0 },
     { .name = "drop", .val = BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_DROP, .tags = 0 },
     { .name = "redirect", .val = BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_REDIRECT, .tags = 0 },
+    { .name = "no_action", .val = BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_NO_ACTION, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -463,6 +464,16 @@ const bcmolt_type_descr type_descr_bcmolt_arr_nni_id_8 =
     .mask_offset = offsetof(bcmolt_arr_nni_id_8, arr_index_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_ARR_FIXED,
     .x = { .arr_fixed = { .elem_type = &type_descr_uint8_t, .data_offset = offsetof(bcmolt_arr_nni_id_8, arr), .size = 8 } },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_arr_ploam_filter_5 =
+{
+    .name = "arr_ploam_filter_5",
+    .descr = "Fixed-Length list: 5x ploam_filter",
+    .size = sizeof(bcmolt_arr_ploam_filter_5),
+    .mask_offset = offsetof(bcmolt_arr_ploam_filter_5, arr_index_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_ARR_FIXED,
+    .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_ploam_filter, .data_offset = offsetof(bcmolt_arr_ploam_filter_5, arr), .size = 5 } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_arr_policer_ref_4 =
@@ -864,7 +875,7 @@ static bcmolt_field_descr type_descr_bcmolt_cbr_rt_allocation_profile_fields[] =
 const bcmolt_type_descr type_descr_bcmolt_cbr_rt_allocation_profile =
 {
     .name = "cbr_rt_allocation_profile",
-    .descr = "CBR RT Allocation profile",
+    .descr = "CBR-rt allocation profile (Legacy)",
     .size = sizeof(bcmolt_cbr_rt_allocation_profile),
     .mask_offset = offsetof(bcmolt_cbr_rt_allocation_profile, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
@@ -1331,6 +1342,22 @@ const bcmolt_type_descr type_descr_bcmolt_control_state =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_control_state),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_control_state_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_dba_implementation_type_string_table[] =
+{
+    { .name = "internal", .val = BCMOLT_DBA_IMPLEMENTATION_TYPE_INTERNAL, .tags = 0 },
+    { .name = "external", .val = BCMOLT_DBA_IMPLEMENTATION_TYPE_EXTERNAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_dba_implementation_type =
+{
+    .name = "dba_implementation_type",
+    .descr = "DBA implementation type",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_dba_implementation_type),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_dba_implementation_type_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_dba_mode_string_table[] =
@@ -2089,7 +2116,7 @@ static bcmolt_field_descr type_descr_bcmolt_extended_dba_priority_adjustment_fie
 {
     {
         .name = "control",
-        .descr = "Enable/disable Extended DBA priority adjustment mechanism",
+        .descr = "Enable/disable extended DBA priority adjustment mechanism",
         .id = BCMOLT_EXTENDED_DBA_PRIORITY_ADJUSTMENT_ID_CONTROL,
         .tags = 0,
         .offset = offsetof(bcmolt_extended_dba_priority_adjustment, control),
@@ -2097,7 +2124,7 @@ static bcmolt_field_descr type_descr_bcmolt_extended_dba_priority_adjustment_fie
     },
     {
         .name = "slots",
-        .descr = "Slots for manually configuring the identity of the promoted priority in each cycle out of a 20 cycles period",
+        .descr = "Slots for manually for configuring the identity of the promoted priority in each cycle of a 20 cycles period",
         .id = BCMOLT_EXTENDED_DBA_PRIORITY_ADJUSTMENT_ID_SLOTS,
         .tags = 0,
         .offset = offsetof(bcmolt_extended_dba_priority_adjustment, slots),
@@ -2113,6 +2140,22 @@ const bcmolt_type_descr type_descr_bcmolt_extended_dba_priority_adjustment =
     .mask_offset = offsetof(bcmolt_extended_dba_priority_adjustment, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_extended_dba_priority_adjustment_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_extended_dba_priority_adjustment_fields } },
+};
+
+const bcmolt_enum_val bcmolt_external_dba_options_string_table[] =
+{
+    { .name = "none", .val = BCMOLT_EXTERNAL_DBA_OPTIONS_NONE },
+    { .name = "stats_ind", .val = BCMOLT_EXTERNAL_DBA_OPTIONS_STATS_IND, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_external_dba_options =
+{
+    .name = "external_dba_options",
+    .descr = "External DBA options",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
+    .size = sizeof(bcmolt_external_dba_options),
+    .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_external_dba_options_string_table } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_firmware_sw_version_fields[] =
@@ -3000,6 +3043,14 @@ static bcmolt_field_descr type_descr_bcmolt_group_member_info_fields[] =
         .offset = offsetof(bcmolt_group_member_info, egress_qos),
         .type = &type_descr_bcmolt_egress_qos,
     },
+    {
+        .name = "svc_port_is_wc",
+        .descr = "Service Port was provisioned as a Wildcard / Get Next Free",
+        .id = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_group_member_info, svc_port_is_wc),
+        .type = &type_descr_bcmos_bool,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_group_member_info =
@@ -3128,6 +3179,51 @@ const bcmolt_type_descr type_descr_bcmolt_host_connection_fail_reason =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_host_connection_fail_reason),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_connection_fail_reason_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_log_file_id_string_table[] =
+{
+    { .name = "sram", .val = BCMOLT_HOST_LOG_FILE_ID_SRAM, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_id =
+{
+    .name = "host_log_file_id",
+    .descr = "Host Log File ID",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_file_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_file_id_string_table } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_host_port_params_fields[] =
+{
+    {
+        .name = "pir_kbps",
+        .descr = "Rate Shaper (kilobits per sec)",
+        .id = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_port_params, pir_kbps),
+        .type = &type_descr_uint32_t,
+    },
+    {
+        .name = "queue_size_kbytes",
+        .descr = "per-priority queue size (kilobytes)",
+        .id = BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_port_params, queue_size_kbytes),
+        .type = &type_descr_uint16_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_port_params =
+{
+    .name = "host_port_params",
+    .descr = "host port params",
+    .size = sizeof(bcmolt_host_port_params),
+    .mask_offset = offsetof(bcmolt_host_port_params, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_port_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_port_params_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_host_sw_version_fields[] =
@@ -3618,6 +3714,8 @@ const bcmolt_enum_val bcmolt_interface_operation_string_table[] =
     { .name = "inactive", .val = BCMOLT_INTERFACE_OPERATION_INACTIVE, .tags = 0 },
     { .name = "active_working", .val = BCMOLT_INTERFACE_OPERATION_ACTIVE_WORKING, .tags = 0 },
     { .name = "active_standby", .val = BCMOLT_INTERFACE_OPERATION_ACTIVE_STANDBY, .tags = 0 },
+    { .name = "disable", .val = BCMOLT_INTERFACE_OPERATION_DISABLE, .tags = 0 },
+    { .name = "enable", .val = BCMOLT_INTERFACE_OPERATION_ENABLE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -3636,6 +3734,7 @@ const bcmolt_enum_val bcmolt_interface_state_string_table[] =
     { .name = "processing", .val = BCMOLT_INTERFACE_STATE_PROCESSING, .tags = 0 },
     { .name = "active_working", .val = BCMOLT_INTERFACE_STATE_ACTIVE_WORKING, .tags = 0 },
     { .name = "active_standby", .val = BCMOLT_INTERFACE_STATE_ACTIVE_STANDBY, .tags = 0 },
+    { .name = "disabled", .val = BCMOLT_INTERFACE_STATE_DISABLED, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -3927,7 +4026,7 @@ static bcmolt_field_descr type_descr_bcmolt_itu_pon_params_fields[] =
     },
     {
         .name = "cbr_rt_allocation_profile",
-        .descr = "CBR Real Time allocation profile",
+        .descr = "CBR-rt allocation profile",
         .id = BCMOLT_ITU_PON_PARAMS_ID_CBR_RT_ALLOCATION_PROFILE,
         .tags = 0,
         .offset = offsetof(bcmolt_itu_pon_params, cbr_rt_allocation_profile),
@@ -3935,7 +4034,7 @@ static bcmolt_field_descr type_descr_bcmolt_itu_pon_params_fields[] =
     },
     {
         .name = "cbr_nrt_allocation_profile",
-        .descr = "CBR non Real Time allocation profile",
+        .descr = "CBR-nrt allocation profile",
         .id = BCMOLT_ITU_PON_PARAMS_ID_CBR_NRT_ALLOCATION_PROFILE,
         .tags = 0,
         .offset = offsetof(bcmolt_itu_pon_params, cbr_nrt_allocation_profile),
@@ -4209,6 +4308,30 @@ const bcmolt_type_descr type_descr_bcmolt_ituonu_upgrade_params =
 
 static bcmolt_field_descr type_descr_bcmolt_itupon_dba_fields[] =
 {
+    {
+        .name = "implementation_type",
+        .descr = "DBA implementation type",
+        .id = BCMOLT_ITUPON_DBA_ID_IMPLEMENTATION_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_dba, implementation_type),
+        .type = &type_descr_bcmolt_dba_implementation_type,
+    },
+    {
+        .name = "num_of_frames_per_map",
+        .descr = "Number of frames per map",
+        .id = BCMOLT_ITUPON_DBA_ID_NUM_OF_FRAMES_PER_MAP,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_dba, num_of_frames_per_map),
+        .type = &type_descr_bcmolt_num_of_frames_per_map,
+    },
+    {
+        .name = "external_dba_options",
+        .descr = "External DBA options",
+        .id = BCMOLT_ITUPON_DBA_ID_EXTERNAL_DBA_OPTIONS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_dba, external_dba_options),
+        .type = &type_descr_bcmolt_external_dba_options,
+    },
     {
         .name = "extended_dba_priority_adjustment",
         .descr = "Extended DBA priority adjustment, to prevent starvation of low priorities",
@@ -4544,6 +4667,23 @@ const bcmolt_type_descr type_descr_bcmolt_lag_psc_mode =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_lag_psc_mode),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_lag_psc_mode_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_lag_subtype_string_table[] =
+{
+    { .name = "unassigned", .val = BCMOLT_LAG_SUBTYPE_UNASSIGNED, .tags = 0 },
+    { .name = "network", .val = BCMOLT_LAG_SUBTYPE_NETWORK, .tags = 0 },
+    { .name = "erps_subport", .val = BCMOLT_LAG_SUBTYPE_ERPS_SUBPORT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_lag_subtype =
+{
+    .name = "lag_subtype",
+    .descr = "the subtype of a lag interface",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_lag_subtype),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_lag_subtype_string_table } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_layer_4_port_range_fields[] =
@@ -4906,6 +5046,7 @@ const bcmolt_type_descr type_descr_bcmolt_meg_cfg =
 const bcmolt_enum_val bcmolt_meg_format_string_table[] =
 {
     { .name = "ieee_8021_ag_1", .val = BCMOLT_MEG_FORMAT_IEEE_8021_AG_1, .tags = 0 },
+    { .name = "ieee_8021_ag_2", .val = BCMOLT_MEG_FORMAT_IEEE_8021_AG_2, .tags = 0 },
     { .name = "icc", .val = BCMOLT_MEG_FORMAT_ICC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -5036,6 +5177,22 @@ static bcmolt_field_descr type_descr_bcmolt_ngpon2_onu_params_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_ngpon2_onu_params, power_levelling_capabilities),
         .type = &type_descr_uint8_t,
+    },
+    {
+        .name = "tuning_static_eqd",
+        .descr = "Static EQD value to use for this ONU on this channel once tuning-in is complete. This value is ignored if range_mode is re_range in the ONU tuning configuration on the PON interface object.",
+        .id = BCMOLT_NGPON2_ONU_PARAMS_ID_TUNING_STATIC_EQD,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ngpon2_onu_params, tuning_static_eqd),
+        .type = &type_descr_uint32_t,
+    },
+    {
+        .name = "ps_type_w",
+        .descr = "ONU protection switching type W parameters.",
+        .id = BCMOLT_NGPON2_ONU_PARAMS_ID_PS_TYPE_W,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ngpon2_onu_params, ps_type_w),
+        .type = &type_descr_bcmolt_onu_ps_type_w,
     },
 };
 
@@ -5168,6 +5325,42 @@ const bcmolt_type_descr type_descr_bcmolt_nni_protection_mode =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_nni_protection_mode),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_nni_protection_mode_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_nni_subtype_string_table[] =
+{
+    { .name = "network", .val = BCMOLT_NNI_SUBTYPE_NETWORK, .tags = 0 },
+    { .name = "erps_subport", .val = BCMOLT_NNI_SUBTYPE_ERPS_SUBPORT, .tags = 0 },
+    { .name = "nic", .val = BCMOLT_NNI_SUBTYPE_NIC, .tags = 0 },
+    { .name = "lag_member", .val = BCMOLT_NNI_SUBTYPE_LAG_MEMBER, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_nni_subtype =
+{
+    .name = "nni_subtype",
+    .descr = "the subtype of an nni interface",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_nni_subtype),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_nni_subtype_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_num_of_frames_per_map_string_table[] =
+{
+    { .name = "x_1", .val = BCMOLT_NUM_OF_FRAMES_PER_MAP_X_1, .tags = 0 },
+    { .name = "x_2", .val = BCMOLT_NUM_OF_FRAMES_PER_MAP_X_2, .tags = 0 },
+    { .name = "x_4", .val = BCMOLT_NUM_OF_FRAMES_PER_MAP_X_4, .tags = 0 },
+    { .name = "x_8", .val = BCMOLT_NUM_OF_FRAMES_PER_MAP_X_8, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_num_of_frames_per_map =
+{
+    .name = "num_of_frames_per_map",
+    .descr = "Number of frames per map",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_num_of_frames_per_map),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_num_of_frames_per_map_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_odn_class_string_table[] =
@@ -5360,6 +5553,44 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_management_configuration =
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_power_management_configuration_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_power_management_configuration_fields } },
 };
 
+static bcmolt_field_descr type_descr_bcmolt_onu_ps_type_w_fields[] =
+{
+    {
+        .name = "control",
+        .descr = "Whether or not PS type-W protection is enabled on this ONU.",
+        .id = BCMOLT_ONU_PS_TYPE_W_ID_CONTROL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_ps_type_w, control),
+        .type = &type_descr_bcmolt_control_state,
+    },
+    {
+        .name = "partner_pon_id",
+        .descr = "PON ID of the partner OLT channel.",
+        .id = BCMOLT_ONU_PS_TYPE_W_ID_PARTNER_PON_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_ps_type_w, partner_pon_id),
+        .type = &type_descr_bcmolt_pon_id,
+    },
+    {
+        .name = "partner_static_eqd",
+        .descr = "If this is set to a nonzero value, the ONU will be directed to use this value as the EQD for the partner OLT channel using a Ranging_Time PLOAM targeting the partner PON ID. This should generally be set whenever range_mode is set to pre_provisioned in the ONU tuning parameters on the PON interface object.",
+        .id = BCMOLT_ONU_PS_TYPE_W_ID_PARTNER_STATIC_EQD,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_ps_type_w, partner_static_eqd),
+        .type = &type_descr_uint32_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_ps_type_w =
+{
+    .name = "onu_ps_type_w",
+    .descr = "ONU protection switching type W (wavelength switching) parameters.",
+    .size = sizeof(bcmolt_onu_ps_type_w),
+    .mask_offset = offsetof(bcmolt_onu_ps_type_w, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_ps_type_w_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_ps_type_w_fields } },
+};
+
 const bcmolt_enum_val bcmolt_onu_rate_string_table[] =
 {
     { .name = "rate_10g_ds_10g_us", .val = BCMOLT_ONU_RATE_RATE_10G_DS_10G_US, .tags = 0 },
@@ -5432,6 +5663,22 @@ static bcmolt_field_descr type_descr_bcmolt_onu_tuning_configuration_fields[] =
         .offset = offsetof(bcmolt_onu_tuning_configuration, request_registration_required),
         .type = &type_descr_bcmos_bool,
     },
+    {
+        .name = "range_mode",
+        .descr = "How to determine ONU range once it has tuned in to this channel.",
+        .id = BCMOLT_ONU_TUNING_CONFIGURATION_ID_RANGE_MODE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_tuning_configuration, range_mode),
+        .type = &type_descr_bcmolt_onu_tuning_range_mode,
+    },
+    {
+        .name = "retry_interval",
+        .descr = "Period between retries during the tuning in process. If range_mode is re_range, this controls the period between opening ranging windows.",
+        .id = BCMOLT_ONU_TUNING_CONFIGURATION_ID_RETRY_INTERVAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_tuning_configuration, retry_interval),
+        .type = &type_descr_uint32_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_onu_tuning_configuration =
@@ -5442,6 +5689,23 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tuning_configuration =
     .mask_offset = offsetof(bcmolt_onu_tuning_configuration, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_tuning_configuration_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_tuning_configuration_fields } },
+};
+
+const bcmolt_enum_val bcmolt_onu_tuning_range_mode_string_table[] =
+{
+    { .name = "re_range", .val = BCMOLT_ONU_TUNING_RANGE_MODE_RE_RANGE, .tags = 0 },
+    { .name = "static_range", .val = BCMOLT_ONU_TUNING_RANGE_MODE_STATIC_RANGE, .tags = 0 },
+    { .name = "pre_provisioned", .val = BCMOLT_ONU_TUNING_RANGE_MODE_PRE_PROVISIONED, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_tuning_range_mode =
+{
+    .name = "onu_tuning_range_mode",
+    .descr = "Modes for determining ONU range after the tuning-in process.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_tuning_range_mode),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_tuning_range_mode_string_table } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_onu_upgrade_status_fields[] =
@@ -5820,6 +6084,28 @@ const bcmolt_type_descr type_descr_bcmolt_pkt_tag_type =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_pkt_tag_type_string_table } },
 };
 
+static bcmolt_field_descr type_descr_bcmolt_ploam_filter_fields[] =
+{
+    {
+        .name = "ploam_id",
+        .descr = "0 - disabled",
+        .id = BCMOLT_PLOAM_FILTER_ID_PLOAM_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ploam_filter, ploam_id),
+        .type = &type_descr_uint8_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ploam_filter =
+{
+    .name = "ploam_filter",
+    .descr = "ploam filter",
+    .size = sizeof(bcmolt_ploam_filter),
+    .mask_offset = offsetof(bcmolt_ploam_filter, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ploam_filter_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ploam_filter_fields } },
+};
+
 static bcmolt_field_descr type_descr_bcmolt_ploam_retransmission_fields[] =
 {
     {
@@ -6003,7 +6289,7 @@ static bcmolt_field_descr type_descr_bcmolt_pon_alloc_sla_fields[] =
     },
     {
         .name = "cbr_rt_compensation",
-        .descr = "Set to True for AllocID with CBR RT Bandwidth that requires compensation for skipped allocations during quiet window",
+        .descr = "Set to True for alloc with CBR-rt bandwidth that requires compensation for skipped allocations during quiet window",
         .id = BCMOLT_PON_ALLOC_SLA_ID_CBR_RT_COMPENSATION,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_alloc_sla, cbr_rt_compensation),
@@ -6011,7 +6297,7 @@ static bcmolt_field_descr type_descr_bcmolt_pon_alloc_sla_fields[] =
     },
     {
         .name = "cbr_rt_ap_index",
-        .descr = "Allocation Profile index for CBR RT Bandwidth",
+        .descr = "Allocation pofile index for CBR-rt bandwidth",
         .id = BCMOLT_PON_ALLOC_SLA_ID_CBR_RT_AP_INDEX,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_alloc_sla, cbr_rt_ap_index),
@@ -6019,7 +6305,7 @@ static bcmolt_field_descr type_descr_bcmolt_pon_alloc_sla_fields[] =
     },
     {
         .name = "cbr_nrt_ap_index",
-        .descr = "Allocation Profile index for CBR non-RT Bandwidth",
+        .descr = "Allocation profile index for CBR-nrt bandwidth",
         .id = BCMOLT_PON_ALLOC_SLA_ID_CBR_NRT_AP_INDEX,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_alloc_sla, cbr_nrt_ap_index),
@@ -6321,6 +6607,8 @@ const bcmolt_enum_val bcmolt_pon_type_string_table[] =
     { .name = "xgs_gpon_wdma", .val = BCMOLT_PON_TYPE_XGS_GPON_WDMA, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_GPON },
     { .name = "xgs_xgpon_tdmr_gpon_wdma", .val = BCMOLT_PON_TYPE_XGS_XGPON_TDMR_GPON_WDMA, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON | BCMOLT_TAG_GPON },
     { .name = "xgpon_gpon_wdma", .val = BCMOLT_PON_TYPE_XGPON_GPON_WDMA, .tags = BCMOLT_TAG_XGPON | BCMOLT_TAG_GPON },
+    { .name = "xgs_xgs_wdma", .val = BCMOLT_PON_TYPE_XGS_XGS_WDMA, .tags = BCMOLT_TAG_XGS },
+    { .name = "gpon_gpon_wdma", .val = BCMOLT_PON_TYPE_GPON_GPON_WDMA, .tags = BCMOLT_TAG_GPON },
     BCMOLT_ENUM_LAST,
 };
 
@@ -7451,6 +7739,7 @@ const bcmolt_enum_val bcmolt_system_mode_string_table[] =
     { .name = "xgs_xgpon__2_x_coex_tdma", .val = BCMOLT_SYSTEM_MODE_XGS_XGPON__2_X_COEX_TDMA, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON },
     { .name = "ngpon2__2_x_10g", .val = BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G, .tags = BCMOLT_TAG_NGPON2 | BCMOLT_TAG_XGPON },
     { .name = "xgs__8_x_gpon__8_x_wdma", .val = BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON | BCMOLT_TAG_GPON },
+    { .name = "xgs__1_x", .val = BCMOLT_SYSTEM_MODE_XGS__1_X, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON },
     BCMOLT_ENUM_LAST,
 };
 
@@ -8202,6 +8491,16 @@ const bcmolt_type_descr type_descr_bcmolt_u64_list_u32_hex =
     .mask_offset = offsetof(bcmolt_u64_list_u32_hex, arr_index_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_ARR_DYN,
     .x = { .arr_dyn = { .elem_type = &type_descr_uint64_t_hex, .len_type = &type_descr_uint32_t, .len_offset = offsetof(bcmolt_u64_list_u32_hex, len), .data_offset = offsetof(bcmolt_u64_list_u32_hex, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(uint64_t) } },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_u8_list_u8_hex =
+{
+    .name = "u8_list_u8_hex",
+    .descr = "Variable-length list of U8",
+    .size = sizeof(bcmolt_u8_list_u8_hex),
+    .mask_offset = offsetof(bcmolt_u8_list_u8_hex, arr_index_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_ARR_DYN,
+    .x = { .arr_dyn = { .elem_type = &type_descr_uint8_t_hex, .len_type = &type_descr_uint8_t, .len_offset = offsetof(bcmolt_u8_list_u8_hex, len), .data_offset = offsetof(bcmolt_u8_list_u8_hex, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(uint8_t) } },
 };
 
 const bcmolt_enum_val bcmolt_uart_baudrate_string_table[] =
@@ -9128,35 +9427,35 @@ static bcmolt_field_descr type_descr_bcmolt_access_control_stats_data_fields[] =
         .type = &type_descr_uint64_t,
     },
     {
-        .name = "policer_packets_passed",
+        .name = "policer_packets_passed_ukmb",
         .descr = "passed pkts on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_data, policer_packets_passed),
+        .offset = offsetof(bcmolt_access_control_stats_data, policer_packets_passed_ukmb),
         .type = &type_descr_bcmolt_arr_u64_4,
     },
     {
-        .name = "policer_packets_dropped",
+        .name = "policer_packets_dropped_ukmb",
         .descr = "dropped pkts on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_data, policer_packets_dropped),
+        .offset = offsetof(bcmolt_access_control_stats_data, policer_packets_dropped_ukmb),
         .type = &type_descr_bcmolt_arr_u64_4,
     },
     {
-        .name = "policer_bytes_passed",
+        .name = "policer_bytes_passed_ukmb",
         .descr = "passed bytes on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_data, policer_bytes_passed),
+        .offset = offsetof(bcmolt_access_control_stats_data, policer_bytes_passed_ukmb),
         .type = &type_descr_bcmolt_arr_u64_4,
     },
     {
-        .name = "policer_bytes_dropped",
+        .name = "policer_bytes_dropped_ukmb",
         .descr = "dropped bytes on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_data, policer_bytes_dropped),
+        .offset = offsetof(bcmolt_access_control_stats_data, policer_bytes_dropped_ukmb),
         .type = &type_descr_bcmolt_arr_u64_4,
     },
 };
@@ -9258,35 +9557,35 @@ static bcmolt_field_descr type_descr_bcmolt_access_control_stats_cfg_data_fields
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
-        .name = "policer_packets_passed",
+        .name = "policer_packets_passed_ukmb",
         .descr = "passed pkts on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_packets_passed),
+        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_packets_passed_ukmb),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
-        .name = "policer_packets_dropped",
+        .name = "policer_packets_dropped_ukmb",
         .descr = "dropped pkts on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_packets_dropped),
+        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_packets_dropped_ukmb),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
-        .name = "policer_bytes_passed",
+        .name = "policer_bytes_passed_ukmb",
         .descr = "passed bytes on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_bytes_passed),
+        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_bytes_passed_ukmb),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
-        .name = "policer_bytes_dropped",
+        .name = "policer_bytes_dropped_ukmb",
         .descr = "dropped bytes on policer by traffic type - uu,ku,mc,bc",
-        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED,
+        .id = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED_UKMB,
         .tags = 0,
-        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_bytes_dropped),
+        .offset = offsetof(bcmolt_access_control_stats_cfg_data, policer_bytes_dropped_ukmb),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
 };
@@ -9401,6 +9700,14 @@ static bcmolt_field_descr type_descr_bcmolt_bal_system_cfg_data_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_bal_system_cfg_data, lag_parms),
         .type = &type_descr_bcmolt_lag_global_parms,
+    },
+    {
+        .name = "host_port",
+        .descr = "host port",
+        .id = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_bal_system_cfg_data, host_port),
+        .type = &type_descr_bcmolt_host_port_params,
     },
 };
 
@@ -9624,7 +9931,7 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
     },
     {
         .name = "pcie_conn_data",
-        .descr = "If PCIe communications mode is selected, these parameters may be set.",
+        .descr = "Mirror of the PCIe connection parameters supplied in the initial connect operation.",
         .id = BCMOLT_DEVICE_CFG_DATA_ID_PCIE_CONN_DATA,
         .tags = 0,
         .offset = offsetof(bcmolt_device_cfg_data, pcie_conn_data),
@@ -9637,6 +9944,15 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
         .id = BCMOLT_DEVICE_CFG_DATA_ID_ITU_MULTIPON_DBA_ENABLE,
         .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
         .offset = offsetof(bcmolt_device_cfg_data, itu_multipon_dba_enable),
+        .type = &type_descr_bcmos_bool,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "itu_low_latency_dba_enable",
+        .descr = "Enable low latency DBA feature in ITU modes",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE,
+        .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
+        .offset = offsetof(bcmolt_device_cfg_data, itu_low_latency_dba_enable),
         .type = &type_descr_bcmos_bool,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
@@ -9673,6 +9989,48 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
         .offset = offsetof(bcmolt_device_cfg_data, itu_enable_inni_mux),
         .type = &type_descr_bcmos_bool,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "trap_gpon_ploam",
+        .descr = "Trap gpon ploams according to ploam id",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_TRAP_GPON_PLOAM,
+        .tags = BCMOLT_TAG_GPON,
+        .offset = offsetof(bcmolt_device_cfg_data, trap_gpon_ploam),
+        .type = &type_descr_bcmolt_arr_ploam_filter_5,
+    },
+    {
+        .name = "trap_xgpon_ploam",
+        .descr = "Trap xgpon ploams according to ploam id",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_TRAP_XGPON_PLOAM,
+        .tags = BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
+        .offset = offsetof(bcmolt_device_cfg_data, trap_xgpon_ploam),
+        .type = &type_descr_bcmolt_arr_ploam_filter_5,
+    },
+    {
+        .name = "debug_uart_port_swap",
+        .descr = "If set to false (the default value) UART0 is used for logs/cli, UART1 for TOD. If set to true UART0 is used for TOD, UART1 for logs/cli.",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_cfg_data, debug_uart_port_swap),
+        .type = &type_descr_bcmos_bool,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "inband_conn_data",
+        .descr = "Mirror of the in-band connection parameters supplied in the initial connect operation.",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_cfg_data, inband_conn_data),
+        .type = &type_descr_bcmolt_inband_conn_data,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "inband_internal_nni",
+        .descr = "Port number of the internal NNI port that is configured for in-band communication.",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_cfg_data, inband_internal_nni),
+        .type = &type_descr_uint8_t,
     },
 };
 
@@ -9758,6 +10116,22 @@ static bcmolt_field_descr type_descr_bcmolt_device_connect_data_fields[] =
         .id = BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_CHANGE_INNI_MUX_ENABLE,
         .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON | BCMOLT_TAG_NGPON2,
         .offset = offsetof(bcmolt_device_connect_data, itu_change_inni_mux_enable),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "itu_low_latency_dba_enable",
+        .descr = "Enable low latency DBA feature in ITU modes",
+        .id = BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE,
+        .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
+        .offset = offsetof(bcmolt_device_connect_data, itu_low_latency_dba_enable),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "debug_uart_port_swap",
+        .descr = "Optional paramter. Default value is false. Set to true to use UART1 for logs/CLI, UART0 for TOD",
+        .id = BCMOLT_DEVICE_CONNECT_DATA_ID_DEBUG_UART_PORT_SWAP,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_connect_data, debug_uart_port_swap),
         .type = &type_descr_bcmos_bool,
     },
 };
@@ -11667,12 +12041,11 @@ static bcmolt_field_descr type_descr_bcmolt_group_cfg_data_fields[] =
     },
     {
         .name = "type",
-        .descr = "Type of the group",
+        .descr = "Configured Group Type is Mulicast or Nto1",
         .id = BCMOLT_GROUP_CFG_DATA_ID_TYPE,
         .tags = 0,
         .offset = offsetof(bcmolt_group_cfg_data, type),
         .type = &type_descr_bcmolt_group_type,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
     {
         .name = "state",
@@ -11797,6 +12170,172 @@ const bcmolt_type_descr type_descr_bcmolt_group_auto_cfg_data =
     .mask_offset = offsetof(bcmolt_group_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_auto_cfg_data_fields } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_host_log_key_fields[] =
+{
+    {
+        .name = "name",
+        .descr = "Log name",
+        .id = BCMOLT_FIELD_DESCR_ID_NONE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_key, name),
+        .type = &type_descr_bcmolt_str_100,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_key =
+{
+    .name = "host_log_key",
+    .descr = "host log: key",
+    .size = sizeof(bcmolt_host_log_key),
+    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_key_fields } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_host_log_cfg_data_fields[] =
+{
+    {
+        .name = "type",
+        .descr = "Log type",
+        .id = BCMOLT_HOST_LOG_CFG_DATA_ID_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_cfg_data, type),
+        .type = &type_descr_bcmolt_log_type,
+    },
+    {
+        .name = "style",
+        .descr = "Log style",
+        .id = BCMOLT_HOST_LOG_CFG_DATA_ID_STYLE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_cfg_data, style),
+        .type = &type_descr_bcmolt_log_style,
+    },
+    {
+        .name = "level",
+        .descr = "Log levels for each file",
+        .id = BCMOLT_HOST_LOG_CFG_DATA_ID_LEVEL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_cfg_data, level),
+        .type = &type_descr_bcmolt_log_level_per_file,
+    },
+    {
+        .name = "msg_count",
+        .descr = "Number of messages per log level",
+        .id = BCMOLT_HOST_LOG_CFG_DATA_ID_MSG_COUNT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_cfg_data, msg_count),
+        .type = &type_descr_bcmolt_log_level_msg_count,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "lost_msg_count",
+        .descr = "Number of messages lost/dropped",
+        .id = BCMOLT_HOST_LOG_CFG_DATA_ID_LOST_MSG_COUNT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_cfg_data, lost_msg_count),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_cfg_data =
+{
+    .name = "host_log_cfg_data",
+    .descr = "host log: cfg",
+    .size = sizeof(bcmolt_host_log_cfg_data),
+    .mask_offset = offsetof(bcmolt_host_log_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_cfg_data_fields } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_host_log_file_key_fields[] =
+{
+    {
+        .name = "file_id",
+        .descr = "The log file to access (only SRAM is supported)",
+        .id = BCMOLT_FIELD_DESCR_ID_NONE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_key, file_id),
+        .type = &type_descr_bcmolt_host_log_file_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_key =
+{
+    .name = "host_log_file_key",
+    .descr = "Host Log File: key",
+    .size = sizeof(bcmolt_host_log_file_key),
+    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_file_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_file_key_fields } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_host_log_file_cfg_data_fields[] =
+{
+    {
+        .name = "wrap_around",
+        .descr = "Log file wrap-around option. TRUE=wrap around when full. FALSE=stop when full",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_WRAP_AROUND,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, wrap_around),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "clear_after_read",
+        .descr = "Clear log after last record has been read",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_CLEAR_AFTER_READ,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, clear_after_read),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "msg_count",
+        .descr = "Number of messages currently in the log",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSG_COUNT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, msg_count),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "msgs_read",
+        .descr = "Number of messages already read",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_READ,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, msgs_read),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "msgs_remaining",
+        .descr = "Number of unread messages remaining in the log file",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_REMAINING,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, msgs_remaining),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "buffer",
+        .descr = "Contains a section of the log buffer, one message per line. Reading this field causes it to move to the next section.",
+        .id = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_BUFFER,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_log_file_cfg_data, buffer),
+        .type = &type_descr_bcmolt_str_2048,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_cfg_data =
+{
+    .name = "host_log_file_cfg_data",
+    .descr = "Host Log File: cfg",
+    .size = sizeof(bcmolt_host_log_file_cfg_data),
+    .mask_offset = offsetof(bcmolt_host_log_file_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_file_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_file_cfg_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields[] =
@@ -13503,6 +14042,14 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
         .offset = offsetof(bcmolt_itupon_alloc_cfg_data, collect_stats),
         .type = &type_descr_bcmos_bool,
     },
+    {
+        .name = "onu_tcont_max_queue_size",
+        .descr = "For better DBA performance, this is the maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. If 0, it means unconfigured.",
+        .id = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_cfg_data, onu_tcont_max_queue_size),
+        .type = &type_descr_uint32_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_cfg_data =
@@ -14209,6 +14756,15 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_cfg_data_fields[] =
         .type = &type_descr_bcmolt_lag_health,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
+    {
+        .name = "sub_type",
+        .descr = "lag interface subtype",
+        .id = BCMOLT_LAG_INTERFACE_CFG_DATA_ID_SUB_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_lag_interface_cfg_data, sub_type),
+        .type = &type_descr_bcmolt_lag_subtype,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_lag_interface_cfg_data =
@@ -14296,6 +14852,14 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_data_fields[] =
         .type = &type_descr_uint64_t,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_lag_interface_stats_data, rx_jabber_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -14365,6 +14929,14 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_data_fields[] =
         .id = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_lag_interface_stats_data, tx_oversize_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_lag_interface_stats_data, tx_jabber_packets),
         .type = &type_descr_uint64_t,
     },
     {
@@ -14756,6 +15328,14 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_cfg_data_fields[
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_lag_interface_stats_cfg_data, rx_jabber_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -14825,6 +15405,14 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_cfg_data_fields[
         .id = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_lag_interface_stats_cfg_data, tx_oversize_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_lag_interface_stats_cfg_data, tx_jabber_packets),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
@@ -15485,6 +16073,15 @@ static bcmolt_field_descr type_descr_bcmolt_nni_interface_cfg_data_fields[] =
         .type = &type_descr_bcmolt_control_state,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
+    {
+        .name = "sub_type",
+        .descr = "nni interface subtype",
+        .id = BCMOLT_NNI_INTERFACE_CFG_DATA_ID_SUB_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_nni_interface_cfg_data, sub_type),
+        .type = &type_descr_bcmolt_nni_subtype,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_nni_interface_cfg_data =
@@ -15594,6 +16191,14 @@ static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_data_fields[] =
         .type = &type_descr_uint64_t,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_nni_interface_stats_data, rx_jabber_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -15663,6 +16268,14 @@ static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_data_fields[] =
         .id = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_nni_interface_stats_data, tx_oversize_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_nni_interface_stats_data, tx_jabber_packets),
         .type = &type_descr_uint64_t,
     },
     {
@@ -15950,6 +16563,14 @@ static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_cfg_data_fields[
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_nni_interface_stats_cfg_data, rx_jabber_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -16019,6 +16640,14 @@ static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_cfg_data_fields[
         .id = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_nni_interface_stats_cfg_data, tx_oversize_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_nni_interface_stats_cfg_data, tx_jabber_packets),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
@@ -16573,7 +17202,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_data_fields[] =
     },
     {
         .name = "delimiter_miss_detection",
-        .descr = "unrecieved bursts",
+        .descr = "unreceived bursts",
         .id = BCMOLT_ONU_ITU_PON_STATS_DATA_ID_DELIMITER_MISS_DETECTION,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_data, delimiter_miss_detection),
@@ -18401,6 +19030,44 @@ const bcmolt_type_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data =
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields } },
 };
 
+static bcmolt_field_descr type_descr_bcmolt_onu_trap_ploam_received_data_fields[] =
+{
+    {
+        .name = "message_id",
+        .descr = "message id",
+        .id = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_MESSAGE_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_trap_ploam_received_data, message_id),
+        .type = &type_descr_uint8_t,
+    },
+    {
+        .name = "onu_id",
+        .descr = "onu_id",
+        .id = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_ONU_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_trap_ploam_received_data, onu_id),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "data",
+        .descr = "data",
+        .id = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_DATA,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_trap_ploam_received_data, data),
+        .type = &type_descr_bcmolt_u8_list_u8_hex,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data =
+{
+    .name = "onu_trap_ploam_received_data",
+    .descr = "ONU: trap ploam received",
+    .size = sizeof(bcmolt_onu_trap_ploam_received_data),
+    .mask_offset = offsetof(bcmolt_onu_trap_ploam_received_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_trap_ploam_received_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_trap_ploam_received_data_fields } },
+};
+
 static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] =
 {
     {
@@ -18421,7 +19088,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] 
     },
     {
         .name = "delimiter_miss_detection",
-        .descr = "unrecieved bursts",
+        .descr = "unreceived bursts",
         .id = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_DELIMITER_MISS_DETECTION,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_cfg_data, delimiter_miss_detection),
@@ -19043,6 +19710,14 @@ static bcmolt_field_descr type_descr_bcmolt_onu_auto_cfg_data_fields[] =
         .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_TIWI,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_auto_cfg_data, tiwi),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "trap_ploam_received",
+        .descr = "If true, indications of type \"trap_ploam_received\" will be generated.",
+        .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_TRAP_PLOAM_RECEIVED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_auto_cfg_data, trap_ploam_received),
         .type = &type_descr_bcmos_bool,
     },
     {
@@ -20818,6 +21493,28 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_don
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields } },
 };
 
+static bcmolt_field_descr type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields[] =
+{
+    {
+        .name = "list_of_onu_ids",
+        .descr = "List of ONU IDs to upgrade the firmware.",
+        .id = BCMOLT_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT_DATA_ID_LIST_OF_ONU_IDS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit_data, list_of_onu_ids),
+        .type = &type_descr_bcmolt_onu_id_list_u32,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data =
+{
+    .name = "pon_interface_onu_upgrade_activate_commit_data",
+    .descr = "pon interface: ONU Upgrade Activate Commit",
+    .size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit_data),
+    .mask_offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields } },
+};
+
 static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields[] =
 {
     {
@@ -22036,6 +22733,14 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_data_fields[] =
         .type = &type_descr_uint64_t,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_stats_data, rx_jabber_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -22105,6 +22810,14 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_data_fields[] =
         .id = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_switch_inni_stats_data, tx_oversize_packets),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_stats_data, tx_jabber_packets),
         .type = &type_descr_uint64_t,
     },
     {
@@ -22354,6 +23067,14 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] 
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
+        .name = "rx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_stats_cfg_data, rx_jabber_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
         .name = "rx_unknown_protos",
         .descr = "RFC 1213",
         .id = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS,
@@ -22423,6 +23144,14 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] 
         .id = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_switch_inni_stats_cfg_data, tx_oversize_packets),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "tx_jabber_packets",
+        .descr = "RFC 1757 (EtherStat)",
+        .id = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_JABBER_PACKETS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_stats_cfg_data, tx_jabber_packets),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
     {
@@ -22867,6 +23596,22 @@ static bcmolt_field_descr type_descr_bcmolt_tm_queue_cfg_data_fields[] =
         .type = &type_descr_uint16_t,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
+    {
+        .name = "control_state",
+        .descr = "enable or disable state of the TM queue",
+        .id = BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_cfg_data, control_state),
+        .type = &type_descr_bcmolt_control_state,
+    },
+    {
+        .name = "cir_attachment_point",
+        .descr = "TM sched and priority line where CIR queue is attached",
+        .id = BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_cfg_data, cir_attachment_point),
+        .type = &type_descr_bcmolt_tm_sched_attachment_point,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_tm_queue_cfg_data =
@@ -22921,7 +23666,7 @@ static bcmolt_field_descr type_descr_bcmolt_tm_sched_cfg_data_fields[] =
     },
     {
         .name = "num_priorities",
-        .descr = "Max number of strict priority scheduling elements",
+        .descr = "num_priorities",
         .id = BCMOLT_TM_SCHED_CFG_DATA_ID_NUM_PRIORITIES,
         .tags = 0,
         .offset = offsetof(bcmolt_tm_sched_cfg_data, num_priorities),
@@ -22943,6 +23688,14 @@ static bcmolt_field_descr type_descr_bcmolt_tm_sched_cfg_data_fields[] =
         .offset = offsetof(bcmolt_tm_sched_cfg_data, state),
         .type = &type_descr_bcmolt_config_state,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "cir_attachment_point",
+        .descr = "TM sched and priority line where CIR queue can be attached",
+        .id = BCMOLT_TM_SCHED_CFG_DATA_ID_CIR_ATTACHMENT_POINT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_sched_cfg_data, cir_attachment_point),
+        .type = &type_descr_bcmolt_tm_sched_attachment_point,
     },
 };
 
@@ -22966,6 +23719,8 @@ const bcmolt_enum_val bcmolt_obj_id_string_table[] =
     { .name = "flow", .val = BCMOLT_OBJ_ID_FLOW, .tags = 0 },
     { .name = "gpio", .val = BCMOLT_OBJ_ID_GPIO, .tags = 0 },
     { .name = "group", .val = BCMOLT_OBJ_ID_GROUP, .tags = 0 },
+    { .name = "host_log", .val = BCMOLT_OBJ_ID_HOST_LOG, .tags = 0 },
+    { .name = "host_log_file", .val = BCMOLT_OBJ_ID_HOST_LOG_FILE, .tags = 0 },
     { .name = "inband_mgmt_channel", .val = BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL, .tags = 0 },
     { .name = "internal_nni", .val = BCMOLT_OBJ_ID_INTERNAL_NNI, .tags = 0 },
     { .name = "itupon_alloc", .val = BCMOLT_OBJ_ID_ITUPON_ALLOC, .tags = 0 },
@@ -23070,6 +23825,12 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "group_members_update", .val = BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE, .tags = 0 },
     { .name = "group_complete_members_update", .val = BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE, .tags = 0 },
     { .name = "group_auto_cfg", .val = BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG, .tags = 0 },
+    { .name = "host_log_key", .val = BCMOLT_API_GROUP_ID_HOST_LOG_KEY, .tags = 0 },
+    { .name = "host_log_cfg", .val = BCMOLT_API_GROUP_ID_HOST_LOG_CFG, .tags = 0 },
+    { .name = "host_log_file_key", .val = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY, .tags = 0 },
+    { .name = "host_log_file_cfg", .val = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG, .tags = 0 },
+    { .name = "host_log_file_clear", .val = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR, .tags = 0 },
+    { .name = "host_log_file_reset_buffer_ptr", .val = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR, .tags = 0 },
     { .name = "inband_mgmt_channel_cfg", .val = BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG, .tags = 0 },
     { .name = "inband_mgmt_channel_key", .val = BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY, .tags = 0 },
     { .name = "internal_nni_key", .val = BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY, .tags = 0 },
@@ -23214,6 +23975,7 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "onu_state_change", .val = BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE, .tags = 0 },
     { .name = "onu_range_value_changed", .val = BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED, .tags = 0 },
     { .name = "onu_xpon_unknown_ploam", .val = BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM, .tags = 0 },
+    { .name = "onu_trap_ploam_received", .val = BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED, .tags = 0 },
     { .name = "onu_itu_pon_stats_cfg", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
@@ -23261,6 +24023,7 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "pon_interface_switch_pon_type_completed", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED, .tags = 0 },
     { .name = "pon_interface_rogue_detection_tool", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL, .tags = 0 },
     { .name = "pon_interface_rogue_detection_tool_done", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE, .tags = 0 },
+    { .name = "pon_interface_onu_upgrade_activate_commit", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT, .tags = 0 },
     { .name = "pon_interface_itu_pon_stats_cfg", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG, .tags = 0 },
     { .name = "pon_interface_itu_pon_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "pon_interface_itu_pon_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
@@ -23617,6 +24380,23 @@ const bcmolt_type_descr type_descr_bcmolt_group_oper_subgroup =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_group_oper_subgroup),
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_group_oper_subgroup_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_log_file_oper_subgroup_string_table[] =
+{
+    { .name = "all", .val = BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_ALL, .tags = 0 },
+    { .name = "clear", .val = BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_CLEAR, .tags = 0 },
+    { .name = "reset_buffer_ptr", .val = BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_oper_subgroup =
+{
+    .name = "host_log_file_oper_subgroup",
+    .descr = "List of all host_log_file groups of type oper.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_file_oper_subgroup),
+    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_host_log_file_oper_subgroup_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_internal_nni_stat_subgroup_string_table[] =
@@ -24100,6 +24880,7 @@ const bcmolt_enum_val bcmolt_onu_auto_subgroup_string_table[] =
     { .name = "state_change", .val = BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE, .tags = 0 },
     { .name = "sufi", .val = BCMOLT_ONU_AUTO_SUBGROUP_SUFI, .tags = 0 },
     { .name = "tiwi", .val = BCMOLT_ONU_AUTO_SUBGROUP_TIWI, .tags = 0 },
+    { .name = "trap_ploam_received", .val = BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED, .tags = 0 },
     { .name = "tuning_response", .val = BCMOLT_ONU_AUTO_SUBGROUP_TUNING_RESPONSE, .tags = 0 },
     { .name = "xgpon_alarm", .val = BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM, .tags = 0 },
     { .name = "xpon_unknown_ploam", .val = BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM, .tags = 0 },
@@ -24223,6 +25004,7 @@ const bcmolt_enum_val bcmolt_pon_interface_oper_subgroup_string_table[] =
     { .name = "broadcast_ploam_packet", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_BROADCAST_PLOAM_PACKET, .tags = 0 },
     { .name = "cpu_packets", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_CPU_PACKETS, .tags = 0 },
     { .name = "disable_serial_number", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_DISABLE_SERIAL_NUMBER, .tags = 0 },
+    { .name = "onu_upgrade_activate_commit", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ONU_UPGRADE_ACTIVATE_COMMIT, .tags = 0 },
     { .name = "protection_switching_apply_rerange_delta", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA, .tags = 0 },
     { .name = "protection_switching_type_c_set_multiple_onu_state", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE, .tags = 0 },
     { .name = "reset", .val = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_RESET, .tags = 0 },
@@ -24960,6 +25742,7 @@ const bcmolt_enum_val bcmolt_group_member_info_id_string_table[] =
     { .name = "intf", .val = BCMOLT_GROUP_MEMBER_INFO_ID_INTF, .tags = 0 },
     { .name = "svc_port_id", .val = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_ID, .tags = 0 },
     { .name = "egress_qos", .val = BCMOLT_GROUP_MEMBER_INFO_ID_EGRESS_QOS, .tags = 0 },
+    { .name = "svc_port_is_wc", .val = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -24986,6 +25769,22 @@ const bcmolt_type_descr type_descr_bcmolt_group_members_update_command_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_group_members_update_command_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_group_members_update_command_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_port_params_id_string_table[] =
+{
+    { .name = "pir_kbps", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS, .tags = 0 },
+    { .name = "queue_size_kbytes", .val = BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_port_params_id =
+{
+    .name = "host_port_params_id",
+    .descr = "Identifiers for all fields in a 'host_port_params'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_port_params_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_port_params_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_host_sw_version_id_string_table[] =
@@ -25239,6 +26038,9 @@ const bcmolt_type_descr type_descr_bcmolt_ituonu_upgrade_params_id =
 
 const bcmolt_enum_val bcmolt_itupon_dba_id_string_table[] =
 {
+    { .name = "implementation_type", .val = BCMOLT_ITUPON_DBA_ID_IMPLEMENTATION_TYPE, .tags = 0 },
+    { .name = "num_of_frames_per_map", .val = BCMOLT_ITUPON_DBA_ID_NUM_OF_FRAMES_PER_MAP, .tags = 0 },
+    { .name = "external_dba_options", .val = BCMOLT_ITUPON_DBA_ID_EXTERNAL_DBA_OPTIONS, .tags = 0 },
     { .name = "extended_dba_priority_adjustment", .val = BCMOLT_ITUPON_DBA_ID_EXTENDED_DBA_PRIORITY_ADJUSTMENT, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -25445,6 +26247,8 @@ const bcmolt_enum_val bcmolt_ngpon2_onu_params_id_string_table[] =
     { .name = "tuning_granularity", .val = BCMOLT_NGPON2_ONU_PARAMS_ID_TUNING_GRANULARITY, .tags = 0 },
     { .name = "step_tuning_time", .val = BCMOLT_NGPON2_ONU_PARAMS_ID_STEP_TUNING_TIME, .tags = 0 },
     { .name = "power_levelling_capabilities", .val = BCMOLT_NGPON2_ONU_PARAMS_ID_POWER_LEVELLING_CAPABILITIES, .tags = 0 },
+    { .name = "tuning_static_eqd", .val = BCMOLT_NGPON2_ONU_PARAMS_ID_TUNING_STATIC_EQD, .tags = 0 },
+    { .name = "ps_type_w", .val = BCMOLT_NGPON2_ONU_PARAMS_ID_PS_TYPE_W, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -25526,11 +26330,30 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_management_configuration_id 
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_power_management_configuration_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_onu_ps_type_w_id_string_table[] =
+{
+    { .name = "control", .val = BCMOLT_ONU_PS_TYPE_W_ID_CONTROL, .tags = 0 },
+    { .name = "partner_pon_id", .val = BCMOLT_ONU_PS_TYPE_W_ID_PARTNER_PON_ID, .tags = 0 },
+    { .name = "partner_static_eqd", .val = BCMOLT_ONU_PS_TYPE_W_ID_PARTNER_STATIC_EQD, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_ps_type_w_id =
+{
+    .name = "onu_ps_type_w_id",
+    .descr = "Identifiers for all fields in a 'onu_ps_type_w'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_ps_type_w_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_ps_type_w_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_onu_tuning_configuration_id_string_table[] =
 {
     { .name = "tsource", .val = BCMOLT_ONU_TUNING_CONFIGURATION_ID_TSOURCE, .tags = 0 },
     { .name = "ttarget", .val = BCMOLT_ONU_TUNING_CONFIGURATION_ID_TTARGET, .tags = 0 },
     { .name = "request_registration_required", .val = BCMOLT_ONU_TUNING_CONFIGURATION_ID_REQUEST_REGISTRATION_REQUIRED, .tags = 0 },
+    { .name = "range_mode", .val = BCMOLT_ONU_TUNING_CONFIGURATION_ID_RANGE_MODE, .tags = 0 },
+    { .name = "retry_interval", .val = BCMOLT_ONU_TUNING_CONFIGURATION_ID_RETRY_INTERVAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -25631,6 +26454,21 @@ const bcmolt_type_descr type_descr_bcmolt_periodic_standby_pon_monitoring_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_periodic_standby_pon_monitoring_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_periodic_standby_pon_monitoring_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_ploam_filter_id_string_table[] =
+{
+    { .name = "ploam_id", .val = BCMOLT_PLOAM_FILTER_ID_PLOAM_ID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ploam_filter_id =
+{
+    .name = "ploam_filter_id",
+    .descr = "Identifiers for all fields in a 'ploam_filter'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_ploam_filter_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ploam_filter_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_ploam_retransmission_id_string_table[] =
@@ -26573,10 +27411,10 @@ const bcmolt_enum_val bcmolt_access_control_stats_data_id_string_table[] =
 {
     { .name = "packets", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_PACKETS, .tags = 0 },
     { .name = "bytes", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_BYTES, .tags = 0 },
-    { .name = "policer_packets_passed", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED, .tags = 0 },
-    { .name = "policer_packets_dropped", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED, .tags = 0 },
-    { .name = "policer_bytes_passed", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED, .tags = 0 },
-    { .name = "policer_bytes_dropped", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED, .tags = 0 },
+    { .name = "policer_packets_passed_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_PASSED_UKMB, .tags = 0 },
+    { .name = "policer_packets_dropped_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_PACKETS_DROPPED_UKMB, .tags = 0 },
+    { .name = "policer_bytes_passed_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_PASSED_UKMB, .tags = 0 },
+    { .name = "policer_bytes_dropped_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_DATA_ID_POLICER_BYTES_DROPPED_UKMB, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26626,10 +27464,10 @@ const bcmolt_enum_val bcmolt_access_control_stats_cfg_data_id_string_table[] =
 {
     { .name = "packets", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_PACKETS, .tags = 0 },
     { .name = "bytes", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_BYTES, .tags = 0 },
-    { .name = "policer_packets_passed", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED, .tags = 0 },
-    { .name = "policer_packets_dropped", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED, .tags = 0 },
-    { .name = "policer_bytes_passed", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED, .tags = 0 },
-    { .name = "policer_bytes_dropped", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED, .tags = 0 },
+    { .name = "policer_packets_passed_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_PASSED_UKMB, .tags = 0 },
+    { .name = "policer_packets_dropped_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_PACKETS_DROPPED_UKMB, .tags = 0 },
+    { .name = "policer_bytes_passed_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_PASSED_UKMB, .tags = 0 },
+    { .name = "policer_bytes_dropped_ukmb", .val = BCMOLT_ACCESS_CONTROL_STATS_CFG_DATA_ID_POLICER_BYTES_DROPPED_UKMB, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26693,6 +27531,7 @@ const bcmolt_enum_val bcmolt_bal_system_cfg_data_id_string_table[] =
 {
     { .name = "config_state", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_CONFIG_STATE, .tags = 0 },
     { .name = "lag_parms", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_LAG_PARMS, .tags = 0 },
+    { .name = "host_port", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26758,10 +27597,16 @@ const bcmolt_enum_val bcmolt_device_cfg_data_id_string_table[] =
     { .name = "comm_mode", .val = BCMOLT_DEVICE_CFG_DATA_ID_COMM_MODE, .tags = 0 },
     { .name = "pcie_conn_data", .val = BCMOLT_DEVICE_CFG_DATA_ID_PCIE_CONN_DATA, .tags = 0 },
     { .name = "itu_multipon_dba_enable", .val = BCMOLT_DEVICE_CFG_DATA_ID_ITU_MULTIPON_DBA_ENABLE, .tags = 0 },
+    { .name = "itu_low_latency_dba_enable", .val = BCMOLT_DEVICE_CFG_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE, .tags = 0 },
     { .name = "logger_enable", .val = BCMOLT_DEVICE_CFG_DATA_ID_LOGGER_ENABLE, .tags = 0 },
     { .name = "inni_config", .val = BCMOLT_DEVICE_CFG_DATA_ID_INNI_CONFIG, .tags = 0 },
     { .name = "ras_ddr_mode", .val = BCMOLT_DEVICE_CFG_DATA_ID_RAS_DDR_MODE, .tags = 0 },
     { .name = "itu_enable_inni_mux", .val = BCMOLT_DEVICE_CFG_DATA_ID_ITU_ENABLE_INNI_MUX, .tags = 0 },
+    { .name = "trap_gpon_ploam", .val = BCMOLT_DEVICE_CFG_DATA_ID_TRAP_GPON_PLOAM, .tags = 0 },
+    { .name = "trap_xgpon_ploam", .val = BCMOLT_DEVICE_CFG_DATA_ID_TRAP_XGPON_PLOAM, .tags = 0 },
+    { .name = "debug_uart_port_swap", .val = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP, .tags = 0 },
+    { .name = "inband_conn_data", .val = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA, .tags = 0 },
+    { .name = "inband_internal_nni", .val = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26785,6 +27630,8 @@ const bcmolt_enum_val bcmolt_device_connect_data_id_string_table[] =
     { .name = "ras_ddr_mode", .val = BCMOLT_DEVICE_CONNECT_DATA_ID_RAS_DDR_MODE, .tags = 0 },
     { .name = "ddr_test_mode", .val = BCMOLT_DEVICE_CONNECT_DATA_ID_DDR_TEST_MODE, .tags = 0 },
     { .name = "itu_change_inni_mux_enable", .val = BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_CHANGE_INNI_MUX_ENABLE, .tags = 0 },
+    { .name = "itu_low_latency_dba_enable", .val = BCMOLT_DEVICE_CONNECT_DATA_ID_ITU_LOW_LATENCY_DBA_ENABLE, .tags = 0 },
+    { .name = "debug_uart_port_swap", .val = BCMOLT_DEVICE_CONNECT_DATA_ID_DEBUG_UART_PORT_SWAP, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27674,6 +28521,75 @@ const bcmolt_type_descr type_descr_bcmolt_group_auto_cfg_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_group_auto_cfg_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_host_log_key_id_string_table[] =
+{
+    { .name = "name", .val = BCMOLT_HOST_LOG_KEY_ID_NAME, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_key_id =
+{
+    .name = "host_log_key_id",
+    .descr = "Identifiers for all fields in a 'host_log_key'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_key_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_key_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_log_cfg_data_id_string_table[] =
+{
+    { .name = "type", .val = BCMOLT_HOST_LOG_CFG_DATA_ID_TYPE, .tags = 0 },
+    { .name = "style", .val = BCMOLT_HOST_LOG_CFG_DATA_ID_STYLE, .tags = 0 },
+    { .name = "level", .val = BCMOLT_HOST_LOG_CFG_DATA_ID_LEVEL, .tags = 0 },
+    { .name = "msg_count", .val = BCMOLT_HOST_LOG_CFG_DATA_ID_MSG_COUNT, .tags = 0 },
+    { .name = "lost_msg_count", .val = BCMOLT_HOST_LOG_CFG_DATA_ID_LOST_MSG_COUNT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_cfg_data_id =
+{
+    .name = "host_log_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'host_log_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_log_file_key_id_string_table[] =
+{
+    { .name = "file_id", .val = BCMOLT_HOST_LOG_FILE_KEY_ID_FILE_ID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_key_id =
+{
+    .name = "host_log_file_key_id",
+    .descr = "Identifiers for all fields in a 'host_log_file_key'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_file_key_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_file_key_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_host_log_file_cfg_data_id_string_table[] =
+{
+    { .name = "wrap_around", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_WRAP_AROUND, .tags = 0 },
+    { .name = "clear_after_read", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_CLEAR_AFTER_READ, .tags = 0 },
+    { .name = "msg_count", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSG_COUNT, .tags = 0 },
+    { .name = "msgs_read", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_READ, .tags = 0 },
+    { .name = "msgs_remaining", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_MSGS_REMAINING, .tags = 0 },
+    { .name = "buffer", .val = BCMOLT_HOST_LOG_FILE_CFG_DATA_ID_BUFFER, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_host_log_file_cfg_data_id =
+{
+    .name = "host_log_file_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'host_log_file_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_host_log_file_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_file_cfg_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_inband_mgmt_channel_cfg_data_id_string_table[] =
 {
     { .name = "nni_intf", .val = BCMOLT_INBAND_MGMT_CHANNEL_CFG_DATA_ID_NNI_INTF, .tags = 0 },
@@ -28096,6 +29012,7 @@ const bcmolt_enum_val bcmolt_itupon_alloc_cfg_data_id_string_table[] =
     { .name = "sla", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_SLA, .tags = 0 },
     { .name = "onu_id", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_ID, .tags = 0 },
     { .name = "collect_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS, .tags = 0 },
+    { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28428,6 +29345,7 @@ const bcmolt_enum_val bcmolt_lag_interface_cfg_data_id_string_table[] =
     { .name = "member_count", .val = BCMOLT_LAG_INTERFACE_CFG_DATA_ID_MEMBER_COUNT, .tags = 0 },
     { .name = "member_up_count", .val = BCMOLT_LAG_INTERFACE_CFG_DATA_ID_MEMBER_UP_COUNT, .tags = 0 },
     { .name = "lag_health", .val = BCMOLT_LAG_INTERFACE_CFG_DATA_ID_LAG_HEALTH, .tags = 0 },
+    { .name = "sub_type", .val = BCMOLT_LAG_INTERFACE_CFG_DATA_ID_SUB_TYPE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28451,6 +29369,7 @@ const bcmolt_enum_val bcmolt_lag_interface_stats_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -28460,6 +29379,7 @@ const bcmolt_enum_val bcmolt_lag_interface_stats_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -28582,6 +29502,7 @@ const bcmolt_enum_val bcmolt_lag_interface_stats_cfg_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -28591,6 +29512,7 @@ const bcmolt_enum_val bcmolt_lag_interface_stats_cfg_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -28818,6 +29740,7 @@ const bcmolt_enum_val bcmolt_nni_interface_cfg_data_id_string_table[] =
     { .name = "speed", .val = BCMOLT_NNI_INTERFACE_CFG_DATA_ID_SPEED, .tags = 0 },
     { .name = "duplex", .val = BCMOLT_NNI_INTERFACE_CFG_DATA_ID_DUPLEX, .tags = 0 },
     { .name = "auto_negotiate", .val = BCMOLT_NNI_INTERFACE_CFG_DATA_ID_AUTO_NEGOTIATE, .tags = 0 },
+    { .name = "sub_type", .val = BCMOLT_NNI_INTERFACE_CFG_DATA_ID_SUB_TYPE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28856,6 +29779,7 @@ const bcmolt_enum_val bcmolt_nni_interface_stats_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -28865,6 +29789,7 @@ const bcmolt_enum_val bcmolt_nni_interface_stats_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -28925,6 +29850,7 @@ const bcmolt_enum_val bcmolt_nni_interface_stats_cfg_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -28934,6 +29860,7 @@ const bcmolt_enum_val bcmolt_nni_interface_stats_cfg_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -30062,6 +30989,23 @@ const bcmolt_type_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_xpon_unknown_ploam_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_onu_trap_ploam_received_data_id_string_table[] =
+{
+    { .name = "message_id", .val = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_MESSAGE_ID, .tags = 0 },
+    { .name = "onu_id", .val = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_ONU_ID, .tags = 0 },
+    { .name = "data", .val = BCMOLT_ONU_TRAP_PLOAM_RECEIVED_DATA_ID_DATA, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data_id =
+{
+    .name = "onu_trap_ploam_received_data_id",
+    .descr = "Identifiers for all fields in a 'onu_trap_ploam_received_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_trap_ploam_received_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_trap_ploam_received_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_onu_itu_pon_stats_cfg_data_id_string_table[] =
 {
     { .name = "positive_drift", .val = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_POSITIVE_DRIFT, .tags = 0 },
@@ -30181,6 +31125,7 @@ const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[] =
     { .name = "state_change", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_STATE_CHANGE, .tags = 0 },
     { .name = "sufi", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_SUFI, .tags = 0 },
     { .name = "tiwi", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_TIWI, .tags = 0 },
+    { .name = "trap_ploam_received", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_TRAP_PLOAM_RECEIVED, .tags = 0 },
     { .name = "tuning_response", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_TUNING_RESPONSE, .tags = 0 },
     { .name = "xgpon_alarm", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_XGPON_ALARM, .tags = 0 },
     { .name = "xpon_unknown_ploam", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_XPON_UNKNOWN_PLOAM, .tags = 0 },
@@ -30804,6 +31749,21 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_don
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_pon_interface_rogue_detection_tool_done_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_string_table[] =
+{
+    { .name = "list_of_onu_ids", .val = BCMOLT_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT_DATA_ID_LIST_OF_ONU_IDS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_id =
+{
+    .name = "pon_interface_onu_upgrade_activate_commit_data_id",
+    .descr = "Identifiers for all fields in a 'pon_interface_onu_upgrade_activate_commit_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_pon_interface_itu_pon_stats_cfg_data_id_string_table[] =
 {
     { .name = "fec_codewords", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS, .tags = 0 },
@@ -31141,6 +32101,7 @@ const bcmolt_enum_val bcmolt_switch_inni_stats_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -31150,6 +32111,7 @@ const bcmolt_enum_val bcmolt_switch_inni_stats_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -31193,6 +32155,7 @@ const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[] =
     { .name = "rx_fcs_error_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_FCS_ERROR_PACKETS, .tags = 0 },
     { .name = "rx_undersize_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "rx_oversize_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "rx_jabber_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_unknown_protos", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS, .tags = 0 },
     { .name = "tx_bytes", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_BYTES, .tags = 0 },
     { .name = "tx_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_PACKETS, .tags = 0 },
@@ -31202,6 +32165,7 @@ const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[] =
     { .name = "tx_error_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_ERROR_PACKETS, .tags = 0 },
     { .name = "tx_undersize_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_UNDERSIZE_PACKETS, .tags = 0 },
     { .name = "tx_oversize_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_OVERSIZE_PACKETS, .tags = 0 },
+    { .name = "tx_jabber_packets", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_TX_JABBER_PACKETS, .tags = 0 },
     { .name = "rx_frames_64", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_FRAMES_64, .tags = 0 },
     { .name = "rx_frames_65_127", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_FRAMES_65_127, .tags = 0 },
     { .name = "rx_frames_128_255", .val = BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_FRAMES_128_255, .tags = 0 },
@@ -31367,6 +32331,8 @@ const bcmolt_enum_val bcmolt_tm_queue_cfg_data_id_string_table[] =
     { .name = "tm_sched_param", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_TM_SCHED_PARAM, .tags = 0 },
     { .name = "rate", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE, .tags = 0 },
     { .name = "ref_count", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT, .tags = 0 },
+    { .name = "control_state", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE, .tags = 0 },
+    { .name = "cir_attachment_point", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -31401,6 +32367,7 @@ const bcmolt_enum_val bcmolt_tm_sched_cfg_data_id_string_table[] =
     { .name = "num_priorities", .val = BCMOLT_TM_SCHED_CFG_DATA_ID_NUM_PRIORITIES, .tags = 0 },
     { .name = "rate", .val = BCMOLT_TM_SCHED_CFG_DATA_ID_RATE, .tags = 0 },
     { .name = "state", .val = BCMOLT_TM_SCHED_CFG_DATA_ID_STATE, .tags = 0 },
+    { .name = "cir_attachment_point", .val = BCMOLT_TM_SCHED_CFG_DATA_ID_CIR_ATTACHMENT_POINT, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -33070,6 +34037,186 @@ static bcmolt_obj_descr obj_descr_group =
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_group_get_active_tags,
     .num_groups = BCM_SIZEOFARRAY(groups_group),
     .groups = groups_group,
+};
+
+
+/** ==== Object: host_log ==== */
+/** Group: host_log - key. */
+static bcmolt_group_descr group_descr_host_log_key =
+{
+    .container_size = 0,
+    .data_offset = 0,
+    .data_size = sizeof(bcmolt_host_log_key),
+    .descr = "key.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_KEY,
+    .id = 0,
+    .key_offset = 0,
+    .key_size = sizeof(bcmolt_host_log_key),
+    .mgt_group = BCMOLT_MGT_GROUP_KEY,
+    .name = "key",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_host_log_key,
+};
+
+/** Group: host_log - cfg. */
+static bcmolt_multi_group_descr multi_descr_host_log_cfg =
+{
+    .container_size = sizeof(bcmolt_host_log_multi_cfg),
+    .key_offset = offsetof(bcmolt_host_log_multi_cfg, key),
+    .next_key_offset = offsetof(bcmolt_host_log_multi_cfg, next_key),
+    .filter_offset = offsetof(bcmolt_host_log_multi_cfg, filter),
+    .request_offset = offsetof(bcmolt_host_log_multi_cfg, request),
+    .more_offset = offsetof(bcmolt_host_log_multi_cfg, more),
+    .num_responses_offset = offsetof(bcmolt_host_log_multi_cfg, num_responses),
+    .responses_offset = offsetof(bcmolt_host_log_multi_cfg, responses),
+};
+
+static bcmolt_group_descr group_descr_host_log_cfg =
+{
+    .container_size = sizeof(bcmolt_host_log_cfg),
+    .data_offset = offsetof(bcmolt_host_log_cfg, data),
+    .data_size = sizeof(bcmolt_host_log_cfg_data),
+    .descr = "cfg.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_CFG,
+    .id = 1,
+    .key_offset = offsetof(bcmolt_host_log_cfg, key),
+    .key_size = sizeof(bcmolt_host_log_key),
+    .mgt_group = BCMOLT_MGT_GROUP_CFG,
+    .multi = &multi_descr_host_log_cfg,
+    .name = "cfg",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_host_log_cfg_data,
+};
+
+static const bcmolt_group_descr *groups_host_log[] =
+{
+    &group_descr_host_log_key,
+    &group_descr_host_log_cfg,
+};
+
+static bcmolt_obj_descr obj_descr_host_log =
+{
+    .name = "host_log",
+    .descr = "A single host log source.",
+    .id = BCMOLT_OBJ_ID_HOST_LOG,
+    .tags = BCMOLT_TAG_SYSTEM,
+    .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_host_log_get_active_tags,
+    .num_groups = BCM_SIZEOFARRAY(groups_host_log),
+    .groups = groups_host_log,
+};
+
+
+/** ==== Object: host_log_file ==== */
+/** Group: host_log_file - key. */
+static bcmolt_group_descr group_descr_host_log_file_key =
+{
+    .container_size = 0,
+    .data_offset = 0,
+    .data_size = sizeof(bcmolt_host_log_file_key),
+    .descr = "key.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY,
+    .id = 0,
+    .key_offset = 0,
+    .key_size = sizeof(bcmolt_host_log_file_key),
+    .mgt_group = BCMOLT_MGT_GROUP_KEY,
+    .name = "key",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_host_log_file_key,
+};
+
+/** Group: host_log_file - cfg. */
+static bcmolt_multi_group_descr multi_descr_host_log_file_cfg =
+{
+    .container_size = sizeof(bcmolt_host_log_file_multi_cfg),
+    .key_offset = offsetof(bcmolt_host_log_file_multi_cfg, key),
+    .next_key_offset = offsetof(bcmolt_host_log_file_multi_cfg, next_key),
+    .filter_offset = offsetof(bcmolt_host_log_file_multi_cfg, filter),
+    .request_offset = offsetof(bcmolt_host_log_file_multi_cfg, request),
+    .more_offset = offsetof(bcmolt_host_log_file_multi_cfg, more),
+    .num_responses_offset = offsetof(bcmolt_host_log_file_multi_cfg, num_responses),
+    .responses_offset = offsetof(bcmolt_host_log_file_multi_cfg, responses),
+};
+
+static bcmolt_group_descr group_descr_host_log_file_cfg =
+{
+    .container_size = sizeof(bcmolt_host_log_file_cfg),
+    .data_offset = offsetof(bcmolt_host_log_file_cfg, data),
+    .data_size = sizeof(bcmolt_host_log_file_cfg_data),
+    .descr = "cfg.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG,
+    .id = 1,
+    .key_offset = offsetof(bcmolt_host_log_file_cfg, key),
+    .key_size = sizeof(bcmolt_host_log_file_key),
+    .mgt_group = BCMOLT_MGT_GROUP_CFG,
+    .multi = &multi_descr_host_log_file_cfg,
+    .name = "cfg",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_host_log_file_cfg_data,
+};
+
+/** Group: host_log_file - clear. */
+static bcmolt_group_descr group_descr_host_log_file_clear =
+{
+    .container_size = sizeof(bcmolt_host_log_file_clear),
+    .data_offset = 0,
+    .data_size = 0,
+    .descr = "Clear the log file.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR,
+    .id = 3,
+    .key_offset = offsetof(bcmolt_host_log_file_clear, key),
+    .key_size = sizeof(bcmolt_host_log_file_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "clear",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
+    .subgroup_idx = BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_CLEAR,
+    .tags = 0,
+    .type = NULL,
+};
+
+/** Group: host_log_file - reset_buffer_ptr. */
+static bcmolt_group_descr group_descr_host_log_file_reset_buffer_ptr =
+{
+    .container_size = sizeof(bcmolt_host_log_file_reset_buffer_ptr),
+    .data_offset = 0,
+    .data_size = 0,
+    .descr = "Reset the position of the buffer read pointer so the \"buffer\" cfg parameter will return the first section of the file.",
+    .global_id = BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR,
+    .id = 4,
+    .key_offset = offsetof(bcmolt_host_log_file_reset_buffer_ptr, key),
+    .key_size = sizeof(bcmolt_host_log_file_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "reset_buffer_ptr",
+    .obj_id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
+    .subgroup_idx = BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR,
+    .tags = 0,
+    .type = NULL,
+};
+
+static const bcmolt_group_descr *groups_host_log_file[] =
+{
+    &group_descr_host_log_file_key,
+    &group_descr_host_log_file_cfg,
+    &group_descr_host_log_file_clear,
+    &group_descr_host_log_file_reset_buffer_ptr,
+};
+
+static bcmolt_obj_descr obj_descr_host_log_file =
+{
+    .name = "host_log_file",
+    .descr = "Memory file generated by host system logs.",
+    .id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
+    .tags = BCMOLT_TAG_SYSTEM,
+    .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_host_log_file_get_active_tags,
+    .num_groups = BCM_SIZEOFARRAY(groups_host_log_file),
+    .groups = groups_host_log_file,
 };
 
 
@@ -36183,7 +37330,7 @@ static bcmolt_group_descr group_descr_onu_onu_ready_for_data_grant =
     .container_size = sizeof(bcmolt_onu_onu_ready_for_data_grant),
     .data_offset = 0,
     .data_size = 0,
-    .descr = "The ONU should be ready to get its first data grants (for the default alloc ID) to use it for acknowledgement. This is relevant for external and partial-external DBA types only.",
+    .descr = "The ONU should be ready to get its first data grants (for the default alloc ID) to use it for acknowledgement. This is relevant for external and partial-external DBA implementation types only.",
     .global_id = BCMOLT_API_GROUP_ID_ONU_ONU_READY_FOR_DATA_GRANT,
     .id = 63,
     .key_offset = offsetof(bcmolt_onu_onu_ready_for_data_grant, key),
@@ -36289,6 +37436,25 @@ static bcmolt_group_descr group_descr_onu_xpon_unknown_ploam =
     .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM,
     .tags = 0,
     .type = &type_descr_bcmolt_onu_xpon_unknown_ploam_data,
+};
+
+/** Group: onu - trap_ploam_received. */
+static bcmolt_group_descr group_descr_onu_trap_ploam_received =
+{
+    .container_size = sizeof(bcmolt_onu_trap_ploam_received),
+    .data_offset = offsetof(bcmolt_onu_trap_ploam_received, data),
+    .data_size = sizeof(bcmolt_onu_trap_ploam_received_data),
+    .descr = "trap ploam received.",
+    .global_id = BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED,
+    .id = 69,
+    .key_offset = offsetof(bcmolt_onu_trap_ploam_received, key),
+    .key_size = sizeof(bcmolt_onu_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "trap_ploam_received",
+    .obj_id = BCMOLT_OBJ_ID_ONU,
+    .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_onu_trap_ploam_received_data,
 };
 
 /** Group: onu - itu_pon_stats_cfg. */
@@ -36436,6 +37602,7 @@ static const bcmolt_group_descr *groups_onu[] =
     &group_descr_onu_state_change,
     &group_descr_onu_range_value_changed,
     &group_descr_onu_xpon_unknown_ploam,
+    &group_descr_onu_trap_ploam_received,
     &group_descr_onu_itu_pon_stats_cfg,
     &group_descr_onu_itu_pon_stats_alarm_raised,
     &group_descr_onu_itu_pon_stats_alarm_cleared,
@@ -37375,6 +38542,25 @@ static bcmolt_group_descr group_descr_pon_interface_rogue_detection_tool_done =
     .type = &type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data,
 };
 
+/** Group: pon_interface - onu_upgrade_activate_commit. */
+static bcmolt_group_descr group_descr_pon_interface_onu_upgrade_activate_commit =
+{
+    .container_size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit),
+    .data_offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit, data),
+    .data_size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit_data),
+    .descr = "Perform the activate/commit phase of the ONU upgrade (ITU mode only).",
+    .global_id = BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT,
+    .id = 55,
+    .key_offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit, key),
+    .key_size = sizeof(bcmolt_pon_interface_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "onu_upgrade_activate_commit",
+    .obj_id = BCMOLT_OBJ_ID_PON_INTERFACE,
+    .subgroup_idx = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ONU_UPGRADE_ACTIVATE_COMMIT,
+    .tags = 0,
+    .type = &type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data,
+};
+
 /** Group: pon_interface - itu_pon_stats_cfg. */
 static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_cfg =
 {
@@ -37549,6 +38735,7 @@ static const bcmolt_group_descr *groups_pon_interface[] =
     &group_descr_pon_interface_switch_pon_type_completed,
     &group_descr_pon_interface_rogue_detection_tool,
     &group_descr_pon_interface_rogue_detection_tool_done,
+    &group_descr_pon_interface_onu_upgrade_activate_commit,
     &group_descr_pon_interface_itu_pon_stats_cfg,
     &group_descr_pon_interface_itu_pon_stats_alarm_raised,
     &group_descr_pon_interface_itu_pon_stats_alarm_cleared,
@@ -38243,6 +39430,8 @@ static const bcmolt_obj_descr *lookup_obj_by_id[] =
     [BCMOLT_OBJ_ID_FLOW] = &obj_descr_flow,
     [BCMOLT_OBJ_ID_GPIO] = &obj_descr_gpio,
     [BCMOLT_OBJ_ID_GROUP] = &obj_descr_group,
+    [BCMOLT_OBJ_ID_HOST_LOG] = &obj_descr_host_log,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE] = &obj_descr_host_log_file,
     [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL] = &obj_descr_inband_mgmt_channel,
     [BCMOLT_OBJ_ID_INTERNAL_NNI] = &obj_descr_internal_nni,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC] = &obj_descr_itupon_alloc,
@@ -38337,6 +39526,12 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO][BCMOLT_GROUP_AUTO_SUBGROUP_COMPLETE_MEMBERS_UPDATE] = &group_descr_group_complete_members_update,
     [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_group_auto_cfg,
     [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_OPER][BCMOLT_GROUP_OPER_SUBGROUP_MEMBERS_UPDATE] = &group_descr_group_members_update,
+    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_host_log_key,
+    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_host_log_cfg,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_host_log_file_key,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_host_log_file_cfg,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_CLEAR] = &group_descr_host_log_file_clear,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR] = &group_descr_host_log_file_reset_buffer_ptr,
     [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_inband_mgmt_channel_key,
     [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_inband_mgmt_channel_cfg,
     [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_internal_nni_key,
@@ -38469,6 +39664,7 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE] = &group_descr_onu_state_change,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RANGE_VALUE_CHANGED] = &group_descr_onu_range_value_changed,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM] = &group_descr_onu_xpon_unknown_ploam,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_onu_auto_cfg,
@@ -38535,6 +39731,7 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_BROADCAST_PLOAM_PACKET] = &group_descr_pon_interface_broadcast_ploam_packet,
     [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SWITCH_PON_TYPE] = &group_descr_pon_interface_switch_pon_type,
     [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ROGUE_DETECTION_TOOL] = &group_descr_pon_interface_rogue_detection_tool,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ONU_UPGRADE_ACTIVATE_COMMIT] = &group_descr_pon_interface_onu_upgrade_activate_commit,
     [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_protection_interface_key,
     [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_protection_interface_cfg,
     [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PROTECTION_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCH_COMPLETED] = &group_descr_protection_interface_protection_switch_completed,
@@ -38746,6 +39943,30 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_group_complete_members_update;
         case 4096:
             return &group_descr_group_auto_cfg;
+        default:
+            return NULL;
+        }
+    case BCMOLT_OBJ_ID_HOST_LOG:
+        switch (group)
+        {
+        case 0:
+            return &group_descr_host_log_key;
+        case 1:
+            return &group_descr_host_log_cfg;
+        default:
+            return NULL;
+        }
+    case BCMOLT_OBJ_ID_HOST_LOG_FILE:
+        switch (group)
+        {
+        case 0:
+            return &group_descr_host_log_file_key;
+        case 1:
+            return &group_descr_host_log_file_cfg;
+        case 3:
+            return &group_descr_host_log_file_clear;
+        case 4:
+            return &group_descr_host_log_file_reset_buffer_ptr;
         default:
             return NULL;
         }
@@ -39100,6 +40321,8 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_onu_range_value_changed;
         case 68:
             return &group_descr_onu_xpon_unknown_ploam;
+        case 69:
+            return &group_descr_onu_trap_ploam_received;
         case 4226:
             return &group_descr_onu_itu_pon_stats_cfg;
         case 4354:
@@ -39212,6 +40435,8 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_pon_interface_rogue_detection_tool;
         case 54:
             return &group_descr_pon_interface_rogue_detection_tool_done;
+        case 55:
+            return &group_descr_pon_interface_onu_upgrade_activate_commit;
         case 4226:
             return &group_descr_pon_interface_itu_pon_stats_cfg;
         case 4354:
@@ -39391,6 +40616,12 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE] = &group_descr_group_members_update,
     [BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE] = &group_descr_group_complete_members_update,
     [BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG] = &group_descr_group_auto_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_KEY] = &group_descr_host_log_key,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_CFG] = &group_descr_host_log_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY] = &group_descr_host_log_file_key,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG] = &group_descr_host_log_file_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR] = &group_descr_host_log_file_clear,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR] = &group_descr_host_log_file_reset_buffer_ptr,
     [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG] = &group_descr_inband_mgmt_channel_cfg,
     [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY] = &group_descr_inband_mgmt_channel_key,
     [BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY] = &group_descr_internal_nni_key,
@@ -39535,6 +40766,7 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE] = &group_descr_onu_state_change,
     [BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED] = &group_descr_onu_range_value_changed,
     [BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM] = &group_descr_onu_xpon_unknown_ploam,
+    [BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG] = &group_descr_onu_itu_pon_stats_cfg,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
@@ -39582,6 +40814,7 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED] = &group_descr_pon_interface_switch_pon_type_completed,
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL] = &group_descr_pon_interface_rogue_detection_tool,
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE] = &group_descr_pon_interface_rogue_detection_tool_done,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT] = &group_descr_pon_interface_onu_upgrade_activate_commit,
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG] = &group_descr_pon_interface_itu_pon_stats_cfg,
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED] = &group_descr_pon_interface_itu_pon_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_pon_interface_itu_pon_stats_alarm_cleared,

@@ -309,7 +309,7 @@ static bcmos_errno bcm_dev_log_cli_id_set_to_default(bcmcli_session *session, co
     if (id == DEV_LOG_INVALID_ID)
         return BCM_ERR_NOENT;
 
-    return bcm_dev_log_id_set_levels_and_type_to_default(id);
+    return bcm_dev_log_id_set_level_and_type_to_default(id);
 }
 
 static bcmos_errno bcm_dev_log_cli_id_set_style(bcmcli_session *session, const bcmcli_cmd_parm parm[], uint16_t n_parms)
@@ -368,34 +368,18 @@ static bcmos_errno bcm_dev_log_cli_log(bcmcli_session *session, const bcmcli_cmd
     return BCM_ERR_OK;
 }
 
-typedef enum
-{
-    DEV_LOG_ID_SET_ALL_NONE,
-    DEV_LOG_ID_SET_ALL_DEFAULT
-} bcm_dev_log_id_set_all;
-
-static bcmos_errno bcm_dev_log_cli_set_levels_and_type_all(
+static bcmos_errno bcm_dev_log_cli_set_level_and_type_all(
     bcmcli_session *session, const bcmcli_cmd_parm parm[], uint16_t n_parms)
 {
     bcm_dev_log_id_set_all set_all = (bcm_dev_log_id_set_all)bcmcli_find_named_parm(session, "set_all")->value.unumber;
-    dev_log_id log_id = DEV_LOG_INVALID_ID;
     bcmos_errno err;
 
-    while ((log_id = bcm_dev_log_id_get_next(log_id)) != DEV_LOG_INVALID_ID)
+    err = bcm_dev_log_set_level_and_type_all(set_all);
+
+    if (err != BCM_ERR_OK)
     {
-        if (set_all == DEV_LOG_ID_SET_ALL_NONE)
-        {
-            err = bcm_dev_log_id_set_type(log_id, DEV_LOG_ID_TYPE_NONE);
-            if (err == BCM_ERR_OK)
-                err = bcm_dev_log_id_set_level(log_id, DEV_LOG_LEVEL_NO_LOG, DEV_LOG_LEVEL_NO_LOG);
-        }
-        else
-            err = bcm_dev_log_id_set_levels_and_type_to_default(log_id);
-        if (err != BCM_ERR_OK)
-        {
-            bcmcli_session_print(session, "Error setting log type/level: %s for index=%u\n", bcmos_strerror(err), bcm_dev_log_get_index_by_id(log_id));
-            return err;
-        }
+        bcmcli_session_print(session, "Error setting log type/level for all log IDs\n");
+        return err;
     }
 
     return BCM_ERR_OK;
@@ -723,7 +707,7 @@ bcmcli_entry *bcm_dev_log_cli_init(bcmcli_entry *root_dir)
             BCMCLI_ENUM_LAST
         };
 
-        BCMCLI_MAKE_CMD(dir, "set_levels_and_type_all", "set_levels_and_type_all", bcm_dev_log_cli_set_levels_and_type_all,
+        BCMCLI_MAKE_CMD(dir, "set_level_and_type_all", "set_level_and_type_all", bcm_dev_log_cli_set_level_and_type_all,
             BCMCLI_MAKE_PARM_ENUM("set_all", "log_type", enum_table_log_set_all, 0));
     }
     return dir;

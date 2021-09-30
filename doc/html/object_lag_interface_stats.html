@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -129,6 +129,8 @@ $(document).ready(function(){initNavTree('object_lag_interface_stats.html','');}
 <tr>
 <td>rx_oversize_packets</td><td>Rx component of RFC 2665 snmpEtherStatsOversizePkts</td><td>uint64_t </td></tr>
 <tr>
+<td>rx_jabber_packets</td><td>RFC 1757 (EtherStat)</td><td>uint64_t </td></tr>
+<tr>
 <td>rx_unknown_protos</td><td>RFC 1213</td><td>uint64_t </td></tr>
 <tr>
 <td>tx_bytes</td><td>RFC 2233</td><td>uint64_t </td></tr>
@@ -146,6 +148,8 @@ $(document).ready(function(){initNavTree('object_lag_interface_stats.html','');}
 <td>tx_undersize_packets</td><td>Broadcom-Specific</td><td>uint64_t </td></tr>
 <tr>
 <td>tx_oversize_packets</td><td>Tx component of RFC 2665 snmpEtherStatsOversizePkts</td><td>uint64_t </td></tr>
+<tr>
+<td>tx_jabber_packets</td><td>RFC 1757 (EtherStat)</td><td>uint64_t </td></tr>
 <tr>
 <td>rx_frames_64</td><td>Broadcom-Specific</td><td>uint64_t </td></tr>
 <tr>
@@ -200,7 +204,7 @@ $(document).ready(function(){initNavTree('object_lag_interface_stats.html','');}
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_lag_interface.html">Object: lag_interface - LAG interface</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

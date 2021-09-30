@@ -1687,6 +1687,39 @@ bcmos_errno bcmos_msg_dispatch(bcmos_msg *msg, bcmos_msg_send_flags flags)
     return err;
 }
 
+bcmos_errno bcmos_msg_cancel(bcmos_msg *msg, bcmos_module_id module_id)
+{
+    bcmos_module *module = _bcmos_module_get(module_id);
+    long flags;
+    bcmos_errno rc;
+
+    if (unlikely(module == NULL || module->deleted))
+    {
+        BCMOS_TRACE_ERR("Module %d doesn't exist or has been deleted\n", module_id);
+        return BCM_ERR_NOENT;
+    }
+
+    flags = bcmos_fastlock_lock(&module->msgq.lock);
+
+    if (STAILQ_REMOVE_SAFE(&module->msgq.msgl, msg, bcmos_msg, next) != NULL)
+    {
+        _bcmos_msgq_stat_dec(&module->msgq);
+        rc = BCM_ERR_OK; /* removed a standard-priority message */
+    }
+    else if (STAILQ_REMOVE_SAFE(&module->msgq.msgl_urg, msg, bcmos_msg, next) != NULL)
+    {
+        _bcmos_msgq_stat_dec(&module->msgq);
+        rc = BCM_ERR_OK; /* removed an urgent message */
+    }
+    else
+    {
+        rc = BCM_ERR_ALREADY; /* the message is not in the target queue */
+    }
+
+    bcmos_fastlock_unlock(&module->msgq.lock, flags);
+    return rc;
+}
+
 /*
  * Task management
  */

@@ -1377,10 +1377,18 @@ void __attribute__((weak)) bcmos_dma_free(uint8_t device, void *ptr)
 
 void  __attribute__((weak)) bcm_pci_write32(volatile uint32_t *address, uint32_t value)
 {
-    *address = value;
+#ifdef PCIE_HW_ENDIAN_SWAP
+    *address = BCMOS_ENDIAN_CPU_TO_BIG_U32(value);
+#else
+    *address = BCMOS_ENDIAN_CPU_TO_LITTLE_U32(value);
+#endif
 }
 
 uint32_t  __attribute__((weak)) bcm_pci_read32(const volatile uint32_t *address)
 {
-    return *address;
+#ifdef PCIE_HW_ENDIAN_SWAP
+    return BCMOS_ENDIAN_BIG_TO_CPU_U32(*address);
+#else
+    return BCMOS_ENDIAN_LITTLE_TO_CPU_U32(*address);
+#endif
 }

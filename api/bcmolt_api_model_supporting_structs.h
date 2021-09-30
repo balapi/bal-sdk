@@ -153,7 +153,7 @@ typedef struct
 #define BCMOLT_PON_ID_ADMINISTRATIVE_LABEL_MIN 0UL
 #define BCMOLT_PON_ID_ADMINISTRATIVE_LABEL_MAX 4294967280UL
 #define BCMOLT_PON_ID_DWLCH_ID_MIN 0
-#define BCMOLT_PON_ID_DWLCH_ID_MAX 7
+#define BCMOLT_PON_ID_DWLCH_ID_MAX 15
 
 /** Channel Profile */
 typedef struct
@@ -219,6 +219,23 @@ typedef struct
     bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
     bcmolt_nni_id arr[8]; /**< Array. */
 } bcmolt_arr_nni_id_8;
+
+/** ploam filter */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint8_t ploam_id; /**< 0 - disabled */
+} bcmolt_ploam_filter;
+
+/* Constants associated with bcmolt_ploam_filter. */
+#define BCMOLT_PLOAM_FILTER_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Fixed-Length list: 5x ploam_filter */
+typedef struct
+{
+    bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
+    bcmolt_ploam_filter arr[5]; /**< Array. */
+} bcmolt_arr_ploam_filter_5;
 
 /** policer reference structure */
 typedef struct
@@ -442,7 +459,7 @@ typedef struct
     uint8_t arr[8]; /**< Binary string contents. */
 } bcmolt_bin_str_8;
 
-/** CBR RT Allocation profile */
+/** CBR-rt allocation profile (Legacy) */
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
@@ -693,8 +710,8 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
-    bcmolt_control_state control; /**< Enable/disable Extended DBA priority adjustment mechanism */
-    bcmolt_arr_u8_20 slots; /**< Slots for manually configuring the identity of the promoted priority in each cycle out of a 20 cycles period */
+    bcmolt_control_state control; /**< Enable/disable extended DBA priority adjustment mechanism */
+    bcmolt_arr_u8_20 slots; /**< Slots for manually for configuring the identity of the promoted priority in each cycle of a 20 cycles period */
 } bcmolt_extended_dba_priority_adjustment;
 
 /* Constants associated with bcmolt_extended_dba_priority_adjustment. */
@@ -893,10 +910,12 @@ typedef struct
     bcmolt_intf_ref intf; /**< Egress interface for this member */
     bcmolt_service_port_id svc_port_id; /**< The multicast "GEM" for this member */
     bcmolt_egress_qos egress_qos; /**< Egress queue for this member */
+    bcmos_bool svc_port_is_wc; /**< Service Port was provisioned as a Wildcard / Get Next Free */
 } bcmolt_group_member_info;
 
 /* Constants associated with bcmolt_group_member_info. */
-#define BCMOLT_GROUP_MEMBER_INFO_PRESENCE_MASK_ALL 0x000000000000000BULL
+#define BCMOLT_GROUP_MEMBER_INFO_PRESENCE_MASK_ALL 0x000000000000001BULL
+#define BCMOLT_GROUP_MEMBER_INFO_SVC_PORT_IS_WC_DEFAULT BCMOS_FALSE
 
 /** Variable-length list of group_member_info */
 typedef struct
@@ -916,6 +935,23 @@ typedef struct
 
 /* Constants associated with bcmolt_group_members_update_command. */
 #define BCMOLT_GROUP_MEMBERS_UPDATE_COMMAND_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** host port params */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint32_t pir_kbps; /**< Rate Shaper (kilobits per sec) */
+    uint16_t queue_size_kbytes; /**< per-priority queue size (kilobytes) */
+} bcmolt_host_port_params;
+
+/* Constants associated with bcmolt_host_port_params. */
+#define BCMOLT_HOST_PORT_PARAMS_PRESENCE_MASK_ALL 0x0000000000000003ULL
+#define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_DEFAULT 200000UL
+#define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_MIN 100UL
+#define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_MAX 10000000UL
+#define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_DEFAULT 1000U
+#define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_MIN 10U
+#define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_MAX 10000U
 
 /** Host SW Version */
 typedef struct
@@ -1132,6 +1168,20 @@ typedef struct
 #define BCMOLT_XGPON_ONU_ALARM_STATE_LOAI_DEFAULT BCMOLT_STATUS_OFF
 #define BCMOLT_XGPON_ONU_ALARM_STATE_LOKI_DEFAULT BCMOLT_STATUS_OFF
 
+/** ONU protection switching type W (wavelength switching) parameters. */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_control_state control; /**< Whether or not PS type-W protection is enabled on this ONU. */
+    bcmolt_pon_id partner_pon_id; /**< PON ID of the partner OLT channel. */
+    uint32_t partner_static_eqd; /**< If this is set to a nonzero value, the ONU will be directed to use this value as the EQD for the partner OLT channel using a Ranging_Time PLOAM targeting the partner PON ID. This should generally be set whenever range_mode is set to pre_provisioned in the ONU tuning parameters on the PON interface object. */
+} bcmolt_onu_ps_type_w;
+
+/* Constants associated with bcmolt_onu_ps_type_w. */
+#define BCMOLT_ONU_PS_TYPE_W_PRESENCE_MASK_ALL 0x0000000000000007ULL
+#define BCMOLT_ONU_PS_TYPE_W_CONTROL_DEFAULT BCMOLT_CONTROL_STATE_DISABLE
+#define BCMOLT_ONU_PS_TYPE_W_PARTNER_STATIC_EQD_DEFAULT 0UL
+
 /** ngpon2 ONU params */
 typedef struct
 {
@@ -1141,11 +1191,14 @@ typedef struct
     uint8_t tuning_granularity; /**< The tuning granularity of the ONU transmitted expressed in units of 1GHz. Value of 0 indicates that the ONU does not support fine tuning/dithering */
     uint8_t step_tuning_time; /**< The value of the tuning time for a single granularity step, expressed in units of PHY frames. */
     uint8_t power_levelling_capabilities; /**< Power levelling capabilities. */
+    uint32_t tuning_static_eqd; /**< Static EQD value to use for this ONU on this channel once tuning-in is complete. This value is ignored if range_mode is re_range in the ONU tuning configuration on the PON interface object. */
+    bcmolt_onu_ps_type_w ps_type_w; /**< ONU protection switching type W parameters. */
 } bcmolt_ngpon2_onu_params;
 
 /* Constants associated with bcmolt_ngpon2_onu_params. */
-#define BCMOLT_NGPON2_ONU_PARAMS_PRESENCE_MASK_ALL 0x000000000000001FULL
+#define BCMOLT_NGPON2_ONU_PARAMS_PRESENCE_MASK_ALL 0x000000000000007FULL
 #define BCMOLT_NGPON2_ONU_PARAMS_CALIBRATION_RECORD_LENGTH 8
+#define BCMOLT_NGPON2_ONU_PARAMS_TUNING_STATIC_EQD_DEFAULT 0UL
 
 /** XGPON ONU registration keys */
 typedef struct
@@ -1514,13 +1567,23 @@ typedef struct
     uint32_t tsource; /**< Tsource timer in msec */
     uint32_t ttarget; /**< Ttarget timer in msec */
     bcmos_bool request_registration_required; /**< is request registration part of the tuning in process */
+    bcmolt_onu_tuning_range_mode range_mode; /**< How to determine ONU range once it has tuned in to this channel. */
+    uint32_t retry_interval; /**< Period between retries during the tuning in process. If range_mode is re_range, this controls the period between opening ranging windows. */
 } bcmolt_onu_tuning_configuration;
 
 /* Constants associated with bcmolt_onu_tuning_configuration. */
-#define BCMOLT_ONU_TUNING_CONFIGURATION_PRESENCE_MASK_ALL 0x0000000000000007ULL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_PRESENCE_MASK_ALL 0x000000000000001FULL
 #define BCMOLT_ONU_TUNING_CONFIGURATION_TSOURCE_DEFAULT 1000UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_TSOURCE_MIN 100UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_TSOURCE_MAX 60000UL
 #define BCMOLT_ONU_TUNING_CONFIGURATION_TTARGET_DEFAULT 1000UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_TTARGET_MIN 100UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_TTARGET_MAX 60000UL
 #define BCMOLT_ONU_TUNING_CONFIGURATION_REQUEST_REGISTRATION_REQUIRED_DEFAULT BCMOS_TRUE
+#define BCMOLT_ONU_TUNING_CONFIGURATION_RANGE_MODE_DEFAULT BCMOLT_ONU_TUNING_RANGE_MODE_RE_RANGE
+#define BCMOLT_ONU_TUNING_CONFIGURATION_RETRY_INTERVAL_DEFAULT 250UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_RETRY_INTERVAL_MIN 50UL
+#define BCMOLT_ONU_TUNING_CONFIGURATION_RETRY_INTERVAL_MAX 60000UL
 
 /** ngpon2 pon params */
 typedef struct
@@ -1623,11 +1686,17 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
+    bcmolt_dba_implementation_type implementation_type; /**< DBA implementation type */
+    bcmolt_num_of_frames_per_map num_of_frames_per_map; /**< Number of frames per map */
+    bcmolt_external_dba_options external_dba_options; /**< External DBA options */
     bcmolt_extended_dba_priority_adjustment extended_dba_priority_adjustment; /**< Extended DBA priority adjustment, to prevent starvation of low priorities */
 } bcmolt_itupon_dba;
 
 /* Constants associated with bcmolt_itupon_dba. */
-#define BCMOLT_ITUPON_DBA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+#define BCMOLT_ITUPON_DBA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_ITUPON_DBA_IMPLEMENTATION_TYPE_DEFAULT BCMOLT_DBA_IMPLEMENTATION_TYPE_INTERNAL
+#define BCMOLT_ITUPON_DBA_NUM_OF_FRAMES_PER_MAP_DEFAULT BCMOLT_NUM_OF_FRAMES_PER_MAP_X_8
+#define BCMOLT_ITUPON_DBA_EXTERNAL_DBA_OPTIONS_DEFAULT (bcmolt_external_dba_options)0UL
 
 /** ITU PON Attributes */
 typedef struct
@@ -1643,8 +1712,8 @@ typedef struct
     bcmolt_onu_activation onu_activation; /**< ONU activation control parameters */
     bcmolt_key_exchange key_exchange; /**< Key Exchange process configuration */
     bcmolt_alloc_id min_data_alloc_id; /**< Min data Alloc ID value */
-    bcmolt_cbr_rt_allocation_profile cbr_rt_allocation_profile; /**< CBR Real Time allocation profile */
-    bcmolt_arr_u16_2 cbr_nrt_allocation_profile; /**< CBR non Real Time allocation profile */
+    bcmolt_cbr_rt_allocation_profile cbr_rt_allocation_profile; /**< CBR-rt allocation profile */
+    bcmolt_arr_u16_2 cbr_nrt_allocation_profile; /**< CBR-nrt allocation profile */
     bcmolt_onu_power_management_configuration power_management; /**< ONU power management control */
     bcmolt_periodic_standby_pon_monitoring periodic_standby_pon_monitoring; /**< Periodic Standby PON monitoring */
     bcmolt_prbs_checker_config prbs_checker; /**< US PRBS checker configuration */
@@ -1864,9 +1933,9 @@ typedef struct
     uint32_t guaranteed_bw; /**< Dynamic bandwidth which the OLT is committed to allocate upon demand */
     uint32_t maximum_bw; /**< Maximum allocated bandwidth allowed for this alloc ID */
     bcmolt_additional_bw_eligibility additional_bw_eligibility; /**< Alloc ID additional BW eligibility */
-    bcmos_bool cbr_rt_compensation; /**< Set to True for AllocID with CBR RT Bandwidth that requires compensation for skipped allocations during quiet window */
-    uint8_t cbr_rt_ap_index; /**< Allocation Profile index for CBR RT Bandwidth */
-    uint8_t cbr_nrt_ap_index; /**< Allocation Profile index for CBR non-RT Bandwidth */
+    bcmos_bool cbr_rt_compensation; /**< Set to True for alloc with CBR-rt bandwidth that requires compensation for skipped allocations during quiet window */
+    uint8_t cbr_rt_ap_index; /**< Allocation pofile index for CBR-rt bandwidth */
+    uint8_t cbr_nrt_ap_index; /**< Allocation profile index for CBR-nrt bandwidth */
     bcmolt_alloc_type alloc_type; /**< Type of the alloc ID */
     uint8_t weight; /**< Alloc ID Weight used in case of Extended DBA mode */
     uint8_t priority; /**< Alloc ID Priority used in case of Extended DBA mode */
@@ -1882,7 +1951,7 @@ typedef struct
 #define BCMOLT_PON_ALLOC_SLA_CBR_RT_COMPENSATION_DEFAULT BCMOS_FALSE
 #define BCMOLT_PON_ALLOC_SLA_CBR_RT_AP_INDEX_DEFAULT 0
 #define BCMOLT_PON_ALLOC_SLA_CBR_RT_AP_INDEX_MIN 0
-#define BCMOLT_PON_ALLOC_SLA_CBR_RT_AP_INDEX_MAX 0
+#define BCMOLT_PON_ALLOC_SLA_CBR_RT_AP_INDEX_MAX 32
 #define BCMOLT_PON_ALLOC_SLA_CBR_NRT_AP_INDEX_DEFAULT 0
 #define BCMOLT_PON_ALLOC_SLA_CBR_NRT_AP_INDEX_MIN 0
 #define BCMOLT_PON_ALLOC_SLA_CBR_NRT_AP_INDEX_MAX 1
@@ -2226,6 +2295,14 @@ typedef struct
     bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
     uint64_t *arr; /**< List contents. */
 } bcmolt_u64_list_u32_hex;
+
+/** Variable-length list of U8 */
+typedef struct
+{
+    uint8_t len; /**< List length. */
+    bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
+    uint8_t *arr; /**< List contents. */
+} bcmolt_u8_list_u8_hex;
 
 /** XGPON ONU alarms */
 typedef struct

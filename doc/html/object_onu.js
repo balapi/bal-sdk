@@ -53,6 +53,7 @@ var object_onu =
     [ "Indication: state_change", "object_onu_state_change.html", null ],
     [ "Indication: sufi", "object_onu_sufi.html", null ],
     [ "Indication: tiwi", "object_onu_tiwi.html", null ],
+    [ "Indication: trap_ploam_received", "object_onu_trap_ploam_received.html", null ],
     [ "Indication: tuning_response", "object_onu_tuning_response.html", null ],
     [ "Indication: xgpon_alarm", "object_onu_xgpon_alarm.html", null ],
     [ "Indication: xpon_unknown_ploam", "object_onu_xpon_unknown_ploam.html", null ],

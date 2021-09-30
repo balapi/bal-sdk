@@ -33,6 +33,7 @@ var object_pon_interface =
     [ "Operation: broadcast_ploam_packet", "object_pon_interface_broadcast_ploam_packet.html", null ],
     [ "Operation: cpu_packets", "object_pon_interface_cpu_packets.html", null ],
     [ "Operation: disable_serial_number", "object_pon_interface_disable_serial_number.html", null ],
+    [ "Operation: onu_upgrade_activate_commit", "object_pon_interface_onu_upgrade_activate_commit.html", null ],
     [ "Operation: protection_switching_apply_rerange_delta", "object_pon_interface_protection_switching_apply_rerange_delta.html", null ],
     [ "Operation: protection_switching_type_c_set_multiple_onu_state", "object_pon_interface_protection_switching_type_c_set_multiple_onu_state.html", null ],
     [ "Operation: reset", "object_pon_interface_reset.html", null ],

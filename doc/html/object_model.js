@@ -8,6 +8,8 @@ var object_model =
     [ "Object: flow - BAL Flow", "object_flow.html", "object_flow" ],
     [ "Object: gpio - GPIO", "object_gpio.html", "object_gpio" ],
     [ "Object: group - BAL Group", "object_group.html", "object_group" ],
+    [ "Object: host_log - host log", "object_host_log.html", "object_host_log" ],
+    [ "Object: host_log_file - Host Log File", "object_host_log_file.html", "object_host_log_file" ],
     [ "Object: inband_mgmt_channel - BAL Inband Management Channel", "object_inband_mgmt_channel.html", "object_inband_mgmt_channel" ],
     [ "Object: internal_nni - Internal NNI", "object_internal_nni.html", "object_internal_nni" ],
     [ "Object: itupon_alloc - ITU PON Alloc", "object_itupon_alloc.html", "object_itupon_alloc" ],

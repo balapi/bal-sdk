@@ -270,7 +270,6 @@ Removed types:
 - extended_epon_dba
 - extended_guard_time
 - extended_itu_dba
-- external_dba_options
 - extra_bw_eligibility_type
 - flush_mac_table_option
 - gate_parameters
@@ -285,6 +284,8 @@ Removed types:
 - group_member_cmd
 - ieee_1588_mode
 - ieee_1588_support
+- ieee_25g_demo_onu_llid_change_type
+- ieee_25g_fec
 - ieee_demo_onu_debug_flags
 - ieee_demo_onu_link_type
 - ieee_demo_onu_queue_occupancy
@@ -328,7 +329,6 @@ Removed types:
 - mpcp_registration_gate_flags
 - nni_operation
 - nni_state
-- num_of_frames_per_map
 - oam_heartbeat_config
 - oam_negotiation_config
 - oam_negotiation_info
@@ -407,6 +407,7 @@ Removed types:
 - ubd_info
 - unknown_link_status
 - untagged_flow_config
+- unused_bandwidth_status
 - upstream_bandwidth_distribution
 - us_vlan_action
 - vlan_tag

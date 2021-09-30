@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -108,15 +108,17 @@ $(document).ready(function(){initNavTree('object_itupon_alloc_cfg.html','');});
 <li>Parameter: <a class="el" href="structbcmolt__itupon__alloc__cfg.html">bcmolt_itupon_alloc_cfg</a><br />
 <table class="doxtable">
 <tr>
-<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default </th></tr>
+<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default</th><th>Minimum</th><th>Maximum </th></tr>
 <tr>
-<td>state</td><td>Current Alloc ID state</td><td><a class="el" href="group__object__model.html#gaf610ccd2bd48fad6a1adc4c190fae1ac">bcmolt_activation_state</a></td><td>R</td><td>BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED </td></tr>
+<td>state</td><td>Current Alloc ID state</td><td><a class="el" href="group__object__model.html#gaf610ccd2bd48fad6a1adc4c190fae1ac">bcmolt_activation_state</a></td><td>R</td><td>BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED</td><td></td><td></td></tr>
 <tr>
-<td>sla</td><td>Alloc ID SLA</td><td><a class="el" href="structbcmolt__pon__alloc__sla.html">bcmolt_pon_alloc_sla</a></td><td>RW</td><td></td></tr>
+<td>sla</td><td>Alloc ID SLA</td><td><a class="el" href="structbcmolt__pon__alloc__sla.html">bcmolt_pon_alloc_sla</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>onu_id</td><td>ONU ID the alloc ID is assigned to</td><td><a class="el" href="group__object__model.html#ga5bc030d44455caeadd1862666eb6128f">bcmolt_onu_id</a></td><td>RW</td><td></td></tr>
+<td>onu_id</td><td>ONU ID the alloc ID is assigned to</td><td><a class="el" href="group__object__model.html#ga5bc030d44455caeadd1862666eb6128f">bcmolt_onu_id</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>collect_stats</td><td>Enable statistics collection for this alloc ID</td><td>bcmos_bool</td><td>RW</td><td></td></tr>
+<td>collect_stats</td><td>Enable statistics collection for this alloc ID</td><td>bcmos_bool</td><td>RW</td><td></td><td></td><td></td></tr>
+<tr>
+<td>onu_tcont_max_queue_size</td><td>For better DBA performance, this is the maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. If 0, it means unconfigured.</td><td>uint32_t</td><td>RW</td><td>0UL</td><td>0UL</td><td>16777215UL </td></tr>
 </table>
 <br />
 <br />
@@ -131,7 +133,7 @@ $(document).ready(function(){initNavTree('object_itupon_alloc_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_itupon_alloc.html">Object: itupon_alloc - ITU PON Alloc</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

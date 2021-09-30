@@ -168,6 +168,18 @@ void bcm_dev_log_vlog(dev_log_id id,
     const char *fmt,
     va_list args);
 
+#if defined(BCM_SUBSYSTEM_HOST)
+
+/* The following functions might be used on the host side to make sure
+   that multiple log entries are "together",ie are not interleaved
+   with other log entries. It might be necessary if application needs to log
+   a very long string that must be split into multiple log entries.
+*/
+void bcm_dev_log_lock(void);
+void bcm_dev_log_unlock(void);
+
+#endif /* #if defined(BCM_SUBSYSTEM_HOST) */
+
 typedef enum
 {
     DEV_LOG_RATE_LIMIT_ID_NONE,

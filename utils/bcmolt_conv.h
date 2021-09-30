@@ -128,7 +128,9 @@
  *         for (; arr->from != (ploam_ds_gpon_message_id)-1 && arr->from != from; arr++);
  *         return arr->to;
  *     }
- */
+ *
+ * The 2nd function is less often used (and that is why it is marked with attribute "unused" - the compiler might warn about that).
+ * It's aim is to do the reverse conversion - translate from a "to" value to a "from" value. */
 #define BCMOLT_TYPE2INT(from_type, to_name, scope) \
     typedef struct \
     { \
@@ -142,6 +144,12 @@
         const from_type##2##to_name##_t *arr = from_type##2##to_name; \
         for (; arr->from != (from_type)-1 && arr->from != from; arr++); \
         return arr->to; \
+    } \
+    static __attribute__((unused)) inline int from_type##2##to_name##_conv_r(int to) \
+    { \
+        const from_type##2##to_name##_t *arr = from_type##2##to_name; \
+        for (; arr->from != (from_type)-1 && arr->to != to; arr++); \
+        return arr->from; \
     }
 
 /* Although we have BCMOLT_TYPE2STR, int2str_t is still required when the same generic pointer needs to point to 2 different types (e.g: one specific for GPON and

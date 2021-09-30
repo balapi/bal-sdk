@@ -40,7 +40,10 @@ static inline bcmos_errno _err_result(bcmolt_buf *err_buf, bcmos_errno err, cons
 {
     if (err_buf != NULL)
     {
-        bcmolt_buf_write(err_buf, description, strlen(description));
+        if (!bcmolt_buf_write(err_buf, description, strlen(description)))
+        {
+            BCM_LOG(WARNING, serializer_log_id, "Error writing to error buffer\n");
+        }
     }
     return err;
 }

@@ -454,6 +454,26 @@ bcmos_bool bcmolt_control_state_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_dba_implementation_type_pack(
+    bcmolt_dba_implementation_type obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_dba_implementation_type_unpack(
+    bcmolt_dba_implementation_type *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_dba_mode_pack(
     bcmolt_dba_mode obj,
     bcmolt_buf *buf);
@@ -746,6 +766,26 @@ bcmos_bool bcmolt_ext_irq_pack(
   */
 bcmos_bool bcmolt_ext_irq_unpack(
     bcmolt_ext_irq *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_external_dba_options_pack(
+    bcmolt_external_dba_options obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_external_dba_options_unpack(
+    bcmolt_external_dba_options *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -1074,6 +1114,26 @@ bcmos_bool bcmolt_host_connection_fail_reason_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_host_log_file_id_pack(
+    bcmolt_host_log_file_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_id_unpack(
+    bcmolt_host_log_file_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_image_transfer_status_pack(
     bcmolt_image_transfer_status obj,
     bcmolt_buf *buf);
@@ -1386,6 +1446,26 @@ bcmos_bool bcmolt_lag_psc_mode_pack(
   */
 bcmos_bool bcmolt_lag_psc_mode_unpack(
     bcmolt_lag_psc_mode *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_lag_subtype_pack(
+    bcmolt_lag_subtype obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_lag_subtype_unpack(
+    bcmolt_lag_subtype *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -1734,6 +1814,46 @@ bcmos_bool bcmolt_nni_protection_mode_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_nni_subtype_pack(
+    bcmolt_nni_subtype obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_nni_subtype_unpack(
+    bcmolt_nni_subtype *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_num_of_frames_per_map_pack(
+    bcmolt_num_of_frames_per_map obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_num_of_frames_per_map_unpack(
+    bcmolt_num_of_frames_per_map *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_odn_class_pack(
     bcmolt_odn_class obj,
     bcmolt_buf *buf);
@@ -1866,6 +1986,26 @@ bcmos_bool bcmolt_onu_state_pack(
   */
 bcmos_bool bcmolt_onu_state_unpack(
     bcmolt_onu_state *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_onu_tuning_range_mode_pack(
+    bcmolt_onu_tuning_range_mode obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_onu_tuning_range_mode_unpack(
+    bcmolt_onu_tuning_range_mode *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -3286,6 +3426,26 @@ bcmos_bool bcmolt_group_oper_subgroup_pack(
   */
 bcmos_bool bcmolt_group_oper_subgroup_unpack(
     bcmolt_group_oper_subgroup *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_oper_subgroup_pack(
+    bcmolt_host_log_file_oper_subgroup obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_oper_subgroup_unpack(
+    bcmolt_host_log_file_oper_subgroup *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -4754,6 +4914,26 @@ bcmos_bool bcmolt_group_members_update_command_id_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_host_port_params_id_pack(
+    bcmolt_host_port_params_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_port_params_id_unpack(
+    bcmolt_host_port_params_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_host_sw_version_id_pack(
     bcmolt_host_sw_version_id obj,
     bcmolt_buf *buf);
@@ -5334,6 +5514,26 @@ bcmos_bool bcmolt_onu_power_management_configuration_id_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_onu_ps_type_w_id_pack(
+    bcmolt_onu_ps_type_w_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_onu_ps_type_w_id_unpack(
+    bcmolt_onu_ps_type_w_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_onu_tuning_configuration_id_pack(
     bcmolt_onu_tuning_configuration_id obj,
     bcmolt_buf *buf);
@@ -5446,6 +5646,26 @@ bcmos_bool bcmolt_periodic_standby_pon_monitoring_id_pack(
   */
 bcmos_bool bcmolt_periodic_standby_pon_monitoring_id_unpack(
     bcmolt_periodic_standby_pon_monitoring_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_ploam_filter_id_pack(
+    bcmolt_ploam_filter_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_ploam_filter_id_unpack(
+    bcmolt_ploam_filter_id *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -7766,6 +7986,86 @@ bcmos_bool bcmolt_group_auto_cfg_data_id_pack(
   */
 bcmos_bool bcmolt_group_auto_cfg_data_id_unpack(
     bcmolt_group_auto_cfg_data_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_host_log_key_id_pack(
+    bcmolt_host_log_key_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_key_id_unpack(
+    bcmolt_host_log_key_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_host_log_cfg_data_id_pack(
+    bcmolt_host_log_cfg_data_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_cfg_data_id_unpack(
+    bcmolt_host_log_cfg_data_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_key_id_pack(
+    bcmolt_host_log_file_key_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_key_id_unpack(
+    bcmolt_host_log_file_key_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_cfg_data_id_pack(
+    bcmolt_host_log_file_cfg_data_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_host_log_file_cfg_data_id_unpack(
+    bcmolt_host_log_file_cfg_data_id *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
@@ -10334,6 +10634,26 @@ bcmos_bool bcmolt_onu_xpon_unknown_ploam_data_id_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_onu_trap_ploam_received_data_id_pack(
+    bcmolt_onu_trap_ploam_received_data_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_onu_trap_ploam_received_data_id_unpack(
+    bcmolt_onu_trap_ploam_received_data_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_onu_itu_pon_stats_cfg_data_id_pack(
     bcmolt_onu_itu_pon_stats_cfg_data_id obj,
     bcmolt_buf *buf);
@@ -11046,6 +11366,26 @@ bcmos_bool bcmolt_pon_interface_rogue_detection_tool_done_data_id_pack(
   */
 bcmos_bool bcmolt_pon_interface_rogue_detection_tool_done_data_id_unpack(
     bcmolt_pon_interface_rogue_detection_tool_done_data_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_pack(
+    bcmolt_pon_interface_onu_upgrade_activate_commit_data_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_pon_interface_onu_upgrade_activate_commit_data_id_unpack(
+    bcmolt_pon_interface_onu_upgrade_activate_commit_data_id *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.

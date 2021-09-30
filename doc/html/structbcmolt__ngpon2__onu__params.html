@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.8.8</span>
+   &#160;<span id="projectnumber">3.10.0</span>
    </div>
   </td>
  </tr>
@@ -120,6 +120,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:ab071a166344528b2c1f31bf79ae3899f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94771ce96bdf9f959e0c2fe6a8c97026"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__ngpon2__onu__params.html#a94771ce96bdf9f959e0c2fe6a8c97026">power_levelling_capabilities</a></td></tr>
 <tr class="separator:a94771ce96bdf9f959e0c2fe6a8c97026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0ea07994e69d2ad1578b57de69a3c9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__ngpon2__onu__params.html#a9f0ea07994e69d2ad1578b57de69a3c9">tuning_static_eqd</a></td></tr>
+<tr class="separator:a9f0ea07994e69d2ad1578b57de69a3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf76555b671402eb8dcc9904eb320ddd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__onu__ps__type__w.html">bcmolt_onu_ps_type_w</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__ngpon2__onu__params.html#abf76555b671402eb8dcc9904eb320ddd">ps_type_w</a></td></tr>
+<tr class="separator:abf76555b671402eb8dcc9904eb320ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a634cdb4308ccd305295af2abc565095d"></a>
@@ -187,6 +191,32 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9f0ea07994e69d2ad1578b57de69a3c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t tuning_static_eqd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Static EQD value to use for this ONU on this channel once tuning-in is complete. This value is ignored if range_mode is re_range in the ONU tuning configuration on the PON interface object. </p>
+
+</div>
+</div>
+<a class="anchor" id="abf76555b671402eb8dcc9904eb320ddd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__onu__ps__type__w.html">bcmolt_onu_ps_type_w</a> ps_type_w</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ONU protection switching type W parameters. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__supporting__structs_8h_source.html">bcmolt_api_model_supporting_structs.h</a></li>
 </ul>
@@ -199,7 +229,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__ngpon2__onu__params.html">bcmolt_ngpon2_onu_params</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.8.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.0 </li>
   </ul>
 </div>
 </body>

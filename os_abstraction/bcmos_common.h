@@ -923,6 +923,18 @@ bcmos_errno bcmos_msg_recv_from_qgroup(bcmos_msg_qgroup *qgroup, uint32_t timeou
  */
 bcmos_errno bcmos_msg_dispatch(bcmos_msg *msg, bcmos_msg_send_flags flags);
 
+/** Cancel a message that has been dispatched to another module.
+ *
+ * If the given message is present in the target module's message queue, it will be removed.
+ *
+ * \param[in]   msg             Message handle
+ * \param[in]   module_id       ID of the module that owns the message queue
+ *
+ * \returns BCM_ERR_OK if message was removed from a queue, BCM_ERR_ALREADY if it was not present.
+ *          Other error codes are unexpected.
+ */
+bcmos_errno bcmos_msg_cancel(bcmos_msg *msg, bcmos_module_id module_id);
+
 /** Register message for "push-mode" delivery.
  *
  * When registered message is sent to the target module and
