@@ -1,5 +1,7 @@
 var NAVTREEINDEX19 =
 {
+"object_device_inni_mux_configuration_completed.html":[1,2,9],
+"object_device_reset.html":[1,2,20],
 "object_device_run_ddr_test.html":[1,2,21],
 "object_device_set_8021_as_tod_string.html":[1,2,22],
 "object_device_sw_error.html":[1,2,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX19 =
 "object_switch_inni_stats_alarm_raised.html":[1,26,4],
 "object_switch_inni_stats_cfg.html":[1,26,2],
 "object_tc_to_queue.html":[1,27],
-"object_tc_to_queue_cfg.html":[1,27,0],
-"object_tm_qmp.html":[1,28],
-"object_tm_qmp_cfg.html":[1,28,0]
+"object_tc_to_queue_cfg.html":[1,27,0]
 };

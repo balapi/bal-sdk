@@ -1,5 +1,7 @@
 var NAVTREEINDEX32 =
 {
+"structbcmolt__pon__interface__itu__pon__stats__alarm__raised.html#a2e1cfe40871f0a7333c9b1e47e3b1252":[2,2,518,1],
+"structbcmolt__pon__interface__itu__pon__stats__alarm__raised.html#a5c83c739c54ff31d6c2202987970f617":[2,2,518,0],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__raised.html#a999dac3873371bafd4024d3f18a60881":[2,2,518,2],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__raised__data.html":[2,2,517],
 "structbcmolt__pon__interface__itu__pon__stats__alarm__raised__data.html#a40fb0c4b7c0935ee1c5f70b03ea1cf68":[2,2,517,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX32 =
 "structbcmolt__pon__interface__start__onu__upgrade.html#a2e1cfe40871f0a7333c9b1e47e3b1252":[2,2,466,1],
 "structbcmolt__pon__interface__start__onu__upgrade.html#a55362e086b2d3b2c10f0a1ea3d08ad61":[2,2,466,2],
 "structbcmolt__pon__interface__start__onu__upgrade.html#af057d495cd87d81f1c5076c966f466cf":[2,2,466,0],
-"structbcmolt__pon__interface__start__onu__upgrade__data.html":[2,2,465],
-"structbcmolt__pon__interface__start__onu__upgrade__data.html#ab29edb83c97773f385bd8e838a392880":[2,2,465,0],
-"structbcmolt__pon__interface__state__change__completed.html":[2,2,477]
+"structbcmolt__pon__interface__start__onu__upgrade__data.html":[2,2,465]
 };

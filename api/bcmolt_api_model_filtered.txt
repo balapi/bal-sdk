@@ -208,10 +208,12 @@ Removed types:
 - bcm68620_xpon_serdes_configuration
 - bcm68650_xpon_serdes_configuration
 - bounds
+- broadcom_oam_settings
 - capture_strobe_signal
 - color_map_type
 - console_redirection
 - ctc_base_key
+- ctc_oam_settings
 - ctc_oam_supported_version
 - dba_type
 - dest
@@ -221,6 +223,7 @@ Removed types:
 - dfe_rx_enable_mask
 - disable_serial_number
 - downstream_link_rate
+- dpoe_oam_settings
 - ds_vlan_action
 - epon_clock_transport_configuration
 - epon_clock_transport_mode
@@ -282,6 +285,7 @@ Removed types:
 - gpon_onu_upgrade_return_code
 - gpon_rssi_general_configuration
 - group_member_cmd
+- ieee_1588_latency
 - ieee_1588_mode
 - ieee_1588_support
 - ieee_25g_demo_onu_llid_change_type

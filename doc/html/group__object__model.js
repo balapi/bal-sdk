@@ -5757,6 +5757,7 @@ var group__object__model =
       [ "BCMOLT_TRX_TYPE_LTF_5308_E", "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a3acc6273f42ad3524fd0cfcc6e9bf7aa", null ],
       [ "BCMOLT_TRX_TYPE_LTF_5306", "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a110f7c7c534676c7d86c503aa63be400", null ],
       [ "BCMOLT_TRX_TYPE_LTF_5308_B", "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a62af7efa09ccfae3ca8be6bd3c27a037", null ],
+      [ "BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA", "group__object__model.html#ggafd6115ab0335c007a8b912805e893883abb64e57ec4ce5682ed5c38c6d817aac5", null ],
       [ "BCMOLT_TRX_TYPE__NUM_OF", "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a9472b0aaf10ca131b68538a8512be393", null ]
     ] ],
     [ "bcmolt_tune_in_fail_reason", "group__object__model.html#ga47509f8c75459f6421f9486f7063c830", [
@@ -5827,6 +5828,7 @@ var group__object__model =
       [ "BCMOLT_XGPON_TRX_TYPE_LTF_5308_E", "group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba031f4e99088529352cd815513fe5e686", null ],
       [ "BCMOLT_XGPON_TRX_TYPE_LTF_5306", "group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba7a1d334e3bc446dbcbc42c4b2f601708", null ],
       [ "BCMOLT_XGPON_TRX_TYPE_LTF_5308_B", "group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba5f6a5c3298ae50da584601450d57f109", null ],
+      [ "BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA", "group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba42f5446a33a6bb3257ab1287634c413c", null ],
       [ "BCMOLT_XGPON_TRX_TYPE__NUM_OF", "group__object__model.html#gga247f0f9fbd6344b00c63869b99de4fabaf0516d04c8d7568d08fddc0a7fd9b3f2", null ]
     ] ],
     [ "bcmolt_obj_id", "group__object__model.html#ga6da7d509f7bc23c7e440bf086296e974", [

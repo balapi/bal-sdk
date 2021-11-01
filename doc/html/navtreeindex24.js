@@ -1,5 +1,7 @@
 var NAVTREEINDEX24 =
 {
+"structbcmolt__inband__mgmt__channel__multi__cfg.html#a67807ff753faa9b11808f45adbbc1d9d":[2,2,150,1],
+"structbcmolt__inband__mgmt__channel__multi__cfg.html#a753267364051f00c7d5a9d5d7c59cff0":[2,2,150,7],
 "structbcmolt__inband__mgmt__channel__multi__cfg.html#a8254a5294f750de5e879c44c0ebf705c":[2,2,150,3],
 "structbcmolt__inband__mgmt__channel__multi__cfg.html#a92b7109abc206ce6daeed8ab61a54901":[2,2,150,2],
 "structbcmolt__inband__mgmt__channel__multi__cfg.html#aa8fdcd3299e7d416505e89e1eade4f50":[2,2,150,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX24 =
 "structbcmolt__internal__nni__nni__stats__data.html#a77070d0f40664de91786d8ab6d512cea":[2,2,157,20],
 "structbcmolt__internal__nni__nni__stats__data.html#a80df167e3c9c18217b598ab62d26c9a1":[2,2,157,28],
 "structbcmolt__internal__nni__nni__stats__data.html#a99c574f275e4b684ccbfcc289990ce8a":[2,2,157,5],
-"structbcmolt__internal__nni__nni__stats__data.html#a9b994dc28d2533f06786324e6a559a95":[2,2,157,2],
-"structbcmolt__internal__nni__nni__stats__data.html#a9da415f7fc4761b6814db54757a5c17a":[2,2,157,21],
-"structbcmolt__internal__nni__nni__stats__data.html#a9ffbf72dbdbda8ad50d448e25de47191":[2,2,157,22]
+"structbcmolt__internal__nni__nni__stats__data.html#a9b994dc28d2533f06786324e6a559a95":[2,2,157,2]
 };

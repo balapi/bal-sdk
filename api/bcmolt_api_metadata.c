@@ -8433,6 +8433,7 @@ const bcmolt_enum_val bcmolt_trx_type_string_table[] =
     { .name = "ltf_5308_e", .val = BCMOLT_TRX_TYPE_LTF_5308_E, .tags = 0 },
     { .name = "ltf_5306", .val = BCMOLT_TRX_TYPE_LTF_5306, .tags = 0 },
     { .name = "ltf_5308_b", .val = BCMOLT_TRX_TYPE_LTF_5308_B, .tags = 0 },
+    { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -9286,6 +9287,7 @@ const bcmolt_enum_val bcmolt_xgpon_trx_type_string_table[] =
     { .name = "ltf_5308_e", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_E, .tags = 0 },
     { .name = "ltf_5306", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5306, .tags = 0 },
     { .name = "ltf_5308_b", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_B, .tags = 0 },
+    { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 

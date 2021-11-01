@@ -1,5 +1,7 @@
 var NAVTREEINDEX23 =
 {
+"structbcmolt__flow__multi__stats.html#aff0cc00c31d0af6e2fa2ba9a40b81679":[2,2,112,6],
+"structbcmolt__flow__send__eth__packet.html":[2,2,114],
 "structbcmolt__flow__send__eth__packet.html#a20071e369d763f4986a3179e8f16c2cd":[2,2,114,1],
 "structbcmolt__flow__send__eth__packet.html#a40d213fbc7b3a070648c13cd2e132b4f":[2,2,114,2],
 "structbcmolt__flow__send__eth__packet.html#af057d495cd87d81f1c5076c966f466cf":[2,2,114,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX23 =
 "structbcmolt__inband__mgmt__channel__cfg__data.html#aefacdfbf37d590371915b987d5749014":[2,2,148,4],
 "structbcmolt__inband__mgmt__channel__key.html":[2,2,147],
 "structbcmolt__inband__mgmt__channel__key.html#ab31134c22a24d097a6e0870286884fcd":[2,2,147,0],
-"structbcmolt__inband__mgmt__channel__multi__cfg.html":[2,2,150],
-"structbcmolt__inband__mgmt__channel__multi__cfg.html#a67807ff753faa9b11808f45adbbc1d9d":[2,2,150,1],
-"structbcmolt__inband__mgmt__channel__multi__cfg.html#a753267364051f00c7d5a9d5d7c59cff0":[2,2,150,7]
+"structbcmolt__inband__mgmt__channel__multi__cfg.html":[2,2,150]
 };

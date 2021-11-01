@@ -809,15 +809,16 @@ static void bcmtr_dump_notify(
 #endif
 }
 
+#ifdef ENABLE_CLI
 static void _bcmtr_msg_write_cb(void *user_data, const char *format, va_list ap)
 {
-#ifdef ENABLE_CLI
     bcmcli_session_vprint((bcmcli_session *)user_data, format, ap);
-#endif
 }
+#endif
 
 static void bcmtr_cli_notify(const bcmolt_msg *msg)
 {
+#ifdef ENABLE_CLI
     /* don't generate CLI commands for responses/indications */
     if ((msg->dir == BCMOLT_MSG_DIR_REQUEST) && (msg->group != BCMOLT_MGT_GROUP_AUTO))
     {
@@ -828,7 +829,11 @@ static void bcmtr_cli_notify(const bcmolt_msg *msg)
         {
             BCMOS_TRACE_ERR("Error generating CLI command for API: %s\n", bcmos_strerror(err));
         }
+        /* Write the scratch session's buffer to the real CLI and reset it */
+        bcmcli_session_write(bcmtr_cld_session, bcmtr_cld_scratch_buf, bcmtr_cld_scratch_pos);
+        bcmtr_cld_scratch_pos = 0;
     }
+#endif
 }
 
 /* Notify capture, log, debug */

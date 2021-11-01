@@ -2840,6 +2840,7 @@ bcmos_bool bcmolt_gpon_trx_validate(const bcmolt_gpon_trx *obj, bcmos_errno *err
         case BCMOLT_TRX_TYPE_LTF_5308_E:
         case BCMOLT_TRX_TYPE_LTF_5306:
         case BCMOLT_TRX_TYPE_LTF_5308_B:
+        case BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -7940,6 +7941,7 @@ bcmos_bool bcmolt_xgpon_trx_validate(const bcmolt_xgpon_trx *obj, bcmos_errno *e
         case BCMOLT_XGPON_TRX_TYPE_LTF_5308_E:
         case BCMOLT_XGPON_TRX_TYPE_LTF_5306:
         case BCMOLT_XGPON_TRX_TYPE_LTF_5308_B:
+        case BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA:
             break;
         default:
             *err = BCM_ERR_RANGE;

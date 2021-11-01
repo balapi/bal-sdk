@@ -1,5 +1,7 @@
 var NAVTREEINDEX34 =
 {
+"structbcmolt__switch__inni__stats__cfg__data.html#a6fbafcf984272bcb6d1f301efa92fc3c":[2,2,549,16],
+"structbcmolt__switch__inni__stats__cfg__data.html#a78765f74032faf641c78a16db7f6cfab":[2,2,549,6],
 "structbcmolt__switch__inni__stats__cfg__data.html#a88c03094e65266485d6f1f0138b0ef75":[2,2,549,14],
 "structbcmolt__switch__inni__stats__cfg__data.html#a8ad37dc7bfb305d341cbc2c2e0681d0c":[2,2,549,38],
 "structbcmolt__switch__inni__stats__cfg__data.html#a8b6b446dcb072f613a28a84de0e905a4":[2,2,549,24],
@@ -247,7 +249,5 @@ var NAVTREEINDEX34 =
 "structbcmolt__xgpon__onu__alarms.html#aa6101d9bb7118f0b6e02fe57b4c12059":[2,2,723,2],
 "structbcmolt__xgpon__onu__alarms.html#adc356204c491a37c258dd524de738257":[2,2,723,0],
 "structbcmolt__xgpon__onu__alarms.html#af0204ebaac8227d076ffa550b3b33018":[2,2,723,1],
-"structbcmolt__xgpon__onu__alarms__thresholds.html":[2,2,674],
-"structbcmolt__xgpon__onu__alarms__thresholds.html#a6164d162e12b4014b7f748315952c5f3":[2,2,674,0],
-"structbcmolt__xgpon__onu__alarms__thresholds.html#ae9d6212328c5a80811ed802f2595d161":[2,2,674,2]
+"structbcmolt__xgpon__onu__alarms__thresholds.html":[2,2,674]
 };
