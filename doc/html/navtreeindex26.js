@@ -1,5 +1,7 @@
 var NAVTREEINDEX26 =
 {
+"structbcmolt__itupon__gem__stats.html#a7ba67b54358f05860be49b47899076ce":[2,2,210,0],
+"structbcmolt__itupon__gem__stats.html#ae2887c8433ef3d43974b83a368fcc894":[2,2,210,2],
 "structbcmolt__itupon__gem__stats__alarm__cleared.html":[2,2,221],
 "structbcmolt__itupon__gem__stats__alarm__cleared.html#a1d2aff29317f9bff3afc3e7c84edb2e1":[2,2,221,2],
 "structbcmolt__itupon__gem__stats__alarm__cleared.html#a4d3537e7154f3535543adbf4288b9342":[2,2,221,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX26 =
 "structbcmolt__log__cfg__data.html":[2,2,250],
 "structbcmolt__log__cfg__data.html#a17c58362942c8c3c640fa4e0887b54ba":[2,2,250,3],
 "structbcmolt__log__cfg__data.html#a44e3baace904e01deb50fbb251f24c99":[2,2,250,2],
-"structbcmolt__log__cfg__data.html#a472152f8607981f3d8d568739e2aa371":[2,2,250,1],
-"structbcmolt__log__cfg__data.html#a5e566441e1db5b907add2d10109fe953":[2,2,250,0],
-"structbcmolt__log__cfg__data.html#aa2f51f165b9cb3a007445b46a5a9d88f":[2,2,250,4]
+"structbcmolt__log__cfg__data.html#a472152f8607981f3d8d568739e2aa371":[2,2,250,1]
 };

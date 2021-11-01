@@ -1,5 +1,7 @@
 var NAVTREEINDEX28 =
 {
+"structbcmolt__nni__interface__stats__data.html#a95ada2e95ed6344695574f072ec116cd":[2,2,271,22],
+"structbcmolt__nni__interface__stats__data.html#a989bb8d0116cab0a8166602564085eea":[2,2,271,4],
 "structbcmolt__nni__interface__stats__data.html#aa4d50231a494ce01c38a3d19d1bd8434":[2,2,271,11],
 "structbcmolt__nni__interface__stats__data.html#aa8f91cff3c5031da6f2fd0b0271e8f5f":[2,2,271,33],
 "structbcmolt__nni__interface__stats__data.html#aa972c0d827e7be01e7a182735d62498a":[2,2,271,21],
@@ -247,7 +249,5 @@ var NAVTREEINDEX28 =
 "structbcmolt__onu__invalid__dbru__report__data.html":[2,2,363],
 "structbcmolt__onu__invalid__dbru__report__data.html#ae7122de013551bd9b98fddc5b981acc1":[2,2,363,0],
 "structbcmolt__onu__itu__pon__stats.html":[2,2,305],
-"structbcmolt__onu__itu__pon__stats.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,305,1],
-"structbcmolt__onu__itu__pon__stats.html#a7ba67b54358f05860be49b47899076ce":[2,2,305,0],
-"structbcmolt__onu__itu__pon__stats.html#ab7519773b6e462b057df730802c2af54":[2,2,305,2]
+"structbcmolt__onu__itu__pon__stats.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,305,1]
 };

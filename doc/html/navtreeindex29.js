@@ -1,5 +1,7 @@
 var NAVTREEINDEX29 =
 {
+"structbcmolt__onu__itu__pon__stats.html#a7ba67b54358f05860be49b47899076ce":[2,2,305,0],
+"structbcmolt__onu__itu__pon__stats.html#ab7519773b6e462b057df730802c2af54":[2,2,305,2],
 "structbcmolt__onu__itu__pon__stats__alarm__cleared.html":[2,2,433],
 "structbcmolt__onu__itu__pon__stats__alarm__cleared.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,433,1],
 "structbcmolt__onu__itu__pon__stats__alarm__cleared.html#a5c83c739c54ff31d6c2202987970f617":[2,2,433,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX29 =
 "structbcmolt__onu__power__consumption__report.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,399,1],
 "structbcmolt__onu__power__consumption__report.html#a5c83c739c54ff31d6c2202987970f617":[2,2,399,0],
 "structbcmolt__onu__power__consumption__report.html#ab3b9b8a77cc9961a58d10db1a9e435f0":[2,2,399,2],
-"structbcmolt__onu__power__consumption__report__data.html":[2,2,398],
-"structbcmolt__onu__power__consumption__report__data.html#a23ffe938c7b974e62a931550c6fa70f7":[2,2,398,0],
-"structbcmolt__onu__power__level__report.html":[2,2,397]
+"structbcmolt__onu__power__consumption__report__data.html":[2,2,398]
 };

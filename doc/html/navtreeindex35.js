@@ -1,5 +1,7 @@
 var NAVTREEINDEX35 =
 {
+"structbcmolt__xgpon__onu__alarms__thresholds.html#a6164d162e12b4014b7f748315952c5f3":[2,2,674,0],
+"structbcmolt__xgpon__onu__alarms__thresholds.html#ae9d6212328c5a80811ed802f2595d161":[2,2,674,2],
 "structbcmolt__xgpon__onu__alarms__thresholds.html#afaf41b7755f9fba3bf82968af911e1ba":[2,2,674,1],
 "structbcmolt__xgpon__onu__alarms__thresholds.html#affb1b905358671498d9e4c5bbcc7fedb":[2,2,674,3],
 "structbcmolt__xgpon__onu__params.html":[2,2,658],

@@ -1,5 +1,7 @@
 var NAVTREEINDEX20 =
 {
+"object_tm_qmp.html":[1,28],
+"object_tm_qmp_cfg.html":[1,28,0],
 "object_tm_queue.html":[1,29],
 "object_tm_queue_cfg.html":[1,29,0],
 "object_tm_sched.html":[1,30],
@@ -247,7 +249,5 @@ var NAVTREEINDEX20 =
 "structbcmolt__classifier.html#ad6312397ccc57d322b1a037c7080d340":[2,2,615,5],
 "structbcmolt__classifier.html#ae0b24503990dd10b44c773cb369ace6f":[2,2,615,1],
 "structbcmolt__classifier.html#ae18defed4756b8c15e34718f51e86e55":[2,2,615,11],
-"structbcmolt__classifier.html#af41cd80160dc4ab03f40ea4473e886a0":[2,2,615,17],
-"structbcmolt__classifier.html#af841b275dd8c364a06bc914f0752db6b":[2,2,615,12],
-"structbcmolt__classifier.html#afc4ed6ecd5214cb095ac58a11961b0c1":[2,2,615,2]
+"structbcmolt__classifier.html#af41cd80160dc4ab03f40ea4473e886a0":[2,2,615,17]
 };

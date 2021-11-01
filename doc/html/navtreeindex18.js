@@ -1,5 +1,6 @@
 var NAVTREEINDEX18 =
 {
+"group__object__model.html#ggaf1a32f39c3c7e2b8385ccdd1a6bb2014ae8292f58fdbff715c43be52d4633d627":[2,2,811,134],
 "group__object__model.html#ggaf1a32f39c3c7e2b8385ccdd1a6bb2014ae9e0451b888b2f7b8bc37fac59d60cef":[2,2,811,119],
 "group__object__model.html#ggaf1a32f39c3c7e2b8385ccdd1a6bb2014aec69b6edc83399457e43c5de5997f4b6":[2,2,811,49],
 "group__object__model.html#ggaf1a32f39c3c7e2b8385ccdd1a6bb2014aed6110d2f8c8a1c7cd9d75aa0514b2ac":[2,2,811,68],
@@ -146,9 +147,10 @@ var NAVTREEINDEX18 =
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a73fda85db4b242426e44ba0cd12afd5b":[2,2,908,8],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a7f1b9079ce549dc4e223df6f53d7e3c8":[2,2,908,2],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a84880717e2a894f0fba0a2fb039a835f":[2,2,908,4],
-"group__object__model.html#ggafd6115ab0335c007a8b912805e893883a9472b0aaf10ca131b68538a8512be393":[2,2,908,17],
+"group__object__model.html#ggafd6115ab0335c007a8b912805e893883a9472b0aaf10ca131b68538a8512be393":[2,2,908,18],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883a9888364a7372073b616c8f6c82f54934":[2,2,908,11],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883ab7916253ad14c38178f02aba793f3ef8":[2,2,908,13],
+"group__object__model.html#ggafd6115ab0335c007a8b912805e893883abb64e57ec4ce5682ed5c38c6d817aac5":[2,2,908,17],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883adfc242c6663b93de076553b90d9cfe0a":[2,2,908,3],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883af0d68a58c772521e88715eb28a25a525":[2,2,908,7],
 "group__object__model.html#ggafd6115ab0335c007a8b912805e893883af9be40ffc85dc95b48352e01b4e8a202":[2,2,908,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX18 =
 "object_device_host_keep_alive.html":[1,2,17],
 "object_device_image_transfer_complete.html":[1,2,8],
 "object_device_image_transfer_data.html":[1,2,18],
-"object_device_image_transfer_start.html":[1,2,19],
-"object_device_inni_mux_configuration_completed.html":[1,2,9],
-"object_device_reset.html":[1,2,20]
+"object_device_image_transfer_start.html":[1,2,19]
 };

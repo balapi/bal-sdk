@@ -1,5 +1,7 @@
 var NAVTREEINDEX30 =
 {
+"structbcmolt__onu__power__consumption__report__data.html#a23ffe938c7b974e62a931550c6fa70f7":[2,2,398,0],
+"structbcmolt__onu__power__level__report.html":[2,2,397],
 "structbcmolt__onu__power__level__report.html#a0c52fcd61a1f57e0eb5d0ee48230ee0b":[2,2,397,1],
 "structbcmolt__onu__power__level__report.html#a5c83c739c54ff31d6c2202987970f617":[2,2,397,0],
 "structbcmolt__onu__power__level__report.html#af99834a4f9498753378be7c3a99e2db1":[2,2,397,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX30 =
 "structbcmolt__policer__profile__cfg.html#aa349d71d0e080a4e2bc16c05dd2b990a":[2,2,442,1],
 "structbcmolt__policer__profile__cfg.html#aabcc37b621a4445a2615e75f15000530":[2,2,442,2],
 "structbcmolt__policer__profile__cfg__data.html":[2,2,441],
-"structbcmolt__policer__profile__cfg__data.html#a2da869b44dd618d98ad9d65ebe50340f":[2,2,441,8],
-"structbcmolt__policer__profile__cfg__data.html#a31bf3450a4463c70b18f9f7a64d92806":[2,2,441,5],
-"structbcmolt__policer__profile__cfg__data.html#a376c42017007e54fb747cadcf01a9067":[2,2,441,2]
+"structbcmolt__policer__profile__cfg__data.html#a2da869b44dd618d98ad9d65ebe50340f":[2,2,441,8]
 };

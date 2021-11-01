@@ -1850,6 +1850,7 @@ typedef enum
     BCMOLT_TRX_TYPE_LTF_5308_E = 28, /**< XGS / GPON Combo Trx SFP+ 22 pins */
     BCMOLT_TRX_TYPE_LTF_5306 = 29, /**< XGPON / GPON Combo Trx XFP */
     BCMOLT_TRX_TYPE_LTF_5308_B = 30, /**< Ligent LTF5308B. */
+    BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA = 31, /**< XGS/GPON combo */
     BCMOLT_TRX_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_trx_type;
 
@@ -1948,6 +1949,7 @@ typedef enum
     BCMOLT_XGPON_TRX_TYPE_LTF_5308_E = 15, /**< XGS, XGPON1, TDMA 22 pins */
     BCMOLT_XGPON_TRX_TYPE_LTF_5306 = 16, /**< XGS / GPON Combo TRx SFP+ */
     BCMOLT_XGPON_TRX_TYPE_LTF_5308_B = 17, /**< XGS / GPON Combo TRx SFP+ */
+    BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA = 18, /**< SDDS ST XS CP CDFA. */
     BCMOLT_XGPON_TRX_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_xgpon_trx_type;
 

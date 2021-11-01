@@ -3851,6 +3851,7 @@ var searchData=
   ['bcmolt_5ftrx_5ftype_5fltf_5f5308_5fb',['BCMOLT_TRX_TYPE_LTF_5308_B',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883a62af7efa09ccfae3ca8be6bd3c27a037',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5ftrx_5ftype_5fltf_5f5308_5fe',['BCMOLT_TRX_TYPE_LTF_5308_E',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883a3acc6273f42ad3524fd0cfcc6e9bf7aa',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5ftrx_5ftype_5flth_5f5308',['BCMOLT_TRX_TYPE_LTH_5308',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883a6ac1b38220e3fe87d3f03875783a22df',1,'bcmolt_api_model_supporting_enums.h']]],
+  ['bcmolt_5ftrx_5ftype_5fsdds_5fst_5fxs_5fcp_5fcdfa',['BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883abb64e57ec4ce5682ed5c38c6d817aac5',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5ftrx_5ftype_5fsog_5f4321_5fpsgb',['BCMOLT_TRX_TYPE_SOG_4321_PSGB',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883af9be40ffc85dc95b48352e01b4e8a202',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5ftrx_5ftype_5fsogq_5f4321_5fpsgb_5fc_5fplus',['BCMOLT_TRX_TYPE_SOGQ_4321_PSGB_C_PLUS',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883a5d4a0c6ac76f6f07a18bafacce55e687',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5ftrx_5ftype_5fsource_5fphotonics',['BCMOLT_TRX_TYPE_SOURCE_PHOTONICS',['../group__object__model.html#ggafd6115ab0335c007a8b912805e893883adfc242c6663b93de076553b90d9cfe0a',1,'bcmolt_api_model_supporting_enums.h']]],
@@ -3990,6 +3991,7 @@ var searchData=
   ['bcmolt_5fxgpon_5ftrx_5ftype_5flth_5f7226_5fa_5fpc_5fplus',['BCMOLT_XGPON_TRX_TYPE_LTH_7226_A_PC_PLUS',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4fabae33946fd5b8cdd3c77f34009ef5a285b',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5fxgpon_5ftrx_5ftype_5flth_5f7226_5fpc',['BCMOLT_XGPON_TRX_TYPE_LTH_7226_PC',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba909a59c0d5f7cd4248291360a49171a2',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5fxgpon_5ftrx_5ftype_5fltw_5f627_5fx_5fpc',['BCMOLT_XGPON_TRX_TYPE_LTW_627_X_PC',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba8aebac787b3ad79f8c264762a344d216',1,'bcmolt_api_model_supporting_enums.h']]],
+  ['bcmolt_5fxgpon_5ftrx_5ftype_5fsdds_5fst_5fxs_5fcp_5fcdfa',['BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba42f5446a33a6bb3257ab1287634c413c',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5fxgpon_5ftrx_5ftype_5fwtd_5frtxm266_5f702',['BCMOLT_XGPON_TRX_TYPE_WTD_RTXM266_702',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4faba73f7a783f1e19dd4c59a01fd1f8b1af2',1,'bcmolt_api_model_supporting_enums.h']]],
   ['bcmolt_5fxgpon_5ftrx_5ftype_5fxpp_5fxe_5fr_5f3_5fcdfb',['BCMOLT_XGPON_TRX_TYPE_XPP_XE_R_3_CDFB',['../group__object__model.html#gga247f0f9fbd6344b00c63869b99de4fabae789b45288fd750d5e62255f9896ef38',1,'bcmolt_api_model_supporting_enums.h']]]
 ];
