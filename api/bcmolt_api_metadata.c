@@ -1070,11 +1070,27 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .type = &type_descr_uint16_t,
     },
     {
+        .name = "o_vid_mask",
+        .descr = "Outer VID bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_O_VID_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, o_vid_mask),
+        .type = &type_descr_uint16_t,
+    },
+    {
         .name = "i_vid",
         .descr = "Inner VID of the packet to be classified",
         .id = BCMOLT_CLASSIFIER_ID_I_VID,
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, i_vid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "i_vid_mask",
+        .descr = "Inner VID bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_I_VID_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, i_vid_mask),
         .type = &type_descr_uint16_t,
     },
     {
@@ -1086,11 +1102,27 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .type = &type_descr_uint8_t,
     },
     {
+        .name = "o_pbits_mask",
+        .descr = "Outer PBITS bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_O_PBITS_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, o_pbits_mask),
+        .type = &type_descr_uint8_t,
+    },
+    {
         .name = "i_pbits",
         .descr = "Inner PBITS of the packet to be classified",
         .id = BCMOLT_CLASSIFIER_ID_I_PBITS,
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, i_pbits),
+        .type = &type_descr_uint8_t,
+    },
+    {
+        .name = "i_pbits_mask",
+        .descr = "Inner PBITS bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_I_PBITS_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, i_pbits_mask),
         .type = &type_descr_uint8_t,
     },
     {
@@ -1102,11 +1134,27 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .type = &type_descr_uint16_t,
     },
     {
+        .name = "ether_type_mask",
+        .descr = "Ethertype bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, ether_type_mask),
+        .type = &type_descr_uint16_t,
+    },
+    {
         .name = "dst_mac",
         .descr = "Destination MAC address of the packet to be classified",
         .id = BCMOLT_CLASSIFIER_ID_DST_MAC,
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, dst_mac),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
+        .name = "dst_mac_mask",
+        .descr = "Destination MAC bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_DST_MAC_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, dst_mac_mask),
         .type = &type_descr_bcmos_mac_address,
     },
     {
@@ -1118,11 +1166,27 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .type = &type_descr_bcmos_mac_address,
     },
     {
+        .name = "src_mac_mask",
+        .descr = "Source MAC bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_SRC_MAC_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, src_mac_mask),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
         .name = "ip_proto",
         .descr = "IP protocol of the packet to be classified",
         .id = BCMOLT_CLASSIFIER_ID_IP_PROTO,
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, ip_proto),
+        .type = &type_descr_uint8_t,
+    },
+    {
+        .name = "ip_proto_mask",
+        .descr = "IP protocol bitmask",
+        .id = BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, ip_proto_mask),
         .type = &type_descr_uint8_t,
     },
     {
@@ -1212,6 +1276,14 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, i2_vid),
         .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "slow_proto_subtype",
+        .descr = "slow protocol eth=8809 subtype",
+        .id = BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, slow_proto_subtype),
+        .type = &type_descr_uint8_t,
     },
 };
 
@@ -3043,14 +3115,6 @@ static bcmolt_field_descr type_descr_bcmolt_group_member_info_fields[] =
         .offset = offsetof(bcmolt_group_member_info, egress_qos),
         .type = &type_descr_bcmolt_egress_qos,
     },
-    {
-        .name = "svc_port_is_wc",
-        .descr = "Service Port was provisioned as a Wildcard / Get Next Free",
-        .id = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_group_member_info, svc_port_is_wc),
-        .type = &type_descr_bcmos_bool,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_group_member_info =
@@ -3758,6 +3822,7 @@ const bcmolt_enum_val bcmolt_interface_type_string_table[] =
     { .name = "lag", .val = BCMOLT_INTERFACE_TYPE_LAG, .tags = 0 },
     { .name = "protection", .val = BCMOLT_INTERFACE_TYPE_PROTECTION, .tags = 0 },
     { .name = "unassigned", .val = BCMOLT_INTERFACE_TYPE_UNASSIGNED, .tags = 0 },
+    { .name = "remote_pon", .val = BCMOLT_INTERFACE_TYPE_REMOTE_PON, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -5113,6 +5178,28 @@ const bcmolt_type_descr type_descr_bcmolt_mep_type =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_mep_type),
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_mep_type_string_table } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_mirror_action_fields[] =
+{
+    {
+        .name = "mirror_dest_intf",
+        .descr = "mirror destination interface (NNI or NIC ports only for now)",
+        .id = BCMOLT_MIRROR_ACTION_ID_MIRROR_DEST_INTF,
+        .tags = 0,
+        .offset = offsetof(bcmolt_mirror_action, mirror_dest_intf),
+        .type = &type_descr_bcmolt_intf_ref,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_mirror_action =
+{
+    .name = "mirror_action",
+    .descr = "config parameters for mirroring ingress pkts",
+    .size = sizeof(bcmolt_mirror_action),
+    .mask_offset = offsetof(bcmolt_mirror_action, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_mirror_action_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_mirror_action_fields } },
 };
 
 const bcmolt_enum_val bcmolt_mpcp_discovery_info_string_table[] =
@@ -7740,6 +7827,7 @@ const bcmolt_enum_val bcmolt_system_mode_string_table[] =
     { .name = "ngpon2__2_x_10g", .val = BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G, .tags = BCMOLT_TAG_NGPON2 | BCMOLT_TAG_XGPON },
     { .name = "xgs__8_x_gpon__8_x_wdma", .val = BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON | BCMOLT_TAG_GPON },
     { .name = "xgs__1_x", .val = BCMOLT_SYSTEM_MODE_XGS__1_X, .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_XGPON },
+    { .name = "xgpon__1_x", .val = BCMOLT_SYSTEM_MODE_XGPON__1_X, .tags = BCMOLT_TAG_XGPON },
     BCMOLT_ENUM_LAST,
 };
 
@@ -9288,6 +9376,7 @@ const bcmolt_enum_val bcmolt_xgpon_trx_type_string_table[] =
     { .name = "ltf_5306", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5306, .tags = 0 },
     { .name = "ltf_5308_b", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_B, .tags = 0 },
     { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
+    { .name = "ltf_5308_e_sl", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -9398,6 +9487,14 @@ static bcmolt_field_descr type_descr_bcmolt_access_control_cfg_data_fields[] =
         .offset = offsetof(bcmolt_access_control_cfg_data, policer_action),
         .type = &type_descr_bcmolt_policer_action,
     },
+    {
+        .name = "mirror_action",
+        .descr = "mirror ingress pkts action",
+        .id = BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MIRROR_ACTION,
+        .tags = 0,
+        .offset = offsetof(bcmolt_access_control_cfg_data, mirror_action),
+        .type = &type_descr_bcmolt_mirror_action,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_access_control_cfg_data =
@@ -9489,6 +9586,14 @@ static bcmolt_field_descr type_descr_bcmolt_access_control_receive_eth_packet_da
         .tags = 0,
         .offset = offsetof(bcmolt_access_control_receive_eth_packet_data, svc_port_id),
         .type = &type_descr_uint32_t,
+    },
+    {
+        .name = "lag_member_nni_id",
+        .descr = "LAG member NNI Interface Id",
+        .id = BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_LAG_MEMBER_NNI_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_access_control_receive_eth_packet_data, lag_member_nni_id),
+        .type = &type_descr_uint8_t,
     },
     {
         .name = "buffer",
@@ -14658,7 +14763,7 @@ static bcmolt_field_descr type_descr_bcmolt_lag_interface_key_fields[] =
 {
     {
         .name = "id",
-        .descr = "id",
+        .descr = "Lag Interface Id",
         .id = BCMOLT_FIELD_DESCR_ID_NONE,
         .tags = 0,
         .offset = offsetof(bcmolt_lag_interface_key, id),
@@ -23495,15 +23600,6 @@ static bcmolt_field_descr type_descr_bcmolt_tm_qmp_cfg_data_fields[] =
         .type = &type_descr_bcmolt_arr_u8_8,
     },
     {
-        .name = "ref_count",
-        .descr = "ref_count",
-        .id = BCMOLT_TM_QMP_CFG_DATA_ID_REF_COUNT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_qmp_cfg_data, ref_count),
-        .type = &type_descr_uint16_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
         .name = "state",
         .descr = "state",
         .id = BCMOLT_TM_QMP_CFG_DATA_ID_STATE,
@@ -23588,15 +23684,6 @@ static bcmolt_field_descr type_descr_bcmolt_tm_queue_cfg_data_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_tm_queue_cfg_data, rate),
         .type = &type_descr_bcmolt_tm_shaping,
-    },
-    {
-        .name = "ref_count",
-        .descr = "reference count (flows)",
-        .id = BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_queue_cfg_data, ref_count),
-        .type = &type_descr_uint16_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
     {
         .name = "control_state",
@@ -25267,13 +25354,21 @@ const bcmolt_enum_val bcmolt_classifier_id_string_table[] =
 {
     { .name = "classifier_bitmap", .val = BCMOLT_CLASSIFIER_ID_CLASSIFIER_BITMAP, .tags = 0 },
     { .name = "o_vid", .val = BCMOLT_CLASSIFIER_ID_O_VID, .tags = 0 },
+    { .name = "o_vid_mask", .val = BCMOLT_CLASSIFIER_ID_O_VID_MASK, .tags = 0 },
     { .name = "i_vid", .val = BCMOLT_CLASSIFIER_ID_I_VID, .tags = 0 },
+    { .name = "i_vid_mask", .val = BCMOLT_CLASSIFIER_ID_I_VID_MASK, .tags = 0 },
     { .name = "o_pbits", .val = BCMOLT_CLASSIFIER_ID_O_PBITS, .tags = 0 },
+    { .name = "o_pbits_mask", .val = BCMOLT_CLASSIFIER_ID_O_PBITS_MASK, .tags = 0 },
     { .name = "i_pbits", .val = BCMOLT_CLASSIFIER_ID_I_PBITS, .tags = 0 },
+    { .name = "i_pbits_mask", .val = BCMOLT_CLASSIFIER_ID_I_PBITS_MASK, .tags = 0 },
     { .name = "ether_type", .val = BCMOLT_CLASSIFIER_ID_ETHER_TYPE, .tags = 0 },
+    { .name = "ether_type_mask", .val = BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK, .tags = 0 },
     { .name = "dst_mac", .val = BCMOLT_CLASSIFIER_ID_DST_MAC, .tags = 0 },
+    { .name = "dst_mac_mask", .val = BCMOLT_CLASSIFIER_ID_DST_MAC_MASK, .tags = 0 },
     { .name = "src_mac", .val = BCMOLT_CLASSIFIER_ID_SRC_MAC, .tags = 0 },
+    { .name = "src_mac_mask", .val = BCMOLT_CLASSIFIER_ID_SRC_MAC_MASK, .tags = 0 },
     { .name = "ip_proto", .val = BCMOLT_CLASSIFIER_ID_IP_PROTO, .tags = 0 },
+    { .name = "ip_proto_mask", .val = BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK, .tags = 0 },
     { .name = "dst_ip", .val = BCMOLT_CLASSIFIER_ID_DST_IP, .tags = 0 },
     { .name = "dst_ip_mask", .val = BCMOLT_CLASSIFIER_ID_DST_IP_MASK, .tags = 0 },
     { .name = "dst_port", .val = BCMOLT_CLASSIFIER_ID_DST_PORT, .tags = 0 },
@@ -25285,6 +25380,7 @@ const bcmolt_enum_val bcmolt_classifier_id_string_table[] =
     { .name = "pkt_tag_type", .val = BCMOLT_CLASSIFIER_ID_PKT_TAG_TYPE, .tags = 0 },
     { .name = "ip_v_6", .val = BCMOLT_CLASSIFIER_ID_IP_V_6, .tags = 0 },
     { .name = "i2_vid", .val = BCMOLT_CLASSIFIER_ID_I2_VID, .tags = 0 },
+    { .name = "slow_proto_subtype", .val = BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -25744,7 +25840,6 @@ const bcmolt_enum_val bcmolt_group_member_info_id_string_table[] =
     { .name = "intf", .val = BCMOLT_GROUP_MEMBER_INFO_ID_INTF, .tags = 0 },
     { .name = "svc_port_id", .val = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_ID, .tags = 0 },
     { .name = "egress_qos", .val = BCMOLT_GROUP_MEMBER_INFO_ID_EGRESS_QOS, .tags = 0 },
-    { .name = "svc_port_is_wc", .val = BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26240,6 +26335,21 @@ const bcmolt_type_descr type_descr_bcmolt_meg_cfg_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_meg_cfg_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_meg_cfg_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_mirror_action_id_string_table[] =
+{
+    { .name = "mirror_dest_intf", .val = BCMOLT_MIRROR_ACTION_ID_MIRROR_DEST_INTF, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_mirror_action_id =
+{
+    .name = "mirror_action_id",
+    .descr = "Identifiers for all fields in a 'mirror_action'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_mirror_action_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_mirror_action_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_ngpon2_onu_params_id_string_table[] =
@@ -27397,6 +27507,7 @@ const bcmolt_enum_val bcmolt_access_control_cfg_data_id_string_table[] =
     { .name = "cookie", .val = BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_COOKIE, .tags = 0 },
     { .name = "interface_refs", .val = BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_INTERFACE_REFS, .tags = 0 },
     { .name = "policer_action", .val = BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_POLICER_ACTION, .tags = 0 },
+    { .name = "mirror_action", .val = BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MIRROR_ACTION, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27433,6 +27544,7 @@ const bcmolt_enum_val bcmolt_access_control_receive_eth_packet_data_id_string_ta
 {
     { .name = "interface_ref", .val = BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_INTERFACE_REF, .tags = 0 },
     { .name = "svc_port_id", .val = BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_SVC_PORT_ID, .tags = 0 },
+    { .name = "lag_member_nni_id", .val = BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_LAG_MEMBER_NNI_ID, .tags = 0 },
     { .name = "buffer", .val = BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_BUFFER, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -32296,7 +32408,6 @@ const bcmolt_enum_val bcmolt_tm_qmp_cfg_data_id_string_table[] =
 {
     { .name = "type", .val = BCMOLT_TM_QMP_CFG_DATA_ID_TYPE, .tags = 0 },
     { .name = "pbits_to_tmq_id", .val = BCMOLT_TM_QMP_CFG_DATA_ID_PBITS_TO_TMQ_ID, .tags = 0 },
-    { .name = "ref_count", .val = BCMOLT_TM_QMP_CFG_DATA_ID_REF_COUNT, .tags = 0 },
     { .name = "state", .val = BCMOLT_TM_QMP_CFG_DATA_ID_STATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -32332,7 +32443,6 @@ const bcmolt_enum_val bcmolt_tm_queue_cfg_data_id_string_table[] =
     { .name = "state", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_STATE, .tags = 0 },
     { .name = "tm_sched_param", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_TM_SCHED_PARAM, .tags = 0 },
     { .name = "rate", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE, .tags = 0 },
-    { .name = "ref_count", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT, .tags = 0 },
     { .name = "control_state", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE, .tags = 0 },
     { .name = "cir_attachment_point", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT, .tags = 0 },
     BCMOLT_ENUM_LAST,

@@ -1,8 +1,10 @@
 var searchData=
 [
   ['o_5fpbits',['o_pbits',['../structbcmolt__eth__oam__cfg__data.html#a7638f68a38d7869eb475993d0be26094',1,'bcmolt_eth_oam_cfg_data::o_pbits()'],['../structbcmolt__access__control__pkt__modifier.html#a7638f68a38d7869eb475993d0be26094',1,'bcmolt_access_control_pkt_modifier::o_pbits()'],['../structbcmolt__action.html#a7638f68a38d7869eb475993d0be26094',1,'bcmolt_action::o_pbits()'],['../structbcmolt__classifier.html#a7638f68a38d7869eb475993d0be26094',1,'bcmolt_classifier::o_pbits()']]],
+  ['o_5fpbits_5fmask',['o_pbits_mask',['../structbcmolt__classifier.html#ae3a7b03301d53d6cc7ba5378d3b914a0',1,'bcmolt_classifier']]],
   ['o_5ftpid',['o_tpid',['../structbcmolt__eth__oam__cfg__data.html#a0cd5a841e7f5fb2f95f610080ad3a0cd',1,'bcmolt_eth_oam_cfg_data']]],
   ['o_5fvid',['o_vid',['../structbcmolt__eth__oam__cfg__data.html#ac018540654871cdf1163529b609230ad',1,'bcmolt_eth_oam_cfg_data::o_vid()'],['../structbcmolt__access__control__pkt__modifier.html#ae0b24503990dd10b44c773cb369ace6f',1,'bcmolt_access_control_pkt_modifier::o_vid()'],['../structbcmolt__action.html#ae0b24503990dd10b44c773cb369ace6f',1,'bcmolt_action::o_vid()'],['../structbcmolt__classifier.html#ae0b24503990dd10b44c773cb369ace6f',1,'bcmolt_classifier::o_vid()']]],
+  ['o_5fvid_5fmask',['o_vid_mask',['../structbcmolt__classifier.html#a910de535b9e569acf7d712145d9eda00',1,'bcmolt_classifier']]],
   ['obj_5ftype',['obj_type',['../structbcmolt__rx__cfg.html#af39ba91ed64f917f2f15cf36cd0eac98',1,'bcmolt_rx_cfg::obj_type()'],['../structbcmolt__msg.html#af39ba91ed64f917f2f15cf36cd0eac98',1,'bcmolt_msg::obj_type()']]],
   ['object_3a_20access_5fcontrol_20_2d_20access_20control',['Object: access_control - access control',['../object_access_control.html',1,'object_model']]],
   ['object_20configuration',['Object configuration',['../object_access_control_cfg.html',1,'object_access_control']]],

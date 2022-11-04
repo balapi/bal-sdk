@@ -934,6 +934,7 @@ typedef enum
     BCMOLT_INTERFACE_TYPE_LAG = 6, /**< NNI LAG group */
     BCMOLT_INTERFACE_TYPE_PROTECTION = 7, /**< PON, NNI or LAG 1 to 1 Redundancy Pair, subtype indicated in underlying protection_interface intf_ref fields */
     BCMOLT_INTERFACE_TYPE_UNASSIGNED = 8, /**< No Type Assigned */
+    BCMOLT_INTERFACE_TYPE_REMOTE_PON = 9, /**< Represents a PON interface that is not local to this device. Interfaces of this type do not have an ID. */
     BCMOLT_INTERFACE_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_interface_type;
 
@@ -1724,6 +1725,7 @@ typedef enum
     BCMOLT_SYSTEM_MODE_NGPON2__2_X_10G = 21, /**< 2x NGPON2 (10/10) */
     BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA = 38, /**< 8x XGS 8x GPON wdma */
     BCMOLT_SYSTEM_MODE_XGS__1_X = 70, /**< 1x XGS-PON (10/10) */
+    BCMOLT_SYSTEM_MODE_XGPON__1_X = 71, /**< 1x XGPON-PON */
     BCMOLT_SYSTEM_MODE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_system_mode;
 
@@ -1950,6 +1952,7 @@ typedef enum
     BCMOLT_XGPON_TRX_TYPE_LTF_5306 = 16, /**< XGS / GPON Combo TRx SFP+ */
     BCMOLT_XGPON_TRX_TYPE_LTF_5308_B = 17, /**< XGS / GPON Combo TRx SFP+ */
     BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA = 18, /**< SDDS ST XS CP CDFA. */
+    BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL = 19, /**< Ligent LTF5308E_SL. */
     BCMOLT_XGPON_TRX_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_xgpon_trx_type;
 
@@ -3867,6 +3870,15 @@ typedef enum
     BCMOLT_CLASSIFIER_ID_PKT_TAG_TYPE = 17, /**< Packet tag type. */
     BCMOLT_CLASSIFIER_ID_IP_V_6 = 18, /**< IPv6 related classifier. */
     BCMOLT_CLASSIFIER_ID_I2_VID = 19, /**< Second Inner vid. */
+    BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE = 20, /**< slow protocol subtype. */
+    BCMOLT_CLASSIFIER_ID_SRC_MAC_MASK = 21, /**< Source mac mac. */
+    BCMOLT_CLASSIFIER_ID_DST_MAC_MASK = 22, /**< Destination mac mask. */
+    BCMOLT_CLASSIFIER_ID_O_VID_MASK = 23, /**< Outer vid mask. */
+    BCMOLT_CLASSIFIER_ID_I_VID_MASK = 24, /**< Inner vid mask. */
+    BCMOLT_CLASSIFIER_ID_O_PBITS_MASK = 25, /**< Outer Pbits mask. */
+    BCMOLT_CLASSIFIER_ID_I_PBITS_MASK = 26, /**< Inner Pbits mask. */
+    BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK = 27, /**< Ether type mask. */
+    BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK = 28, /**< IP Protocol mask. */
     BCMOLT_CLASSIFIER_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -3891,9 +3903,18 @@ typedef enum
 #define bcmolt_classifier_id_pkt_tag_type BCMOLT_CLASSIFIER_ID_PKT_TAG_TYPE
 #define bcmolt_classifier_id_ip_v_6 BCMOLT_CLASSIFIER_ID_IP_V_6
 #define bcmolt_classifier_id_i2_vid BCMOLT_CLASSIFIER_ID_I2_VID
+#define bcmolt_classifier_id_slow_proto_subtype BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE
+#define bcmolt_classifier_id_src_mac_mask BCMOLT_CLASSIFIER_ID_SRC_MAC_MASK
+#define bcmolt_classifier_id_dst_mac_mask BCMOLT_CLASSIFIER_ID_DST_MAC_MASK
+#define bcmolt_classifier_id_o_vid_mask BCMOLT_CLASSIFIER_ID_O_VID_MASK
+#define bcmolt_classifier_id_i_vid_mask BCMOLT_CLASSIFIER_ID_I_VID_MASK
+#define bcmolt_classifier_id_o_pbits_mask BCMOLT_CLASSIFIER_ID_O_PBITS_MASK
+#define bcmolt_classifier_id_i_pbits_mask BCMOLT_CLASSIFIER_ID_I_PBITS_MASK
+#define bcmolt_classifier_id_ether_type_mask BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK
+#define bcmolt_classifier_id_ip_proto_mask BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK
 #define bcmolt_classifier_id__num_of BCMOLT_CLASSIFIER_ID__NUM_OF
 #define bcmolt_classifier_id_all_properties 0xFF
-#define bcmolt_classifier_id_full_mask 0xFFFFF
+#define bcmolt_classifier_id_full_mask 0x1FFFFFFF
 
 } bcmolt_classifier_id;
 
@@ -4420,7 +4441,6 @@ typedef enum
     BCMOLT_GROUP_MEMBER_INFO_ID_INTF = 0, /**< Egress Pon Interface. */
     BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_ID = 1, /**< Service Port ID. */
     BCMOLT_GROUP_MEMBER_INFO_ID_EGRESS_QOS = 3, /**< Egress qos. */
-    BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC = 4, /**< Wildcard Service Port. */
     BCMOLT_GROUP_MEMBER_INFO_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -4428,10 +4448,9 @@ typedef enum
 #define bcmolt_group_member_info_id_intf BCMOLT_GROUP_MEMBER_INFO_ID_INTF
 #define bcmolt_group_member_info_id_svc_port_id BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_ID
 #define bcmolt_group_member_info_id_egress_qos BCMOLT_GROUP_MEMBER_INFO_ID_EGRESS_QOS
-#define bcmolt_group_member_info_id_svc_port_is_wc BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC
 #define bcmolt_group_member_info_id__num_of BCMOLT_GROUP_MEMBER_INFO_ID__NUM_OF
 #define bcmolt_group_member_info_id_all_properties 0xFF
-#define bcmolt_group_member_info_id_full_mask 0x1B
+#define bcmolt_group_member_info_id_full_mask 0xB
 
 } bcmolt_group_member_info_id;
 
@@ -5040,6 +5059,22 @@ typedef enum
 #define bcmolt_meg_cfg_id_full_mask 0x7
 
 } bcmolt_meg_cfg_id;
+
+/** Identifiers for all fields in a 'mirror_action'. */
+typedef enum
+{
+    BCMOLT_MIRROR_ACTION_ID__BEGIN = 1,
+    BCMOLT_MIRROR_ACTION_ID_MIRROR_DEST_INTF = 1, /**< mirror destination interface. */
+    BCMOLT_MIRROR_ACTION_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_mirror_action_id__begin BCMOLT_MIRROR_ACTION_ID__BEGIN
+#define bcmolt_mirror_action_id_mirror_dest_intf BCMOLT_MIRROR_ACTION_ID_MIRROR_DEST_INTF
+#define bcmolt_mirror_action_id__num_of BCMOLT_MIRROR_ACTION_ID__NUM_OF
+#define bcmolt_mirror_action_id_all_properties 0xFF
+#define bcmolt_mirror_action_id_full_mask 0x2
+
+} bcmolt_mirror_action_id;
 
 /** Identifiers for all fields in a 'ngpon2_onu_params'. */
 typedef enum
@@ -6430,6 +6465,7 @@ typedef enum
     BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_STATISTICS_CONTROL = 14, /**< statistics control. */
     BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MODIFIER_ACTION = 15, /**< Packet modifier action. */
     BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_POLICER_ACTION = 16, /**< policer action. */
+    BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MIRROR_ACTION = 17, /**< mirror ingress pkts action. */
     BCMOLT_ACCESS_CONTROL_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6443,9 +6479,10 @@ typedef enum
 #define bcmolt_access_control_cfg_data_id_statistics_control BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_STATISTICS_CONTROL
 #define bcmolt_access_control_cfg_data_id_modifier_action BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MODIFIER_ACTION
 #define bcmolt_access_control_cfg_data_id_policer_action BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_POLICER_ACTION
+#define bcmolt_access_control_cfg_data_id_mirror_action BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MIRROR_ACTION
 #define bcmolt_access_control_cfg_data_id__num_of BCMOLT_ACCESS_CONTROL_CFG_DATA_ID__NUM_OF
 #define bcmolt_access_control_cfg_data_id_all_properties 0xFF
-#define bcmolt_access_control_cfg_data_id_full_mask 0x1DA70
+#define bcmolt_access_control_cfg_data_id_full_mask 0x3DA70
 
 } bcmolt_access_control_cfg_data_id;
 
@@ -6482,6 +6519,7 @@ typedef enum
     BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_INTERFACE_REF = 1, /**< Interface Ref. */
     BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_BUFFER = 2, /**< Buffer. */
     BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_SVC_PORT_ID = 3, /**< GEM or LLID. */
+    BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_LAG_MEMBER_NNI_ID = 4, /**< LAG member NNI Id. */
     BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6489,9 +6527,10 @@ typedef enum
 #define bcmolt_access_control_receive_eth_packet_data_id_interface_ref BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_INTERFACE_REF
 #define bcmolt_access_control_receive_eth_packet_data_id_buffer BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_BUFFER
 #define bcmolt_access_control_receive_eth_packet_data_id_svc_port_id BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_SVC_PORT_ID
+#define bcmolt_access_control_receive_eth_packet_data_id_lag_member_nni_id BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_LAG_MEMBER_NNI_ID
 #define bcmolt_access_control_receive_eth_packet_data_id__num_of BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID__NUM_OF
 #define bcmolt_access_control_receive_eth_packet_data_id_all_properties 0xFF
-#define bcmolt_access_control_receive_eth_packet_data_id_full_mask 0xE
+#define bcmolt_access_control_receive_eth_packet_data_id_full_mask 0x1E
 
 } bcmolt_access_control_receive_eth_packet_data_id;
 
@@ -12638,19 +12677,17 @@ typedef enum
     BCMOLT_TM_QMP_CFG_DATA_ID__BEGIN = 0,
     BCMOLT_TM_QMP_CFG_DATA_ID_TYPE = 0, /**< type. */
     BCMOLT_TM_QMP_CFG_DATA_ID_PBITS_TO_TMQ_ID = 1, /**< pbits_to_tmq_id. */
-    BCMOLT_TM_QMP_CFG_DATA_ID_REF_COUNT = 2, /**< ref_count. */
-    BCMOLT_TM_QMP_CFG_DATA_ID_STATE = 3, /**< state. */
+    BCMOLT_TM_QMP_CFG_DATA_ID_STATE = 2, /**< state. */
     BCMOLT_TM_QMP_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_tm_qmp_cfg_data_id__begin BCMOLT_TM_QMP_CFG_DATA_ID__BEGIN
 #define bcmolt_tm_qmp_cfg_data_id_type BCMOLT_TM_QMP_CFG_DATA_ID_TYPE
 #define bcmolt_tm_qmp_cfg_data_id_pbits_to_tmq_id BCMOLT_TM_QMP_CFG_DATA_ID_PBITS_TO_TMQ_ID
-#define bcmolt_tm_qmp_cfg_data_id_ref_count BCMOLT_TM_QMP_CFG_DATA_ID_REF_COUNT
 #define bcmolt_tm_qmp_cfg_data_id_state BCMOLT_TM_QMP_CFG_DATA_ID_STATE
 #define bcmolt_tm_qmp_cfg_data_id__num_of BCMOLT_TM_QMP_CFG_DATA_ID__NUM_OF
 #define bcmolt_tm_qmp_cfg_data_id_all_properties 0xFF
-#define bcmolt_tm_qmp_cfg_data_id_full_mask 0xF
+#define bcmolt_tm_qmp_cfg_data_id_full_mask 0x7
 
 } bcmolt_tm_qmp_cfg_data_id;
 
@@ -12681,9 +12718,8 @@ typedef enum
     BCMOLT_TM_QUEUE_CFG_DATA_ID_STATE = 0, /**< State. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID_TM_SCHED_PARAM = 1, /**< TM Sched Param. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE = 3, /**< rate. */
-    BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT = 4, /**< ref_count. */
-    BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE = 5, /**< control state. */
-    BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT = 6, /**< TM sched and priority line where CIR queue is attached. */
+    BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE = 4, /**< control state. */
+    BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT = 5, /**< TM sched and priority line where CIR queue is attached. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -12691,12 +12727,11 @@ typedef enum
 #define bcmolt_tm_queue_cfg_data_id_state BCMOLT_TM_QUEUE_CFG_DATA_ID_STATE
 #define bcmolt_tm_queue_cfg_data_id_tm_sched_param BCMOLT_TM_QUEUE_CFG_DATA_ID_TM_SCHED_PARAM
 #define bcmolt_tm_queue_cfg_data_id_rate BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE
-#define bcmolt_tm_queue_cfg_data_id_ref_count BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT
 #define bcmolt_tm_queue_cfg_data_id_control_state BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE
 #define bcmolt_tm_queue_cfg_data_id_cir_attachment_point BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT
 #define bcmolt_tm_queue_cfg_data_id__num_of BCMOLT_TM_QUEUE_CFG_DATA_ID__NUM_OF
 #define bcmolt_tm_queue_cfg_data_id_all_properties 0xFF
-#define bcmolt_tm_queue_cfg_data_id_full_mask 0x7B
+#define bcmolt_tm_queue_cfg_data_id_full_mask 0x3B
 
 } bcmolt_tm_queue_cfg_data_id;
 

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.2</span>
+   &#160;<span id="projectnumber">3.10.4</span>
    </div>
   </td>
  </tr>
@@ -1500,6 +1500,8 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__str__48.html">bcmolt_str_48</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__meg__cfg.html">bcmolt_meg_cfg</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__mirror__action.html">bcmolt_mirror_action</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__nni__link__status.html">bcmolt_nni_link_status</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4689,6 +4691,9 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga690cd9b463cea5488ce4af6d67523a3ea679b2293ab3f932e33e013a0066a6995"></a>BCMOLT_INTERFACE_TYPE_UNASSIGNED&#160;</td><td class="fielddoc">
 <p>No Type Assigned </p>
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga690cd9b463cea5488ce4af6d67523a3eaa60ab74795f87feee2801f4988f0c359"></a>BCMOLT_INTERFACE_TYPE_REMOTE_PON&#160;</td><td class="fielddoc">
+<p>Represents a PON interface that is not local to this device. Interfaces of this type do not have an ID. </p>
+</td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga690cd9b463cea5488ce4af6d67523a3ea6c5e7771b6af47476e7acc15f8fc7b24"></a>BCMOLT_INTERFACE_TYPE__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -6846,6 +6851,9 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga625b53c2cac22ec1bb6595fa71dc0643a02b72d0a48f22a092edff029193f377d"></a>BCMOLT_SYSTEM_MODE_XGS__1_X&#160;</td><td class="fielddoc">
 <p>1x XGS-PON (10/10) </p>
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga625b53c2cac22ec1bb6595fa71dc0643a70d0b28e37899f991aeaf8cfa054a536"></a>BCMOLT_SYSTEM_MODE_XGPON__1_X&#160;</td><td class="fielddoc">
+<p>1x XGPON-PON </p>
+</td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga625b53c2cac22ec1bb6595fa71dc0643a6a6cf834a971e69904d3ee1e781abeef"></a>BCMOLT_SYSTEM_MODE__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -7469,6 +7477,9 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga247f0f9fbd6344b00c63869b99de4faba42f5446a33a6bb3257ab1287634c413c"></a>BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA&#160;</td><td class="fielddoc">
 <p>SDDS ST XS CP CDFA. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga247f0f9fbd6344b00c63869b99de4fabaf21869b99f70185dcbd1ad50de13b1e3"></a>BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL&#160;</td><td class="fielddoc">
+<p>Ligent LTF5308E_SL. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga247f0f9fbd6344b00c63869b99de4fabaf0516d04c8d7568d08fddc0a7fd9b3f2"></a>BCMOLT_XGPON_TRX_TYPE__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
@@ -10644,6 +10655,33 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a178329c4b9d657f21bd030d7570049f4"></a>BCMOLT_CLASSIFIER_ID_I2_VID&#160;</td><td class="fielddoc">
 <p>Second Inner vid. </p>
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607aaa2b2ca6edb70d7efa2cc1f199d0b9ab"></a>BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE&#160;</td><td class="fielddoc">
+<p>slow protocol subtype. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a0db477b6d797c3c0877b5ff4065e49fd"></a>BCMOLT_CLASSIFIER_ID_SRC_MAC_MASK&#160;</td><td class="fielddoc">
+<p>Source mac mac. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a9bb569fce120a4255c1618078b1b0db5"></a>BCMOLT_CLASSIFIER_ID_DST_MAC_MASK&#160;</td><td class="fielddoc">
+<p>Destination mac mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607aba22109235620c5e80d153cc6296591b"></a>BCMOLT_CLASSIFIER_ID_O_VID_MASK&#160;</td><td class="fielddoc">
+<p>Outer vid mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a3ab0824b7c7740fb9a49d4ca1297610a"></a>BCMOLT_CLASSIFIER_ID_I_VID_MASK&#160;</td><td class="fielddoc">
+<p>Inner vid mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607ae990d36f4c35665e8ed03fb4772e8d6d"></a>BCMOLT_CLASSIFIER_ID_O_PBITS_MASK&#160;</td><td class="fielddoc">
+<p>Outer Pbits mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a9b48b0c78b41b8202e6539b8218609d8"></a>BCMOLT_CLASSIFIER_ID_I_PBITS_MASK&#160;</td><td class="fielddoc">
+<p>Inner Pbits mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a8561fe3b394c2483c52c9ada3784dc36"></a>BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK&#160;</td><td class="fielddoc">
+<p>Ether type mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607ab9d656686c85eab33625ad774fbfb49b"></a>BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK&#160;</td><td class="fielddoc">
+<p>IP Protocol mask. </p>
+</td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga498f31b7c59359e0bd724ea932707607a96932c30a58a26d4414692cdf4fafc91"></a>BCMOLT_CLASSIFIER_ID__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -11372,9 +11410,6 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggab368d91553c7e51a2cc12b46b75c7b4bad7adac55974344eb6db0270690e4a7a3"></a>BCMOLT_GROUP_MEMBER_INFO_ID_EGRESS_QOS&#160;</td><td class="fielddoc">
 <p>Egress qos. </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="ggab368d91553c7e51a2cc12b46b75c7b4baa0907dedbeaa1345602d9c711fa5894f"></a>BCMOLT_GROUP_MEMBER_INFO_ID_SVC_PORT_IS_WC&#160;</td><td class="fielddoc">
-<p>Wildcard Service Port. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggab368d91553c7e51a2cc12b46b75c7b4ba6a08c7bd7ee1230f5c2c8ca4a603db24"></a>BCMOLT_GROUP_MEMBER_INFO_ID__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
@@ -12208,6 +12243,27 @@ Enumerations</h2></td></tr>
 <p>Meg Level. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga2d148867146284a0bdfe6d63eeda4159a701f2056ecc69027a8e9ef86a2830cb2"></a>BCMOLT_MEG_CFG_ID__NUM_OF&#160;</td><td class="fielddoc">
+<p>Constant to use for sizing arrays - note that enum may have holes. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga03bf633ccbafd6167e396ece459e9d31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__object__model.html#ga03bf633ccbafd6167e396ece459e9d31">bcmolt_mirror_action_id</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Identifiers for all fields in a 'mirror_action'. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga03bf633ccbafd6167e396ece459e9d31a943e0f274f58738c35b385cad6a7475d"></a>BCMOLT_MIRROR_ACTION_ID_MIRROR_DEST_INTF&#160;</td><td class="fielddoc">
+<p>mirror destination interface. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga03bf633ccbafd6167e396ece459e9d31abb4a353ee512b3c3edca7d4fa18d9ef1"></a>BCMOLT_MIRROR_ACTION_ID__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
 </table>
@@ -14124,6 +14180,9 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggabe899f531cf1acd36d857499868b124eadc15ae007df745ae28cad2b8afd3af5d"></a>BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_POLICER_ACTION&#160;</td><td class="fielddoc">
 <p>policer action. </p>
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggabe899f531cf1acd36d857499868b124ea3fe276675358317d1ae9d1679aa2f9f1"></a>BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_MIRROR_ACTION&#160;</td><td class="fielddoc">
+<p>mirror ingress pkts action. </p>
+</td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggabe899f531cf1acd36d857499868b124eac60ace68c4c978f3367d2eeccafcfc39"></a>BCMOLT_ACCESS_CONTROL_CFG_DATA_ID__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -14186,6 +14245,9 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga387eefabea714ec8790c375106271375a9a4faf84eaac44246e69f089d802f80d"></a>BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_SVC_PORT_ID&#160;</td><td class="fielddoc">
 <p>GEM or LLID. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga387eefabea714ec8790c375106271375a0f92b2a62bb0c702de0c8bbecd8a17f6"></a>BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID_LAG_MEMBER_NNI_ID&#160;</td><td class="fielddoc">
+<p>LAG member NNI Id. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="gga387eefabea714ec8790c375106271375afca60e1045c4d937f262ce3eeffd4728"></a>BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_ID__NUM_OF&#160;</td><td class="fielddoc">
 <p>Constant to use for sizing arrays - note that enum may have holes. </p>
@@ -22653,9 +22715,6 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggab5fe829536d4a125847c05ad9ecf0640ab744a6029431f4e147281a2936569ba8"></a>BCMOLT_TM_QMP_CFG_DATA_ID_PBITS_TO_TMQ_ID&#160;</td><td class="fielddoc">
 <p>pbits_to_tmq_id. </p>
 </td></tr>
-<tr><td class="fieldname"><a class="anchor" id="ggab5fe829536d4a125847c05ad9ecf0640a14db33a681aa75b19e76c75620b46854"></a>BCMOLT_TM_QMP_CFG_DATA_ID_REF_COUNT&#160;</td><td class="fielddoc">
-<p>ref_count. </p>
-</td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggab5fe829536d4a125847c05ad9ecf0640a18c7917d16e7a4361763790f736f6ef3"></a>BCMOLT_TM_QMP_CFG_DATA_ID_STATE&#160;</td><td class="fielddoc">
 <p>state. </p>
 </td></tr>
@@ -22712,9 +22771,6 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggacdca27ba11965d6785a3a4622b3ac140ac055ecc27b178abe518baccc00a60961"></a>BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE&#160;</td><td class="fielddoc">
 <p>rate. </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="ggacdca27ba11965d6785a3a4622b3ac140ab549adede08180d065f0879b7924f36b"></a>BCMOLT_TM_QUEUE_CFG_DATA_ID_REF_COUNT&#160;</td><td class="fielddoc">
-<p>ref_count. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ggacdca27ba11965d6785a3a4622b3ac140a8460999cb09a917092fce1e4c0786fac"></a>BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE&#160;</td><td class="fielddoc">
 <p>control state. </p>
@@ -23106,7 +23162,7 @@ Enumerations</h2></td></tr>
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.2 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
   </ul>
 </div>
 </body>

@@ -341,6 +341,7 @@ extern const bcmolt_enum_val bcmolt_local_mep_id_string_table[];
 extern const bcmolt_enum_val bcmolt_log_level_msg_count_id_string_table[];
 extern const bcmolt_enum_val bcmolt_log_level_per_file_id_string_table[];
 extern const bcmolt_enum_val bcmolt_meg_cfg_id_string_table[];
+extern const bcmolt_enum_val bcmolt_mirror_action_id_string_table[];
 extern const bcmolt_enum_val bcmolt_ngpon2_onu_params_id_string_table[];
 extern const bcmolt_enum_val bcmolt_ngpon2_pon_params_id_string_table[];
 extern const bcmolt_enum_val bcmolt_nni_link_status_id_string_table[];
@@ -856,6 +857,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_meg_level;
 extern const bcmolt_type_descr type_descr_bcmolt_members_update_command;
 #define type_descr_bcmolt_mep_id type_descr_uint16_t
 extern const bcmolt_type_descr type_descr_bcmolt_mep_type;
+extern const bcmolt_type_descr type_descr_bcmolt_mirror_action;
 extern const bcmolt_type_descr type_descr_bcmolt_mpcp_discovery_info;
 #define type_descr_bcmolt_mtu type_descr_uint32_t
 extern const bcmolt_type_descr type_descr_bcmolt_ngpon2_onu_params;
@@ -1389,6 +1391,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_local_mep_id;
 extern const bcmolt_type_descr type_descr_bcmolt_log_level_msg_count_id;
 extern const bcmolt_type_descr type_descr_bcmolt_log_level_per_file_id;
 extern const bcmolt_type_descr type_descr_bcmolt_meg_cfg_id;
+extern const bcmolt_type_descr type_descr_bcmolt_mirror_action_id;
 extern const bcmolt_type_descr type_descr_bcmolt_ngpon2_onu_params_id;
 extern const bcmolt_type_descr type_descr_bcmolt_ngpon2_pon_params_id;
 extern const bcmolt_type_descr type_descr_bcmolt_nni_link_status_id;

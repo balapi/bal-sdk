@@ -285,6 +285,7 @@ static bcmos_errno _bcmtr_tmsg_list_alloc(bcmtr_conn *conn)
         if (rc != BCM_ERR_OK)
             return rc;
         tmsg->conn = conn;
+        _bcmtr_msg_ipc_init(tmsg);
     }
     for (i=0; i<conn->cfg.max_autos; i++, tmsg++)
     {

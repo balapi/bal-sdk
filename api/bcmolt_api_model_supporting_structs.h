@@ -510,13 +510,21 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     uint64_t classifier_bitmap; /**< Bitmap of classifier fields which are in use. */
     uint16_t o_vid; /**< Outer VID of the packet to be classified */
+    uint16_t o_vid_mask; /**< Outer VID bitmask */
     uint16_t i_vid; /**< Inner VID of the packet to be classified */
+    uint16_t i_vid_mask; /**< Inner VID bitmask */
     uint8_t o_pbits; /**< Outer PBITS of the packet to be classified */
+    uint8_t o_pbits_mask; /**< Outer PBITS bitmask */
     uint8_t i_pbits; /**< Inner PBITS of the packet to be classified */
+    uint8_t i_pbits_mask; /**< Inner PBITS bitmask */
     uint16_t ether_type; /**< Ethertype of the packet to be classified */
+    uint16_t ether_type_mask; /**< Ethertype bitmask */
     bcmos_mac_address dst_mac; /**< Destination MAC address of the packet to be classified */
+    bcmos_mac_address dst_mac_mask; /**< Destination MAC bitmask */
     bcmos_mac_address src_mac; /**< Source MAC address of the packet to be classified */
+    bcmos_mac_address src_mac_mask; /**< Source MAC bitmask */
     uint8_t ip_proto; /**< IP protocol of the packet to be classified */
+    uint8_t ip_proto_mask; /**< IP protocol bitmask */
     bcmos_ipv4_address dst_ip; /**< Destination IP address of the packet to be classified */
     bcmos_ipv4_address dst_ip_mask; /**< Destination IP address bitmask */
     uint16_t dst_port; /**< Destination tcp or udp port of the packet to be classified */
@@ -528,16 +536,29 @@ typedef struct
     bcmolt_pkt_tag_type pkt_tag_type; /**< The tag type of the ingress packets */
     bcmolt_classifier_ip_v_6 ip_v_6; /**< IPv6 classification parameters for access control */
     uint16_t i2_vid; /**< Second Inner vid of a 3 tags packet */
+    uint8_t slow_proto_subtype; /**< slow protocol eth=8809 subtype */
 } bcmolt_classifier;
 
 /* Constants associated with bcmolt_classifier. */
-#define BCMOLT_CLASSIFIER_PRESENCE_MASK_ALL 0x00000000000FFFFFULL
+#define BCMOLT_CLASSIFIER_PRESENCE_MASK_ALL 0x000000001FFFFFFFULL
 #define BCMOLT_CLASSIFIER_CLASSIFIER_BITMAP_DEFAULT 0ULL
 #define BCMOLT_CLASSIFIER_O_VID_MAX 4094U
+#define BCMOLT_CLASSIFIER_O_VID_MASK_DEFAULT 4095U
+#define BCMOLT_CLASSIFIER_O_VID_MASK_MAX 4095U
 #define BCMOLT_CLASSIFIER_I_VID_MAX 4094U
+#define BCMOLT_CLASSIFIER_I_VID_MASK_DEFAULT 4095U
+#define BCMOLT_CLASSIFIER_I_VID_MASK_MAX 4095U
 #define BCMOLT_CLASSIFIER_O_PBITS_MAX 7
+#define BCMOLT_CLASSIFIER_O_PBITS_MASK_DEFAULT 7
+#define BCMOLT_CLASSIFIER_O_PBITS_MASK_MAX 7
 #define BCMOLT_CLASSIFIER_I_PBITS_MAX 7
+#define BCMOLT_CLASSIFIER_I_PBITS_MASK_DEFAULT 7
+#define BCMOLT_CLASSIFIER_I_PBITS_MASK_MAX 7
+#define BCMOLT_CLASSIFIER_ETHER_TYPE_MASK_DEFAULT 65535U
+#define BCMOLT_CLASSIFIER_IP_PROTO_MASK_DEFAULT 255
 #define BCMOLT_CLASSIFIER_I2_VID_MAX 4094U
+#define BCMOLT_CLASSIFIER_SLOW_PROTO_SUBTYPE_MIN 1
+#define BCMOLT_CLASSIFIER_SLOW_PROTO_SUBTYPE_MAX 10
 
 /** Results of the DDR test */
 typedef struct
@@ -910,12 +931,10 @@ typedef struct
     bcmolt_intf_ref intf; /**< Egress interface for this member */
     bcmolt_service_port_id svc_port_id; /**< The multicast "GEM" for this member */
     bcmolt_egress_qos egress_qos; /**< Egress queue for this member */
-    bcmos_bool svc_port_is_wc; /**< Service Port was provisioned as a Wildcard / Get Next Free */
 } bcmolt_group_member_info;
 
 /* Constants associated with bcmolt_group_member_info. */
-#define BCMOLT_GROUP_MEMBER_INFO_PRESENCE_MASK_ALL 0x000000000000001BULL
-#define BCMOLT_GROUP_MEMBER_INFO_SVC_PORT_IS_WC_DEFAULT BCMOS_FALSE
+#define BCMOLT_GROUP_MEMBER_INFO_PRESENCE_MASK_ALL 0x000000000000000BULL
 
 /** Variable-length list of group_member_info */
 typedef struct
@@ -1869,6 +1888,16 @@ typedef struct
 #define BCMOLT_MEG_CFG_PRESENCE_MASK_ALL 0x0000000000000007ULL
 #define BCMOLT_MEG_CFG_FORMAT_DEFAULT BCMOLT_MEG_FORMAT_ICC
 #define BCMOLT_MEG_CFG_LEVEL_DEFAULT BCMOLT_MEG_LEVEL_LEVEL_2
+
+/** config parameters for mirroring ingress pkts */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_intf_ref mirror_dest_intf; /**< mirror destination interface (NNI or NIC ports only for now) */
+} bcmolt_mirror_action;
+
+/* Constants associated with bcmolt_mirror_action. */
+#define BCMOLT_MIRROR_ACTION_PRESENCE_MASK_ALL 0x0000000000000002ULL
 
 /** NNI Link Status */
 typedef struct

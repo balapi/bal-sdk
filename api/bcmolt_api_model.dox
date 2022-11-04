@@ -70,6 +70,7 @@ Object key: bcmolt_access_control_key\n
 \TABLE_ROW6{cookie,Opaque application cookie associated with this access control instance,\ref bcmolt_cookie,RW, , }
 \TABLE_ROW6{interface_refs,list of associated interfaces,\ref bcmolt_intf_ref_list_u8,R, , }
 \TABLE_ROW6{policer_action,policer action,\ref bcmolt_policer_action,RW, , }
+\TABLE_ROW6{mirror_action,mirror ingress pkts action,\ref bcmolt_mirror_action,RW, , }
 </table>
 \n\n */
 
@@ -115,6 +116,7 @@ Received packet on this access_control rule\n
 \TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
 \TABLE_ROW3{interface_ref,Interface Reference,\ref bcmolt_intf_ref}
 \TABLE_ROW3{svc_port_id,GEM or LLID of received packet,\ref bcmolt_service_port_id}
+\TABLE_ROW3{lag_member_nni_id,LAG member NNI Interface Id,uint8_t}
 \TABLE_ROW3{buffer,Buffer,\ref bcmolt_bin_str}
 </table>
 \n\n */
@@ -4231,7 +4233,6 @@ Object key: bcmolt_tm_qmp_key\n
 \TABLE_HDR5{Parameter Name,Parameter Description,Data Type,Access,Default}
 \TABLE_ROW5{type,type,\ref bcmolt_tm_qmp_type,RW,BCMOLT_TM_QMP_TYPE_UNDEFINED}
 \TABLE_ROW5{pbits_to_tmq_id,pbits_to_tmq_id,\ref bcmolt_arr_u8_8,RW, }
-\TABLE_ROW5{ref_count,ref_count,uint16_t,R,0U}
 \TABLE_ROW5{state,state,\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_NOT_CONFIGURED}
 </table>
 \n\n */
@@ -4258,7 +4259,6 @@ Object key: bcmolt_tm_queue_key\n
 \TABLE_ROW5{state,State,\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_NOT_CONFIGURED}
 \TABLE_ROW5{tm_sched_param,Scheduling priority,\ref bcmolt_tm_sched_param,RW, }
 \TABLE_ROW5{rate,Rate shaping parameters,\ref bcmolt_tm_shaping,RW,0\,0\,0}
-\TABLE_ROW5{ref_count,reference count (flows),uint16_t,R,0U}
 \TABLE_ROW5{control_state,enable or disable state of the TM queue,\ref bcmolt_control_state,RW,BCMOLT_CONTROL_STATE_ENABLE}
 \TABLE_ROW5{cir_attachment_point,TM sched and priority line where CIR queue is attached,\ref bcmolt_tm_sched_attachment_point,RW, }
 </table>

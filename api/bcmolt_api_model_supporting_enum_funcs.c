@@ -4329,6 +4329,22 @@ bcmos_bool bcmolt_meg_cfg_id_unpack(bcmolt_meg_cfg_id *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_mirror_action_id_pack(bcmolt_mirror_action_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_mirror_action_id_unpack(bcmolt_mirror_action_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_mirror_action_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_ngpon2_onu_params_id_pack(bcmolt_ngpon2_onu_params_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);

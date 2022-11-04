@@ -346,6 +346,7 @@ var searchData=
   ['bcmolt_5flog_5flevel_5fper_5ffile',['bcmolt_log_level_per_file',['../structbcmolt__log__level__per__file.html',1,'']]],
   ['bcmolt_5flog_5fmulti_5fcfg',['bcmolt_log_multi_cfg',['../structbcmolt__log__multi__cfg.html',1,'']]],
   ['bcmolt_5fmeg_5fcfg',['bcmolt_meg_cfg',['../structbcmolt__meg__cfg.html',1,'']]],
+  ['bcmolt_5fmirror_5faction',['bcmolt_mirror_action',['../structbcmolt__mirror__action.html',1,'']]],
   ['bcmolt_5fmsg',['bcmolt_msg',['../structbcmolt__msg.html',1,'']]],
   ['bcmolt_5fmulti_5fcfg',['bcmolt_multi_cfg',['../structbcmolt__multi__cfg.html',1,'']]],
   ['bcmolt_5fmulti_5fmsg',['bcmolt_multi_msg',['../structbcmolt__multi__msg.html',1,'']]],

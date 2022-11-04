@@ -2,6 +2,7 @@ var searchData=
 [
   ['lag_5fhealth',['lag_health',['../structbcmolt__lag__interface__cfg__data.html#a47370bde168cb75d352c17a722b6d6a6',1,'bcmolt_lag_interface_cfg_data']]],
   ['lag_5fhealth_5fchange',['lag_health_change',['../structbcmolt__lag__interface__auto__cfg__data.html#ab31ab6031e43bf743667c279500861bb',1,'bcmolt_lag_interface_auto_cfg_data']]],
+  ['lag_5fmember_5fnni_5fid',['lag_member_nni_id',['../structbcmolt__access__control__receive__eth__packet__data.html#ab815de523cd56c5f346679c90942c6e5',1,'bcmolt_access_control_receive_eth_packet_data']]],
   ['lag_5fparms',['lag_parms',['../structbcmolt__bal__system__cfg__data.html#aa64bc4b9c529550133555f5e6e82be43',1,'bcmolt_bal_system_cfg_data']]],
   ['lag_5fstate',['lag_state',['../structbcmolt__lag__interface__state__update__data.html#ac18af98ba348059061d6c7052c5aef9a',1,'bcmolt_lag_interface_state_update_data']]],
   ['last_5ferror_5ftime_5fus',['last_error_time_us',['../structbcmolt__sw__error.html#a2345369c3c33eba398fc60ca1146f3fa',1,'bcmolt_sw_error']]],

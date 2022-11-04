@@ -5414,6 +5414,26 @@ bcmos_bool bcmolt_meg_cfg_id_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_mirror_action_id_pack(
+    bcmolt_mirror_action_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_mirror_action_id_unpack(
+    bcmolt_mirror_action_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_ngpon2_onu_params_id_pack(
     bcmolt_ngpon2_onu_params_id obj,
     bcmolt_buf *buf);
