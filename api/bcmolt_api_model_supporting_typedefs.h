@@ -54,9 +54,8 @@ typedef uint64_t bcmolt_cookie;
 /** bcmolt_erps_id: Typed alias for a 8-bit unsigned integer. */
 typedef uint8_t bcmolt_erps_id;
 #define BCMOLT_ERPS_ID_INVALID ((bcmolt_erps_id)255)
-#define BCMOLT_ERPS_ID_UNASSIGNED ((bcmolt_erps_id)254)
 #define BCMOLT_ERPS_ID_MIN ((bcmolt_erps_id)0)
-#define BCMOLT_ERPS_ID_MAX ((bcmolt_erps_id)127)
+#define BCMOLT_ERPS_ID_MAX ((bcmolt_erps_id)254)
 
 /** bcmolt_eth_oam_id: Typed alias for a 8-bit unsigned integer. */
 typedef uint8_t bcmolt_eth_oam_id;
@@ -81,7 +80,8 @@ typedef uint8_t bcmolt_interface_id;
 /** bcmolt_lag_interface_id: Typed alias for a 8-bit unsigned integer. */
 typedef uint8_t bcmolt_lag_interface_id;
 #define BCMOLT_LAG_INTERFACE_ID_UNASSIGNED ((bcmolt_lag_interface_id)255)
-#define BCMOLT_LAG_INTERFACE_ID_MAX_LAG_INTERFACE_ID ((bcmolt_lag_interface_id)31)
+#define BCMOLT_LAG_INTERFACE_ID_MIN ((bcmolt_lag_interface_id)0)
+#define BCMOLT_LAG_INTERFACE_ID_MAX ((bcmolt_lag_interface_id)31)
 
 /** bcmolt_mep_id: Typed alias for a 16-bit unsigned integer. */
 typedef uint16_t bcmolt_mep_id;

@@ -53,6 +53,7 @@ var searchData=
   ['dst_5fip_5fv_5f6',['dst_ip_v_6',['../structbcmolt__classifier__ip__v__6.html#a9a289be385c26d9614ceafc58ec5c484',1,'bcmolt_classifier_ip_v_6']]],
   ['dst_5fip_5fv_5f6_5fmask',['dst_ip_v_6_mask',['../structbcmolt__classifier__ip__v__6.html#a3eff26bdb19a93bedc318c6e1915eb6e',1,'bcmolt_classifier_ip_v_6']]],
   ['dst_5fmac',['dst_mac',['../structbcmolt__classifier.html#afe32beed41f92b90a22f5461d0ce0f37',1,'bcmolt_classifier']]],
+  ['dst_5fmac_5fmask',['dst_mac_mask',['../structbcmolt__classifier.html#aae0f4841add2b3539a1957c1c20ff4b2',1,'bcmolt_classifier']]],
   ['dst_5fport',['dst_port',['../structbcmolt__classifier.html#ae18defed4756b8c15e34718f51e86e55',1,'bcmolt_classifier']]],
   ['dst_5fport_5frange',['dst_port_range',['../structbcmolt__classifier.html#af841b275dd8c364a06bc914f0752db6b',1,'bcmolt_classifier']]],
   ['duplex',['duplex',['../structbcmolt__nni__interface__cfg__data.html#a1de8b6713de2ad0f23cb47cf167bfb3b',1,'bcmolt_nni_interface_cfg_data']]],

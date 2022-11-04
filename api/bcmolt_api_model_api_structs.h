@@ -57,10 +57,11 @@ typedef struct
     bcmolt_cookie cookie; /**< Opaque application cookie associated with this access control instance */
     bcmolt_intf_ref_list_u8 interface_refs; /**< list of associated interfaces. */
     bcmolt_policer_action policer_action; /**< policer action. */
+    bcmolt_mirror_action mirror_action; /**< mirror ingress pkts action. */
 } bcmolt_access_control_cfg_data;
 
 /* Constants associated with bcmolt_access_control_cfg_data. */
-#define BCMOLT_ACCESS_CONTROL_CFG_DATA_PRESENCE_MASK_ALL 0x000000000001DA70ULL
+#define BCMOLT_ACCESS_CONTROL_CFG_DATA_PRESENCE_MASK_ALL 0x000000000003DA70ULL
 #define BCMOLT_ACCESS_CONTROL_CFG_DATA_PRIORITY_DEFAULT 0U
 #define BCMOLT_ACCESS_CONTROL_CFG_DATA_PRIORITY_MIN 0U
 #define BCMOLT_ACCESS_CONTROL_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
@@ -136,11 +137,12 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_intf_ref interface_ref; /**< Interface Reference */
     bcmolt_service_port_id svc_port_id; /**< GEM or LLID of received packet */
+    uint8_t lag_member_nni_id; /**< LAG member NNI Interface Id */
     bcmolt_bin_str buffer; /**< Buffer. */
 } bcmolt_access_control_receive_eth_packet_data;
 
 /* Constants associated with bcmolt_access_control_receive_eth_packet_data. */
-#define BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_PRESENCE_MASK_ALL 0x000000000000000EULL
+#define BCMOLT_ACCESS_CONTROL_RECEIVE_ETH_PACKET_DATA_PRESENCE_MASK_ALL 0x000000000000001EULL
 
 /** Transport message definition for "receive_eth_packet" group of "access_control" object. */
 typedef struct
@@ -2634,11 +2636,12 @@ typedef struct
 /** LAG interface: key */
 typedef struct
 {
-    bcmolt_lag_interface_id id; /**< id. */
+    bcmolt_lag_interface_id id; /**< Lag Interface Id */
 } bcmolt_lag_interface_key;
 
 /* Constants associated with bcmolt_lag_interface_key. */
-#define BCMOLT_LAG_INTERFACE_KEY_ID_DEFAULT (bcmolt_lag_interface_id)0
+#define BCMOLT_LAG_INTERFACE_KEY_ID_MIN (bcmolt_lag_interface_id)0
+#define BCMOLT_LAG_INTERFACE_KEY_ID_MAX (bcmolt_lag_interface_id)31
 
 /** LAG interface: cfg */
 typedef struct
@@ -6496,15 +6499,13 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_tm_qmp_type type; /**< type. */
     bcmolt_arr_u8_8 pbits_to_tmq_id; /**< pbits_to_tmq_id. */
-    uint16_t ref_count; /**< ref_count. */
     bcmolt_config_state state; /**< state. */
 } bcmolt_tm_qmp_cfg_data;
 
 /* Constants associated with bcmolt_tm_qmp_cfg_data. */
-#define BCMOLT_TM_QMP_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_TM_QMP_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
 #define BCMOLT_TM_QMP_CFG_DATA_TYPE_DEFAULT BCMOLT_TM_QMP_TYPE_UNDEFINED
 #define BCMOLT_TM_QMP_CFG_DATA_PBITS_TO_TMQ_ID_LENGTH 8
-#define BCMOLT_TM_QMP_CFG_DATA_REF_COUNT_DEFAULT 0U
 #define BCMOLT_TM_QMP_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
 
 /** Transport message definition for "cfg" group of "tm_qmp" object. */
@@ -6550,15 +6551,13 @@ typedef struct
     bcmolt_config_state state; /**< State. */
     bcmolt_tm_sched_param tm_sched_param; /**< Scheduling priority */
     bcmolt_tm_shaping rate; /**< Rate shaping parameters */
-    uint16_t ref_count; /**< reference count (flows) */
     bcmolt_control_state control_state; /**< enable or disable state of the TM queue */
     bcmolt_tm_sched_attachment_point cir_attachment_point; /**< TM sched and priority line where CIR queue is attached. */
 } bcmolt_tm_queue_cfg_data;
 
 /* Constants associated with bcmolt_tm_queue_cfg_data. */
-#define BCMOLT_TM_QUEUE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000007BULL
+#define BCMOLT_TM_QUEUE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000003BULL
 #define BCMOLT_TM_QUEUE_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_NOT_CONFIGURED
-#define BCMOLT_TM_QUEUE_CFG_DATA_REF_COUNT_DEFAULT 0U
 #define BCMOLT_TM_QUEUE_CFG_DATA_CONTROL_STATE_DEFAULT BCMOLT_CONTROL_STATE_ENABLE
 
 /** Transport message definition for "cfg" group of "tm_queue" object. */

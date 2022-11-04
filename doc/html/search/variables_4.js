@@ -30,6 +30,7 @@ var searchData=
   ['error_5ftext',['error_text',['../structbcmolt__device__connection__failure__data.html#a53ffcbc22ba1422243ffa3547ace487d',1,'bcmolt_device_connection_failure_data']]],
   ['estimated_5fdrift',['estimated_drift',['../structbcmolt__onu__possible__drift__data.html#a4efd97d772e2892f27481ba86b16649d',1,'bcmolt_onu_possible_drift_data']]],
   ['ether_5ftype',['ether_type',['../structbcmolt__classifier.html#ad6312397ccc57d322b1a037c7080d340',1,'bcmolt_classifier']]],
+  ['ether_5ftype_5fmask',['ether_type_mask',['../structbcmolt__classifier.html#a81d8f739120990eddcdb7adb60f51264',1,'bcmolt_classifier']]],
   ['event',['event',['../structbcmolt__eth__oam__ccm__event__data.html#af7b0f8f2f4f402fd978a9562351e9d5f',1,'bcmolt_eth_oam_ccm_event_data']]],
   ['expected_5findex',['expected_index',['../structbcmolt__onu__key__exchange__unconsecutive__index__data.html#a6db66491a1b736f957aa3309322beda7',1,'bcmolt_onu_key_exchange_unconsecutive_index_data']]],
   ['expected_5fkey',['expected_key',['../structbcmolt__onu__key__exchange__key__mismatch__data.html#ad85368791326d113aa9b148729e2c9ac',1,'bcmolt_onu_key_exchange_key_mismatch_data']]],

@@ -2000,6 +2000,22 @@ bcmos_bool bcmolt_meg_cfg_validate(const bcmolt_meg_cfg *obj, bcmos_errno *err, 
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_mirror_action_set_default(bcmolt_mirror_action *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_mirror_action_validate(const bcmolt_mirror_action *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_nni_link_status_set_default(bcmolt_nni_link_status *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).

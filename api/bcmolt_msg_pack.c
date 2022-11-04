@@ -577,6 +577,11 @@ static bcmos_errno bcmolt_msg_unpack_single(
         {
             return err;
         }
+        if (size < sizeof(bcmolt_msg))
+        {
+            /* It appears that buf contains some garbage and bcmolt_msg_list_mem_scan got confused */
+            return BCM_ERR_OVERFLOW;
+        }
 
         *unpacked = bcmolt_msg_alloc(size);
         if (*unpacked == NULL)
