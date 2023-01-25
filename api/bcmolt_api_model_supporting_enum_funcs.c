@@ -393,6 +393,22 @@ bcmos_bool bcmolt_dba_mode_unpack(bcmolt_dba_mode *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_dba_options_pack(bcmolt_dba_options obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_dba_options_unpack(bcmolt_dba_options *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_dba_options)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_ddr_test_mode_pack(bcmolt_ddr_test_mode obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -630,22 +646,6 @@ bcmos_bool bcmolt_external_dba_options_unpack(bcmolt_external_dba_options *obj, 
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_external_dba_options)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_flow_interface_type_pack(bcmolt_flow_interface_type obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_flow_interface_type_unpack(bcmolt_flow_interface_type *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_flow_interface_type)num_val;
     return BCMOS_TRUE;
 }
 
@@ -1961,22 +1961,6 @@ bcmos_bool bcmolt_result_unpack(bcmolt_result *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_ring_instance_pack(bcmolt_ring_instance obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
-}
-
-bcmos_bool bcmolt_ring_instance_unpack(bcmolt_ring_instance *obj, bcmolt_buf *buf)
-{
-    uint16_t num_val;
-    if (!bcmolt_buf_read_u16(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_ring_instance)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_ring_port_pack(bcmolt_ring_port obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -2054,6 +2038,22 @@ bcmos_bool bcmolt_sign_unpack(bcmolt_sign *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_sign)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_stage_pack(bcmolt_stage obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u32(buf, (uint32_t)obj);
+}
+
+bcmos_bool bcmolt_stage_unpack(bcmolt_stage *obj, bcmolt_buf *buf)
+{
+    uint32_t num_val;
+    if (!bcmolt_buf_read_u32(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_stage)num_val;
     return BCMOS_TRUE;
 }
 
@@ -3769,22 +3769,6 @@ bcmos_bool bcmolt_firmware_sw_version_id_unpack(bcmolt_firmware_sw_version_id *o
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_flow_intf_ref_id_pack(bcmolt_flow_intf_ref_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_flow_intf_ref_id_unpack(bcmolt_flow_intf_ref_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_flow_intf_ref_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_gem_port_configuration_id_pack(bcmolt_gem_port_configuration_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -4822,6 +4806,22 @@ bcmos_bool bcmolt_request_registration_status_id_unpack(bcmolt_request_registrat
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_request_registration_status_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_ring_port_detailed_state_id_pack(bcmolt_ring_port_detailed_state_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_ring_port_detailed_state_id_unpack(bcmolt_ring_port_detailed_state_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_ring_port_detailed_state_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -5961,6 +5961,22 @@ bcmos_bool bcmolt_erps_interface_ring_port_control_data_id_unpack(bcmolt_erps_in
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_erps_interface_set_intf_opt_data_id_pack(bcmolt_erps_interface_set_intf_opt_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_erps_interface_set_intf_opt_data_id_unpack(bcmolt_erps_interface_set_intf_opt_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_erps_interface_set_intf_opt_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_erps_interface_port_update_data_id_pack(bcmolt_erps_interface_port_update_data_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -5974,6 +5990,22 @@ bcmos_bool bcmolt_erps_interface_port_update_data_id_unpack(bcmolt_erps_interfac
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_erps_interface_port_update_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_erps_interface_set_intf_opt_complete_data_id_pack(bcmolt_erps_interface_set_intf_opt_complete_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_erps_interface_set_intf_opt_complete_data_id_unpack(bcmolt_erps_interface_set_intf_opt_complete_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_erps_interface_set_intf_opt_complete_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -7430,6 +7462,22 @@ bcmos_bool bcmolt_nni_interface_link_state_change_data_id_unpack(bcmolt_nni_inte
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_nni_interface_link_state_change_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_nni_interface_fault_code_change_data_id_pack(bcmolt_nni_interface_fault_code_change_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_nni_interface_fault_code_change_data_id_unpack(bcmolt_nni_interface_fault_code_change_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_nni_interface_fault_code_change_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -9014,6 +9062,22 @@ bcmos_bool bcmolt_pon_interface_cpu_packets_failure_data_id_unpack(bcmolt_pon_in
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_pon_interface_cpu_packets_failure_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_pon_interface_activate_all_onus_completed_data_id_pack(bcmolt_pon_interface_activate_all_onus_completed_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_pon_interface_activate_all_onus_completed_data_id_unpack(bcmolt_pon_interface_activate_all_onus_completed_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_pon_interface_activate_all_onus_completed_data_id)num_val;
     return BCMOS_TRUE;
 }
 

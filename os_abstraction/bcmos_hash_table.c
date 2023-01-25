@@ -422,12 +422,12 @@ void ht_iterator_remove_at(hash_table *ht, ht_iterator *it)
     }
     else
     {
-        uint8_t *key;
+        uint8_t *key = NULL;
         uint8_t *obj;
         ht_iterator_deref(it, &key, (void **) &obj);
         it->removed_at = BCMOS_TRUE;
         it->still_valid = ht_iterator_next(it);
-        if (!hash_table_remove(ht, key))
+        if (key == NULL || !hash_table_remove(ht, key))
         {
             BCMOS_TRACE_ERR("%s: Remove error\n", __FUNCTION__);
         }

@@ -210,6 +210,13 @@ static inline void bcmos_ipv6_address_init(bcmos_ipv6_address *ip)
     memset(ip, 0, sizeof(*ip));
 }
 
+static inline bcmos_ipv4_address bcmos_ipv4_address_make(uint8_t o1, uint8_t o2, uint8_t o3, uint8_t o4)
+{
+    bcmos_ipv4_address ipv4;
+    ipv4.u32 = ((uint32_t)o1 << 24) | ((uint32_t)o2 << 16) | ((uint32_t)o3 << 8) | o4;
+    return ipv4;
+}
+
 /* Convert IPv4/IPv6 address from internal presentation to string */
 bcmos_errno bcmos_ip_to_str(const bcmos_ip_address *ip, char *ip_str, int32_t ip_str_size);
 

@@ -1230,6 +1230,13 @@ void bcmcli_log(const char *format, ...)
     va_end(ap);
 }
 
+void bcmcli_vlog(const char *format, va_list ap)
+{
+    if (!_bcmcli_log_session)
+        return;
+    bcmcli_session_vprint(_bcmcli_log_session, format, ap);
+}
+
 /*********************************************************/
 /* Internal functions                                    */
 /*********************************************************/

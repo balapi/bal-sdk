@@ -52,6 +52,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <math.h>
 #include <inttypes.h>
 
@@ -63,14 +64,19 @@
 
 void _bcmos_backtrace(void);
 
+typedef void (*F_bcmos_bug_handler)(const char *error_msg, const char *file, int line);
+
+void bcmos_bug_handler_install(F_bcmos_bug_handler handler);
+
+__attribute__((noreturn)) void bcmos_bug_handler_call(const char *error_msg, const char *file, int line);
+
 #define BUG_ON_PRINT(condition, fmt, args...) \
     do \
     { \
         if (condition) \
         { \
-            BCMOS_TRACE_ERR(fmt, ##args); \
-            BCMOS_TRACE_ERR("Condition: " #condition); \
-            abort(); \
+            BCMOS_TRACE_ERR(fmt "Condition: " #condition "\n", ##args); \
+            bcmos_bug_handler_call("BUG_ON(" #condition ")", __FILE__, __LINE__); \
         } \
     } while (0)
 
@@ -213,11 +219,9 @@ struct bcmos_byte_pool
 {
     bcmos_byte_pool_parm parm;  /**< Pool parameters */
     uint32_t allocated;         /**< Number of bytes allocated */
-#ifdef BCMOS_MEM_CHECK
     uint32_t magic;             /**< magic number */
 #define BCMOS_BYTE_POOL_VALID           (('b'<<24) | ('y' << 16) | ('p' << 8) | 'o')
 #define BCMOS_BYTE_POOL_DELETED         (('b'<<24) | ('y' << 16) | ('p' << 8) | '~')
-#endif
 };
 
 /** @} */

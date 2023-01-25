@@ -32,7 +32,7 @@
 #define RETURN_IF_ERROR(rc) do { if (rc != BCM_ERR_OK) return rc; } while (0)
 #define PRESENCE_MASK_FLAGS (BCMOLT_FIELD_FLAGS_PRESENCE_MASK | BCMOLT_FIELD_FLAGS_INDEX_MASK)
 
-static void writer_write(const bcmolt_metadata_writer *writer, const char *format, ...)
+void bcmolt_metadata_write(const bcmolt_metadata_writer *writer, const char *format, ...)
 {
     va_list ap;
     va_start(ap, format);
@@ -72,7 +72,7 @@ static bcmos_errno read_unum(
             break;
         }
     default:
-        writer_write(writer, "\n*** number size %u is not supported\n", byte_width);
+        bcmolt_metadata_write(writer, "\n*** number size %u is not supported\n", byte_width);
         return BCM_ERR_NOT_SUPPORTED;
     }
     return BCM_ERR_OK;
@@ -85,7 +85,7 @@ static bcmos_errno read_snum_writer(const bcmolt_metadata_writer *writer,
 {
     if (BCM_ERR_NOT_SUPPORTED == bcmolt_read_snum(byte_width, data, n))
     {
-        writer_write(writer, "\n*** number size %u is not supported\n", byte_width);
+        bcmolt_metadata_write(writer, "\n*** number size %u is not supported\n", byte_width);
         return BCM_ERR_NOT_SUPPORTED;
     }
     return BCM_ERR_OK;
@@ -120,6 +120,7 @@ static const char *get_c_enum_id(const bcmolt_type_descr *td, const char *name)
 {
     static char full_name_buf[256];
     full_name_buf[0] = '\0';
+    strcat_upper(full_name_buf, sizeof(full_name_buf), "BCMOLT_", 7);
     strcat_upper(full_name_buf, sizeof(full_name_buf), td->name, strlen(td->name));
     strcat_upper(full_name_buf, sizeof(full_name_buf), "_", 1);
     strcat_upper(full_name_buf, sizeof(full_name_buf), name, strlen(name));
@@ -134,13 +135,19 @@ static bcmos_errno write_simple_value(
 {
     bcmos_errno rc = BCM_ERR_OK;
 
+    if (style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY)
+    {
+        bcmolt_metadata_write(writer, "yes");
+        return rc;
+    }
+
     switch (td->base_type)
     {
     case BCMOLT_BASE_TYPE_ID_SNUM:       /* signed number */
         {
             int64_t n = 0;
             rc = read_snum_writer(writer, td->size, data, &n);
-            writer_write(writer, "%lld", (long long)n);
+            bcmolt_metadata_write(writer, "%lld", (long long)n);
             break;
         }
 
@@ -148,7 +155,7 @@ static bcmos_errno write_simple_value(
         {
             uint64_t n = 0;
             rc = read_unum(writer, td->size, data, &n);
-            writer_write(writer, "%llu", (unsigned long long)n);
+            bcmolt_metadata_write(writer, "%llu", (unsigned long long)n);
             break;
         }
 
@@ -156,7 +163,7 @@ static bcmos_errno write_simple_value(
         {
             uint64_t n = 0;
             rc = read_unum(writer, td->size, data, &n);
-            writer_write(writer, "0x%llx", (unsigned long long)n);
+            bcmolt_metadata_write(writer, "0x%llx", (unsigned long long)n);
             break;
         }
 
@@ -164,15 +171,15 @@ static bcmos_errno write_simple_value(
         {
             if (td->size == sizeof(float))
             {
-                writer_write(writer, "%f", *(const float *)data);
+                bcmolt_metadata_write(writer, "%f", *(const float *)data);
             }
             else if (td->size == sizeof(double))
             {
-                writer_write(writer, "%e", *(const double *)data);
+                bcmolt_metadata_write(writer, "%e", *(const double *)data);
             }
             else
             {
-                writer_write(writer, "\n*** floating-point number of width %u is not supported\n", td->size);
+                bcmolt_metadata_write(writer, "\n*** floating-point number of width %u is not supported\n", td->size);
                 rc = BCM_ERR_NOT_SUPPORTED;
             }
             break;
@@ -184,20 +191,28 @@ static bcmos_errno write_simple_value(
             const char *yes_str = style & BCMOLT_METADATA_WRITE_STYLE_C_INIT ? "BCMOS_TRUE" : "yes";
             uint64_t n = 0;
             rc = read_unum(writer, td->size, data, &n);
-            writer_write(writer, "%s", n == 0 ? no_str : yes_str);
+            bcmolt_metadata_write(writer, "%s", n == 0 ? no_str : yes_str);
             break;
         }
 
     case BCMOLT_BASE_TYPE_ID_STRING:     /* string */
         {
+            if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+            {
+                bcmolt_metadata_write(writer, "(bcmolt_%s){ .str = ", td->name);
+            }
             if (td->size == 0)
             {
-                writer_write(writer, "\"%s\"", (const char *)data);
+                bcmolt_metadata_write(writer, "\"%s\"", (const char *)data);
             }
             else
             {
                 /* we know the size of the buffer */
-                writer_write(writer, "\"%.*s\"", td->size, (const char *)data);
+                bcmolt_metadata_write(writer, "\"%.*s\"", td->size, (const char *)data);
+            }
+            if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+            {
+                bcmolt_metadata_write(writer, " }");
             }
             break;
         }
@@ -206,10 +221,13 @@ static bcmos_errno write_simple_value(
         {
             uint32_t ip;
             memcpy(&ip, data, sizeof(ip));
-            writer_write(
+            bcmolt_metadata_write(
                 writer,
-                style & BCMOLT_METADATA_WRITE_STYLE_C_INIT ? "{ %d,%d,%d,%d }" : "%d.%d.%d.%d",
-                (ip >> 24) & 0xff, (ip >> 16) & 0xff, (ip >> 8) & 0xff, ip & 0xff);
+                style & BCMOLT_METADATA_WRITE_STYLE_C_INIT ? "bcmos_ipv4_address_make(%d, %d, %d, %d)" : "%d.%d.%d.%d",
+                (ip >> 24) & 0xff,
+                (ip >> 16) & 0xff,
+                (ip >> 8) & 0xff,
+                ip & 0xff);
             break;
         }
 
@@ -221,16 +239,16 @@ static bcmos_errno write_simple_value(
 
             if ((style & BCMOLT_METADATA_WRITE_STYLE_C_INIT) != 0)
             {
-                writer_write(writer, "{ ");
+                bcmolt_metadata_write(writer, "((bcmos_ipv6_address){ .u8 = {");
                 for (i = 0; i < sizeof(ip.u8); i++)
                 {
                     if (i != 0)
                     {
-                        writer_write(writer, ",");
+                        bcmolt_metadata_write(writer, ",");
                     }
-                    writer_write(writer, "0x%02X", ip.u8[i]);
+                    bcmolt_metadata_write(writer, "0x%02X", ip.u8[i]);
                 }
-                writer_write(writer, " }");
+                bcmolt_metadata_write(writer, " } })");
             }
             else
             {
@@ -238,9 +256,9 @@ static bcmos_errno write_simple_value(
                 {
                     if (i != 0)
                     {
-                        writer_write(writer, ":");
+                        bcmolt_metadata_write(writer, ":");
                     }
-                    writer_write(writer, "%02X%02X", ip.u8[i], ip.u8[i + 1]);
+                    bcmolt_metadata_write(writer, "%02X%02X", ip.u8[i], ip.u8[i + 1]);
                 }
             }
             break;
@@ -250,10 +268,10 @@ static bcmos_errno write_simple_value(
         {
             bcmos_mac_address mac;
             memcpy(mac.u8, data, sizeof(mac.u8));
-            writer_write(
+            bcmolt_metadata_write(
                 writer,
                 style & BCMOLT_METADATA_WRITE_STYLE_C_INIT ?
-                "{{ 0x%02x,0x%02x,0x%02x,0x%02x,0x%02x,0x%02x }}" :
+                "((bcmos_mac_address){ .u8 = { 0x%02x,0x%02x,0x%02x,0x%02x,0x%02x,0x%02x } })" :
                 "%02x:%02x:%02x:%02x:%02x:%02x",
                 mac.u8[0], mac.u8[1], mac.u8[2], mac.u8[3], mac.u8[4], mac.u8[5]);
             break;
@@ -273,12 +291,12 @@ static bcmos_errno write_simple_value(
                 {
                     s = get_c_enum_id(td, s);
                 }
-                writer_write(writer, "%s", s);
+                bcmolt_metadata_write(writer, "%s", s);
             }
             else
             {
                 /* If enum is not found, print the value */
-                writer_write(writer, "unknown: %u", n);
+                bcmolt_metadata_write(writer, "unknown: %u", n);
             }
             break;
         }
@@ -305,7 +323,7 @@ static bcmos_errno write_simple_value(
                     {
                         s = get_c_enum_id(td, s);
                     }
-                    writer_write(
+                    bcmolt_metadata_write(
                         writer,
                         "%s%s",
                         first ? "" : (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT ? "|" : BCMOLT_ENUM_MASK_DEL_STR),
@@ -317,13 +335,13 @@ static bcmos_errno write_simple_value(
             }
             if (first)
             {
-                writer_write(writer, "%s", (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT) || (NULL == none) ? "0" : none);
+                bcmolt_metadata_write(writer, "%s", (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT) || (NULL == none) ? "0" : none);
             }
             break;
         }
 
     default:
-        writer_write(writer, "\n*** type %d is not supported\n", (int)td->base_type);
+        bcmolt_metadata_write(writer, "\n*** type %d is not supported\n", (int)td->base_type);
         rc = BCM_ERR_NOT_SUPPORTED;
         break;
     }
@@ -406,9 +424,23 @@ static void write_indent(const bcmolt_metadata_writer *writer, uint16_t indent_l
 {
     while (indent_level > 0)
     {
-        writer_write(writer, INDENT);
+        bcmolt_metadata_write(writer, INDENT);
         indent_level--;
     }
+}
+
+void bcmolt_metadata_write_indented(
+    const bcmolt_metadata_writer *writer,
+    uint16_t indent_level,
+    const char *format,
+    ...)
+{
+    write_indent(writer, indent_level);
+
+    va_list ap;
+    va_start(ap, format);
+    writer->write_cb(writer->user_data, format, ap);
+    va_end(ap);
 }
 
 /* Write all of the fields of a struct (without the outer "name={}"). */
@@ -493,34 +525,34 @@ static bcmos_errno write_array(
 
     if (is_simple_type(td))
     {
-        writer_write(writer, prefix);
+        bcmolt_metadata_write(writer, prefix);
         write_indent(writer, indent_level);
         if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
         {
-            writer_write(writer, "%s=", name);
+            bcmolt_metadata_write(writer, "%s=", name);
         }
         for (i = 0; i < size; ++i)
         {
             void *fdata = (void *)((long)data + (td->size * i));
             if (!first)
             {
-                writer_write(writer, ",");
+                bcmolt_metadata_write(writer, ",");
             }
             first = BCMOS_FALSE;
             if (index_mask != 0 && (index_mask & (1ULL << i)) == 0)
             {
-                writer_write(writer, BCMOLT_PARM_NO_VALUE_STR);
+                bcmolt_metadata_write(writer, BCMOLT_PARM_NO_VALUE_STR);
                 continue; /* the list element isn't present */
             }
             rc = write_simple_value(writer, td, fdata, style);
             RETURN_IF_ERROR(rc);
         }
-        writer_write(writer, suffix);
+        bcmolt_metadata_write(writer, suffix);
         return BCM_ERR_OK;
     }
     else if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
     {
-        writer_write(writer, "%s{", prefix);
+        bcmolt_metadata_write(writer, "%s{", prefix);
         for (i = 0; i < size; ++i)
         {
             char idx_prefix[BCMOLT_MAX_METADATA_NAME_LENGTH] = {};
@@ -536,7 +568,7 @@ static bcmos_errno write_array(
             rc = bcmolt_metadata_write_elem(writer, td, fdata, "", style, indent_level, idx_prefix, "");
             RETURN_IF_ERROR(rc);
         }
-        writer_write(writer, "}%s", suffix);
+        bcmolt_metadata_write(writer, "}%s", suffix);
         return BCM_ERR_OK;
     }
     else
@@ -590,14 +622,14 @@ static bcmos_errno write_binary(
         return write_array(writer, &byte, size, 0, data, name, style, indent_level, prefix, suffix);
     }
 
-    writer_write(writer, prefix);
+    bcmolt_metadata_write(writer, prefix);
     write_indent(writer, indent_level);
-    writer_write(writer, "%s=", name);
+    bcmolt_metadata_write(writer, "%s=", name);
     for (i = 0; i < size; ++i)
     {
-        writer_write(writer, "%02x", ((const uint8_t *)data)[i]);
+        bcmolt_metadata_write(writer, "%02x", ((const uint8_t *)data)[i]);
     }
-    writer_write(writer, suffix);
+    bcmolt_metadata_write(writer, suffix);
     return BCM_ERR_OK;
 }
 
@@ -613,15 +645,15 @@ static bcmos_errno write_simple_elem(
     const char *suffix)
 {
     bcmos_errno rc;
-    writer_write(writer, prefix);
+    bcmolt_metadata_write(writer, prefix);
     write_indent(writer, indent_level);
     if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
     {
-        writer_write(writer, "%s=", name);
+        bcmolt_metadata_write(writer, "%s=", name);
     }
     rc = write_simple_value(writer, td, data, style);
     RETURN_IF_ERROR(rc);
-    writer_write(writer, suffix);
+    bcmolt_metadata_write(writer, suffix);
     return BCM_ERR_OK;
 }
 
@@ -660,11 +692,20 @@ static bcmos_errno write_dyn_array_elem(
     const char *prefix,
     const char *suffix)
 {
-    const void *arr_data_ptr = (const uint8_t *)data + td->x.arr_dyn.data_offset;
-    const void *arr_data = *(void * const *)arr_data_ptr;
+    const void *arr_data;
     uint64_t array_size;
     uint64_t index_mask = 0;
     bcmos_errno err;
+
+    if (td->x.arr_dyn.is_array_backend)
+    {
+        arr_data = (const uint8_t *)data + td->x.arr_dyn.data_offset;
+    }
+    else
+    {
+        const void *arr_data_ptr = (const uint8_t *)data + td->x.arr_dyn.data_offset;
+        arr_data = *(void * const *)arr_data_ptr;
+    }
 
     if (td->mask_offset != BCMOLT_TYPE_DESCR_NO_MASK)
     {
@@ -676,7 +717,7 @@ static bcmos_errno write_dyn_array_elem(
 
     if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
     {
-        writer_write(writer, "%s{%u, %s}%s", prefix, array_size, name, suffix);
+        bcmolt_metadata_write(writer, "%s{%u, %s}%s", prefix, array_size, name, suffix);
         return BCM_ERR_OK;
     }
     else
@@ -699,7 +740,16 @@ static bcmos_errno write_fixed_binary_elem(
     const char *suffix)
 {
     uint32_t size = td->x.binary_fixed.len;
-    return write_binary(writer, size, data, name, style, indent_level, prefix, suffix);
+    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    {
+        bcmolt_metadata_write(writer, "((bcmolt_%s){ .arr = {", td->name);
+    }
+    bcmos_errno rc = write_binary(writer, size, data, name, style, indent_level, prefix, suffix);
+    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    {
+        bcmolt_metadata_write(writer, " } })");
+    }
+    return rc;
 }
 
 /* Write a single field/property of a dynamically-sized binary string type (byte buffer). */
@@ -716,7 +766,16 @@ static bcmos_errno write_dyn_binary_elem(
     uint32_t size = *(const uint32_t *)data;
     const void *arr_data_ptr = (const uint8_t *)data + td->x.binary_dyn.data_offset;
     const void *arr_data = *(void * const *)arr_data_ptr;
-    return write_binary(writer, size, arr_data, name, style, indent_level, prefix, suffix);
+    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    {
+        bcmolt_metadata_write(writer, "((bcmolt_%s){ .len = %u, .arr = (uint8_t[]){", td->name, size);
+    }
+    bcmos_errno rc = write_binary(writer, size, arr_data, name, style, indent_level, prefix, suffix);
+    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    {
+        bcmolt_metadata_write(writer, " } })");
+    }
+    return rc;
 }
 
 /* Write a single field/property of a struct type. */
@@ -745,18 +804,18 @@ static bcmos_errno write_struct_elem(
         style |= BCMOLT_METADATA_WRITE_STYLE_SPACE_SEPARATED;
     }
 
-    writer_write(writer, prefix);
+    bcmolt_metadata_write(writer, prefix);
     write_indent(writer, indent_level);
     if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
     {
-        writer_write(writer, "{");
+        bcmolt_metadata_write(writer, "{");
     }
     else if (name != NULL)
     {
-        writer_write(writer, "%s={", name);
+        bcmolt_metadata_write(writer, "%s={", name);
         if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
         {
-            writer_write(writer, "\n");
+            bcmolt_metadata_write(writer, "\n");
         }
     }
 
@@ -765,14 +824,14 @@ static bcmos_errno write_struct_elem(
 
     if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
     {
-        writer_write(writer, "\n");
+        bcmolt_metadata_write(writer, "\n");
         write_indent(writer, indent_level);
     }
 
     if (name != NULL)
-        writer_write(writer, "}");
+        bcmolt_metadata_write(writer, "}");
 
-    writer_write(writer, "%s", suffix);
+    bcmolt_metadata_write(writer, "%s", suffix);
 
     return BCM_ERR_OK;
 }
@@ -795,85 +854,91 @@ static bcmos_errno write_union_elem(
 
     if (td->x.u.num_common_fields == 0 || td->x.u.common_fields == NULL)
     {
-        writer_write(writer, "\n*** union types with no common fields not supported\n");
+        bcmolt_metadata_write(writer, "\n*** union types with no common fields not supported\n");
         return BCM_ERR_INTERNAL;
     }
 
-    writer_write(writer, prefix);
+    bcmolt_metadata_write(writer, prefix);
     write_indent(writer, indent_level);
     if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
     {
-        writer_write(writer, "{");
+        bcmolt_metadata_write(writer, "{");
     }
     else
     {
         if (name != NULL)
         {
-            writer_write(writer, "%s={", name);
-            if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+            bcmolt_metadata_write(writer, "%s={", name);
+            if ((style &BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+                && !(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
             {
-                writer_write(writer, "\n");
+                bcmolt_metadata_write(writer, "\n");
             }
         }
     }
 
-    /* Write the common fields just like any other struct. */
-    rc = write_struct_fields(writer, td, td->x.u.common_fields, td->x.u.num_common_fields, data, style, indent_level);
-    RETURN_IF_ERROR(rc);
-
-    /* Find the classifier field and record some information about it. If the classifier isn't present, we're done. */
-    fld = &td->x.u.common_fields[td->x.u.classifier_idx];
-    if (is_field_present(writer, td, data, fld))
+    /* skip unions completely in mask only mode as we don't have the classifer value */
+    if (!(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
     {
-        rc = read_snum_writer(writer, fld->type->size, (void *)((long)data + fld->offset), &selector_val);
+        /* Write the common fields just like any other struct. */
+        rc = write_struct_fields(writer, td, td->x.u.common_fields, td->x.u.num_common_fields, data, style, indent_level);
         RETURN_IF_ERROR(rc);
 
-        num_union_vals = bcmolt_get_num_enum_vals(fld->type->x.e.vals);
-        if ((unsigned)selector_val >= num_union_vals)
+        /* Find the classifier field and record some information about it. If the classifier isn't present, we're done. */
+        fld = &td->x.u.common_fields[td->x.u.classifier_idx];
+        if (is_field_present(writer, td, data, fld))
         {
-            writer_write(writer, "\n*** invalid union selector value %lld\n", (long long)selector_val);
-            return BCM_ERR_INTERNAL;
-        }
-
-        /* Now write the "selected" field. */
-        fld = &td->x.u.union_fields[selector_val];
-        if (fld->type != NULL)
-        {
-            void *fdata;
-            BUG_ON(fld->type->base_type != BCMOLT_BASE_TYPE_ID_STRUCT);
-
-            if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
-            {
-                writer_write(writer, ", .u={.%s={", fld->name);
-            }
-            else
-            {
-                writer_write(writer, style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED ? "\n" : " ");
-            }
-
-            fdata = (void *)((long)data + fld->offset);
-            rc = write_struct_fields(
-                writer, fld->type, fld->type->x.s.fields, fld->type->x.s.num_fields, fdata, style, indent_level);
+            rc = read_snum_writer(writer, fld->type->size, (void *)((long)data + fld->offset), &selector_val);
             RETURN_IF_ERROR(rc);
 
-            if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+            num_union_vals = bcmolt_get_num_enum_vals(fld->type->x.e.vals);
+            if ((unsigned)selector_val >= num_union_vals)
             {
-                writer_write(writer, "}}");
+                bcmolt_metadata_write(writer, "\n*** invalid union selector value %lld\n", (long long)selector_val);
+                return BCM_ERR_INTERNAL;
+            }
+
+            /* Now write the "selected" field. */
+            fld = &td->x.u.union_fields[selector_val];
+            if (fld->type != NULL)
+            {
+                void *fdata;
+                BUG_ON(fld->type->base_type != BCMOLT_BASE_TYPE_ID_STRUCT);
+
+                if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+                {
+                    bcmolt_metadata_write(writer, ", .u={.%s={", fld->name);
+                }
+                else
+                {
+                    bcmolt_metadata_write(writer, style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED ? "\n" : " ");
+                }
+
+                fdata = (void *)((long)data + fld->offset);
+                rc = write_struct_fields(
+                    writer, fld->type, fld->type->x.s.fields, fld->type->x.s.num_fields, fdata, style, indent_level);
+                RETURN_IF_ERROR(rc);
+
+                if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+                {
+                    bcmolt_metadata_write(writer, "}}");
+                }
             }
         }
     }
 
-    if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+    if ((style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+        && !(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
     {
-        writer_write(writer, "\n");
+        bcmolt_metadata_write(writer, "\n");
         write_indent(writer, indent_level);
     }
 
     if (name != NULL)
     {
-        writer_write(writer, "}");
+        bcmolt_metadata_write(writer, "}");
     }
-    writer_write(writer, "%s", suffix);
+    bcmolt_metadata_write(writer, "%s", suffix);
 
     return BCM_ERR_OK;
 }
@@ -905,36 +970,4 @@ bcmos_errno bcmolt_metadata_write_elem(
     default:
         return write_simple_elem(writer, td, data, name, style, indent_level, prefix, suffix);
     }
-}
-
-bcmos_errno bcmolt_metadata_write_prop(
-    const bcmolt_metadata_writer *writer,
-    const bcmolt_field_descr *pd,
-    const void *prop_data)
-{
-    return bcmolt_metadata_write_elem(
-        writer,
-        pd->type,
-        prop_data,
-        pd->name,
-        BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED,
-        1,
-        "",
-        "\n");
-}
-
-bcmos_errno bcmolt_metadata_write_prop_initializer(
-    const bcmolt_metadata_writer *writer,
-    const bcmolt_field_descr *pd,
-    const void *prop_data)
-{
-    return bcmolt_metadata_write_elem(
-        writer,
-        pd->type,
-        prop_data,
-        pd->name,
-        BCMOLT_METADATA_WRITE_STYLE_C_INIT | BCMOLT_METADATA_WRITE_STYLE_VERBOSE,
-        0,
-        "",
-        "");
 }

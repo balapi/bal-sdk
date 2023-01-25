@@ -16,7 +16,8 @@ bcm_module_srcs(bcmolt_msg_pack.c
                 bcmolt_api_model_supporting_enum_funcs.c
                 bcmolt_api_model_supporting_struct_funcs.c
                 bcmolt_api_metadata.c
-                bcmolt_api_model_internal.c)
+                bcmolt_api_model_internal.c
+                bcmolt_api_code_helper.c)
 
 bcm_create_lib_target()
 

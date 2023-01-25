@@ -79,7 +79,7 @@ bcmos_errno bcmtr_cfg_init(bcmolt_devid device, bcmtr_cfg *cfg, bcmtr_driver *dr
         {
             if (!cfg->plugin_cfg.x.cm.udp.ip.u32)
             {
-    #ifdef BCM_SUBSYSTEM_HOST
+    #if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
                 cfg->plugin_cfg.x.cm.udp.ip.u32 = BCMTR_TR_UDP_OLT_IP;
     #else
                 cfg->plugin_cfg.x.cm.udp.ip.u32 = BCMTR_TR_UDP_HOST_IP;
@@ -88,7 +88,7 @@ bcmos_errno bcmtr_cfg_init(bcmolt_devid device, bcmtr_cfg *cfg, bcmtr_driver *dr
 
             if (!cfg->plugin_cfg.x.cm.udp.port)
             {
-    #ifdef BCM_SUBSYSTEM_HOST
+    #if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
                 cfg->plugin_cfg.x.cm.udp.port = BCMTR_TR_UDP_OLT_PORT;
     #else
         #ifndef SIMULATION_BUILD

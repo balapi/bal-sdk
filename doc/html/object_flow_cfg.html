@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -110,9 +110,9 @@ $(document).ready(function(){initNavTree('object_flow_cfg.html','');});
 <tr>
 <th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default</th><th>Minimum</th><th>Maximum </th></tr>
 <tr>
-<td>ingress_intf</td><td>The ingress tip of the flow </td><td><a class="el" href="structbcmolt__flow__intf__ref.html">bcmolt_flow_intf_ref</a></td><td>RW</td><td></td><td></td><td></td></tr>
+<td>ingress_intf</td><td>The ingress tip of the flow </td><td><a class="el" href="structbcmolt__intf__ref.html">bcmolt_intf_ref</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>egress_intf</td><td>The engress tip of the flow </td><td><a class="el" href="structbcmolt__flow__intf__ref.html">bcmolt_flow_intf_ref</a></td><td>RW</td><td></td><td></td><td></td></tr>
+<td>egress_intf</td><td>The engress tip of the flow </td><td><a class="el" href="structbcmolt__intf__ref.html">bcmolt_intf_ref</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
 <td>onu_id</td><td>The ID of the ONU assigned to this flow</td><td><a class="el" href="group__object__model.html#ga5bc030d44455caeadd1862666eb6128f">bcmolt_onu_id</a></td><td>RW</td><td>65535U</td><td></td><td></td></tr>
 <tr>
@@ -139,6 +139,8 @@ $(document).ready(function(){initNavTree('object_flow_cfg.html','');});
 <td>mac_table_miss_action</td><td>Action to take a mac table miss</td><td><a class="el" href="group__object__model.html#ga31550a9865edc007593acdd0c1db7bbc">bcmolt_mac_table_miss_action</a></td><td>RW</td><td>BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD</td><td></td><td></td></tr>
 <tr>
 <td>policer_profile</td><td>policer profile for flow if any</td><td><a class="el" href="group__object__model.html#ga25e2f176af8b10c8d43725ee91bc5db3">bcmolt_policer_profile_id</a></td><td>RW</td><td>65535U</td><td></td><td></td></tr>
+<tr>
+<td>um_forwarding</td><td>um forwarding</td><td><a class="el" href="group__object__model.html#gab07f613223cc11fdb211476f9221c7db">bcmolt_control_state</a></td><td>RW</td><td>BCMOLT_CONTROL_STATE_DISABLE</td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -153,7 +155,7 @@ $(document).ready(function(){initNavTree('object_flow_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_flow.html">Object: flow - BAL Flow</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

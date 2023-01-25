@@ -35,7 +35,7 @@ if("${OS_KERNEL}" STREQUAL "linux")
 endif()
 
 # Add files to the GitHub part of the release tree.
-bcm_github_install(bcmolt_utils.* bcmolt_string.* bcmolt_math.h
+bcm_github_install(bcmolt_utils.* bcmolt_bit_utils.* bcmolt_string.* bcmolt_math.h
     bcmolt_buf.* bcmolt_calc_crc32_table.* bcmolt_mgt_group.*
     bcmolt_conv.h bcmolt_presence_mask.h CMakeLists.txt
     RELEASE github/utils)

@@ -928,22 +928,6 @@ bcmos_bool bcmolt_firmware_sw_version_validate(const bcmolt_firmware_sw_version 
  *
  * \param obj Pointer to the structure to initialize.
  */
-void bcmolt_flow_intf_ref_set_default(bcmolt_flow_intf_ref *obj);
-
-/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
- *
- * \param obj Pointer to the structure to validate.
- * \param err Filled in with the error (if validation fails).
- * \param err_details Filled in with a description of the error (if validation fails).
- * \return TRUE on success, FALSE on failure.
- */
-bcmos_bool bcmolt_flow_intf_ref_validate(const bcmolt_flow_intf_ref *obj, bcmos_errno *err, bcmolt_string *err_details);
-
-
-/** Initializes a structure to default values.
- *
- * \param obj Pointer to the structure to initialize.
- */
 void bcmolt_gem_port_configuration_set_default(bcmolt_gem_port_configuration *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -2138,6 +2122,22 @@ void bcmolt_remote_mep_set_default(bcmolt_remote_mep *obj);
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_remote_mep_validate(const bcmolt_remote_mep *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_ring_port_detailed_state_set_default(bcmolt_ring_port_detailed_state *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_ring_port_detailed_state_validate(const bcmolt_ring_port_detailed_state *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.

@@ -172,10 +172,14 @@
         (_s_ptr)->_f_name = (_field_value);                                     \
     } while(0)
 
+static inline bcmos_bool bcmolt_field_is_set(bcmolt_presence_mask pm, bcmolt_meta_id field_id)
+{
+    return (pm == 0) || ((pm & (1ULL << field_id)) != 0);
+}
+
 /** Check if API field is present (set/requested) */
 #define BCMOLT_FIELD_IS_SET(_s_ptr, _s_type, _f_name)                           \
-    ((_s_ptr)->presence_mask == 0 ||                                            \
-     ((_s_ptr)->presence_mask & (1ULL << bcmolt_ ## _s_type ## _id_ ## _f_name)) != 0)
+    bcmolt_field_is_set((_s_ptr)->presence_mask, bcmolt_ ## _s_type ## _id_ ## _f_name)
 
 /** Set field value in the message.
  * Unlike BCMOLT_FIELD_SET() macro, BCMOLT_MSG_FIELD_SET() takes fully qualified field name.
@@ -187,12 +191,21 @@
         bcmolt_api_set_prop_present(&((_msg_ptr)->hdr.hdr), &((_msg_ptr)->data._fully_qualified_field_name));\
     } while(0)
 
+#define BCMOLT_MULTI_MSG_FILTER_SET(_msg_ptr, _fully_qualified_field_name, _field_value)  \
+    do {                                                                           \
+        (_msg_ptr)->filter._fully_qualified_field_name = (_field_value);             \
+        bcmolt_api_set_prop_present(&((_msg_ptr)->hdr.hdr.hdr), &((_msg_ptr)->filter._fully_qualified_field_name));\
+    } while(0)
+
 /** Mark field for retrieval by bcmolt_cfg_get() request
  * Unlike BCMOLT_FIELD_SET_PRESENT() macro, BCMOLT_MSG_FIELD_GET() takes fully qualified field name.
  * The macro can be used even for fields which are deeply embedded in levels of sub-structures.
  */
 #define BCMOLT_MSG_FIELD_GET(_msg_ptr, _fully_qualified_field_name)                \
     bcmolt_api_set_prop_present(&((_msg_ptr)->hdr.hdr), &((_msg_ptr)->data._fully_qualified_field_name))
+
+#define BCMOLT_MULTI_MSG_FIELD_GET(_msg_ptr, _fully_qualified_field_name)                \
+    bcmolt_api_set_prop_present(&((_msg_ptr)->hdr.hdr.hdr), &((_msg_ptr)->request._fully_qualified_field_name))
 
 
 /** @} */
@@ -247,6 +260,11 @@
      (((int)(_idx) > 63) ? BCM_ERR_OK :                                         \
       ((_a_ptr)->arr_index_mask &= ~(1ULL << (int)(_idx)), BCM_ERR_OK)))
 
+static inline bcmos_bool bcmolt_array_elem_is_present(bcmolt_presence_mask idx_mask, int idx)
+{
+    return (idx > 63) || (idx_mask == 0) || ((idx_mask & (1ULL << idx)) != 0);
+}
+
 /** Check if array element is present.
  * Note: array indices >63 cannot be covered by the index mask and are assumed to always be set.
  *
@@ -257,9 +275,7 @@
  */
 #define BCMOLT_ARRAY_ELEM_IS_PRESENT(_a_ptr, _idx)                              \
     (_BCMOLT_ARRAY_ELEM_IDX_IS_VALID(_a_ptr, _idx) &&                           \
-     ((int)(_idx) > 63 ||                                                       \
-      (_a_ptr)->arr_index_mask == 0 ||                                          \
-      (((_a_ptr)->arr_index_mask & (1ULL << (int)(_idx))) != 0)))
+    bcmolt_array_elem_is_present((_a_ptr)->arr_index_mask, (int)(_idx)))
 
 /** Check if array element is present.
  * Note: array indices >63 cannot be covered by the index mask and are assumed to always be set.

@@ -88,6 +88,7 @@ typedef enum
     BCMOLT_API_PROP_NODE_TYPE_INVALID,
     BCMOLT_API_PROP_NODE_TYPE_FIELD,
     BCMOLT_API_PROP_NODE_TYPE_ARRAY_INDEX,
+    BCMOLT_API_PROP_NODE_TYPE_UNION_FIELD,
 } bcmolt_api_prop_node_type;
 
 typedef struct
@@ -329,6 +330,57 @@ bcmolt_tag bcmolt_api_get_field_tags(
     const bcmolt_msg *msg,
     const bcmolt_api_prop_path *path,
     const bcmolt_field_descr *field);
+
+bcmos_bool bcmolt_type_may_have_dynamic_array(const bcmolt_type_descr *type, const void *data);
+
+typedef struct
+{
+    const bcmolt_type_descr *parent_type;
+    void *parent_data;
+    const bcmolt_field_descr *descr;
+    void *mask;
+    void *data;
+    bcmos_bool is_implicit;
+    bcmos_bool in_union;
+    bcmolt_api_prop_path *path;
+} bcmolt_api_parse_field;
+
+typedef void (*f_per_field)(const bcmolt_api_parse_field *field, void *context);
+
+typedef struct
+{
+    const bcmolt_type_descr *list_type;
+    void *list_data;
+    const bcmolt_type_descr *elem_type;
+    void *mask;
+    void *data;
+    uint32_t idx;
+    bcmolt_api_prop_path *path;
+} bcmolt_api_parse_elem;
+
+typedef void (*f_per_elem)(const bcmolt_api_parse_elem *elem, void *context);
+
+typedef struct
+{
+    const bcmolt_type_descr *type;
+    void *mask;
+    void *data;
+    bcmolt_api_prop_path *path;
+} bcmolt_api_parse_simple;
+
+typedef void (*f_per_simple)(const bcmolt_api_parse_simple *simple, void *context);
+
+void bcmolt_api_parse(
+    const void *data,
+    const bcmolt_type_descr *type_descr,
+    bcmos_bool expand_unions,
+    bcmolt_api_prop_path *path,
+    void *context,
+    f_per_field field_cb,
+    f_per_elem elem_cb,
+    f_per_simple simple_cb);
+
+uint32_t bcmolt_api_get_list_len(const bcmolt_type_descr *type_descr, const void *data);
 
 /* Initialize API utils library */
 bcmos_errno bcmolt_api_utils_init(void);

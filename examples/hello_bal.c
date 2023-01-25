@@ -341,11 +341,11 @@ int main(int argc, char *argv[])
             BCMOLT_CFG_INIT(&flow_cfg, flow, flow_key);
 
             /* FROM NNI 0 */
-            BCMOLT_MSG_FIELD_SET(&flow_cfg, ingress_intf.intf_type, BCMOLT_FLOW_INTERFACE_TYPE_NNI);
+            BCMOLT_MSG_FIELD_SET(&flow_cfg, ingress_intf.intf_type, BCMOLT_INTERFACE_TYPE_NNI);
             BCMOLT_MSG_FIELD_SET(&flow_cfg, ingress_intf.intf_id, 0);
 
             /* TO PON 0 */
-            BCMOLT_MSG_FIELD_SET(&flow_cfg, egress_intf.intf_type, BCMOLT_FLOW_INTERFACE_TYPE_PON);
+            BCMOLT_MSG_FIELD_SET(&flow_cfg, egress_intf.intf_type, BCMOLT_INTERFACE_TYPE_PON);
             BCMOLT_MSG_FIELD_SET(&flow_cfg, egress_intf.intf_id, 0);
 
             /* SINGLE TAG - VID 100 */

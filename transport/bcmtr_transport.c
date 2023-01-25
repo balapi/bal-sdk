@@ -28,6 +28,8 @@
 #include "bcmtr_internal.h"
 
 dev_log_id bcmtr_log_id[BCMTR_MAX_DEVICES];
+uint32_t bcmtr_api_handling_time_threshold;
+F_bcmtr_long_api_notification bcmtr_long_api_notification_handler;
 
 typedef STAILQ_HEAD(bcmtr_handler_list, bcmtr_handler) bcmtr_handler_list;
 
@@ -81,7 +83,7 @@ static bcmos_errno _bcmtr_fragment_if_needed_and_send(
     bcmtr_send_flags flags);
 static void _bcmtr_disconnect1(bcmtr_conn *conn);
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
 #include "bcmtr_transport_host.c"
 #else
 #include "bcmtr_transport_embedded.c"
@@ -194,9 +196,9 @@ static void _bcmtr_dft_msg_handler(bcmolt_devid olt, bcmolt_msg *msg)
 }
 
 /* Unpack message and hand over to app_cb */
-static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, bcmtr_handler *handler)
+static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, f_bcmolt_msg_handler app_cb, bcmolt_oltid olt)
 {
-    f_bcmolt_msg_handler app_cb = handler->app_cb ? handler->app_cb : _bcmtr_dft_msg_handler;
+    f_bcmolt_msg_handler _app_cb = app_cb ? app_cb : _bcmtr_dft_msg_handler;
     bcmtr_conn *conn = tmsg->conn;
     bcmolt_msg *msg = NULL;
     bcmos_errno err = _bcmtr_msg_unpack(conn, tmsg->rx_buf, &tmsg->hdr, tmsg->timestamp, &msg);
@@ -204,7 +206,7 @@ static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, bcmtr_handler *handler)
     /* Translate indication if translation callback is set */
     if (err == BCM_ERR_OK && rx_translate_cb)
     {
-        err = rx_translate_cb(conn->device, handler->olt, msg);
+        err = rx_translate_cb(conn->device, olt, msg);
         if (err != BCM_ERR_OK)
         {
             /* Silently discard the message if it is intended for another OLT */
@@ -219,7 +221,7 @@ static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, bcmtr_handler *handler)
         msg->corr_tag = tmsg->hdr.corr_tag;
         msg->subch = tmsg->subch;
         msg->device = tmsg->hdr.device;
-        app_cb(rx_translate_cb ? handler->olt : (bcmolt_oltid)conn->device, msg);
+        _app_cb(rx_translate_cb ? olt : (bcmolt_oltid)conn->device, msg);
     }
     /* Mark tmsg block as free. It will be released when tmsg->ref_count becomes 0 */
     bcmos_mutex_lock(&conn->mutex);
@@ -244,14 +246,15 @@ static void _bcmtr_ipc_msg_release(bcmos_msg *m)
 static void _bcmtr_ipc_msg_handler(bcmos_module_id module_id, bcmos_msg *m)
 {
     bcmtr_msg *tmsg = (bcmtr_msg *)m->data;
-    bcmtr_handler *h = (bcmtr_handler *)m->user_data;
+    f_bcmolt_msg_handler app_cb = (f_bcmolt_msg_handler)m->user_data;
+    bcmolt_oltid olt = (bcmolt_oltid)m->size;
     /* Release message if it was allocated from ind_pool */
     if (m != &tmsg->os_msg)
     {
         m->data_release = NULL;
         bcmos_msg_free(m);
     }
-    _bcmtr_unpack_and_deliver(tmsg, h);
+    _bcmtr_unpack_and_deliver(tmsg, app_cb, olt);
 }
 
 /* Init IPC header in received message */
@@ -461,14 +464,20 @@ static inline void _bcmtr_ind_deliver_to_module(
             msg->handler = _bcmtr_ipc_msg_handler;
             msg->data_release = _bcmtr_ipc_msg_release; /* In case of delivery failure */
         }
-        msg->user_data = handler;
+        /* Instead of conveying 'handler' as the user data, we directly assign the function ('app_cb').
+         * This way, we avoid a race condition in which:
+         * 1. A message is sent to a module, but before it has the chance to handle it, the module manipulates the registration of handlers (via mh_rx_register()/mh_rx_unregister()).
+         * 2. When the module finally handles the message, the registered handler function ('app_cb') is already a new handler. */
+        msg->user_data = handler->app_cb;
+        /* This is not very clean, but since we don't have another unused member to convey the OLT ID with, we have to go with msg->size, which should be unused in this flow. */
+        msg->size = handler->olt;
         bcmos_msg_send_to_module(module, msg, BCMOS_MSG_SEND_AUTO_FREE);
     }
     else
     {
         /* Call application handler. Don't do it under lock. Unlock here and re-lock afterwards */
         bcmos_mutex_unlock(&conn->mutex);
-        _bcmtr_unpack_and_deliver(tmsg, handler);
+        _bcmtr_unpack_and_deliver(tmsg, handler->app_cb, handler->olt);
         bcmos_mutex_lock(&conn->mutex);
     }
     ++(*n_delivered);
@@ -504,7 +513,7 @@ static inline void _bcmtr_notify_rx_req_auto(bcmtr_conn *conn, bcmtr_msg *tmsg)
     STAILQ_FOREACH_SAFE(h, handlers_list, l, h_tmp)
     {
         module = h->module;
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
         if (module == BCMOS_MODULE_ID_NONE)
             module = BCMOS_MODULE_ID_TRANSPORT_IND;
 #endif
@@ -1289,15 +1298,9 @@ bcmos_errno bcmtr_send(bcmolt_devid device, bcmolt_msg *msg, bcmtr_send_flags fl
 
     err = _bcmtr_conn_get(device, &conn);
     if (err)
-        return err;
+        goto exit;
 
     err = _bcmtr_send(conn, msg, flags, NULL);
-
-    /* Auto-release response */
-    if ((flags & BCMTR_SEND_FLAGS_AUTO_FREE) != 0)
-    {
-        bcmolt_msg_free(msg);
-    }
 
     if (err)
     {
@@ -1307,6 +1310,12 @@ bcmos_errno bcmtr_send(bcmolt_devid device, bcmolt_msg *msg, bcmtr_send_flags fl
         }
     }
 
+exit:
+    /* Auto-release response */
+    if ((flags & BCMTR_SEND_FLAGS_AUTO_FREE) != 0)
+    {
+        bcmolt_msg_free(msg);
+    }
     return err;
 }
 
@@ -1441,7 +1450,7 @@ static bcmos_errno _bcmtr_msg_handler_register(bcmolt_devid device, const bcmtr_
 
     bcmos_mutex_lock(&conn_lock);
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     /* Registration with tr-mux is per device, per-object */
     if (parm->group == BCMOLT_MGT_GROUP_AUTO &&
         !(conn_info[device].auto_masks[parm->object] & (1ULL << parm->subgroup)))
@@ -1576,7 +1585,7 @@ static bcmos_errno _bcmtr_msg_handler_unregister(bcmolt_devid device, const bcmt
         }
     }
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     /* Check if registration mask changed */
     if (parm->group == BCMOLT_MGT_GROUP_AUTO)
     {
@@ -1786,7 +1795,7 @@ bcmos_errno bcmtr_init(bcmtr_init_parms *parms)
         }
     }
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     err = _bcmtr_ind_task_create();
     if (err)
         return err;
@@ -1830,7 +1839,7 @@ bcmos_errno bcmtr_exit(void)
 {
     int i;
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     bcmos_task_destroy(&bcmtr_timeout_task);
     bcmos_task_destroy(&bcmtr_ind_task);
 
@@ -1844,9 +1853,12 @@ bcmos_errno bcmtr_exit(void)
     for (i = 0; i < BCMTR_MAX_DEVICES; i++)
     {
         _bcmtr_kill_connection(i);
+#ifdef ENABLE_LOG
+        bcm_dev_log_id_unregister(bcmtr_log_id[i]);
+#endif
     }
 
-    bcmos_mutex_destroy(&conn_lock);
+    bcmos_mutex_destroy(&conn_lock);    
 
     return BCM_ERR_OK;
 }

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -114,9 +114,11 @@ $(document).ready(function(){initNavTree('object_erps_interface_ring_port_contro
 <tr>
 <td>command</td><td>Reflects current state of the requested Port</td><td><a class="el" href="group__object__model.html#ga43d3dd34027667b1f152143fd1030e87">bcmolt_erps_control</a> </td></tr>
 <tr>
-<td>port_state</td><td>Port State</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a> </td></tr>
+<td>port_state</td><td>The resulting state of the port after the command. For details on the blocked state see the detailed port state.</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a> </td></tr>
 <tr>
 <td>result</td><td>Result of operation, success or fail. If fail then the ind.hdr.hdr.err will contain the return code.</td><td><a class="el" href="group__object__model.html#ga5c094bbb4d3d86d6d41de2173d76488b">bcmolt_result</a> </td></tr>
+<tr>
+<td>port_detailed_state</td><td>The resulting state for both tx and rx of the port after the command.</td><td><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a> </td></tr>
 </table>
 <br />
 <br />
@@ -131,7 +133,7 @@ $(document).ready(function(){initNavTree('object_erps_interface_ring_port_contro
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_erps_interface.html">Object: erps_interface - ERPS Interface</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

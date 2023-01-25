@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -172,6 +172,8 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
 , <a class="el" href="structbcmolt__erps__interface__port__update.html#a2c6c11f0fce55b4473b9f6b4000b4dd9">bcmolt_erps_interface_port_update</a>
 , <a class="el" href="structbcmolt__erps__interface__port__update__complete.html#a9d8ede669c2fdd9e581b485da83f1529">bcmolt_erps_interface_port_update_complete</a>
 , <a class="el" href="structbcmolt__erps__interface__ring__port__control.html#adc6ee749d685ddee64734b2383d667bc">bcmolt_erps_interface_ring_port_control</a>
+, <a class="el" href="structbcmolt__erps__interface__set__intf__opt.html#aef99d9c4e44354398d176cc434677c96">bcmolt_erps_interface_set_intf_opt</a>
+, <a class="el" href="structbcmolt__erps__interface__set__intf__opt__complete.html#afbfc16d92bb3ef85166b46a4f260cf37">bcmolt_erps_interface_set_intf_opt_complete</a>
 , <a class="el" href="structbcmolt__erps__interface__set__ring__port__control.html#a864197b82c8767f4679dda4abdb6c15e">bcmolt_erps_interface_set_ring_port_control</a>
 , <a class="el" href="structbcmolt__eth__oam__auto__cfg.html#ac5c65f52cc3a9f9bf1a2c3cbec8f58af">bcmolt_eth_oam_auto_cfg</a>
 , <a class="el" href="structbcmolt__eth__oam__ccm__event.html#abd6e182b3fcc6551ddd23598ec11e24c">bcmolt_eth_oam_ccm_event</a>
@@ -244,6 +246,7 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
 , <a class="el" href="structbcmolt__ngpon2__channel__cfg.html#a3fc71714755508fb5168863f02a4606a">bcmolt_ngpon2_channel_cfg</a>
 , <a class="el" href="structbcmolt__nni__interface__auto__cfg.html#ac1a59b7d4c796d87f76cb78cc075e2c6">bcmolt_nni_interface_auto_cfg</a>
 , <a class="el" href="structbcmolt__nni__interface__cfg.html#a35a8ade3f1268ff1367ae63aedbbea03">bcmolt_nni_interface_cfg</a>
+, <a class="el" href="structbcmolt__nni__interface__fault__code__change.html#a6cce89442b0da8e0ab4338c8e6ce7e85">bcmolt_nni_interface_fault_code_change</a>
 , <a class="el" href="structbcmolt__nni__interface__link__state__change.html#afbc0f116434aa956225ff18cfdb8c494">bcmolt_nni_interface_link_state_change</a>
 , <a class="el" href="structbcmolt__nni__interface__set__nni__state.html#aec1469ad2bd71ad2d7bac45eba33dd94">bcmolt_nni_interface_set_nni_state</a>
 , <a class="el" href="structbcmolt__nni__interface__state__change.html#a69ee005a11d695c8d449eadba76ecfa2">bcmolt_nni_interface_state_change</a>
@@ -321,6 +324,7 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
 , <a class="el" href="structbcmolt__onu__xpon__unknown__ploam.html#a5ba6b8ae86a10c8340d3e76113806bf4">bcmolt_onu_xpon_unknown_ploam</a>
 , <a class="el" href="structbcmolt__pbit__to__tc__cfg.html#a4203ec19a52249f3b8e87098cc93370b">bcmolt_pbit_to_tc_cfg</a>
 , <a class="el" href="structbcmolt__policer__profile__cfg.html#aabcc37b621a4445a2615e75f15000530">bcmolt_policer_profile_cfg</a>
+, <a class="el" href="structbcmolt__pon__interface__activate__all__onus__completed.html#ae889506e19c2f590ba67575b58aca517">bcmolt_pon_interface_activate_all_onus_completed</a>
 , <a class="el" href="structbcmolt__pon__interface__ae__stats.html#a3f5a5e9a33558f4e023fe81708821109">bcmolt_pon_interface_ae_stats</a>
 , <a class="el" href="structbcmolt__pon__interface__ae__stats__alarm__cleared.html#aa98565e2f30449519a0d9fe7130070cc">bcmolt_pon_interface_ae_stats_alarm_cleared</a>
 , <a class="el" href="structbcmolt__pon__interface__ae__stats__alarm__raised.html#adb9f1f5762ed501b982529eb4ef0e9c5">bcmolt_pon_interface_ae_stats_alarm_raised</a>
@@ -382,6 +386,9 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
 </li>
 <li>dba_mode
 : <a class="el" href="structbcmolt__itu__pon__params.html#a1a9904df1f4a6bc627ca0a1bc45c4ae2">bcmolt_itu_pon_params</a>
+</li>
+<li>dba_options
+: <a class="el" href="structbcmolt__itupon__dba.html#a472dcf054aea87fe485b2cba8e86e1a1">bcmolt_itupon_dba</a>
 </li>
 <li>ddr_test
 : <a class="el" href="structbcmolt__device__ddr__test__complete__data.html#a8d35d9bc741cf637d76a46b775adb0e4">bcmolt_device_ddr_test_complete_data</a>
@@ -570,7 +577,7 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

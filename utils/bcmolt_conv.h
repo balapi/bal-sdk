@@ -180,11 +180,8 @@ static inline int int2int(const int2int_t *arr, int from)
     return arr->to;
 }
 
+#ifndef __KERNEL__
 char *bcmolt_strftime(char *time_str, time_t t, const char *timezone_str);
-
-typedef const char *(*bcmolt_bit2str_conv_cb)(uint32_t bit);
-
-/* Build a human readable string from multiple bit values (e.g. "buffer_swap|quiet_window"). */
-char *bcmolt_bits2str_conv(char *events_str, uint32_t size, uint32_t bits, bcmolt_bit2str_conv_cb conv_cb);
+#endif
 
 #endif

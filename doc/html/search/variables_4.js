@@ -1,9 +1,10 @@
 var searchData=
 [
   ['east_5fport',['east_port',['../structbcmolt__erps__interface__cfg__data.html#a33a8dc88d91322de5cd8e13f5add20c5',1,'bcmolt_erps_interface_cfg_data']]],
+  ['east_5fport_5fdetailed_5fstate',['east_port_detailed_state',['../structbcmolt__erps__interface__cfg__data.html#af826a259f29dcdf309114508fb43227e',1,'bcmolt_erps_interface_cfg_data']]],
   ['east_5fport_5fstate',['east_port_state',['../structbcmolt__erps__interface__cfg__data.html#a9a4b72617084d29d3fdb05d0da343f73',1,'bcmolt_erps_interface_cfg_data']]],
   ['ebs_5fkb',['ebs_kb',['../structbcmolt__policer__profile__cfg__data.html#a402b00fb68d856a688bd3853b3881d28',1,'bcmolt_policer_profile_cfg_data']]],
-  ['egress_5fintf',['egress_intf',['../structbcmolt__flow__cfg__data.html#ae836e452b48db2f3096dcfd2bd297938',1,'bcmolt_flow_cfg_data']]],
+  ['egress_5fintf',['egress_intf',['../structbcmolt__flow__cfg__data.html#a8eb9b14c6839a46e01fdbbd1e4c113ea',1,'bcmolt_flow_cfg_data']]],
   ['egress_5fqos',['egress_qos',['../structbcmolt__flow__cfg__data.html#ab2522a5ba4eb164edd86cab6bdc67953',1,'bcmolt_flow_cfg_data::egress_qos()'],['../structbcmolt__group__member__info.html#ab2522a5ba4eb164edd86cab6bdc67953',1,'bcmolt_group_member_info::egress_qos()']]],
   ['eir_5fkbps',['eir_kbps',['../structbcmolt__policer__profile__cfg__data.html#a696aa0becd3c7410c1164830bd8f54bf',1,'bcmolt_policer_profile_cfg_data']]],
   ['embedded_5fimage_5flist',['embedded_image_list',['../structbcmolt__device__cfg__data.html#accace0dd055331ea080c035102b00d6c',1,'bcmolt_device_cfg_data']]],

@@ -543,8 +543,10 @@ static void _metacli_free_parms(bcmcli_cmd_parm *parms)
             bcmos_free(p->enum_table);
         if (p->max_array_size && p->values)
             bcmos_free(p->values);
-        if (p->value.buffer.start)
+        if (p->type == BCMCLI_PARM_BUFFER && p->value.buffer.start)
             bcmos_free(p->value.buffer.start);
+        if (p->type == BCMCLI_PARM_STRUCT && p->value.fields)
+            _metacli_free_parms(p->value.fields);
 
         ++p;
     }

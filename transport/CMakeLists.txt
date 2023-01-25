@@ -6,7 +6,7 @@ bcm_module_dependencies(PUBLIC utils api dev_log conn_mgr api_cli tr_plugin_conn
 
 bcm_module_srcs(bcmtr_transport.c bcmtr_config.c bcmtr_debug.c)
 
-if("${SUBSYSTEM}" STREQUAL "host")
+if("${SUBSYSTEM}" STREQUAL "host" OR "${SUBSYSTEM}" STREQUAL "opencpu")
     if("${OS_KERNEL}" STREQUAL "linux")
         bcm_module_dependencies(PUBLIC dev_log_linux)
     endif()

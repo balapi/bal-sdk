@@ -51,11 +51,11 @@ typedef uint8_t bcmolt_burst_profile_index;
 /** bcmolt_cookie: Typed alias for a 64-bit unsigned integer. */
 typedef uint64_t bcmolt_cookie;
 
-/** bcmolt_erps_id: Typed alias for a 8-bit unsigned integer. */
-typedef uint8_t bcmolt_erps_id;
-#define BCMOLT_ERPS_ID_INVALID ((bcmolt_erps_id)255)
+/** bcmolt_erps_id: Typed alias for a 16-bit unsigned integer. */
+typedef uint16_t bcmolt_erps_id;
+#define BCMOLT_ERPS_ID_UNASSIGNED ((bcmolt_erps_id)65535U)
 #define BCMOLT_ERPS_ID_MIN ((bcmolt_erps_id)0)
-#define BCMOLT_ERPS_ID_MAX ((bcmolt_erps_id)254)
+#define BCMOLT_ERPS_ID_MAX ((bcmolt_erps_id)4096)
 
 /** bcmolt_eth_oam_id: Typed alias for a 8-bit unsigned integer. */
 typedef uint8_t bcmolt_eth_oam_id;
@@ -72,14 +72,14 @@ typedef uint8_t bcmolt_inband_mgmt_instance_id;
 #define BCMOLT_INBAND_MGMT_INSTANCE_ID_MIN ((bcmolt_inband_mgmt_instance_id)0)
 #define BCMOLT_INBAND_MGMT_INSTANCE_ID_MAX ((bcmolt_inband_mgmt_instance_id)255)
 
-/** bcmolt_interface_id: Typed alias for a 8-bit unsigned integer. */
-typedef uint8_t bcmolt_interface_id;
-#define BCMOLT_INTERFACE_ID_INVALID ((bcmolt_interface_id)255)
+/** bcmolt_interface_id: Typed alias for a 16-bit unsigned integer. */
+typedef uint16_t bcmolt_interface_id;
+#define BCMOLT_INTERFACE_ID_INVALID ((bcmolt_interface_id)65535U)
 #define BCMOLT_INTERFACE_ID_MIN ((bcmolt_interface_id)0)
 
-/** bcmolt_lag_interface_id: Typed alias for a 8-bit unsigned integer. */
-typedef uint8_t bcmolt_lag_interface_id;
-#define BCMOLT_LAG_INTERFACE_ID_UNASSIGNED ((bcmolt_lag_interface_id)255)
+/** bcmolt_lag_interface_id: Typed alias for a 16-bit unsigned integer. */
+typedef uint16_t bcmolt_lag_interface_id;
+#define BCMOLT_LAG_INTERFACE_ID_UNASSIGNED ((bcmolt_lag_interface_id)65535U)
 #define BCMOLT_LAG_INTERFACE_ID_MIN ((bcmolt_lag_interface_id)0)
 #define BCMOLT_LAG_INTERFACE_ID_MAX ((bcmolt_lag_interface_id)31)
 
@@ -97,13 +97,14 @@ typedef uint32_t bcmolt_mtu;
 /** bcmolt_policer_profile_id: Typed alias for a 16-bit unsigned integer. */
 typedef uint16_t bcmolt_policer_profile_id;
 #define BCMOLT_POLICER_PROFILE_ID_UNASSIGNED ((bcmolt_policer_profile_id)65535U)
-#define BCMOLT_POLICER_PROFILE_ID_MAX ((bcmolt_policer_profile_id)1023)
 #define BCMOLT_POLICER_PROFILE_ID_MIN ((bcmolt_policer_profile_id)1)
+#define BCMOLT_POLICER_PROFILE_ID_MAX ((bcmolt_policer_profile_id)1023)
 
-/** bcmolt_protection_interface_id: Typed alias for a 8-bit unsigned integer. */
-typedef uint8_t bcmolt_protection_interface_id;
-#define BCMOLT_PROTECTION_INTERFACE_ID_INVALID ((bcmolt_protection_interface_id)255)
-#define BCMOLT_PROTECTION_INTERFACE_ID_UNASSIGNED ((bcmolt_protection_interface_id)254)
+/** bcmolt_protection_interface_id: Typed alias for a 16-bit unsigned integer. */
+typedef uint16_t bcmolt_protection_interface_id;
+#define BCMOLT_PROTECTION_INTERFACE_ID_UNASSIGNED ((bcmolt_protection_interface_id)65535U)
+#define BCMOLT_PROTECTION_INTERFACE_ID_MIN ((bcmolt_protection_interface_id)0)
+#define BCMOLT_PROTECTION_INTERFACE_ID_MAX ((bcmolt_protection_interface_id)31)
 
 /** bcmolt_service_port_id: Typed alias for a 32-bit unsigned integer. */
 typedef uint32_t bcmolt_service_port_id;
@@ -125,7 +126,7 @@ typedef uint8_t bcmolt_tm_priority;
 
 /** bcmolt_tm_qmp_id: Typed alias for a 8-bit unsigned integer. */
 typedef uint8_t bcmolt_tm_qmp_id;
-#define BCMOLT_TM_QMP_ID_UNASSIGNED ((bcmolt_tm_qmp_id)15)
+#define BCMOLT_TM_QMP_ID_UNASSIGNED ((bcmolt_tm_qmp_id)255)
 #define BCMOLT_TM_QMP_ID_MIN ((bcmolt_tm_qmp_id)0)
 #define BCMOLT_TM_QMP_ID_MAX ((bcmolt_tm_qmp_id)15)
 

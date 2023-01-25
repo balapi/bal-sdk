@@ -1624,6 +1624,18 @@ bcmos_errno bcmos_msg_unregister(bcmos_msg_id msg_type, bcmos_msg_instance insta
     return BCM_ERR_OK;
 }
 
+bcmos_bool bcmos_msg_is_registered(bcmos_msg_id msg_type, bcmos_msg_instance instance)
+{
+    long lock_flags;
+    bcmos_bool ret;
+
+    lock_flags = bcmos_fastlock_lock(&bcmos_msg_register_lock);
+    ret = _bcmos_msg_hash_find(msg_type, instance) != NULL;
+    bcmos_fastlock_unlock(&bcmos_msg_register_lock, lock_flags);
+
+    return ret;
+}
+ 
 void bcmos_msg_shutdown_mode_set(bcmos_bool shutdown_mode)
 {
     bcmos_msg_shutdown_mode = shutdown_mode;
@@ -2500,10 +2512,10 @@ bcmos_errno bcmos_timer_create(bcmos_timer *timer, bcmos_timer_parm *parm)
         timer->msg.type = BCMOS_MSG_ID_INTERNAL_TIMER;
     }
     timer->flags |= BCMOS_TIMER_FLAG_VALID;
+    timer->magic = BCMOS_TIMER_MAGIC;
 
 #ifdef BCMOS_TIMER_DEBUG
     bcmos_mutex_lock(&bcmos_res_lock);
-    timer->magic = BCMOS_TIMER_MAGIC;
     STAILQ_INSERT_TAIL(&timer_list, timer, list);
     bcmos_mutex_unlock(&bcmos_res_lock);
 #endif
@@ -2520,10 +2532,10 @@ void bcmos_timer_destroy(bcmos_timer *timer)
 #endif
     bcmos_timer_stop(timer);
     timer->flags &= ~BCMOS_TIMER_FLAG_VALID;
+    timer->magic = BCMOS_TIMER_MAGIC_DESTROYED;
 
 #ifdef BCMOS_TIMER_DEBUG
     bcmos_mutex_lock(&bcmos_res_lock);
-    timer->magic = BCMOS_TIMER_MAGIC_DESTROYED;
     STAILQ_REMOVE(&timer_list, timer, bcmos_timer, list);
     bcmos_mutex_unlock(&bcmos_res_lock);
 #endif
@@ -3025,6 +3037,7 @@ bcmos_errno bcmos_msg_pool_create(bcmos_msg_pool *pool, const bcmos_msg_pool_par
     STAILQ_FOREACH(blk, &pool->blk_pool.free_list, next)
     {
         bcmos_msg *msg = (bcmos_msg *)(blk + 1);
+        memset(msg, 0, sizeof(*msg));
         msg->data = (void *)(msg + 1);
         msg->size = pool->parm.data_size;
         msg->release = _bcmos_msg_pool_release;
@@ -3607,6 +3620,7 @@ EXPORT_SYMBOL(bcmos_msg_send_to_module);
 EXPORT_SYMBOL(bcmos_msg_recv);
 EXPORT_SYMBOL(bcmos_msg_register);
 EXPORT_SYMBOL(bcmos_msg_unregister);
+EXPORT_SYMBOL(bcmos_msg_is_registered);
 EXPORT_SYMBOL(bcmos_msg_dispatch);
 
 EXPORT_SYMBOL(bcmos_msg_qgroup_create);

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -124,6 +124,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:ab76552282712142a22a2949316900eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac7478685f8514086081502f2ebc8f28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__arr__intf__ref__16.html">bcmolt_arr_intf_ref_16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__erps__interface__cfg__data.html#aac7478685f8514086081502f2ebc8f28">sub_port_list</a></td></tr>
 <tr class="separator:aac7478685f8514086081502f2ebc8f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af826a259f29dcdf309114508fb43227e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__erps__interface__cfg__data.html#af826a259f29dcdf309114508fb43227e">east_port_detailed_state</a></td></tr>
+<tr class="separator:af826a259f29dcdf309114508fb43227e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3309151c93789bf0621ac0df729c87c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__erps__interface__cfg__data.html#a3309151c93789bf0621ac0df729c87c3">west_port_detailed_state</a></td></tr>
+<tr class="separator:a3309151c93789bf0621ac0df729c87c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="af412cef2a995fab9191e47803fb6d6c4"></a>
@@ -187,7 +191,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>East Port State. </p>
+<p>The current state of the east port. For details about the blocked state see the east port detailed state. </p>
 
 </div>
 </div>
@@ -200,7 +204,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>West Port State. </p>
+<p>The current state of the west port. For details about the blocked state see the west port detailed state. </p>
 
 </div>
 </div>
@@ -217,6 +221,32 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af826a259f29dcdf309114508fb43227e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a> east_port_detailed_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The current state of both tx and rx for the east port. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3309151c93789bf0621ac0df729c87c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a> west_port_detailed_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The current state of both tx and rx for the west port. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__api__structs_8h_source.html">bcmolt_api_model_api_structs.h</a></li>
 </ul>
@@ -229,7 +259,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__erps__interface__cfg__data.html">bcmolt_erps_interface_cfg_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

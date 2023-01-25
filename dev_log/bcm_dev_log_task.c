@@ -25,6 +25,7 @@
 #include "bcm_dev_log_task.h"
 #include "bcm_dev_log_task_internal.h"
 #include "bcm_dev_log.h"
+#include <bcmolt_string.h>
 #if defined(LINUX_KERNEL_SPACE) && !defined(__KERNEL__)
 #include "bcmos_mgmt_type.h"
 #include "bcmolt_dev_log_linux.h"
@@ -81,6 +82,11 @@ static const char *dev_log_style_array[] =
 
 bcm_dev_log dev_log = {{0}};
 const char *log_level_str = "?FEWID";
+
+#ifdef ENABLE_CLI
+static uint32_t _log_id_enum_len = 0;
+bcmcli_enum_val bcm_dev_log_cli_log_id_enum[DEV_LOG_MAX_IDS + 1];
+#endif
 
 static void bcm_dev_log_shutdown_msg_release(bcmos_msg *m)
 {
@@ -492,31 +498,38 @@ static int get_msg_end_offset(bcm_dev_log_file *file, uint32_t offset, uint32_t 
     return (end - buf + 1);
 }
 
-static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
+static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
 {
     uint32_t offset = *p_offset;
     uint32_t output_length = 0;
-    uint32_t scan_length = 0;
+    int scan_length = 0;
     int start, end;
-    bcmos_bool read_wrap = BCMOS_FALSE;
 
+    /* We treat 'offset' as if log file data segment was flat. In fact it might be wrapped around, 
+       in this case the 'real offset' can be calculated as (start_offset + offset)%segment_size,
+       whereas start_offset is the offset of the 1st entry past the write_offset.
+    */
+    if (offset >= log_file->u.mem_file.file_header.data_size)
+    {
+        /* Insane offset passed in from user */
+        DEV_LOG_ERROR_PRINTF("%s: read offset:%u is >= size of log buffer %u\n", 
+            __FUNCTION__, offset, log_file->u.mem_file.file_header.data_size);
+        return 0;
+    }
+    
     /* If file wrapped around, offset is indeterminate, scan for start from current offset to end of file buffer,
      * if start not found, then try again from beginning of buffer up to write ptr */
     if (log_file->u.mem_file.file_header.file_wrap_cnt)
     {
-        scan_length = log_file->u.mem_file.file_header.data_size - offset;
+        /* Calculate the 'real offset' as (write_offset+offset)%data_size */
+        offset = (log_file->u.mem_file.file_header.write_offset + offset) % log_file->u.mem_file.file_header.data_size;
 
-        if (scan_length <= 0)
-        {
-            /* Insane offset passed in from user, reset it */
-            DEV_LOG_ERROR_PRINTF("%s: reset bad read offset:%d (> size of log buffer)\n", __FUNCTION__, offset);
-            *p_offset = 0;
-            return 0;
-        }
-
-        /* Find beginning of the next message */
-        start = get_msg_start_offset(log_file, offset, scan_length);
-        if (start < 0)
+        scan_length = (int)(log_file->u.mem_file.file_header.data_size - offset);
+        if (scan_length > 0)
+            start = get_msg_start_offset(log_file, offset, scan_length);
+        else
+            start = -1;
+        if (start <= 0)
         {
             /* Didn't find any up to the end of buffer. Scan again from the start, up to write offset */
             offset = 0;
@@ -529,18 +542,26 @@ static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset,
                 return 0;
             }
         }
+        offset += start;
     }
     else
     {
         /* file not wrapped, scan from current offset up to write ptr */
         scan_length = log_file->u.mem_file.file_header.write_offset - offset;
+        if (scan_length <= 0)
+            return 0;
 
         /* Scan for start of message. Without wrap-around it should be between read offset, and the write ptr */
         start = get_msg_start_offset(log_file, offset, scan_length);
         if (start <= 0)
             return 0;
+
+        offset += start;
+
+        /* Make sure that offset+length doesn't cross the end of buffer */
+        if (offset + length > log_file->u.mem_file.file_header.data_size)
+            length = log_file->u.mem_file.file_header.data_size - offset;
     }
-    offset += start;
 
     /* We have the beginning. Now find the end of message and copy to the user buffer if there is enough room */
     if (offset + length > log_file->u.mem_file.file_header.data_size)
@@ -548,11 +569,11 @@ static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset,
         /* Possible read wrap may occur, scan up to end of file buffer first */
         scan_length = log_file->u.mem_file.file_header.data_size - offset;
         end = get_msg_end_offset(log_file, offset, scan_length);
-        if (end >= 0)
+        if (end > 0)
         {
             /* Found end before end of buffer, no read wrap, just copy and return */
             memcpy(buf, (uint8_t *)log_file->file_parm.start_addr + MEM_FILE_HDR_SIZE + offset, end);
-            *p_offset += start + end;
+            *p_offset += end;
             return end;
         }
 
@@ -562,12 +583,11 @@ static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset,
         buf = (uint8_t *)buf + scan_length;
         length -= scan_length; /* reduce remaining buffer space by size copied */
         offset = 0; /* Reset to beginning of buffer for final "end" scan */
-        read_wrap = BCMOS_TRUE;
         scan_length = log_file->u.mem_file.file_header.write_offset - 1; /* Limit wrapped end scan from beginning of buffer up to write ptr */
     }
     else
     {
-        /* No read wrap, just scan for end from current offset to the end of the file , since the end might be past the buffer length */
+        /* No read wrap, just scan for end from current offset to the end of the file */
         scan_length = log_file->u.mem_file.file_header.data_size - offset;
     }
 
@@ -587,14 +607,17 @@ static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset,
     memcpy(buf, (uint8_t *)log_file->file_parm.start_addr + MEM_FILE_HDR_SIZE + offset, end);
     output_length += end;
 
-    if (read_wrap)
-    {
-        *p_offset = end;
-    }
-    else
-        *p_offset += start + output_length; /* Increment read ptr */
+    *p_offset += output_length;
 
     return output_length;
+}
+
+static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
+{
+    bcmos_mutex_lock(&log_file->u.mem_file.mutex);
+    length = default_read_callback_unprotected(log_file, p_offset, buf, length);
+    bcmos_mutex_unlock(&log_file->u.mem_file.mutex);
+    return length;
 }
 
 static int get_num_of_overwritten_messages(uint8_t *buf, uint32_t length)
@@ -659,9 +682,9 @@ static int default_write_callback_unprotected(bcm_dev_log_file *file, const void
         }
         if (tail_length)
         {
+            /* Wrap-around */
             p = (uint8_t *)file->file_parm.start_addr + MEM_FILE_HDR_SIZE;
-            if (file->u.mem_file.file_header.file_wrap_cnt)
-                n_overwritten += get_num_of_overwritten_messages(p, tail_length);
+            n_overwritten += get_num_of_overwritten_messages(p, tail_length);
             memcpy(p, buf, tail_length);
             ++file->u.mem_file.file_header.file_wrap_cnt;
         }
@@ -765,14 +788,8 @@ int bcm_dev_log_file_read(bcm_dev_log_file *file, uint32_t *offset, char *buf, u
     /* If nothing more to read and CLEAR_AFTER_READ mode, read again under lock and clear if no new records */
     if (!len && bcm_dev_log_is_memory_file(file) && (file->file_parm.flags & BCM_DEV_LOG_FILE_FLAG_CLEAR_AFTER_READ))
     {
-        bcmos_mutex_lock(&file->u.mem_file.mutex);
-        len = file->file_parm.read_cb(file, offset, buf, buf_len);
-        if (!len)
-        {
-            file->file_parm.rewind_cb(file);
-            *offset = 0; /* Also reset user read ptr when log file is cleared down! */
-        }
-        bcmos_mutex_unlock(&file->u.mem_file.mutex);
+        file->file_parm.rewind_cb(file);
+        *offset = 0; /* Also reset user read ptr when log file is cleared down! */
     }
     return len;
 }
@@ -1133,6 +1150,9 @@ static bcmos_errno bcm_dev_log_create(
         DEV_LOG_ERROR_PRINTF("Error: Can't create print task sem (error: %d)\n", (int)err);
         return err;
     }
+
+    for (i = 0; i < DEV_LOG_MAX_GROUPS; i++)
+        dev_log.group_ids[i] = DEV_LOG_INVALID_ID;
 
     dev_log.state = BCM_DEV_LOG_STATE_ENABLED;
 
@@ -1512,26 +1532,38 @@ static void dev_log_add_log_name_to_table(const char *name)
     {
         if (strcmp(_name, logs_names[i].name) == 0)
         {
-            if (val < logs_names[i].first_instance)
+            if (val < 0)
             {
-                logs_names[i].first_instance = val;
+                logs_names[i].has_non_instance = BCMOS_TRUE;
             }
-            if (val > logs_names[i].last_instance)
+            else
             {
-                logs_names[i].last_instance = val;
+                logs_names[i].has_instance = BCMOS_TRUE;
+                if (val < logs_names[i].first_instance)
+                {
+                    logs_names[i].first_instance = val;
+                }
+                if (val > logs_names[i].last_instance)
+                {
+                    logs_names[i].last_instance = val;
+                }
             }
             break;
         }
     }
     if ((i == log_name_table_index) && (i < DEV_LOG_MAX_IDS))
     {
-        strncpy(logs_names[i].name, name, MAX_DEV_LOG_ID_NAME);
-        if (val == -1)
+        bcmolt_strncpy(logs_names[i].name, _name, MAX_DEV_LOG_ID_NAME + 1);
+        if (val < 0)
         {
-            val = LOG_NAME_NO_INSTANCE;
+            logs_names[i].has_non_instance = BCMOS_TRUE;
         }
-        logs_names[i].last_instance = val;
-        logs_names[i].first_instance = val;
+        else
+        {
+            logs_names[i].has_instance = BCMOS_TRUE;
+            logs_names[i].first_instance = val;
+            logs_names[i].last_instance = val;
+        }
         log_name_table_index++;
     }
 }
@@ -1544,11 +1576,11 @@ void dev_log_get_log_name_table(char *buffer, uint32_t buf_len)
     buffer[0] = '\0';
     for (i = 0; i < log_name_table_index; i++)
     {
-        if (logs_names[i].first_instance == LOG_NAME_NO_INSTANCE)
+        if (logs_names[i].has_non_instance)
         {
             snprintf(&buffer[strlen(buffer)], buf_len_free, "%s\n", logs_names[i].name);
         }
-        else
+        if (logs_names[i].has_instance)
         {
             snprintf(&buffer[strlen(buffer)], buf_len_free, "%s %d - %d\n", logs_names[i].name, logs_names[i].first_instance, logs_names[i].last_instance);
         }
@@ -1631,6 +1663,15 @@ dev_log_id bcm_dev_log_id_register(const char *name,
     bcm_dev_log_id_set_level_and_type_to_default((dev_log_id)new_id);
     new_id->style = BCM_DEV_LOG_STYLE_NORMAL;
     new_id->is_active = BCMOS_TRUE;
+    new_id->group_idx = DEV_LOG_MAX_GROUPS;
+    new_id->group_membership_mask = 0;
+
+#ifdef ENABLE_CLI
+    /* Update the CLI enum for log IDs. */
+    bcm_dev_log_cli_log_id_enum[_log_id_enum_len].name = new_id->name;
+    bcm_dev_log_cli_log_id_enum[_log_id_enum_len].val = (dev_log_id)new_id;
+    _log_id_enum_len++;
+#endif
 
     return (dev_log_id)new_id;
 }
@@ -1641,6 +1682,49 @@ void bcm_dev_log_id_unregister(dev_log_id id)
 
     parm->is_active = BCMOS_FALSE;
     *parm->name = '\0';
+
+    if (parm->group_idx != DEV_LOG_MAX_GROUPS)
+    {
+        /* Remove all loggers from this group. */
+        dev_log_id log_id = DEV_LOG_INVALID_ID;
+        while ((log_id = bcm_dev_log_group_log_id_get_next(id, log_id)) != DEV_LOG_INVALID_ID)
+        {
+            bcm_dev_log_group_remove_log_id(id, log_id);
+        }
+        dev_log.group_ids[parm->group_idx] = DEV_LOG_INVALID_ID;
+    }
+
+#ifdef ENABLE_CLI
+    /* Update the CLI enum for log IDs. */
+    {
+        int i;
+        int j;
+        for (i = 0; i < _log_id_enum_len; i++)
+        {
+            if (bcm_dev_log_cli_log_id_enum[i].val == id)
+            {
+                for (j = i + 1; j < _log_id_enum_len; j++)
+                {
+                    bcm_dev_log_cli_log_id_enum[j - 1] = bcm_dev_log_cli_log_id_enum[j];
+                }
+                _log_id_enum_len--;
+                bcm_dev_log_cli_log_id_enum[_log_id_enum_len].name = NULL;
+                break;
+            }
+        }
+    }
+#endif
+}
+
+bcmos_bool bcm_dev_log_id_is_registered(dev_log_id id)
+{
+    if (!id || (id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: id not valid (0x%x)\n", (unsigned int)id);
+        return BCMOS_FALSE;
+    }
+
+    return BCMOS_TRUE;
 }
 
 bcmos_errno bcm_dev_log_id_set_type(dev_log_id id, bcm_dev_log_id_type log_type)
@@ -1713,6 +1797,18 @@ bcmos_errno bcm_dev_log_id_set_level(dev_log_id id, bcm_dev_log_level log_level_
         bcm_dev_log_linux_id_set_level(id, log_level_print, log_level_save);
     }
 #endif
+
+    if (parm->group_idx != DEV_LOG_MAX_GROUPS)
+    {
+        /* Recursively set the log levels on all members of this group. */
+        dev_log_id log_id = DEV_LOG_INVALID_ID;
+        while ((log_id = bcm_dev_log_group_log_id_get_next(id, log_id)) != DEV_LOG_INVALID_ID)
+        {
+            bcmos_errno rc = bcm_dev_log_id_set_level(log_id, log_level_print, log_level_save);
+            if (rc != BCM_ERR_OK)
+                return rc;
+        }
+    }
 
     return BCM_ERR_OK;
 }
@@ -1805,11 +1901,8 @@ bcmos_errno bcm_dev_log_id_clear_counters(dev_log_id id)
 
 bcmos_errno bcm_dev_log_id_get(dev_log_id id, dev_log_id_parm *parm)
 {
-    if (!id || (id == DEV_LOG_INVALID_ID))
-    {
-        DEV_LOG_ERROR_PRINTF("Error: id not valid (0x%x)\n", (unsigned int)id);
+    if (!bcm_dev_log_id_is_registered(id))
         return BCM_ERR_PARM;
-    }
 
     *parm = *(dev_log_id_parm *)id;
 
@@ -1834,15 +1927,21 @@ bcmos_errno bcm_dev_log_id_get_level(dev_log_id id, bcm_dev_log_level *p_log_lev
 
 bcmos_errno bcm_dev_log_id_set(dev_log_id id, dev_log_id_parm *parm)
 {
+    bcmos_errno rc;
+
     if (!id || (id == DEV_LOG_INVALID_ID))
     {
         DEV_LOG_ERROR_PRINTF("Error: id not valid (0x%x)\n", (unsigned int)id);
         return BCM_ERR_PARM;
     }
 
-    *(dev_log_id_parm *)id = *parm;
+    /* The only parts of the logger params that make sense to set are level/type/style.
+     * Everything else is dynamic internal information that should not be changed by the caller. */
+    rc = bcm_dev_log_id_set_level(id, parm->log_level_print, parm->log_level_save);
+    rc = (rc != BCM_ERR_OK) ? rc : bcm_dev_log_id_set_type(id, parm->log_type);
+    rc = (rc != BCM_ERR_OK) ? rc : bcm_dev_log_id_set_style(id, parm->style);
 
-    return BCM_ERR_OK;
+    return rc;
 }
 
 dev_log_id bcm_dev_log_id_get_by_index(uint32_t index)
@@ -1892,6 +1991,116 @@ dev_log_id bcm_dev_log_id_get_by_name(const char *name)
     }
 
     return id;
+}
+
+bcmos_errno bcm_dev_log_group_add_log_id(dev_log_id group_id, dev_log_id log_id)
+{
+    dev_log_id_parm *group_id_parm = (dev_log_id_parm *)group_id;
+    dev_log_id_parm *log_id_parm = (dev_log_id_parm *)log_id;
+
+    if (!log_id || (log_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: log_id not valid (0x%x)\n", (unsigned int)log_id);
+        return BCM_ERR_PARM;
+    }
+    if (!group_id || (group_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: group_id not valid (0x%x)\n", (unsigned int)group_id);
+        return BCM_ERR_PARM;
+    }
+
+    if (group_id_parm->group_idx == DEV_LOG_MAX_GROUPS)
+    {
+        /* The requested group logger isn't a group yet, so we need to allocate one. */
+        for (group_id_parm->group_idx = 0; group_id_parm->group_idx < DEV_LOG_MAX_GROUPS; group_id_parm->group_idx++)
+        {
+            if (dev_log.group_ids[group_id_parm->group_idx] == DEV_LOG_INVALID_ID)
+                break;
+        }
+        if (group_id_parm->group_idx == DEV_LOG_MAX_GROUPS)
+        {
+            DEV_LOG_ERROR_PRINTF("Error: no more groups available\n");
+            return BCM_ERR_NO_MORE;
+        }
+        dev_log.group_ids[group_id_parm->group_idx] = group_id;
+    }
+
+    log_id_parm->group_membership_mask |= (1u << group_id_parm->group_idx);
+    return BCM_ERR_OK;
+}
+
+bcmos_errno bcm_dev_log_group_remove_log_id(dev_log_id group_id, dev_log_id log_id)
+{
+    dev_log_id_parm *group_id_parm = (dev_log_id_parm *)group_id;
+    dev_log_id_parm *log_id_parm = (dev_log_id_parm *)log_id;
+
+    if (!log_id || (log_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: log_id not valid (0x%x)\n", (unsigned int)log_id);
+        return BCM_ERR_PARM;
+    }
+    if (!group_id || (group_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: group_id not valid (0x%x)\n", (unsigned int)group_id);
+        return BCM_ERR_PARM;
+    }
+
+    if (group_id_parm->group_idx == DEV_LOG_MAX_GROUPS)
+    {
+        /* group_id isn't a group so by definition it doesn't contain any other log IDs. */
+        return BCM_ERR_OK;
+    }
+
+    log_id_parm->group_membership_mask &= ~(1u << group_id_parm->group_idx);
+    return BCM_ERR_OK;
+}
+
+bcmos_bool bcm_dev_log_id_group_contains_log_id(dev_log_id group_id, dev_log_id log_id)
+{
+    dev_log_id_parm *group_id_parm = (dev_log_id_parm *)group_id;
+    dev_log_id_parm *log_id_parm = (dev_log_id_parm *)log_id;
+
+    if (!log_id || (log_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: log_id not valid (0x%x)\n", (unsigned int)log_id);
+        return BCMOS_FALSE;
+    }
+    if (!group_id || (group_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: group_id not valid (0x%x)\n", (unsigned int)group_id);
+        return BCMOS_FALSE;
+    }
+
+    if (group_id_parm->group_idx == DEV_LOG_MAX_GROUPS)
+    {
+        /* group_id isn't a group so by definition it doesn't contain any other log IDs. */
+        return BCMOS_FALSE;
+    }
+
+    return ((log_id_parm->group_membership_mask & (1u << group_id_parm->group_idx)) != 0);
+}
+
+
+dev_log_id bcm_dev_log_group_log_id_get_next(dev_log_id group_id, dev_log_id log_id)
+{
+    dev_log_id_parm *group_id_parm = (dev_log_id_parm *)group_id;
+
+    if (!group_id || (group_id == DEV_LOG_INVALID_ID))
+    {
+        DEV_LOG_ERROR_PRINTF("Error: group_id not valid (0x%x)\n", (unsigned int)group_id);
+        return DEV_LOG_INVALID_ID;
+    }
+
+    if (group_id_parm->group_idx < DEV_LOG_MAX_GROUPS)
+    {
+        while ((log_id = bcm_dev_log_id_get_next(log_id)) != DEV_LOG_INVALID_ID)
+        {
+            if (bcm_dev_log_id_group_contains_log_id(group_id, log_id))
+                return log_id;
+        }
+    }
+
+    return DEV_LOG_INVALID_ID;
 }
 
 bcmos_bool bcm_dev_log_get_control(void)

@@ -32,7 +32,7 @@ void bcmolt_intf_ref_set_default(bcmolt_intf_ref *obj)
 {
     obj->presence_mask = 0;
     obj->intf_type = BCMOLT_INTERFACE_TYPE_UNASSIGNED;
-    obj->intf_id = (bcmolt_interface_id)255;
+    obj->intf_id = (bcmolt_interface_id)65535U;
     obj->intf_opt = (bcmolt_intf_opt)0U;
 }
 
@@ -45,8 +45,6 @@ bcmos_bool bcmolt_intf_ref_validate(const bcmolt_intf_ref *obj, bcmos_errno *err
         case BCMOLT_INTERFACE_TYPE_PON:
         case BCMOLT_INTERFACE_TYPE_NNI:
         case BCMOLT_INTERFACE_TYPE_HOST:
-        case BCMOLT_INTERFACE_TYPE_EPON_1_G:
-        case BCMOLT_INTERFACE_TYPE_EPON_10_G:
         case BCMOLT_INTERFACE_TYPE_ERPS:
         case BCMOLT_INTERFACE_TYPE_LAG:
         case BCMOLT_INTERFACE_TYPE_PROTECTION:
@@ -93,6 +91,7 @@ bcmos_bool bcmolt_access_control_fwd_action_validate(const bcmolt_access_control
         case BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_DROP:
         case BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_REDIRECT:
         case BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_NO_ACTION:
+        case BCMOLT_ACCESS_CONTROL_FWD_ACTION_TYPE_COUNT_ONLY:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1744,7 +1743,7 @@ bcmos_bool bcmolt_classifier_validate(const bcmolt_classifier *obj, bcmos_errno 
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_CLASSIFIER_ID_PKT_TAG_TYPE))
     {
-        if ((obj->pkt_tag_type & ~0xFUL) != 0)
+        if ((obj->pkt_tag_type & ~0x1FUL) != 0)
         {
             *err = BCM_ERR_RANGE;
             bcmolt_string_append(err_details, "pkt_tag_type: 0x%X includes invalid bits\n", obj->pkt_tag_type);
@@ -2023,7 +2022,7 @@ void bcmolt_egress_qos_set_union_default(bcmolt_egress_qos *obj, bcmolt_egress_q
         break;
     case BCMOLT_EGRESS_QOS_TYPE_PRIORITY_TO_QUEUE:
         obj->u.priority_to_queue.presence_mask = 0;
-        obj->u.priority_to_queue.tm_qmp_id = (bcmolt_tm_qmp_id)15;
+        obj->u.priority_to_queue.tm_qmp_id = (bcmolt_tm_qmp_id)255;
         obj->u.priority_to_queue.tm_q_set_id = (bcmolt_tm_queue_set_id)32768U;
         break;
     case BCMOLT_EGRESS_QOS_TYPE_NONE:
@@ -2162,6 +2161,8 @@ bcmos_bool bcmolt_embedded_image_entry_validate(const bcmolt_embedded_image_entr
         case BCMOLT_DEVICE_IMAGE_TYPE_EPON_ONU_FIRMWARE:
         case BCMOLT_DEVICE_IMAGE_TYPE_DDR_PHY:
         case BCMOLT_DEVICE_IMAGE_TYPE_CFE:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_LINUX_IMG:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_DTB_IMG:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -2237,7 +2238,7 @@ bcmos_bool bcmolt_embedded_image_entry_list_u8_max_4_validate(const bcmolt_embed
 void bcmolt_erps_intf_ref_set_default(bcmolt_erps_intf_ref *obj)
 {
     obj->presence_mask = 0;
-    obj->intf_id = (bcmolt_interface_id)255;
+    obj->intf_id = (bcmolt_interface_id)65535U;
     obj->intf_type = BCMOLT_INTERFACE_TYPE_UNASSIGNED;
     obj->port_type = (bcmolt_erps_port)0;
     obj->intf_opt = (bcmolt_intf_opt)0U;
@@ -2257,8 +2258,6 @@ bcmos_bool bcmolt_erps_intf_ref_validate(const bcmolt_erps_intf_ref *obj, bcmos_
         case BCMOLT_INTERFACE_TYPE_PON:
         case BCMOLT_INTERFACE_TYPE_NNI:
         case BCMOLT_INTERFACE_TYPE_HOST:
-        case BCMOLT_INTERFACE_TYPE_EPON_1_G:
-        case BCMOLT_INTERFACE_TYPE_EPON_10_G:
         case BCMOLT_INTERFACE_TYPE_ERPS:
         case BCMOLT_INTERFACE_TYPE_LAG:
         case BCMOLT_INTERFACE_TYPE_PROTECTION:
@@ -2350,7 +2349,7 @@ void bcmolt_firmware_sw_version_set_default(bcmolt_firmware_sw_version *obj)
     obj->presence_mask = 0;
     obj->major = 0;
     obj->minor = 0;
-    obj->revision = 0x0;
+    obj->revision = 0;
     obj->model = 0UL;
     bcmolt_str_32_set_default(&obj->build_time);
 }
@@ -2386,40 +2385,6 @@ bcmos_bool bcmolt_firmware_sw_version_validate(const bcmolt_firmware_sw_version 
         *err = BCM_ERR_READ_ONLY;
         bcmolt_string_append(err_details, "build_time: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
-    }
-    return BCMOS_TRUE;
-}
-
-void bcmolt_flow_intf_ref_set_default(bcmolt_flow_intf_ref *obj)
-{
-    obj->presence_mask = 0;
-    obj->intf_type = BCMOLT_FLOW_INTERFACE_TYPE_UNASSIGNED;
-    obj->intf_id = (bcmolt_interface_id)255;
-}
-
-bcmos_bool bcmolt_flow_intf_ref_validate(const bcmolt_flow_intf_ref *obj, bcmos_errno *err, bcmolt_string *err_details)
-{
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_INTF_REF_ID_INTF_TYPE))
-    {
-        switch (obj->intf_type)
-        {
-        case BCMOLT_FLOW_INTERFACE_TYPE_PON:
-        case BCMOLT_FLOW_INTERFACE_TYPE_NNI:
-        case BCMOLT_FLOW_INTERFACE_TYPE_HOST:
-        case BCMOLT_FLOW_INTERFACE_TYPE_ERPS:
-        case BCMOLT_FLOW_INTERFACE_TYPE_PROTECTION:
-        case BCMOLT_FLOW_INTERFACE_TYPE_LAG:
-        case BCMOLT_FLOW_INTERFACE_TYPE_UNASSIGNED:
-            break;
-        default:
-            *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "intf_type: enum value %d is unexpected\n", (int)obj->intf_type);
-            return BCMOS_FALSE;
-        }
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_INTF_REF_ID_INTF_ID))
-    {
-        /* obj->intf_id can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -2965,6 +2930,10 @@ bcmos_bool bcmolt_gpon_trx_validate(const bcmolt_gpon_trx *obj, bcmos_errno *err
         case BCMOLT_TRX_TYPE_LTF_5306:
         case BCMOLT_TRX_TYPE_LTF_5308_B:
         case BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA:
+        case BCMOLT_TRX_TYPE_COMBO_GENERAL_1:
+        case BCMOLT_TRX_TYPE_COMBO_GENERAL_2:
+        case BCMOLT_TRX_TYPE_COMBO_GENERAL_3:
+        case BCMOLT_TRX_TYPE_COMBO_GENERAL_4:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -3122,7 +3091,7 @@ void bcmolt_host_sw_version_set_default(bcmolt_host_sw_version *obj)
     obj->presence_mask = 0;
     obj->major = 0;
     obj->minor = 0;
-    obj->revision = 0x0;
+    obj->revision = 0;
     obj->model = 0U;
     bcmolt_str_64_set_default(&obj->build_time);
 }
@@ -5870,6 +5839,7 @@ void bcmolt_itupon_dba_set_default(bcmolt_itupon_dba *obj)
     obj->num_of_frames_per_map = BCMOLT_NUM_OF_FRAMES_PER_MAP_X_8;
     obj->external_dba_options = (bcmolt_external_dba_options)0UL;
     bcmolt_extended_dba_priority_adjustment_set_default(&obj->extended_dba_priority_adjustment);
+    obj->dba_options = (bcmolt_dba_options)0;
 }
 
 bcmos_bool bcmolt_itupon_dba_validate(const bcmolt_itupon_dba *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -5919,6 +5889,15 @@ bcmos_bool bcmolt_itupon_dba_validate(const bcmolt_itupon_dba *obj, bcmos_errno 
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_DBA_ID_DBA_OPTIONS))
+    {
+        if ((obj->dba_options & ~0x1) != 0)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "dba_options: 0x%X includes invalid bits\n", obj->dba_options);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -6525,6 +6504,10 @@ bcmos_bool bcmolt_lag_global_parms_validate(const bcmolt_lag_global_parms *obj, 
         case BCMOLT_LAG_HASH_POLYNOMIAL_CRC16_0X8101:
         case BCMOLT_LAG_HASH_POLYNOMIAL_CRC16_0X84A1:
         case BCMOLT_LAG_HASH_POLYNOMIAL_CRC16_0X9019:
+        case BCMOLT_LAG_HASH_POLYNOMIAL_CRC_16_0X100D7:
+        case BCMOLT_LAG_HASH_POLYNOMIAL_CRC_16_0X10AC5:
+        case BCMOLT_LAG_HASH_POLYNOMIAL_CRC_16_0X12105:
+        case BCMOLT_LAG_HASH_POLYNOMIAL_CRC_16_0X1203D:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -6534,7 +6517,7 @@ bcmos_bool bcmolt_lag_global_parms_validate(const bcmolt_lag_global_parms *obj, 
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_GLOBAL_PARMS_ID_HASH_FIELD))
     {
-        if ((obj->hash_field & ~0x1FFUL) != 0)
+        if ((obj->hash_field & ~0x7FFUL) != 0)
         {
             *err = BCM_ERR_RANGE;
             bcmolt_string_append(err_details, "hash_field: 0x%X includes invalid bits\n", obj->hash_field);
@@ -7140,6 +7123,46 @@ bcmos_bool bcmolt_remote_mep_validate(const bcmolt_remote_mep *obj, bcmos_errno 
         *err = BCM_ERR_READ_ONLY;
         bcmolt_string_append(err_details, "state: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_ring_port_detailed_state_set_default(bcmolt_ring_port_detailed_state *obj)
+{
+    obj->presence_mask = 0;
+    obj->rx_state = BCMOLT_RING_PORT_STATE_UNASSIGNED;
+    obj->tx_state = BCMOLT_RING_PORT_STATE_UNASSIGNED;
+}
+
+bcmos_bool bcmolt_ring_port_detailed_state_validate(const bcmolt_ring_port_detailed_state *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_RING_PORT_DETAILED_STATE_ID_RX_STATE))
+    {
+        switch (obj->rx_state)
+        {
+        case BCMOLT_RING_PORT_STATE_UNASSIGNED:
+        case BCMOLT_RING_PORT_STATE_BLOCKED:
+        case BCMOLT_RING_PORT_STATE_UNBLOCKED:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "rx_state: enum value %d is unexpected\n", (int)obj->rx_state);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_RING_PORT_DETAILED_STATE_ID_TX_STATE))
+    {
+        switch (obj->tx_state)
+        {
+        case BCMOLT_RING_PORT_STATE_UNASSIGNED:
+        case BCMOLT_RING_PORT_STATE_BLOCKED:
+        case BCMOLT_RING_PORT_STATE_UNBLOCKED:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "tx_state: enum value %d is unexpected\n", (int)obj->tx_state);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -7764,7 +7787,7 @@ void bcmolt_topology_map_set_default(bcmolt_topology_map *obj)
     obj->presence_mask = 0;
     obj->local_device_id = (bcmolt_ldid)0;
     obj->olt_device_id = (bcmolt_odid)0;
-    obj->physical_if_id = (bcmolt_interface_id)0;
+    obj->physical_if_id = (bcmolt_interface_id)0U;
     bcmolt_str_16_set_default(&obj->user_string);
 }
 
@@ -8082,6 +8105,14 @@ bcmos_bool bcmolt_xgpon_trx_validate(const bcmolt_xgpon_trx *obj, bcmos_errno *e
         case BCMOLT_XGPON_TRX_TYPE_LTF_5308_B:
         case BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA:
         case BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL:
+        case BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_1:
+        case BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_2:
+        case BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_3:
+        case BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_4:
+        case BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_1:
+        case BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_2:
+        case BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_3:
+        case BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_4:
             break;
         default:
             *err = BCM_ERR_RANGE;

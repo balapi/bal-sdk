@@ -36,6 +36,7 @@ typedef enum
     BCMOLT_METADATA_WRITE_STYLE_VERBOSE = (1 << 2),
     BCMOLT_METADATA_WRITE_STYLE_C_INIT = (1 << 3),
     BCMOLT_METADATA_WRITE_STYLE_CLI_INPUT = (1 << 4),
+    BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY = (1 << 5),
 } bcmolt_api_write_style;
 
 typedef void (*bcmolt_metadata_writer_write)(void *user_data, const char *format, va_list ap);
@@ -49,17 +50,12 @@ typedef struct
     uint32_t ignore_tags;                    /* Ignore these tags when filtering fields */
 } bcmolt_metadata_writer;
 
-/* Write a single property. */
-bcmos_errno bcmolt_metadata_write_prop(
+void bcmolt_metadata_write(const bcmolt_metadata_writer *writer, const char *format, ...);
+void bcmolt_metadata_write_indented(
     const bcmolt_metadata_writer *writer,
-    const bcmolt_field_descr *pd,
-    const void *prop_data);
-
-/* Write a single property value in C initializer format. */
-bcmos_errno bcmolt_metadata_write_prop_initializer(
-    const bcmolt_metadata_writer *writer,
-    const bcmolt_field_descr *pd,
-    const void *prop_data);
+    uint16_t indent_level,
+    const char *format,
+    ...);
 
 /* Write a single metadata element (field, property, etc). Generally for internal use. */
 bcmos_errno bcmolt_metadata_write_elem(

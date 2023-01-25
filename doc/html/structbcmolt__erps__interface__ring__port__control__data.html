@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -118,6 +118,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a09698517562a7d2d549775674a18758f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3d444927d87dbc2e70c533bd2670340"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__object__model.html#ga5c094bbb4d3d86d6d41de2173d76488b">bcmolt_result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__erps__interface__ring__port__control__data.html#aa3d444927d87dbc2e70c533bd2670340">result</a></td></tr>
 <tr class="separator:aa3d444927d87dbc2e70c533bd2670340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9192cb71a02cbfdec59cee384706d617"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__erps__interface__ring__port__control__data.html#a9192cb71a02cbfdec59cee384706d617">port_detailed_state</a></td></tr>
+<tr class="separator:a9192cb71a02cbfdec59cee384706d617"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a2a897cd663b92295a31a80ca064b1c5f"></a>
@@ -155,7 +157,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Port State. </p>
+<p>The resulting state of the port after the command. For details on the blocked state see the detailed port state. </p>
 
 </div>
 </div>
@@ -172,6 +174,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9192cb71a02cbfdec59cee384706d617"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a> port_detailed_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The resulting state for both tx and rx of the port after the command. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__api__structs_8h_source.html">bcmolt_api_model_api_structs.h</a></li>
 </ul>
@@ -184,7 +199,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__erps__interface__ring__port__control__data.html">bcmolt_erps_interface_ring_port_control_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>
