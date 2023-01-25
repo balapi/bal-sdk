@@ -484,15 +484,12 @@ bcmos_errno bcmos_sys_timer_create(bcmos_sys_timer *timer, bcmos_sys_timer_handl
     if (rc)
         BCMOS_TRACE_RETURN(rc, "Can't create timer task\n");
 
-    sa.sa_flags = SA_SIGINFO;
+    sa.sa_flags = SA_SIGINFO | SA_RESTART;
     sa.sa_sigaction = timer_sig_handler;
     sigemptyset(&sa.sa_mask);
     if (sigaction(TIMER_SIG, &sa, NULL) == -1)
         perror("sigaction");
-    /* Prevent timer signal from interrupting system calls */
-    if (siginterrupt(TIMER_SIG, 0) == -1)
-        perror("siginterrupt");
-
+ 
    /* Create librt timer */
    sev.sigev_notify = SIGEV_SIGNAL;
    sev.sigev_signo = TIMER_SIG;
