@@ -489,7 +489,7 @@ bcmos_errno bcmos_sys_timer_create(bcmos_sys_timer *timer, bcmos_sys_timer_handl
     sigemptyset(&sa.sa_mask);
     if (sigaction(TIMER_SIG, &sa, NULL) == -1)
         perror("sigaction");
- 
+
    /* Create librt timer */
    sev.sigev_notify = SIGEV_SIGNAL;
    sev.sigev_signo = TIMER_SIG;
