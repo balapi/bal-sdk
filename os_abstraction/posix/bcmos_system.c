@@ -27,6 +27,8 @@
 #include <sys/resource.h>
 #include <arpa/inet.h>
 
+static F_bcmos_bug_handler _os_bug_handler;
+
 /* task control blocks */
 extern STAILQ_HEAD(task_list, bcmos_task) task_list;
 
@@ -79,6 +81,8 @@ bcmos_errno bcmos_task_create(bcmos_task *task, const bcmos_task_parm *parm)
     F_bcmos_task_handler handler;
     pthread_attr_t pthread_attr;
     struct sched_param pthread_sched_param = {};
+#define MAX_PROCESS_NAME_LENGTH  16
+    char process_name[MAX_PROCESS_NAME_LENGTH];
     int pthread_prio;
     uint32_t stack_size;
     void *data;
@@ -163,6 +167,19 @@ bcmos_errno bcmos_task_create(bcmos_task *task, const bcmos_task_parm *parm)
         }
         BCMOS_TRACE_RETURN(BCM_ERR_SYSCALL_ERR, "%s (%d)\n", strerror(rc), rc);
     }
+
+    if (task->parm.name)
+    {
+        strncpy(process_name, parm->name, sizeof(process_name) - 1);
+        process_name[sizeof(process_name) - 1] = 0;
+        rc = pthread_setname_np(task->sys_task.t, process_name);
+        if (rc)
+        {
+            BCMOS_TRACE_ERR("pthread_setname_np(%s) failed with error '%s'\n",
+                parm->name, strerror(rc));
+            /* Fall through and ignore the error */
+        }
+    }
     return BCM_ERR_OK;
 }
 
@@ -233,6 +250,12 @@ void bcmos_mutex_destroy(bcmos_mutex *mutex)
     pthread_mutexattr_destroy(&mutex->attr);
 }
 
+/* Return whether a given mutex is valid or not */
+bcmos_bool bcmos_mutex_is_valid(bcmos_mutex *mutex)
+{
+    return BCMOS_TRUE;
+}
+
 /* calculate absolute time equal to the current time + timeout */
 static inline void _bcmos_get_abs_time(struct timespec *ts, uint32_t timeout)
 {
@@ -299,6 +322,12 @@ bcmos_errno bcmos_sem_create(bcmos_sem *sem, uint32_t count, uint32_t flags, con
 void bcmos_sem_destroy(bcmos_sem *sem)
 {
     sem_destroy(&sem->s);
+}
+
+/* Return whether a given semaphore is valid or not */
+bcmos_bool bcmos_sem_is_valid(bcmos_sem *sem)
+{
+    return BCMOS_TRUE;
 }
 
 /* Decrement semaphore counter. Wait if the counter is 0 */
@@ -544,6 +573,15 @@ void bcmos_usleep(uint32_t us)
  * Memory management
  */
 
+/* Stubs */
+void _bcmos_malloc_lock(void)
+{
+}
+
+void _bcmos_malloc_unlock(void)
+{
+}
+
 /** Allocate memory from the main heap */
 #ifndef BCMOS_HEAP_DEBUG
 void *bcmos_alloc(uint32_t size)
@@ -610,9 +648,7 @@ bcmos_errno bcmos_byte_pool_create(bcmos_byte_pool *pool, const bcmos_byte_pool_
     {
         BCMOS_TRACE_RETURN(BCM_ERR_PARM, "size %u\n", parm->size);
     }
-#ifdef BCMOS_MEM_CHECK
     pool->magic = BCMOS_BYTE_POOL_VALID;
-#endif
     return BCM_ERR_OK;
 }
 
@@ -624,10 +660,14 @@ bcmos_errno bcmos_byte_pool_destroy(bcmos_byte_pool *pool)
         BCMOS_TRACE_RETURN(BCM_ERR_STATE, "%u bytes of memory are still allocated from the pool %s\n",
             pool->allocated, pool->parm.name);
     }
-#ifdef BCMOS_MEM_CHECK
     pool->magic = BCMOS_BYTE_POOL_DELETED;
-#endif
     return BCM_ERR_OK;
+}
+
+/* Return whether a given byte pool is valid or not */
+bcmos_bool bcmos_byte_pool_is_valid(bcmos_byte_pool *pool)
+{
+    return pool->magic == BCMOS_BYTE_POOL_VALID;
 }
 
 /* Allocate memory from memory pool */
@@ -692,13 +732,37 @@ void _bcmos_backtrace(void)
 
     size = backtrace(array, sizeof(array)/sizeof(array[0]));
     strings = backtrace_symbols(array, size);
+    /* Do not print backtrace if it was unable to unwind the call stack.
+       The top 2 entries in the backtrace don't carry any useful info.
+       The top one is the backtrace itself and the next one is the function
+       that called BCMOS_TRACE_ERR macro.
+    */
+    if (size < 3 || strings == NULL)
+        return;
 
     printf("Obtained %zd stack frames.\n", size);
-
     for (i = 0; i < size; i++)
         printf("%s\n", strings[i]);
 
     free(strings);
+}
+
+void bcmos_bug_handler_install(F_bcmos_bug_handler handler)
+{
+    _os_bug_handler = handler;
+}
+
+void bcmos_bug_handler_call(const char *error_msg, const char *file, int line)
+{
+    if (_os_bug_handler)
+    {
+        _os_bug_handler(error_msg, file, line);
+        __builtin_unreachable();
+    }
+    else
+    {
+        abort();
+    }
 }
 
 #ifdef SIMULATION_BUILD
@@ -887,7 +951,7 @@ bcmos_errno bcmos_msg_address_parse(const char *addr_string, bcmos_msg_queue_ep_
         strncpy(sa.sun_path, addr_string, sizeof(sa.sun_path) - 1);
         /* In linux path can start from 0 character */
         if (!sa.sun_path[0])
-            strncpy(&sa.sun_path[1], addr_string + 1, sizeof(sa.sun_path) - 1);
+            strncpy(&sa.sun_path[1], addr_string + 1, sizeof(sa.sun_path) - 2);
         memcpy(addr->addr, &sa, sizeof(sa));
         break;
     }

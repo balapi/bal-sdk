@@ -31,5 +31,6 @@
 #include "bcmolt_api_model_supporting_struct_funcs.h"
 #include "bcmolt_api_model_supporting_enum_funcs.h"
 #include "bcmolt_api_model_tags.h"
+#include "bcmolt_api_model_backward_compatibility.h"
 
 #endif

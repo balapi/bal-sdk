@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -108,21 +108,21 @@ $(document).ready(function(){initNavTree('object_inband_mgmt_channel_cfg.html','
 <li>Parameter: <a class="el" href="structbcmolt__inband__mgmt__channel__cfg.html">bcmolt_inband_mgmt_channel_cfg</a><br />
 <table class="doxtable">
 <tr>
-<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default </th></tr>
+<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default</th><th>Minimum</th><th>Maximum </th></tr>
 <tr>
-<td>nni_intf</td><td>The NNI interface Id</td><td><a class="el" href="structbcmolt__flow__intf__ref.html">bcmolt_flow_intf_ref</a></td><td>RW</td><td></td></tr>
+<td>nni_intf</td><td>The NNI interface Id</td><td><a class="el" href="structbcmolt__intf__ref.html">bcmolt_intf_ref</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>policer_profile</td><td>policer_profile</td><td><a class="el" href="group__object__model.html#ga25e2f176af8b10c8d43725ee91bc5db3">bcmolt_policer_profile_id</a></td><td>RW</td><td>65535U </td></tr>
+<td>policer_profile</td><td>policer_profile</td><td><a class="el" href="group__object__model.html#ga25e2f176af8b10c8d43725ee91bc5db3">bcmolt_policer_profile_id</a></td><td>RW</td><td>65535U</td><td></td><td></td></tr>
 <tr>
-<td>nic_intf_id</td><td>The logical port from Topology file, facing the NIC card on host</td><td><a class="el" href="group__object__model.html#gaf61f7ea89110c9dc0e4bc2283171596d">bcmolt_interface_id</a></td><td>RW</td><td></td></tr>
+<td>nic_intf_id</td><td>The logical port from Topology file, facing the NIC card on host</td><td><a class="el" href="group__object__model.html#ga759d36aa520190fb49eaedd70df3e47b">bcmolt_interface_id</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>vlan_id</td><td>The classifier for this inband mgmt flow. Vid is always an Outer Vid</td><td>uint16_t</td><td>RW</td><td></td></tr>
+<td>vlan_id</td><td>The classifier for this inband mgmt flow. Vid is always an Outer Vid</td><td>uint16_t</td><td>RW</td><td></td><td>1U</td><td>4094U </td></tr>
 <tr>
-<td>nic_card_mac</td><td>NIC card MAC address</td><td>bcmos_mac_address</td><td>RW</td><td></td></tr>
+<td>nic_card_mac</td><td>NIC card MAC address</td><td>bcmos_mac_address</td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>action</td><td>The action associated with the inband flow</td><td><a class="el" href="group__object__model.html#gac3fe954c8ed9ba07670206c2cc3c70be">bcmolt_inband_mgmt_action_type</a></td><td>RW</td><td></td></tr>
+<td>action</td><td>The action associated with the inband flow</td><td><a class="el" href="group__object__model.html#gac3fe954c8ed9ba07670206c2cc3c70be">bcmolt_inband_mgmt_action_type</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>state</td><td>Inband Mgmt State</td><td><a class="el" href="group__object__model.html#gae58aebe8347dfdf1ca375c4fb2daeaf4">bcmolt_inband_mgmt_state</a></td><td>R</td><td>BCMOLT_INBAND_MGMT_STATE_NOT_CONFIGURED </td></tr>
+<td>state</td><td>Inband Mgmt State</td><td><a class="el" href="group__object__model.html#gae58aebe8347dfdf1ca375c4fb2daeaf4">bcmolt_inband_mgmt_state</a></td><td>R</td><td>BCMOLT_INBAND_MGMT_STATE_NOT_CONFIGURED</td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('object_inband_mgmt_channel_cfg.html','
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_inband_mgmt_channel.html">Object: inband_mgmt_channel - BAL Inband Management Channel</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

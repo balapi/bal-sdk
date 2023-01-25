@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -113,7 +113,7 @@ Macros</h2></td></tr>
 <tr class="separator:gae6b35d0d09174fc91c764fe8ec392835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae8b13fbe0a768bae679ef5b97ff29d3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fields.html#gae8b13fbe0a768bae679ef5b97ff29d3f">BCMOLT_FIELD_SET</a>(_s_ptr,  _s_type,  _f_name,  _field_value)</td></tr>
 <tr class="separator:gae8b13fbe0a768bae679ef5b97ff29d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga35b05643a3f3b1a232163b72f73d0054"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fields.html#ga35b05643a3f3b1a232163b72f73d0054">BCMOLT_FIELD_IS_SET</a>(_s_ptr,  _s_type,  _f_name)</td></tr>
+<tr class="memitem:ga35b05643a3f3b1a232163b72f73d0054"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fields.html#ga35b05643a3f3b1a232163b72f73d0054">BCMOLT_FIELD_IS_SET</a>(_s_ptr,  _s_type,  _f_name)&#160;&#160;&#160;bcmolt_field_is_set((_s_ptr)-&gt;presence_mask, bcmolt_ ## _s_type ## _id_ ## _f_name)</td></tr>
 <tr class="separator:ga35b05643a3f3b1a232163b72f73d0054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba7e6e09185534d24a98ed9fc0821a5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fields.html#gaba7e6e09185534d24a98ed9fc0821a5e">BCMOLT_MSG_FIELD_SET</a>(_msg_ptr,  _fully_qualified_field_name,  _field_value)</td></tr>
 <tr class="separator:gaba7e6e09185534d24a98ed9fc0821a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,11 +219,11 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;bcmolt_field_is_set((_s_ptr)-&gt;presence_mask, bcmolt_ ## _s_type ## _id_ ## _f_name)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((_s_ptr)-&gt;presence_mask == 0 ||                                            \</div><div class="line">     ((_s_ptr)-&gt;presence_mask &amp; (1ULL &lt;&lt; bcmolt_ ## _s_type ## _id_ ## _f_name)) != 0)</div></div><!-- fragment --><p>Check if API field is present (set/requested) </p>
+<p>Check if API field is present (set/requested) </p>
 
 </div>
 </div>
@@ -295,7 +295,7 @@ Macros</h2></td></tr>
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

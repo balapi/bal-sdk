@@ -788,6 +788,9 @@ void bcmolt_cm_exit(void)
     if (cmll_driver.cleanup)
         cmll_driver.cleanup();
 
+#ifdef ENABLE_LOG
+    bcm_dev_log_id_unregister(cm_log_id);
+#endif
     bcmos_mutex_destroy(&cm_conn_lock);
 
     bcmos_free(cm_conn_array);
@@ -912,9 +915,14 @@ bcmos_errno bcmolt_cm_device_get(bcmolt_cm_conn_id conn_id, bcmolt_ldid *device)
     //CM_LOG(DEBUG, "%s IN: conn_id=%u\n", __FUNCTION__, conn_id);
     if (cm_conn_array == NULL || conn_id >= cm_init_parms.max_conns)
         return BCM_ERR_PARM;
+    /* Return device even if connection is already broken. It is needed because
+       when application disconnect callback is called .connected is already FALSE.
+       Application disconnect callback might need to retrieve the device associated with
+       the connection in order to clean up.
+    */
+    *device = cm_conn_array[conn_id].device;
     if (!cm_conn_array[conn_id].connected)
         return BCM_ERR_NOT_CONNECTED;
-    *device = cm_conn_array[conn_id].device;
     //CM_LOG(DEBUG, "%s OUT: conn_id=%u device=%u\n", __FUNCTION__, conn_id, *device);
     return BCM_ERR_OK;
 }

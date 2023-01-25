@@ -20,6 +20,7 @@ var searchData=
   ['object_3a_20erps_5finterface_20_2d_20erps_20interface',['Object: erps_interface - ERPS Interface',['../object_erps_interface.html',1,'object_model']]],
   ['object_20configuration',['Object configuration',['../object_erps_interface_cfg.html',1,'object_erps_interface']]],
   ['operation_3a_20port_5fupdate',['Operation: port_update',['../object_erps_interface_port_update.html',1,'object_erps_interface']]],
+  ['operation_3a_20set_5fintf_5fopt',['Operation: set_intf_opt',['../object_erps_interface_set_intf_opt.html',1,'object_erps_interface']]],
   ['operation_3a_20set_5fring_5fport_5fcontrol',['Operation: set_ring_port_control',['../object_erps_interface_set_ring_port_control.html',1,'object_erps_interface']]],
   ['object_3a_20eth_5foam_20_2d_20ethernet_20oam',['Object: eth_oam - Ethernet OAM',['../object_eth_oam.html',1,'object_model']]],
   ['object_20configuration',['Object configuration',['../object_eth_oam_cfg.html',1,'object_eth_oam']]],

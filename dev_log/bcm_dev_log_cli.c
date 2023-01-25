@@ -33,13 +33,16 @@
 /* Dev log CLI session supports receiving long lines - we shall simply split them into shorter log messages. */
 #define DEV_LOG_CLI_SESSION_MAX_MSG_SIZE (MAX_DEV_LOG_STRING_NET_SIZE * 10)
 
+/* Dev log CLI command root directory. */
+static bcmcli_entry *bcm_dev_log_cli_root_dir;
+
 enum
 {
     ID_BY_INDEX,
     ID_BY_NAME,
 };
 
-static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, int32_t msgs_num, bcm_dev_log_print_cb print_callback, void *arg, bcmos_bool clear)
+static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, bcm_dev_log_print_cb print_callback, void *arg, bcmos_bool clear)
 {
     bcm_dev_log_file *file;
     char log_string[MAX_DEV_LOG_STRING_SIZE];
@@ -54,13 +57,11 @@ static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, int32_t msgs_num,
         return BCM_ERR_PARM;
 
     num_msgs = bcm_dev_log_get_num_of_messages(file);
-    if (msgs_num && msgs_num < num_msgs)
-        num_msgs = msgs_num;
 
-    DEV_LOG_INFO_PRINTF("file=%p, print %d msgs from file (orig: %d)\n", (void *)file, (int)num_msgs, (int)msgs_num);
+    DEV_LOG_INFO_PRINTF("print %d msgs from file %d\n", (int)num_msgs, (int)file_index);
 
     /* Print file */
-    for (i = 0; (i < msgs_num) || !msgs_num; i++)
+    for (i = 0; i < num_msgs; i++)
     {
         /* Read from file */
         length = bcm_dev_log_file_read(file, &offset, log_string, sizeof(log_string));
@@ -143,18 +144,14 @@ static void bcm_dev_log_cli_session_print_id_parm(bcmcli_session *session, const
 #endif
 }
 
-static bcmos_errno bcm_dev_log_cli_print_dev_log(
+static bcmos_errno bcm_dev_log_cli_print_dev_log_state(
     bcmcli_session *session,
     const bcmcli_cmd_parm parm[],
     uint16_t n_parms)
 {
-    uint32_t i;
-    bcm_dev_log_file *file;
-    dev_log_id log_id = DEV_LOG_INVALID_ID;
-
-    for (i = 0; i < DEV_LOG_MAX_FILES; i++)
+    for (uint32_t i = 0; i < DEV_LOG_MAX_FILES; i++)
     {
-        file = bcm_dev_log_file_get(i);
+        bcm_dev_log_file *file = bcm_dev_log_file_get(i);
         if (!file)
             continue;
         bcmcli_session_print(session, BCM_TAB  "file[%u]:\n", i);
@@ -179,6 +176,16 @@ static bcmos_errno bcm_dev_log_cli_print_dev_log(
     bcmcli_session_print(session, BCM_TAB2 "active_modules  = %u\n", dev_log.print_task.active_modules);
     bcmcli_session_print(session, BCM_TAB2 "current_module  = %u\n", dev_log.print_task.current_module);
 
+    return BCM_ERR_OK;
+}
+
+static bcmos_errno bcm_dev_log_cli_print_dev_log_ids(
+    bcmcli_session *session,
+    const bcmcli_cmd_parm parm[],
+    uint16_t n_parms)
+{
+    dev_log_id log_id = DEV_LOG_INVALID_ID;
+
     bcmcli_session_print(session, BCM_TAB  "ids[]:\n");
     while ((log_id = bcm_dev_log_id_get_next(log_id)) != DEV_LOG_INVALID_ID)
     {
@@ -186,15 +193,24 @@ static bcmos_errno bcm_dev_log_cli_print_dev_log(
         bcm_dev_log_cli_session_print_id_parm(session, BCM_TAB3, (dev_log_id_parm *)log_id);
     }
 
-    for (i = 0; i < log_name_table_index; i++)
+    return BCM_ERR_OK;
+}
+
+static bcmos_errno bcm_dev_log_cli_print_dev_log_names(
+    bcmcli_session *session,
+    const bcmcli_cmd_parm parm[],
+    uint16_t n_parms)
+{
+    bcmcli_session_print(session, BCM_TAB  "%u log names:\n", log_name_table_index);
+    for (uint32_t i = 0; i < log_name_table_index; i++)
     {
-        if (logs_names[i].first_instance == LOG_NAME_NO_INSTANCE)
+        if (logs_names[i].has_non_instance)
         {
             bcmcli_session_print(session, BCM_TAB2  "%s\n", logs_names[i].name);
         }
-        else
+        if (logs_names[i].has_instance)
         {
-            bcmcli_session_print(session, BCM_TAB2  "%s %d - %d\n", logs_names[i].name, logs_names[i].first_instance, logs_names[i].last_instance);
+            bcmcli_session_print(session, BCM_TAB2  "%s[%d - %d]\n", logs_names[i].name, logs_names[i].first_instance, logs_names[i].last_instance);
         }
     }
 
@@ -211,7 +227,6 @@ static bcmos_errno bcm_dev_log_cli_file_print(bcmcli_session *session, const bcm
 {
     return bcm_dev_log_file_print(
         parm[0].value.unumber,
-        0,
         (bcm_dev_log_print_cb)bcmcli_session_print,
         session,
         (bcmos_bool)parm[1].value.unumber);
@@ -287,16 +302,8 @@ static bcmos_errno bcm_dev_log_cli_id_set_level(bcmcli_session *session, const b
 
 static bcmos_errno bcm_dev_log_cli_name_set_level(bcmcli_session *session, const bcmcli_cmd_parm parm[], uint16_t n_parms)
 {
-    dev_log_id id;
-
-    id = bcm_dev_log_id_get_by_name(parm[0].value.string);
-    if (id == DEV_LOG_INVALID_ID)
-    {
-        return BCM_ERR_NOENT;
-    }
-
     return bcm_dev_log_id_set_level(
-        id,
+        (dev_log_id)parm[0].value.enum_val,
         (bcm_dev_log_level)parm[1].value.unumber,
         (bcm_dev_log_level)parm[2].value.unumber);
 }
@@ -400,7 +407,7 @@ static bcmos_errno bcm_dev_log_cli_instance_enable(
 
     for (i = 0; i < log_name_table_index; i++)
     {
-        if (logs_names[i].first_instance != LOG_NAME_NO_INSTANCE &&
+        if (logs_names[i].has_instance &&
             inst >= logs_names[i].first_instance &&
             inst <= logs_names[i].last_instance)
         {
@@ -424,6 +431,32 @@ static bcmos_errno bcm_dev_log_cli_instance_enable(
                 return err;
             }
             bcmcli_session_print(session, "Log '%s' %s\n", log_name, enable ? "enabled" : "disabled");
+        }
+    }
+
+    return BCM_ERR_OK;
+}
+
+static bcmos_errno bcm_dev_log_cli_group_list(bcmcli_session *session, const bcmcli_cmd_parm parm[], uint16_t n_parms)
+{
+    uint32_t group_idx;
+    uint32_t log_idx;
+
+    for (group_idx = 0; group_idx < DEV_LOG_MAX_GROUPS; group_idx++)
+    {
+        dev_log_id group_id = dev_log.group_ids[group_idx];
+        if (group_id != DEV_LOG_INVALID_ID)
+        {
+            dev_log_id_parm *group_parm = (dev_log_id_parm *)group_id;
+            bcmcli_session_print(session, "%s:\n", group_parm->name);
+            for (log_idx = 0; log_idx < DEV_LOG_MAX_IDS; log_idx++)
+            {
+                dev_log_id_parm *log_parm = &dev_log.ids[log_idx];
+                if (log_parm->is_active && ((log_parm->group_membership_mask & (1u << group_idx)) != 0))
+                {
+                    bcmcli_session_print(session, BCM_TAB "%s\n", log_parm->name);
+                }
+            }
         }
     }
 
@@ -505,7 +538,7 @@ static int dev_log_cli_session_write_cb(bcmcli_session *cli_session, const char 
     }
 
     /* Enough space in 'str' for concatenating what's in 'p'. */
-    strncat(session->str, p, tmp_str_len);
+    bcmolt_strncat(session->str, p, tmp_str_len);
     session->free_len -= tmp_str_len;
 
     /* If the message is not terminated by '\n', do not submit the message to logger yet
@@ -568,7 +601,9 @@ bcmcli_entry *bcm_dev_log_cli_init(bcmcli_entry *root_dir)
     BUG_ON(dir == NULL);
 
     {
-        BCMCLI_MAKE_CMD_NOPARM(dir, "print_dev_log", "Print Dev log", bcm_dev_log_cli_print_dev_log);
+        BCMCLI_MAKE_CMD_NOPARM(dir, "print_dev_log_names", "Print Dev log names", bcm_dev_log_cli_print_dev_log_names);
+        BCMCLI_MAKE_CMD_NOPARM(dir, "print_dev_log_state", "Print Dev log state", bcm_dev_log_cli_print_dev_log_state);
+        BCMCLI_MAKE_CMD_NOPARM(dir, "print_dev_log_ids", "Print Dev log IDs", bcm_dev_log_cli_print_dev_log_ids);
     }
     {
         BCMCLI_MAKE_CMD(dir, "logger_control", "Logger Control", bcm_dev_log_cli_logger_control,
@@ -641,7 +676,7 @@ bcmcli_entry *bcm_dev_log_cli_init(bcmcli_entry *root_dir)
     }
     {
         BCMCLI_MAKE_CMD(dir, "name_set_level", "name_set_level", bcm_dev_log_cli_name_set_level,
-            BCMCLI_MAKE_PARM("name", "name", BCMCLI_PARM_STRING, 0),
+            BCMCLI_MAKE_PARM_ENUM("name", "name", bcm_dev_log_cli_log_id_enum, 0),
             BCMCLI_MAKE_PARM_ENUM("log_level_print", "log_level", enum_table_log_level, 0),
             BCMCLI_MAKE_PARM_ENUM("log_level_save", "log_level", enum_table_log_level, 0));
     }
@@ -679,6 +714,13 @@ bcmcli_entry *bcm_dev_log_cli_init(bcmcli_entry *root_dir)
             BCMCLI_MAKE_PARM_ENUM("enable", "enable", bcmcli_enum_bool_table, 0),
             BCMCLI_MAKE_PARM("instance", "instance number", BCMCLI_PARM_UDECIMAL, 0));
     }
+    {
+        BCMCLI_MAKE_CMD_NOPARM(
+            dir,
+            "groups",
+            "print logger groups members",
+            bcm_dev_log_cli_group_list);
+    }
 #ifdef TRIGGER_LOGGER_FEATURE
     {
         BCMCLI_MAKE_CMD(dir, "id_set_throttle", "set throttle", bcm_dev_log_cli_throttle,
@@ -710,6 +752,8 @@ bcmcli_entry *bcm_dev_log_cli_init(bcmcli_entry *root_dir)
         BCMCLI_MAKE_CMD(dir, "set_level_and_type_all", "set_level_and_type_all", bcm_dev_log_cli_set_level_and_type_all,
             BCMCLI_MAKE_PARM_ENUM("set_all", "log_type", enum_table_log_set_all, 0));
     }
+
+    bcm_dev_log_cli_root_dir = dir;
     return dir;
 }
 

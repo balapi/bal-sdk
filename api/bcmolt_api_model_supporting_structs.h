@@ -45,7 +45,7 @@ typedef struct
 /* Constants associated with bcmolt_intf_ref. */
 #define BCMOLT_INTF_REF_PRESENCE_MASK_ALL 0x0000000000000007ULL
 #define BCMOLT_INTF_REF_INTF_TYPE_DEFAULT BCMOLT_INTERFACE_TYPE_UNASSIGNED
-#define BCMOLT_INTF_REF_INTF_ID_DEFAULT (bcmolt_interface_id)255
+#define BCMOLT_INTF_REF_INTF_ID_DEFAULT (bcmolt_interface_id)65535U
 #define BCMOLT_INTF_REF_INTF_OPT_DEFAULT (bcmolt_intf_opt)0U
 
 /** access control fowarding action */
@@ -678,7 +678,7 @@ typedef struct
 #define BCMOLT_EGRESS_QOS_TC_TO_QUEUE_TC_ID_MAX 7
 #define BCMOLT_EGRESS_QOS_PBIT_TO_TC_PRESENCE_MASK_ALL 0x0000000000000003ULL
 #define BCMOLT_EGRESS_QOS_PRIORITY_TO_QUEUE_PRESENCE_MASK_ALL 0x0000000000000003ULL
-#define BCMOLT_EGRESS_QOS_PRIORITY_TO_QUEUE_TM_QMP_ID_DEFAULT (bcmolt_tm_qmp_id)15
+#define BCMOLT_EGRESS_QOS_PRIORITY_TO_QUEUE_TM_QMP_ID_DEFAULT (bcmolt_tm_qmp_id)255
 #define BCMOLT_EGRESS_QOS_PRIORITY_TO_QUEUE_TM_Q_SET_ID_DEFAULT (bcmolt_tm_queue_set_id)32768U
 #define BCMOLT_EGRESS_QOS_NONE_PRESENCE_MASK_ALL 0x0000000000000000ULL
 
@@ -723,7 +723,7 @@ typedef struct
 
 /* Constants associated with bcmolt_erps_intf_ref. */
 #define BCMOLT_ERPS_INTF_REF_PRESENCE_MASK_ALL 0x000000000000001FULL
-#define BCMOLT_ERPS_INTF_REF_INTF_ID_DEFAULT (bcmolt_interface_id)255
+#define BCMOLT_ERPS_INTF_REF_INTF_ID_DEFAULT (bcmolt_interface_id)65535U
 #define BCMOLT_ERPS_INTF_REF_INTF_TYPE_DEFAULT BCMOLT_INTERFACE_TYPE_UNASSIGNED
 #define BCMOLT_ERPS_INTF_REF_SUB_PORT_IDX_DEFAULT 255
 
@@ -759,19 +759,6 @@ typedef struct
 
 /* Constants associated with bcmolt_firmware_sw_version. */
 #define BCMOLT_FIRMWARE_SW_VERSION_PRESENCE_MASK_ALL 0x000000000000001FULL
-
-/** flow interface reference */
-typedef struct
-{
-    bcmolt_presence_mask presence_mask;
-    bcmolt_flow_interface_type intf_type; /**< flow interface type */
-    bcmolt_interface_id intf_id; /**< flow interface id */
-} bcmolt_flow_intf_ref;
-
-/* Constants associated with bcmolt_flow_intf_ref. */
-#define BCMOLT_FLOW_INTF_REF_PRESENCE_MASK_ALL 0x0000000000000003ULL
-#define BCMOLT_FLOW_INTF_REF_INTF_TYPE_DEFAULT BCMOLT_FLOW_INTERFACE_TYPE_UNASSIGNED
-#define BCMOLT_FLOW_INTF_REF_INTF_ID_DEFAULT (bcmolt_interface_id)255
 
 /** GEM port configuration */
 typedef struct
@@ -1294,7 +1281,7 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
-    uint32_t cbr_bw; /**< Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/secin XGPON. */
+    uint32_t cbr_bw; /**< Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/sec in XGPON. */
     uint32_t total_bw; /**< Total BW available for guaranteed traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/sec in XGPON. */
     uint32_t group_total_bw; /**< Total BW available for guaranteed traffic for the entire PON group. In all modes, this is expressed in bytes/sec. */
     uint32_t next_onu_total_bw; /**< Total BW available for guaranteed traffic after new ONU is added. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/sec in XGPON. */
@@ -1709,13 +1696,15 @@ typedef struct
     bcmolt_num_of_frames_per_map num_of_frames_per_map; /**< Number of frames per map */
     bcmolt_external_dba_options external_dba_options; /**< External DBA options */
     bcmolt_extended_dba_priority_adjustment extended_dba_priority_adjustment; /**< Extended DBA priority adjustment, to prevent starvation of low priorities */
+    bcmolt_dba_options dba_options; /**< DBA options */
 } bcmolt_itupon_dba;
 
 /* Constants associated with bcmolt_itupon_dba. */
-#define BCMOLT_ITUPON_DBA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_ITUPON_DBA_PRESENCE_MASK_ALL 0x000000000000001FULL
 #define BCMOLT_ITUPON_DBA_IMPLEMENTATION_TYPE_DEFAULT BCMOLT_DBA_IMPLEMENTATION_TYPE_INTERNAL
 #define BCMOLT_ITUPON_DBA_NUM_OF_FRAMES_PER_MAP_DEFAULT BCMOLT_NUM_OF_FRAMES_PER_MAP_X_8
 #define BCMOLT_ITUPON_DBA_EXTERNAL_DBA_OPTIONS_DEFAULT (bcmolt_external_dba_options)0UL
+#define BCMOLT_ITUPON_DBA_DBA_OPTIONS_DEFAULT (bcmolt_dba_options)0
 
 /** ITU PON Attributes */
 typedef struct
@@ -2033,6 +2022,17 @@ typedef struct
 #define BCMOLT_REMOTE_MEP_ID_DEFAULT (bcmolt_mep_id)65535U
 #define BCMOLT_REMOTE_MEP_LOC_CLEAR_THRESHOLD_DEFAULT BCMOLT_LOC_CLEAR_THRESHOLD_CCM_INTERVAL_TIMES_2
 #define BCMOLT_REMOTE_MEP_STATE_DEFAULT BCMOLT_CONTROL_STATE_ENABLE
+
+/** Ring Port Detailed State */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_ring_port_state rx_state; /**< Rx State. */
+    bcmolt_ring_port_state tx_state; /**< Tx State. */
+} bcmolt_ring_port_detailed_state;
+
+/* Constants associated with bcmolt_ring_port_detailed_state. */
+#define BCMOLT_RING_PORT_DETAILED_STATE_PRESENCE_MASK_ALL 0x0000000000000003ULL
 
 /** rssi in activation measurement result */
 typedef struct

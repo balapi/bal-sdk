@@ -65,6 +65,15 @@ struct bcmos_task
 #define BCMOS_TASK_MAGIC_DESTROYED      (('t' << 24) | ('a' << 16) | ('s' << 8) | '~')
 };
 
+/** Return whether a given task is valid (initialized) or not
+ * \param[in]   task   task control block
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_task_is_valid(bcmos_task *task)
+{
+    return task->magic == BCMOS_TASK_MAGIC;
+}
+
 /** \addtogroup system_mem
  * @{
  */
@@ -137,9 +146,6 @@ unsigned long bcmos_virt_to_phys(void *va);
  * @{
  */
 
-/* Memory block header */
-typedef struct bcmos_memblk bcmos_memblk;
-
 /* Memory block list */
 typedef STAILQ_HEAD(, bcmos_memblk) bcmos_memblk_list;
 
@@ -163,6 +169,15 @@ struct bcmos_blk_pool
 
 /* Total memory occupied by all block pools */
 extern uint32_t bcmos_total_blk_pool_size;
+
+/** Return whether a given block pool is valid (initialized) or not
+ * \param[in]   pool   pool control block
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_blk_pool_is_valid(bcmos_blk_pool *pool)
+{
+    return pool->magic == BCMOS_BLK_POOL_VALID;
+}
 
 /** @} blk_pool */
 
@@ -224,6 +239,15 @@ struct bcmos_msg_queue
     STAILQ_ENTRY(bcmos_msg_queue) list; /* Queue list */
 };
 
+/** Return whether a given message queue is valid (initialized) or not
+ * \param[in]   queue   message queue control block
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_msg_queue_is_valid(bcmos_msg_queue *queue)
+{
+    return queue->magic == BCMOS_MSG_QUEUE_VALID;
+}
+
 /** Message queue group control block */
 struct bcmos_msg_qgroup
 {
@@ -241,6 +265,15 @@ struct bcmos_msg_qgroup
     STAILQ_ENTRY(bcmos_msg_qgroup) list; /* Queue group list */
 };
 
+/** Return whether a given message queue group is valid (initialized) or not
+ * \param[in]   queue   message queue group control block
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_msg_qgroup_is_valid(bcmos_msg_qgroup *qgroup)
+{
+    return qgroup->magic == BCMOS_MSG_QGROUP_VALID;
+}
+
 /** Message pool control block */
 struct bcmos_msg_pool
 {
@@ -250,6 +283,15 @@ struct bcmos_msg_pool
 
 /* Total memory occupied by all message pools */
 extern uint32_t bcmos_total_msg_pool_size;
+
+/** Return whether a given message pool is valid (initialized) or not
+ * \param[in]   pool   message pool control block
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_msg_pool_is_valid(bcmos_msg_pool *pool)
+{
+    return pool->blk_pool.magic == BCMOS_BLK_POOL_VALID;
+}
 
 /** @} system_msg */
 
@@ -291,10 +333,10 @@ struct bcmos_timer
 #else
     TAILQ_ENTRY(bcmos_timer) pool_entry;
 #endif
-#ifdef BCMOS_TIMER_DEBUG
-    uint32_t magic;                     /* magic number */
 #define BCMOS_TIMER_MAGIC                (('t' << 24) | ('i' << 16) | ('m' << 8) | 'r')
 #define BCMOS_TIMER_MAGIC_DESTROYED      (('t' << 24) | ('i' << 16) | ('m' << 8) | '~')
+    uint32_t magic;                     /* magic number */
+#ifdef BCMOS_TIMER_DEBUG
     /* Unlike the above entries, which the timer enters only when it is started, we need a separate entry (linked list)
      * for all timer, so in debug time we can traverse all system timers. */
     STAILQ_ENTRY(bcmos_timer) list;     /**< Next timer pointer */
@@ -345,6 +387,17 @@ struct bcmos_module
     bcmos_bool deleted;         /**< TRUE=module is being deleted */
 };
 
+/** Return whether a given module is valid (initialized) or not
+ * \param[in]   module_id  Module_id
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_module_is_valid(bcmos_module_id module_id)
+{
+    bcmos_module *module = _bcmos_module_get(module_id);
+
+    return module ? BCMOS_TRUE : BCMOS_FALSE;
+}
+
 /** @} system_module */
 
 /** \addtogroup system_event
@@ -365,6 +418,16 @@ struct bcmos_event
     char name[BCMOS_MAX_NAME_LENGTH];   /**< Event name */
 };
 
+/** Return whether a given event is valid (initialized) or not
+ * \param[in]   event_id  Event_id
+ * \returns true if valid, false otherwise
+ */
+static inline bcmos_bool bcmos_event_is_valid(bcmos_event_id event_id)
+{
+    bcmos_event *event = _bcmos_event_get(event_id);
+
+    return event ? BCMOS_TRUE : BCMOS_FALSE;
+}
 
 static inline bcmos_event *_bcmos_msg_to_event(bcmos_msg *msg)
 {

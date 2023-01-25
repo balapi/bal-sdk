@@ -23,11 +23,9 @@
 #ifndef _BCMOLT_MATH_H_
 #define _BCMOLT_MATH_H_
 
-/* Works for both float and double. */
-#define ROUND_FLOAT(size_in_bytes) ((typeof(size_in_bytes))((size_in_bytes) + 0.5))
-
-/* Works for integers. */
-#define CEIL_INT(size_in_bytes) (((size_in_bytes) - (typeof(size_in_bytes))(size_in_bytes)) > 0 ? ((typeof(size_in_bytes))(size_in_bytes) + 1) : (typeof(size_in_bytes))(size_in_bytes))
+/* Works for both float and double.
+ * If x is negative, round down, else round up. */
+#define ROUND_FLOAT(x) (((x) == (double)(long)(x)) ? (long)(x) : (long)((x) + (((x) < 0) ? -1 : 1)))
 
 #define SQUARE(x) ((x) * (x))
 #define PERCENT(percent, x) (((float)(percent) * (x)) / 100)
@@ -77,5 +75,9 @@
 #define DIV_ROUND(a, b) (((a) + ((b) / 2)) / (b))
 
 #define TWO_TO_POWER_OF(x) (1 << (x))
+
+/* Avoid using math.h's function fdim(), so this code may be portable. */
+#define FDIM(x, y) ((x) > (y) ? (x) - (y) : 0)
+#define FDIM_ASSIGN(x, y) ((x) = FDIM((x), (y)))
 
 #endif /* _BCMOLT_MATH_H_ */

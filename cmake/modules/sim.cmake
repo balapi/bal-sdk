@@ -15,12 +15,20 @@ add_definitions(-DSIMULATION_BUILD)
 #====
 # Add the compile and link flags we use for simulation
 #====
-set(BCM_CFLAGS      ${GCC_COMMON_CFLAGS} -ggdb -O0)
-set(BCM_CXXFLAGS    ${GCC_COMMON_CXXFLAGS} -ggdb -O0)
+set(BCM_CFLAGS      ${GCC_COMMON_CFLAGS} -ggdb -O2)
+set(BCM_CXXFLAGS    ${GCC_COMMON_CXXFLAGS} -ggdb -O2)
 
 set(BCM_LFLAGS              ${BCM_CFLAGS})
 set(BCM_EXTRA_C_WARNINGS    ${BCM_EXTRA_C_WARNINGS} -Wno-switch-bool)
 set(BCM_OBJCOPY             objcopy)
+
+#====
+# Add in the common lint flags
+#====
+set(BCM_CFLAGS   ${BCM_CFLAGS} ${GCC_COMMON_CFLAGS})
+set(BCM_CXXFLAGS ${BCM_CXXFLAGS} ${GCC_COMMON_CXXFLAGS})
+
+set(BCM_EXTRA_C_WARNINGS    ${BCM_EXTRA_C_WARNINGS} -Wno-switch-bool)
 
 #====
 # Unset toolchain variables that might've been set by platform/board-specific target

@@ -61,6 +61,7 @@ void bcmolt_access_control_cfg_data_set_default(bcmolt_access_control_cfg_data *
     bcmolt_intf_ref_list_u8_set_default(&obj->interface_refs);
     bcmolt_policer_action_set_default(&obj->policer_action);
     bcmolt_mirror_action_set_default(&obj->mirror_action);
+    obj->stage = BCMOLT_STAGE_INGRESS;
 }
 
 bcmos_bool bcmolt_access_control_cfg_data_validate(const bcmolt_access_control_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -142,6 +143,19 @@ bcmos_bool bcmolt_access_control_cfg_data_validate(const bcmolt_access_control_c
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ACCESS_CONTROL_CFG_DATA_ID_STAGE))
+    {
+        switch (obj->stage)
+        {
+        case BCMOLT_STAGE_INGRESS:
+        case BCMOLT_STAGE_EGRESS:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stage: enum value %d is unexpected\n", (int)obj->stage);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -823,6 +837,7 @@ bcmos_bool bcmolt_device_connect_data_validate(const bcmolt_device_connect_data 
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
         case BCMOLT_SYSTEM_MODE_XGS__1_X:
         case BCMOLT_SYSTEM_MODE_XGPON__1_X:
+        case BCMOLT_SYSTEM_MODE_ITU__8_X_IEEE__8_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -980,6 +995,8 @@ bcmos_bool bcmolt_device_image_transfer_start_data_validate(const bcmolt_device_
         case BCMOLT_DEVICE_IMAGE_TYPE_EPON_ONU_FIRMWARE:
         case BCMOLT_DEVICE_IMAGE_TYPE_DDR_PHY:
         case BCMOLT_DEVICE_IMAGE_TYPE_CFE:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_LINUX_IMG:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_DTB_IMG:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1098,6 +1115,7 @@ bcmos_bool bcmolt_device_device_ready_data_validate(const bcmolt_device_device_r
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
         case BCMOLT_SYSTEM_MODE_XGS__1_X:
         case BCMOLT_SYSTEM_MODE_XGPON__1_X:
+        case BCMOLT_SYSTEM_MODE_ITU__8_X_IEEE__8_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1242,6 +1260,7 @@ bcmos_bool bcmolt_device_connection_complete_data_validate(const bcmolt_device_c
         case BCMOLT_SYSTEM_MODE_XGS__8_X_GPON__8_X_WDMA:
         case BCMOLT_SYSTEM_MODE_XGS__1_X:
         case BCMOLT_SYSTEM_MODE_XGPON__1_X:
+        case BCMOLT_SYSTEM_MODE_ITU__8_X_IEEE__8_X:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1363,6 +1382,8 @@ bcmos_bool bcmolt_device_image_transfer_complete_data_validate(const bcmolt_devi
         case BCMOLT_DEVICE_IMAGE_TYPE_EPON_ONU_FIRMWARE:
         case BCMOLT_DEVICE_IMAGE_TYPE_DDR_PHY:
         case BCMOLT_DEVICE_IMAGE_TYPE_CFE:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_LINUX_IMG:
+        case BCMOLT_DEVICE_IMAGE_TYPE_OPEN_CPU_DTB_IMG:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1660,15 +1681,15 @@ bcmos_bool bcmolt_device_auto_cfg_data_validate(const bcmolt_device_auto_cfg_dat
 
 void bcmolt_erps_interface_key_set_default(bcmolt_erps_interface_key *obj)
 {
-    obj->id = (bcmolt_erps_id)0;
+    obj->id = (bcmolt_erps_id)0U;
 }
 
 bcmos_bool bcmolt_erps_interface_key_validate(const bcmolt_erps_interface_key *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
-    if (obj->id > (bcmolt_erps_id)254)
+    if (obj->id > (bcmolt_erps_id)4096U)
     {
         *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 254\n", obj->id);
+        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 4096\n", obj->id);
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
@@ -1684,6 +1705,8 @@ void bcmolt_erps_interface_cfg_data_set_default(bcmolt_erps_interface_cfg_data *
     obj->east_port_state = BCMOLT_RING_PORT_STATE_UNASSIGNED;
     obj->west_port_state = BCMOLT_RING_PORT_STATE_UNASSIGNED;
     bcmolt_arr_intf_ref_16_set_default(&obj->sub_port_list);
+    bcmolt_ring_port_detailed_state_set_default(&obj->east_port_detailed_state);
+    bcmolt_ring_port_detailed_state_set_default(&obj->west_port_detailed_state);
 }
 
 bcmos_bool bcmolt_erps_interface_cfg_data_validate(const bcmolt_erps_interface_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -1739,6 +1762,18 @@ bcmos_bool bcmolt_erps_interface_cfg_data_validate(const bcmolt_erps_interface_c
         bcmolt_string_append(err_details, "sub_port_list: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_CFG_DATA_ID_EAST_PORT_DETAILED_STATE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "east_port_detailed_state: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_CFG_DATA_ID_WEST_PORT_DETAILED_STATE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "west_port_detailed_state: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
     return BCMOS_TRUE;
 }
 
@@ -1746,7 +1781,7 @@ void bcmolt_erps_interface_set_ring_port_control_data_set_default(bcmolt_erps_in
 {
     obj->presence_mask = 0;
     obj->command = BCMOLT_ERPS_CONTROL_UNASSIGNED;
-    obj->port = BCMOLT_RING_PORT_UNASSIGNED;
+    obj->port = (bcmolt_ring_port)0;
 }
 
 bcmos_bool bcmolt_erps_interface_set_ring_port_control_data_validate(const bcmolt_erps_interface_set_ring_port_control_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -1772,9 +1807,8 @@ bcmos_bool bcmolt_erps_interface_set_ring_port_control_data_validate(const bcmol
     {
         switch (obj->port)
         {
-        case BCMOLT_RING_PORT_UNASSIGNED:
-        case BCMOLT_RING_PORT_WEST:
         case BCMOLT_RING_PORT_EAST:
+        case BCMOLT_RING_PORT_WEST:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1788,10 +1822,11 @@ bcmos_bool bcmolt_erps_interface_set_ring_port_control_data_validate(const bcmol
 void bcmolt_erps_interface_ring_port_control_data_set_default(bcmolt_erps_interface_ring_port_control_data *obj)
 {
     obj->presence_mask = 0;
-    obj->port_id = BCMOLT_RING_PORT_UNASSIGNED;
+    obj->port_id = (bcmolt_ring_port)0;
     obj->command = BCMOLT_ERPS_CONTROL_UNASSIGNED;
     obj->port_state = BCMOLT_RING_PORT_STATE_UNASSIGNED;
     obj->result = BCMOLT_RESULT_SUCCESS;
+    bcmolt_ring_port_detailed_state_set_default(&obj->port_detailed_state);
 }
 
 bcmos_bool bcmolt_erps_interface_ring_port_control_data_validate(const bcmolt_erps_interface_ring_port_control_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -1800,9 +1835,8 @@ bcmos_bool bcmolt_erps_interface_ring_port_control_data_validate(const bcmolt_er
     {
         switch (obj->port_id)
         {
-        case BCMOLT_RING_PORT_UNASSIGNED:
-        case BCMOLT_RING_PORT_WEST:
         case BCMOLT_RING_PORT_EAST:
+        case BCMOLT_RING_PORT_WEST:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -1854,6 +1888,49 @@ bcmos_bool bcmolt_erps_interface_ring_port_control_data_validate(const bcmolt_er
             return BCMOS_FALSE;
         }
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_RING_PORT_CONTROL_DATA_ID_PORT_DETAILED_STATE))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "port_detailed_state.");
+        if (!bcmolt_ring_port_detailed_state_validate(&obj->port_detailed_state, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_erps_interface_set_intf_opt_data_set_default(bcmolt_erps_interface_set_intf_opt_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->port = (bcmolt_ring_port)0;
+    obj->intf_opt = (bcmolt_intf_opt)0U;
+}
+
+bcmos_bool bcmolt_erps_interface_set_intf_opt_data_validate(const bcmolt_erps_interface_set_intf_opt_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_SET_INTF_OPT_DATA_ID_PORT))
+    {
+        switch (obj->port)
+        {
+        case BCMOLT_RING_PORT_EAST:
+        case BCMOLT_RING_PORT_WEST:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "port: enum value %d is unexpected\n", (int)obj->port);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_SET_INTF_OPT_DATA_ID_INTF_OPT))
+    {
+        if ((obj->intf_opt & ~0x1) != 0)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "intf_opt: 0x%X includes invalid bits\n", obj->intf_opt);
+            return BCMOS_FALSE;
+        }
+    }
     return BCMOS_TRUE;
 }
 
@@ -1901,6 +1978,44 @@ bcmos_bool bcmolt_erps_interface_port_update_data_validate(const bcmolt_erps_int
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_erps_interface_set_intf_opt_complete_data_set_default(bcmolt_erps_interface_set_intf_opt_complete_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->port = (bcmolt_ring_port)0;
+    obj->result = BCMOLT_RESULT_SUCCESS;
+}
+
+bcmos_bool bcmolt_erps_interface_set_intf_opt_complete_data_validate(const bcmolt_erps_interface_set_intf_opt_complete_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_SET_INTF_OPT_COMPLETE_DATA_ID_PORT))
+    {
+        switch (obj->port)
+        {
+        case BCMOLT_RING_PORT_EAST:
+        case BCMOLT_RING_PORT_WEST:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "port: enum value %d is unexpected\n", (int)obj->port);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_SET_INTF_OPT_COMPLETE_DATA_ID_RESULT))
+    {
+        switch (obj->result)
+        {
+        case BCMOLT_RESULT_SUCCESS:
+        case BCMOLT_RESULT_FAIL:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "result: enum value %d is unexpected\n", (int)obj->result);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -1972,6 +2087,7 @@ void bcmolt_erps_interface_auto_cfg_data_set_default(bcmolt_erps_interface_auto_
     obj->presence_mask = 0;
     obj->port_update_complete = BCMOS_FALSE;
     obj->ring_port_control = BCMOS_FALSE;
+    obj->set_intf_opt_complete = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_erps_interface_auto_cfg_data_validate(const bcmolt_erps_interface_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -1983,6 +2099,10 @@ bcmos_bool bcmolt_erps_interface_auto_cfg_data_validate(const bcmolt_erps_interf
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_AUTO_CFG_DATA_ID_RING_PORT_CONTROL))
     {
         /* obj->ring_port_control can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ERPS_INTERFACE_AUTO_CFG_DATA_ID_SET_INTF_OPT_COMPLETE))
+    {
+        /* obj->set_intf_opt_complete can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -2026,7 +2146,7 @@ void bcmolt_eth_oam_cfg_data_set_default(bcmolt_eth_oam_cfg_data *obj)
     obj->pkt_tag_type = BCMOLT_PKT_TAG_TYPE_SINGLE_TAG;
     obj->o_vid = (bcmolt_vlan_id)0U;
     obj->o_pbits = 7;
-    obj->o_tpid = 0x1FA4;
+    obj->o_tpid = 0x8100;
     obj->i_vid = (bcmolt_vlan_id)0U;
     obj->i_pbits = 0;
     obj->i_tpid = 0U;
@@ -2086,7 +2206,7 @@ bcmos_bool bcmolt_eth_oam_cfg_data_validate(const bcmolt_eth_oam_cfg_data *obj, 
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ETH_OAM_CFG_DATA_ID_PKT_TAG_TYPE))
     {
-        if ((obj->pkt_tag_type & ~0xFUL) != 0)
+        if ((obj->pkt_tag_type & ~0x1FUL) != 0)
         {
             *err = BCM_ERR_RANGE;
             bcmolt_string_append(err_details, "pkt_tag_type: 0x%X includes invalid bits\n", obj->pkt_tag_type);
@@ -2388,8 +2508,8 @@ bcmos_bool bcmolt_eth_oam_auto_cfg_data_validate(const bcmolt_eth_oam_auto_cfg_d
 void bcmolt_flow_cfg_data_set_default(bcmolt_flow_cfg_data *obj)
 {
     obj->presence_mask = 0;
-    bcmolt_flow_intf_ref_set_default(&obj->ingress_intf);
-    bcmolt_flow_intf_ref_set_default(&obj->egress_intf);
+    bcmolt_intf_ref_set_default(&obj->ingress_intf);
+    bcmolt_intf_ref_set_default(&obj->egress_intf);
     obj->onu_id = (bcmolt_onu_id)65535U;
     obj->svc_port_id = (bcmolt_service_port_id)65535UL;
     bcmolt_classifier_set_default(&obj->classifier);
@@ -2403,6 +2523,7 @@ void bcmolt_flow_cfg_data_set_default(bcmolt_flow_cfg_data *obj)
     obj->cookie = (bcmolt_cookie)0ULL;
     obj->mac_table_miss_action = BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD;
     obj->policer_profile = (bcmolt_policer_profile_id)65535U;
+    obj->um_forwarding = BCMOLT_CONTROL_STATE_DISABLE;
 }
 
 bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -2410,7 +2531,7 @@ bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_CFG_DATA_ID_INGRESS_INTF))
     {
         int prefix_len = bcmolt_string_append(err_details, "ingress_intf.");
-        if (!bcmolt_flow_intf_ref_validate(&obj->ingress_intf, err, err_details))
+        if (!bcmolt_intf_ref_validate(&obj->ingress_intf, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -2419,7 +2540,7 @@ bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_CFG_DATA_ID_EGRESS_INTF))
     {
         int prefix_len = bcmolt_string_append(err_details, "egress_intf.");
-        if (!bcmolt_flow_intf_ref_validate(&obj->egress_intf, err, err_details))
+        if (!bcmolt_intf_ref_validate(&obj->egress_intf, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -2539,6 +2660,25 @@ bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_
             bcmolt_string_append(err_details, "policer_profile: %u is less than the minimum value of 1\n", obj->policer_profile);
             return BCMOS_FALSE;
         }
+        if (obj->policer_profile > (bcmolt_policer_profile_id)1023U)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "policer_profile: %u is greater than the maximum value of 1023\n", obj->policer_profile);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING))
+    {
+        switch (obj->um_forwarding)
+        {
+        case BCMOLT_CONTROL_STATE_DISABLE:
+        case BCMOLT_CONTROL_STATE_ENABLE:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "um_forwarding: enum value %d is unexpected\n", (int)obj->um_forwarding);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -2602,7 +2742,7 @@ void bcmolt_flow_send_eth_packet_data_set_default(bcmolt_flow_send_eth_packet_da
     obj->presence_mask = 0;
     bcmolt_bin_str_set_default(&obj->buffer);
     obj->inject_type = BCMOLT_INJECT_TYPE_INJECT_AT_EGRESS;
-    bcmolt_flow_intf_ref_set_default(&obj->ingress_intf);
+    bcmolt_intf_ref_set_default(&obj->ingress_intf);
     obj->svc_port_id = (bcmolt_service_port_id)65535UL;
 }
 
@@ -2633,7 +2773,7 @@ bcmos_bool bcmolt_flow_send_eth_packet_data_validate(const bcmolt_flow_send_eth_
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_SEND_ETH_PACKET_DATA_ID_INGRESS_INTF))
     {
         int prefix_len = bcmolt_string_append(err_details, "ingress_intf.");
-        if (!bcmolt_flow_intf_ref_validate(&obj->ingress_intf, err, err_details))
+        if (!bcmolt_intf_ref_validate(&obj->ingress_intf, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -3334,9 +3474,9 @@ bcmos_bool bcmolt_host_log_file_cfg_data_validate(const bcmolt_host_log_file_cfg
 void bcmolt_inband_mgmt_channel_cfg_data_set_default(bcmolt_inband_mgmt_channel_cfg_data *obj)
 {
     obj->presence_mask = 0;
-    bcmolt_flow_intf_ref_set_default(&obj->nni_intf);
+    bcmolt_intf_ref_set_default(&obj->nni_intf);
     obj->policer_profile = (bcmolt_policer_profile_id)65535U;
-    obj->nic_intf_id = (bcmolt_interface_id)0;
+    obj->nic_intf_id = (bcmolt_interface_id)0U;
     obj->vlan_id = 0U;
     bcmos_mac_address_init(&obj->nic_card_mac);
     obj->action = BCMOLT_INBAND_MGMT_ACTION_TYPE_NONE;
@@ -3348,7 +3488,7 @@ bcmos_bool bcmolt_inband_mgmt_channel_cfg_data_validate(const bcmolt_inband_mgmt
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INBAND_MGMT_CHANNEL_CFG_DATA_ID_NNI_INTF))
     {
         int prefix_len = bcmolt_string_append(err_details, "nni_intf.");
-        if (!bcmolt_flow_intf_ref_validate(&obj->nni_intf, err, err_details))
+        if (!bcmolt_intf_ref_validate(&obj->nni_intf, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -3362,6 +3502,12 @@ bcmos_bool bcmolt_inband_mgmt_channel_cfg_data_validate(const bcmolt_inband_mgmt
             bcmolt_string_append(err_details, "policer_profile: %u is less than the minimum value of 1\n", obj->policer_profile);
             return BCMOS_FALSE;
         }
+        if (obj->policer_profile > (bcmolt_policer_profile_id)1023U)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "policer_profile: %u is greater than the maximum value of 1023\n", obj->policer_profile);
+            return BCMOS_FALSE;
+        }
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INBAND_MGMT_CHANNEL_CFG_DATA_ID_NIC_INTF_ID))
     {
@@ -3369,7 +3515,18 @@ bcmos_bool bcmolt_inband_mgmt_channel_cfg_data_validate(const bcmolt_inband_mgmt
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INBAND_MGMT_CHANNEL_CFG_DATA_ID_VLAN_ID))
     {
-        /* obj->vlan_id can't be invalid. */
+        if (obj->vlan_id < 1U)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "vlan_id: %u is less than the minimum value of 1\n", obj->vlan_id);
+            return BCMOS_FALSE;
+        }
+        if (obj->vlan_id > 4094U)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "vlan_id: %u is greater than the maximum value of 4094\n", obj->vlan_id);
+            return BCMOS_FALSE;
+        }
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INBAND_MGMT_CHANNEL_CFG_DATA_ID_NIC_CARD_MAC))
     {
@@ -3443,6 +3600,7 @@ void bcmolt_internal_nni_cfg_data_set_default(bcmolt_internal_nni_cfg_data *obj)
     bcmolt_prbs_checker_config_set_default(&obj->prbs_checker);
     bcmolt_prbs_status_set_default(&obj->prbs_status);
     obj->nni_swap_delay_us = 320UL;
+    obj->flow_control_mode = BCMOLT_FLOW_CONTROL_MODE_FLOW_CONTROL_NONE;
 }
 
 bcmos_bool bcmolt_internal_nni_cfg_data_validate(const bcmolt_internal_nni_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -3581,6 +3739,20 @@ bcmos_bool bcmolt_internal_nni_cfg_data_validate(const bcmolt_internal_nni_cfg_d
         {
             *err = BCM_ERR_RANGE;
             bcmolt_string_append(err_details, "nni_swap_delay_us: %u is greater than the maximum value of 300000\n", obj->nni_swap_delay_us);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INTERNAL_NNI_CFG_DATA_ID_FLOW_CONTROL_MODE))
+    {
+        switch (obj->flow_control_mode)
+        {
+        case BCMOLT_FLOW_CONTROL_MODE_FLOW_CONTROL_NONE:
+        case BCMOLT_FLOW_CONTROL_MODE_PAUSE:
+        case BCMOLT_FLOW_CONTROL_MODE_PFC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "flow_control_mode: enum value %d is unexpected\n", (int)obj->flow_control_mode);
             return BCMOS_FALSE;
         }
     }
@@ -5042,6 +5214,7 @@ void bcmolt_itupon_alloc_cfg_data_set_default(bcmolt_itupon_alloc_cfg_data *obj)
     obj->onu_id = (bcmolt_onu_id)0U;
     obj->collect_stats = BCMOS_FALSE;
     obj->onu_tcont_max_queue_size = 0UL;
+    obj->latency_sensitive = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -5077,6 +5250,10 @@ bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_d
             bcmolt_string_append(err_details, "onu_tcont_max_queue_size: %u is greater than the maximum value of 16777215\n", obj->onu_tcont_max_queue_size);
             return BCMOS_FALSE;
         }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE))
+    {
+        /* obj->latency_sensitive can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -5662,12 +5839,12 @@ bcmos_bool bcmolt_itupon_gem_auto_cfg_data_validate(const bcmolt_itupon_gem_auto
 
 void bcmolt_lag_interface_key_set_default(bcmolt_lag_interface_key *obj)
 {
-    obj->id = (bcmolt_lag_interface_id)0;
+    obj->id = (bcmolt_lag_interface_id)0U;
 }
 
 bcmos_bool bcmolt_lag_interface_key_validate(const bcmolt_lag_interface_key *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
-    if (obj->id > (bcmolt_lag_interface_id)31)
+    if (obj->id > (bcmolt_lag_interface_id)31U)
     {
         *err = BCM_ERR_RANGE;
         bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 31\n", obj->id);
@@ -5786,7 +5963,6 @@ void bcmolt_lag_interface_stats_data_set_default(bcmolt_lag_interface_stats_data
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
     obj->rx_jabber_packets = 0ULL;
-    obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
     obj->tx_ucast_packets = 0ULL;
@@ -5859,10 +6035,6 @@ bcmos_bool bcmolt_lag_interface_stats_data_validate(const bcmolt_lag_interface_s
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS))
     {
         /* obj->rx_jabber_packets can't be invalid. */
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        /* obj->rx_unknown_protos can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES))
     {
@@ -6178,7 +6350,6 @@ void bcmolt_lag_interface_stats_cfg_data_set_default(bcmolt_lag_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
-    bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_ucast_packets);
@@ -6297,15 +6468,6 @@ bcmos_bool bcmolt_lag_interface_stats_cfg_data_validate(const bcmolt_lag_interfa
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
-        {
-            return BCMOS_FALSE;
-        }
-        bcmolt_string_rewind(err_details, prefix_len);
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_LAG_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->rx_unknown_protos, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -6597,7 +6759,6 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_raised_data_validate(const bcmolt_la
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -6659,7 +6820,6 @@ bcmos_bool bcmolt_lag_interface_stats_alarm_cleared_data_validate(const bcmolt_l
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_LAG_INTERFACE_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -7013,7 +7173,7 @@ void bcmolt_nni_interface_cfg_data_set_default(bcmolt_nni_interface_cfg_data *ob
     obj->link_state = BCMOLT_LINK_STATE_LINK_DOWN;
     obj->link_fault_code = (bcmolt_link_fault_code)0;
     bcmolt_str_48_set_default(&obj->description);
-    obj->mtu = 0UL;
+    obj->mtu = 9600UL;
     obj->speed = 0UL;
     obj->duplex = BCMOLT_DUPLEX_MODE_FULL;
     obj->auto_negotiate = BCMOLT_CONTROL_STATE_DISABLE;
@@ -7063,9 +7223,18 @@ bcmos_bool bcmolt_nni_interface_cfg_data_validate(const bcmolt_nni_interface_cfg
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_CFG_DATA_ID_MTU))
     {
-        *err = BCM_ERR_READ_ONLY;
-        bcmolt_string_append(err_details, "mtu: field is read-only and cannot be set\n");
-        return BCMOS_FALSE;
+        if (obj->mtu < 261UL)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "mtu: %u is less than the minimum value of 261\n", obj->mtu);
+            return BCMOS_FALSE;
+        }
+        if (obj->mtu > 9600UL)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "mtu: %u is greater than the maximum value of 9600\n", obj->mtu);
+            return BCMOS_FALSE;
+        }
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_CFG_DATA_ID_SPEED))
     {
@@ -7134,7 +7303,6 @@ void bcmolt_nni_interface_stats_data_set_default(bcmolt_nni_interface_stats_data
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
     obj->rx_jabber_packets = 0ULL;
-    obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
     obj->tx_ucast_packets = 0ULL;
@@ -7207,10 +7375,6 @@ bcmos_bool bcmolt_nni_interface_stats_data_validate(const bcmolt_nni_interface_s
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS))
     {
         /* obj->rx_jabber_packets can't be invalid. */
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        /* obj->rx_unknown_protos can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES))
     {
@@ -7336,7 +7500,6 @@ void bcmolt_nni_interface_link_state_change_data_set_default(bcmolt_nni_interfac
     obj->presence_mask = 0;
     obj->old_state = BCMOLT_LINK_STATE_LINK_DOWN;
     obj->new_state = BCMOLT_LINK_STATE_LINK_DOWN;
-    obj->fault_code = (bcmolt_link_fault_code)0;
 }
 
 bcmos_bool bcmolt_nni_interface_link_state_change_data_validate(const bcmolt_nni_interface_link_state_change_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -7367,12 +7530,33 @@ bcmos_bool bcmolt_nni_interface_link_state_change_data_validate(const bcmolt_nni
             return BCMOS_FALSE;
         }
     }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_LINK_STATE_CHANGE_DATA_ID_FAULT_CODE))
+    return BCMOS_TRUE;
+}
+
+void bcmolt_nni_interface_fault_code_change_data_set_default(bcmolt_nni_interface_fault_code_change_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->old_fault_code = (bcmolt_link_fault_code)0;
+    obj->new_fault_code = (bcmolt_link_fault_code)0;
+}
+
+bcmos_bool bcmolt_nni_interface_fault_code_change_data_validate(const bcmolt_nni_interface_fault_code_change_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_FAULT_CODE_CHANGE_DATA_ID_OLD_FAULT_CODE))
     {
-        if ((obj->fault_code & ~0x3) != 0)
+        if ((obj->old_fault_code & ~0x3) != 0)
         {
             *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "fault_code: 0x%X includes invalid bits\n", obj->fault_code);
+            bcmolt_string_append(err_details, "old_fault_code: 0x%X includes invalid bits\n", obj->old_fault_code);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_FAULT_CODE_CHANGE_DATA_ID_NEW_FAULT_CODE))
+    {
+        if ((obj->new_fault_code & ~0x3) != 0)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "new_fault_code: 0x%X includes invalid bits\n", obj->new_fault_code);
             return BCMOS_FALSE;
         }
     }
@@ -7392,7 +7576,6 @@ void bcmolt_nni_interface_stats_cfg_data_set_default(bcmolt_nni_interface_stats_
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
-    bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_ucast_packets);
@@ -7511,15 +7694,6 @@ bcmos_bool bcmolt_nni_interface_stats_cfg_data_validate(const bcmolt_nni_interfa
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
-        {
-            return BCMOS_FALSE;
-        }
-        bcmolt_string_rewind(err_details, prefix_len);
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->rx_unknown_protos, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -7811,7 +7985,6 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_raised_data_validate(const bcmolt_nn
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -7873,7 +8046,6 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_cleared_data_validate(const bcmolt_n
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_NNI_INTERFACE_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -7916,6 +8088,7 @@ bcmos_bool bcmolt_nni_interface_stats_alarm_cleared_data_validate(const bcmolt_n
 void bcmolt_nni_interface_auto_cfg_data_set_default(bcmolt_nni_interface_auto_cfg_data *obj)
 {
     obj->presence_mask = 0;
+    obj->fault_code_change = BCMOS_FALSE;
     obj->link_state_change = BCMOS_FALSE;
     obj->state_change = BCMOS_FALSE;
     obj->stats_alarm_cleared = BCMOS_FALSE;
@@ -7924,6 +8097,10 @@ void bcmolt_nni_interface_auto_cfg_data_set_default(bcmolt_nni_interface_auto_cf
 
 bcmos_bool bcmolt_nni_interface_auto_cfg_data_validate(const bcmolt_nni_interface_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_AUTO_CFG_DATA_ID_FAULT_CODE_CHANGE))
+    {
+        /* obj->fault_code_change can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_NNI_INTERFACE_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE))
     {
         /* obj->link_state_change can't be invalid. */
@@ -9152,6 +9329,7 @@ bcmos_bool bcmolt_onu_rssi_measurement_completed_data_validate(const bcmolt_onu_
         case BCMOLT_RSSI_MEASUREMENT_FAIL_REASON_NONE:
         case BCMOLT_RSSI_MEASUREMENT_FAIL_REASON_NO_DELIMITER:
         case BCMOLT_RSSI_MEASUREMENT_FAIL_REASON_NO_ACCESS:
+        case BCMOLT_RSSI_MEASUREMENT_FAIL_REASON_ONU_NO_LONGER_ACTIVE:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -10773,6 +10951,12 @@ bcmos_bool bcmolt_policer_profile_key_validate(const bcmolt_policer_profile_key 
         bcmolt_string_append(err_details, "id: %u is less than the minimum value of 1\n", obj->id);
         return BCMOS_FALSE;
     }
+    if (obj->id > (bcmolt_policer_profile_id)1023U)
+    {
+        *err = BCM_ERR_RANGE;
+        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 1023\n", obj->id);
+        return BCMOS_FALSE;
+    }
     return BCMOS_TRUE;
 }
 
@@ -12052,6 +12236,30 @@ bcmos_bool bcmolt_pon_interface_cpu_packets_failure_data_validate(const bcmolt_p
         {
             *err = BCM_ERR_RANGE;
             bcmolt_string_append(err_details, "gem_port_id: %u is greater than the maximum value of 65536\n", obj->gem_port_id);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_pon_interface_activate_all_onus_completed_data_set_default(bcmolt_pon_interface_activate_all_onus_completed_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->result = BCMOLT_RESULT_SUCCESS;
+}
+
+bcmos_bool bcmolt_pon_interface_activate_all_onus_completed_data_validate(const bcmolt_pon_interface_activate_all_onus_completed_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ACTIVATE_ALL_ONUS_COMPLETED_DATA_ID_RESULT))
+    {
+        switch (obj->result)
+        {
+        case BCMOLT_RESULT_SUCCESS:
+        case BCMOLT_RESULT_FAIL:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "result: enum value %d is unexpected\n", (int)obj->result);
             return BCMOS_FALSE;
         }
     }
@@ -13475,15 +13683,15 @@ bcmos_bool bcmolt_pon_interface_auto_cfg_data_validate(const bcmolt_pon_interfac
 
 void bcmolt_protection_interface_key_set_default(bcmolt_protection_interface_key *obj)
 {
-    obj->id = (bcmolt_protection_interface_id)0;
+    obj->id = (bcmolt_protection_interface_id)0U;
 }
 
 bcmos_bool bcmolt_protection_interface_key_validate(const bcmolt_protection_interface_key *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
-    if (obj->id > (bcmolt_protection_interface_id)63)
+    if (obj->id > (bcmolt_protection_interface_id)31U)
     {
         *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 63\n", obj->id);
+        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 31\n", obj->id);
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
@@ -13649,7 +13857,6 @@ void bcmolt_switch_inni_stats_data_set_default(bcmolt_switch_inni_stats_data *ob
     obj->rx_undersize_packets = 0ULL;
     obj->rx_oversize_packets = 0ULL;
     obj->rx_jabber_packets = 0ULL;
-    obj->rx_unknown_protos = 0ULL;
     obj->tx_bytes = 0ULL;
     obj->tx_packets = 0ULL;
     obj->tx_ucast_packets = 0ULL;
@@ -13722,10 +13929,6 @@ bcmos_bool bcmolt_switch_inni_stats_data_validate(const bcmolt_switch_inni_stats
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS))
     {
         /* obj->rx_jabber_packets can't be invalid. */
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        /* obj->rx_unknown_protos can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES))
     {
@@ -13859,7 +14062,6 @@ void bcmolt_switch_inni_stats_cfg_data_set_default(bcmolt_switch_inni_stats_cfg_
     bcmolt_stat_alarm_config_set_default(&obj->rx_undersize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_oversize_packets);
     bcmolt_stat_alarm_config_set_default(&obj->rx_jabber_packets);
-    bcmolt_stat_alarm_config_set_default(&obj->rx_unknown_protos);
     bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
     bcmolt_stat_alarm_config_set_default(&obj->tx_packets);
     bcmolt_stat_alarm_config_set_default(&obj->tx_ucast_packets);
@@ -13978,15 +14180,6 @@ bcmos_bool bcmolt_switch_inni_stats_cfg_data_validate(const bcmolt_switch_inni_s
     {
         int prefix_len = bcmolt_string_append(err_details, "rx_jabber_packets.");
         if (!bcmolt_stat_alarm_config_validate(&obj->rx_jabber_packets, err, err_details))
-        {
-            return BCMOS_FALSE;
-        }
-        bcmolt_string_rewind(err_details, prefix_len);
-    }
-    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_UNKNOWN_PROTOS))
-    {
-        int prefix_len = bcmolt_string_append(err_details, "rx_unknown_protos.");
-        if (!bcmolt_stat_alarm_config_validate(&obj->rx_unknown_protos, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -14278,7 +14471,6 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_raised_data_validate(const bcmolt_swit
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -14340,7 +14532,6 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_cleared_data_validate(const bcmolt_swi
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNDERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_OVERSIZE_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS:
-        case BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_UNKNOWN_PROTOS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_BYTES:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_PACKETS:
         case BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_UCAST_PACKETS:
@@ -14455,7 +14646,7 @@ bcmos_bool bcmolt_tc_to_queue_cfg_data_validate(const bcmolt_tc_to_queue_cfg_dat
 
 void bcmolt_tm_qmp_key_set_default(bcmolt_tm_qmp_key *obj)
 {
-    obj->id = (bcmolt_tm_qmp_id)15;
+    obj->id = (bcmolt_tm_qmp_id)255;
 }
 
 bcmos_bool bcmolt_tm_qmp_key_validate(const bcmolt_tm_qmp_key *obj, bcmos_errno *err, bcmolt_string *err_details)

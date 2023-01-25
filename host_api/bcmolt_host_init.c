@@ -23,8 +23,11 @@
 #include <bcmolt_host_api.h>
 #include <bcmtr_interface.h>
 #include <bcmolt_conn_mgr.h>
+#ifndef BCM_SUBSYSTEM_OPENCPU
 #include <bcmolt_api_conn_mgr.h>
+#endif
 #include <bcmolt_serializer.h>
+#include <bcmolt_host_dev_log.h>
 #ifdef BCM_BOARD_SUPPORT
 #include <bcmolt_board.h>
 #endif
@@ -55,6 +58,9 @@ bcmos_errno bcmolt_host_init(const bcmolt_host_init_parms *init_parms)
     /* Initialize logger */
     rc = bcm_log_init(&init_parms->log);
     BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmolt_log_init()\n");
+
+    /* Initialize host-specific logger info */
+    bcmolt_host_dev_log_init(BCMOLT_HOST_DEV_LOG_FLAGS_USER_APPL);
 #endif
 
     /* Initialize serializer utility */
@@ -98,6 +104,7 @@ bcmos_errno bcmolt_host_init(const bcmolt_host_init_parms *init_parms)
     rc = bcmtr_init(&tr_init_parms);
     BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmtr_init()\n");
 
+#ifndef BCM_SUBSYSTEM_OPENCPU
     /* Initialize API layer */
     rc = bcmolt_api_init();
     BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmolt_api_init()\n");
@@ -115,6 +122,19 @@ bcmos_errno bcmolt_host_init(const bcmolt_host_init_parms *init_parms)
             rc = bcmolt_api_conn_mgr_start((bcmolt_goid)olt, olt, &tr_conn_parms, conn_mgr_flags);
         BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmolt_api_conn_mgr_start()\n");
     }
+#else
+    /* For open CPU connect transport to dev_mgmt_daemon directly */
+    rc = bcmtr_connect(0, &tr_conn_parms);
+    BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmtr_connect()\n");
+
+    /* Initialize API layer */
+    rc = bcmolt_api_init();
+    BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmolt_api_init()\n");
+
+    rc = bcmolt_api_utils_init();
+    BCMOS_TRACE_CHECK_RETURN(rc, rc, "bcmolt_api_utils_init()\n");
+
+#endif
 
     return BCM_ERR_OK;
 }

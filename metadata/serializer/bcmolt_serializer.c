@@ -104,12 +104,19 @@ static void _prepend_err_field(bcmolt_buf *err_buf, const char *field_name)
     _prepend_err_text(err_buf, field_name);
 }
 
+#if ((__GNUC_MAJOR__ > 7)||(__GNUC__ > 7) )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-truncation"
+#endif
 static void _prepend_err_indexer(bcmolt_buf *err_buf, uint16_t idx)
 {
     char temp_buf[10] = {};
     snprintf(temp_buf, 6, "[%d]", idx);
     _prepend_err_text(err_buf, temp_buf);
 }
+#if ((__GNUC_MAJOR__ > 7)||(__GNUC__ > 7))
+#pragma GCC diagnostic pop
+#endif
 
 static inline uint8_t _read_u8(const void *data, uint16_t offset)
 {
@@ -502,7 +509,14 @@ bcmos_errno bcmolt_type_get_serialized_length(
         if (type->base_type == BCMOLT_BASE_TYPE_ID_ARR_DYN)
         {
             elem_type = type->x.arr_dyn.elem_type;
-            arr_data = _read_dyn_array_ptr_const(data, type->x.arr_dyn.data_offset);
+            if (type->x.arr_dyn.is_array_backend)
+            {
+                arr_data = (const uint8_t *)data + type->x.arr_dyn.data_offset;
+            }
+            else
+            {
+                arr_data = _read_dyn_array_ptr_const(data, type->x.arr_dyn.data_offset);
+            }
             arr_len = _read_unum(data, type->x.arr_dyn.len_offset, type->x.arr_dyn.len_type->size);
             *length = type->x.arr_dyn.len_type->size;
 
@@ -840,14 +854,20 @@ bcmos_errno bcmolt_type_serialize(
                 return err;
             }
 
-            arr_data = _read_dyn_array_ptr_const(data, type->x.arr_dyn.data_offset);
-
-            if (arr_len != 0 && arr_data == NULL)
+            if (type->x.arr_dyn.is_array_backend)
             {
-                return _err_result(
-                    err_buf,
-                    BCM_ERR_NOMEM,
-                    "dynamic array field is NULL - the caller must allocate memory for this pointer");
+                arr_data = (const uint8_t *)data + type->x.arr_dyn.data_offset;
+            }
+            else
+            {
+                arr_data = _read_dyn_array_ptr_const(data, type->x.arr_dyn.data_offset);
+                if (arr_len != 0 && arr_data == NULL)
+                {
+                    return _err_result(
+                        err_buf,
+                        BCM_ERR_NOMEM,
+                        "dynamic array field is NULL - the caller must allocate memory for this pointer");
+                }
             }
 
             if ((flags & BCMOLT_SERIALIZER_FLAG_SKIP_DYN_ARRAY_DATA) != 0)
@@ -1159,8 +1179,11 @@ bcmos_errno bcmolt_type_extra_mem_scan(
             }
             else
             {
-                /* Allocate space for the dynamic array itself */
-                *size += BCMOS_ROUND_TO_WORD(elem_type->size * arr_len);
+                /* Allocate space for the dynamic array itself if needed */
+                if (!type->x.arr_dyn.is_array_backend)
+                {
+                    *size += BCMOS_ROUND_TO_WORD(elem_type->size * arr_len);
+                }
             }
         }
         else
@@ -1507,7 +1530,6 @@ bcmos_errno bcmolt_type_deserialize(
         if (type->base_type == BCMOLT_BASE_TYPE_ID_ARR_DYN)
         {
             elem_type = type->x.arr_dyn.elem_type;
-            arr_data = _read_dyn_array_ptr(data, type->x.arr_dyn.data_offset);
 
             /* Unpack the array length (only for dynamically-sized arrays) */
             err = bcmolt_type_deserialize(
@@ -1528,38 +1550,56 @@ bcmos_errno bcmolt_type_deserialize(
             {
                 flags |= BCMOLT_SERIALIZER_FLAG_SKIP_DATA_ENTIRELY; /* skip the data part of the element TLVs */
             }
-            else if (arr_len == 0)
-            {
-                /* Nothing else to do (no elements to deserialize) */
-            }
-            else if (arr_data == NULL)
-            {
-                uint32_t bytes_to_alloc;
 
-                if (extra_mem == NULL)
-                {
-                    return _err_result(
-                        err_buf,
-                        BCM_ERR_NOMEM,
-                        "dynamic array field is NULL - the caller must allocate memory for this pointer");
-                }
+            if (type->x.arr_dyn.is_array_backend)
+            {
+                /* We already have a pre-allocated array store the data. */
+                arr_data = (uint8_t *)data + type->x.arr_dyn.data_offset;
 
-                bytes_to_alloc = BCMOS_ROUND_TO_WORD((uint32_t)arr_len * elem_type->size);
-                arr_data = bcmolt_buf_snap_get(extra_mem);
-                if (!bcmolt_buf_skip(extra_mem, bytes_to_alloc))
+                if (arr_len > type->x.arr_dyn.max_size)
                 {
-                    return _err_result(err_buf, BCM_ERR_NOMEM, "not enough memory avaiable for dynamic array");
+                    overflow_elem_count = arr_len - type->x.arr_dyn.max_size;
+                    arr_len = type->x.arr_dyn.max_size;
                 }
-                _write_dyn_array_ptr(data, type->x.arr_dyn.data_offset, arr_data);
             }
             else
             {
-                uint64_t old_len = _read_unum(data, type->x.arr_dyn.len_offset, type->x.arr_dyn.len_type->size);
-                if (arr_len > old_len)
+                /* We'll need to allocate an array to store the actual data. */
+                arr_data = _read_dyn_array_ptr(data, type->x.arr_dyn.data_offset);
+
+                if (arr_len == 0)
                 {
-                    /* Deserialize as many elements as possible into the source array, skipping the rest. */
-                    overflow_elem_count = arr_len - old_len;
-                    arr_len = old_len;
+                    /* Nothing else to do (no elements to deserialize) */
+                }
+                else if (arr_data == NULL)
+                {
+                    uint32_t bytes_to_alloc;
+
+                    if (extra_mem == NULL)
+                    {
+                        return _err_result(
+                            err_buf,
+                            BCM_ERR_NOMEM,
+                            "dynamic array field is NULL - the caller must allocate memory for this pointer");
+                    }
+
+                    bytes_to_alloc = BCMOS_ROUND_TO_WORD((uint32_t)arr_len * elem_type->size);
+                    arr_data = bcmolt_buf_snap_get(extra_mem);
+                    if (!bcmolt_buf_skip(extra_mem, bytes_to_alloc))
+                    {
+                        return _err_result(err_buf, BCM_ERR_NOMEM, "not enough memory avaiable for dynamic array");
+                    }
+                    _write_dyn_array_ptr(data, type->x.arr_dyn.data_offset, arr_data);
+                }
+                else
+                {
+                    uint64_t old_len = _read_unum(data, type->x.arr_dyn.len_offset, type->x.arr_dyn.len_type->size);
+                    if (arr_len > old_len)
+                    {
+                        /* Deserialize as many elements as possible into the source array, skipping the rest. */
+                        overflow_elem_count = arr_len - old_len;
+                        arr_len = old_len;
+                    }
                 }
             }
 

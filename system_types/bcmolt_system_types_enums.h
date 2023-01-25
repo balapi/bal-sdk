@@ -139,7 +139,6 @@ typedef enum
     BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_MLID = 1, /**< MLID. */
     BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_PLID = 2, /**< BCAST_PLID. */
     BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_MLID = 3, /**< BCAST_MLID. */
-    BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_ULID = 4, /**< BCAST_ULID. */
     BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -148,10 +147,9 @@ typedef enum
 #define bcmolt_ieee_demo_onu_llid_support_id_mlid BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_MLID
 #define bcmolt_ieee_demo_onu_llid_support_id_bcast_plid BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_PLID
 #define bcmolt_ieee_demo_onu_llid_support_id_bcast_mlid BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_MLID
-#define bcmolt_ieee_demo_onu_llid_support_id_bcast_ulid BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID_BCAST_ULID
 #define bcmolt_ieee_demo_onu_llid_support_id__num_of BCMOLT_IEEE_DEMO_ONU_LLID_SUPPORT_ID__NUM_OF
 #define bcmolt_ieee_demo_onu_llid_support_id_all_properties 0xFF
-#define bcmolt_ieee_demo_onu_llid_support_id_full_mask 0x1F
+#define bcmolt_ieee_demo_onu_llid_support_id_full_mask 0xF
 
 } bcmolt_ieee_demo_onu_llid_support_id;
 

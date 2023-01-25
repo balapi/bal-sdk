@@ -199,6 +199,19 @@ void bcmtr_client_disconnected(bcmolt_conn_type mode, bcmolt_cm_conn_id conn_id)
 
 #endif
 
+/*
+ * Long API handling notification support
+ */
+typedef void (*F_bcmtr_long_api_notification)(const bcmolt_msg *msg, uint32_t handling_time_us);
+extern uint32_t bcmtr_api_handling_time_threshold;
+extern F_bcmtr_long_api_notification bcmtr_long_api_notification_handler;
+
+static inline void bcmtr_long_api_notification_register(uint32_t threshold_us, F_bcmtr_long_api_notification handler)
+{
+    bcmtr_api_handling_time_threshold = threshold_us;
+    bcmtr_long_api_notification_handler = handler;
+}
+
 /** Send message. Do not wait for response
  *
  * Set-up connection if necessary, pack message and send it to the remote side.
@@ -227,6 +240,12 @@ bcmos_errno bcmtr_send(bcmolt_devid device, bcmolt_msg *msg, bcmtr_send_flags fl
 static inline bcmos_errno bcmtr_send_response(bcmolt_devid device, bcmolt_msg *msg)
 {
     msg->dir = BCMOLT_MSG_DIR_RESPONSE;
+    if (bcmtr_long_api_notification_handler != NULL)
+    {
+        uint32_t delta = bcmos_timestamp() - msg->timestamp;
+        if (delta >= bcmtr_api_handling_time_threshold)
+            bcmtr_long_api_notification_handler(msg, delta);
+    }
     return bcmtr_send(
         device,
         msg,
@@ -303,7 +322,7 @@ void bcmtr_rx_translate_cb_register(F_bcmtr_rx_translate cb);
 /* Increment RX_NO_MEM discard counter */
 void bcmtr_rx_increment_rx_no_mem(bcmolt_devid device);
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
 /*
  * Connection manager support
  */
@@ -329,7 +348,7 @@ bcmos_errno bcmtr_msg_handler_register_install(bcmolt_devid device);
  */
 bcmos_errno bcmtr_msg_dispatch(bcmolt_devid device, bcmolt_msg *msg);
 
-#endif /* #ifdef BCM_SUBSYSTEM_HOST */
+#endif /* #if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU) */
 
 extern dev_log_id bcmtr_log_id[BCMTR_MAX_DEVICES];
 #define BCMTR_LOG(device, level, fmt, ...)  BCM_LOG(level, bcmtr_log_id[device], fmt, ## __VA_ARGS__)

@@ -111,13 +111,13 @@ static bcmos_bool check_throttle(dev_log_id_parm *id, bcm_dev_log_level log_leve
 
 #endif
 
-#if defined(BCM_SUBSYSTEM_HOST)
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
 static bcmos_mutex dev_log_lock;
 #endif
 
 void bcm_dev_log_frontend_init(void)
 {
-#if defined(BCM_SUBSYSTEM_HOST)
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     bcmos_mutex_create(&dev_log_lock, 0, "dev_log_lock");
 #endif
 }
@@ -184,7 +184,7 @@ static bcmos_bool bcm_dev_log_should_drop(
     return BCMOS_FALSE;
 }
 
-#if defined(BCM_SUBSYSTEM_HOST)
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
 
 /* The following functions might be used on the host side to make sure
    that multiple log entries are "together",ie are not interleaved
@@ -201,7 +201,7 @@ void bcm_dev_log_unlock(void)
     bcmos_mutex_unlock(&dev_log_lock);
 }
 
-#endif /* #if defined(BCM_SUBSYSTEM_HOST) */
+#endif /* #if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU) */
 
 const char * last_format = NULL;
 static void _bcm_dev_log_vlog(dev_log_id id,
@@ -216,7 +216,6 @@ static void _bcm_dev_log_vlog(dev_log_id id,
     dev_log_queue_msg *log_queue_msg;
     bcmos_errno error = BCM_ERR_OK;
     bcmos_msg *msg;
-    last_format = fmt;
 
     if (dev_log.state != BCM_DEV_LOG_STATE_ENABLED)
     {
@@ -241,7 +240,7 @@ static void _bcm_dev_log_vlog(dev_log_id id,
     {
         return;
     }
-#if defined(BCM_SUBSYSTEM_HOST) || defined(ASPEN_VLSI_SIM)
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU) || defined(ASPEN_VLSI_SIM)
     /* Always use CALLER_FMT mode on the host to avoid portability issues with
      * transferring va_list as an array */
     flags |= BCM_LOG_FLAG_CALLER_FMT;
@@ -252,7 +251,7 @@ static void _bcm_dev_log_vlog(dev_log_id id,
 
     if (bcm_dev_log_should_drop(parm, log_level, rate_us, rate_limit_id))
         return;
-
+    last_format = fmt;
     msg = bcmos_msg_pool_alloc(&dev_log.pool);
     if (!msg)
     {
@@ -265,14 +264,14 @@ static void _bcm_dev_log_vlog(dev_log_id id,
     log_queue_msg->time_stamp = dev_log.dev_log_parm.get_time_cb();
     log_queue_msg->msg_level = log_level;
     log_queue_msg->flags = flags;
-#ifndef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_EMBEDDED)
     /* It is not really necessary to compile out non CALLER_FMT case on the host.
      * However, keeping unused code will make Coverity unhappy */
     if (unlikely(flags & BCM_LOG_FLAG_CALLER_FMT))
     {
-#endif /* #ifndef BCM_SUBSYSTEM_HOST */
+#endif /* #if defined(BCM_SUBSYSTEM_EMBEDDED) */
         vsnprintf(log_queue_msg->u.str, MAX_DEV_LOG_STRING_SIZE, (flags & BCM_LOG_FLAG_FILENAME_IN_FMT) ? dev_log_basename(fmt) : fmt, args);
-#ifndef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_EMBEDDED)
     }
     else
     {
@@ -290,11 +289,11 @@ static void _bcm_dev_log_vlog(dev_log_id id,
 
     if (bcmos_sem_post_is_allowed())
     {
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
         bcm_dev_log_lock();
 #endif
         error = bcmos_msg_send(&dev_log.save_queue, msg, BCMOS_MSG_SEND_AUTO_FREE);
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
         bcm_dev_log_unlock();
 #endif
     }
@@ -483,7 +482,7 @@ void dev_log_double2two_int_conv(double double_val, uint8_t precision, double2tw
     /* Calculate the number of leading zeros (in i) and point to the corresponding leading zero string. */
     for (i = 0; i < MIN(16, precision); i++)
     {
-        if (fraction * pow(10, i) > 0.1)
+        if (fraction * pow(10, i) >= 0.1)
         {
             result->leading_zeros = double2two_int_leading_zeros_arr[i];
             break;
@@ -509,6 +508,7 @@ char *dev_log_double2str_conv(double double_val, uint8_t precision, char *str)
 #ifdef __KERNEL__
 EXPORT_SYMBOL(bcm_dev_log_id_register);
 EXPORT_SYMBOL(bcm_dev_log_id_unregister);
+EXPORT_SYMBOL(bcm_dev_log_id_is_registered);
 EXPORT_SYMBOL(bcm_dev_log_log);
 EXPORT_SYMBOL(bcmos_trace);
 #endif

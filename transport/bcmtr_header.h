@@ -175,7 +175,7 @@ static inline void bcmtr_header_fill(const bcmolt_msg *msg, bcmtr_hdr *hdr)
 
     bcmolt_devif_get(msg, NULL, NULL, &has_interface, &interface_id);
     err = bcmolt_api_group_descr_get(msg->obj_type, msg->group, msg->subgroup, &group_descr);
-    BCMOS_RETURN_ON_ERROR(err);
+    BCMOS_TRACE_RETURN_VOID_ON_ERROR(err);
 
     hdr->dir = msg->dir;
     hdr->more_fragments = BCMOS_FALSE;

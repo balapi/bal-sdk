@@ -776,6 +776,22 @@ bcmos_bool bcmolt_erps_interface_ring_port_control_data_validate(const bcmolt_er
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_erps_interface_set_intf_opt_data_set_default(bcmolt_erps_interface_set_intf_opt_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_erps_interface_set_intf_opt_data_validate(const bcmolt_erps_interface_set_intf_opt_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_erps_interface_port_update_data_set_default(bcmolt_erps_interface_port_update_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -786,6 +802,22 @@ void bcmolt_erps_interface_port_update_data_set_default(bcmolt_erps_interface_po
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_erps_interface_port_update_data_validate(const bcmolt_erps_interface_port_update_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_erps_interface_set_intf_opt_complete_data_set_default(bcmolt_erps_interface_set_intf_opt_complete_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_erps_interface_set_intf_opt_complete_data_validate(const bcmolt_erps_interface_set_intf_opt_complete_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.
@@ -2938,6 +2970,22 @@ bcmos_bool bcmolt_nni_interface_link_state_change_data_validate(const bcmolt_nni
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_nni_interface_fault_code_change_data_set_default(bcmolt_nni_interface_fault_code_change_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_nni_interface_fault_code_change_data_validate(const bcmolt_nni_interface_fault_code_change_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_nni_interface_stats_cfg_data_set_default(bcmolt_nni_interface_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -4756,6 +4804,22 @@ void bcmolt_pon_interface_cpu_packets_failure_data_set_default(bcmolt_pon_interf
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_pon_interface_cpu_packets_failure_data_validate(const bcmolt_pon_interface_cpu_packets_failure_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_pon_interface_activate_all_onus_completed_data_set_default(bcmolt_pon_interface_activate_all_onus_completed_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_pon_interface_activate_all_onus_completed_data_validate(const bcmolt_pon_interface_activate_all_onus_completed_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.

@@ -6,7 +6,6 @@ var searchData=
   ['bal_5fstate',['bal_state',['../structbcmolt__olt__cfg__data.html#a98ef80e0d5f6e3a1cda976580ca56d17',1,'bcmolt_olt_cfg_data']]],
   ['bcast_5fmlid',['bcast_mlid',['../structbcmolt__ieee__demo__onu__llid__support.html#a74b196687f5105a266b7f1f391fb4c57',1,'bcmolt_ieee_demo_onu_llid_support']]],
   ['bcast_5fplid',['bcast_plid',['../structbcmolt__ieee__demo__onu__llid__support.html#a0aa01b159fc816e73e832bea5ebdded8',1,'bcmolt_ieee_demo_onu_llid_support']]],
-  ['bcast_5fulid',['bcast_ulid',['../structbcmolt__ieee__demo__onu__llid__support.html#a04555ca0ced44cb71b7b2838b1acef4e',1,'bcmolt_ieee_demo_onu_llid_support']]],
   ['ber',['ber',['../structbcmolt__onu__sfi__data.html#aab84c82b374a30a2bd16160dea865402',1,'bcmolt_onu_sfi_data::ber()'],['../structbcmolt__onu__sdi__data.html#aab84c82b374a30a2bd16160dea865402',1,'bcmolt_onu_sdi_data::ber()'],['../structbcmolt__prbs__status.html#ab6f7230b547f4e5bca1bb55d742e9be5',1,'bcmolt_prbs_status::ber()']]],
   ['ber_5finterval',['ber_interval',['../structbcmolt__onu__ber__interval__configuration__completed__data.html#a897372f8fa8c99db4003f8f1fbc3bbb1',1,'bcmolt_onu_ber_interval_configuration_completed_data']]],
   ['ber_5finterval_5fconfiguration_5fcompleted',['ber_interval_configuration_completed',['../structbcmolt__onu__auto__cfg__data.html#a1a8693503c6d97410cafa63bfe6c9660',1,'bcmolt_onu_auto_cfg_data']]],

@@ -95,6 +95,7 @@ bcm_stringify_flags(CMAKE_EXE_LINKER_FLAGS ${BCM_LFLAGS})
 unset(BCM_ALL_LIB_MODULES         CACHE)
 unset(BCM_ALL_APP_MODULES         CACHE)
 unset(BCM_ALL_SHARED_LIB_MODULES  CACHE)
+unset(BCM_ALL_LINUX_MODULES       CACHE)
 unset(BCM_GLOBAL_DEFINITIONS      CACHE)
 
 bcm_make_normal_option(CCACHE BOOL "Enable ccache" y)
@@ -233,6 +234,19 @@ endmacro(_bcm_add_module_system_libraries)
 # @param TARGET_NAME    [in] Target name to add property to.
 #======
 macro(_bcm_add_module_cflags TARGET_NAME)
+    if(NOT "${DISABLE_EXTRA_WARNINGS}")
+        if(BCM_EXTRA_C_WARNINGS)
+            bcm_stringify_flags(BCM_WARNING_FLAGS ${BCM_EXTRA_C_WARNINGS})
+            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${BCM_WARNING_FLAGS}")
+            bcm_string_remove_duplicates(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+        endif()
+        if(BCM_EXTRA_CXX_WARNINGS)
+            bcm_stringify_flags(BCM_WARNING_FLAGS ${BCM_EXTRA_CXX_WARNINGS})
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${BCM_WARNING_FLAGS}")
+            bcm_string_remove_duplicates(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+        endif()
+    endif()
+
     if(NOT DEFINED _MOD_SRCS)
         if(_MOD_PUBLIC_CFLAGS)
             target_compile_options(${TARGET_NAME} INTERFACE ${_MOD_PUBLIC_CFLAGS})
@@ -240,18 +254,6 @@ macro(_bcm_add_module_cflags TARGET_NAME)
             set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS "${_MY_LINKER_FLAGS}")
         endif()
     else ()
-        if(NOT "${DISABLE_EXTRA_WARNINGS}")
-            if(BCM_EXTRA_C_WARNINGS)
-                bcm_stringify_flags(BCM_WARNING_FLAGS ${BCM_EXTRA_C_WARNINGS})
-                set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${BCM_WARNING_FLAGS}")
-                bcm_string_remove_duplicates(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
-            endif()
-            if(BCM_EXTRA_CXX_WARNINGS)
-                bcm_stringify_flags(BCM_WARNING_FLAGS ${BCM_EXTRA_CXX_WARNINGS})
-                set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${BCM_WARNING_FLAGS}")
-                bcm_string_remove_duplicates(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
-            endif()
-        endif()
         if(_MOD_PUBLIC_CFLAGS)
             target_compile_options(${TARGET_NAME} PUBLIC ${_MOD_PUBLIC_CFLAGS})
             bcm_stringify_flags(_MY_LINKER_FLAGS ${_MOD_PUBLIC_CFLAGS})
@@ -355,7 +357,7 @@ endmacro(_bcm_param_exists)
 #======
 macro(_bcm_find_install_dir INSTALL_DIR)
     # Define the list of possible arguments
-    set(_POSSIBLE_ARGS      EXPORT NO_RESET INTERNAL STRIP RELEASE)
+    set(_POSSIBLE_ARGS      EXPORT NO_RESET INTERNAL STRIP RELEASE RELEASE_SWITCH_SPECIFIC)
 
     unset(${INSTALL_DIR})
     set(_LOCAL_LIST ${ARGN})
@@ -611,10 +613,11 @@ endfunction(_bcm_create_interface_lib)
 # since it won't in the release_tree.
 #
 # @param BINARY_NAME        [in] Name of the binary we want in the release tree
+# @param ARGN               [in] Optional Relative directory within the binary release tree
 #======
 macro(_bcm_release_binary BINARY_NAME)
     if(COMMAND bcm_release_install_binary)
-        bcm_release_install_binary(${BINARY_NAME})
+        bcm_release_install_binary(${BINARY_NAME} ${ARGN})
     endif()
 endmacro(_bcm_release_binary)
 
@@ -979,6 +982,7 @@ endmacro(bcm_create_lib_target)
 #                               - EXPORT (indicates whether to export the library or not)
 #                               - STRIP (indicates that we should strip the symbols)
 #                               - RELEASE (indicates that the resulting binary goes in host_driver_images
+#                               - RELEASE_SWITCH_SPECIFIC (same as RELEASE, but placed in switch family directory)
 #                               - <install dir>  or EXPORT (indicates whether to export or put in install dir)
 #======
 macro(bcm_create_shared_lib_target)
@@ -987,6 +991,7 @@ macro(bcm_create_shared_lib_target)
     _bcm_param_exists(_EXPORT EXPORT ${ARGN})
     _bcm_param_exists(_STRIP STRIP ${ARGN})
     _bcm_param_exists(_RELEASE RELEASE ${ARGN})
+    _bcm_param_exists(_RELEASE_SWITCH_SPECIFIC RELEASE_SWITCH_SPECIFIC ${ARGN})
     _bcm_find_install_dir(_INSTALL_DIR ${ARGN})
 
     # Store information that module is a shared library in the cache for other modules to see
@@ -1025,7 +1030,9 @@ macro(bcm_create_shared_lib_target)
     endif()
 
     # If marked for RELEASE, install the binary if install macro exists
-    if(_RELEASE)
+    if(_RELEASE_SWITCH_SPECIFIC)
+        _bcm_release_binary(lib${_MOD_NAME}.so ${SWITCH_FAMILY})
+    elseif(_RELEASE)
         _bcm_release_binary(lib${_MOD_NAME}.so)
     endif()
     bcm_message(STATUS "Added 'shared_lib' rules for '${_MOD_NAME}'${_OUT_STR}")
@@ -1039,6 +1046,7 @@ endmacro(bcm_create_shared_lib_target)
 #                               - EXPORT (indicates whether to export the library or not)
 #                               - STRIP (indicates that we should strip the symbols)
 #                               - RELEASE (indicates that the resulting binary goes in host_driver_images
+#                               - RELEASE_SWITCH_SPECIFIC (same as RELEASE, but placed in switch family directory)
 #                               - <install dir>  or EXPORT (indicates whether to export or put in install dir)
 #======
 macro(bcm_create_app_target)
@@ -1046,6 +1054,7 @@ macro(bcm_create_app_target)
     _bcm_param_exists(_EXPORT EXPORT ${ARGN})
     _bcm_param_exists(_STRIP STRIP ${ARGN})
     _bcm_param_exists(_RELEASE RELEASE ${ARGN})
+    _bcm_param_exists(_RELEASE_SWITCH_SPECIFIC RELEASE_SWITCH_SPECIFIC ${ARGN})
     _bcm_find_install_dir(_INSTALL_DIR ${ARGN})
 
     # Store information that module is an application in the cache for other modules to see
@@ -1087,8 +1096,12 @@ macro(bcm_create_app_target)
     endif()
 
     # If marked for RELEASE, install the binary if install macro exists
-    if(_RELEASE)
+    if(_RELEASE_SWITCH_SPECIFIC)
+        _bcm_release_binary(${_MOD_NAME} ${SWITCH_FAMILY})
+    elseif(_RELEASE)
         _bcm_release_binary(${_MOD_NAME})
+    endif()
+    if(_RELEASE)
     endif()
     bcm_message(STATUS "Added 'app' rules for '${_MOD_NAME}'${_OUT_STR}")
 endmacro(bcm_create_app_target)
@@ -1275,6 +1288,10 @@ macro(_bcm_create_linux_common CACHE_FILE TYPE TARGET)
     add_library(${TARGET} ${_LIB_TYPE} ${_KERNEL_SRCS})
     add_dependencies(${TARGET} ${_KERNEL_COPY_TARGET})
 
+    if("${SUBSYSTEM}" STREQUAL "opencpu")
+        add_dependencies(${_KERNEL_TARGET} ${OPENCPU_KERNEL_TARGET})
+    endif()
+
     # Add the original module name as an interface lib for user space dependencies. Also create the header-only
     # target for those that reference it.
     add_library(${_MOD_NAME} INTERFACE)
@@ -1332,12 +1349,18 @@ endmacro(bcm_create_linux_lib_target)
 #
 # @param ARGN           [in] Optional parameters as:
 #                               - RELEASE (indicates that the resulting binary goes in host_driver_images
+#                               - RELEASE_SWITCH_SPECIFIC (same as RELEASE, but placed in switch family directory)
 #                               - <install dir>  or EXPORT (indicates whether to export or put in install dir)
 #======
 macro(bcm_create_linux_module_target)
     _bcm_param_exists(_KERNEL_MOD_EXPORT EXPORT ${ARGN})
     _bcm_param_exists(_RELEASE RELEASE ${ARGN})
+    _bcm_param_exists(_RELEASE_SWITCH_SPECIFIC RELEASE_SWITCH_SPECIFIC ${ARGN})
     _bcm_find_install_dir(_KERNEL_MOD_INSTALL_DIR ${ARGN})
+
+    # Add to the global list
+    list(APPEND BCM_ALL_LINUX_MODULES ${_MOD_NAME})
+    set(BCM_ALL_LINUX_MODULES ${BCM_ALL_LINUX_MODULES} CACHE STRING "All Aplication Modules" FORCE)
 
     # Run the common linux target processing
     set(_KERNEL_TARGET ${_MOD_NAME}_${_KERNEL_EXT})
@@ -1370,7 +1393,9 @@ macro(bcm_create_linux_module_target)
                         _KERNEL_MOD_INSTALL_DIR FALSE)
 
     # If marked for RELEASE, install the binary if install macro exists
-    if(_RELEASE)
+    if(_RELEASE_SWITCH_SPECIFIC)
+        _bcm_release_binary(${_MOD_NAME}.ko ${SWITCH_FAMILY})
+    elseif(_RELEASE)
         _bcm_release_binary(${_MOD_NAME}.ko)
     endif()
     bcm_message(STATUS "Added 'linux module' rules for '${_MOD_NAME}'${_OUT_STR}")

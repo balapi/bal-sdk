@@ -671,6 +671,7 @@ bcmos_errno bcmcli_log_set(bcmcli_log_mode mode, bcmcli_session *session);
  * \param[in]   format  printf-like format followed by arguments
  */
 void bcmcli_log(const char *format, ...);
+void bcmcli_vlog(const char *format, va_list ap);
 
 #ifdef __cplusplus
 }

@@ -197,7 +197,7 @@ bcmos_errno bcmtr_cli_init(void)
     {
         static bcmcli_enum_val groups[] =
         {
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
             { .name = "auto", .val = BCMOLT_MGT_GROUP_AUTO },
 #else
             { .name = "cfg", .val = BCMOLT_MGT_GROUP_CFG },

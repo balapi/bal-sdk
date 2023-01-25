@@ -225,3 +225,105 @@ macro(bcm_module_remove_flags LANG)
     endforeach(_FLAG)
 endmacro(bcm_module_remove_flags)
 
+#======
+# Thee following functions suppprt a "key-value" idea where we  use a list to collect 'name' - 'value' pairs,
+# where the value can be a list. We only do an add or find, there is no need to do a remove for the CMake
+# use cases.
+#
+# The value can be a list, but in order to safely store a list in a list, we need to change the ';' to
+# another character (we use '?').
+#======
+
+# Add to key-value list. If the key is already present, append the values given to the current values
+#
+# @param KEY_VALUE_LIST [i/o] Current key-value variable, both input and return value
+# @param KEY            [in] Key to use
+# @param ARGN           [in] List of values to add
+#
+function(bcm_key_value_add KEY_VALUE_LIST KEY)
+    set(_NEW_VALUES ${ARGN})
+
+    # Make sure we were given values to use
+    if(NOT _NEW_VALUES)
+        message(FATAL_ERROR "ERROR: No new values given to the CMake key-value")
+    endif()
+
+    # Check if the element exists in the list and get the index if it does
+    list(FIND ${KEY_VALUE_LIST} ${KEY} _KEY_LOCATION)
+
+    if(_KEY_LOCATION LESS 0)
+        # No entry yet, so convert the value to a string and add it.
+        string(REPLACE ";" "?" _CONVERTED_NEW_VALUES "${_NEW_VALUES}")
+        list(APPEND ${KEY_VALUE_LIST} ${KEY} "${_CONVERTED_NEW_VALUES}")
+    else()
+        # Already exists, get the next index (value) and then remove that element
+        math(EXPR _VALUE_LOCATION ${_KEY_LOCATION}+1)
+        list(GET ${KEY_VALUE_LIST} ${_VALUE_LOCATION} _VALUE)
+        list(REMOVE_AT ${KEY_VALUE_LIST} ${_VALUE_LOCATION})
+
+        # Now convert the value to a list, append the new values and convert back to string
+        string(REPLACE "?" ";" _LIST_VALUE "${_VALUE}")
+        list(APPEND _LIST_VALUE ${_NEW_VALUES})
+        string(REPLACE ";" "?" _VALUE "${_LIST_VALUE}")
+
+        # Re-add the values back to the key value list. If value was last element, use 'append'
+        list(LENGTH ${KEY_VALUE_LIST} _LIST_LENGTH)
+        if(${_VALUE_LOCATION} EQUAL ${_LIST_LENGTH})
+            list(APPEND ${KEY_VALUE_LIST} "${_VALUE}")
+        else()
+            list(INSERT ${KEY_VALUE_LIST} ${_VALUE_LOCATION} "${_VALUE}")
+        endif()
+    endif()
+
+    # Make sure the caller gets the updates
+    set(${KEY_VALUE_LIST} ${${KEY_VALUE_LIST}} PARENT_SCOPE)
+endfunction(bcm_key_value_add)
+
+# Get the values at the given key from the key-value list
+#
+# @param VALUE          [out] Variable to return the value in
+# @param KEY_VALUE_LIST [in] List containing the key value pairs
+# @param KEY            [in] Key used to find the values
+function(bcm_key_value_get VALUE KEY_VALUE_LIST KEY)
+    # Check if the element exists in the list and get the index if it does
+    list(FIND ${KEY_VALUE_LIST} ${KEY} _KEY_LOCATION)
+
+    if(_KEY_LOCATION LESS 0)
+        message(FATAL_ERROR "ERROR: no entry found in the key-value list for key=${KEY}")
+    endif()
+
+    math(EXPR _VALUE_LOCATION ${_KEY_LOCATION}+1)
+    list(GET ${KEY_VALUE_LIST} ${_VALUE_LOCATION} _VALUE)
+    string(REPLACE "?" ";" _LIST_VALUE "${_VALUE}")
+
+    # Make sure the caller gets the updates
+    set(${VALUE} ${_LIST_VALUE} PARENT_SCOPE)
+endfunction(bcm_key_value_get)
+
+#======
+# Convert a version to a single number that can be used in the C pre-processor for comparisons. Primary use
+# case is the SDK version.
+#
+# @param SINGLE_NUMBER      [out] Resulting calculated single number representing the version
+#                                 (XX.YY.ZZ -> XXYYZZ, with padding to 2 digits on 2nd and 3rd numbers)
+#======
+function(bcm_convert_version_to_single_number SINGLE_NUMBER VERSION_NUMBER)
+    # Split the version number into a list and pop the first entry
+    string(REPLACE "." ";" _VERSION_NUMBER_LIST "${VERSION_NUMBER}")
+    list(GET _VERSION_NUMBER_LIST 0 _THIS_NUM)
+    list(REMOVE_AT _VERSION_NUMBER_LIST 0)
+    set(_SINGLE_NUMBER "${_THIS_NUM}")
+
+    # Now get the follow-on digits and pad to a byte
+    foreach(_THIS_NUM ${_VERSION_NUMBER_LIST})
+        string(LENGTH "${_THIS_NUM}" _THIS_NUM_LENGTH)
+        if(${_THIS_NUM_LENGTH} EQUAL 1)
+            set(_THIS_NUM_PADDED "0${_THIS_NUM}")
+        else()
+            set(_THIS_NUM_PADDED "${_THIS_NUM}")
+        endif()
+        string(APPEND _SINGLE_NUMBER ${_THIS_NUM_PADDED})
+    endforeach(_THIS_NUM)
+
+    set(${SINGLE_NUMBER} ${_SINGLE_NUMBER} PARENT_SCOPE)
+endfunction(bcm_convert_version_to_single_number)

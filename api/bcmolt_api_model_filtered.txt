@@ -145,6 +145,7 @@ Removed enum entries:
 - system_mode.gpon__2_x_mini_olt
 - system_mode.gpon__4_x
 - system_mode.gpon__8_x
+- system_mode.ieee_any_pon_8_x
 - system_mode.itu__4_x_ae__4_x
 - system_mode.itu__8_x_ae__8_x
 - system_mode.itu_any_pon__16_x
@@ -191,16 +192,13 @@ Removed enum entries:
 Removed types:
 - access_control_trap_id
 - actual_schedulershaper
+- ae_los
 - ae_ni
 - ae_params
 - ae_rate
 - aggregation_port_id
 - alarm_status
 - alloc_type_to_scan
-- api_capture_buffer_mode
-- api_capture_buffer_reader
-- api_capture_config
-- api_capture_stats
 - auto_rogue_detect_10g
 - ba_fairness_method
 - bandwidth_kbps
@@ -266,9 +264,7 @@ Removed types:
 - epon_registration_gate_mode
 - epon_rp_params
 - epon_tunnel_id
-- erps_mc_port
 - erps_port_update
-- erps_ring_cfg
 - err
 - extended_epon_dba
 - extended_guard_time
@@ -287,6 +283,7 @@ Removed types:
 - group_member_cmd
 - ieee_1588_latency
 - ieee_1588_mode
+- ieee_1588_packet_format
 - ieee_1588_support
 - ieee_25g_demo_onu_llid_change_type
 - ieee_25g_fec

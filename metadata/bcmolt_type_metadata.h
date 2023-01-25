@@ -157,8 +157,9 @@ struct bcmolt_type_descr
             const bcmolt_type_descr *elem_type;      /* Array element type */
             const bcmolt_type_descr *len_type;       /* Length field numeric type */
             uint16_t len_offset;                     /* Offset of the length field within the container struct */
-            uint16_t data_offset;                    /* Offset of the actual pointer within the container struct */
+            uint16_t data_offset;                    /* Offset of the array data within the container struct */
             uint16_t max_size;                       /* Max array size */
+            bcmos_bool is_array_backend;             /* Is the backend an array pre-allocated to max size? */
         } arr_dyn;
         struct
         {

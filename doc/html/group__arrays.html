@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -220,7 +220,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(_BCMOLT_ARRAY_ELEM_IDX_IS_VALID(_a_ptr, _idx) &amp;&amp;                           \</div><div class="line">     ((int)(_idx) &gt; 63 ||                                                       \</div><div class="line">      (_a_ptr)-&gt;arr_index_mask == 0 ||                                          \</div><div class="line">      (((_a_ptr)-&gt;arr_index_mask &amp; (1ULL &lt;&lt; (int)(_idx))) != 0)))</div></div><!-- fragment --><p>Check if array element is present. Note: array indices &gt;63 cannot be covered by the index mask and are assumed to always be set.</p>
+<b>Value:</b><div class="fragment"><div class="line">(_BCMOLT_ARRAY_ELEM_IDX_IS_VALID(_a_ptr, _idx) &amp;&amp;                           \</div><div class="line">    bcmolt_array_elem_is_present((_a_ptr)-&gt;arr_index_mask, (<span class="keywordtype">int</span>)(_idx)))</div></div><!-- fragment --><p>Check if array element is present. Note: array indices &gt;63 cannot be covered by the index mask and are assumed to always be set.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">_a_ptr</td><td>pointer to the array attribute/field structure. the structure contains 2 fields: arr_index_mask and array "arr" </td></tr>
@@ -299,7 +299,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">((_BCMOLT_ARRAY_IS_DYNAMIC(_a_ptr) &amp;&amp; ((_a_ptr)-&gt;arr == NULL)) ? <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14">BCM_ERR_NULL</a> : \</div><div class="line">     ((<a class="code" href="group__arrays.html#ga8948f6b98cd790072beeeda6a18ec2c6">BCMOLT_ARRAY_ELEM_SET_PRESENT</a>(_a_ptr, _idx) != <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a>) ? <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7">BCM_ERR_RANGE</a> : \</div><div class="line">      ((_a_ptr)-&gt;arr[_idx] = _val, <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a>)))</div><div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:33</div></div>
 <div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7">BCM_ERR_RANGE</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:42</div></div>
 <div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14">BCM_ERR_NULL</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:60</div></div>
-<div class="ttc" id="group__arrays_html_ga8948f6b98cd790072beeeda6a18ec2c6"><div class="ttname"><a href="group__arrays.html#ga8948f6b98cd790072beeeda6a18ec2c6">BCMOLT_ARRAY_ELEM_SET_PRESENT</a></div><div class="ttdeci">#define BCMOLT_ARRAY_ELEM_SET_PRESENT(_a_ptr, _idx)</div><div class="ttdef"><b>Definition:</b> bcmolt_api_macros.h:231</div></div>
+<div class="ttc" id="group__arrays_html_ga8948f6b98cd790072beeeda6a18ec2c6"><div class="ttname"><a href="group__arrays.html#ga8948f6b98cd790072beeeda6a18ec2c6">BCMOLT_ARRAY_ELEM_SET_PRESENT</a></div><div class="ttdeci">#define BCMOLT_ARRAY_ELEM_SET_PRESENT(_a_ptr, _idx)</div><div class="ttdef"><b>Definition:</b> bcmolt_api_macros.h:244</div></div>
 </div><!-- fragment --><p>Set array element </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">_a_ptr</td><td>pointer to the array attribute/field structure. the structure contains 2 fields: arr_index_mask and array "arr" </td></tr>
@@ -338,7 +338,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">((_BCMOLT_ARRAY_IS_DYNAMIC(_a_ptr) &amp;&amp; ((_a_ptr)-&gt;arr == NULL)) ? <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14">BCM_ERR_NULL</a> : \</div><div class="line">     ((<a class="code" href="group__arrays.html#gabd4121c82a887aff70e5395b3459ac41">BCMOLT_ARRAY_ELEM_SET_NOT_PRESENT</a>(_a_ptr, _idx) != <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a>) ? <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7">BCM_ERR_RANGE</a> : \</div><div class="line">      <a class="code" href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a>))</div><div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa490257fc4a4c87a9b3dcd82928371564">BCM_ERR_OK</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:33</div></div>
 <div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfa7a7416560863267d5d773c797f3ddce7">BCM_ERR_RANGE</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:42</div></div>
 <div class="ttc" id="group__system__errno_html_ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14"><div class="ttname"><a href="group__system__errno.html#ggae38e74508ba4aa92fe048a4aea02b9bfabdf9b42428786ce711adecef96a38c14">BCM_ERR_NULL</a></div><div class="ttdef"><b>Definition:</b> bcmos_errno.h:60</div></div>
-<div class="ttc" id="group__arrays_html_gabd4121c82a887aff70e5395b3459ac41"><div class="ttname"><a href="group__arrays.html#gabd4121c82a887aff70e5395b3459ac41">BCMOLT_ARRAY_ELEM_SET_NOT_PRESENT</a></div><div class="ttdeci">#define BCMOLT_ARRAY_ELEM_SET_NOT_PRESENT(_a_ptr, _idx)</div><div class="ttdef"><b>Definition:</b> bcmolt_api_macros.h:245</div></div>
+<div class="ttc" id="group__arrays_html_gabd4121c82a887aff70e5395b3459ac41"><div class="ttname"><a href="group__arrays.html#gabd4121c82a887aff70e5395b3459ac41">BCMOLT_ARRAY_ELEM_SET_NOT_PRESENT</a></div><div class="ttdeci">#define BCMOLT_ARRAY_ELEM_SET_NOT_PRESENT(_a_ptr, _idx)</div><div class="ttdef"><b>Definition:</b> bcmolt_api_macros.h:258</div></div>
 </div><!-- fragment --><p>Clear array element </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">_a_ptr</td><td>pointer to the array attribute/field structure. the structure contains 2 fields: arr_index_mask and array "arr" </td></tr>
@@ -358,7 +358,7 @@ Macros</h2></td></tr>
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

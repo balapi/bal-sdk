@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Broadcom"/>
-<title>BCM686xx Management API: codegen_output Directory Reference</title>
+<title>BCM686xx Management API: Operation: set_intf_opt</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -49,7 +49,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>BCM686xx&#160;API&#160;Reference</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('dir_19f8339787861b0ad4bc3cd236513948.html','');});
+$(document).ready(function(){initNavTree('object_erps_interface_set_intf_opt.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -100,31 +100,35 @@ $(document).ready(function(){initNavTree('dir_19f8339787861b0ad4bc3cd236513948.h
 
 <div class="header">
   <div class="headertitle">
-<div class="title">codegen_output Directory Reference</div>  </div>
+<div class="title">Operation: set_intf_opt </div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:bcmolt__api__model__api__structs_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>bcmolt_api_model_api_structs.h</b> <a href="bcmolt__api__model__api__structs_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:bcmolt__api__model__supporting__enums_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>bcmolt_api_model_supporting_enums.h</b> <a href="bcmolt__api__model__supporting__enums_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:bcmolt__api__model__supporting__structs_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>bcmolt_api_model_supporting_structs.h</b> <a href="bcmolt__api__model__supporting__structs_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:bcmolt__api__model__supporting__typedefs_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>bcmolt_api_model_supporting_typedefs.h</b> <a href="bcmolt__api__model__supporting__typedefs_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><p>Change the intf_opt setting on an erps port<br />
+</p><ul>
+<li>APIs: <a class="el" href="group__api__func.html#ga643bfd93ab96acad1c151be8d121a669">bcmolt_oper_submit()</a></li>
+<li>Parameter: <a class="el" href="structbcmolt__erps__interface__set__intf__opt.html">bcmolt_erps_interface_set_intf_opt</a><br />
+<table class="doxtable">
+<tr>
+<th>Parameter Name</th><th>Parameter Description</th><th>Data Type </th></tr>
+<tr>
+<td>port</td><td>Port to be modified</td><td><a class="el" href="group__object__model.html#gaaccd4e788f5fc66a9f5922808109acc6">bcmolt_ring_port</a> </td></tr>
+<tr>
+<td>intf_opt</td><td>Port interface Option</td><td><a class="el" href="group__object__model.html#ga48ae00d63efa7b958736e547beefd949">bcmolt_intf_opt</a> </td></tr>
 </table>
-</div><!-- contents -->
+<br />
+<br />
+ </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_12f84de2a45ec3066a28f97ee5e5d7bd.html">common</a></li><li class="navelem"><a class="el" href="dir_6d8604d5f5fb9de796ad892a1727fee1.html">api</a></li><li class="navelem"><a class="el" href="dir_19f8339787861b0ad4bc3cd236513948.html">codegen_output</a></li>
+    <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_erps_interface.html">Object: erps_interface - ERPS Interface</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

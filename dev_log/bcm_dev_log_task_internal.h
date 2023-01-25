@@ -27,7 +27,6 @@
 
 #include <bcmos_system.h>
 
-#define LOG_NAME_NO_INSTANCE 0xff
 #define LOG_NAME_LENGTH (MAX_DEV_LOG_ID_NAME + 1)
 
 typedef enum
@@ -52,6 +51,7 @@ typedef struct
     bcmos_sem print_task_is_terminated;
     bcmos_msg_pool pool;
     bcm_dev_log_flags flags; /* General flags applied on the entire feature (unlike file flags which reside in 'files' sub-structure). */
+    dev_log_id group_ids[DEV_LOG_MAX_GROUPS]; /* log IDs that are "groups" (contain other log IDs). */
 } bcm_dev_log;
 
 typedef struct
@@ -76,6 +76,8 @@ typedef struct
 typedef struct
 {
     char name[LOG_NAME_LENGTH];
+    bcmos_bool has_non_instance;
+    bcmos_bool has_instance;
     uint8_t first_instance;
     uint8_t last_instance;
 } log_name_table;
@@ -90,6 +92,11 @@ bcmos_errno _bcm_dev_log_file_clear_no_lock(uint32_t file_index);
 
 /* Internal init function */
 void bcm_dev_log_frontend_init(void);
+
+#ifdef ENABLE_CLI
+#include <bcmcli.h>
+extern bcmcli_enum_val bcm_dev_log_cli_log_id_enum[DEV_LOG_MAX_IDS + 1];
+#endif
 
 #endif /* ENABLE_LOG */
 

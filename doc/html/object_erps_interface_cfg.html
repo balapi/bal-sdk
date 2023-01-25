@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -118,11 +118,15 @@ $(document).ready(function(){initNavTree('object_erps_interface_cfg.html','');})
 <tr>
 <td>control_vlan_id</td><td>Optional VLAN ID that carrys ERPS R-APS packets on the ring.</td><td><a class="el" href="group__object__model.html#gacd6cfdb1aed73caa536d5c853196e1da">bcmolt_vlan_id</a></td><td>RW</td><td>65535U</td><td>4094U </td></tr>
 <tr>
-<td>east_port_state</td><td>East Port State</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a></td><td>R</td><td></td><td></td></tr>
+<td>east_port_state</td><td>The current state of the east port. For details about the blocked state see the east port detailed state.</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a></td><td>R</td><td></td><td></td></tr>
 <tr>
-<td>west_port_state</td><td>West Port State</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a></td><td>R</td><td></td><td></td></tr>
+<td>west_port_state</td><td>The current state of the west port. For details about the blocked state see the west port detailed state.</td><td><a class="el" href="group__object__model.html#ga35282fcb60380d07e58571b6d83621ca">bcmolt_ring_port_state</a></td><td>R</td><td></td><td></td></tr>
 <tr>
 <td>sub_port_list</td><td>List of provisioned sub_ports on this erps interface</td><td><a class="el" href="structbcmolt__arr__intf__ref__16.html">bcmolt_arr_intf_ref_16</a></td><td>R</td><td></td><td></td></tr>
+<tr>
+<td>east_port_detailed_state</td><td>The current state of both tx and rx for the east port.</td><td><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a></td><td>R</td><td></td><td></td></tr>
+<tr>
+<td>west_port_detailed_state</td><td>The current state of both tx and rx for the west port.</td><td><a class="el" href="structbcmolt__ring__port__detailed__state.html">bcmolt_ring_port_detailed_state</a></td><td>R</td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -137,7 +141,7 @@ $(document).ready(function(){initNavTree('object_erps_interface_cfg.html','');})
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_erps_interface.html">Object: erps_interface - ERPS Interface</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.10.4</span>
+   &#160;<span id="projectnumber">3.12.6</span>
    </div>
   </td>
  </tr>
@@ -108,29 +108,29 @@ $(document).ready(function(){initNavTree('object_nni_interface_cfg.html','');});
 <li>Parameter: <a class="el" href="structbcmolt__nni__interface__cfg.html">bcmolt_nni_interface_cfg</a><br />
 <table class="doxtable">
 <tr>
-<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default </th></tr>
+<th>Parameter Name</th><th>Parameter Description</th><th>Data Type</th><th>Access</th><th>Default</th><th>Minimum</th><th>Maximum </th></tr>
 <tr>
-<td>config_state</td><td>config_state</td><td><a class="el" href="group__object__model.html#ga20178745f03b375b9507872f525ea867">bcmolt_config_state</a></td><td>R</td><td>BCMOLT_CONFIG_STATE_CONFIGURED </td></tr>
+<td>config_state</td><td>config_state</td><td><a class="el" href="group__object__model.html#ga20178745f03b375b9507872f525ea867">bcmolt_config_state</a></td><td>R</td><td>BCMOLT_CONFIG_STATE_CONFIGURED</td><td></td><td></td></tr>
 <tr>
-<td>state</td><td>state</td><td><a class="el" href="group__object__model.html#ga4946a76a7b7c23455bf45a3941bcff1e">bcmolt_interface_state</a></td><td>R</td><td></td></tr>
+<td>state</td><td>state</td><td><a class="el" href="group__object__model.html#ga4946a76a7b7c23455bf45a3941bcff1e">bcmolt_interface_state</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>protection_type</td><td>Provisioned protection type on this NNI interface</td><td><a class="el" href="structbcmolt__protection__type.html">bcmolt_protection_type</a></td><td>R</td><td></td></tr>
+<td>protection_type</td><td>Provisioned protection type on this NNI interface</td><td><a class="el" href="structbcmolt__protection__type.html">bcmolt_protection_type</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>link_state</td><td>Current Link State (Link Up or Link Down)</td><td><a class="el" href="group__object__model.html#ga7ad4a81de7a0e6652765eb08cf5af418">bcmolt_link_state</a></td><td>R</td><td></td></tr>
+<td>link_state</td><td>Current Link State (Link Up or Link Down)</td><td><a class="el" href="group__object__model.html#ga7ad4a81de7a0e6652765eb08cf5af418">bcmolt_link_state</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>link_fault_code</td><td>Link Fault Code (Local or Remote Fault)</td><td><a class="el" href="group__object__model.html#ga6e4da49183973912e619feed6385b8f9">bcmolt_link_fault_code</a></td><td>R</td><td></td></tr>
+<td>link_fault_code</td><td>Link Fault Code (Local or Remote Fault)</td><td><a class="el" href="group__object__model.html#ga6e4da49183973912e619feed6385b8f9">bcmolt_link_fault_code</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>description</td><td>Descriptive string </td><td><a class="el" href="structbcmolt__str__48.html">bcmolt_str_48</a></td><td>RW</td><td></td></tr>
+<td>description</td><td>Descriptive string </td><td><a class="el" href="structbcmolt__str__48.html">bcmolt_str_48</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
-<td>mtu</td><td>max frame size in bytes</td><td>uint32_t</td><td>R</td><td></td></tr>
+<td>mtu</td><td>max frame size in bytes (including ethernet header and CRC)</td><td>uint32_t</td><td>RW</td><td>9600UL</td><td>261UL</td><td>9600UL </td></tr>
 <tr>
-<td>speed</td><td>ethernet speed in Mbps</td><td>uint32_t</td><td>R</td><td></td></tr>
+<td>speed</td><td>ethernet speed in Mbps</td><td>uint32_t</td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>duplex</td><td>ethernet duplex mode</td><td><a class="el" href="group__object__model.html#gae7815bee571626aec0c61431afd2dca3">bcmolt_duplex_mode</a></td><td>R</td><td></td></tr>
+<td>duplex</td><td>ethernet duplex mode</td><td><a class="el" href="group__object__model.html#gae7815bee571626aec0c61431afd2dca3">bcmolt_duplex_mode</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>auto_negotiate</td><td>ethernet auto negotiation mode</td><td><a class="el" href="group__object__model.html#gab07f613223cc11fdb211476f9221c7db">bcmolt_control_state</a></td><td>R</td><td></td></tr>
+<td>auto_negotiate</td><td>ethernet auto negotiation mode</td><td><a class="el" href="group__object__model.html#gab07f613223cc11fdb211476f9221c7db">bcmolt_control_state</a></td><td>R</td><td></td><td></td><td></td></tr>
 <tr>
-<td>sub_type</td><td>nni interface subtype</td><td><a class="el" href="group__object__model.html#gaf3a7d2fe0a77da18bc21303e81e91d3c">bcmolt_nni_subtype</a></td><td>R</td><td></td></tr>
+<td>sub_type</td><td>nni interface subtype</td><td><a class="el" href="group__object__model.html#gaf3a7d2fe0a77da18bc21303e81e91d3c">bcmolt_nni_subtype</a></td><td>R</td><td></td><td></td><td></td></tr>
 </table>
 <br />
 <br />
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('object_nni_interface_cfg.html','');});
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_nni_interface.html">Object: nni_interface - nni_interface</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.10.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.6 </li>
   </ul>
 </div>
 </body>

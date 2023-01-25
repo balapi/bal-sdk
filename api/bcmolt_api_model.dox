@@ -71,6 +71,7 @@ Object key: bcmolt_access_control_key\n
 \TABLE_ROW6{interface_refs,list of associated interfaces,\ref bcmolt_intf_ref_list_u8,R, , }
 \TABLE_ROW6{policer_action,policer action,\ref bcmolt_policer_action,RW, , }
 \TABLE_ROW6{mirror_action,mirror ingress pkts action,\ref bcmolt_mirror_action,RW, , }
+\TABLE_ROW6{stage,stage (ingress or egress) where the access control instance is configured,\ref bcmolt_stage,RW,BCMOLT_STAGE_INGRESS, }
 </table>
 \n\n */
 
@@ -154,7 +155,7 @@ add, remove or set interface reference(s) to an access_control instance\n
 <table>
 \TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
 \TABLE_ROW3{command,command,\ref bcmolt_members_update_command}
-\TABLE_ROW3{interface_ref_list,interface reference,\ref bcmolt_intf_ref_list_u8}
+\TABLE_ROW3{interface_ref_list,intf list could be Ingress or Egress ports depending on stage acc ctrl instance is configured for,\ref bcmolt_intf_ref_list_u8}
 </table>
 \n\n */
 
@@ -573,7 +574,9 @@ Object key: bcmolt_erps_interface_key\n
 \TABLE_ROW2{\subpage object_erps_interface_cfg "cfg", Object configuration}
 \TABLE_ROW2{\subpage object_erps_interface_port_update_complete "Indication: port_update_complete", Erps port update Complete}
 \TABLE_ROW2{\subpage object_erps_interface_ring_port_control "Indication: ring_port_control", Ring Port Control}
+\TABLE_ROW2{\subpage object_erps_interface_set_intf_opt_complete "Indication: set_intf_opt_complete", Erps port interface option modify Complete}
 \TABLE_ROW2{\subpage object_erps_interface_port_update "Operation: port_update", Add or remove a port from an erps object}
+\TABLE_ROW2{\subpage object_erps_interface_set_intf_opt "Operation: set_intf_opt", Change the intf_opt setting on an erps port}
 \TABLE_ROW2{\subpage object_erps_interface_set_ring_port_control "Operation: set_ring_port_control", Set BLOCK/UNBLOCK/FLUSH on a ring port}
 </table>
 
@@ -589,9 +592,11 @@ Object key: bcmolt_erps_interface_key\n
 \TABLE_ROW6{east_port,NNI or LAG interface Reference,\ref bcmolt_intf_ref,RW, , }
 \TABLE_ROW6{west_port,NNI or LAG interface Reference and Id,\ref bcmolt_intf_ref,RW, , }
 \TABLE_ROW6{control_vlan_id,Optional VLAN ID that carrys ERPS R-APS packets on the ring.,\ref bcmolt_vlan_id,RW,65535U,4094U}
-\TABLE_ROW6{east_port_state,East Port State,\ref bcmolt_ring_port_state,R, , }
-\TABLE_ROW6{west_port_state,West Port State,\ref bcmolt_ring_port_state,R, , }
+\TABLE_ROW6{east_port_state,The current state of the east port. For details about the blocked state see the east port detailed state.,\ref bcmolt_ring_port_state,R, , }
+\TABLE_ROW6{west_port_state,The current state of the west port. For details about the blocked state see the west port detailed state.,\ref bcmolt_ring_port_state,R, , }
 \TABLE_ROW6{sub_port_list,List of provisioned sub_ports on this erps interface,\ref bcmolt_arr_intf_ref_16,R, , }
+\TABLE_ROW6{east_port_detailed_state,The current state of both tx and rx for the east port.,\ref bcmolt_ring_port_detailed_state,R, , }
+\TABLE_ROW6{west_port_detailed_state,The current state of both tx and rx for the west port.,\ref bcmolt_ring_port_detailed_state,R, , }
 </table>
 \n\n */
 
@@ -618,8 +623,22 @@ Erps port update Complete\n
 \TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
 \TABLE_ROW3{port_id,port id,\ref bcmolt_ring_port}
 \TABLE_ROW3{command,Reflects current state of the requested Port,\ref bcmolt_erps_control}
-\TABLE_ROW3{port_state,Port State,\ref bcmolt_ring_port_state}
+\TABLE_ROW3{port_state,The resulting state of the port after the command. For details on the blocked state see the detailed port state.,\ref bcmolt_ring_port_state}
 \TABLE_ROW3{result,Result of operation\, success or fail. If fail then the ind.hdr.hdr.err will contain the return code.,\ref bcmolt_result}
+\TABLE_ROW3{port_detailed_state,The resulting state for both tx and rx of the port after the command.,\ref bcmolt_ring_port_detailed_state}
+</table>
+\n\n */
+
+/** \page object_erps_interface_set_intf_opt_complete Indication: set_intf_opt_complete
+
+Erps port interface option modify Complete\n
+
+ - APIs: bcmolt_ind_subscribe(), bcmolt_ind_unsubscribe()
+ - Specific Type: \ref bcmolt_erps_interface_set_intf_opt_complete\n
+<table>
+\TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
+\TABLE_ROW3{port,ERPS Port just updated,\ref bcmolt_ring_port}
+\TABLE_ROW3{result,Result of command pass/fail,\ref bcmolt_result}
 </table>
 \n\n */
 
@@ -634,6 +653,19 @@ Add or remove a port from an erps object\n
 \TABLE_ROW3{command,Update an ERPS port,\ref bcmolt_port_command}
 \TABLE_ROW3{port,Port to add or remove,\ref bcmolt_erps_port}
 \TABLE_ROW3{intf_ref,Port interface Reference,\ref bcmolt_intf_ref}
+</table>
+\n\n */
+
+/** \page object_erps_interface_set_intf_opt Operation: set_intf_opt
+
+Change the intf_opt setting on an erps port\n
+
+ - APIs: bcmolt_oper_submit()
+ - Parameter: \ref bcmolt_erps_interface_set_intf_opt\n
+<table>
+\TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
+\TABLE_ROW3{port,Port to be modified,\ref bcmolt_ring_port}
+\TABLE_ROW3{intf_opt,Port interface Option,\ref bcmolt_intf_opt}
 </table>
 \n\n */
 
@@ -686,7 +718,7 @@ Object key: bcmolt_eth_oam_key\n
 \TABLE_ROW7{pkt_tag_type,Number of vlan tags in packet\, double or single tagged. ,\ref bcmolt_pkt_tag_type,RW,BCMOLT_PKT_TAG_TYPE_SINGLE_TAG, , }
 \TABLE_ROW7{o_vid,Outer VLAN ID. ,\ref bcmolt_vlan_id,RW,0U, ,4094U}
 \TABLE_ROW7{o_pbits,Outer VLAN Pbits. ,uint8_t,RW,7,0,7}
-\TABLE_ROW7{o_tpid,Outer VLAN TPID. ,uint16_t,RW,0x1FA4, , }
+\TABLE_ROW7{o_tpid,Outer VLAN TPID. ,uint16_t,RW,0x8100, , }
 \TABLE_ROW7{i_vid,Inner VLAN ID\, only if pkt_tag_type is double.,\ref bcmolt_vlan_id,RW,0U, ,4094U}
 \TABLE_ROW7{i_pbits,Inner VLAN Pbits\, only if pkt_tag_type is double.,uint8_t,RW,0,0,7}
 \TABLE_ROW7{i_tpid,Inner VLAN TPID\, only if pkt_tag_type is double.,uint16_t,RW,0U, , }
@@ -804,8 +836,8 @@ Object key: bcmolt_flow_key\n
  - Parameter: \ref bcmolt_flow_cfg\n
 <table>
 \TABLE_HDR7{Parameter Name,Parameter Description,Data Type,Access,Default,Minimum,Maximum}
-\TABLE_ROW7{ingress_intf,The ingress tip of the flow ,\ref bcmolt_flow_intf_ref,RW, , , }
-\TABLE_ROW7{egress_intf,The engress tip of the flow ,\ref bcmolt_flow_intf_ref,RW, , , }
+\TABLE_ROW7{ingress_intf,The ingress tip of the flow ,\ref bcmolt_intf_ref,RW, , , }
+\TABLE_ROW7{egress_intf,The engress tip of the flow ,\ref bcmolt_intf_ref,RW, , , }
 \TABLE_ROW7{onu_id,The ID of the ONU assigned to this flow,\ref bcmolt_onu_id,RW,65535U, , }
 \TABLE_ROW7{svc_port_id,The ID of the service port (for GPON/XGPON - GEM ID),\ref bcmolt_service_port_id,RW,65535UL, , }
 \TABLE_ROW7{classifier,The classifier for this flow,\ref bcmolt_classifier,RW, , , }
@@ -819,6 +851,7 @@ Object key: bcmolt_flow_key\n
 \TABLE_ROW7{cookie,Opaque application cookie associated with the flow (not interpreted by Maple),\ref bcmolt_cookie,RW, , , }
 \TABLE_ROW7{mac_table_miss_action,Action to take a mac table miss,\ref bcmolt_mac_table_miss_action,RW,BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD, , }
 \TABLE_ROW7{policer_profile,policer profile for flow if any,\ref bcmolt_policer_profile_id,RW,65535U, , }
+\TABLE_ROW7{um_forwarding,um forwarding,\ref bcmolt_control_state,RW,BCMOLT_CONTROL_STATE_DISABLE, , }
 </table>
 \n\n */
 
@@ -882,7 +915,7 @@ Sends ethernet packet using this flow\n
 \TABLE_HDR4{Parameter Name,Parameter Description,Data Type,Default}
 \TABLE_ROW4{buffer,Buffer containing frame to be sent (includes L2 header),\ref bcmolt_bin_str, }
 \TABLE_ROW4{inject_type,Location to inject frame (Egress Port or Ingress Port).,\ref bcmolt_inject_type,BCMOLT_INJECT_TYPE_INJECT_AT_EGRESS}
-\TABLE_ROW4{ingress_intf,Ingress Interface. Used with inject_type==ingress for Flow with Ingress==Host.,\ref bcmolt_flow_intf_ref, }
+\TABLE_ROW4{ingress_intf,Ingress Interface. Used with inject_type==ingress for Flow with Ingress==Host.,\ref bcmolt_intf_ref, }
 \TABLE_ROW4{svc_port_id,Service Port Id. Used with inject_type==ingress for Flow with Ingress==Host.,\ref bcmolt_service_port_id,65535UL}
 </table>
 \n\n */
@@ -1062,14 +1095,14 @@ Object key: bcmolt_inband_mgmt_channel_key\n
  - APIs: bcmolt_cfg_get(), bcmolt_cfg_set(), bcmolt_cfg_clear(), bcmolt_multi_cfg_get()
  - Parameter: \ref bcmolt_inband_mgmt_channel_cfg\n
 <table>
-\TABLE_HDR5{Parameter Name,Parameter Description,Data Type,Access,Default}
-\TABLE_ROW5{nni_intf,The NNI interface Id,\ref bcmolt_flow_intf_ref,RW, }
-\TABLE_ROW5{policer_profile,policer_profile,\ref bcmolt_policer_profile_id,RW,65535U}
-\TABLE_ROW5{nic_intf_id,The logical port from Topology file\, facing the NIC card on host,\ref bcmolt_interface_id,RW, }
-\TABLE_ROW5{vlan_id,The classifier for this inband mgmt flow. Vid is always an Outer Vid,uint16_t,RW, }
-\TABLE_ROW5{nic_card_mac,NIC card MAC address,bcmos_mac_address,RW, }
-\TABLE_ROW5{action,The action associated with the inband flow,\ref bcmolt_inband_mgmt_action_type,RW, }
-\TABLE_ROW5{state,Inband Mgmt State,\ref bcmolt_inband_mgmt_state,R,BCMOLT_INBAND_MGMT_STATE_NOT_CONFIGURED}
+\TABLE_HDR7{Parameter Name,Parameter Description,Data Type,Access,Default,Minimum,Maximum}
+\TABLE_ROW7{nni_intf,The NNI interface Id,\ref bcmolt_intf_ref,RW, , , }
+\TABLE_ROW7{policer_profile,policer_profile,\ref bcmolt_policer_profile_id,RW,65535U, , }
+\TABLE_ROW7{nic_intf_id,The logical port from Topology file\, facing the NIC card on host,\ref bcmolt_interface_id,RW, , , }
+\TABLE_ROW7{vlan_id,The classifier for this inband mgmt flow. Vid is always an Outer Vid,uint16_t,RW, ,1U,4094U}
+\TABLE_ROW7{nic_card_mac,NIC card MAC address,bcmos_mac_address,RW, , , }
+\TABLE_ROW7{action,The action associated with the inband flow,\ref bcmolt_inband_mgmt_action_type,RW, , , }
+\TABLE_ROW7{state,Inband Mgmt State,\ref bcmolt_inband_mgmt_state,R,BCMOLT_INBAND_MGMT_STATE_NOT_CONFIGURED, , }
 </table>
 \n\n */
 
@@ -1119,6 +1152,7 @@ Object key: bcmolt_internal_nni_key\n
 \TABLE_ROW7{prbs_checker,PRBS Checker,\ref bcmolt_prbs_checker_config,RW, , , }
 \TABLE_ROW7{prbs_status,PRBS Status,\ref bcmolt_prbs_status,R, , , }
 \TABLE_ROW7{nni_swap_delay_us,It is used in NNI redundancy swap ,uint32_t,RW,320UL,0UL,300000UL}
+\TABLE_ROW7{flow_control_mode,Flow control mode in use on this internal_nni:  PFC or PAUSE,\ref bcmolt_flow_control_mode,RW, , , }
 </table>
 \n\n */
 
@@ -1423,6 +1457,7 @@ Object key: bcmolt_itupon_alloc_key\n
 \TABLE_ROW7{onu_id,ONU ID the alloc ID is assigned to,\ref bcmolt_onu_id,RW, , , }
 \TABLE_ROW7{collect_stats,Enable statistics collection for this alloc ID,bcmos_bool,RW, , , }
 \TABLE_ROW7{onu_tcont_max_queue_size,For better DBA performance\, this is the maximum size of the TCONT queue for this alloc ID in the ONU\, in bytes. If 0\, it means unconfigured.,uint32_t,RW,0UL,0UL,16777215UL}
+\TABLE_ROW7{latency_sensitive,Is the alloc latency sensitive ? This parameter is relevant only for SR allocs. Setting this flag to true may improve the latency of this alloc\, but in the cost of slightly compromising other allocs (in congestion only),bcmos_bool,RW,BCMOS_FALSE, , }
 </table>
 \n\n */
 
@@ -1688,7 +1723,6 @@ Sums of Member Port Stats\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,uint64_t}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,uint64_t}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),uint64_t}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,uint64_t}
 \TABLE_ROW3{tx_bytes,RFC 2233,uint64_t}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,uint64_t}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,uint64_t}
@@ -1737,7 +1771,6 @@ Sums of Member Port Stats\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),\ref bcmolt_stat_alarm_config}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_bytes,RFC 2233,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,\ref bcmolt_stat_alarm_config}
@@ -1968,6 +2001,7 @@ Object key: bcmolt_nni_interface_key\n
 \TABLE_ROW2{\subpage object_nni_interface_cfg "cfg", Object configuration}
 \TABLE_ROW2{\subpage object_nni_interface_stats "Statistics: stats", Object statistics}
 \TABLE_ROW2{\subpage object_nni_interface_stats_cfg "StatisticsConfig: stats_cfg", Object statistics configuration}
+\TABLE_ROW2{\subpage object_nni_interface_fault_code_change "Indication: fault_code_change", Fault Code Change }
 \TABLE_ROW2{\subpage object_nni_interface_link_state_change "Indication: link_state_change", Link State Change reported by Switch.}
 \TABLE_ROW2{\subpage object_nni_interface_state_change "Indication: state_change", State Change complete inidcation.}
 \TABLE_ROW2{\subpage object_nni_interface_stats_alarm_cleared "Indication: stats_alarm_cleared", Sent when a configured statistic alarm condition is no longer met.}
@@ -1982,18 +2016,18 @@ Object key: bcmolt_nni_interface_key\n
  - APIs: bcmolt_cfg_get(), bcmolt_cfg_set(), bcmolt_cfg_clear(), bcmolt_multi_cfg_get()
  - Parameter: \ref bcmolt_nni_interface_cfg\n
 <table>
-\TABLE_HDR5{Parameter Name,Parameter Description,Data Type,Access,Default}
-\TABLE_ROW5{config_state,config_state,\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_CONFIGURED}
-\TABLE_ROW5{state,state,\ref bcmolt_interface_state,R, }
-\TABLE_ROW5{protection_type,Provisioned protection type on this NNI interface,\ref bcmolt_protection_type,R, }
-\TABLE_ROW5{link_state,Current Link State (Link Up or Link Down),\ref bcmolt_link_state,R, }
-\TABLE_ROW5{link_fault_code,Link Fault Code (Local or Remote Fault),\ref bcmolt_link_fault_code,R, }
-\TABLE_ROW5{description,Descriptive string ,\ref bcmolt_str_48,RW, }
-\TABLE_ROW5{mtu,max frame size in bytes,uint32_t,R, }
-\TABLE_ROW5{speed,ethernet speed in Mbps,uint32_t,R, }
-\TABLE_ROW5{duplex,ethernet duplex mode,\ref bcmolt_duplex_mode,R, }
-\TABLE_ROW5{auto_negotiate,ethernet auto negotiation mode,\ref bcmolt_control_state,R, }
-\TABLE_ROW5{sub_type,nni interface subtype,\ref bcmolt_nni_subtype,R, }
+\TABLE_HDR7{Parameter Name,Parameter Description,Data Type,Access,Default,Minimum,Maximum}
+\TABLE_ROW7{config_state,config_state,\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_CONFIGURED, , }
+\TABLE_ROW7{state,state,\ref bcmolt_interface_state,R, , , }
+\TABLE_ROW7{protection_type,Provisioned protection type on this NNI interface,\ref bcmolt_protection_type,R, , , }
+\TABLE_ROW7{link_state,Current Link State (Link Up or Link Down),\ref bcmolt_link_state,R, , , }
+\TABLE_ROW7{link_fault_code,Link Fault Code (Local or Remote Fault),\ref bcmolt_link_fault_code,R, , , }
+\TABLE_ROW7{description,Descriptive string ,\ref bcmolt_str_48,RW, , , }
+\TABLE_ROW7{mtu,max frame size in bytes (including ethernet header and CRC),uint32_t,RW,9600UL,261UL,9600UL}
+\TABLE_ROW7{speed,ethernet speed in Mbps,uint32_t,R, , , }
+\TABLE_ROW7{duplex,ethernet duplex mode,\ref bcmolt_duplex_mode,R, , , }
+\TABLE_ROW7{auto_negotiate,ethernet auto negotiation mode,\ref bcmolt_control_state,R, , , }
+\TABLE_ROW7{sub_type,nni interface subtype,\ref bcmolt_nni_subtype,R, , , }
 </table>
 \n\n */
 
@@ -2013,7 +2047,6 @@ Object key: bcmolt_nni_interface_key\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,uint64_t}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,uint64_t}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),uint64_t}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,uint64_t}
 \TABLE_ROW3{tx_bytes,RFC 2233,uint64_t}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,uint64_t}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,uint64_t}
@@ -2062,7 +2095,6 @@ Object key: bcmolt_nni_interface_key\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),\ref bcmolt_stat_alarm_config}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_bytes,RFC 2233,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,\ref bcmolt_stat_alarm_config}
@@ -2095,6 +2127,19 @@ Object key: bcmolt_nni_interface_key\n
 </table>
 \n\n */
 
+/** \page object_nni_interface_fault_code_change Indication: fault_code_change
+
+Fault Code Change \n
+
+ - APIs: bcmolt_ind_subscribe(), bcmolt_ind_unsubscribe()
+ - Specific Type: \ref bcmolt_nni_interface_fault_code_change\n
+<table>
+\TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
+\TABLE_ROW3{old_fault_code,old_fault_code,\ref bcmolt_link_fault_code}
+\TABLE_ROW3{new_fault_code,new_fault_code,\ref bcmolt_link_fault_code}
+</table>
+\n\n */
+
 /** \page object_nni_interface_link_state_change Indication: link_state_change
 
 Link State Change reported by Switch.\n
@@ -2105,7 +2150,6 @@ Link State Change reported by Switch.\n
 \TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
 \TABLE_ROW3{old_state,old_state,\ref bcmolt_link_state}
 \TABLE_ROW3{new_state,new_state,\ref bcmolt_link_state}
-\TABLE_ROW3{fault_code,fault_code,\ref bcmolt_link_fault_code}
 </table>
 \n\n */
 
@@ -3514,6 +3558,7 @@ Indicate the activation of all ONUs are completed, in response to 'set_onu_state
  - Specific Type: \ref bcmolt_pon_interface_activate_all_onus_completed\n
 <table>
 \TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
+\TABLE_ROW3{result,result,\ref bcmolt_result}
 </table>
 \n\n */
 
@@ -4083,7 +4128,6 @@ Object key: bcmolt_switch_inni_key\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,uint64_t}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,uint64_t}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),uint64_t}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,uint64_t}
 \TABLE_ROW3{tx_bytes,RFC 2233,uint64_t}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,uint64_t}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,uint64_t}
@@ -4132,7 +4176,6 @@ Object key: bcmolt_switch_inni_key\n
 \TABLE_ROW3{rx_undersize_packets,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_oversize_packets,Rx component of RFC 2665 snmpEtherStatsOversizePkts,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{rx_jabber_packets,RFC 1757 (EtherStat),\ref bcmolt_stat_alarm_config}
-\TABLE_ROW3{rx_unknown_protos,RFC 1213,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_bytes,RFC 2233,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_packets,RFC 1213 ucast + none-ucast,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_ucast_packets,RFC 2233,\ref bcmolt_stat_alarm_config}
@@ -4285,7 +4328,7 @@ Object key: bcmolt_tm_sched_key\n
 \TABLE_HDR6{Parameter Name,Parameter Description,Data Type,Access,Default,Maximum}
 \TABLE_ROW6{attachment_point,The output of the tm_sched object instance,\ref bcmolt_tm_sched_attachment_point,RW, , }
 \TABLE_ROW6{sched_type,Scheduler type,\ref bcmolt_tm_sched_type,RW, , }
-\TABLE_ROW6{num_priorities,Max number of strict priority scheduling elements. ,uint8_t,RW, ,9}
+\TABLE_ROW6{num_priorities,Max number of strict priority scheduling elements.,uint8_t,RW, ,9}
 \TABLE_ROW6{rate,Rate shaping parameters,\ref bcmolt_tm_shaping,RW,0\,0\,0, }
 \TABLE_ROW6{state,Current state of object. (Not Configured or Active),\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_NOT_CONFIGURED, }
 \TABLE_ROW6{cir_attachment_point,TM sched and priority line where CIR queue can be attached,\ref bcmolt_tm_sched_attachment_point,RW, , }

@@ -99,7 +99,7 @@ static bcmos_errno bcmtr_cm_open(bcmolt_devid device, bcmtr_plugin_cfg *cfg, bcm
 
     *ch = (bcmtr_plugin_channel)(cfg->mode << 16);
 
-#ifdef BCM_SUBSYSTEM_HOST
+#if defined(BCM_SUBSYSTEM_HOST) || defined(BCM_SUBSYSTEM_OPENCPU)
     {
         /* Create connection in connection manager */
         bcmos_errno err;

@@ -129,6 +129,13 @@ void *bcmos_alloc(uint32_t size);
 void *_bcmos_alloc(uint32_t size);
 #endif
 
+/* Low level functions to lock/unlock the mutex that protects malloc(). Typically these shouldn't be used.
+ * However, when using third-party C++ code that we don't want to change, the code might be using hidden malloc() and free() calls or 'new' operator calls (which eventually calls
+ * malloc()), the memory allocation isn't done in a protected section like we need it to be, and this might cause severe issues (such as exceptions).
+ * Therefore, the C++ code should be called under mutex lock. */
+void _bcmos_malloc_lock(void);
+void _bcmos_malloc_unlock(void);
+
 /** Release memory to the main pool
  * \param[in]   ptr
  */
@@ -343,9 +350,9 @@ bcmos_errno bcmos_blk_pool_query(const bcmos_blk_pool *pool, bcmos_blk_pool_info
  */
 bcmos_errno bcmos_blk_pool_get_next(const bcmos_blk_pool **prev);
 
-#ifdef BCMOS_BLK_POOL_DEBUG
 typedef struct bcmos_memblk bcmos_memblk;
 
+#ifdef BCMOS_BLK_POOL_DEBUG
 /** Allocated block iterator within a given block pool
  * \param[in] pool      Block pool
  * \param[in] prev      Previous allocated block. *prev==NULL - get first
@@ -386,6 +393,12 @@ bcmos_errno bcmos_byte_pool_create(bcmos_byte_pool *pool, const bcmos_byte_pool_
  * \returns 0=OK or error code <0
  */
 bcmos_errno bcmos_byte_pool_destroy(bcmos_byte_pool *pool);
+
+/** Return whether a given byte pool is valid (initialized) or not
+ * \param[in]   pool   Byte pool control block
+ * \returns true if valid, false otherwise
+ */
+bcmos_bool bcmos_byte_pool_is_valid(bcmos_byte_pool *pool);
 
 #ifndef BCMOS_BYTE_POOL_ALLOC_FREE_INLINE
 /** Allocate memory from byte memory pool
@@ -959,6 +972,14 @@ bcmos_errno bcmos_msg_register(bcmos_msg_id msg_type, bcmos_msg_instance instanc
 bcmos_errno bcmos_msg_unregister(bcmos_msg_id msg_type, bcmos_msg_instance instance,
     bcmos_module_id module_id);
 
+/** Return whether a given message type is already registered
+ *
+ * \param[in]   msg_type        Message type
+ * \param[in]   instance        Message type instance
+ * \returns true if message type is already registered
+ */
+bcmos_bool bcmos_msg_is_registered(bcmos_msg_id msg_type, bcmos_msg_instance instance);
+
 /** Put the OS message infrastructure in "shutdown mode".
  *
  * When in shutdown mode, bcmos_msg_dispatch() will return BCM_ERR_OK instead of BCM_ERR_NOENT when a handler is not
@@ -1439,8 +1460,13 @@ bcmos_errno bcmos_mutex_create(bcmos_mutex *mutex, uint32_t flags, const char *n
  */
 void bcmos_mutex_destroy(bcmos_mutex *mutex);
 
-#endif /* BCMOS_MUTEX_CREATE_DESTROY_INLINE */
+/** Return whether a given mutex is valid (initialized) or not
+ * \param[in]   mutex   Mutex control block
+ * \returns true if valid, false otherwise
+ */
+bcmos_bool bcmos_mutex_is_valid(bcmos_mutex *mutex);
 
+#endif /* BCMOS_MUTEX_CREATE_DESTROY_INLINE */
 
 #ifndef BCMOS_MUTEX_LOCK_UNLOCK_INLINE
 
@@ -1486,6 +1512,12 @@ bcmos_errno bcmos_sem_create(bcmos_sem *sem, uint32_t count, uint32_t flags, con
  * \param[in]   sem   semaphore control block
  */
 void bcmos_sem_destroy(bcmos_sem *sem);
+
+/** Return whether a given semaphore is valid (initialized) or not
+ * \param[in]   sem   semaphore control block
+ * \returns true if valid, false otherwise
+ */
+bcmos_bool bcmos_sem_is_valid(bcmos_sem *sem);
 
 #endif /* BCMOS_SEM_CREATE_DESTROY_INLINE */
 
@@ -1622,17 +1654,33 @@ static inline bcmos_trace_level bcmos_trace_level_get(void)
 
 extern f_bcmolt_sw_error_handler sw_error_handler;
 
+#define BCMOS_TRACE_ERR_SW_ERROR(pon_ni, file, line) \
+    do \
+    { \
+        if (sw_error_handler) \
+            sw_error_handler(pon_ni, file, line); \
+        _bcmos_backtrace(); \
+    } while (0)
+
+#define BCMOS_TRACE_ERR_PON_NI(pon_ni, file, line, fmt, args...) \
+    do \
+    { \
+        BCMOS_TRACE(BCMOS_TRACE_LEVEL_ERROR, "ERR: " fmt, ## args); \
+        BCMOS_TRACE_ERR_SW_ERROR(pon_ni, file, line); \
+   } while (0)
+
 #define BCMOS_TRACE_ERR(fmt, args...) \
     do \
     { \
         BCMOS_TRACE(BCMOS_TRACE_LEVEL_ERROR, "ERR: " fmt, ## args); \
-        if (sw_error_handler != NULL) \
-        { \
-            sw_error_handler(0xff, __FILE__, __LINE__); \
-        } \
-        _bcmos_backtrace(); \
+        BCMOS_TRACE_ERR_SW_ERROR(0xff, __FILE__, __LINE__); \
    } while (0)
 
+#define BCMOS_TRACE_IF_ERROR(err) \
+    do { \
+        if ((err) != BCM_ERR_OK) \
+            BCMOS_TRACE_ERR("error %s (%d)\n", bcmos_strerror(err), err); \
+    } while (0)
 
 /** Print info trace conditionally, depending on the current trace level
  * \param[in]   fmt     printf-like format
@@ -1706,14 +1754,11 @@ extern f_bcmolt_sw_error_handler sw_error_handler;
         }\
     } while (0)
 #define BCMOS_CHECK_RETURN_ERROR(cond,err) BCMOS_CHECK_RETURN(cond,err,err)
-#define BCMOS_RETURN_ON_ERROR(err) BCMOS_CHECK_RETURN(BCM_ERR_OK != err, err, /*this space intentionally left blank*/)
-#define BCMOS_RETURN_IF_ERROR(err) BCMOS_CHECK_RETURN_ERROR(BCM_ERR_OK != err, err)
+#define BCMOS_TRACE_RETURN_VOID_ON_ERROR(err) BCMOS_CHECK_RETURN(BCM_ERR_OK != err, err, /*this space intentionally left blank*/)
+#define BCMOS_TRACE_RETURN_IF_ERROR(err) BCMOS_CHECK_RETURN_ERROR(BCM_ERR_OK != err, err)
+
+#define BCMOS_RETURN_IF_ERROR(err) if (err != BCM_ERR_OK) return err
 #define BCMOS_BREAK_IF_ERROR(err) if (err != BCM_ERR_OK) break
-#define BCMOS_TRACE_IF_ERROR(err) \
-    do { \
-        if ((err) != BCM_ERR_OK) \
-            BCMOS_TRACE_ERR("error %s (%d)\n", bcmos_strerror(err), err); \
-    } while (0)
 
 /** @} system_trace */
 

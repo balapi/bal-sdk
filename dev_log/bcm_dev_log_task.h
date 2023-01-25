@@ -84,6 +84,7 @@ static inline void dev_log_info_printf_ignore(const char *fmt, ...) { }
 #define DEV_LOG_DROP_REPORT_RATE_US     1000000 /* 1 second */
 #define DEV_LOG_DROP_REPORT_DROP_THRESHOLD 1000
 #define DEV_LOG_ENDIAN                  BCMOS_ENDIAN_LITTLE
+#define DEV_LOG_MAX_GROUPS              32 /* Max number of logs are groups (contain other logs). */
 
 /* If the log message pool utilization is >= this percentage, do not print messages (only save them).
  * (note that error/fatal messages will not objey this rule). */
@@ -329,6 +330,8 @@ typedef struct
     uint32_t lost_msg_cnt;
     uint32_t print_skipped_count; /* see DEV_LOG_SKIP_PRINT_THRESHOLD_PERCENT */
     uint32_t counters[DEV_LOG_LEVEL_NUM_OF];
+    uint32_t group_idx; /* index of the log group for this logger (or DEV_LOG_MAX_GROUPS if not a group) */
+    uint32_t group_membership_mask;
 #ifdef TRIGGER_LOGGER_FEATURE
     bcm_dev_log_level throttle_log_level;
     dev_log_id_throttle throttle;
@@ -410,6 +413,21 @@ dev_log_id bcm_dev_log_id_register(const char *name,
 /*                                                                                          */
 /********************************************************************************************/
 void bcm_dev_log_id_unregister(dev_log_id id);
+
+/********************************************************************************************/
+/*                                                                                          */
+/* Name: bcm_dev_log_id_is_registered                                                       */
+/*                                                                                          */
+/* Abstract: Return whether a given log ID is registered or not                             */
+/*                                                                                          */
+/* Arguments:                                                                               */
+/*   - id        - The ID in the Dev log (what we got form bcm_dev_log_id_register)         */
+/*                                                                                          */
+/* Return Value:                                                                            */
+/*   bool        - If the log ID registered                                                 */
+/*                                                                                          */
+/********************************************************************************************/
+bcmos_bool bcm_dev_log_id_is_registered(dev_log_id id);
 
 /********************************************************************************************/
 /*                                                                                          */
@@ -629,6 +647,18 @@ dev_log_id bcm_dev_log_id_get_next(dev_log_id id);
 /*                                                                              */
 /********************************************************************************/
 dev_log_id bcm_dev_log_id_get_by_name(const char *name);
+
+/* Add a log ID to a group. log_id can itself be a group to create hierarchies. */
+bcmos_errno bcm_dev_log_group_add_log_id(dev_log_id group_id, dev_log_id log_id);
+
+/* Remove a log ID from a group. */
+bcmos_errno bcm_dev_log_group_remove_log_id(dev_log_id group_id, dev_log_id log_id);
+
+/* Check if a given log ID is a member of a group (not including its subgroups). */
+bcmos_bool bcm_dev_log_id_group_contains_log_id(dev_log_id group_id, dev_log_id log_id);
+
+/* Get the next log ID in the given group (much like bcm_dev_log_id_get_next()). */
+dev_log_id bcm_dev_log_group_log_id_get_next(dev_log_id group_id, dev_log_id log_id);
 
 bcmos_bool bcm_dev_log_get_control(void);
 void bcm_dev_log_set_control(bcmos_bool control);

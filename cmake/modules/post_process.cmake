@@ -14,6 +14,23 @@ set(_TARGET_TRANSITIVE_PROPERTIES   LINK_LIBRARIES
                                     SYSTEM_LIBRARIES)
 
 #======
+# Determine if a target is an alias and return the aliased target name, if it is. Otherwise just return
+# the target name.
+#
+# @param RETURN_TARGET
+# @param THIS_TARGET
+#======
+function(_bcm_alias_target_name_get RETURN_TARGET THIS_TARGET)
+    get_target_property(_MY_ALIASED_TARGET ${THIS_TARGET} ALIASED_TARGET)
+    if(_MY_ALIASED_TARGET)
+        set(${RETURN_TARGET} ${_MY_ALIASED_TARGET})
+    else()
+        set(${RETURN_TARGET} ${THIS_TARGET})
+    endif(_MY_ALIASED_TARGET)
+    set(${RETURN_TARGET} ${${RETURN_TARGET}} PARENT_SCOPE)
+endfunction(_bcm_alias_target_name_get)
+
+#======
 # PRIVATE: Function to get the link libraries. For Interface libraries, this is the INTERFACE_LINK_LIBRARIES
 # and for all others it is the LINK_LIBRARIES (to get both public and private). Returns a list of the
 # library dependencies.
@@ -34,15 +51,29 @@ function(_bcm_get_library_list_for_mod LIBS_LIST MOD)
     # Make sure that all the Link Libraries are targets and, if not, we want to flag this as a fatal error. Anything
     # flagged indicates it is in the module's dependency list, but there is no build target for it.
     unset(_MISSING_DEPS)
+    unset(_ALIAS_TARGETS)
+    unset(_ALIASED_TARGETS)
     foreach(_LIB ${_MOD_LIBS})
         if(NOT TARGET ${_LIB})
             list(APPEND _MISSING_DEPS ${_LIB})
+        else()
+            # If it is a target, we want to check if it is aliased as the rest of the processing can't be done
+            # on an 'aliased' target.
+            get_target_property(_MY_ALIASED_TARGET ${_LIB} ALIASED_TARGET)
+            if(_MY_ALIASED_TARGET)
+                list(APPEND _ALIAS_TARGETS ${_LIB})
+                list(APPEND _ALIASED_TARGETS ${_MY_ALIASED_TARGET})
+            endif()
         endif()
     endforeach(_LIB)
 
     if(_MISSING_DEPS)
         bcm_message(STATUS "The following libraries for '${MOD}' were not found: ${_MISSING_DEPS}")
         list(REMOVE_ITEM _MOD_LIBS ${_MISSING_DEPS})
+    endif()
+    if(_ALIAS_TARGET)
+        list(REMOVE_ITEM _MOD_LIBS ${_ALIAS_TARGETS})
+        list(APPEND _MOD_LIBS ${_ALIASED_TARGETS})
     endif()
 
     # If we got here we are good so update the output list
@@ -95,6 +126,7 @@ endfunction(_bcm_bubble_up_properties)
 #======
 function(_bcm_recurse_transitive_dependencies MOD)
     if(TARGET ${MOD})
+        _bcm_alias_target_name_get(MOD ${MOD})
         bcm_get_target_property(_MOD_PROCESSED ${MOD} INTERFACE_PROCESS_STATE)
 
         if(NOT "${_MOD_PROCESSED}" STREQUAL "DONE")
@@ -103,6 +135,7 @@ function(_bcm_recurse_transitive_dependencies MOD)
                 foreach(_LIB ${ARGN})
                     # Check if each library is already processed and, if not, recurse to look at its dependencies.
                     if(TARGET ${_LIB})
+                        _bcm_alias_target_name_get(_LIB ${_LIB})
                         bcm_get_target_property(_LIB_PROCESSED ${_LIB} INTERFACE_PROCESS_STATE)
 
                         if("${_LIB_PROCESSED}" STREQUAL "DONE")

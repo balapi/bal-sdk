@@ -109,8 +109,6 @@ typedef enum
     /* EPON Host driven encryption application */
     BCMOS_MODULE_ID_USER_APPL_EPON_HDE,
 
-    BCMOS_MODULE_ID_USER_APPL_EPON_OAM,
-
     BCMOS_MODULE_ID_USER_APPL_DPOE_SEC,
 
     BCMOS_MODULE_ID_USER_APPL_IMAGE_TRANSFER0 = BCMOS_MODULE_ID_USER_APPL_DPOE_SEC + BCMTR_MAX_DEVICES,
@@ -128,7 +126,6 @@ typedef enum
     BCMOS_MODULE_ID_WORKER_BAL_CORE_FOR_AGENT,  /** worker module for the BAL CORE when running as an OF agent */
     /* BALIMPORT TODO: duplicates */
     //  BCMOS_MODULE_ID_USER_APPL_EON,              /** EON module */
-    //  BCMOS_MODULE_ID_USER_APPL_EPON_OAM,         /** EPON OAM module */
     BCMOS_MODULE_ID_OFPAL,                      /** OF-PAL module */
     BCMOS_MODULE_ID_OMCI_TRANSPORT,             /** OMCI Transport module */
     BCMOS_MODULE_ID_OMCI_RX_WORKER0,            /** OMCI RX worker module */
@@ -144,7 +141,9 @@ typedef enum
     BCMOS_MODULE_ID_ISSU,                       /** Host ISSU */
 
     BCMOS_MODULE_ID_HOST_REMOTE_LOGGER,         /** Host remote logger */
-    
+
+    BCMOS_MODULE_ID_API_IND_FOR_BAS,            /** OLT API indication processing for BAS_D application */
+
     BCMOS_MODULE_ID__NUM_OF,                    /**< Number of modules */
     BCMOS_MODULE_ID_INVALID = BCMOS_MODULE_ID_NONE
 } bcmos_module_id;
@@ -229,6 +228,7 @@ typedef enum
 
     BCMOS_MSG_ID_SW_UTIL_NNI_STATE_CHANGED,
     BCMOS_MSG_ID_SW_UTIL_LAG_NNI_STATE_CHANGED,
+    BCMOS_MSG_ID_SW_UTIL_NNI_FAULT_CODE_CHANGED,
 
     /******************************************************************************/
     /* BALIMPORT BEGIN */
@@ -282,13 +282,13 @@ typedef enum
  */
 
 #define TASK_PRIORITY_COOP_DBA                           BCMOS_TASK_PRIORITY_1
-#define TASK_PRIORITY_TRMUX_RX                           BCMOS_TASK_PRIORITY_2
-#define TASK_PRIORITY_TRANSPORT_RX                       BCMOS_TASK_PRIORITY_7
+#define TASK_PRIORITY_DEVICE_CONTROL                     BCMOS_TASK_PRIORITY_4
+#define TASK_PRIORITY_TRANSPORT_IND                      BCMOS_TASK_PRIORITY_5
+#define TASK_PRIORITY_TRANSPORT_RX                       BCMOS_TASK_PRIORITY_6
+#define TASK_PRIORITY_TRMUX_RX                           BCMOS_TASK_PRIORITY_7
 #define TASK_PRIORITY_TRANSPORT_TIMEOUT                  BCMOS_TASK_PRIORITY_8
 #define TASK_PRIORITY_TRANSPORT_PROXY                    BCMOS_TASK_PRIORITY_9
 #define TASK_PRIORITY_TRANSPORT_REMOTE_CLI               BCMOS_TASK_PRIORITY_9
-#define TASK_PRIORITY_DEVICE_CONTROL                     BCMOS_TASK_PRIORITY_10
-#define TASK_PRIORITY_TRANSPORT_IND                      BCMOS_TASK_PRIORITY_11
 #define TASK_PRIORITY_USER_APPL_PS                       BCMOS_TASK_PRIORITY_12
 #define TASK_PRIORITY_USER_APPL_EON                      BCMOS_TASK_PRIORITY_12
 #define TASK_PRIORITY_USER_APPL_OMON                     BCMOS_TASK_PRIORITY_12
@@ -332,5 +332,8 @@ typedef enum
 #define TASK_PRIORITY_ISSU                      BCMOS_TASK_PRIORITY_29
 #define TASK_PRIORITY_DEV_LOG                   BCMOS_TASK_PRIORITY_30
 /* BALIMPORT END */
+
+/* BAS application */
+#define TASK_PRIORITY_API_IND_FOR_BAS           BCMOS_TASK_PRIORITY_14
 
 #endif /* BCMOS_PLATFORM_H_ */

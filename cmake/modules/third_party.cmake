@@ -174,7 +174,7 @@ macro(bcm_3rdparty_build_cmake)
     endif()
     set(_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/fs/lib")
     if(NOT BCM_CONFIG_HOST MATCHES "x86")
-        set(_LD_LIBRARY_PATH "${_LD_LIBRARY_PATH}:${CMAKE_BINARY_DIR}/../host-sim/fs/lib")
+        set(_LD_LIBRARY_PATH "${_LD_LIBRARY_PATH}:${BCM_SIM_BUILD_ARTIFACTS}/lib")
     endif()
 
     add_custom_command(OUTPUT ${_${_MOD_NAME_UPPER}_INSTALLED_FILE}
