@@ -276,6 +276,48 @@ typedef struct
     bcmolt_power_consumption_channel_report arr[8]; /**< Array. */
 } bcmolt_arr_power_consumption_channel_report_8;
 
+/** ipv4 source binding information */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmos_ipv4_address src_ip; /**< Source IPv4 Address. */
+    bcmos_ipv4_address src_ip_mask; /**< Source IPv4 Address Mask. */
+} bcmolt_ip_v_4_src_binding;
+
+/* Constants associated with bcmolt_ip_v_4_src_binding. */
+#define BCMOLT_IP_V_4_SRC_BINDING_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** ipv6 source binding information */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmos_ipv6_address src_ip_v_6; /**< Source IPv6 address. */
+    bcmos_ipv6_address src_ip_v_6_mask; /**< Source IPv6 Address mask. */
+} bcmolt_ip_v_6_src_binding;
+
+/* Constants associated with bcmolt_ip_v_6_src_binding. */
+#define BCMOLT_IP_V_6_SRC_BINDING_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** source binding information */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmos_mac_address src_mac; /**< mac address binding parameter */
+    bcmolt_ip_v_4_src_binding ip_v_4; /**< ipv4 binding parameters, may not be configured at the same time as ipv6 binding parameters */
+    bcmolt_ip_v_6_src_binding ip_v_6; /**< ipv6 binding parameters, may not be configured at the same time as ipv4 binding parameters */
+    bcmolt_src_binding_fields src_binding_fields; /**< selected src binding fields (RO) */
+} bcmolt_src_binding_info;
+
+/* Constants associated with bcmolt_src_binding_info. */
+#define BCMOLT_SRC_BINDING_INFO_PRESENCE_MASK_ALL 0x000000000000000FULL
+
+/** Fixed-Length list: 16x src_binding_info */
+typedef struct
+{
+    bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
+    bcmolt_src_binding_info arr[16]; /**< Array. */
+} bcmolt_arr_src_binding_info_16;
+
 /** Queue Reference */
 typedef struct
 {
@@ -900,15 +942,22 @@ typedef struct
 #define BCMOLT_GPON_PON_PARAMS_DS_BER_REPORTING_INTERVAL_MAX (bcmolt_ber_interval)536870911UL
 #define BCMOLT_GPON_PON_PARAMS_SR_REPORTING_BLOCK_SIZE_DEFAULT 48
 
+/** ASCII string with max length 100 */
+typedef struct
+{
+    char str[100]; /**< String. */
+} bcmolt_str_100;
+
 /** gpon trx */
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
     bcmolt_trx_type transceiver_type; /**< transceiver type. */
+    bcmolt_str_100 trx_name; /**< TRX name. */
 } bcmolt_gpon_trx;
 
 /* Constants associated with bcmolt_gpon_trx. */
-#define BCMOLT_GPON_TRX_PRESENCE_MASK_ALL 0x0000000000000001ULL
+#define BCMOLT_GPON_TRX_PRESENCE_MASK_ALL 0x0000000002000001ULL
 #define BCMOLT_GPON_TRX_TRANSCEIVER_TYPE_DEFAULT BCMOLT_TRX_TYPE_LTE_3680_M
 
 /** Group Member Info */
@@ -1738,10 +1787,11 @@ typedef struct
     bcmolt_gpon_pon_params gpon; /**< GPON Parameters */
     bcmos_bool bw_eligibility_class_stats; /**< BW Eligibility Class Statistics */
     bcmolt_itupon_dba dba; /**< DBA */
+    bcmos_bool bw_eligibility_stats_clear_on_read; /**< Clear-on-read BW Eligibility Class Statistics */
 } bcmolt_itu_pon_params;
 
 /* Constants associated with bcmolt_itu_pon_params. */
-#define BCMOLT_ITU_PON_PARAMS_PRESENCE_MASK_ALL 0x00000001ABEBFFFFULL
+#define BCMOLT_ITU_PON_PARAMS_PRESENCE_MASK_ALL 0x00000003ABEBFFFFULL
 #define BCMOLT_ITU_PON_PARAMS_EQD_CYCLES_NUMBER_DEFAULT 2UL
 #define BCMOLT_ITU_PON_PARAMS_EQD_CYCLES_NUMBER_MIN 0UL
 #define BCMOLT_ITU_PON_PARAMS_EQD_CYCLES_NUMBER_MAX 255UL
@@ -1754,6 +1804,7 @@ typedef struct
 #define BCMOLT_ITU_PON_PARAMS_DBA_MODE_DEFAULT BCMOLT_DBA_MODE_NORMAL
 #define BCMOLT_ITU_PON_PARAMS_US_BANDWIDTH_LIMIT_DEFAULT 311040000UL
 #define BCMOLT_ITU_PON_PARAMS_DS_FEC_MODE_DEFAULT BCMOLT_CONTROL_STATE_ENABLE
+#define BCMOLT_ITU_PON_PARAMS_BW_ELIGIBILITY_STATS_CLEAR_ON_READ_DEFAULT BCMOS_TRUE
 
 /** ITU ToD */
 typedef struct
@@ -1791,6 +1842,48 @@ typedef struct
     bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
     bcmolt_itupon_onu_eqd *arr; /**< List contents. */
 } bcmolt_itupon_onu_eqd_list_u32;
+
+/** l2 dump filters */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_vlan_id o_vid; /**< outer vlan. */
+    bcmolt_vlan_id i_vid; /**< inner vlan. */
+    bcmolt_intf_ref interface; /**< interface. */
+    bcmos_mac_address mac_address; /**< mac address. */
+    bcmos_mac_address mac_address_mask; /**< mac address mask. */
+    bcmolt_l2_event_report_control domain; /**< port domain. */
+    bcmolt_pkt_tag_type pkt_tag_type; /**< pkt tag type. */
+    bcmolt_service_port_id svc_port_id; /**< service port id. */
+} bcmolt_l2_dump_filters;
+
+/* Constants associated with bcmolt_l2_dump_filters. */
+#define BCMOLT_L2_DUMP_FILTERS_PRESENCE_MASK_ALL 0x00000000000000FFULL
+
+/** l2 mac table entry */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_pkt_tag_type pkt_tag_type; /**< pkt tag type. */
+    bcmolt_vlan_id o_vid; /**< outer vid. */
+    bcmolt_vlan_id i_vid; /**< inner vid. */
+    bcmolt_intf_ref interface; /**< interface. */
+    bcmolt_service_port_id svc_port_id; /**< service port id. */
+    bcmos_mac_address mac_address; /**< mac address. */
+    bcmolt_l2_event event_type; /**< event type. */
+    bcmos_bool is_static; /**< is static. */
+} bcmolt_l2_mact_entry;
+
+/* Constants associated with bcmolt_l2_mact_entry. */
+#define BCMOLT_L2_MACT_ENTRY_PRESENCE_MASK_ALL 0x00000000000000FFULL
+
+/** Variable-length list of l2_mact_entry */
+typedef struct
+{
+    uint32_t len; /**< List length. */
+    bcmolt_presence_mask arr_index_mask; /**< Bitmask of present array element indices. */
+    bcmolt_l2_mact_entry *arr; /**< List contents. */
+} bcmolt_l2_mact_entry_list_u32;
 
 /** System Wide LAG Configuration Parameters */
 typedef struct
@@ -1995,7 +2088,7 @@ typedef struct
 #define BCMOLT_PON_DISTANCE_MAX_LOG_DISTANCE_MAX 100UL
 #define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_DEFAULT 20UL
 #define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MIN 1UL
-#define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MAX 60UL
+#define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MAX 65UL
 
 /** Protection Type */
 typedef struct
@@ -2128,11 +2221,11 @@ typedef struct
 /* Constants associated with bcmolt_stat_alarm_config. */
 #define BCMOLT_STAT_ALARM_CONFIG_PRESENCE_MASK_ALL 0x0000000000000003ULL
 
-/** ASCII string with max length 100 */
+/** ASCII string with max length 128 */
 typedef struct
 {
-    char str[100]; /**< String. */
-} bcmolt_str_100;
+    char str[128]; /**< String. */
+} bcmolt_str_128;
 
 /** ASCII string with max length 16 */
 typedef struct
@@ -2352,10 +2445,11 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     bcmolt_arr_xgpon_burst_profile_4 burst_profile; /**< burst profile. */
     bcmolt_xgpon_trx_type transceiver_type; /**< trx type. */
+    bcmolt_str_100 trx_name; /**< TRX name. */
 } bcmolt_xgpon_trx;
 
 /* Constants associated with bcmolt_xgpon_trx. */
-#define BCMOLT_XGPON_TRX_PRESENCE_MASK_ALL 0x0000000000000005ULL
+#define BCMOLT_XGPON_TRX_PRESENCE_MASK_ALL 0x0000000000020005ULL
 #define BCMOLT_XGPON_TRX_BURST_PROFILE_LENGTH 4
 #define BCMOLT_XGPON_TRX_TRANSCEIVER_TYPE_DEFAULT BCMOLT_XGPON_TRX_TYPE_LTH_7222_PC
 

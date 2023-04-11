@@ -370,6 +370,70 @@ bcmos_bool bcmolt_arr_power_consumption_channel_report_8_validate(const bcmolt_a
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_ip_v_4_src_binding_set_default(bcmolt_ip_v_4_src_binding *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_ip_v_4_src_binding_validate(const bcmolt_ip_v_4_src_binding *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_ip_v_6_src_binding_set_default(bcmolt_ip_v_6_src_binding *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_ip_v_6_src_binding_validate(const bcmolt_ip_v_6_src_binding *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_src_binding_info_set_default(bcmolt_src_binding_info *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_src_binding_info_validate(const bcmolt_src_binding_info *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_arr_src_binding_info_16_set_default(bcmolt_arr_src_binding_info_16 *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_arr_src_binding_info_16_validate(const bcmolt_arr_src_binding_info_16 *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_tm_queue_ref_set_default(bcmolt_tm_queue_ref *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -1050,6 +1114,22 @@ void bcmolt_gpon_pon_params_set_default(bcmolt_gpon_pon_params *obj);
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_gpon_pon_params_validate(const bcmolt_gpon_pon_params *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_str_100_set_default(bcmolt_str_100 *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_str_100_validate(const bcmolt_str_100 *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.
@@ -1872,6 +1952,54 @@ bcmos_bool bcmolt_itupon_onu_eqd_list_u32_validate(const bcmolt_itupon_onu_eqd_l
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_l2_dump_filters_set_default(bcmolt_l2_dump_filters *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_dump_filters_validate(const bcmolt_l2_dump_filters *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mact_entry_set_default(bcmolt_l2_mact_entry *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mact_entry_validate(const bcmolt_l2_mact_entry *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mact_entry_list_u32_set_default(bcmolt_l2_mact_entry_list_u32 *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mact_entry_list_u32_validate(const bcmolt_l2_mact_entry_list_u32 *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_lag_global_parms_set_default(bcmolt_lag_global_parms *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -2231,7 +2359,7 @@ bcmos_bool bcmolt_stat_alarm_config_validate(const bcmolt_stat_alarm_config *obj
  *
  * \param obj Pointer to the structure to initialize.
  */
-void bcmolt_str_100_set_default(bcmolt_str_100 *obj);
+void bcmolt_str_128_set_default(bcmolt_str_128 *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
  *
@@ -2240,7 +2368,7 @@ void bcmolt_str_100_set_default(bcmolt_str_100 *obj);
  * \param err_details Filled in with a description of the error (if validation fails).
  * \return TRUE on success, FALSE on failure.
  */
-bcmos_bool bcmolt_str_100_validate(const bcmolt_str_100 *obj, bcmos_errno *err, bcmolt_string *err_details);
+bcmos_bool bcmolt_str_128_validate(const bcmolt_str_128 *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.

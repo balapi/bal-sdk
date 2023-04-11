@@ -19,5 +19,5 @@ var group__api__func =
     [ "bcmolt_oper_submit", "group__api__func.html#ga643bfd93ab96acad1c151be8d121a669", null ],
     [ "bcmolt_ind_subscribe", "group__api__func.html#ga0766bc1c4ed4c72a467e89b07a46fc79", null ],
     [ "bcmolt_ind_unsubscribe", "group__api__func.html#gae9179fdbcbb9848a95bd1462956381b8", null ],
-    [ "bcmolt_rx_cfg", "group__api__func.html#gaa66ec4fa7e28e80e1b875abf33aac283", null ]
+    [ "bcmolt_rx_cfg", "group__api__func.html#ga59dfd91fca9d0158888ca633605986d9", null ]
 ];

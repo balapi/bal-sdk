@@ -1200,6 +1200,22 @@ bcmos_bool bcmolt_flow_send_eth_packet_data_validate(const bcmolt_flow_send_eth_
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_flow_src_binding_update_data_set_default(bcmolt_flow_src_binding_update_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_flow_src_binding_update_data_validate(const bcmolt_flow_src_binding_update_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_flow_stats_cfg_data_set_default(bcmolt_flow_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -2108,6 +2124,98 @@ bcmos_errno bcmolt_itupon_alloc_multi_stats_unpack(bcmolt_buf *buf, const bcmolt
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats_get_packed_length(const bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats_pack(const bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_latency_stats_data_set_default(bcmolt_itupon_alloc_latency_stats_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_latency_stats_data_validate(const bcmolt_itupon_alloc_latency_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_itupon_alloc_multi_latency_stats_get_packed_length(const bcmolt_itupon_alloc_multi_latency_stats *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_itupon_alloc_multi_latency_stats_pack(const bcmolt_itupon_alloc_multi_latency_stats *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_itupon_alloc_multi_latency_stats_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_itupon_alloc_multi_latency_stats **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_itupon_alloc_stats_cfg_data_set_default(bcmolt_itupon_alloc_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -2150,6 +2258,102 @@ void bcmolt_itupon_alloc_stats_alarm_cleared_data_set_default(bcmolt_itupon_allo
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_itupon_alloc_stats_alarm_cleared_data_validate(const bcmolt_itupon_alloc_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_latency_stats_cfg_data_set_default(bcmolt_itupon_alloc_latency_stats_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_latency_stats_cfg_data_validate(const bcmolt_itupon_alloc_latency_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_latency_stats_alarm_raised_data_set_default(bcmolt_itupon_alloc_latency_stats_alarm_raised_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_raised_data_validate(const bcmolt_itupon_alloc_latency_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_set_default(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_validate(const bcmolt_itupon_alloc_latency_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.
@@ -2370,6 +2574,148 @@ void bcmolt_itupon_gem_auto_cfg_data_set_default(bcmolt_itupon_gem_auto_cfg_data
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_itupon_gem_auto_cfg_data_validate(const bcmolt_itupon_gem_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_key_set_default(bcmolt_l2_mac_table_key *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_key_validate(const bcmolt_l2_mac_table_key *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_cfg_data_set_default(bcmolt_l2_mac_table_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_cfg_data_validate(const bcmolt_l2_mac_table_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_l2_mac_table_multi_cfg_get_packed_length(const bcmolt_l2_mac_table_multi_cfg *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_l2_mac_table_multi_cfg_pack(const bcmolt_l2_mac_table_multi_cfg *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_l2_mac_table_multi_cfg_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_l2_mac_table_multi_cfg **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_dump_data_set_default(bcmolt_l2_mac_table_dump_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_dump_data_validate(const bcmolt_l2_mac_table_dump_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_dump_complete_data_set_default(bcmolt_l2_mac_table_dump_complete_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_dump_complete_data_validate(const bcmolt_l2_mac_table_dump_complete_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_network_events_data_set_default(bcmolt_l2_mac_table_network_events_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_network_events_data_validate(const bcmolt_l2_mac_table_network_events_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_pon_events_data_set_default(bcmolt_l2_mac_table_pon_events_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_pon_events_data_validate(const bcmolt_l2_mac_table_pon_events_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_l2_mac_table_auto_cfg_data_set_default(bcmolt_l2_mac_table_auto_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_l2_mac_table_auto_cfg_data_validate(const bcmolt_l2_mac_table_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.
@@ -4180,6 +4526,52 @@ bcmos_bool bcmolt_onu_trap_ploam_received_data_validate(const bcmolt_onu_trap_pl
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Gets the number of bytes that a multi-object container would occupy on the wire.
+ *
+ * Does not include the common header (msg->hdr->hdr).
+ *
+ * \param msg Pointer to the structure.
+ * \return The structure size in bytes.
+ */
+uint32_t bcmolt_onu_multi_itu_alloc_onu_accumulated_stats_get_packed_length(const bcmolt_onu_multi_itu_alloc_onu_accumulated_stats *msg);
+
+/** Packs a multi-object container to bytes for transmission on the wire.
+ *
+ * Assumes that the common header (msg->hdr->hdr) has already been packed.
+ *
+ * \param msg Pointer to the structure to pack.
+ * \param buf Pointer to the buffer to write to.
+ * eturn Error encountered during the pack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_onu_multi_itu_alloc_onu_accumulated_stats_pack(const bcmolt_onu_multi_itu_alloc_onu_accumulated_stats *msg, bcmolt_buf *buf);
+
+/** Unpacks a multi-object container from bytes as received on the wire.
+ *
+ * Assumes that the common header has already been unpacked.
+ *
+ * \param buf Pointer to the buffer to read from.
+ * \param hdr The common header that has already been unpacked.
+ * \param msg Pointer to the structure to unpack. This can be NULL, in which case the message will be dynamically allocated.
+ * eturn Error encountered during the unpack (BCM_ERR_OK on success).
+ */
+bcmos_errno bcmolt_onu_multi_itu_alloc_onu_accumulated_stats_unpack(bcmolt_buf *buf, const bcmolt_msg *hdr, bcmolt_onu_multi_itu_alloc_onu_accumulated_stats **msg);
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_onu_itu_pon_stats_cfg_data_set_default(bcmolt_onu_itu_pon_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
@@ -4222,6 +4614,54 @@ void bcmolt_onu_itu_pon_stats_alarm_cleared_data_set_default(bcmolt_onu_itu_pon_
  * \return TRUE on success, FALSE on failure.
  */
 bcmos_bool bcmolt_onu_itu_pon_stats_alarm_cleared_data_validate(const bcmolt_onu_itu_pon_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details);
 
 
 /** Initializes a structure to default values.
