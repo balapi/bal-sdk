@@ -303,17 +303,34 @@ typedef unsigned long dev_log_id;
 #endif /* ENABLE_LOG */
 
 /* Check a bcmos_errno return code and on error, print the log and return the error code
+ * Input - _rc - bcmos_errno return code or function to be evaluated
+ *         _log_id
+ *         _fmt - format for the error log
+ *         _args - arguments to the error log
+ * Output: error log, on error, and return with the given error code
+ */
+#define BCM_CHECK_RETURN(_rc, _log_id, _fmt, _args ...)                 \
+    {                                                                   \
+        bcmos_errno _ret = _rc;                                         \
+        if (_ret != BCM_ERR_OK)                                         \
+        {                                                               \
+            BCM_LOG(ERROR, _log_id, "%s(): err='%s', " _fmt, __func__, bcmos_strerror(_ret), ## _args); \
+            return _ret;                                                \
+        }                                                               \
+    }
+
+/* Check a bcmos_errno return code and on error, print the log and break from loop
  * Input - _rc - bcmos_errno return code
  *         _log_id
  *         _fmt - format for the error log
  *         _args - arguments to the error log
  * Output: error log, on error, and return with the given error code
  */
-#define BCM_CHECK_RETURN(_rc, _log_id, _fmt, _args ...) \
+#define BCM_CHECK_BREAK(_rc, _log_id, _fmt, _args ...) \
     if (_rc != BCM_ERR_OK) \
     { \
         BCM_LOG(ERROR, _log_id, "%s(): err='%s', " _fmt, __func__, bcmos_strerror(_rc), ## _args); \
-        return _rc; \
+        break; \
     }
 
 /* Check if the given pointer is NULL and on NULL, print the log and return the given bcmos_errno return code

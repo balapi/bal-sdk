@@ -327,3 +327,36 @@ function(bcm_convert_version_to_single_number SINGLE_NUMBER VERSION_NUMBER)
 
     set(${SINGLE_NUMBER} ${_SINGLE_NUMBER} PARENT_SCOPE)
 endfunction(bcm_convert_version_to_single_number)
+
+#======
+# Add system level shared libraries to the build image. This is used when we have a dependency on
+# third party libs that build to shared libs.
+#
+# @param ARGN       [in] Libs to add
+#======
+unset(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS CACHE)
+
+function(bcm_add_third_party_libs)
+    list(APPEND PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS ${ARGN})
+    set(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS ${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS} CACHE STRING
+        "System shared libs to add to manifest" FORCE)
+endfunction(bcm_add_third_party_libs)
+
+#======
+# Convert the package manifest system share libs to a string that can be output to the manifest file
+#======
+macro(bcm_format_third_party_libs_for_manifest)
+    if(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+        list(REMOVE_DUPLICATES PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+
+        # Add the libraries to the devsys package
+        bcm_prepend_source_path(_SYSTEM_SHARED_LIBS_PATH ${CMAKE_INSTALL_PREFIX}/fs
+            ${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS})
+        bcm_release_install(${_SYSTEM_SHARED_LIBS_PATH} RELEASE ${BCM_HOST_IMAGES_RELEASE}/lib
+            DO_NOT_FOLLOW_LINKS)
+
+        # Create the variable used to fill in the manifest file with all the libraries to include
+        string(REPLACE ";" "\n" PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS "${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS}")
+    endif(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+endmacro(bcm_format_third_party_libs_for_manifest)
+

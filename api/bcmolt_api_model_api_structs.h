@@ -317,7 +317,7 @@ typedef struct
     uint32_t chip_voltage; /**< Chip voltage in mV */
     int32_t chip_temperature; /**< Current die temperature. */
     bcmolt_debug_device_cfg debug; /**< Device configuration debug parameters */
-    bcmolt_ext_irq protection_switching_ext_irq; /**< The selected external IRQ for protection switching */
+    bcmolt_ext_irq protection_switching_ext_irq; /**< Supported in BCM6862X only. The selected external IRQ for protection switching */
     bcmolt_indication_shaping indication_shaping; /**< Shaping / rate limiting for the indication channel. */
     bcmolt_uart_baudrate tod_uart_baudrate; /**< UART baud rate */
     bcmolt_itu_tod itu_tod; /**< ITU ToD configuration */
@@ -1316,10 +1316,11 @@ typedef struct
     bcmolt_mac_table_miss_action mac_table_miss_action; /**< Action to take a mac table miss */
     bcmolt_policer_profile_id policer_profile; /**< policer profile for flow if any */
     bcmolt_control_state um_forwarding; /**< um forwarding. */
+    bcmolt_arr_src_binding_info_16 src_bindings; /**< source bindings for a flow */
 } bcmolt_flow_cfg_data;
 
 /* Constants associated with bcmolt_flow_cfg_data. */
-#define BCMOLT_FLOW_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000FFFFULL
+#define BCMOLT_FLOW_CFG_DATA_PRESENCE_MASK_ALL 0x000000000001FFFFULL
 #define BCMOLT_FLOW_CFG_DATA_ONU_ID_DEFAULT (bcmolt_onu_id)65535U
 #define BCMOLT_FLOW_CFG_DATA_SVC_PORT_ID_DEFAULT (bcmolt_service_port_id)65535UL
 #define BCMOLT_FLOW_CFG_DATA_PRIORITY_DEFAULT 10U
@@ -1332,6 +1333,7 @@ typedef struct
 #define BCMOLT_FLOW_CFG_DATA_MAC_TABLE_MISS_ACTION_DEFAULT BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD
 #define BCMOLT_FLOW_CFG_DATA_POLICER_PROFILE_DEFAULT (bcmolt_policer_profile_id)65535U
 #define BCMOLT_FLOW_CFG_DATA_UM_FORWARDING_DEFAULT BCMOLT_CONTROL_STATE_DISABLE
+#define BCMOLT_FLOW_CFG_DATA_SRC_BINDINGS_LENGTH 16
 
 /** Transport message definition for "cfg" group of "flow" object. */
 typedef struct
@@ -1414,6 +1416,25 @@ typedef struct
     bcmolt_flow_key key; /**< Object key. */
     bcmolt_flow_send_eth_packet_data data; /**< All properties that must be set by the user. */
 } bcmolt_flow_send_eth_packet;
+
+/** BAL Flow: source binding update */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_binding_command command; /**< binding command */
+    bcmolt_src_binding_info src_binding; /**< source binding parameters */
+} bcmolt_flow_src_binding_update_data;
+
+/* Constants associated with bcmolt_flow_src_binding_update_data. */
+#define BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** Transport message definition for "src_binding_update" group of "flow" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_flow_key key; /**< Object key. */
+    bcmolt_flow_src_binding_update_data data; /**< All properties that must be set by the user. */
+} bcmolt_flow_src_binding_update;
 
 /** BAL Flow: Statistics Configuration */
 typedef struct
@@ -1822,7 +1843,7 @@ typedef struct
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_LOOPBACK_TYPE_DEFAULT BCMOLT_NNI_LOOPBACK_TYPE_NONE
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_STATUS_POLLING_INTERVAL_MS_DEFAULT 50UL
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_STATUS_POLLING_INTERVAL_MS_MIN 0UL
-#define BCMOLT_INTERNAL_NNI_CFG_DATA_STATUS_POLLING_INTERVAL_MS_MAX 3600000UL
+#define BCMOLT_INTERNAL_NNI_CFG_DATA_STATUS_POLLING_INTERVAL_MS_MAX 2000000UL
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_REDUNDANCY_DEFAULT BCMOLT_INTERNAL_NNI_REDUNDANCY_NONE
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_FLOW_CONTROL_DEFAULT BCMOLT_CONTROL_STATE_ENABLE
 #define BCMOLT_INTERNAL_NNI_CFG_DATA_OVERSUBSCRIPTION_DEFAULT BCMOS_FALSE
@@ -2263,15 +2284,17 @@ typedef struct
     bcmos_bool collect_stats; /**< Enable statistics collection for this alloc ID */
     uint32_t onu_tcont_max_queue_size; /**< For better DBA performance, this is the maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. If 0, it means unconfigured. */
     bcmos_bool latency_sensitive; /**< Is the alloc latency sensitive ? This parameter is relevant only for SR allocs. Setting this flag to true may improve the latency of this alloc, but in the cost of slightly compromising other allocs (in congestion only) */
+    bcmos_bool enable_latency_stats; /**< Enable latency statistics */
 } bcmolt_itupon_alloc_cfg_data;
 
 /* Constants associated with bcmolt_itupon_alloc_cfg_data. */
-#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000003FULL
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000007FULL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_STATE_DEFAULT BCMOLT_ACTIVATION_STATE_NOT_CONFIGURED
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_DEFAULT 0UL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_MIN 0UL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_ONU_TCONT_MAX_QUEUE_SIZE_MAX 16777215UL
 #define BCMOLT_ITUPON_ALLOC_CFG_DATA_LATENCY_SENSITIVE_DEFAULT BCMOS_FALSE
+#define BCMOLT_ITUPON_ALLOC_CFG_DATA_ENABLE_LATENCY_STATS_DEFAULT BCMOS_FALSE
 
 /** Transport message definition for "cfg" group of "itupon_alloc" object. */
 typedef struct
@@ -2408,6 +2431,86 @@ typedef struct
     bcmolt_itupon_alloc_key next_key; /**< Key iterator (do not set manually). */
 } bcmolt_itupon_alloc_multi_stats;
 
+/** ITU PON Alloc: Accumulated statistics */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint64_t tm_used; /**< tm used. */
+    uint64_t tm_allocated; /**< tm allocated. */
+    uint64_t bufocc; /**< Buffer occupancy. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data;
+
+/* Constants associated with bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data. */
+#define BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "alloc_onu_accumulated_stats" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_stat hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats;
+
+/** Multi-object message definition for "alloc_onu_accumulated_stats" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_multi_stat hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key (can include wildcards). */
+    bcmolt_itupon_alloc_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats *responses; /**< Responses to the last API call. */
+
+    bcmolt_itupon_alloc_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats;
+
+/** ITU PON Alloc: latency statistics */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint64_t onu_tcont_max_queue_size; /**< ONU TCONT maximum queue size. */
+    uint64_t allocation_busy; /**< allocation busy. */
+    uint64_t latency_bucket_0_100_usec; /**< latency distribution bucket 0-0.1 ms. */
+    uint64_t latency_bucket_100_200_usec; /**< latency distribution bucket 0.1-0.2 ms. */
+    uint64_t latency_bucket_200_300_usec; /**< latency distribution bucket 0.2-0.3 ms. */
+    uint64_t latency_bucket_300_400_usec; /**< latency distribution bucket 0.3-0.4 ms. */
+    uint64_t latency_bucket_400_600_usec; /**< latency distribution bucket 0.4-0.6 ms. */
+    uint64_t latency_bucket_600_800_usec; /**< latency distribution bucket 0.6-0.8 ms. */
+    uint64_t latency_bucket_800_1000_usec; /**< latency distribution bucket 0.8-1 ms. */
+    uint64_t latency_bucket_1_3_msec; /**< latency distribution bucket 1-3 ms. */
+    uint64_t latency_bucket_3_5_msec; /**< latency distribution bucket 3-5 ms. */
+    uint64_t latency_bucket_5_10_msec; /**< latency distribution bucket 5-10 ms. */
+    uint64_t latency_bucket_more_than_10_msec; /**< latency distribution bucket more then 10ms. */
+} bcmolt_itupon_alloc_latency_stats_data;
+
+/* Constants associated with bcmolt_itupon_alloc_latency_stats_data. */
+#define BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_PRESENCE_MASK_ALL 0x0000000000001FFFULL
+
+/** Transport message definition for "latency_stats" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_stat hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_latency_stats_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_latency_stats;
+
+/** Multi-object message definition for "latency_stats" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_multi_stat hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key (can include wildcards). */
+    bcmolt_itupon_alloc_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_itupon_alloc_latency_stats_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_itupon_alloc_latency_stats *responses; /**< Responses to the last API call. */
+
+    bcmolt_itupon_alloc_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_itupon_alloc_multi_latency_stats;
+
 /** ITU PON Alloc: Statistics Configuration */
 typedef struct
 {
@@ -2462,18 +2565,146 @@ typedef struct
     bcmolt_itupon_alloc_stats_alarm_cleared_data data; /**< All properties that must be set by the user. */
 } bcmolt_itupon_alloc_stats_alarm_cleared;
 
+/** ITU PON Alloc: Accumulated Statistics Configuration */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_stat_alarm_config tm_used; /**< tm used. */
+    bcmolt_stat_alarm_config tm_allocated; /**< tm allocated. */
+    bcmolt_stat_alarm_config bufocc; /**< Buffer occupancy. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data;
+
+/* Constants associated with bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data. */
+#define BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "alloc_onu_accumulated_stats_cfg" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_stat_cfg hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg;
+
+/** ITU PON Alloc: Accumulated Statistics Alarm Raised */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data;
+
+/* Constants associated with bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data. */
+#define BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "alloc_onu_accumulated_stats_alarm_raised" group of "itupon_alloc"
+  * object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised;
+
+/** ITU PON Alloc: Accumulated Statistics Alarm Cleared */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data;
+
+/* Constants associated with bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data. */
+#define BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "alloc_onu_accumulated_stats_alarm_cleared" group of
+  * "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared;
+
+/** ITU PON Alloc: Latency Statistics Configuration */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_stat_alarm_config onu_tcont_max_queue_size; /**< ONU TCONT maximum queue size. */
+    bcmolt_stat_alarm_config allocation_busy; /**< allocation busy. */
+    bcmolt_stat_alarm_config latency_bucket_0_100_usec; /**< latency distribution bucket 0-0.1 ms. */
+    bcmolt_stat_alarm_config latency_bucket_100_200_usec; /**< latency distribution bucket 0.1-0.2 ms. */
+    bcmolt_stat_alarm_config latency_bucket_200_300_usec; /**< latency distribution bucket 0.2-0.3 ms. */
+    bcmolt_stat_alarm_config latency_bucket_300_400_usec; /**< latency distribution bucket 0.3-0.4 ms. */
+    bcmolt_stat_alarm_config latency_bucket_400_600_usec; /**< latency distribution bucket 0.4-0.6 ms. */
+    bcmolt_stat_alarm_config latency_bucket_600_800_usec; /**< latency distribution bucket 0.6-0.8 ms. */
+    bcmolt_stat_alarm_config latency_bucket_800_1000_usec; /**< latency distribution bucket 0.8-1 ms. */
+    bcmolt_stat_alarm_config latency_bucket_1_3_msec; /**< latency distribution bucket 1-3 ms. */
+    bcmolt_stat_alarm_config latency_bucket_3_5_msec; /**< latency distribution bucket 3-5 ms. */
+    bcmolt_stat_alarm_config latency_bucket_5_10_msec; /**< latency distribution bucket 5-10 ms. */
+    bcmolt_stat_alarm_config latency_bucket_more_than_10_msec; /**< latency distribution bucket more then 10ms. */
+} bcmolt_itupon_alloc_latency_stats_cfg_data;
+
+/* Constants associated with bcmolt_itupon_alloc_latency_stats_cfg_data. */
+#define BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000001FFFULL
+
+/** Transport message definition for "latency_stats_cfg" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_stat_cfg hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_latency_stats_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_latency_stats_cfg;
+
+/** ITU PON Alloc: Latency Statistics Alarm Raised */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_itupon_alloc_latency_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_itupon_alloc_latency_stats_alarm_raised_data;
+
+/* Constants associated with bcmolt_itupon_alloc_latency_stats_alarm_raised_data. */
+#define BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "latency_stats_alarm_raised" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_latency_stats_alarm_raised_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_latency_stats_alarm_raised;
+
+/** ITU PON Alloc: Latency Statistics Alarm Cleared */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_itupon_alloc_latency_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_itupon_alloc_latency_stats_alarm_cleared_data;
+
+/* Constants associated with bcmolt_itupon_alloc_latency_stats_alarm_cleared_data. */
+#define BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "latency_stats_alarm_cleared" group of "itupon_alloc" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_itupon_alloc_key key; /**< Object key. */
+    bcmolt_itupon_alloc_latency_stats_alarm_cleared_data data; /**< All properties that must be set by the user. */
+} bcmolt_itupon_alloc_latency_stats_alarm_cleared;
+
 /** ITU PON Alloc: Indication Configuration */
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
+    bcmos_bool alloc_onu_accumulated_stats_alarm_cleared; /**< If true, indications of type "alloc_onu_accumulated_stats_alarm_cleared" will be generated. */
+    bcmos_bool alloc_onu_accumulated_stats_alarm_raised; /**< If true, indications of type "alloc_onu_accumulated_stats_alarm_raised" will be generated. */
     bcmos_bool configuration_completed; /**< If true, indications of type "configuration_completed" will be generated. */
     bcmos_bool get_alloc_stats_completed; /**< If true, indications of type "get_alloc_stats_completed" will be generated. */
+    bcmos_bool latency_stats_alarm_cleared; /**< If true, indications of type "latency_stats_alarm_cleared" will be generated. */
+    bcmos_bool latency_stats_alarm_raised; /**< If true, indications of type "latency_stats_alarm_raised" will be generated. */
     bcmos_bool stats_alarm_cleared; /**< If true, indications of type "stats_alarm_cleared" will be generated. */
     bcmos_bool stats_alarm_raised; /**< If true, indications of type "stats_alarm_raised" will be generated. */
 } bcmolt_itupon_alloc_auto_cfg_data;
 
 /* Constants associated with bcmolt_itupon_alloc_auto_cfg_data. */
-#define BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x00000000000000FFULL
 
 /** Transport message definition for "auto_cfg" group of "itupon_alloc" object. */
 typedef struct
@@ -2683,6 +2914,164 @@ typedef struct
     bcmolt_itupon_gem_key key; /**< Object key. */
     bcmolt_itupon_gem_auto_cfg_data data; /**< All properties that must be set by the user. */
 } bcmolt_itupon_gem_auto_cfg;
+
+/** l2 mac table: key */
+typedef struct
+{
+    bcmolt_l2_mac_table_id id; /**< id. */
+} bcmolt_l2_mac_table_key;
+
+/* Constants associated with bcmolt_l2_mac_table_key. */
+#define BCMOLT_L2_MAC_TABLE_KEY_ID_DEFAULT (bcmolt_l2_mac_table_id)0
+#define BCMOLT_L2_MAC_TABLE_KEY_ID_MIN (bcmolt_l2_mac_table_id)0
+#define BCMOLT_L2_MAC_TABLE_KEY_ID_MAX (bcmolt_l2_mac_table_id)0
+
+/** l2 mac table: cfg */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_config_state state; /**< state. */
+    bcmolt_l2_mact_dump_status dump_status; /**< dump status. */
+    bcmolt_l2_mact_dump_status last_dump_result; /**< last dump_result. */
+    bcmolt_l2_event_report_control report_event; /**< report learning events. */
+} bcmolt_l2_mac_table_cfg_data;
+
+/* Constants associated with bcmolt_l2_mac_table_cfg_data. */
+#define BCMOLT_L2_MAC_TABLE_CFG_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_L2_MAC_TABLE_CFG_DATA_STATE_DEFAULT BCMOLT_CONFIG_STATE_CONFIGURED
+#define BCMOLT_L2_MAC_TABLE_CFG_DATA_DUMP_STATUS_DEFAULT BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED
+#define BCMOLT_L2_MAC_TABLE_CFG_DATA_LAST_DUMP_RESULT_DEFAULT BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED
+#define BCMOLT_L2_MAC_TABLE_CFG_DATA_REPORT_EVENT_DEFAULT (bcmolt_l2_event_report_control)0U
+
+/** Transport message definition for "cfg" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_cfg hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_cfg;
+
+/** Multi-object message definition for "cfg" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_multi_cfg hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key (can include wildcards). */
+    bcmolt_l2_mac_table_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_l2_mac_table_cfg_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_l2_mac_table_cfg *responses; /**< Responses to the last API call. */
+
+    bcmolt_l2_mac_table_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_l2_mac_table_multi_cfg;
+
+/** l2 mac table: l2 mact dump */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_str_128 file_name; /**< file name. */
+    bcmolt_l2_dump_mode mode; /**< dump mode. */
+    bcmolt_l2_dump_filters filters; /**< dump filters. */
+    bcmolt_control_state report_as_indication; /**< report as indication. */
+    uint16_t max_entry_per_indication; /**< max number of entries per dump indication. */
+} bcmolt_l2_mac_table_dump_data;
+
+/* Constants associated with bcmolt_l2_mac_table_dump_data. */
+#define BCMOLT_L2_MAC_TABLE_DUMP_DATA_PRESENCE_MASK_ALL 0x000000000000001FULL
+#define BCMOLT_L2_MAC_TABLE_DUMP_DATA_MODE_DEFAULT BCMOLT_L2_DUMP_MODE_DYNAMIC
+#define BCMOLT_L2_MAC_TABLE_DUMP_DATA_REPORT_AS_INDICATION_DEFAULT BCMOLT_CONTROL_STATE_DISABLE
+#define BCMOLT_L2_MAC_TABLE_DUMP_DATA_MAX_ENTRY_PER_INDICATION_DEFAULT 512U
+
+/** Transport message definition for "dump" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_dump_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_dump;
+
+/** l2 mac table: l2 mact dump completed */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_str_128 file_name; /**< file name. */
+    bcmolt_l2_mact_dump_status result; /**< result. */
+} bcmolt_l2_mac_table_dump_complete_data;
+
+/* Constants associated with bcmolt_l2_mac_table_dump_complete_data. */
+#define BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** Transport message definition for "dump_complete" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_dump_complete_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_dump_complete;
+
+/** Transport message definition for "dump_abort" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_oper hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+} bcmolt_l2_mac_table_dump_abort;
+
+/** l2 mac table: network l2 events */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_l2_mact_entry_list_u32 entries; /**< entries. */
+} bcmolt_l2_mac_table_network_events_data;
+
+/* Constants associated with bcmolt_l2_mac_table_network_events_data. */
+#define BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "network_events" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_network_events_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_network_events;
+
+/** l2 mac table: pon l2 events */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_l2_mact_entry_list_u32 entries; /**< entries. */
+} bcmolt_l2_mac_table_pon_events_data;
+
+/* Constants associated with bcmolt_l2_mac_table_pon_events_data. */
+#define BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "pon_events" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_pon_events_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_pon_events;
+
+/** l2 mac table: Indication Configuration */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmos_bool dump_complete; /**< If true, indications of type "dump_complete" will be generated. */
+    bcmos_bool network_events; /**< If true, indications of type "network_events" will be generated. */
+    bcmos_bool pon_events; /**< If true, indications of type "pon_events" will be generated. */
+} bcmolt_l2_mac_table_auto_cfg_data;
+
+/* Constants associated with bcmolt_l2_mac_table_auto_cfg_data. */
+#define BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "auto_cfg" group of "l2_mac_table" object. */
+typedef struct
+{
+    bcmolt_auto_cfg hdr; /**< Transport header. */
+    bcmolt_l2_mac_table_key key; /**< Object key. */
+    bcmolt_l2_mac_table_auto_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_l2_mac_table_auto_cfg;
 
 /** LAG interface: key */
 typedef struct
@@ -3585,10 +3974,11 @@ typedef struct
     bcmolt_str_100 file_name; /**< File Name. */
     uint32_t line_number; /**< Line Number. */
     bcmolt_str_100 error_string; /**< User error string. */
+    bcmolt_sw_error_severity severity; /**< Severity. */
 } bcmolt_olt_sw_error_data;
 
 /* Constants associated with bcmolt_olt_sw_error_data. */
-#define BCMOLT_OLT_SW_ERROR_DATA_PRESENCE_MASK_ALL 0x000000000000000FULL
+#define BCMOLT_OLT_SW_ERROR_DATA_PRESENCE_MASK_ALL 0x000000000000001FULL
 
 /** Transport message definition for "sw_error" group of "olt" object. */
 typedef struct
@@ -4423,7 +4813,7 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
-    uint8_t bip8_errors; /**< BIP8 errors. */
+    uint32_t bip8_errors; /**< BIP8 errors. */
 } bcmolt_onu_err_data;
 
 /* Constants associated with bcmolt_onu_err_data. */
@@ -4788,7 +5178,7 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
-    uint8_t bip8_errors; /**< BIP8 errors. */
+    uint32_t bip8_errors; /**< BIP8 errors. */
 } bcmolt_onu_rei_data;
 
 /* Constants associated with bcmolt_onu_rei_data. */
@@ -4885,6 +5275,41 @@ typedef struct
     bcmolt_onu_trap_ploam_received_data data; /**< All properties that must be set by the user. */
 } bcmolt_onu_trap_ploam_received;
 
+/** ONU: Accumulated statistics */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    uint64_t tm_used; /**< tm used. */
+    uint64_t tm_allocated; /**< tm allocated. */
+    uint64_t bufocc; /**< Buffer occupancy. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_data;
+
+/* Constants associated with bcmolt_onu_itu_alloc_onu_accumulated_stats_data. */
+#define BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "itu_alloc_onu_accumulated_stats" group of "onu" object. */
+typedef struct
+{
+    bcmolt_stat hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_data data; /**< All properties that must be set by the user. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats;
+
+/** Multi-object message definition for "itu_alloc_onu_accumulated_stats" group of "onu" object. */
+typedef struct
+{
+    bcmolt_multi_stat hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key (can include wildcards). */
+    bcmolt_onu_cfg_data filter; /**< Only include responses that match these values. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_data request; /**< Responses will include all present fields. */
+
+    bcmos_bool more; /**< BCMOS_TRUE if not all responses were retreived by the last API call. */
+    uint16_t num_responses; /**< Number of responses to the last API call. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats *responses; /**< Responses to the last API call. */
+
+    bcmolt_onu_key next_key; /**< Key iterator (do not set manually). */
+} bcmolt_onu_multi_itu_alloc_onu_accumulated_stats;
+
 /** ONU: ITU PON Statistics Configuration */
 typedef struct
 {
@@ -4961,6 +5386,64 @@ typedef struct
     bcmolt_onu_itu_pon_stats_alarm_cleared_data data; /**< All properties that must be set by the user. */
 } bcmolt_onu_itu_pon_stats_alarm_cleared;
 
+/** ONU: Accumulated Statistics Configuration */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_stat_alarm_config tm_used; /**< tm used. */
+    bcmolt_stat_alarm_config tm_allocated; /**< tm allocated. */
+    bcmolt_stat_alarm_config bufocc; /**< Buffer occupancy. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data;
+
+/* Constants associated with bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data. */
+#define BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
+
+/** Transport message definition for "itu_alloc_onu_accumulated_stats_cfg" group of "onu" object. */
+typedef struct
+{
+    bcmolt_stat_cfg hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data data; /**< All properties that must be set by the user. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg;
+
+/** ONU: Accumulated Statistics Alarm Raised */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data;
+
+/* Constants associated with bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data. */
+#define BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "itu_alloc_onu_accumulated_stats_alarm_raised" group of "onu"
+  * object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data data; /**< All properties that must be set by the user. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised;
+
+/** ONU: Accumulated Statistics Alarm Cleared */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id stat; /**< Statistic identifier. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data;
+
+/* Constants associated with bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data. */
+#define BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+
+/** Transport message definition for "itu_alloc_onu_accumulated_stats_alarm_cleared" group of "onu"
+  * object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_onu_key key; /**< Object key. */
+    bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data data; /**< All properties that must be set by the user. */
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared;
+
 /** ONU: Indication Configuration */
 typedef struct
 {
@@ -4973,6 +5456,8 @@ typedef struct
     bcmos_bool err; /**< If true, indications of type "err" will be generated. */
     bcmos_bool gpon_alarm; /**< If true, indications of type "gpon_alarm" will be generated. */
     bcmos_bool invalid_dbru_report; /**< If true, indications of type "invalid_dbru_report" will be generated. */
+    bcmos_bool itu_alloc_onu_accumulated_stats_alarm_cleared; /**< If true, indications of type "itu_alloc_onu_accumulated_stats_alarm_cleared" will be generated. */
+    bcmos_bool itu_alloc_onu_accumulated_stats_alarm_raised; /**< If true, indications of type "itu_alloc_onu_accumulated_stats_alarm_raised" will be generated. */
     bcmos_bool itu_pon_stats_alarm_cleared; /**< If true, indications of type "itu_pon_stats_alarm_cleared" will be generated. */
     bcmos_bool itu_pon_stats_alarm_raised; /**< If true, indications of type "itu_pon_stats_alarm_raised" will be generated. */
     bcmos_bool key_exchange_completed; /**< If true, indications of type "key_exchange_completed" will be generated. */
@@ -5022,7 +5507,7 @@ typedef struct
 } bcmolt_onu_auto_cfg_data;
 
 /* Constants associated with bcmolt_onu_auto_cfg_data. */
-#define BCMOLT_ONU_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x003FFFFFFFFFFFFFULL
+#define BCMOLT_ONU_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x00FFFFFFFFFFFFFFULL
 
 /** Transport message definition for "auto_cfg" group of "onu" object. */
 typedef struct
@@ -5240,10 +5725,12 @@ typedef struct
     uint64_t fec_codewords_uncorrected; /**< Received uncorrected FEC codewords. */
     uint64_t rx_gem_illegal; /**< Received illegal GEM frames. */
     uint64_t rx_packets; /**< Received packets. */
+    uint64_t tx_bytes; /**< Transmitted bytes. */
+    uint64_t rx_bytes; /**< Received bytes. */
 } bcmolt_pon_interface_itu_pon_stats_data;
 
 /* Constants associated with bcmolt_pon_interface_itu_pon_stats_data. */
-#define BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_PRESENCE_MASK_ALL 0x0000007FFFFFFFFFULL
+#define BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_PRESENCE_MASK_ALL 0x000001FFFFFFFFFFULL
 
 /** Transport message definition for "itu_pon_stats" group of "pon_interface" object. */
 typedef struct
@@ -5975,10 +6462,12 @@ typedef struct
     bcmolt_stat_alarm_config fec_codewords_uncorrected; /**< Received uncorrected FEC codewords. */
     bcmolt_stat_alarm_config rx_gem_illegal; /**< Received illegal GEM frames. */
     bcmolt_stat_alarm_config rx_packets; /**< Received packets. */
+    bcmolt_stat_alarm_config tx_bytes; /**< Transmitted bytes. */
+    bcmolt_stat_alarm_config rx_bytes; /**< Received bytes. */
 } bcmolt_pon_interface_itu_pon_stats_cfg_data;
 
 /* Constants associated with bcmolt_pon_interface_itu_pon_stats_cfg_data. */
-#define BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x0000007FFFFFFFFFULL
+#define BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_PRESENCE_MASK_ALL 0x000001FFFFFFFFFFULL
 
 /** Transport message definition for "itu_pon_stats_cfg" group of "pon_interface" object. */
 typedef struct
@@ -6163,7 +6652,7 @@ typedef struct
 
 /* Constants associated with bcmolt_protection_interface_key. */
 #define BCMOLT_PROTECTION_INTERFACE_KEY_ID_MIN (bcmolt_protection_interface_id)0U
-#define BCMOLT_PROTECTION_INTERFACE_KEY_ID_MAX (bcmolt_protection_interface_id)31U
+#define BCMOLT_PROTECTION_INTERFACE_KEY_ID_MAX (bcmolt_protection_interface_id)63U
 
 /** Protection Interface: cfg */
 typedef struct

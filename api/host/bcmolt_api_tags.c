@@ -71,16 +71,18 @@ static void bcmolt_api_pon_type_set(bcmolt_oltid olt, bcmolt_pon_ni pon_ni, bcmo
     olt_info[olt].pon_type[pon_ni] = pon_type;
 }
 
-static void bcmolt_api_tags_pon_types_update(bcmolt_oltid olt_id, bcmolt_ldid device_id)
+static void bcmolt_api_tags_pon_types_update(bcmolt_oltid olt_id, bcmolt_odid device_id)
 {
     for (bcmolt_pon_ni pon = 0; pon < BCM_MAX_PONS_PER_OLT; ++pon)
     {
         bcmolt_gdid gdid;
-        bcmolt_ldid ldid;
+        bcmolt_ldid req_ldid, ldid;
         bcmolt_pon_pif pif;
+        bcmos_errno err;
 
-        bcmos_errno err = bcmolt_apitopo_lif_to_pif(olt_id, pon, &gdid, &ldid, &pif);
-        if ((err == BCM_ERR_OK) && (device_id == ldid))
+        err = bcmolt_apitopo_odid_to_gdid_ldid(olt_id, device_id, &gdid, &req_ldid);
+        err = err ? err : bcmolt_apitopo_lif_to_pif(olt_id, pon, &gdid, &ldid, &pif);
+        if ((err == BCM_ERR_OK) && (req_ldid == ldid))
         {
             bcmolt_api_pon_type_set(olt_id, pon, bcmolt_pon_get_type(olt_id, pon));
         }
@@ -113,7 +115,7 @@ static void bcmolt_api_tags_olt_connected(bcmolt_oltid olt_id)
             bcmolt_api_system_mode_set(olt_id, dev, dev_cfg.data.system_mode);
             bcmolt_api_chip_family_set(olt_id, dev, dev_cfg.data.chip_family);
         }
-        bcmolt_api_tags_pon_types_update(olt_id, ldid);
+        bcmolt_api_tags_pon_types_update(olt_id, dev);
     }
 }
 

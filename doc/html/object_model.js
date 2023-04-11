@@ -14,6 +14,7 @@ var object_model =
     [ "Object: internal_nni - Internal NNI", "object_internal_nni.html", "object_internal_nni" ],
     [ "Object: itupon_alloc - ITU PON Alloc", "object_itupon_alloc.html", "object_itupon_alloc" ],
     [ "Object: itupon_gem - ITU PON GEM Port", "object_itupon_gem.html", "object_itupon_gem" ],
+    [ "Object: l2_mac_table - l2 mac table", "object_l2_mac_table.html", "object_l2_mac_table" ],
     [ "Object: lag_interface - LAG interface", "object_lag_interface.html", "object_lag_interface" ],
     [ "Object: log - Log", "object_log.html", "object_log" ],
     [ "Object: log_file - Log File", "object_log_file.html", "object_log_file" ],

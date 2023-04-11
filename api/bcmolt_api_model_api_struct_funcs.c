@@ -2524,6 +2524,7 @@ void bcmolt_flow_cfg_data_set_default(bcmolt_flow_cfg_data *obj)
     obj->mac_table_miss_action = BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD;
     obj->policer_profile = (bcmolt_policer_profile_id)65535U;
     obj->um_forwarding = BCMOLT_CONTROL_STATE_DISABLE;
+    bcmolt_arr_src_binding_info_16_set_default(&obj->src_bindings);
 }
 
 bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -2680,6 +2681,12 @@ bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_
             return BCMOS_FALSE;
         }
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "src_bindings: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
     return BCMOS_TRUE;
 }
 
@@ -2787,6 +2794,40 @@ bcmos_bool bcmolt_flow_send_eth_packet_data_validate(const bcmolt_flow_send_eth_
             bcmolt_string_append(err_details, "svc_port_id: %u is greater than the maximum value of 65536\n", obj->svc_port_id);
             return BCMOS_FALSE;
         }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_flow_src_binding_update_data_set_default(bcmolt_flow_src_binding_update_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->command = BCMOLT_BINDING_COMMAND_ADD;
+    bcmolt_src_binding_info_set_default(&obj->src_binding);
+}
+
+bcmos_bool bcmolt_flow_src_binding_update_data_validate(const bcmolt_flow_src_binding_update_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND))
+    {
+        switch (obj->command)
+        {
+        case BCMOLT_BINDING_COMMAND_ADD:
+        case BCMOLT_BINDING_COMMAND_REMOVE:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "command: enum value %d is unexpected\n", (int)obj->command);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "src_binding.");
+        if (!bcmolt_src_binding_info_validate(&obj->src_binding, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
     }
     return BCMOS_TRUE;
 }
@@ -3593,7 +3634,6 @@ void bcmolt_internal_nni_cfg_data_set_default(bcmolt_internal_nni_cfg_data *obj)
     obj->redundancy = BCMOLT_INTERNAL_NNI_REDUNDANCY_NONE;
     obj->flow_control = BCMOLT_CONTROL_STATE_ENABLE;
     bcmolt_inband_config_data_set_default(&obj->inband_mgmt);
-    obj->inband_mgmt.control = BCMOLT_CONTROL_STATE_ENABLE;
     bcmolt_trap_config_set_default(&obj->trap_config);
     obj->oversubscription = BCMOS_FALSE;
     bcmolt_prbs_generator_config_set_default(&obj->prbs_generator);
@@ -3650,10 +3690,10 @@ bcmos_bool bcmolt_internal_nni_cfg_data_validate(const bcmolt_internal_nni_cfg_d
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_INTERNAL_NNI_CFG_DATA_ID_STATUS_POLLING_INTERVAL_MS))
     {
-        if (obj->status_polling_interval_ms > 3600000UL)
+        if (obj->status_polling_interval_ms > 2000000UL)
         {
             *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "status_polling_interval_ms: %u is greater than the maximum value of 3600000\n", obj->status_polling_interval_ms);
+            bcmolt_string_append(err_details, "status_polling_interval_ms: %u is greater than the maximum value of 2000000\n", obj->status_polling_interval_ms);
             return BCMOS_FALSE;
         }
     }
@@ -5215,6 +5255,7 @@ void bcmolt_itupon_alloc_cfg_data_set_default(bcmolt_itupon_alloc_cfg_data *obj)
     obj->collect_stats = BCMOS_FALSE;
     obj->onu_tcont_max_queue_size = 0UL;
     obj->latency_sensitive = BCMOS_FALSE;
+    obj->enable_latency_stats = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -5254,6 +5295,10 @@ bcmos_bool bcmolt_itupon_alloc_cfg_data_validate(const bcmolt_itupon_alloc_cfg_d
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE))
     {
         /* obj->latency_sensitive can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS))
+    {
+        /* obj->enable_latency_stats can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -5402,6 +5447,106 @@ bcmos_bool bcmolt_itupon_alloc_stats_data_validate(const bcmolt_itupon_alloc_sta
     return BCMOS_TRUE;
 }
 
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->tm_used = 0ULL;
+    obj->tm_allocated = 0ULL;
+    obj->bufocc = 0ULL;
+}
+
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED))
+    {
+        /* obj->tm_used can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED))
+    {
+        /* obj->tm_allocated can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC))
+    {
+        /* obj->bufocc can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_latency_stats_data_set_default(bcmolt_itupon_alloc_latency_stats_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->onu_tcont_max_queue_size = 0ULL;
+    obj->allocation_busy = 0ULL;
+    obj->latency_bucket_0_100_usec = 0ULL;
+    obj->latency_bucket_100_200_usec = 0ULL;
+    obj->latency_bucket_200_300_usec = 0ULL;
+    obj->latency_bucket_300_400_usec = 0ULL;
+    obj->latency_bucket_400_600_usec = 0ULL;
+    obj->latency_bucket_600_800_usec = 0ULL;
+    obj->latency_bucket_800_1000_usec = 0ULL;
+    obj->latency_bucket_1_3_msec = 0ULL;
+    obj->latency_bucket_3_5_msec = 0ULL;
+    obj->latency_bucket_5_10_msec = 0ULL;
+    obj->latency_bucket_more_than_10_msec = 0ULL;
+}
+
+bcmos_bool bcmolt_itupon_alloc_latency_stats_data_validate(const bcmolt_itupon_alloc_latency_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE))
+    {
+        /* obj->onu_tcont_max_queue_size can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY))
+    {
+        /* obj->allocation_busy can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC))
+    {
+        /* obj->latency_bucket_0_100_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC))
+    {
+        /* obj->latency_bucket_100_200_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC))
+    {
+        /* obj->latency_bucket_200_300_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC))
+    {
+        /* obj->latency_bucket_300_400_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC))
+    {
+        /* obj->latency_bucket_400_600_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC))
+    {
+        /* obj->latency_bucket_600_800_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC))
+    {
+        /* obj->latency_bucket_800_1000_usec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC))
+    {
+        /* obj->latency_bucket_1_3_msec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC))
+    {
+        /* obj->latency_bucket_3_5_msec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC))
+    {
+        /* obj->latency_bucket_5_10_msec can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC))
+    {
+        /* obj->latency_bucket_more_than_10_msec can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
 void bcmolt_itupon_alloc_stats_cfg_data_set_default(bcmolt_itupon_alloc_stats_cfg_data *obj)
 {
     obj->presence_mask = 0;
@@ -5468,17 +5613,329 @@ bcmos_bool bcmolt_itupon_alloc_stats_alarm_cleared_data_validate(const bcmolt_it
     return BCMOS_TRUE;
 }
 
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_stat_alarm_config_set_default(&obj->tm_used);
+    bcmolt_stat_alarm_config_set_default(&obj->tm_allocated);
+    bcmolt_stat_alarm_config_set_default(&obj->bufocc);
+}
+
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tm_used.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tm_used, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tm_allocated.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tm_allocated, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "bufocc.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->bufocc, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED;
+}
+
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED:
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED:
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_set_default(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED;
+}
+
+bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_validate(const bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED:
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED:
+        case BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_latency_stats_cfg_data_set_default(bcmolt_itupon_alloc_latency_stats_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_stat_alarm_config_set_default(&obj->onu_tcont_max_queue_size);
+    bcmolt_stat_alarm_config_set_default(&obj->allocation_busy);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_0_100_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_100_200_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_200_300_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_300_400_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_400_600_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_600_800_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_800_1000_usec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_1_3_msec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_3_5_msec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_5_10_msec);
+    bcmolt_stat_alarm_config_set_default(&obj->latency_bucket_more_than_10_msec);
+}
+
+bcmos_bool bcmolt_itupon_alloc_latency_stats_cfg_data_validate(const bcmolt_itupon_alloc_latency_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "onu_tcont_max_queue_size.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->onu_tcont_max_queue_size, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "allocation_busy.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->allocation_busy, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_0_100_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_0_100_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_100_200_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_100_200_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_200_300_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_200_300_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_300_400_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_300_400_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_400_600_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_400_600_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_600_800_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_600_800_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_800_1000_usec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_800_1000_usec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_1_3_msec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_1_3_msec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_3_5_msec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_3_5_msec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_5_10_msec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_5_10_msec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "latency_bucket_more_than_10_msec.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->latency_bucket_more_than_10_msec, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_latency_stats_alarm_raised_data_set_default(bcmolt_itupon_alloc_latency_stats_alarm_raised_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE;
+}
+
+bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_raised_data_validate(const bcmolt_itupon_alloc_latency_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_set_default(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE;
+}
+
+bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_validate(const bcmolt_itupon_alloc_latency_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC:
+        case BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
 void bcmolt_itupon_alloc_auto_cfg_data_set_default(bcmolt_itupon_alloc_auto_cfg_data *obj)
 {
     obj->presence_mask = 0;
+    obj->alloc_onu_accumulated_stats_alarm_cleared = BCMOS_FALSE;
+    obj->alloc_onu_accumulated_stats_alarm_raised = BCMOS_FALSE;
     obj->configuration_completed = BCMOS_FALSE;
     obj->get_alloc_stats_completed = BCMOS_FALSE;
+    obj->latency_stats_alarm_cleared = BCMOS_FALSE;
+    obj->latency_stats_alarm_raised = BCMOS_FALSE;
     obj->stats_alarm_cleared = BCMOS_FALSE;
     obj->stats_alarm_raised = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_itupon_alloc_auto_cfg_data_validate(const bcmolt_itupon_alloc_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED))
+    {
+        /* obj->alloc_onu_accumulated_stats_alarm_cleared can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED))
+    {
+        /* obj->alloc_onu_accumulated_stats_alarm_raised can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED))
     {
         /* obj->configuration_completed can't be invalid. */
@@ -5486,6 +5943,14 @@ bcmos_bool bcmolt_itupon_alloc_auto_cfg_data_validate(const bcmolt_itupon_alloc_
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED))
     {
         /* obj->get_alloc_stats_completed can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED))
+    {
+        /* obj->latency_stats_alarm_cleared can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED))
+    {
+        /* obj->latency_stats_alarm_raised can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED))
     {
@@ -5833,6 +6298,224 @@ bcmos_bool bcmolt_itupon_gem_auto_cfg_data_validate(const bcmolt_itupon_gem_auto
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ITUPON_GEM_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED))
     {
         /* obj->stats_alarm_raised can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_key_set_default(bcmolt_l2_mac_table_key *obj)
+{
+    obj->id = (bcmolt_l2_mac_table_id)0;
+}
+
+bcmos_bool bcmolt_l2_mac_table_key_validate(const bcmolt_l2_mac_table_key *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (obj->id > (bcmolt_l2_mac_table_id)0)
+    {
+        *err = BCM_ERR_RANGE;
+        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 0\n", obj->id);
+        return BCMOS_FALSE;
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_cfg_data_set_default(bcmolt_l2_mac_table_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->state = BCMOLT_CONFIG_STATE_CONFIGURED;
+    obj->dump_status = BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED;
+    obj->last_dump_result = BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED;
+    obj->report_event = (bcmolt_l2_event_report_control)0U;
+}
+
+bcmos_bool bcmolt_l2_mac_table_cfg_data_validate(const bcmolt_l2_mac_table_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "state: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "dump_status: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "last_dump_result: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT))
+    {
+        if ((obj->report_event & ~0x3) != 0)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "report_event: 0x%X includes invalid bits\n", obj->report_event);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_dump_data_set_default(bcmolt_l2_mac_table_dump_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_str_128_set_default(&obj->file_name);
+    obj->mode = BCMOLT_L2_DUMP_MODE_DYNAMIC;
+    bcmolt_l2_dump_filters_set_default(&obj->filters);
+    obj->report_as_indication = BCMOLT_CONTROL_STATE_DISABLE;
+    obj->max_entry_per_indication = 512U;
+}
+
+bcmos_bool bcmolt_l2_mac_table_dump_data_validate(const bcmolt_l2_mac_table_dump_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "file_name.");
+        if (!bcmolt_str_128_validate(&obj->file_name, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE))
+    {
+        if ((obj->mode & ~0x3) != 0)
+        {
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "mode: 0x%X includes invalid bits\n", obj->mode);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "filters.");
+        if (!bcmolt_l2_dump_filters_validate(&obj->filters, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION))
+    {
+        switch (obj->report_as_indication)
+        {
+        case BCMOLT_CONTROL_STATE_DISABLE:
+        case BCMOLT_CONTROL_STATE_ENABLE:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "report_as_indication: enum value %d is unexpected\n", (int)obj->report_as_indication);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION))
+    {
+        /* obj->max_entry_per_indication can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_dump_complete_data_set_default(bcmolt_l2_mac_table_dump_complete_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_str_128_set_default(&obj->file_name);
+    obj->result = BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED;
+}
+
+bcmos_bool bcmolt_l2_mac_table_dump_complete_data_validate(const bcmolt_l2_mac_table_dump_complete_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "file_name.");
+        if (!bcmolt_str_128_validate(&obj->file_name, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT))
+    {
+        switch (obj->result)
+        {
+        case BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED:
+        case BCMOLT_L2_MACT_DUMP_STATUS_IN_PROGRESS:
+        case BCMOLT_L2_MACT_DUMP_STATUS_SUCCESS:
+        case BCMOLT_L2_MACT_DUMP_STATUS_FAILED:
+        case BCMOLT_L2_MACT_DUMP_STATUS_ABORTED:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "result: enum value %d is unexpected\n", (int)obj->result);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_network_events_data_set_default(bcmolt_l2_mac_table_network_events_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_l2_mact_entry_list_u32_set_default(&obj->entries);
+}
+
+bcmos_bool bcmolt_l2_mac_table_network_events_data_validate(const bcmolt_l2_mac_table_network_events_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "entries.");
+        if (!bcmolt_l2_mact_entry_list_u32_validate(&obj->entries, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_pon_events_data_set_default(bcmolt_l2_mac_table_pon_events_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_l2_mact_entry_list_u32_set_default(&obj->entries);
+}
+
+bcmos_bool bcmolt_l2_mac_table_pon_events_data_validate(const bcmolt_l2_mac_table_pon_events_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "entries.");
+        if (!bcmolt_l2_mact_entry_list_u32_validate(&obj->entries, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_l2_mac_table_auto_cfg_data_set_default(bcmolt_l2_mac_table_auto_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->dump_complete = BCMOS_FALSE;
+    obj->network_events = BCMOS_FALSE;
+    obj->pon_events = BCMOS_FALSE;
+}
+
+bcmos_bool bcmolt_l2_mac_table_auto_cfg_data_validate(const bcmolt_l2_mac_table_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE))
+    {
+        /* obj->dump_complete can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS))
+    {
+        /* obj->network_events can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS))
+    {
+        /* obj->pon_events can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -8195,6 +8878,7 @@ void bcmolt_olt_sw_error_data_set_default(bcmolt_olt_sw_error_data *obj)
     bcmolt_str_100_set_default(&obj->file_name);
     obj->line_number = 0UL;
     bcmolt_str_100_set_default(&obj->error_string);
+    obj->severity = BCMOLT_SW_ERROR_SEVERITY_HIGH;
 }
 
 bcmos_bool bcmolt_olt_sw_error_data_validate(const bcmolt_olt_sw_error_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -8229,6 +8913,19 @@ bcmos_bool bcmolt_olt_sw_error_data_validate(const bcmolt_olt_sw_error_data *obj
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY))
+    {
+        switch (obj->severity)
+        {
+        case BCMOLT_SW_ERROR_SEVERITY_HIGH:
+        case BCMOLT_SW_ERROR_SEVERITY_FATAL:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "severity: enum value %d is unexpected\n", (int)obj->severity);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -9535,7 +10232,7 @@ bcmos_bool bcmolt_onu_ber_interval_configuration_completed_data_validate(const b
 void bcmolt_onu_err_data_set_default(bcmolt_onu_err_data *obj)
 {
     obj->presence_mask = 0;
-    obj->bip8_errors = 0;
+    obj->bip8_errors = 0UL;
 }
 
 bcmos_bool bcmolt_onu_err_data_validate(const bcmolt_onu_err_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -10170,7 +10867,7 @@ bcmos_bool bcmolt_onu_omci_packet_data_validate(const bcmolt_onu_omci_packet_dat
 void bcmolt_onu_rei_data_set_default(bcmolt_onu_rei_data *obj)
 {
     obj->presence_mask = 0;
-    obj->bip8_errors = 0;
+    obj->bip8_errors = 0UL;
 }
 
 bcmos_bool bcmolt_onu_rei_data_validate(const bcmolt_onu_rei_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -10271,6 +10968,31 @@ bcmos_bool bcmolt_onu_trap_ploam_received_data_validate(const bcmolt_onu_trap_pl
             return BCMOS_FALSE;
         }
         bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->tm_used = 0ULL;
+    obj->tm_allocated = 0ULL;
+    obj->bufocc = 0ULL;
+}
+
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED))
+    {
+        /* obj->tm_used can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED))
+    {
+        /* obj->tm_allocated can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC))
+    {
+        /* obj->bufocc can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -10605,6 +11327,96 @@ bcmos_bool bcmolt_onu_itu_pon_stats_alarm_cleared_data_validate(const bcmolt_onu
     return BCMOS_TRUE;
 }
 
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data *obj)
+{
+    obj->presence_mask = 0;
+    bcmolt_stat_alarm_config_set_default(&obj->tm_used);
+    bcmolt_stat_alarm_config_set_default(&obj->tm_allocated);
+    bcmolt_stat_alarm_config_set_default(&obj->bufocc);
+}
+
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tm_used.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tm_used, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tm_allocated.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tm_allocated, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "bufocc.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->bufocc, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED;
+}
+
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED:
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED:
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_set_default(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->stat = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED;
+}
+
+bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_validate(const bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT))
+    {
+        switch (obj->stat)
+        {
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED:
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED:
+        case BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "stat: enum value %d is unexpected\n", (int)obj->stat);
+            return BCMOS_FALSE;
+        }
+    }
+    return BCMOS_TRUE;
+}
+
 void bcmolt_onu_auto_cfg_data_set_default(bcmolt_onu_auto_cfg_data *obj)
 {
     obj->presence_mask = 0;
@@ -10616,6 +11428,8 @@ void bcmolt_onu_auto_cfg_data_set_default(bcmolt_onu_auto_cfg_data *obj)
     obj->err = BCMOS_FALSE;
     obj->gpon_alarm = BCMOS_FALSE;
     obj->invalid_dbru_report = BCMOS_FALSE;
+    obj->itu_alloc_onu_accumulated_stats_alarm_cleared = BCMOS_FALSE;
+    obj->itu_alloc_onu_accumulated_stats_alarm_raised = BCMOS_FALSE;
     obj->itu_pon_stats_alarm_cleared = BCMOS_FALSE;
     obj->itu_pon_stats_alarm_raised = BCMOS_FALSE;
     obj->key_exchange_completed = BCMOS_FALSE;
@@ -10697,6 +11511,14 @@ bcmos_bool bcmolt_onu_auto_cfg_data_validate(const bcmolt_onu_auto_cfg_data *obj
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT))
     {
         /* obj->invalid_dbru_report can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED))
+    {
+        /* obj->itu_alloc_onu_accumulated_stats_alarm_cleared can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED))
+    {
+        /* obj->itu_alloc_onu_accumulated_stats_alarm_raised can't be invalid. */
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED))
     {
@@ -11003,7 +11825,6 @@ bcmos_bool bcmolt_policer_profile_cfg_data_validate(const bcmolt_policer_profile
         case BCMOLT_TRAFFIC_TYPE_KNOWN_UNICAST:
         case BCMOLT_TRAFFIC_TYPE_UNK_UNICAST:
         case BCMOLT_TRAFFIC_TYPE_MULTICAST:
-        case BCMOLT_TRAFFIC_TYPE_UNK_MULTICAST:
         case BCMOLT_TRAFFIC_TYPE_ALL_TRAFFIC:
             break;
         default:
@@ -11263,6 +12084,8 @@ void bcmolt_pon_interface_itu_pon_stats_data_set_default(bcmolt_pon_interface_it
     obj->fec_codewords_uncorrected = 0ULL;
     obj->rx_gem_illegal = 0ULL;
     obj->rx_packets = 0ULL;
+    obj->tx_bytes = 0ULL;
+    obj->rx_bytes = 0ULL;
 }
 
 bcmos_bool bcmolt_pon_interface_itu_pon_stats_data_validate(const bcmolt_pon_interface_itu_pon_stats_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -11422,6 +12245,14 @@ bcmos_bool bcmolt_pon_interface_itu_pon_stats_data_validate(const bcmolt_pon_int
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS))
     {
         /* obj->rx_packets can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES))
+    {
+        /* obj->tx_bytes can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES))
+    {
+        /* obj->rx_bytes can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -12573,6 +13404,8 @@ void bcmolt_pon_interface_itu_pon_stats_cfg_data_set_default(bcmolt_pon_interfac
     bcmolt_stat_alarm_config_set_default(&obj->fec_codewords_uncorrected);
     bcmolt_stat_alarm_config_set_default(&obj->rx_gem_illegal);
     bcmolt_stat_alarm_config_set_default(&obj->rx_packets);
+    bcmolt_stat_alarm_config_set_default(&obj->tx_bytes);
+    bcmolt_stat_alarm_config_set_default(&obj->rx_bytes);
 }
 
 bcmos_bool bcmolt_pon_interface_itu_pon_stats_cfg_data_validate(const bcmolt_pon_interface_itu_pon_stats_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -12928,6 +13761,24 @@ bcmos_bool bcmolt_pon_interface_itu_pon_stats_cfg_data_validate(const bcmolt_pon
         }
         bcmolt_string_rewind(err_details, prefix_len);
     }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "tx_bytes.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->tx_bytes, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES))
+    {
+        int prefix_len = bcmolt_string_append(err_details, "rx_bytes.");
+        if (!bcmolt_stat_alarm_config_validate(&obj->rx_bytes, err, err_details))
+        {
+            return BCMOS_FALSE;
+        }
+        bcmolt_string_rewind(err_details, prefix_len);
+    }
     return BCMOS_TRUE;
 }
 
@@ -12982,6 +13833,8 @@ bcmos_bool bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_validate(const b
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_UNCORRECTED:
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL:
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS:
+        case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES:
+        case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -13043,6 +13896,8 @@ bcmos_bool bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_validate(const 
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_UNCORRECTED:
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL:
         case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS:
+        case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES:
+        case BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -13688,10 +14543,10 @@ void bcmolt_protection_interface_key_set_default(bcmolt_protection_interface_key
 
 bcmos_bool bcmolt_protection_interface_key_validate(const bcmolt_protection_interface_key *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
-    if (obj->id > (bcmolt_protection_interface_id)31U)
+    if (obj->id > (bcmolt_protection_interface_id)63U)
     {
         *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 31\n", obj->id);
+        bcmolt_string_append(err_details, "id: %u is greater than the maximum value of 63\n", obj->id);
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
