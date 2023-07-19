@@ -100,11 +100,8 @@ typedef enum
     /* ITU NG-PON2 Wavelength Handover user application */
     BCMOS_MODULE_ID_USER_APPL_ITU_ONU_TUNING_OLT0 = BCMOS_MODULE_ID_USER_APPL_ITU_RSSI_DEV0 + BCMTR_MAX_DEVICES,
 
-    /* EPON OAM negotiation application (To support multiple devices we need to add number of devices to previous value) */
-    BCMOS_MODULE_ID_USER_APPL_EON = BCMOS_MODULE_ID_USER_APPL_ITU_ONU_TUNING_OLT0 + BCMTR_MAX_OLTS,
-
-    /* EPON optical monitoring application */
-    BCMOS_MODULE_ID_USER_APPL_OMON = BCMOS_MODULE_ID_USER_APPL_EON + BCMTR_MAX_DEVICES,
+    /* EPON optical monitoring application (To support multiple devices we need to add number of devices to previous value) */
+    BCMOS_MODULE_ID_USER_APPL_OMON = BCMOS_MODULE_ID_USER_APPL_ITU_ONU_TUNING_OLT0 + BCMTR_MAX_OLTS,
 
     /* EPON Host driven encryption application */
     BCMOS_MODULE_ID_USER_APPL_EPON_HDE,
@@ -120,21 +117,14 @@ typedef enum
     /* OLT Agent */
     BCMOS_MODULE_ID_OLT_AGENT = BCMOS_MODULE_ID_USER_APPL_TOD_DEV0 + BCMTR_MAX_DEVICES,
 
-    /* BALIMPORT BEGIN */
+    /* BAL & ONU Mgmt */
     BCMOS_MODULE_ID_WORKER_MGMT,  /**< Number of modules *//** worker module for MGMT message handling */
-    BCMOS_MODULE_ID_WORKER_API_IND,             /** worker module for BAL API INDICATION message handling */
-    BCMOS_MODULE_ID_WORKER_BAL_CORE_FOR_AGENT,  /** worker module for the BAL CORE when running as an OF agent */
-    /* BALIMPORT TODO: duplicates */
-    //  BCMOS_MODULE_ID_USER_APPL_EON,              /** EON module */
-    BCMOS_MODULE_ID_OFPAL,                      /** OF-PAL module */
     BCMOS_MODULE_ID_OMCI_TRANSPORT,             /** OMCI Transport module */
     BCMOS_MODULE_ID_OMCI_RX_WORKER0,            /** OMCI RX worker module */
 #define BCM_OMCI_MAX_RX_WORKER_THREADS  32
     BCMOS_MODULE_ID_DPOE2_TRANSPORT = BCMOS_MODULE_ID_OMCI_RX_WORKER0 + BCM_OMCI_MAX_RX_WORKER_THREADS, /** DPoE2 Transport module */
-    BCMOS_MODULE_ID_API_PROXY,                  /** API proxy module */
     BCMOS_MODULE_ID_VOMCI_SERVER,               /** ONU management: VOMCI server module */
     BCMOS_MODULE_ID_NETCONF_SERVER,             /** WT-385, WT-383 NETCONF server */
-    /* BALIMPORT END */
 
     BCMOS_MODULE_IS_USER_DDR_DUMP,              /* MAC DDR dump utility */
 
@@ -143,6 +133,7 @@ typedef enum
     BCMOS_MODULE_ID_HOST_REMOTE_LOGGER,         /** Host remote logger */
 
     BCMOS_MODULE_ID_API_IND_FOR_BAS,            /** OLT API indication processing for BAS_D application */
+    BCMOS_MODULE_ID_ROGUE_DETECTION_DEV0 = BCMOS_MODULE_ID_API_IND_FOR_BAS + BCMTR_MAX_DEVICES,
 
     BCMOS_MODULE_ID__NUM_OF,                    /**< Number of modules */
     BCMOS_MODULE_ID_INVALID = BCMOS_MODULE_ID_NONE
@@ -230,26 +221,9 @@ typedef enum
     BCMOS_MSG_ID_SW_UTIL_NNI_STATE_CHANGED,
     BCMOS_MSG_ID_SW_UTIL_LAG_NNI_STATE_CHANGED,
     BCMOS_MSG_ID_SW_UTIL_NNI_FAULT_CODE_CHANGED,
-
-    /******************************************************************************/
-    /* BALIMPORT BEGIN */
-    /* Application messages */
-    BCMOS_MSG_ID_IPC_PING,                  /*** Inter-process communication ping */
-
-    /* Core/Switch util messages */
-    BCMBAL_SWITCH_UTIL_MSG,
-
-    /* Core/Mac util messages */
-    BCMBAL_MAC_UTIL_MSG,
-
-    /* Core->Public API indication messages (both auto and "normal") */
-    BCMBAL_MGMT_API_IND_MSG,
-
-    BCMOS_MSG_ID_OMCI_TRANSPORT_SEND,
+    BCMOS_MSG_ID_SW_UTIL_SWITCH_INNI_STATE_CHANGED,
 
     BCMOS_MSG_ID_DPOE2_TRANSPORT_SEND,
-    /* BALIMPORT END */
-    /******************************************************************************/
 
     /* Device Agent Internal Messages BEGIN */
     BCMOS_MSG_ID_DA_INT_TIMEOUT,
@@ -271,6 +245,9 @@ typedef enum
     BCMOS_MSG_ID_TOD_APPL_START,
     /* PS APPL Messages */
     BCMOS_MSG_ID_PS_APPL_START,
+
+    BCMOS_MSG_ID_ROGUE_DETECTION_PON_START,
+    BCMOS_MSG_ID_ROGUE_DETECTION_ONU_START,
 
     BCMOS_MSG_ID__NONE,
     BCMOS_MSG_ID__END,
@@ -315,27 +292,19 @@ typedef enum
 #define TASK_PRIORITY_USER_APPL_REMOTE_LOGGER            BCMOS_TASK_PRIORITY_30
 #define TASK_PRIORITY_REMOTE_LOG                         BCMOS_TASK_PRIORITY_30
 
-/* BALIMPORT BEGIN */
-#define TASK_PRIORITY_KEEP_ALIVE                BCMOS_TASK_PRIORITY_2
-#define TASK_PRIORITY_IPC_RX                    BCMOS_TASK_PRIORITY_3
-#define TASK_PRIORITY_API_PROXY_RX              BCMOS_TASK_PRIORITY_4
-#define TASK_PRIORITY_API_PROXY_INVOKE          BCMOS_TASK_PRIORITY_5
-#define TASK_PRIORITY_CORE_CONN_MGR             BCMOS_TASK_PRIORITY_6
-#define TASK_PRIORITY_CLI                       BCMOS_TASK_PRIORITY_15
-#define TASK_PRIORITY_OLT_AGENT                 BCMOS_TASK_PRIORITY_16
-#define TASK_PRIORITY_WORKER                    BCMOS_TASK_PRIORITY_16
-#define TASK_PRIORITY_OFPAL                     BCMOS_TASK_PRIORITY_18
-#define TASK_PRIORITY_VOMCI_SERVER              BCMOS_TASK_PRIORITY_18
-#define TASK_PRIORITY_VOMCI_DOLT_CLIENT         BCMOS_TASK_PRIORITY_19
-#define TASK_PRIORITY_OMCI_TRANSPORT            BCMOS_TASK_PRIORITY_20
-#define TASK_PRIORITY_OMCI_RX_WORKER            BCMOS_TASK_PRIORITY_20
-#define TASK_PRIORITY_DPOE2_TRANSPORT           BCMOS_TASK_PRIORITY_20
-#define TASK_PRIORITY_L2_MACT                   BCMOS_TASK_PRIORITY_20
-#define TASK_PRIORITY_ISSU                      BCMOS_TASK_PRIORITY_29
-#define TASK_PRIORITY_DEV_LOG                   BCMOS_TASK_PRIORITY_30
-/* BALIMPORT END */
+#define TASK_PRIORITY_KEEP_ALIVE                        BCMOS_TASK_PRIORITY_2
+#define TASK_PRIORITY_OLT_AGENT                         BCMOS_TASK_PRIORITY_16
+#define TASK_PRIORITY_WORKER                            BCMOS_TASK_PRIORITY_16
+#define TASK_PRIORITY_VOMCI_SERVER                      BCMOS_TASK_PRIORITY_18
+#define TASK_PRIORITY_VOMCI_DOLT_CLIENT                 BCMOS_TASK_PRIORITY_19
+#define TASK_PRIORITY_OMCI_TRANSPORT                    BCMOS_TASK_PRIORITY_20
+#define TASK_PRIORITY_OMCI_RX_WORKER                    BCMOS_TASK_PRIORITY_20
+#define TASK_PRIORITY_DPOE2_TRANSPORT                   BCMOS_TASK_PRIORITY_20
+#define TASK_PRIORITY_L2_MACT                           BCMOS_TASK_PRIORITY_20
+#define TASK_PRIORITY_ISSU                              BCMOS_TASK_PRIORITY_29
 
 /* BAS application */
-#define TASK_PRIORITY_API_IND_FOR_BAS           BCMOS_TASK_PRIORITY_14
+#define TASK_PRIORITY_API_IND_FOR_BAS                   BCMOS_TASK_PRIORITY_14
+#define TASK_PRIORITY_ROGUE_DETECTION                   BCMOS_TASK_PRIORITY_14
 
 #endif /* BCMOS_PLATFORM_H_ */

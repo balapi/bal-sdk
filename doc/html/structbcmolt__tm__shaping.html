@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.7</span>
+   &#160;<span id="projectnumber">3.12.8</span>
    </div>
   </td>
  </tr>
@@ -100,6 +100,14 @@ Data Fields</h2></td></tr>
 <tr class="separator:ace53efd88d5480463b539032f28c20f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16df266cbc4e29e9df52d9f17fdfa24"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__shaping.html#ac16df266cbc4e29e9df52d9f17fdfa24">burst</a></td></tr>
 <tr class="separator:ac16df266cbc4e29e9df52d9f17fdfa24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50e4882cc5c21be6a7fc1499efd5df5a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__shaping.html#a50e4882cc5c21be6a7fc1499efd5df5a">cir_actual</a></td></tr>
+<tr class="separator:a50e4882cc5c21be6a7fc1499efd5df5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4973b518ca185f562b3a476bbd34ab83"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__shaping.html#a4973b518ca185f562b3a476bbd34ab83">cir_burst_actual</a></td></tr>
+<tr class="separator:a4973b518ca185f562b3a476bbd34ab83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03e80eb4e4c99551cd8e601951c2e84"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__shaping.html#ab03e80eb4e4c99551cd8e601951c2e84">eir_actual</a></td></tr>
+<tr class="separator:ab03e80eb4e4c99551cd8e601951c2e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae77081927350d8b3bdbcf0b072e65b14"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__tm__shaping.html#ae77081927350d8b3bdbcf0b072e65b14">eir_burst_actual</a></td></tr>
+<tr class="separator:ae77081927350d8b3bdbcf0b072e65b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a6e4b9cad9e09b40480ffff2497ada6c9"></a>
@@ -147,6 +155,66 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a50e4882cc5c21be6a7fc1499efd5df5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e4882cc5c21be6a7fc1499efd5df5a">&#9670;&nbsp;</a></span>cir_actual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t cir_actual</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Actual CIR Rate (read from device) </p>
+
+</div>
+</div>
+<a id="a4973b518ca185f562b3a476bbd34ab83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4973b518ca185f562b3a476bbd34ab83">&#9670;&nbsp;</a></span>cir_burst_actual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t cir_burst_actual</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Actual CIR Max Burst (read from device) </p>
+
+</div>
+</div>
+<a id="ab03e80eb4e4c99551cd8e601951c2e84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03e80eb4e4c99551cd8e601951c2e84">&#9670;&nbsp;</a></span>eir_actual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t eir_actual</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Actual EIR (PIR-CIR) Rate (read from device) </p>
+
+</div>
+</div>
+<a id="ae77081927350d8b3bdbcf0b072e65b14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae77081927350d8b3bdbcf0b072e65b14">&#9670;&nbsp;</a></span>eir_burst_actual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t eir_burst_actual</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Actual EIR Max Burst (read from device) </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__supporting__structs_8h_source.html">bcmolt_api_model_supporting_structs.h</a></li>
 </ul>
@@ -159,7 +227,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__tm__shaping.html">bcmolt_tm_shaping</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.7 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.8 </li>
   </ul>
 </div>
 </body>

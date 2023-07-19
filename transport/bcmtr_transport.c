@@ -315,6 +315,7 @@ static void _bcmtr_tmsg_list_free_pending(bcmtr_conn *conn)
         /* Release waiting task if request-response */
         if (msg && tmsg->err == BCM_ERR_IN_PROGRESS)
         {
+            TAILQ_REMOVE(&conn->msg_list, tmsg, l);
             msg->err = BCM_ERR_COMM_FAIL;
             bcmos_sem_post(&tmsg->sem);
         }
@@ -1172,8 +1173,6 @@ bcmos_errno bcmtr_connect(bcmolt_devid device, const bcmtr_conn_parms *conn_parm
  */
 static void _bcmtr_disconnect1(bcmtr_conn *conn)
 {
-    bcmos_mutex_lock(&conn->mutex);
-
     conn->connected = BCMOS_FALSE;
 
     /* Close connection at plugin level */
@@ -1181,6 +1180,8 @@ static void _bcmtr_disconnect1(bcmtr_conn *conn)
     {
         conn->driver.close(conn->drv_priv);
     }
+
+    bcmos_mutex_lock(&conn->mutex);
 
     /* Cleanup plugin info */
     memset(&conn->driver, 0, sizeof(conn->driver));
@@ -1319,8 +1320,16 @@ exit:
     return err;
 }
 
-static bcmos_errno bcmtr_call_err(bcmolt_msg *msg, bcmos_errno err, const char *err_text)
+/* Release transport header if any and finalize the reply msg setting */
+static bcmos_errno bcmtr_call_ret(bcmtr_conn *conn, bcmtr_msg *tmsg,
+    bcmolt_msg *msg, bcmos_errno err, const char *err_text)
 {
+    if (tmsg != NULL)
+    {
+        bcmos_mutex_lock(&conn->mutex);
+        _bcmtr_tmsg_free(tmsg, NULL);
+        bcmos_mutex_unlock(&conn->mutex);
+    }
     msg->dir = BCMOLT_MSG_DIR_RESPONSE;
     msg->err = err;
     if (err_text != NULL)
@@ -1347,7 +1356,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
     err = _bcmtr_conn_get(device, &conn);
     if (err)
     {
-        return bcmtr_call_err(msg, err, NULL);
+        return bcmtr_call_ret(conn, tmsg, msg, err, NULL);
     }
 
     /* transmit request under connection lock */
@@ -1356,7 +1365,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
     if (err != BCM_ERR_OK)
     {
         bcmos_mutex_unlock(&conn->mutex);
-        return bcmtr_call_err(msg, err, NULL);
+        return bcmtr_call_ret(conn, tmsg, msg, err, NULL);
     }
     TAILQ_INSERT_TAIL(&conn->msg_list, tmsg, l);
     bcmos_mutex_unlock(&conn->mutex);
@@ -1372,7 +1381,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
      */
     if (msg->err == BCM_ERR_COMM_FAIL)
     {
-        return bcmtr_call_err(msg, msg->err, NULL);
+        return bcmtr_call_ret(conn, tmsg, msg, msg->err, NULL);
     }
 
     err = tmsg->err;
@@ -1381,20 +1390,19 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
         err = _bcmtr_msg_unpack(conn, tmsg->rx_buf, &tmsg->hdr, tmsg->timestamp, &msg);
     }
 
-    /* Take connection lock again in order to release transport header safely */
-    bcmos_mutex_lock(&conn->mutex);
-    _bcmtr_tmsg_free(tmsg, NULL);
-    bcmos_mutex_unlock(&conn->mutex);
-
     if (msg)
     {
         /* Restore message fields */
         msg->device = msg_dev;
         msg->subch = subch;
-        return bcmtr_call_err(msg, err ? err : msg->err, NULL);
+        return bcmtr_call_ret(conn, tmsg, msg, err ? err : msg->err, NULL);
     }
     else
     {
+        /* Couldn't unpack. Release transport header and return */
+        bcmos_mutex_lock(&conn->mutex);
+        _bcmtr_tmsg_free(tmsg, NULL);
+        bcmos_mutex_unlock(&conn->mutex);
         return err;
     }
 }

@@ -2489,6 +2489,22 @@ bcmos_bool bcmolt_uart_baudrate_unpack(bcmolt_uart_baudrate *obj, bcmolt_buf *bu
     return BCMOS_TRUE;
 }
 
+bcmos_bool bcmolt_um_fwrd_state_pack(bcmolt_um_fwrd_state obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_um_fwrd_state_unpack(bcmolt_um_fwrd_state *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_um_fwrd_state)num_val;
+    return BCMOS_TRUE;
+}
+
 bcmos_bool bcmolt_upstream_line_rate_capabilities_pack(bcmolt_upstream_line_rate_capabilities obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -10006,6 +10022,22 @@ bcmos_bool bcmolt_switch_inni_stats_data_id_unpack(bcmolt_switch_inni_stats_data
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_switch_inni_stats_data_id)num_val;
+    return BCMOS_TRUE;
+}
+
+bcmos_bool bcmolt_switch_inni_link_state_change_data_id_pack(bcmolt_switch_inni_link_state_change_data_id obj, bcmolt_buf *buf)
+{
+    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
+}
+
+bcmos_bool bcmolt_switch_inni_link_state_change_data_id_unpack(bcmolt_switch_inni_link_state_change_data_id *obj, bcmolt_buf *buf)
+{
+    uint8_t num_val;
+    if (!bcmolt_buf_read_u8(buf, &num_val))
+    {
+        return BCMOS_FALSE;
+    }
+    *obj = (bcmolt_switch_inni_link_state_change_data_id)num_val;
     return BCMOS_TRUE;
 }
 

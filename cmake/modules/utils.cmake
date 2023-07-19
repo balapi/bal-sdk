@@ -76,12 +76,21 @@ endmacro(bcm_find_relative_path)
 # Macro to prepend a directory to a list of files. Useful for things like prepending the ASIC revision to a
 # list of driver source files.
 #
+# This will skip any files that are already rooted (start with /).
+#
 # @param RESULT_LIST    [out] List of source paths relative to the SRC_PATH.
 # @param SRC_PATH       [in] Preamble source path to apply to each list entry.
 # @param ARGN           [in] Variable List of source files
 #====
 macro(bcm_prepend_source_path RESULT_LIST SRC_PATH)
-    string(REGEX REPLACE "([^;]+)" "${SRC_PATH}/\\1" ${RESULT_LIST} "${ARGN}")
+    unset(${RESULT_LIST})
+    foreach(_SRC ${ARGN})
+        set(_FILE ${_SRC})
+        if(NOT IS_ABSOLUTE ${_FILE})
+            STRING(CONCAT _FILE ${SRC_PATH} "/" ${_FILE})
+        endif()
+        list(APPEND ${RESULT_LIST} ${_FILE})
+    endforeach(_SRC)
 endmacro(bcm_prepend_source_path)
 
 #======
@@ -359,4 +368,3 @@ macro(bcm_format_third_party_libs_for_manifest)
         string(REPLACE ";" "\n" PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS "${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS}")
     endif(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
 endmacro(bcm_format_third_party_libs_for_manifest)
-

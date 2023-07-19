@@ -1315,7 +1315,7 @@ typedef struct
     bcmolt_cookie cookie; /**< Opaque application cookie associated with the flow (not interpreted by Maple) */
     bcmolt_mac_table_miss_action mac_table_miss_action; /**< Action to take a mac table miss */
     bcmolt_policer_profile_id policer_profile; /**< policer profile for flow if any */
-    bcmolt_control_state um_forwarding; /**< um forwarding. */
+    bcmolt_um_fwrd_state um_forwarding; /**< um forwarding. */
     bcmolt_arr_src_binding_info_16 src_bindings; /**< source bindings for a flow */
 } bcmolt_flow_cfg_data;
 
@@ -1332,7 +1332,7 @@ typedef struct
 #define BCMOLT_FLOW_CFG_DATA_STATISTICS_DEFAULT BCMOLT_CONTROL_STATE_DISABLE
 #define BCMOLT_FLOW_CFG_DATA_MAC_TABLE_MISS_ACTION_DEFAULT BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD
 #define BCMOLT_FLOW_CFG_DATA_POLICER_PROFILE_DEFAULT (bcmolt_policer_profile_id)65535U
-#define BCMOLT_FLOW_CFG_DATA_UM_FORWARDING_DEFAULT BCMOLT_CONTROL_STATE_DISABLE
+#define BCMOLT_FLOW_CFG_DATA_UM_FORWARDING_DEFAULT BCMOLT_UM_FWRD_STATE_DISABLE
 #define BCMOLT_FLOW_CFG_DATA_SRC_BINDINGS_LENGTH 16
 
 /** Transport message definition for "cfg" group of "flow" object. */
@@ -3973,7 +3973,7 @@ typedef struct
     bcmolt_str_100 task_name; /**< Task Name. */
     bcmolt_str_100 file_name; /**< File Name. */
     uint32_t line_number; /**< Line Number. */
-    bcmolt_str_100 error_string; /**< User error string. */
+    bcmolt_str_256 error_string; /**< User error string. */
     bcmolt_sw_error_severity severity; /**< Severity. */
 } bcmolt_olt_sw_error_data;
 
@@ -6792,10 +6792,11 @@ typedef struct
 {
     bcmolt_presence_mask presence_mask;
     bcmolt_config_state config_state; /**< config state. */
+    bcmolt_link_state link_state; /**< Current Link State (Link Up or Link Down) */
 } bcmolt_switch_inni_cfg_data;
 
 /* Constants associated with bcmolt_switch_inni_cfg_data. */
-#define BCMOLT_SWITCH_INNI_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000001ULL
+#define BCMOLT_SWITCH_INNI_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000003ULL
 #define BCMOLT_SWITCH_INNI_CFG_DATA_CONFIG_STATE_DEFAULT BCMOLT_CONFIG_STATE_CONFIGURED
 
 /** Transport message definition for "cfg" group of "switch_inni" object. */
@@ -6891,6 +6892,25 @@ typedef struct
 
     bcmolt_switch_inni_key next_key; /**< Key iterator (do not set manually). */
 } bcmolt_switch_inni_multi_stats;
+
+/** switch inni: link_state_change */
+typedef struct
+{
+    bcmolt_presence_mask presence_mask;
+    bcmolt_link_state old_state; /**< old_state. */
+    bcmolt_link_state new_state; /**< new_state. */
+} bcmolt_switch_inni_link_state_change_data;
+
+/* Constants associated with bcmolt_switch_inni_link_state_change_data. */
+#define BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_PRESENCE_MASK_ALL 0x0000000000000003ULL
+
+/** Transport message definition for "link_state_change" group of "switch_inni" object. */
+typedef struct
+{
+    bcmolt_auto hdr; /**< Transport header. */
+    bcmolt_switch_inni_key key; /**< Object key. */
+    bcmolt_switch_inni_link_state_change_data data; /**< All properties that must be set by the user. */
+} bcmolt_switch_inni_link_state_change;
 
 /** switch inni: Switch INNI Interface Statistics Configuration */
 typedef struct
@@ -6988,12 +7008,13 @@ typedef struct
 typedef struct
 {
     bcmolt_presence_mask presence_mask;
+    bcmos_bool link_state_change; /**< If true, indications of type "link_state_change" will be generated. */
     bcmos_bool stats_alarm_cleared; /**< If true, indications of type "stats_alarm_cleared" will be generated. */
     bcmos_bool stats_alarm_raised; /**< If true, indications of type "stats_alarm_raised" will be generated. */
 } bcmolt_switch_inni_auto_cfg_data;
 
 /* Constants associated with bcmolt_switch_inni_auto_cfg_data. */
-#define BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000003ULL
+#define BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_PRESENCE_MASK_ALL 0x0000000000000007ULL
 
 /** Transport message definition for "auto_cfg" group of "switch_inni" object. */
 typedef struct

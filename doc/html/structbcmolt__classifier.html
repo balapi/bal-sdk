@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.7</span>
+   &#160;<span id="projectnumber">3.12.8</span>
    </div>
   </td>
  </tr>
@@ -152,6 +152,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:a3290886b773c132baf179aa01c26d71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afde85b50f11baa7c071956e7adb00e11"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__classifier.html#afde85b50f11baa7c071956e7adb00e11">slow_proto_subtype</a></td></tr>
 <tr class="separator:afde85b50f11baa7c071956e7adb00e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd5a841e7f5fb2f95f610080ad3a0cd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__classifier.html#a0cd5a841e7f5fb2f95f610080ad3a0cd">o_tpid</a></td></tr>
+<tr class="separator:a0cd5a841e7f5fb2f95f610080ad3a0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52b7e17e76108ad002a93b491cbb05f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__classifier.html#ac52b7e17e76108ad002a93b491cbb05f">i_tpid</a></td></tr>
+<tr class="separator:ac52b7e17e76108ad002a93b491cbb05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a4afcce107b9ba871c2c8d612ee9f2d32"></a>
@@ -589,6 +593,36 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a0cd5a841e7f5fb2f95f610080ad3a0cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd5a841e7f5fb2f95f610080ad3a0cd">&#9670;&nbsp;</a></span>o_tpid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t o_tpid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>outer tag TPID value for classification (0x8100 or 0x88A8 only) </p>
+
+</div>
+</div>
+<a id="ac52b7e17e76108ad002a93b491cbb05f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52b7e17e76108ad002a93b491cbb05f">&#9670;&nbsp;</a></span>i_tpid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t i_tpid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>inner tag TPID value for classification (0x8100 or 0x88A8 only) </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__supporting__structs_8h_source.html">bcmolt_api_model_supporting_structs.h</a></li>
 </ul>
@@ -601,7 +635,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__classifier.html">bcmolt_classifier</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.7 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.8 </li>
   </ul>
 </div>
 </body>

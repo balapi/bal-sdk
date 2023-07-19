@@ -651,7 +651,7 @@ var group__object__model =
       [ "cookie", "structbcmolt__flow__cfg__data.html#adf05e24bef16c6aa48886cbe989a51c3", null ],
       [ "mac_table_miss_action", "structbcmolt__flow__cfg__data.html#a13d44e30eaa935eefacdb2fa5d1603b9", null ],
       [ "policer_profile", "structbcmolt__flow__cfg__data.html#a47c78e4f23d23360ee25b0efb091342e", null ],
-      [ "um_forwarding", "structbcmolt__flow__cfg__data.html#ad8e15fa568f3f1e571215f17e0fdc61f", null ],
+      [ "um_forwarding", "structbcmolt__flow__cfg__data.html#a092a2b2efec2e21c1bc345b2e578e3d1", null ],
       [ "src_bindings", "structbcmolt__flow__cfg__data.html#ac644354ea11be7388c38e3c23be34338", null ]
     ] ],
     [ "bcmolt_flow_cfg", "structbcmolt__flow__cfg.html", [
@@ -2148,7 +2148,7 @@ var group__object__model =
       [ "task_name", "structbcmolt__olt__sw__error__data.html#ab7ff6b2005521249da45b8bd3ab2dd81", null ],
       [ "file_name", "structbcmolt__olt__sw__error__data.html#a2d2ce72ff9c87d60bdb25ed148843d88", null ],
       [ "line_number", "structbcmolt__olt__sw__error__data.html#a309374bb210e5efc07dc4bf454eaf1d8", null ],
-      [ "error_string", "structbcmolt__olt__sw__error__data.html#a13c4bc2503c34a541c89a58180c30317", null ],
+      [ "error_string", "structbcmolt__olt__sw__error__data.html#a88e1de95e587e3e72e68b645bd1cfd3f", null ],
       [ "severity", "structbcmolt__olt__sw__error__data.html#ad47661c8f6a305eee4f3519f60218abe", null ]
     ] ],
     [ "bcmolt_olt_sw_error", "structbcmolt__olt__sw__error.html", [
@@ -3637,7 +3637,8 @@ var group__object__model =
       [ "id", "structbcmolt__switch__inni__key.html#af3561321b49550a08963231967d0008d", null ]
     ] ],
     [ "bcmolt_switch_inni_cfg_data", "structbcmolt__switch__inni__cfg__data.html", [
-      [ "config_state", "structbcmolt__switch__inni__cfg__data.html#a370086ac7626e5b70dccda88c4ff0b06", null ]
+      [ "config_state", "structbcmolt__switch__inni__cfg__data.html#a370086ac7626e5b70dccda88c4ff0b06", null ],
+      [ "link_state", "structbcmolt__switch__inni__cfg__data.html#afa482407cb6f554a66893493f00c5dd4", null ]
     ] ],
     [ "bcmolt_switch_inni_cfg", "structbcmolt__switch__inni__cfg.html", [
       [ "hdr", "structbcmolt__switch__inni__cfg.html#a93a147e94b9c706f26782ac1bc1417aa", null ],
@@ -3710,6 +3711,15 @@ var group__object__model =
       [ "responses", "structbcmolt__switch__inni__multi__stats.html#a5ff7b114f22337a24750193d92ba6768", null ],
       [ "next_key", "structbcmolt__switch__inni__multi__stats.html#aff89d309f91a902d848c9545b041757f", null ]
     ] ],
+    [ "bcmolt_switch_inni_link_state_change_data", "structbcmolt__switch__inni__link__state__change__data.html", [
+      [ "old_state", "structbcmolt__switch__inni__link__state__change__data.html#a5db074bcc78d336a2416d844f3d84a44", null ],
+      [ "new_state", "structbcmolt__switch__inni__link__state__change__data.html#a25dace69ffadcd1d64882d54e3c5ad2d", null ]
+    ] ],
+    [ "bcmolt_switch_inni_link_state_change", "structbcmolt__switch__inni__link__state__change.html", [
+      [ "hdr", "structbcmolt__switch__inni__link__state__change.html#a5c83c739c54ff31d6c2202987970f617", null ],
+      [ "key", "structbcmolt__switch__inni__link__state__change.html#a74c165efbac79582c3cb695b81974537", null ],
+      [ "data", "structbcmolt__switch__inni__link__state__change.html#af07e75c4c4e5c5c90a1bf5a1580a6201", null ]
+    ] ],
     [ "bcmolt_switch_inni_stats_cfg_data", "structbcmolt__switch__inni__stats__cfg__data.html", [
       [ "rx_bytes", "structbcmolt__switch__inni__stats__cfg__data.html#ac6f4f9f900fc20d07cfa6226fd013fca", null ],
       [ "rx_packets", "structbcmolt__switch__inni__stats__cfg__data.html#a0921558207dd0a731d6c76ad6f78c080", null ],
@@ -3773,6 +3783,7 @@ var group__object__model =
       [ "data", "structbcmolt__switch__inni__stats__alarm__cleared.html#ada9e37d6bafc721785d7242f58265e2d", null ]
     ] ],
     [ "bcmolt_switch_inni_auto_cfg_data", "structbcmolt__switch__inni__auto__cfg__data.html", [
+      [ "link_state_change", "structbcmolt__switch__inni__auto__cfg__data.html#a2becacd2174032662a8e142e55b038a0", null ],
       [ "stats_alarm_cleared", "structbcmolt__switch__inni__auto__cfg__data.html#aa3af07c5412da65014fc7120aae3a473", null ],
       [ "stats_alarm_raised", "structbcmolt__switch__inni__auto__cfg__data.html#a1e4aec50f479341babeca315c7936d06", null ]
     ] ],
@@ -4128,7 +4139,9 @@ var group__object__model =
       [ "pkt_tag_type", "structbcmolt__classifier.html#af41cd80160dc4ab03f40ea4473e886a0", null ],
       [ "ip_v_6", "structbcmolt__classifier.html#a5cc58fd1c97b37a01fe569b7b403dc22", null ],
       [ "i2_vid", "structbcmolt__classifier.html#a3290886b773c132baf179aa01c26d71c", null ],
-      [ "slow_proto_subtype", "structbcmolt__classifier.html#afde85b50f11baa7c071956e7adb00e11", null ]
+      [ "slow_proto_subtype", "structbcmolt__classifier.html#afde85b50f11baa7c071956e7adb00e11", null ],
+      [ "o_tpid", "structbcmolt__classifier.html#a0cd5a841e7f5fb2f95f610080ad3a0cd", null ],
+      [ "i_tpid", "structbcmolt__classifier.html#ac52b7e17e76108ad002a93b491cbb05f", null ]
     ] ],
     [ "bcmolt_ddr_test_completed", "structbcmolt__ddr__test__completed.html", [
       [ "status", "structbcmolt__ddr__test__completed.html#a459449d41d6bcd65320a8b2b4521f12e", null ],
@@ -4269,7 +4282,8 @@ var group__object__model =
     ] ],
     [ "bcmolt_host_port_params", "structbcmolt__host__port__params.html", [
       [ "pir_kbps", "structbcmolt__host__port__params.html#a3c570a6c1119fd121455717fdbca1ed5", null ],
-      [ "queue_size_kbytes", "structbcmolt__host__port__params.html#aa0da9db4d63ad4678b9877e06bfbf497", null ]
+      [ "queue_size_kbytes", "structbcmolt__host__port__params.html#aa0da9db4d63ad4678b9877e06bfbf497", null ],
+      [ "pir_kbps_actual", "structbcmolt__host__port__params.html#a69a786188710cf4d548e3499c265844c", null ]
     ] ],
     [ "bcmolt_host_sw_version", "structbcmolt__host__sw__version.html", [
       [ "major", "structbcmolt__host__sw__version.html#a5bd4e4c943762926c8f653b6224cced2", null ],
@@ -4771,7 +4785,11 @@ var group__object__model =
     [ "bcmolt_tm_shaping", "structbcmolt__tm__shaping.html", [
       [ "cir", "structbcmolt__tm__shaping.html#a6e4b9cad9e09b40480ffff2497ada6c9", null ],
       [ "pir", "structbcmolt__tm__shaping.html#ace53efd88d5480463b539032f28c20f6", null ],
-      [ "burst", "structbcmolt__tm__shaping.html#ac16df266cbc4e29e9df52d9f17fdfa24", null ]
+      [ "burst", "structbcmolt__tm__shaping.html#ac16df266cbc4e29e9df52d9f17fdfa24", null ],
+      [ "cir_actual", "structbcmolt__tm__shaping.html#a50e4882cc5c21be6a7fc1499efd5df5a", null ],
+      [ "cir_burst_actual", "structbcmolt__tm__shaping.html#a4973b518ca185f562b3a476bbd34ab83", null ],
+      [ "eir_actual", "structbcmolt__tm__shaping.html#ab03e80eb4e4c99551cd8e601951c2e84", null ],
+      [ "eir_burst_actual", "structbcmolt__tm__shaping.html#ae77081927350d8b3bdbcf0b072e65b14", null ]
     ] ],
     [ "bcmolt_topology_map", "structbcmolt__topology__map.html", [
       [ "local_device_id", "structbcmolt__topology__map.html#aa01253c96fb99bd23f3f5a84f55f78ba", null ],
@@ -6194,6 +6212,12 @@ var group__object__model =
       [ "BCMOLT_UART_BAUDRATE_UART_RATE_921600", "group__object__model.html#ggab298adc511684522d4c282a698c4a2c8a5959af396549013a0d34eb0355965f44", null ],
       [ "BCMOLT_UART_BAUDRATE__NUM_OF", "group__object__model.html#ggab298adc511684522d4c282a698c4a2c8a19d869c9915c87e3936331f3b1afd26a", null ]
     ] ],
+    [ "bcmolt_um_fwrd_state", "group__object__model.html#ga827eaefab0f2145ce6cfb34fd1f162ee", [
+      [ "BCMOLT_UM_FWRD_STATE_DISABLE", "group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeae6286ae45ee1e8617095d2cc0bf12c3f", null ],
+      [ "BCMOLT_UM_FWRD_STATE_ENABLE", "group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeaab8e34ed16d1cb11bce5c39bbfd34f53", null ],
+      [ "BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6", "group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeacc2331fd035410907cddc99854842e35", null ],
+      [ "BCMOLT_UM_FWRD_STATE__NUM_OF", "group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eea514332a2b3263c3e9daef556c00a384f", null ]
+    ] ],
     [ "bcmolt_upstream_line_rate_capabilities", "group__object__model.html#ga4cd81fde4c3e3712f9a1e8ec1ecebab8", [
       [ "BCMOLT_UPSTREAM_LINE_RATE_CAPABILITIES_RATE_2_P_5_G", "group__object__model.html#gga4cd81fde4c3e3712f9a1e8ec1ecebab8a7c93023bb786b0c90a4607dab83ea66b", null ],
       [ "BCMOLT_UPSTREAM_LINE_RATE_CAPABILITIES_RATE_10_G", "group__object__model.html#gga4cd81fde4c3e3712f9a1e8ec1ecebab8a959dc160dcd7b5124608699752052c37", null ],
@@ -6589,6 +6613,7 @@ var group__object__model =
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ab1744ebebcac01ae75e01c8a69a81370", null ],
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a9f41289c2979949978d7f2cbd74b2bf7", null ],
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a093c024f5716d7e78f9e40fb9451c944", null ],
+      [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a53f38a7c7d24cb08e487e45188522c44", null ],
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a0f9df8297fa6e2078eaacde19007354d", null ],
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a106992e7432cacbede80e7d310376cfd", null ],
       [ "BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED", "group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ac5e8b8f432b61cc43153ec7760a080a5", null ],
@@ -7067,6 +7092,7 @@ var group__object__model =
     ] ],
     [ "bcmolt_switch_inni_auto_subgroup", "group__object__model.html#gadca74a6e762fa5089f70213372de0bc0", [
       [ "BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL", "group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a0e94e562007703e52a4d985aa0f922c7", null ],
+      [ "BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE", "group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0aa0b20890589af5c4cc159afded0952aa", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED", "group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0ad9ad32b01dab49f02a7b8806ddd20d7f", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED", "group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a131cbd749c165e3c2a7dbcb9150eaad3", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF", "group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a115b2749c48c7e7e5eab9f6a904aeca9", null ]
@@ -7165,6 +7191,8 @@ var group__object__model =
       [ "BCMOLT_CLASSIFIER_ID_I_PBITS_MASK", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607a9b48b0c78b41b8202e6539b8218609d8", null ],
       [ "BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607a8561fe3b394c2483c52c9ada3784dc36", null ],
       [ "BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607ab9d656686c85eab33625ad774fbfb49b", null ],
+      [ "BCMOLT_CLASSIFIER_ID_O_TPID", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607a7e3c557623c9f66c5f3684158647c4a1", null ],
+      [ "BCMOLT_CLASSIFIER_ID_I_TPID", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607a75958796cb7ddf31b5c51c2c2e60fa30", null ],
       [ "BCMOLT_CLASSIFIER_ID__NUM_OF", "group__object__model.html#gga498f31b7c59359e0bd724ea932707607a96932c30a58a26d4414692cdf4fafc91", null ]
     ] ],
     [ "bcmolt_classifier_ip_v_6_id", "group__object__model.html#ga6e2c00236a541c80a850c9d854a6fd25", [
@@ -7333,6 +7361,7 @@ var group__object__model =
     [ "bcmolt_host_port_params_id", "group__object__model.html#ga6376a012db9b583b76fd90a7b904ec75", [
       [ "BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS", "group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75ad0c3e91def54ecaa78cc1418879b5487", null ],
       [ "BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES", "group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75a613fecf4ae0089c5ab4e91f41f4265d1", null ],
+      [ "BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL", "group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75a3823e7303d65dd34799e50df5acfeecd", null ],
       [ "BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF", "group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75ac9adcdcd689afe8b62e25a543f755c44", null ]
     ] ],
     [ "bcmolt_host_sw_version_id", "group__object__model.html#ga129f652b1a3da6f1f2b4537c5057671a", [
@@ -7878,6 +7907,10 @@ var group__object__model =
       [ "BCMOLT_TM_SHAPING_ID_CIR", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44eabe8c1dc27917ce5b5b45256ea39abec5", null ],
       [ "BCMOLT_TM_SHAPING_ID_PIR", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea30dc9718f604d2ee29902e0306717c15", null ],
       [ "BCMOLT_TM_SHAPING_ID_BURST", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea53b5eaf58aafffce6e8a64cfcad9848b", null ],
+      [ "BCMOLT_TM_SHAPING_ID_CIR_ACTUAL", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea54d2784484deded07be78105d4f8bbde", null ],
+      [ "BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea5d0cbb8ef0b5cec054247a74e2bb7cf9", null ],
+      [ "BCMOLT_TM_SHAPING_ID_EIR_ACTUAL", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea37749acebe1a799865ac4072eeb640db", null ],
+      [ "BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea57de1b3ecb198460e0aa253d68ac5e29", null ],
       [ "BCMOLT_TM_SHAPING_ID__NUM_OF", "group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea6edacfed2a5a511850a9ad0e26466263", null ]
     ] ],
     [ "bcmolt_topology_id", "group__object__model.html#ga8ff7b0e30e818f315cc6b5205e3eb380", [
@@ -10130,6 +10163,7 @@ var group__object__model =
     ] ],
     [ "bcmolt_switch_inni_cfg_data_id", "group__object__model.html#ga3facff7462291890b996cd820149c0d0", [
       [ "BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE", "group__object__model.html#gga3facff7462291890b996cd820149c0d0ad08bd978585eb0b6d7c1d367b5ab6468", null ],
+      [ "BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE", "group__object__model.html#gga3facff7462291890b996cd820149c0d0a9399a8a3aefc6e21053fe10e076d5185", null ],
       [ "BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF", "group__object__model.html#gga3facff7462291890b996cd820149c0d0ac886859e17b0c8722abfc81efb859001", null ]
     ] ],
     [ "bcmolt_switch_inni_stats_data_id", "group__object__model.html#ga3cec50a0a2596212efef4bfed3d5dfe0", [
@@ -10173,6 +10207,11 @@ var group__object__model =
       [ "BCMOLT_SWITCH_INNI_STATS_DATA_ID_RX_JABBER_PACKETS", "group__object__model.html#gga3cec50a0a2596212efef4bfed3d5dfe0a96807f298722c972c87ebeb715acebe4", null ],
       [ "BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS", "group__object__model.html#gga3cec50a0a2596212efef4bfed3d5dfe0aa3b5e8fa5cc2e410ae5b44f5d5cb3748", null ],
       [ "BCMOLT_SWITCH_INNI_STATS_DATA_ID__NUM_OF", "group__object__model.html#gga3cec50a0a2596212efef4bfed3d5dfe0a0bdf7dc9b4addfdc4e9284936b30c191", null ]
+    ] ],
+    [ "bcmolt_switch_inni_link_state_change_data_id", "group__object__model.html#gad119208ccf81528ec47726e53392db85", [
+      [ "BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE", "group__object__model.html#ggad119208ccf81528ec47726e53392db85a46ec715c46a2b97c43ff9a89877bf3e1", null ],
+      [ "BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE", "group__object__model.html#ggad119208ccf81528ec47726e53392db85ad008e177cf882fec2bd0d40a1cba47a1", null ],
+      [ "BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF", "group__object__model.html#ggad119208ccf81528ec47726e53392db85ab063847a1c1623cd94b1f29b94618482", null ]
     ] ],
     [ "bcmolt_switch_inni_stats_cfg_data_id", "group__object__model.html#ga8f99c6013e8e4f7a5d698878f9e0be42", [
       [ "BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_BYTES", "group__object__model.html#gga8f99c6013e8e4f7a5d698878f9e0be42ab0587d1a8fa728e8a17acfcf8461b24b", null ],
@@ -10225,6 +10264,7 @@ var group__object__model =
       [ "BCMOLT_SWITCH_INNI_STATS_ALARM_CLEARED_DATA_ID__NUM_OF", "group__object__model.html#gga61760c7a09f79901ef402d5fc5c350ecacc927cdd5ea87e9596a07f8bcb5f3d68", null ]
     ] ],
     [ "bcmolt_switch_inni_auto_cfg_data_id", "group__object__model.html#gaf4361e1e68bb69ac80dc2a2d319b0e60", [
+      [ "BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE", "group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60a0420dd72e75cfeda0cee2e2ad5f0d12d", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED", "group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60ac14bd7bb81eb45a2f97de91b3be2a47d", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED", "group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60af1868fe6ef88292cfe7e51d1e46937d3", null ],
       [ "BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF", "group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60aead403d6e58bc193da93c9371bd73849", null ]

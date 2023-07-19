@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.7</span>
+   &#160;<span id="projectnumber">3.12.8</span>
    </div>
   </td>
  </tr>
@@ -1294,6 +1294,10 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__switch__inni__stats.html">bcmolt_switch_inni_stats</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__switch__inni__multi__stats.html">bcmolt_switch_inni_multi_stats</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__switch__inni__link__state__change__data.html">bcmolt_switch_inni_link_state_change_data</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__switch__inni__link__state__change.html">bcmolt_switch_inni_link_state_change</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__switch__inni__stats__cfg__data.html">bcmolt_switch_inni_stats_cfg_data</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3373,6 +3377,12 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:gab298adc511684522d4c282a698c4a2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga827eaefab0f2145ce6cfb34fd1f162ee"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga827eaefab0f2145ce6cfb34fd1f162ee">bcmolt_um_fwrd_state</a> { , <a class="el" href="group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeae6286ae45ee1e8617095d2cc0bf12c3f">BCMOLT_UM_FWRD_STATE_DISABLE</a> = 0, 
+<a class="el" href="group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeaab8e34ed16d1cb11bce5c39bbfd34f53">BCMOLT_UM_FWRD_STATE_ENABLE</a> = 1, 
+<a class="el" href="group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eeacc2331fd035410907cddc99854842e35">BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6</a> = 2, 
+<a class="el" href="group__object__model.html#gga827eaefab0f2145ce6cfb34fd1f162eea514332a2b3263c3e9daef556c00a384f">BCMOLT_UM_FWRD_STATE__NUM_OF</a>
+ }</td></tr>
+<tr class="separator:ga827eaefab0f2145ce6cfb34fd1f162ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4cd81fde4c3e3712f9a1e8ec1ecebab8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga4cd81fde4c3e3712f9a1e8ec1ecebab8">bcmolt_upstream_line_rate_capabilities</a> { , <br />
 &#160;&#160;<a class="el" href="group__object__model.html#gga4cd81fde4c3e3712f9a1e8ec1ecebab8a7c93023bb786b0c90a4607dab83ea66b">BCMOLT_UPSTREAM_LINE_RATE_CAPABILITIES_RATE_2_P_5_G</a> = 0, 
 <a class="el" href="group__object__model.html#gga4cd81fde4c3e3712f9a1e8ec1ecebab8a959dc160dcd7b5124608699752052c37">BCMOLT_UPSTREAM_LINE_RATE_CAPABILITIES_RATE_10_G</a> = 1, 
@@ -3869,21 +3879,22 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a9f41289c2979949978d7f2cbd74b2bf7">BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG</a> = 307, 
 <br />
 &#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a093c024f5716d7e78f9e40fb9451c944">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS</a> = 308, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a0f9df8297fa6e2078eaacde19007354d">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG</a> = 309, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a106992e7432cacbede80e7d310376cfd">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED</a> = 310, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ac5e8b8f432b61cc43153ec7760a080a5">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED</a> = 311, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a53f38a7c7d24cb08e487e45188522c44">BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE</a> = 309, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a0f9df8297fa6e2078eaacde19007354d">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG</a> = 310, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a106992e7432cacbede80e7d310376cfd">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED</a> = 311, 
 <br />
-&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a5405ab4661c80bb7440ab0a9078b3f5b">BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG</a> = 312, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ac50a1520713ebfbf61a4725245319537">BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY</a> = 313, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a76adf2088b138a13dbe72f42cad9a84d">BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG</a> = 314, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a8e5eb9af104b216d896ff4b78ad5dd89">BCMOLT_API_GROUP_ID_TM_QMP_KEY</a> = 315, 
+&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ac5e8b8f432b61cc43153ec7760a080a5">BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED</a> = 312, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a5405ab4661c80bb7440ab0a9078b3f5b">BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG</a> = 313, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ac50a1520713ebfbf61a4725245319537">BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY</a> = 314, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a76adf2088b138a13dbe72f42cad9a84d">BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG</a> = 315, 
 <br />
-&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ad50f6dc400d9c6ace93fdcec47bb6ecb">BCMOLT_API_GROUP_ID_TM_QMP_CFG</a> = 316, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a6596d65b2cd881e70430f20278a1d281">BCMOLT_API_GROUP_ID_TM_QUEUE_KEY</a> = 317, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73afc370b8874ad72785cb9f60c1a89c1a3">BCMOLT_API_GROUP_ID_TM_QUEUE_CFG</a> = 318, 
-<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ae25ebe72d6e7bbd8d6d4126dc8409239">BCMOLT_API_GROUP_ID_TM_SCHED_KEY</a> = 319, 
+&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a8e5eb9af104b216d896ff4b78ad5dd89">BCMOLT_API_GROUP_ID_TM_QMP_KEY</a> = 316, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ad50f6dc400d9c6ace93fdcec47bb6ecb">BCMOLT_API_GROUP_ID_TM_QMP_CFG</a> = 317, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a6596d65b2cd881e70430f20278a1d281">BCMOLT_API_GROUP_ID_TM_QUEUE_KEY</a> = 318, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73afc370b8874ad72785cb9f60c1a89c1a3">BCMOLT_API_GROUP_ID_TM_QUEUE_CFG</a> = 319, 
 <br />
-&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a0b612d8a35a6b7205a9472516f5afe61">BCMOLT_API_GROUP_ID_TM_SCHED_CFG</a> = 320, 
+&#160;&#160;<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ae25ebe72d6e7bbd8d6d4126dc8409239">BCMOLT_API_GROUP_ID_TM_SCHED_KEY</a> = 320, 
+<a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73a0b612d8a35a6b7205a9472516f5afe61">BCMOLT_API_GROUP_ID_TM_SCHED_CFG</a> = 321, 
 <a class="el" href="group__object__model.html#ggaa96eca84a0955824830c2718d6b1bb73ae109e7b21368a77e0c362bf59e268443">BCMOLT_API_GROUP_ID__NUM_OF</a>
 <br />
  }</td></tr>
@@ -4438,10 +4449,14 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__object__model.html#ggad5138728f46cd7d812a8c512bd496c1fae5e348b342ca209427306aeb6f1e9e8a">BCMOLT_SWITCH_INNI_STAT_CFG_SUBGROUP__NUM_OF</a>
  }</td></tr>
 <tr class="separator:gad5138728f46cd7d812a8c512bd496c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadca74a6e762fa5089f70213372de0bc0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#gadca74a6e762fa5089f70213372de0bc0">bcmolt_switch_inni_auto_subgroup</a> { , <a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a0e94e562007703e52a4d985aa0f922c7">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL</a> = 0, 
-<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0ad9ad32b01dab49f02a7b8806ddd20d7f">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED</a> = 1, 
-<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a131cbd749c165e3c2a7dbcb9150eaad3">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED</a> = 2, 
-<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a115b2749c48c7e7e5eab9f6a904aeca9">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF</a>
+<tr class="memitem:gadca74a6e762fa5089f70213372de0bc0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#gadca74a6e762fa5089f70213372de0bc0">bcmolt_switch_inni_auto_subgroup</a> { , <br />
+&#160;&#160;<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a0e94e562007703e52a4d985aa0f922c7">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL</a> = 0, 
+<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0aa0b20890589af5c4cc159afded0952aa">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE</a> = 1, 
+<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0ad9ad32b01dab49f02a7b8806ddd20d7f">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED</a> = 2, 
+<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a131cbd749c165e3c2a7dbcb9150eaad3">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="group__object__model.html#ggadca74a6e762fa5089f70213372de0bc0a115b2749c48c7e7e5eab9f6a904aeca9">BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF</a>
+<br />
  }</td></tr>
 <tr class="separator:gadca74a6e762fa5089f70213372de0bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10c4e402a89188635e5490d1f96bb4d6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga10c4e402a89188635e5490d1f96bb4d6">bcmolt_access_control_fwd_action_id</a> { , <a class="el" href="group__object__model.html#gga10c4e402a89188635e5490d1f96bb4d6a4cd9c06f05d1bc052dbc8a98cef8cdff">BCMOLT_ACCESS_CONTROL_FWD_ACTION_ID_ACTION</a> = 0, 
@@ -4559,6 +4574,8 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__object__model.html#gga498f31b7c59359e0bd724ea932707607a8561fe3b394c2483c52c9ada3784dc36">BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK</a> = 27, 
 <br />
 &#160;&#160;<a class="el" href="group__object__model.html#gga498f31b7c59359e0bd724ea932707607ab9d656686c85eab33625ad774fbfb49b">BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK</a> = 28, 
+<a class="el" href="group__object__model.html#gga498f31b7c59359e0bd724ea932707607a7e3c557623c9f66c5f3684158647c4a1">BCMOLT_CLASSIFIER_ID_O_TPID</a> = 29, 
+<a class="el" href="group__object__model.html#gga498f31b7c59359e0bd724ea932707607a75958796cb7ddf31b5c51c2c2e60fa30">BCMOLT_CLASSIFIER_ID_I_TPID</a> = 30, 
 <a class="el" href="group__object__model.html#gga498f31b7c59359e0bd724ea932707607a96932c30a58a26d4414692cdf4fafc91">BCMOLT_CLASSIFIER_ID__NUM_OF</a>
 <br />
  }</td></tr>
@@ -4751,6 +4768,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:gac0a2a053dbb6eabb32cc53b3316e9430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6376a012db9b583b76fd90a7b904ec75"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga6376a012db9b583b76fd90a7b904ec75">bcmolt_host_port_params_id</a> { , <a class="el" href="group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75ad0c3e91def54ecaa78cc1418879b5487">BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS</a> = 0, 
 <a class="el" href="group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75a613fecf4ae0089c5ab4e91f41f4265d1">BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES</a> = 1, 
+<a class="el" href="group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75a3823e7303d65dd34799e50df5acfeecd">BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL</a> = 2, 
 <a class="el" href="group__object__model.html#gga6376a012db9b583b76fd90a7b904ec75ac9adcdcd689afe8b62e25a543f755c44">BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF</a>
  }</td></tr>
 <tr class="separator:ga6376a012db9b583b76fd90a7b904ec75"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -5391,10 +5409,17 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__object__model.html#gga3c14bdf70e5d715efab3c7df8810e637a5fa5ac1fb6ecedbf2cd900b728a9d6ad">BCMOLT_TM_SCHED_REF_ID__NUM_OF</a>
  }</td></tr>
 <tr class="separator:ga3c14bdf70e5d715efab3c7df8810e637"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a228997d86811fc86bf7a928b00a44e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga1a228997d86811fc86bf7a928b00a44e">bcmolt_tm_shaping_id</a> { , <a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44eabe8c1dc27917ce5b5b45256ea39abec5">BCMOLT_TM_SHAPING_ID_CIR</a> = 0, 
+<tr class="memitem:ga1a228997d86811fc86bf7a928b00a44e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga1a228997d86811fc86bf7a928b00a44e">bcmolt_tm_shaping_id</a> { , <br />
+&#160;&#160;<a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44eabe8c1dc27917ce5b5b45256ea39abec5">BCMOLT_TM_SHAPING_ID_CIR</a> = 0, 
 <a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea30dc9718f604d2ee29902e0306717c15">BCMOLT_TM_SHAPING_ID_PIR</a> = 1, 
 <a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea53b5eaf58aafffce6e8a64cfcad9848b">BCMOLT_TM_SHAPING_ID_BURST</a> = 2, 
+<a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea54d2784484deded07be78105d4f8bbde">BCMOLT_TM_SHAPING_ID_CIR_ACTUAL</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea5d0cbb8ef0b5cec054247a74e2bb7cf9">BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL</a> = 4, 
+<a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea37749acebe1a799865ac4072eeb640db">BCMOLT_TM_SHAPING_ID_EIR_ACTUAL</a> = 5, 
+<a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea57de1b3ecb198460e0aa253d68ac5e29">BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL</a> = 6, 
 <a class="el" href="group__object__model.html#gga1a228997d86811fc86bf7a928b00a44ea6edacfed2a5a511850a9ad0e26466263">BCMOLT_TM_SHAPING_ID__NUM_OF</a>
+<br />
  }</td></tr>
 <tr class="separator:ga1a228997d86811fc86bf7a928b00a44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8ff7b0e30e818f315cc6b5205e3eb380"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga8ff7b0e30e818f315cc6b5205e3eb380">bcmolt_topology_id</a> { , <a class="el" href="group__object__model.html#gga8ff7b0e30e818f315cc6b5205e3eb380a58dea880c4a5568f739b9c299a448b7d">BCMOLT_TOPOLOGY_ID_NUM_SWITCH_PORTS</a> = 0, 
@@ -8052,6 +8077,7 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:gab1df4b318fac3ff186e7ac650b29e03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3facff7462291890b996cd820149c0d0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga3facff7462291890b996cd820149c0d0">bcmolt_switch_inni_cfg_data_id</a> { , <a class="el" href="group__object__model.html#gga3facff7462291890b996cd820149c0d0ad08bd978585eb0b6d7c1d367b5ab6468">BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE</a> = 0, 
+<a class="el" href="group__object__model.html#gga3facff7462291890b996cd820149c0d0a9399a8a3aefc6e21053fe10e076d5185">BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE</a> = 1, 
 <a class="el" href="group__object__model.html#gga3facff7462291890b996cd820149c0d0ac886859e17b0c8722abfc81efb859001">BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF</a>
  }</td></tr>
 <tr class="separator:ga3facff7462291890b996cd820149c0d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -8108,6 +8134,11 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:ga3cec50a0a2596212efef4bfed3d5dfe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad119208ccf81528ec47726e53392db85"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#gad119208ccf81528ec47726e53392db85">bcmolt_switch_inni_link_state_change_data_id</a> { , <a class="el" href="group__object__model.html#ggad119208ccf81528ec47726e53392db85a46ec715c46a2b97c43ff9a89877bf3e1">BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE</a> = 0, 
+<a class="el" href="group__object__model.html#ggad119208ccf81528ec47726e53392db85ad008e177cf882fec2bd0d40a1cba47a1">BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE</a> = 1, 
+<a class="el" href="group__object__model.html#ggad119208ccf81528ec47726e53392db85ab063847a1c1623cd94b1f29b94618482">BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF</a>
+ }</td></tr>
+<tr class="separator:gad119208ccf81528ec47726e53392db85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8f99c6013e8e4f7a5d698878f9e0be42"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#ga8f99c6013e8e4f7a5d698878f9e0be42">bcmolt_switch_inni_stats_cfg_data_id</a> { , <br />
 &#160;&#160;<a class="el" href="group__object__model.html#gga8f99c6013e8e4f7a5d698878f9e0be42ab0587d1a8fa728e8a17acfcf8461b24b">BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_BYTES</a> = 0, 
 <a class="el" href="group__object__model.html#gga8f99c6013e8e4f7a5d698878f9e0be42ab298386884b6224b4fbf91add5a7cf5c">BCMOLT_SWITCH_INNI_STATS_CFG_DATA_ID_RX_PACKETS</a> = 1, 
@@ -8169,8 +8200,9 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__object__model.html#gga61760c7a09f79901ef402d5fc5c350ecacc927cdd5ea87e9596a07f8bcb5f3d68">BCMOLT_SWITCH_INNI_STATS_ALARM_CLEARED_DATA_ID__NUM_OF</a>
  }</td></tr>
 <tr class="separator:ga61760c7a09f79901ef402d5fc5c350ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf4361e1e68bb69ac80dc2a2d319b0e60"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#gaf4361e1e68bb69ac80dc2a2d319b0e60">bcmolt_switch_inni_auto_cfg_data_id</a> { , <a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60ac14bd7bb81eb45a2f97de91b3be2a47d">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED</a> = 0, 
-<a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60af1868fe6ef88292cfe7e51d1e46937d3">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED</a> = 1, 
+<tr class="memitem:gaf4361e1e68bb69ac80dc2a2d319b0e60"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__object__model.html#gaf4361e1e68bb69ac80dc2a2d319b0e60">bcmolt_switch_inni_auto_cfg_data_id</a> { , <a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60a0420dd72e75cfeda0cee2e2ad5f0d12d">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE</a> = 0, 
+<a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60ac14bd7bb81eb45a2f97de91b3be2a47d">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED</a> = 1, 
+<a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60af1868fe6ef88292cfe7e51d1e46937d3">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED</a> = 2, 
 <a class="el" href="group__object__model.html#ggaf4361e1e68bb69ac80dc2a2d319b0e60aead403d6e58bc193da93c9371bd73849">BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF</a>
  }</td></tr>
 <tr class="separator:gaf4361e1e68bb69ac80dc2a2d319b0e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -13602,6 +13634,31 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga827eaefab0f2145ce6cfb34fd1f162ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga827eaefab0f2145ce6cfb34fd1f162ee">&#9670;&nbsp;</a></span>bcmolt_um_fwrd_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__object__model.html#ga827eaefab0f2145ce6cfb34fd1f162ee">bcmolt_um_fwrd_state</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>um fwrd state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga827eaefab0f2145ce6cfb34fd1f162eeae6286ae45ee1e8617095d2cc0bf12c3f"></a>BCMOLT_UM_FWRD_STATE_DISABLE&#160;</td><td class="fielddoc"><p>Disabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga827eaefab0f2145ce6cfb34fd1f162eeaab8e34ed16d1cb11bce5c39bbfd34f53"></a>BCMOLT_UM_FWRD_STATE_ENABLE&#160;</td><td class="fielddoc"><p>Enabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga827eaefab0f2145ce6cfb34fd1f162eeacc2331fd035410907cddc99854842e35"></a>BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6&#160;</td><td class="fielddoc"><p>Igmp_Icmpv6. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga827eaefab0f2145ce6cfb34fd1f162eea514332a2b3263c3e9daef556c00a384f"></a>BCMOLT_UM_FWRD_STATE__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ga4cd81fde4c3e3712f9a1e8ec1ecebab8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4cd81fde4c3e3712f9a1e8ec1ecebab8">&#9670;&nbsp;</a></span>bcmolt_upstream_line_rate_capabilities</h2>
 
@@ -14467,6 +14524,8 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggaa96eca84a0955824830c2718d6b1bb73a9f41289c2979949978d7f2cbd74b2bf7"></a>BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG&#160;</td><td class="fielddoc"><p>switch inni - cfg. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaa96eca84a0955824830c2718d6b1bb73a093c024f5716d7e78f9e40fb9451c944"></a>BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS&#160;</td><td class="fielddoc"><p>switch inni - Switch INNI Interface Statistics. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaa96eca84a0955824830c2718d6b1bb73a53f38a7c7d24cb08e487e45188522c44"></a>BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE&#160;</td><td class="fielddoc"><p>switch inni - link_state_change. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaa96eca84a0955824830c2718d6b1bb73a0f9df8297fa6e2078eaacde19007354d"></a>BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG&#160;</td><td class="fielddoc"><p>switch inni - Switch INNI Interface Statistics Configuration. </p>
 </td></tr>
@@ -16165,6 +16224,8 @@ Enumerations</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggadca74a6e762fa5089f70213372de0bc0a0e94e562007703e52a4d985aa0f922c7"></a>BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL&#160;</td><td class="fielddoc"><p>Subscribe to all subgroups (reserved value). </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ggadca74a6e762fa5089f70213372de0bc0aa0b20890589af5c4cc159afded0952aa"></a>BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE&#160;</td><td class="fielddoc"><p>link_state_change. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="ggadca74a6e762fa5089f70213372de0bc0ad9ad32b01dab49f02a7b8806ddd20d7f"></a>BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED&#160;</td><td class="fielddoc"><p>Switch INNI Interface Statistics Alarm Cleared. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggadca74a6e762fa5089f70213372de0bc0a131cbd749c165e3c2a7dbcb9150eaad3"></a>BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED&#160;</td><td class="fielddoc"><p>Switch INNI Interface Statistics Alarm Raised. </p>
@@ -16477,6 +16538,10 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga498f31b7c59359e0bd724ea932707607a8561fe3b394c2483c52c9ada3784dc36"></a>BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK&#160;</td><td class="fielddoc"><p>Ether type mask. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga498f31b7c59359e0bd724ea932707607ab9d656686c85eab33625ad774fbfb49b"></a>BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK&#160;</td><td class="fielddoc"><p>IP Protocol mask. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga498f31b7c59359e0bd724ea932707607a7e3c557623c9f66c5f3684158647c4a1"></a>BCMOLT_CLASSIFIER_ID_O_TPID&#160;</td><td class="fielddoc"><p>outer tag TPID classify. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga498f31b7c59359e0bd724ea932707607a75958796cb7ddf31b5c51c2c2e60fa30"></a>BCMOLT_CLASSIFIER_ID_I_TPID&#160;</td><td class="fielddoc"><p>inner tag TPID classify. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga498f31b7c59359e0bd724ea932707607a96932c30a58a26d4414692cdf4fafc91"></a>BCMOLT_CLASSIFIER_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -17177,6 +17242,8 @@ Enumerations</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga6376a012db9b583b76fd90a7b904ec75ad0c3e91def54ecaa78cc1418879b5487"></a>BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS&#160;</td><td class="fielddoc"><p>pir_kbps. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6376a012db9b583b76fd90a7b904ec75a613fecf4ae0089c5ab4e91f41f4265d1"></a>BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES&#160;</td><td class="fielddoc"><p>queue size kbytes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6376a012db9b583b76fd90a7b904ec75a3823e7303d65dd34799e50df5acfeecd"></a>BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL&#160;</td><td class="fielddoc"><p>pir kbps actual. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6376a012db9b583b76fd90a7b904ec75ac9adcdcd689afe8b62e25a543f755c44"></a>BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -19333,6 +19400,14 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea30dc9718f604d2ee29902e0306717c15"></a>BCMOLT_TM_SHAPING_ID_PIR&#160;</td><td class="fielddoc"><p>PIR. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea53b5eaf58aafffce6e8a64cfcad9848b"></a>BCMOLT_TM_SHAPING_ID_BURST&#160;</td><td class="fielddoc"><p>burst. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea54d2784484deded07be78105d4f8bbde"></a>BCMOLT_TM_SHAPING_ID_CIR_ACTUAL&#160;</td><td class="fielddoc"><p>cir actual. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea5d0cbb8ef0b5cec054247a74e2bb7cf9"></a>BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL&#160;</td><td class="fielddoc"><p>cir burst actual. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea37749acebe1a799865ac4072eeb640db"></a>BCMOLT_TM_SHAPING_ID_EIR_ACTUAL&#160;</td><td class="fielddoc"><p>eir actual. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea57de1b3ecb198460e0aa253d68ac5e29"></a>BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL&#160;</td><td class="fielddoc"><p>eir burst actual. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a228997d86811fc86bf7a928b00a44ea6edacfed2a5a511850a9ad0e26466263"></a>BCMOLT_TM_SHAPING_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
@@ -27569,6 +27644,8 @@ Enumerations</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga3facff7462291890b996cd820149c0d0ad08bd978585eb0b6d7c1d367b5ab6468"></a>BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE&#160;</td><td class="fielddoc"><p>config state. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga3facff7462291890b996cd820149c0d0a9399a8a3aefc6e21053fe10e076d5185"></a>BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE&#160;</td><td class="fielddoc"><p>Link State. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="gga3facff7462291890b996cd820149c0d0ac886859e17b0c8722abfc81efb859001"></a>BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
 </table>
@@ -27667,6 +27744,29 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga3cec50a0a2596212efef4bfed3d5dfe0aa3b5e8fa5cc2e410ae5b44f5d5cb3748"></a>BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_JABBER_PACKETS&#160;</td><td class="fielddoc"><p>tx jabber packets. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga3cec50a0a2596212efef4bfed3d5dfe0a0bdf7dc9b4addfdc4e9284936b30c191"></a>BCMOLT_SWITCH_INNI_STATS_DATA_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gad119208ccf81528ec47726e53392db85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad119208ccf81528ec47726e53392db85">&#9670;&nbsp;</a></span>bcmolt_switch_inni_link_state_change_data_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__object__model.html#gad119208ccf81528ec47726e53392db85">bcmolt_switch_inni_link_state_change_data_id</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Identifiers for all fields in a 'switch_inni_link_state_change_data'. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggad119208ccf81528ec47726e53392db85a46ec715c46a2b97c43ff9a89877bf3e1"></a>BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE&#160;</td><td class="fielddoc"><p>old_state. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad119208ccf81528ec47726e53392db85ad008e177cf882fec2bd0d40a1cba47a1"></a>BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE&#160;</td><td class="fielddoc"><p>new_state. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad119208ccf81528ec47726e53392db85ab063847a1c1623cd94b1f29b94618482"></a>BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF&#160;</td><td class="fielddoc"><p>Constant to use for sizing arrays - note that enum may have holes. </p>
 </td></tr>
 </table>
 
@@ -27824,7 +27924,9 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 <p>Identifiers for all fields in a 'switch_inni_auto_cfg_data'. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf4361e1e68bb69ac80dc2a2d319b0e60ac14bd7bb81eb45a2f97de91b3be2a47d"></a>BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED&#160;</td><td class="fielddoc"><p>Switch INNI Interface Statistics Alarm Cleared. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf4361e1e68bb69ac80dc2a2d319b0e60a0420dd72e75cfeda0cee2e2ad5f0d12d"></a>BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE&#160;</td><td class="fielddoc"><p>link_state_change. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf4361e1e68bb69ac80dc2a2d319b0e60ac14bd7bb81eb45a2f97de91b3be2a47d"></a>BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED&#160;</td><td class="fielddoc"><p>Switch INNI Interface Statistics Alarm Cleared. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaf4361e1e68bb69ac80dc2a2d319b0e60af1868fe6ef88292cfe7e51d1e46937d3"></a>BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED&#160;</td><td class="fielddoc"><p>Switch INNI Interface Statistics Alarm Raised. </p>
 </td></tr>
@@ -28314,7 +28416,7 @@ Enumerations</h2></td></tr>
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.7 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.8 </li>
   </ul>
 </div>
 </body>

@@ -1312,6 +1312,22 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .offset = offsetof(bcmolt_classifier, slow_proto_subtype),
         .type = &type_descr_uint8_t,
     },
+    {
+        .name = "o_tpid",
+        .descr = "outer tag TPID value for classification (0x8100 or 0x88A8 only)",
+        .id = BCMOLT_CLASSIFIER_ID_O_TPID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, o_tpid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "i_tpid",
+        .descr = "inner tag TPID value for classification (0x8100 or 0x88A8 only)",
+        .id = BCMOLT_CLASSIFIER_ID_I_TPID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, i_tpid),
+        .type = &type_descr_uint16_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_classifier =
@@ -3297,6 +3313,15 @@ static bcmolt_field_descr type_descr_bcmolt_host_port_params_fields[] =
         .offset = offsetof(bcmolt_host_port_params, queue_size_kbytes),
         .type = &type_descr_uint16_t,
     },
+    {
+        .name = "pir_kbps_actual",
+        .descr = "Actual Shaping Rate read from device (kilobits per sec)",
+        .id = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_port_params, pir_kbps_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_host_port_params =
@@ -4593,7 +4618,7 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_protection_switching_fields[]
     },
     {
         .name = "gpio_pin",
-        .descr = "GPIO pin for input/output signal",
+        .descr = "GPIO pin for input/output signal. Supported in BCM6865X only. ",
         .id = BCMOLT_ITUPON_PROTECTION_SWITCHING_ID_GPIO_PIN,
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_protection_switching, gpio_pin),
@@ -8748,6 +8773,42 @@ static bcmolt_field_descr type_descr_bcmolt_tm_shaping_fields[] =
         .offset = offsetof(bcmolt_tm_shaping, burst),
         .type = &type_descr_uint32_t,
     },
+    {
+        .name = "cir_actual",
+        .descr = "Actual CIR Rate (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, cir_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "cir_burst_actual",
+        .descr = "Actual CIR Max Burst (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, cir_burst_actual),
+        .type = &type_descr_int32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "eir_actual",
+        .descr = "Actual EIR (PIR-CIR) Rate (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, eir_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "eir_burst_actual",
+        .descr = "Actual EIR Max Burst (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, eir_burst_actual),
+        .type = &type_descr_int32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_tm_shaping =
@@ -9095,6 +9156,23 @@ const bcmolt_type_descr type_descr_bcmolt_uart_baudrate =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_uart_baudrate),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_uart_baudrate_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_um_fwrd_state_string_table[] =
+{
+    { .name = "disable", .val = BCMOLT_UM_FWRD_STATE_DISABLE, .tags = 0 },
+    { .name = "enable", .val = BCMOLT_UM_FWRD_STATE_ENABLE, .tags = 0 },
+    { .name = "igmp_icmpv6", .val = BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_um_fwrd_state =
+{
+    .name = "um_fwrd_state",
+    .descr = "um fwrd state",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_um_fwrd_state),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_um_fwrd_state_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_upstream_line_rate_capabilities_string_table[] =
@@ -12416,7 +12494,7 @@ static bcmolt_field_descr type_descr_bcmolt_flow_cfg_data_fields[] =
         .id = BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING,
         .tags = 0,
         .offset = offsetof(bcmolt_flow_cfg_data, um_forwarding),
-        .type = &type_descr_bcmolt_control_state,
+        .type = &type_descr_bcmolt_um_fwrd_state,
     },
     {
         .name = "src_bindings",
@@ -18472,7 +18550,7 @@ static bcmolt_field_descr type_descr_bcmolt_olt_sw_error_data_fields[] =
         .id = BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING,
         .tags = 0,
         .offset = offsetof(bcmolt_olt_sw_error_data, error_string),
-        .type = &type_descr_bcmolt_str_100,
+        .type = &type_descr_bcmolt_str_256,
     },
     {
         .name = "severity",
@@ -24286,6 +24364,15 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_cfg_data_fields[] =
         .type = &type_descr_bcmolt_config_state,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
+    {
+        .name = "link_state",
+        .descr = "Current Link State (Link Up or Link Down)",
+        .id = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_cfg_data, link_state),
+        .type = &type_descr_bcmolt_link_state,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_switch_inni_cfg_data =
@@ -24622,6 +24709,36 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data =
     .mask_offset = offsetof(bcmolt_switch_inni_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_data_fields } },
+};
+
+static bcmolt_field_descr type_descr_bcmolt_switch_inni_link_state_change_data_fields[] =
+{
+    {
+        .name = "old_state",
+        .descr = "old_state",
+        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, old_state),
+        .type = &type_descr_bcmolt_link_state,
+    },
+    {
+        .name = "new_state",
+        .descr = "new_state",
+        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, new_state),
+        .type = &type_descr_bcmolt_link_state,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data =
+{
+    .name = "switch_inni_link_state_change_data",
+    .descr = "switch inni: link_state_change",
+    .size = sizeof(bcmolt_switch_inni_link_state_change_data),
+    .mask_offset = offsetof(bcmolt_switch_inni_link_state_change_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_link_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_link_state_change_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] =
@@ -24996,6 +25113,14 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data =
 
 static bcmolt_field_descr type_descr_bcmolt_switch_inni_auto_cfg_data_fields[] =
 {
+    {
+        .name = "link_state_change",
+        .descr = "If true, indications of type \"link_state_change\" will be generated.",
+        .id = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_auto_cfg_data, link_state_change),
+        .type = &type_descr_bcmos_bool,
+    },
     {
         .name = "stats_alarm_cleared",
         .descr = "If true, indications of type \"stats_alarm_cleared\" will be generated.",
@@ -25672,6 +25797,7 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "switch_inni_key", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY, .tags = 0 },
     { .name = "switch_inni_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG, .tags = 0 },
     { .name = "switch_inni_stats", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS, .tags = 0 },
+    { .name = "switch_inni_link_state_change", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "switch_inni_stats_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG, .tags = 0 },
     { .name = "switch_inni_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "switch_inni_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED, .tags = 0 },
@@ -26777,6 +26903,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stat_cfg_subgroup =
 const bcmolt_enum_val bcmolt_switch_inni_auto_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL, .tags = 0 },
+    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -26974,6 +27101,8 @@ const bcmolt_enum_val bcmolt_classifier_id_string_table[] =
     { .name = "ip_v_6", .val = BCMOLT_CLASSIFIER_ID_IP_V_6, .tags = 0 },
     { .name = "i2_vid", .val = BCMOLT_CLASSIFIER_ID_I2_VID, .tags = 0 },
     { .name = "slow_proto_subtype", .val = BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE, .tags = 0 },
+    { .name = "o_tpid", .val = BCMOLT_CLASSIFIER_ID_O_TPID, .tags = 0 },
+    { .name = "i_tpid", .val = BCMOLT_CLASSIFIER_ID_I_TPID, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27450,6 +27579,7 @@ const bcmolt_enum_val bcmolt_host_port_params_id_string_table[] =
 {
     { .name = "pir_kbps", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS, .tags = 0 },
     { .name = "queue_size_kbytes", .val = BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES, .tags = 0 },
+    { .name = "pir_kbps_actual", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28897,6 +29027,10 @@ const bcmolt_enum_val bcmolt_tm_shaping_id_string_table[] =
     { .name = "cir", .val = BCMOLT_TM_SHAPING_ID_CIR, .tags = 0 },
     { .name = "pir", .val = BCMOLT_TM_SHAPING_ID_PIR, .tags = 0 },
     { .name = "burst", .val = BCMOLT_TM_SHAPING_ID_BURST, .tags = 0 },
+    { .name = "cir_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL, .tags = 0 },
+    { .name = "cir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL, .tags = 0 },
+    { .name = "eir_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL, .tags = 0 },
+    { .name = "eir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -34306,6 +34440,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_key_id =
 const bcmolt_enum_val bcmolt_switch_inni_cfg_data_id_string_table[] =
 {
     { .name = "config_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE, .tags = 0 },
+    { .name = "link_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -34369,6 +34504,22 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_switch_inni_stats_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_stats_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_switch_inni_link_state_change_data_id_string_table[] =
+{
+    { .name = "old_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE, .tags = 0 },
+    { .name = "new_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data_id =
+{
+    .name = "switch_inni_link_state_change_data_id",
+    .descr = "Identifiers for all fields in a 'switch_inni_link_state_change_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_switch_inni_link_state_change_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_link_state_change_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[] =
@@ -34456,6 +34607,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_i
 
 const bcmolt_enum_val bcmolt_switch_inni_auto_cfg_data_id_string_table[] =
 {
+    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -38453,7 +38605,7 @@ static bcmolt_group_descr group_descr_nni_interface_link_state_change =
     .container_size = sizeof(bcmolt_nni_interface_link_state_change),
     .data_offset = offsetof(bcmolt_nni_interface_link_state_change, data),
     .data_size = sizeof(bcmolt_nni_interface_link_state_change_data),
-    .descr = "Link State Change reported by Switch..",
+    .descr = "Link State Change report.",
     .global_id = BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE,
     .id = 9,
     .key_offset = offsetof(bcmolt_nni_interface_link_state_change, key),
@@ -41814,6 +41966,25 @@ static bcmolt_group_descr group_descr_switch_inni_stats =
     .type = &type_descr_bcmolt_switch_inni_stats_data,
 };
 
+/** Group: switch_inni - link_state_change. */
+static bcmolt_group_descr group_descr_switch_inni_link_state_change =
+{
+    .container_size = sizeof(bcmolt_switch_inni_link_state_change),
+    .data_offset = offsetof(bcmolt_switch_inni_link_state_change, data),
+    .data_size = sizeof(bcmolt_switch_inni_link_state_change_data),
+    .descr = "Link State Change report.",
+    .global_id = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE,
+    .id = 3,
+    .key_offset = offsetof(bcmolt_switch_inni_link_state_change, key),
+    .key_size = sizeof(bcmolt_switch_inni_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "link_state_change",
+    .obj_id = BCMOLT_OBJ_ID_SWITCH_INNI,
+    .subgroup_idx = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE,
+    .tags = 0,
+    .type = &type_descr_bcmolt_switch_inni_link_state_change_data,
+};
+
 /** Group: switch_inni - stats_cfg. */
 static bcmolt_group_descr group_descr_switch_inni_stats_cfg =
 {
@@ -41895,6 +42066,7 @@ static const bcmolt_group_descr *groups_switch_inni[] =
     &group_descr_switch_inni_key,
     &group_descr_switch_inni_cfg,
     &group_descr_switch_inni_stats,
+    &group_descr_switch_inni_link_state_change,
     &group_descr_switch_inni_stats_cfg,
     &group_descr_switch_inni_stats_alarm_raised,
     &group_descr_switch_inni_stats_alarm_cleared,
@@ -42541,6 +42713,7 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_switch_inni_cfg,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_SWITCH_INNI_STAT_SUBGROUP_STATS] = &group_descr_switch_inni_stats,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_SWITCH_INNI_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE] = &group_descr_switch_inni_link_state_change,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_switch_inni_auto_cfg,
@@ -43341,6 +43514,8 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_switch_inni_cfg;
         case 2:
             return &group_descr_switch_inni_stats;
+        case 3:
+            return &group_descr_switch_inni_link_state_change;
         case 4226:
             return &group_descr_switch_inni_stats_cfg;
         case 4354:
@@ -43708,6 +43883,7 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY] = &group_descr_switch_inni_key,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG] = &group_descr_switch_inni_cfg,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS] = &group_descr_switch_inni_stats,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE] = &group_descr_switch_inni_link_state_change,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,

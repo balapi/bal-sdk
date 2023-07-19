@@ -910,6 +910,36 @@ macro(batch_compile_prepare)
     endif()
 endmacro(batch_compile_prepare)
 
+
+#======
+# PRIVATE: Configure header validation for the current module.
+# If the BCM_VALIDATE_HDRS variable is set, we will automatically generate a C file for each header file
+# that does nothing but include the header. This new file will be compiled alongside the rest of the source
+# files for the module. This will validate that each header is self-contained.
+#======
+macro(_bcm_module_add_header_validation)
+    if(${BCM_VALIDATE_HDRS})
+        unset(_HDRS)
+        foreach(_DIR ${_MOD_PRIVATE_HDR} ${_MOD_PUBLIC_HDR})
+            file(GLOB _HDRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${_DIR}/*.h)
+            list(APPEND _HDRS ${_HDRS})
+        endforeach(_DIR)
+        if(DEFINED _HDRS)
+            list(REMOVE_DUPLICATES _HDRS)
+        endif()
+        foreach(_HDR ${_HDRS})
+            string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" _CLEAN_HDR_NAME "${_HDR}")
+            set(_HDR_TEST_FILE "${CMAKE_CURRENT_BINARY_DIR}/hdr_validation/${_CLEAN_HDR_NAME}.c")
+            add_custom_command(OUTPUT ${_HDR_TEST_FILE}
+                               COMMAND mkdir -p hdr_validation
+                               COMMAND echo '/* Validate that header is self-contained */' >${_HDR_TEST_FILE}
+                               COMMAND echo '\#include \"${_HDR}\"' >>${_HDR_TEST_FILE}
+                               DEPENDS ${_HDR})
+            bcm_module_srcs(${_HDR_TEST_FILE})
+        endforeach(_HDR)
+    endif()
+endmacro(_bcm_module_add_header_validation)
+
 #======
 # Create the library target from the globals set. _MOD_NAME is required. For Linux module builds we want
 # to include the headers and dependencies from a regular library, but not the CFLAGS, definitions or build
@@ -929,6 +959,9 @@ macro(bcm_create_lib_target)
     _bcm_param_exists(_EXPORT EXPORT ${ARGN})
     _bcm_param_exists(_INTERNAL INTERNAL ${ARGN})
     unset(_INSTALL_DIR)
+
+    # Add header validation if enabled
+    _bcm_module_add_header_validation()
 
     # Store information that module is a library in the cache for other modules to see
     set(${_MOD_NAME}_TYPE lib CACHE STRING "${_MOD_NAME} type" FORCE)
@@ -994,6 +1027,9 @@ macro(bcm_create_shared_lib_target)
     _bcm_param_exists(_RELEASE_SWITCH_SPECIFIC RELEASE_SWITCH_SPECIFIC ${ARGN})
     _bcm_find_install_dir(_INSTALL_DIR ${ARGN})
 
+    # Add header validation if enabled
+    _bcm_module_add_header_validation()
+
     # Store information that module is a shared library in the cache for other modules to see
     set(${_MOD_NAME}_TYPE shared_lib CACHE STRING "${_MOD_NAME} type" FORCE)
 
@@ -1056,6 +1092,9 @@ macro(bcm_create_app_target)
     _bcm_param_exists(_RELEASE RELEASE ${ARGN})
     _bcm_param_exists(_RELEASE_SWITCH_SPECIFIC RELEASE_SWITCH_SPECIFIC ${ARGN})
     _bcm_find_install_dir(_INSTALL_DIR ${ARGN})
+
+    # Add header validation if enabled
+    _bcm_module_add_header_validation()
 
     # Store information that module is an application in the cache for other modules to see
     set(${_MOD_NAME}_TYPE app CACHE STRING "${_MOD_NAME} type" FORCE)

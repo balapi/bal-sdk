@@ -3114,6 +3114,26 @@ bcmos_bool bcmolt_uart_baudrate_unpack(
   * \param buf Pointer to the buffer to write to.
   * \return Whether or not the pack was successful.
   */
+bcmos_bool bcmolt_um_fwrd_state_pack(
+    bcmolt_um_fwrd_state obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_um_fwrd_state_unpack(
+    bcmolt_um_fwrd_state *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
 bcmos_bool bcmolt_upstream_line_rate_capabilities_pack(
     bcmolt_upstream_line_rate_capabilities obj,
     bcmolt_buf *buf);
@@ -12506,6 +12526,26 @@ bcmos_bool bcmolt_switch_inni_stats_data_id_pack(
   */
 bcmos_bool bcmolt_switch_inni_stats_data_id_unpack(
     bcmolt_switch_inni_stats_data_id *obj,
+    bcmolt_buf *buf);
+
+/** Packs an enumeration to bytes for transmission on the wire.
+  *
+  * \param obj The enumeration to pack.
+  * \param buf Pointer to the buffer to write to.
+  * \return Whether or not the pack was successful.
+  */
+bcmos_bool bcmolt_switch_inni_link_state_change_data_id_pack(
+    bcmolt_switch_inni_link_state_change_data_id obj,
+    bcmolt_buf *buf);
+
+/** Unpacks an enumeration from bytes as received on the wire.
+  *
+  * \param obj Pointer to the enumeration to unpack.
+  * \param buf Pointer to the buffer to read from.
+  * \return Whether or not the unpack was successful.
+  */
+bcmos_bool bcmolt_switch_inni_link_state_change_data_id_unpack(
+    bcmolt_switch_inni_link_state_change_data_id *obj,
     bcmolt_buf *buf);
 
 /** Packs an enumeration to bytes for transmission on the wire.
