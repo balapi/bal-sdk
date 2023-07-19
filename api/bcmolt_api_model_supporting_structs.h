@@ -579,10 +579,12 @@ typedef struct
     bcmolt_classifier_ip_v_6 ip_v_6; /**< IPv6 classification parameters for access control */
     uint16_t i2_vid; /**< Second Inner vid of a 3 tags packet */
     uint8_t slow_proto_subtype; /**< slow protocol eth=8809 subtype */
+    uint16_t o_tpid; /**< outer tag TPID value for classification (0x8100 or 0x88A8 only) */
+    uint16_t i_tpid; /**< inner tag TPID value for classification (0x8100 or 0x88A8 only) */
 } bcmolt_classifier;
 
 /* Constants associated with bcmolt_classifier. */
-#define BCMOLT_CLASSIFIER_PRESENCE_MASK_ALL 0x000000001FFFFFFFULL
+#define BCMOLT_CLASSIFIER_PRESENCE_MASK_ALL 0x000000007FFFFFFFULL
 #define BCMOLT_CLASSIFIER_CLASSIFIER_BITMAP_DEFAULT 0ULL
 #define BCMOLT_CLASSIFIER_O_VID_MAX 4094U
 #define BCMOLT_CLASSIFIER_O_VID_MASK_DEFAULT 4095U
@@ -971,6 +973,7 @@ typedef struct
 
 /* Constants associated with bcmolt_group_member_info. */
 #define BCMOLT_GROUP_MEMBER_INFO_PRESENCE_MASK_ALL 0x000000000000000BULL
+#define BCMOLT_GROUP_MEMBER_INFO_SVC_PORT_ID_DEFAULT (bcmolt_service_port_id)65535UL
 
 /** Variable-length list of group_member_info */
 typedef struct
@@ -997,16 +1000,17 @@ typedef struct
     bcmolt_presence_mask presence_mask;
     uint32_t pir_kbps; /**< Rate Shaper (kilobits per sec) */
     uint16_t queue_size_kbytes; /**< per-priority queue size (kilobytes) */
+    uint32_t pir_kbps_actual; /**< Actual Shaping Rate read from device (kilobits per sec) */
 } bcmolt_host_port_params;
 
 /* Constants associated with bcmolt_host_port_params. */
-#define BCMOLT_HOST_PORT_PARAMS_PRESENCE_MASK_ALL 0x0000000000000003ULL
+#define BCMOLT_HOST_PORT_PARAMS_PRESENCE_MASK_ALL 0x0000000000000007ULL
 #define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_DEFAULT 200000UL
-#define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_MIN 100UL
 #define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_MAX 10000000UL
 #define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_DEFAULT 1000U
-#define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_MIN 10U
+#define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_MIN 100U
 #define BCMOLT_HOST_PORT_PARAMS_QUEUE_SIZE_KBYTES_MAX 10000U
+#define BCMOLT_HOST_PORT_PARAMS_PIR_KBPS_ACTUAL_DEFAULT 0UL
 
 /** Host SW Version */
 typedef struct
@@ -1487,7 +1491,7 @@ typedef struct
 {
     bcmolt_presence_mask presence_mask;
     uint16_t timeout; /**< LOS switch over timeout in milliseconds */
-    bcmolt_gpio_pin gpio_pin; /**< GPIO pin for input/output signal */
+    bcmolt_gpio_pin gpio_pin; /**< GPIO pin for input/output signal. Supported in BCM6865X only. */
     uint16_t ps_c_wait_before_deactivation_timeout; /**< PS type C timeout in milliseconds */
     bcmolt_pon_protection_switching_options options; /**< Options to control the protection switching process */
 } bcmolt_itupon_protection_switching;
@@ -2088,7 +2092,7 @@ typedef struct
 #define BCMOLT_PON_DISTANCE_MAX_LOG_DISTANCE_MAX 100UL
 #define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_DEFAULT 20UL
 #define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MIN 1UL
-#define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MAX 65UL
+#define BCMOLT_PON_DISTANCE_MAX_DIFF_REACH_MAX 70UL
 
 /** Protection Type */
 typedef struct
@@ -2355,10 +2359,18 @@ typedef struct
     uint32_t cir; /**< Committed Information Rate (kbps) */
     uint32_t pir; /**< Peak Information Rate (kbps) */
     uint32_t burst; /**< Max Burst Bytes at Peak Bit Rate */
+    uint32_t cir_actual; /**< Actual CIR Rate (read from device) */
+    int32_t cir_burst_actual; /**< Actual CIR Max Burst (read from device) */
+    uint32_t eir_actual; /**< Actual EIR (PIR-CIR) Rate (read from device) */
+    int32_t eir_burst_actual; /**< Actual EIR Max Burst (read from device) */
 } bcmolt_tm_shaping;
 
 /* Constants associated with bcmolt_tm_shaping. */
-#define BCMOLT_TM_SHAPING_PRESENCE_MASK_ALL 0x0000000000000007ULL
+#define BCMOLT_TM_SHAPING_PRESENCE_MASK_ALL 0x000000000000007FULL
+#define BCMOLT_TM_SHAPING_CIR_ACTUAL_DEFAULT 0UL
+#define BCMOLT_TM_SHAPING_CIR_BURST_ACTUAL_DEFAULT 0L
+#define BCMOLT_TM_SHAPING_EIR_ACTUAL_DEFAULT 0UL
+#define BCMOLT_TM_SHAPING_EIR_BURST_ACTUAL_DEFAULT 0L
 
 /** The maps a logical intf to mac device+physical intf and other user specified configs for that line */
 typedef struct

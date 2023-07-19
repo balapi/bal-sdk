@@ -319,20 +319,6 @@ typedef unsigned long dev_log_id;
         }                                                               \
     }
 
-/* Check a bcmos_errno return code and on error, print the log and break from loop
- * Input - _rc - bcmos_errno return code
- *         _log_id
- *         _fmt - format for the error log
- *         _args - arguments to the error log
- * Output: error log, on error, and return with the given error code
- */
-#define BCM_CHECK_BREAK(_rc, _log_id, _fmt, _args ...) \
-    if (_rc != BCM_ERR_OK) \
-    { \
-        BCM_LOG(ERROR, _log_id, "%s(): err='%s', " _fmt, __func__, bcmos_strerror(_rc), ## _args); \
-        break; \
-    }
-
 /* Check if the given pointer is NULL and on NULL, print the log and return the given bcmos_errno return code
  * Input - _ptr - pointer to check for NULL
  *         _log_id

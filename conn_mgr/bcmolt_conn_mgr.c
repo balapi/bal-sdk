@@ -25,6 +25,8 @@
 #include <bcmolt_conn_mgr_internal.h>
 #include <bcm_dev_log.h>
 
+#define CM_POLL_INTERVAL_AFTER_FAIL 10000  /* us */
+
 /* "connecttion" info */
 typedef struct bcmolt_cm_conn
 {
@@ -223,7 +225,7 @@ static int _cm_rx_task_handler(long data)
             buf = bcmos_buf_alloc(cm_init_parms.max_mtu);
             if (buf == NULL)
             {
-                bcmos_usleep(1000000);
+                bcmos_usleep(CM_POLL_INTERVAL_AFTER_FAIL);
                 continue;
             }
         }
@@ -231,12 +233,19 @@ static int _cm_rx_task_handler(long data)
         /* Check for receive. The function waits for a short while and the times out */
         err = cmll_driver.check_recv(info_ptr->ll_handle, &ll_conn_id, buf, &addr, &conn_id);
         if (err != BCM_ERR_OK)
+        {
+            if (err != BCM_ERR_TIMEOUT)
+            {
+                bcmos_usleep(CM_POLL_INTERVAL_AFTER_FAIL);
+            }
             continue;
+        }
 
         /* Got packet */
         bcmolt_cmll_notify_recv(ll_conn_id, info_ptr, conn_id, buf, &addr);
         buf = NULL;
     }
+    this_task->destroyed = BCMOS_TRUE;
 
     return 0;
 }
@@ -253,11 +262,14 @@ static int _cm_accept_task_handler(long data)
     {
         bcmolt_cmll_conn_id ll_conn_id = BCMOLT_CMLL_CONN_ID_UNDEFINED;
         err = cmll_driver.check_accept(info_ptr->ll_handle, &ll_conn_id, &addr);
-        if (err == BCM_ERR_OK)
+        if (err != BCM_ERR_OK)
         {
-            bcmolt_cmll_notify_connect(ll_conn_id, info_ptr, &addr);
+            bcmos_usleep(CM_POLL_INTERVAL_AFTER_FAIL);
+            continue;
         }
+        bcmolt_cmll_notify_connect(ll_conn_id, info_ptr, &addr);
     }
+    this_task->destroyed = BCMOS_TRUE;
 
     return 0;
 }
@@ -660,6 +672,15 @@ bcmos_errno bcmolt_cm_enable(bcmolt_conn_type_mask conn_types, const bcmolt_cm_e
     return BCM_ERR_OK;
 }
 
+
+static void _cm_task_destroy(bcmos_task *task)
+{
+    task->destroy_request = BCMOS_TRUE;
+    while (!task->destroyed)
+        bcmos_usleep(10000);
+    bcmos_task_destroy(task);
+}
+
 /* Disable specified connection types */
 void bcmolt_cm_disable(bcmolt_conn_type_mask conn_types)
 {
@@ -683,14 +704,14 @@ void bcmolt_cm_disable(bcmolt_conn_type_mask conn_types)
     /* Kill RX task if necessary */
     if (info_ptr->rx_task_created)
     {
-        bcmos_task_destroy(&info_ptr->rx_task);
+        _cm_task_destroy(&info_ptr->rx_task);
         info_ptr->rx_task_created = BCMOS_FALSE;
     }
 
     /* Kill ACCEPT task if necessary */
     if (info_ptr->accept_task_created)
     {
-        bcmos_task_destroy(&info_ptr->accept_task);
+        _cm_task_destroy(&info_ptr->accept_task);
         info_ptr->accept_task_created = BCMOS_FALSE;
     }
 

@@ -1985,6 +1985,16 @@ typedef enum
     BCMOLT_UART_BAUDRATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_uart_baudrate;
 
+/** um fwrd state. */
+typedef enum
+{
+    BCMOLT_UM_FWRD_STATE__BEGIN = 0,
+    BCMOLT_UM_FWRD_STATE_DISABLE = 0, /**< Disabled. */
+    BCMOLT_UM_FWRD_STATE_ENABLE = 1, /**< Enabled. */
+    BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6 = 2, /**< Igmp_Icmpv6. */
+    BCMOLT_UM_FWRD_STATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_um_fwrd_state;
+
 /** XGPON ni upstream line rate capabilities */
 typedef enum
 {
@@ -2442,18 +2452,19 @@ typedef enum
     BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY = 306, /**< switch inni - key. */
     BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG = 307, /**< switch inni - cfg. */
     BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS = 308, /**< switch inni - Switch INNI Interface Statistics. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG = 309, /**< switch inni - Switch INNI Interface Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED = 310, /**< switch inni - Switch INNI Interface Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED = 311, /**< switch inni - Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG = 312, /**< switch inni - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY = 313, /**< tc_to_queue - key. */
-    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG = 314, /**< tc_to_queue - cfg. */
-    BCMOLT_API_GROUP_ID_TM_QMP_KEY = 315, /**< tm_qmp - key. */
-    BCMOLT_API_GROUP_ID_TM_QMP_CFG = 316, /**< tm_qmp - cfg. */
-    BCMOLT_API_GROUP_ID_TM_QUEUE_KEY = 317, /**< tm_queue - key. */
-    BCMOLT_API_GROUP_ID_TM_QUEUE_CFG = 318, /**< tm_queue - cfg. */
-    BCMOLT_API_GROUP_ID_TM_SCHED_KEY = 319, /**< tm_sched - key. */
-    BCMOLT_API_GROUP_ID_TM_SCHED_CFG = 320, /**< tm_sched - cfg. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE = 309, /**< switch inni - link_state_change. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG = 310, /**< switch inni - Switch INNI Interface Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED = 311, /**< switch inni - Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED = 312, /**< switch inni - Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG = 313, /**< switch inni - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY = 314, /**< tc_to_queue - key. */
+    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG = 315, /**< tc_to_queue - cfg. */
+    BCMOLT_API_GROUP_ID_TM_QMP_KEY = 316, /**< tm_qmp - key. */
+    BCMOLT_API_GROUP_ID_TM_QMP_CFG = 317, /**< tm_qmp - cfg. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_KEY = 318, /**< tm_queue - key. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_CFG = 319, /**< tm_queue - cfg. */
+    BCMOLT_API_GROUP_ID_TM_SCHED_KEY = 320, /**< tm_sched - key. */
+    BCMOLT_API_GROUP_ID_TM_SCHED_CFG = 321, /**< tm_sched - cfg. */
     BCMOLT_API_GROUP_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_api_group_id;
 
@@ -3834,18 +3845,20 @@ typedef enum
 {
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__BEGIN = 0,
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 1, /**< Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED = 2, /**< Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE = 1, /**< link_state_change. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 2, /**< Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED = 3, /**< Switch INNI Interface Statistics Alarm Raised. */
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_auto_subgroup__begin BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__BEGIN
 #define bcmolt_switch_inni_auto_subgroup_all BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL
+#define bcmolt_switch_inni_auto_subgroup_link_state_change BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE
 #define bcmolt_switch_inni_auto_subgroup_stats_alarm_cleared BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED
 #define bcmolt_switch_inni_auto_subgroup_stats_alarm_raised BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED
 #define bcmolt_switch_inni_auto_subgroup__num_of BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF
 #define bcmolt_switch_inni_auto_subgroup_all_properties 0xFFFF
-#define bcmolt_switch_inni_auto_subgroup_full_mask 0x7
+#define bcmolt_switch_inni_auto_subgroup_full_mask 0xF
 
 } bcmolt_switch_inni_auto_subgroup;
 
@@ -4074,6 +4087,8 @@ typedef enum
     BCMOLT_CLASSIFIER_ID_I_PBITS_MASK = 26, /**< Inner Pbits mask. */
     BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK = 27, /**< Ether type mask. */
     BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK = 28, /**< IP Protocol mask. */
+    BCMOLT_CLASSIFIER_ID_O_TPID = 29, /**< outer tag TPID classify. */
+    BCMOLT_CLASSIFIER_ID_I_TPID = 30, /**< inner tag TPID classify. */
     BCMOLT_CLASSIFIER_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -4107,9 +4122,11 @@ typedef enum
 #define bcmolt_classifier_id_i_pbits_mask BCMOLT_CLASSIFIER_ID_I_PBITS_MASK
 #define bcmolt_classifier_id_ether_type_mask BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK
 #define bcmolt_classifier_id_ip_proto_mask BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK
+#define bcmolt_classifier_id_o_tpid BCMOLT_CLASSIFIER_ID_O_TPID
+#define bcmolt_classifier_id_i_tpid BCMOLT_CLASSIFIER_ID_I_TPID
 #define bcmolt_classifier_id__num_of BCMOLT_CLASSIFIER_ID__NUM_OF
 #define bcmolt_classifier_id_all_properties 0xFF
-#define bcmolt_classifier_id_full_mask 0x1FFFFFFF
+#define bcmolt_classifier_id_full_mask 0x7FFFFFFF
 
 } bcmolt_classifier_id;
 
@@ -4657,15 +4674,17 @@ typedef enum
     BCMOLT_HOST_PORT_PARAMS_ID__BEGIN = 0,
     BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS = 0, /**< pir_kbps. */
     BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES = 1, /**< queue size kbytes. */
+    BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL = 2, /**< pir kbps actual. */
     BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_host_port_params_id__begin BCMOLT_HOST_PORT_PARAMS_ID__BEGIN
 #define bcmolt_host_port_params_id_pir_kbps BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS
 #define bcmolt_host_port_params_id_queue_size_kbytes BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES
+#define bcmolt_host_port_params_id_pir_kbps_actual BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL
 #define bcmolt_host_port_params_id__num_of BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF
 #define bcmolt_host_port_params_id_all_properties 0xFF
-#define bcmolt_host_port_params_id_full_mask 0x3
+#define bcmolt_host_port_params_id_full_mask 0x7
 
 } bcmolt_host_port_params_id;
 
@@ -6400,6 +6419,10 @@ typedef enum
     BCMOLT_TM_SHAPING_ID_CIR = 0, /**< CIR. */
     BCMOLT_TM_SHAPING_ID_PIR = 1, /**< PIR. */
     BCMOLT_TM_SHAPING_ID_BURST = 2, /**< burst. */
+    BCMOLT_TM_SHAPING_ID_CIR_ACTUAL = 3, /**< cir actual. */
+    BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL = 4, /**< cir burst actual. */
+    BCMOLT_TM_SHAPING_ID_EIR_ACTUAL = 5, /**< eir actual. */
+    BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL = 6, /**< eir burst actual. */
     BCMOLT_TM_SHAPING_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6407,9 +6430,13 @@ typedef enum
 #define bcmolt_tm_shaping_id_cir BCMOLT_TM_SHAPING_ID_CIR
 #define bcmolt_tm_shaping_id_pir BCMOLT_TM_SHAPING_ID_PIR
 #define bcmolt_tm_shaping_id_burst BCMOLT_TM_SHAPING_ID_BURST
+#define bcmolt_tm_shaping_id_cir_actual BCMOLT_TM_SHAPING_ID_CIR_ACTUAL
+#define bcmolt_tm_shaping_id_cir_burst_actual BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL
+#define bcmolt_tm_shaping_id_eir_actual BCMOLT_TM_SHAPING_ID_EIR_ACTUAL
+#define bcmolt_tm_shaping_id_eir_burst_actual BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL
 #define bcmolt_tm_shaping_id__num_of BCMOLT_TM_SHAPING_ID__NUM_OF
 #define bcmolt_tm_shaping_id_all_properties 0xFF
-#define bcmolt_tm_shaping_id_full_mask 0x7
+#define bcmolt_tm_shaping_id_full_mask 0x7F
 
 } bcmolt_tm_shaping_id;
 
@@ -13203,14 +13230,16 @@ typedef enum
 {
     BCMOLT_SWITCH_INNI_CFG_DATA_ID__BEGIN = 0,
     BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE = 0, /**< config state. */
+    BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE = 1, /**< Link State. */
     BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_cfg_data_id__begin BCMOLT_SWITCH_INNI_CFG_DATA_ID__BEGIN
 #define bcmolt_switch_inni_cfg_data_id_config_state BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE
+#define bcmolt_switch_inni_cfg_data_id_link_state BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE
 #define bcmolt_switch_inni_cfg_data_id__num_of BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF
 #define bcmolt_switch_inni_cfg_data_id_all_properties 0xFF
-#define bcmolt_switch_inni_cfg_data_id_full_mask 0x1
+#define bcmolt_switch_inni_cfg_data_id_full_mask 0x3
 
 } bcmolt_switch_inni_cfg_data_id;
 
@@ -13305,6 +13334,24 @@ typedef enum
 #define bcmolt_switch_inni_stats_data_id_full_mask 0xFFFFFFFFBF
 
 } bcmolt_switch_inni_stats_data_id;
+
+/** Identifiers for all fields in a 'switch_inni_link_state_change_data'. */
+typedef enum
+{
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__BEGIN = 0,
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE = 0, /**< old_state. */
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE = 1, /**< new_state. */
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_switch_inni_link_state_change_data_id__begin BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__BEGIN
+#define bcmolt_switch_inni_link_state_change_data_id_old_state BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE
+#define bcmolt_switch_inni_link_state_change_data_id_new_state BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE
+#define bcmolt_switch_inni_link_state_change_data_id__num_of BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF
+#define bcmolt_switch_inni_link_state_change_data_id_all_properties 0xFF
+#define bcmolt_switch_inni_link_state_change_data_id_full_mask 0x3
+
+} bcmolt_switch_inni_link_state_change_data_id;
 
 /** Identifiers for all fields in a 'switch_inni_stats_cfg_data'. */
 typedef enum
@@ -13434,17 +13481,19 @@ typedef enum
 typedef enum
 {
     BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__BEGIN = 0,
-    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 0, /**< Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 1, /**< Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE = 0, /**< link_state_change. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 1, /**< Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 2, /**< Switch INNI Interface Statistics Alarm Raised. */
     BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_auto_cfg_data_id__begin BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__BEGIN
+#define bcmolt_switch_inni_auto_cfg_data_id_link_state_change BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE
 #define bcmolt_switch_inni_auto_cfg_data_id_stats_alarm_cleared BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED
 #define bcmolt_switch_inni_auto_cfg_data_id_stats_alarm_raised BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED
 #define bcmolt_switch_inni_auto_cfg_data_id__num_of BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF
 #define bcmolt_switch_inni_auto_cfg_data_id_all_properties 0xFF
-#define bcmolt_switch_inni_auto_cfg_data_id_full_mask 0x3
+#define bcmolt_switch_inni_auto_cfg_data_id_full_mask 0x7
 
 } bcmolt_switch_inni_auto_cfg_data_id;
 

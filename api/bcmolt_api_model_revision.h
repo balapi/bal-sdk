@@ -20,4 +20,4 @@
 :>
 */
 
-#define BCMOLT_MODEL_REVISION 19
+#define BCMOLT_MODEL_REVISION 25

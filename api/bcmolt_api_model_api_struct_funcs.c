@@ -2523,7 +2523,7 @@ void bcmolt_flow_cfg_data_set_default(bcmolt_flow_cfg_data *obj)
     obj->cookie = (bcmolt_cookie)0ULL;
     obj->mac_table_miss_action = BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD;
     obj->policer_profile = (bcmolt_policer_profile_id)65535U;
-    obj->um_forwarding = BCMOLT_CONTROL_STATE_DISABLE;
+    obj->um_forwarding = BCMOLT_UM_FWRD_STATE_DISABLE;
     bcmolt_arr_src_binding_info_16_set_default(&obj->src_bindings);
 }
 
@@ -2672,8 +2672,9 @@ bcmos_bool bcmolt_flow_cfg_data_validate(const bcmolt_flow_cfg_data *obj, bcmos_
     {
         switch (obj->um_forwarding)
         {
-        case BCMOLT_CONTROL_STATE_DISABLE:
-        case BCMOLT_CONTROL_STATE_ENABLE:
+        case BCMOLT_UM_FWRD_STATE_DISABLE:
+        case BCMOLT_UM_FWRD_STATE_ENABLE:
+        case BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6:
             break;
         default:
             *err = BCM_ERR_RANGE;
@@ -8877,7 +8878,7 @@ void bcmolt_olt_sw_error_data_set_default(bcmolt_olt_sw_error_data *obj)
     bcmolt_str_100_set_default(&obj->task_name);
     bcmolt_str_100_set_default(&obj->file_name);
     obj->line_number = 0UL;
-    bcmolt_str_100_set_default(&obj->error_string);
+    bcmolt_str_256_set_default(&obj->error_string);
     obj->severity = BCMOLT_SW_ERROR_SEVERITY_HIGH;
 }
 
@@ -8908,7 +8909,7 @@ bcmos_bool bcmolt_olt_sw_error_data_validate(const bcmolt_olt_sw_error_data *obj
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING))
     {
         int prefix_len = bcmolt_string_append(err_details, "error_string.");
-        if (!bcmolt_str_100_validate(&obj->error_string, err, err_details))
+        if (!bcmolt_str_256_validate(&obj->error_string, err, err_details))
         {
             return BCMOS_FALSE;
         }
@@ -14686,6 +14687,7 @@ void bcmolt_switch_inni_cfg_data_set_default(bcmolt_switch_inni_cfg_data *obj)
 {
     obj->presence_mask = 0;
     obj->config_state = BCMOLT_CONFIG_STATE_CONFIGURED;
+    obj->link_state = BCMOLT_LINK_STATE_LINK_DOWN;
 }
 
 bcmos_bool bcmolt_switch_inni_cfg_data_validate(const bcmolt_switch_inni_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -14694,6 +14696,12 @@ bcmos_bool bcmolt_switch_inni_cfg_data_validate(const bcmolt_switch_inni_cfg_dat
     {
         *err = BCM_ERR_READ_ONLY;
         bcmolt_string_append(err_details, "config_state: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "link_state: field is read-only and cannot be set\n");
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
@@ -14900,6 +14908,44 @@ bcmos_bool bcmolt_switch_inni_stats_data_validate(const bcmolt_switch_inni_stats
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_STATS_DATA_ID_TX_FRAMES_9217_16383))
     {
         /* obj->tx_frames_9217_16383 can't be invalid. */
+    }
+    return BCMOS_TRUE;
+}
+
+void bcmolt_switch_inni_link_state_change_data_set_default(bcmolt_switch_inni_link_state_change_data *obj)
+{
+    obj->presence_mask = 0;
+    obj->old_state = BCMOLT_LINK_STATE_LINK_DOWN;
+    obj->new_state = BCMOLT_LINK_STATE_LINK_DOWN;
+}
+
+bcmos_bool bcmolt_switch_inni_link_state_change_data_validate(const bcmolt_switch_inni_link_state_change_data *obj, bcmos_errno *err, bcmolt_string *err_details)
+{
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE))
+    {
+        switch (obj->old_state)
+        {
+        case BCMOLT_LINK_STATE_LINK_DOWN:
+        case BCMOLT_LINK_STATE_LINK_UP:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "old_state: enum value %d is unexpected\n", (int)obj->old_state);
+            return BCMOS_FALSE;
+        }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE))
+    {
+        switch (obj->new_state)
+        {
+        case BCMOLT_LINK_STATE_LINK_DOWN:
+        case BCMOLT_LINK_STATE_LINK_UP:
+            break;
+        default:
+            *err = BCM_ERR_RANGE;
+            bcmolt_string_append(err_details, "new_state: enum value %d is unexpected\n", (int)obj->new_state);
+            return BCMOS_FALSE;
+        }
     }
     return BCMOS_TRUE;
 }
@@ -15429,12 +15475,17 @@ bcmos_bool bcmolt_switch_inni_stats_alarm_cleared_data_validate(const bcmolt_swi
 void bcmolt_switch_inni_auto_cfg_data_set_default(bcmolt_switch_inni_auto_cfg_data *obj)
 {
     obj->presence_mask = 0;
+    obj->link_state_change = BCMOS_FALSE;
     obj->stats_alarm_cleared = BCMOS_FALSE;
     obj->stats_alarm_raised = BCMOS_FALSE;
 }
 
 bcmos_bool bcmolt_switch_inni_auto_cfg_data_validate(const bcmolt_switch_inni_auto_cfg_data *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE))
+    {
+        /* obj->link_state_change can't be invalid. */
+    }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED))
     {
         /* obj->stats_alarm_cleared can't be invalid. */

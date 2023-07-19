@@ -1725,6 +1725,8 @@ void bcmolt_classifier_set_default(bcmolt_classifier *obj)
     bcmolt_classifier_ip_v_6_set_default(&obj->ip_v_6);
     obj->i2_vid = 0U;
     obj->slow_proto_subtype = 0;
+    obj->o_tpid = 0U;
+    obj->i_tpid = 0U;
 }
 
 bcmos_bool bcmolt_classifier_validate(const bcmolt_classifier *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -1922,6 +1924,14 @@ bcmos_bool bcmolt_classifier_validate(const bcmolt_classifier *obj, bcmos_errno 
             bcmolt_string_append(err_details, "slow_proto_subtype: %u is greater than the maximum value of 10\n", obj->slow_proto_subtype);
             return BCMOS_FALSE;
         }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_CLASSIFIER_ID_O_TPID))
+    {
+        /* obj->o_tpid can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_CLASSIFIER_ID_I_TPID))
+    {
+        /* obj->i_tpid can't be invalid. */
     }
     return BCMOS_TRUE;
 }
@@ -3110,7 +3120,7 @@ void bcmolt_group_member_info_set_default(bcmolt_group_member_info *obj)
 {
     obj->presence_mask = 0;
     bcmolt_intf_ref_set_default(&obj->intf);
-    obj->svc_port_id = (bcmolt_service_port_id)0UL;
+    obj->svc_port_id = (bcmolt_service_port_id)65535UL;
     bcmolt_egress_qos_set_default(&obj->egress_qos);
 }
 
@@ -3211,18 +3221,13 @@ void bcmolt_host_port_params_set_default(bcmolt_host_port_params *obj)
     obj->presence_mask = 0;
     obj->pir_kbps = 200000UL;
     obj->queue_size_kbytes = 1000U;
+    obj->pir_kbps_actual = 0UL;
 }
 
 bcmos_bool bcmolt_host_port_params_validate(const bcmolt_host_port_params *obj, bcmos_errno *err, bcmolt_string *err_details)
 {
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS))
     {
-        if (obj->pir_kbps < 100UL)
-        {
-            *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "pir_kbps: %u is less than the minimum value of 100\n", obj->pir_kbps);
-            return BCMOS_FALSE;
-        }
         if (obj->pir_kbps > 10000000UL)
         {
             *err = BCM_ERR_RANGE;
@@ -3232,10 +3237,10 @@ bcmos_bool bcmolt_host_port_params_validate(const bcmolt_host_port_params *obj, 
     }
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES))
     {
-        if (obj->queue_size_kbytes < 10U)
+        if (obj->queue_size_kbytes < 100U)
         {
             *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "queue_size_kbytes: %u is less than the minimum value of 10\n", obj->queue_size_kbytes);
+            bcmolt_string_append(err_details, "queue_size_kbytes: %u is less than the minimum value of 100\n", obj->queue_size_kbytes);
             return BCMOS_FALSE;
         }
         if (obj->queue_size_kbytes > 10000U)
@@ -3244,6 +3249,12 @@ bcmos_bool bcmolt_host_port_params_validate(const bcmolt_host_port_params *obj, 
             bcmolt_string_append(err_details, "queue_size_kbytes: %u is greater than the maximum value of 10000\n", obj->queue_size_kbytes);
             return BCMOS_FALSE;
         }
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "pir_kbps_actual: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
 }
@@ -7389,10 +7400,10 @@ bcmos_bool bcmolt_pon_distance_validate(const bcmolt_pon_distance *obj, bcmos_er
             bcmolt_string_append(err_details, "max_diff_reach: %u is less than the minimum value of 1\n", obj->max_diff_reach);
             return BCMOS_FALSE;
         }
-        if (obj->max_diff_reach > 65UL)
+        if (obj->max_diff_reach > 70UL)
         {
             *err = BCM_ERR_RANGE;
-            bcmolt_string_append(err_details, "max_diff_reach: %u is greater than the maximum value of 65\n", obj->max_diff_reach);
+            bcmolt_string_append(err_details, "max_diff_reach: %u is greater than the maximum value of 70\n", obj->max_diff_reach);
             return BCMOS_FALSE;
         }
     }
@@ -8102,6 +8113,10 @@ void bcmolt_tm_shaping_set_default(bcmolt_tm_shaping *obj)
     obj->cir = 0UL;
     obj->pir = 0UL;
     obj->burst = 0UL;
+    obj->cir_actual = 0UL;
+    obj->cir_burst_actual = 0L;
+    obj->eir_actual = 0UL;
+    obj->eir_burst_actual = 0L;
 }
 
 bcmos_bool bcmolt_tm_shaping_validate(const bcmolt_tm_shaping *obj, bcmos_errno *err, bcmolt_string *err_details)
@@ -8117,6 +8132,30 @@ bcmos_bool bcmolt_tm_shaping_validate(const bcmolt_tm_shaping *obj, bcmos_errno 
     if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SHAPING_ID_BURST))
     {
         /* obj->burst can't be invalid. */
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SHAPING_ID_CIR_ACTUAL))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "cir_actual: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "cir_burst_actual: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SHAPING_ID_EIR_ACTUAL))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "eir_actual: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
+    }
+    if (_BCMOLT_FIELD_MASK_BIT_IS_SET(obj->presence_mask, BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL))
+    {
+        *err = BCM_ERR_READ_ONLY;
+        bcmolt_string_append(err_details, "eir_burst_actual: field is read-only and cannot be set\n");
+        return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
 }

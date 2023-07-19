@@ -5754,6 +5754,22 @@ bcmos_errno bcmolt_switch_inni_multi_stats_unpack(bcmolt_buf *buf, const bcmolt_
  *
  * \param obj Pointer to the structure to initialize.
  */
+void bcmolt_switch_inni_link_state_change_data_set_default(bcmolt_switch_inni_link_state_change_data *obj);
+
+/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+ *
+ * \param obj Pointer to the structure to validate.
+ * \param err Filled in with the error (if validation fails).
+ * \param err_details Filled in with a description of the error (if validation fails).
+ * \return TRUE on success, FALSE on failure.
+ */
+bcmos_bool bcmolt_switch_inni_link_state_change_data_validate(const bcmolt_switch_inni_link_state_change_data *obj, bcmos_errno *err, bcmolt_string *err_details);
+
+
+/** Initializes a structure to default values.
+ *
+ * \param obj Pointer to the structure to initialize.
+ */
 void bcmolt_switch_inni_stats_cfg_data_set_default(bcmolt_switch_inni_stats_cfg_data *obj);
 
 /** Checks if any field in the structure is set incorrectly (e.g. out of bounds).

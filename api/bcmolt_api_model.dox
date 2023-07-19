@@ -853,7 +853,7 @@ Object key: bcmolt_flow_key\n
 \TABLE_ROW7{cookie,Opaque application cookie associated with the flow (not interpreted by Maple),\ref bcmolt_cookie,RW, , , }
 \TABLE_ROW7{mac_table_miss_action,Action to take a mac table miss,\ref bcmolt_mac_table_miss_action,RW,BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD, , }
 \TABLE_ROW7{policer_profile,policer profile for flow if any,\ref bcmolt_policer_profile_id,RW,65535U, , }
-\TABLE_ROW7{um_forwarding,um forwarding,\ref bcmolt_control_state,RW,BCMOLT_CONTROL_STATE_DISABLE, , }
+\TABLE_ROW7{um_forwarding,um forwarding,\ref bcmolt_um_fwrd_state,RW,BCMOLT_UM_FWRD_STATE_DISABLE, , }
 \TABLE_ROW7{src_bindings,source bindings for a flow,\ref bcmolt_arr_src_binding_info_16,R, , , }
 </table>
 \n\n */
@@ -2234,7 +2234,7 @@ Object key: bcmolt_nni_interface_key\n
 \TABLE_ROW2{\subpage object_nni_interface_stats "Statistics: stats", Object statistics}
 \TABLE_ROW2{\subpage object_nni_interface_stats_cfg "StatisticsConfig: stats_cfg", Object statistics configuration}
 \TABLE_ROW2{\subpage object_nni_interface_fault_code_change "Indication: fault_code_change", Fault Code Change }
-\TABLE_ROW2{\subpage object_nni_interface_link_state_change "Indication: link_state_change", Link State Change reported by Switch.}
+\TABLE_ROW2{\subpage object_nni_interface_link_state_change "Indication: link_state_change", Link State Change report}
 \TABLE_ROW2{\subpage object_nni_interface_state_change "Indication: state_change", State Change complete inidcation.}
 \TABLE_ROW2{\subpage object_nni_interface_stats_alarm_cleared "Indication: stats_alarm_cleared", Sent when a configured statistic alarm condition is no longer met.}
 \TABLE_ROW2{\subpage object_nni_interface_stats_alarm_raised "Indication: stats_alarm_raised", Sent when a configured statistic alarm condition has been met.}
@@ -2374,7 +2374,7 @@ Fault Code Change \n
 
 /** \page object_nni_interface_link_state_change Indication: link_state_change
 
-Link State Change reported by Switch.\n
+Link State Change report\n
 
  - APIs: bcmolt_ind_subscribe(), bcmolt_ind_unsubscribe()
  - Specific Type: \ref bcmolt_nni_interface_link_state_change\n
@@ -2501,7 +2501,7 @@ Software error reported by components in BAL\n
 \TABLE_ROW3{task_name,Task Name,\ref bcmolt_str_100}
 \TABLE_ROW3{file_name,File Name,\ref bcmolt_str_100}
 \TABLE_ROW3{line_number,Line Number,uint32_t}
-\TABLE_ROW3{error_string,User error string,\ref bcmolt_str_100}
+\TABLE_ROW3{error_string,User error string,\ref bcmolt_str_256}
 \TABLE_ROW3{severity,Severity,\ref bcmolt_sw_error_severity}
 </table>
 \n\n */
@@ -4385,6 +4385,7 @@ Object key: bcmolt_switch_inni_key\n
 \TABLE_ROW2{\subpage object_switch_inni_cfg "cfg", Object configuration}
 \TABLE_ROW2{\subpage object_switch_inni_stats "Statistics: stats", Object statistics}
 \TABLE_ROW2{\subpage object_switch_inni_stats_cfg "StatisticsConfig: stats_cfg", Object statistics configuration}
+\TABLE_ROW2{\subpage object_switch_inni_link_state_change "Indication: link_state_change", Link State Change report}
 \TABLE_ROW2{\subpage object_switch_inni_stats_alarm_cleared "Indication: stats_alarm_cleared", Sent when a configured statistic alarm condition is no longer met.}
 \TABLE_ROW2{\subpage object_switch_inni_stats_alarm_raised "Indication: stats_alarm_raised", Sent when a configured statistic alarm condition has been met.}
 </table>
@@ -4398,6 +4399,7 @@ Object key: bcmolt_switch_inni_key\n
 <table>
 \TABLE_HDR5{Parameter Name,Parameter Description,Data Type,Access,Default}
 \TABLE_ROW5{config_state,config state,\ref bcmolt_config_state,R,BCMOLT_CONFIG_STATE_CONFIGURED}
+\TABLE_ROW5{link_state,Current Link State (Link Up or Link Down),\ref bcmolt_link_state,R, }
 </table>
 \n\n */
 
@@ -4494,6 +4496,19 @@ Object key: bcmolt_switch_inni_key\n
 \TABLE_ROW3{tx_frames_2048_4095,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_frames_4096_9216,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
 \TABLE_ROW3{tx_frames_9217_16383,Broadcom-Specific,\ref bcmolt_stat_alarm_config}
+</table>
+\n\n */
+
+/** \page object_switch_inni_link_state_change Indication: link_state_change
+
+Link State Change report\n
+
+ - APIs: bcmolt_ind_subscribe(), bcmolt_ind_unsubscribe()
+ - Specific Type: \ref bcmolt_switch_inni_link_state_change\n
+<table>
+\TABLE_HDR3{Parameter Name,Parameter Description,Data Type}
+\TABLE_ROW3{old_state,old_state,\ref bcmolt_link_state}
+\TABLE_ROW3{new_state,new_state,\ref bcmolt_link_state}
 </table>
 \n\n */
 

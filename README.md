@@ -1,5 +1,5 @@
 
-# BAL API SDK R3.12.7.7
+# BAL API SDK R3.12.8.8
 
 ## Overview
 This repo supplies source and header files for building an Open Source version of BAL API
