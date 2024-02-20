@@ -76,8 +76,4 @@
 
 #define TWO_TO_POWER_OF(x) (1 << (x))
 
-/* Avoid using math.h's function fdim(), so this code may be portable. */
-#define FDIM(x, y) ((x) > (y) ? (x) - (y) : 0)
-#define FDIM_ASSIGN(x, y) ((x) = FDIM((x), (y)))
-
 #endif /* _BCMOLT_MATH_H_ */

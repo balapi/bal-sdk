@@ -196,9 +196,9 @@ static void _bcmtr_dft_msg_handler(bcmolt_devid olt, bcmolt_msg *msg)
 }
 
 /* Unpack message and hand over to app_cb */
-static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, f_bcmolt_msg_handler app_cb, bcmolt_oltid olt)
+static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, bcmtr_handler *handler)
 {
-    f_bcmolt_msg_handler _app_cb = app_cb ? app_cb : _bcmtr_dft_msg_handler;
+    f_bcmolt_msg_handler app_cb = handler->app_cb ? handler->app_cb : _bcmtr_dft_msg_handler;
     bcmtr_conn *conn = tmsg->conn;
     bcmolt_msg *msg = NULL;
     bcmos_errno err = _bcmtr_msg_unpack(conn, tmsg->rx_buf, &tmsg->hdr, tmsg->timestamp, &msg);
@@ -206,7 +206,7 @@ static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, f_bcmolt_msg_handler app_
     /* Translate indication if translation callback is set */
     if (err == BCM_ERR_OK && rx_translate_cb)
     {
-        err = rx_translate_cb(conn->device, olt, msg);
+        err = rx_translate_cb(conn->device, handler->olt, msg);
         if (err != BCM_ERR_OK)
         {
             /* Silently discard the message if it is intended for another OLT */
@@ -221,7 +221,7 @@ static void _bcmtr_unpack_and_deliver(bcmtr_msg *tmsg, f_bcmolt_msg_handler app_
         msg->corr_tag = tmsg->hdr.corr_tag;
         msg->subch = tmsg->subch;
         msg->device = tmsg->hdr.device;
-        _app_cb(rx_translate_cb ? olt : (bcmolt_oltid)conn->device, msg);
+        app_cb(rx_translate_cb ? handler->olt : (bcmolt_oltid)conn->device, msg);
     }
     /* Mark tmsg block as free. It will be released when tmsg->ref_count becomes 0 */
     bcmos_mutex_lock(&conn->mutex);
@@ -246,15 +246,14 @@ static void _bcmtr_ipc_msg_release(bcmos_msg *m)
 static void _bcmtr_ipc_msg_handler(bcmos_module_id module_id, bcmos_msg *m)
 {
     bcmtr_msg *tmsg = (bcmtr_msg *)m->data;
-    f_bcmolt_msg_handler app_cb = (f_bcmolt_msg_handler)m->user_data;
-    bcmolt_oltid olt = (bcmolt_oltid)m->size;
+    bcmtr_handler *h = (bcmtr_handler *)m->user_data;
     /* Release message if it was allocated from ind_pool */
     if (m != &tmsg->os_msg)
     {
         m->data_release = NULL;
         bcmos_msg_free(m);
     }
-    _bcmtr_unpack_and_deliver(tmsg, app_cb, olt);
+    _bcmtr_unpack_and_deliver(tmsg, h);
 }
 
 /* Init IPC header in received message */
@@ -315,7 +314,6 @@ static void _bcmtr_tmsg_list_free_pending(bcmtr_conn *conn)
         /* Release waiting task if request-response */
         if (msg && tmsg->err == BCM_ERR_IN_PROGRESS)
         {
-            TAILQ_REMOVE(&conn->msg_list, tmsg, l);
             msg->err = BCM_ERR_COMM_FAIL;
             bcmos_sem_post(&tmsg->sem);
         }
@@ -465,20 +463,14 @@ static inline void _bcmtr_ind_deliver_to_module(
             msg->handler = _bcmtr_ipc_msg_handler;
             msg->data_release = _bcmtr_ipc_msg_release; /* In case of delivery failure */
         }
-        /* Instead of conveying 'handler' as the user data, we directly assign the function ('app_cb').
-         * This way, we avoid a race condition in which:
-         * 1. A message is sent to a module, but before it has the chance to handle it, the module manipulates the registration of handlers (via mh_rx_register()/mh_rx_unregister()).
-         * 2. When the module finally handles the message, the registered handler function ('app_cb') is already a new handler. */
-        msg->user_data = handler->app_cb;
-        /* This is not very clean, but since we don't have another unused member to convey the OLT ID with, we have to go with msg->size, which should be unused in this flow. */
-        msg->size = handler->olt;
+        msg->user_data = handler;
         bcmos_msg_send_to_module(module, msg, BCMOS_MSG_SEND_AUTO_FREE);
     }
     else
     {
         /* Call application handler. Don't do it under lock. Unlock here and re-lock afterwards */
         bcmos_mutex_unlock(&conn->mutex);
-        _bcmtr_unpack_and_deliver(tmsg, handler->app_cb, handler->olt);
+        _bcmtr_unpack_and_deliver(tmsg, handler);
         bcmos_mutex_lock(&conn->mutex);
     }
     ++(*n_delivered);
@@ -1173,6 +1165,8 @@ bcmos_errno bcmtr_connect(bcmolt_devid device, const bcmtr_conn_parms *conn_parm
  */
 static void _bcmtr_disconnect1(bcmtr_conn *conn)
 {
+    bcmos_mutex_lock(&conn->mutex);
+
     conn->connected = BCMOS_FALSE;
 
     /* Close connection at plugin level */
@@ -1180,8 +1174,6 @@ static void _bcmtr_disconnect1(bcmtr_conn *conn)
     {
         conn->driver.close(conn->drv_priv);
     }
-
-    bcmos_mutex_lock(&conn->mutex);
 
     /* Cleanup plugin info */
     memset(&conn->driver, 0, sizeof(conn->driver));
@@ -1320,16 +1312,8 @@ exit:
     return err;
 }
 
-/* Release transport header if any and finalize the reply msg setting */
-static bcmos_errno bcmtr_call_ret(bcmtr_conn *conn, bcmtr_msg *tmsg,
-    bcmolt_msg *msg, bcmos_errno err, const char *err_text)
+static bcmos_errno bcmtr_call_err(bcmolt_msg *msg, bcmos_errno err, const char *err_text)
 {
-    if (tmsg != NULL)
-    {
-        bcmos_mutex_lock(&conn->mutex);
-        _bcmtr_tmsg_free(tmsg, NULL);
-        bcmos_mutex_unlock(&conn->mutex);
-    }
     msg->dir = BCMOLT_MSG_DIR_RESPONSE;
     msg->err = err;
     if (err_text != NULL)
@@ -1356,7 +1340,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
     err = _bcmtr_conn_get(device, &conn);
     if (err)
     {
-        return bcmtr_call_ret(conn, tmsg, msg, err, NULL);
+        return bcmtr_call_err(msg, err, NULL);
     }
 
     /* transmit request under connection lock */
@@ -1365,7 +1349,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
     if (err != BCM_ERR_OK)
     {
         bcmos_mutex_unlock(&conn->mutex);
-        return bcmtr_call_ret(conn, tmsg, msg, err, NULL);
+        return bcmtr_call_err(msg, err, NULL);
     }
     TAILQ_INSERT_TAIL(&conn->msg_list, tmsg, l);
     bcmos_mutex_unlock(&conn->mutex);
@@ -1381,7 +1365,7 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
      */
     if (msg->err == BCM_ERR_COMM_FAIL)
     {
-        return bcmtr_call_ret(conn, tmsg, msg, msg->err, NULL);
+        return bcmtr_call_err(msg, msg->err, NULL);
     }
 
     err = tmsg->err;
@@ -1390,19 +1374,20 @@ bcmos_errno bcmtr_call(bcmolt_devid device, bcmolt_msg *msg)
         err = _bcmtr_msg_unpack(conn, tmsg->rx_buf, &tmsg->hdr, tmsg->timestamp, &msg);
     }
 
+    /* Take connection lock again in order to release transport header safely */
+    bcmos_mutex_lock(&conn->mutex);
+    _bcmtr_tmsg_free(tmsg, NULL);
+    bcmos_mutex_unlock(&conn->mutex);
+
     if (msg)
     {
         /* Restore message fields */
         msg->device = msg_dev;
         msg->subch = subch;
-        return bcmtr_call_ret(conn, tmsg, msg, err ? err : msg->err, NULL);
+        return bcmtr_call_err(msg, err ? err : msg->err, NULL);
     }
     else
     {
-        /* Couldn't unpack. Release transport header and return */
-        bcmos_mutex_lock(&conn->mutex);
-        _bcmtr_tmsg_free(tmsg, NULL);
-        bcmos_mutex_unlock(&conn->mutex);
         return err;
     }
 }

@@ -498,38 +498,31 @@ static int get_msg_end_offset(bcm_dev_log_file *file, uint32_t offset, uint32_t 
     return (end - buf + 1);
 }
 
-static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
+static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
 {
     uint32_t offset = *p_offset;
     uint32_t output_length = 0;
-    int scan_length = 0;
+    uint32_t scan_length = 0;
     int start, end;
+    bcmos_bool read_wrap = BCMOS_FALSE;
 
-    /* We treat 'offset' as if log file data segment was flat. In fact it might be wrapped around, 
-       in this case the 'real offset' can be calculated as (start_offset + offset)%segment_size,
-       whereas start_offset is the offset of the 1st entry past the write_offset.
-    */
-    if (offset >= log_file->u.mem_file.file_header.data_size)
-    {
-        /* Insane offset passed in from user */
-        DEV_LOG_ERROR_PRINTF("%s: read offset:%u is >= size of log buffer %u\n", 
-            __FUNCTION__, offset, log_file->u.mem_file.file_header.data_size);
-        return 0;
-    }
-    
     /* If file wrapped around, offset is indeterminate, scan for start from current offset to end of file buffer,
      * if start not found, then try again from beginning of buffer up to write ptr */
     if (log_file->u.mem_file.file_header.file_wrap_cnt)
     {
-        /* Calculate the 'real offset' as (write_offset+offset)%data_size */
-        offset = (log_file->u.mem_file.file_header.write_offset + offset) % log_file->u.mem_file.file_header.data_size;
+        scan_length = log_file->u.mem_file.file_header.data_size - offset;
 
-        scan_length = (int)(log_file->u.mem_file.file_header.data_size - offset);
-        if (scan_length > 0)
-            start = get_msg_start_offset(log_file, offset, scan_length);
-        else
-            start = -1;
-        if (start <= 0)
+        if (scan_length <= 0)
+        {
+            /* Insane offset passed in from user, reset it */
+            DEV_LOG_ERROR_PRINTF("%s: reset bad read offset:%d (> size of log buffer)\n", __FUNCTION__, offset);
+            *p_offset = 0;
+            return 0;
+        }
+
+        /* Find beginning of the next message */
+        start = get_msg_start_offset(log_file, offset, scan_length);
+        if (start < 0)
         {
             /* Didn't find any up to the end of buffer. Scan again from the start, up to write offset */
             offset = 0;
@@ -542,26 +535,18 @@ static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_
                 return 0;
             }
         }
-        offset += start;
     }
     else
     {
         /* file not wrapped, scan from current offset up to write ptr */
         scan_length = log_file->u.mem_file.file_header.write_offset - offset;
-        if (scan_length <= 0)
-            return 0;
 
         /* Scan for start of message. Without wrap-around it should be between read offset, and the write ptr */
         start = get_msg_start_offset(log_file, offset, scan_length);
         if (start <= 0)
             return 0;
-
-        offset += start;
-
-        /* Make sure that offset+length doesn't cross the end of buffer */
-        if (offset + length > log_file->u.mem_file.file_header.data_size)
-            length = log_file->u.mem_file.file_header.data_size - offset;
     }
+    offset += start;
 
     /* We have the beginning. Now find the end of message and copy to the user buffer if there is enough room */
     if (offset + length > log_file->u.mem_file.file_header.data_size)
@@ -569,11 +554,11 @@ static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_
         /* Possible read wrap may occur, scan up to end of file buffer first */
         scan_length = log_file->u.mem_file.file_header.data_size - offset;
         end = get_msg_end_offset(log_file, offset, scan_length);
-        if (end > 0)
+        if (end >= 0)
         {
             /* Found end before end of buffer, no read wrap, just copy and return */
             memcpy(buf, (uint8_t *)log_file->file_parm.start_addr + MEM_FILE_HDR_SIZE + offset, end);
-            *p_offset += end;
+            *p_offset += start + end;
             return end;
         }
 
@@ -583,11 +568,12 @@ static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_
         buf = (uint8_t *)buf + scan_length;
         length -= scan_length; /* reduce remaining buffer space by size copied */
         offset = 0; /* Reset to beginning of buffer for final "end" scan */
+        read_wrap = BCMOS_TRUE;
         scan_length = log_file->u.mem_file.file_header.write_offset - 1; /* Limit wrapped end scan from beginning of buffer up to write ptr */
     }
     else
     {
-        /* No read wrap, just scan for end from current offset to the end of the file */
+        /* No read wrap, just scan for end from current offset to the end of the file , since the end might be past the buffer length */
         scan_length = log_file->u.mem_file.file_header.data_size - offset;
     }
 
@@ -607,17 +593,14 @@ static int default_read_callback_unprotected(bcm_dev_log_file *log_file, uint32_
     memcpy(buf, (uint8_t *)log_file->file_parm.start_addr + MEM_FILE_HDR_SIZE + offset, end);
     output_length += end;
 
-    *p_offset += output_length;
+    if (read_wrap)
+    {
+        *p_offset = end;
+    }
+    else
+        *p_offset += start + output_length; /* Increment read ptr */
 
     return output_length;
-}
-
-static int default_read_callback(bcm_dev_log_file *log_file, uint32_t *p_offset, void *buf, uint32_t length)
-{
-    bcmos_mutex_lock(&log_file->u.mem_file.mutex);
-    length = default_read_callback_unprotected(log_file, p_offset, buf, length);
-    bcmos_mutex_unlock(&log_file->u.mem_file.mutex);
-    return length;
 }
 
 static int get_num_of_overwritten_messages(uint8_t *buf, uint32_t length)
@@ -682,9 +665,9 @@ static int default_write_callback_unprotected(bcm_dev_log_file *file, const void
         }
         if (tail_length)
         {
-            /* Wrap-around */
             p = (uint8_t *)file->file_parm.start_addr + MEM_FILE_HDR_SIZE;
-            n_overwritten += get_num_of_overwritten_messages(p, tail_length);
+            if (file->u.mem_file.file_header.file_wrap_cnt)
+                n_overwritten += get_num_of_overwritten_messages(p, tail_length);
             memcpy(p, buf, tail_length);
             ++file->u.mem_file.file_header.file_wrap_cnt;
         }
@@ -788,8 +771,14 @@ int bcm_dev_log_file_read(bcm_dev_log_file *file, uint32_t *offset, char *buf, u
     /* If nothing more to read and CLEAR_AFTER_READ mode, read again under lock and clear if no new records */
     if (!len && bcm_dev_log_is_memory_file(file) && (file->file_parm.flags & BCM_DEV_LOG_FILE_FLAG_CLEAR_AFTER_READ))
     {
-        file->file_parm.rewind_cb(file);
-        *offset = 0; /* Also reset user read ptr when log file is cleared down! */
+        bcmos_mutex_lock(&file->u.mem_file.mutex);
+        len = file->file_parm.read_cb(file, offset, buf, buf_len);
+        if (!len)
+        {
+            file->file_parm.rewind_cb(file);
+            *offset = 0; /* Also reset user read ptr when log file is cleared down! */
+        }
+        bcmos_mutex_unlock(&file->u.mem_file.mutex);
     }
     return len;
 }

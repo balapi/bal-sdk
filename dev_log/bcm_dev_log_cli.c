@@ -42,7 +42,7 @@ enum
     ID_BY_NAME,
 };
 
-static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, bcm_dev_log_print_cb print_callback, void *arg, bcmos_bool clear)
+static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, int32_t msgs_num, bcm_dev_log_print_cb print_callback, void *arg, bcmos_bool clear)
 {
     bcm_dev_log_file *file;
     char log_string[MAX_DEV_LOG_STRING_SIZE];
@@ -57,11 +57,13 @@ static bcmos_errno bcm_dev_log_file_print(uint32_t file_index, bcm_dev_log_print
         return BCM_ERR_PARM;
 
     num_msgs = bcm_dev_log_get_num_of_messages(file);
+    if (msgs_num && msgs_num < num_msgs)
+        num_msgs = msgs_num;
 
-    DEV_LOG_INFO_PRINTF("print %d msgs from file %d\n", (int)num_msgs, (int)file_index);
+    DEV_LOG_INFO_PRINTF("file=%p, print %d msgs from file (orig: %d)\n", (void *)file, (int)num_msgs, (int)msgs_num);
 
     /* Print file */
-    for (i = 0; i < num_msgs; i++)
+    for (i = 0; (i < msgs_num) || !msgs_num; i++)
     {
         /* Read from file */
         length = bcm_dev_log_file_read(file, &offset, log_string, sizeof(log_string));
@@ -227,6 +229,7 @@ static bcmos_errno bcm_dev_log_cli_file_print(bcmcli_session *session, const bcm
 {
     return bcm_dev_log_file_print(
         parm[0].value.unumber,
+        0,
         (bcm_dev_log_print_cb)bcmcli_session_print,
         session,
         (bcmos_bool)parm[1].value.unumber);
