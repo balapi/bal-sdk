@@ -239,7 +239,6 @@ Removed types:
 - epon_link_alarm_state
 - epon_link_deregister_reason
 - epon_link_info
-- epon_link_rate_bitmap
 - epon_link_state
 - epon_link_status
 - epon_link_type

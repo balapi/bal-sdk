@@ -394,9 +394,3 @@ bcmolt_tag bcmolt_host_log_get_active_tags(bcmolt_devid dev, const bcmolt_host_l
     (void)key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_HOST_LOG);
 }
-
-bcmolt_tag bcmolt_l2_mac_table_get_active_tags(bcmolt_devid dev, const bcmolt_l2_mac_table_key *key)
-{
-    (void)key;
-    return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_L2_MAC_TABLE);
-}

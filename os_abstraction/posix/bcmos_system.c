@@ -35,8 +35,6 @@ extern STAILQ_HEAD(task_list, bcmos_task) task_list;
 /* global OS lock */
 extern bcmos_mutex bcmos_res_lock;
 
-static bcmos_errno bcmos_errno_to_bcmos_errno(int err);
-
 /*
  * Init
  */
@@ -486,11 +484,14 @@ bcmos_errno bcmos_sys_timer_create(bcmos_sys_timer *timer, bcmos_sys_timer_handl
     if (rc)
         BCMOS_TRACE_RETURN(rc, "Can't create timer task\n");
 
-    sa.sa_flags = SA_SIGINFO | SA_RESTART;
+    sa.sa_flags = SA_SIGINFO;
     sa.sa_sigaction = timer_sig_handler;
     sigemptyset(&sa.sa_mask);
     if (sigaction(TIMER_SIG, &sa, NULL) == -1)
         perror("sigaction");
+    /* Prevent timer signal from interrupting system calls */
+    if (siginterrupt(TIMER_SIG, 0) == -1)
+        perror("siginterrupt");
 
    /* Create librt timer */
    sev.sigev_notify = SIGEV_SIGNAL;
@@ -1375,20 +1376,27 @@ bcmos_file *bcmos_file_open(const char *path, bcmos_file_flag flags)
 
 int bcmos_file_read(bcmos_file *file, void *data, uint32_t size)
 {
-    int32_t bytes_read;
+    uint32_t bytes_read;
 
-    /* Using fileno-based IO here because fread doesn't propagate errors correctly */
-    bytes_read = read(fileno((FILE *)file), data, size);
-    return (bytes_read < 0) ? bcmos_errno_to_bcmos_errno(errno) : bytes_read;
+    bytes_read = fread(data, 1, size, (FILE *)file);
+    if ((bytes_read < size) && ferror((FILE *)file))
+    {
+        BCMOS_TRACE_ERR("fread returned error %s\n", strerror(errno));
+        return (int)BCM_ERR_IO;
+    }
+    return (int)bytes_read;
 }
 
 int bcmos_file_write(bcmos_file *file, const void *data, uint32_t size)
 {
-    int32_t bytes_written;
-
-    /* Using fileno-based IO here because fwrite doesn't propagate errors correctly */
-    bytes_written = write(fileno((FILE *)file), data, size);
-    return (bytes_written < 0) ? bcmos_errno_to_bcmos_errno(errno) : bytes_written;
+    uint32_t bytes_written;
+    bytes_written = fwrite(data, 1, size, (FILE *)file);
+    if ((bytes_written < size) && ferror((FILE *)file))
+    {
+        BCMOS_TRACE_ERR("fwrite returned error %s\n", strerror(errno));
+        return (int)BCM_ERR_IO;
+    }
+    return (int)bytes_written;
 }
 
 bcmos_errno bcmos_file_seek(bcmos_file *file, unsigned long offset)
@@ -1447,23 +1455,4 @@ uint32_t  __attribute__((weak)) bcm_pci_read32(const volatile uint32_t *address)
 #else
     return BCMOS_ENDIAN_LITTLE_TO_CPU_U32(*address);
 #endif
-}
-
-/* Map errno to bcmos_errno */
-static bcmos_errno bcmos_errno_to_bcmos_errno(int err)
-{
-    bcmos_errno rc;
-    switch(err)
-    {
-        case 0: rc = BCM_ERR_OK; break;
-        case ENODEV: rc = BCM_ERR_NODEV; break;
-        case EINVAL: rc = BCM_ERR_PARM; break;
-        case EALREADY: rc = BCM_ERR_ALREADY; break;
-        case EIO: rc = BCM_ERR_IO; break;
-        case ENOENT: rc = BCM_ERR_NOENT; break;
-        case ENOMEM: rc = BCM_ERR_NOMEM; break;
-        case ERANGE: rc = BCM_ERR_RANGE; break;
-        default: rc = BCM_ERR_INTERNAL; break;
-    }
-    return rc;
 }

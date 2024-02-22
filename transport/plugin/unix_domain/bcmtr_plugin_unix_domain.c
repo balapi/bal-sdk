@@ -133,7 +133,6 @@ static bcmos_errno bcmtr_ud_send(
     /* Return if not connected (a race condition) */
     if (bcmtr_ud_data.sock == -1)
     {
-        bcmos_buf_free(buf);
         return BCM_ERR_NOT_CONNECTED;
     }
 

@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.8</span>
+   &#160;<span id="projectnumber">3.12.4</span>
    </div>
   </td>
  </tr>
@@ -104,13 +104,13 @@ $(document).ready(function(){initNavTree('object_internal_nni_cfg.html',''); ini
 <tr>
 <td>loopback_type</td><td>Loopback direction, line, remote or none</td><td><a class="el" href="group__object__model.html#ga2c68721be74ed78b02e5160cc7595c68">bcmolt_nni_loopback_type</a></td><td>RW</td><td>BCMOLT_NNI_LOOPBACK_TYPE_NONE</td><td></td><td></td></tr>
 <tr>
-<td>status_polling_interval_ms</td><td>How often to check the status of the primary and backup NNIs (units: ms). Zero (0) disables status polling.</td><td>uint32_t</td><td>RW</td><td>50UL</td><td>0UL</td><td>2000000UL </td></tr>
+<td>status_polling_interval_ms</td><td>How often to check the status of the primary and backup NNIs (units: ms). Zero (0) disables status polling.</td><td>uint32_t</td><td>RW</td><td>50UL</td><td>0UL</td><td>3600000UL </td></tr>
 <tr>
 <td>redundancy</td><td>Should firmware automatically switch between primary/backup NNIs when Loss of Link is detected?</td><td><a class="el" href="group__object__model.html#ga066061927e61aadf017242a19f867085">bcmolt_internal_nni_redundancy</a></td><td>RW</td><td>BCMOLT_INTERNAL_NNI_REDUNDANCY_NONE</td><td></td><td></td></tr>
 <tr>
 <td>flow_control</td><td>NNI Flow control.</td><td><a class="el" href="group__object__model.html#gab07f613223cc11fdb211476f9221c7db">bcmolt_control_state</a></td><td>RW</td><td>BCMOLT_CONTROL_STATE_ENABLE</td><td></td><td></td></tr>
 <tr>
-<td>inband_mgmt</td><td>Inband management configuration.</td><td><a class="el" href="structbcmolt__inband__config__data.html">bcmolt_inband_config_data</a></td><td>RW</td><td></td><td></td><td></td></tr>
+<td>inband_mgmt</td><td>Inband management configuration.</td><td><a class="el" href="structbcmolt__inband__config__data.html">bcmolt_inband_config_data</a></td><td>RW</td><td>enable</td><td></td><td></td></tr>
 <tr>
 <td>trap_config</td><td>Rules for packet trapping on this interface</td><td><a class="el" href="structbcmolt__trap__config.html">bcmolt_trap_config</a></td><td>RW</td><td></td><td></td><td></td></tr>
 <tr>
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('object_internal_nni_cfg.html',''); ini
     <li class="navelem"><a class="el" href="object_model.html">Object Model</a></li><li class="navelem"><a class="el" href="object_internal_nni.html">Object: internal_nni - Internal NNI</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.8 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.4 </li>
   </ul>
 </div>
 </body>

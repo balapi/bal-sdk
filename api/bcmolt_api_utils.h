@@ -179,7 +179,7 @@ void bcmolt_api_set_prop_present(bcmolt_msg *msg, const void *prop_ptr);
  */
 void bcmolt_api_clear_prop_presence(bcmolt_msg *msg, const void *prop_ptr);
 
-/* Get the string representation of an absolute path into 'path_str'. */
+/* Get the the string representation of an absolute path into 'path_str'. */
 char *bcmolt_api_prop_get_path_str(const bcmolt_api_prop_path *path, char *path_str, uint32_t max_path_str_len);
 
 /* Perform various checks to make sure a message is valid for a top-level API call. */

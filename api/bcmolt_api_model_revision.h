@@ -1,7 +1,7 @@
 /*
-<:copyright-BRCM:2018-2023:Apache:standard
+<:copyright-BRCM:2018-2024:Apache:standard
 
- Copyright (c) 2018-2023 Broadcom. All Rights Reserved
+ Copyright (c) 2018-2024 Broadcom. All Rights Reserved
 
  The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries
 
@@ -20,4 +20,4 @@
 :>
 */
 
-#define BCMOLT_MODEL_REVISION 25
+#define BCMOLT_MODEL_REVISION 5

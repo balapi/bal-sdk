@@ -88,9 +88,6 @@ bcmolt_tag bcmolt_itupon_alloc_get_active_tags(bcmolt_oltid olt, const bcmolt_it
 /** Get all tags that are currently active for a given itupon_gem based on system state. */
 bcmolt_tag bcmolt_itupon_gem_get_active_tags(bcmolt_oltid olt, const bcmolt_itupon_gem_key *key);
 
-/** Get all tags that are currently active for a given l2_mac_table based on system state. */
-bcmolt_tag bcmolt_l2_mac_table_get_active_tags(bcmolt_oltid olt, const bcmolt_l2_mac_table_key *key);
-
 /** Get all tags that are currently active for a given lag_interface based on system state. */
 bcmolt_tag bcmolt_lag_interface_get_active_tags(bcmolt_oltid olt, const bcmolt_lag_interface_key *key);
 

@@ -25,7 +25,7 @@
 
 #define BCMOLT_HOST_MAJOR_VER    3
 #define BCMOLT_HOST_MINOR_VER    12
-#define BCMOLT_HOST_REVISION_VER 8
+#define BCMOLT_HOST_REVISION_VER 4
 
 #include <customer_version_info.h>
 

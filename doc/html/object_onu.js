@@ -1,9 +1,7 @@
 var object_onu =
 [
     [ "Object configuration", "object_onu_cfg.html", null ],
-    [ "Statistics: itu_alloc_onu_accumulated_stats", "object_onu_itu_alloc_onu_accumulated_stats.html", null ],
     [ "Statistics: itu_pon_stats", "object_onu_itu_pon_stats.html", null ],
-    [ "StatisticsConfig: itu_alloc_onu_accumulated_stats_cfg", "object_onu_itu_alloc_onu_accumulated_stats_cfg.html", null ],
     [ "StatisticsConfig: itu_pon_stats_cfg", "object_onu_itu_pon_stats_cfg.html", null ],
     [ "Indication: ber_interval_configuration_completed", "object_onu_ber_interval_configuration_completed.html", null ],
     [ "Indication: cpu_packet", "object_onu_cpu_packet.html", null ],
@@ -13,8 +11,6 @@ var object_onu =
     [ "Indication: err", "object_onu_err.html", null ],
     [ "Indication: gpon_alarm", "object_onu_gpon_alarm.html", null ],
     [ "Indication: invalid_dbru_report", "object_onu_invalid_dbru_report.html", null ],
-    [ "Indication: itu_alloc_onu_accumulated_stats_alarm_cleared", "object_onu_itu_alloc_onu_accumulated_stats_alarm_cleared.html", null ],
-    [ "Indication: itu_alloc_onu_accumulated_stats_alarm_raised", "object_onu_itu_alloc_onu_accumulated_stats_alarm_raised.html", null ],
     [ "Indication: itu_pon_stats_alarm_cleared", "object_onu_itu_pon_stats_alarm_cleared.html", null ],
     [ "Indication: itu_pon_stats_alarm_raised", "object_onu_itu_pon_stats_alarm_raised.html", null ],
     [ "Indication: key_exchange_completed", "object_onu_key_exchange_completed.html", null ],

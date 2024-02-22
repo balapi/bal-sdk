@@ -233,22 +233,6 @@ bcmos_bool bcmolt_bal_state_unpack(bcmolt_bal_state *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_binding_command_pack(bcmolt_binding_command obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_binding_command_unpack(bcmolt_binding_command *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_binding_command)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_burst_profile_type_pack(bcmolt_burst_profile_type obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -1094,70 +1078,6 @@ bcmos_bool bcmolt_intf_opt_unpack(bcmolt_intf_opt *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_intf_opt)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_dump_mode_pack(bcmolt_l2_dump_mode obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_dump_mode_unpack(bcmolt_l2_dump_mode *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_dump_mode)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_event_pack(bcmolt_l2_event obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_event_unpack(bcmolt_l2_event *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_event)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_event_report_control_pack(bcmolt_l2_event_report_control obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
-}
-
-bcmos_bool bcmolt_l2_event_report_control_unpack(bcmolt_l2_event_report_control *obj, bcmolt_buf *buf)
-{
-    uint16_t num_val;
-    if (!bcmolt_buf_read_u16(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_event_report_control)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mact_dump_status_pack(bcmolt_l2_mact_dump_status obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mact_dump_status_unpack(bcmolt_l2_mact_dump_status *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mact_dump_status)num_val;
     return BCMOS_TRUE;
 }
 
@@ -2121,38 +2041,6 @@ bcmos_bool bcmolt_sign_unpack(bcmolt_sign *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_src_binding_fields_pack(bcmolt_src_binding_fields obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
-}
-
-bcmos_bool bcmolt_src_binding_fields_unpack(bcmolt_src_binding_fields *obj, bcmolt_buf *buf)
-{
-    uint16_t num_val;
-    if (!bcmolt_buf_read_u16(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_src_binding_fields)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_src_binding_id_pack(bcmolt_src_binding_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_s32(buf, (int32_t)obj);
-}
-
-bcmos_bool bcmolt_src_binding_id_unpack(bcmolt_src_binding_id *obj, bcmolt_buf *buf)
-{
-    int32_t num_val;
-    if (!bcmolt_buf_read_s32(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_src_binding_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_stage_pack(bcmolt_stage obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u32(buf, (uint32_t)obj);
@@ -2198,22 +2086,6 @@ bcmos_bool bcmolt_status_unpack(bcmolt_status *obj, bcmolt_buf *buf)
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_status)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_sw_error_severity_pack(bcmolt_sw_error_severity obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_sw_error_severity_unpack(bcmolt_sw_error_severity *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_sw_error_severity)num_val;
     return BCMOS_TRUE;
 }
 
@@ -2486,22 +2358,6 @@ bcmos_bool bcmolt_uart_baudrate_unpack(bcmolt_uart_baudrate *obj, bcmolt_buf *bu
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_uart_baudrate)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_um_fwrd_state_pack(bcmolt_um_fwrd_state obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_um_fwrd_state_unpack(bcmolt_um_fwrd_state *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_um_fwrd_state)num_val;
     return BCMOS_TRUE;
 }
 
@@ -3094,38 +2950,6 @@ bcmos_bool bcmolt_itupon_gem_oper_subgroup_unpack(bcmolt_itupon_gem_oper_subgrou
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_itupon_gem_oper_subgroup)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_auto_subgroup_pack(bcmolt_l2_mac_table_auto_subgroup obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_auto_subgroup_unpack(bcmolt_l2_mac_table_auto_subgroup *obj, bcmolt_buf *buf)
-{
-    uint16_t num_val;
-    if (!bcmolt_buf_read_u16(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_auto_subgroup)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_oper_subgroup_pack(bcmolt_l2_mac_table_oper_subgroup obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u16(buf, (uint16_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_oper_subgroup_unpack(bcmolt_l2_mac_table_oper_subgroup *obj, bcmolt_buf *buf)
-{
-    uint16_t num_val;
-    if (!bcmolt_buf_read_u16(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_oper_subgroup)num_val;
     return BCMOS_TRUE;
 }
 
@@ -4233,38 +4057,6 @@ bcmos_bool bcmolt_intf_ref_id_unpack(bcmolt_intf_ref_id *obj, bcmolt_buf *buf)
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_ip_v_4_src_binding_id_pack(bcmolt_ip_v_4_src_binding_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_ip_v_4_src_binding_id_unpack(bcmolt_ip_v_4_src_binding_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_ip_v_4_src_binding_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_ip_v_6_src_binding_id_pack(bcmolt_ip_v_6_src_binding_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_ip_v_6_src_binding_id_unpack(bcmolt_ip_v_6_src_binding_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_ip_v_6_src_binding_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_itu_onu_params_id_pack(bcmolt_itu_onu_params_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -4406,38 +4198,6 @@ bcmos_bool bcmolt_key_exchange_id_unpack(bcmolt_key_exchange_id *obj, bcmolt_buf
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_key_exchange_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_dump_filters_id_pack(bcmolt_l2_dump_filters_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_dump_filters_id_unpack(bcmolt_l2_dump_filters_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_dump_filters_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mact_entry_id_pack(bcmolt_l2_mact_entry_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mact_entry_id_unpack(bcmolt_l2_mact_entry_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mact_entry_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -5110,22 +4870,6 @@ bcmos_bool bcmolt_service_discovery_id_unpack(bcmolt_service_discovery_id *obj, 
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_service_discovery_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_src_binding_info_id_pack(bcmolt_src_binding_info_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_src_binding_info_id_unpack(bcmolt_src_binding_info_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_src_binding_info_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -6521,22 +6265,6 @@ bcmos_bool bcmolt_flow_send_eth_packet_data_id_unpack(bcmolt_flow_send_eth_packe
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_flow_src_binding_update_data_id_pack(bcmolt_flow_src_binding_update_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_flow_src_binding_update_data_id_unpack(bcmolt_flow_src_binding_update_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_flow_src_binding_update_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_flow_stats_cfg_data_id_pack(bcmolt_flow_stats_cfg_data_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -7145,38 +6873,6 @@ bcmos_bool bcmolt_itupon_alloc_stats_data_id_unpack(bcmolt_itupon_alloc_stats_da
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_pack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_unpack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_data_id_pack(bcmolt_itupon_alloc_latency_stats_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_data_id_unpack(bcmolt_itupon_alloc_latency_stats_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_latency_stats_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_itupon_alloc_stats_cfg_data_id_pack(bcmolt_itupon_alloc_stats_cfg_data_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -7222,102 +6918,6 @@ bcmos_bool bcmolt_itupon_alloc_stats_alarm_cleared_data_id_unpack(bcmolt_itupon_
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_itupon_alloc_stats_alarm_cleared_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_pack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_unpack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_pack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_unpack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_pack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_unpack(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_cfg_data_id_pack(bcmolt_itupon_alloc_latency_stats_cfg_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_cfg_data_id_unpack(bcmolt_itupon_alloc_latency_stats_cfg_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_latency_stats_cfg_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_pack(bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_unpack(bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_pack(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_unpack(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -7478,118 +7078,6 @@ bcmos_bool bcmolt_itupon_gem_auto_cfg_data_id_unpack(bcmolt_itupon_gem_auto_cfg_
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_itupon_gem_auto_cfg_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_key_id_pack(bcmolt_l2_mac_table_key_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_key_id_unpack(bcmolt_l2_mac_table_key_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_key_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_cfg_data_id_pack(bcmolt_l2_mac_table_cfg_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_cfg_data_id_unpack(bcmolt_l2_mac_table_cfg_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_cfg_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_dump_data_id_pack(bcmolt_l2_mac_table_dump_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_dump_data_id_unpack(bcmolt_l2_mac_table_dump_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_dump_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_dump_complete_data_id_pack(bcmolt_l2_mac_table_dump_complete_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_dump_complete_data_id_unpack(bcmolt_l2_mac_table_dump_complete_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_dump_complete_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_network_events_data_id_pack(bcmolt_l2_mac_table_network_events_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_network_events_data_id_unpack(bcmolt_l2_mac_table_network_events_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_network_events_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_pon_events_data_id_pack(bcmolt_l2_mac_table_pon_events_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_pon_events_data_id_unpack(bcmolt_l2_mac_table_pon_events_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_pon_events_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_l2_mac_table_auto_cfg_data_id_pack(bcmolt_l2_mac_table_auto_cfg_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_l2_mac_table_auto_cfg_data_id_unpack(bcmolt_l2_mac_table_auto_cfg_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_l2_mac_table_auto_cfg_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -9097,22 +8585,6 @@ bcmos_bool bcmolt_onu_trap_ploam_received_data_id_unpack(bcmolt_onu_trap_ploam_r
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_pack(bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_unpack(bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
 bcmos_bool bcmolt_onu_itu_pon_stats_cfg_data_id_pack(bcmolt_onu_itu_pon_stats_cfg_data_id obj, bcmolt_buf *buf)
 {
     return bcmolt_buf_write_u8(buf, (uint8_t)obj);
@@ -9158,54 +8630,6 @@ bcmos_bool bcmolt_onu_itu_pon_stats_alarm_cleared_data_id_unpack(bcmolt_onu_itu_
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_onu_itu_pon_stats_alarm_cleared_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_pack(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_unpack(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_pack(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_unpack(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_pack(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_unpack(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id)num_val;
     return BCMOS_TRUE;
 }
 
@@ -10022,22 +9446,6 @@ bcmos_bool bcmolt_switch_inni_stats_data_id_unpack(bcmolt_switch_inni_stats_data
         return BCMOS_FALSE;
     }
     *obj = (bcmolt_switch_inni_stats_data_id)num_val;
-    return BCMOS_TRUE;
-}
-
-bcmos_bool bcmolt_switch_inni_link_state_change_data_id_pack(bcmolt_switch_inni_link_state_change_data_id obj, bcmolt_buf *buf)
-{
-    return bcmolt_buf_write_u8(buf, (uint8_t)obj);
-}
-
-bcmos_bool bcmolt_switch_inni_link_state_change_data_id_unpack(bcmolt_switch_inni_link_state_change_data_id *obj, bcmolt_buf *buf)
-{
-    uint8_t num_val;
-    if (!bcmolt_buf_read_u8(buf, &num_val))
-    {
-        return BCMOS_FALSE;
-    }
-    *obj = (bcmolt_switch_inni_link_state_change_data_id)num_val;
     return BCMOS_TRUE;
 }
 
