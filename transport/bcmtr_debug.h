@@ -50,12 +50,23 @@ typedef enum
     BCMTR_CLD_EV_TIMEOUT,               /**< Request timed out waiting for response */
 } bcmtr_cld_event_type;
 
+typedef enum
+{
+    BCMTR_CLD_MSG_TYPE__BEGIN,
+    BCMTR_CLD_MSG_TYPE_SET = BCMTR_CLD_MSG_TYPE__BEGIN, /* Includes BCMOLT_MSG_TYPE_CLEAR */
+    BCMTR_CLD_MSG_TYPE_GET, /* Includes BCMOLT_MSG_TYPE_MULTI */
+    BCMTR_CLD_MSG_TYPE__NUM_OF,
+} bcmtr_cld_msg_type;
+
+#define BCMTR_CLD_MSG_TYPE_ANY (bcmtr_cld_msg_type)0xff
+
 /** Capture, log, debug filter */
 typedef struct
 {
-    bcmolt_mgt_group group;     /**< Message group. Can be BCMOLT_MGT_GROUP_ANY */
-    bcmolt_obj_id object;       /**< Object. Can be BCMOLT_OBJECT_ANY */
-    uint16_t subgroup;          /**< Message subgroup. Can be BCMOLT_SUBGROUP_ANY */
+    bcmolt_mgt_group group;      /**< Message group. Can be BCMOLT_MGT_GROUP_ANY */
+    bcmolt_obj_id object;        /**< Object. Can be BCMOLT_OBJECT_ANY */
+    uint16_t subgroup;           /**< Message subgroup. Can be BCMOLT_SUBGROUP_ANY */
+    bcmtr_cld_msg_type msg_type; /**< Message type. Can be BCMTR_CLD_MSG_TYPE_ANY */
 } bcmtr_cld_filter;
 
 /** Initialize transport capture,log, debug service
@@ -226,7 +237,7 @@ bcmos_bool bcmtr_capture_entry_unpack(bcmolt_buf *buf, bcmtr_capture_entry *entr
  */
 
 /* Per-OLT, per-command combined trace,log,debug level */
-extern bcmtr_cld_type bcmtr_cld_active_level[BCMTR_MAX_DEVICES][BCMOLT_API_GROUP_ID__NUM_OF];
+extern bcmtr_cld_type bcmtr_cld_active_level[BCMTR_MAX_DEVICES][BCMOLT_API_GROUP_ID__NUM_OF][BCMTR_CLD_MSG_TYPE__NUM_OF];
 
 /* Notify message.
  * Called by transport layer
@@ -238,13 +249,14 @@ void bcmtr_cld_notify(bcmolt_devid device, bcmtr_cld_type level, const bcmtr_hdr
 /* Check if CLD is enabled for the message and record if yes
  * Called by transport layer
  */
-#define BCMTR_CLD_CHECK_NOTIFY(_device, _hdr, _ev, _ts, _packed, _packed_length, _msg) \
+#define BCMTR_CLD_CHECK_NOTIFY(_device, _hdr, _ev, _ts, _packed, _packed_length, _msg, _msg_type) \
     do {\
         const bcmolt_group_descr *_group_descr;\
+        bcmtr_cld_msg_type msg_type = _msg_type & BCMOLT_MSG_TYPE_GET ? BCMTR_CLD_MSG_TYPE_GET : BCMTR_CLD_MSG_TYPE_SET;\
         bcmos_errno _err = bcmolt_api_group_descr_get_by_group_id((_hdr)->obj, (_hdr)->group_id, &_group_descr);\
-        if (_err == BCM_ERR_OK && bcmtr_cld_active_level[_device][_group_descr->global_id]) \
+        if (_err == BCM_ERR_OK && bcmtr_cld_active_level[_device][_group_descr->global_id][msg_type]) \
         { \
-            bcmtr_cld_notify(_device, bcmtr_cld_active_level[_device][_group_descr->global_id],\
+            bcmtr_cld_notify(_device, bcmtr_cld_active_level[_device][_group_descr->global_id][msg_type],\
                 _hdr, _ev, _ts, _packed, _packed_length, _msg); \
         } \
     } while (0)

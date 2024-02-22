@@ -24,10 +24,10 @@
 #define __BCM_DEV_LOG_H_
 
 #include <bcmos_system.h>
+#include "bcm_dev_log_task.h"
 
 #ifdef ENABLE_LOG
 
-#include "bcm_dev_log_task.h"
 #include <math.h>
 
 /********************************************/
@@ -285,9 +285,9 @@ char *dev_log_double2str_conv(double double_val, uint8_t precision, char *result
 
 #else /* #ifndef ENABLE_LOG */
 
-typedef unsigned long dev_log_id;
+#define BCM_LOG(level, id, ...) do { } while (0)
+#define BCM_LOG_CALLER_FMT(level, id, ...) do { } while (0)
 
-#define DEV_LOG_INVALID_ID              (dev_log_id)UINT_MAX
 
 #define BCM_LOG(level, id, ...) \
     do \
@@ -302,18 +302,34 @@ typedef unsigned long dev_log_id;
 
 #endif /* ENABLE_LOG */
 
-/* Check a bcmos_errno return code and on error, print the log and return the error code
+/* print the specified error to the log and return the error code
  * Input - _rc - bcmos_errno return code
+ *         _log_id
+ *         _fmt - format for the error log
+ *         _args - arguments to the error log
+ * Output: error log and return with the given error code
+ */
+#define BCM_LOG_AND_RETURN_ERROR(_rc, _log_id, _fmt, _args ...)                                    \
+    {                                                                                              \
+        BCM_LOG(ERROR, _log_id, "%s(): err='%s', " _fmt, __func__, bcmos_strerror(_rc), ## _args); \
+        return _rc;                                                                                \
+    }
+
+
+/* Check a bcmos_errno return code and on error, print the log and return the error code
+ * Input - _rc - bcmos_errno return code or function to be evaluated
  *         _log_id
  *         _fmt - format for the error log
  *         _args - arguments to the error log
  * Output: error log, on error, and return with the given error code
  */
-#define BCM_CHECK_RETURN(_rc, _log_id, _fmt, _args ...) \
-    if (_rc != BCM_ERR_OK) \
-    { \
-        BCM_LOG(ERROR, _log_id, "%s(): err='%s', " _fmt, __func__, bcmos_strerror(_rc), ## _args); \
-        return _rc; \
+#define BCM_CHECK_RETURN(_rc, _log_id, _fmt, _args ...)                 \
+    {                                                                   \
+        bcmos_errno _ret = _rc;                                         \
+        if (_ret != BCM_ERR_OK)                                         \
+        {                                                               \
+            BCM_LOG_AND_RETURN_ERROR(_ret, _log_id, _fmt, ## _args);    \
+        }                                                               \
     }
 
 /* Check if the given pointer is NULL and on NULL, print the log and return the given bcmos_errno return code

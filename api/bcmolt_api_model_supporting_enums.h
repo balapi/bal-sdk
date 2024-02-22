@@ -185,6 +185,25 @@ typedef enum
     BCMOLT_BAL_STATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_bal_state;
 
+/** bc fwrd state. */
+typedef enum
+{
+    BCMOLT_BC_FWRD_STATE__BEGIN = 0,
+    BCMOLT_BC_FWRD_STATE_DISABLE = 0, /**< Disabled. */
+    BCMOLT_BC_FWRD_STATE_ENABLE = 1, /**< Enabled. */
+    BCMOLT_BC_FWRD_STATE_FLOOD_TO_FLOWS = 3, /**< flood_to_flows. */
+    BCMOLT_BC_FWRD_STATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_bc_fwrd_state;
+
+/** binding command. */
+typedef enum
+{
+    BCMOLT_BINDING_COMMAND__BEGIN = 0,
+    BCMOLT_BINDING_COMMAND_ADD = 0, /**< add the specified binding. */
+    BCMOLT_BINDING_COMMAND_REMOVE = 1, /**< remove the specified binding. */
+    BCMOLT_BINDING_COMMAND__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_binding_command;
+
 /** Type of burst profile - ranging or data */
 typedef enum
 {
@@ -418,6 +437,14 @@ typedef enum
     BCMOLT_EMBEDDED_IMAGE_TRANSFER_STATUS_FAILURE = 3, /**< Transfer failed.  Typically due to CRC error. */
     BCMOLT_EMBEDDED_IMAGE_TRANSFER_STATUS__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_embedded_image_transfer_status;
+
+/** enqueue algorithm. */
+typedef enum
+{
+    BCMOLT_ENQUEUE_ALGORITHM__BEGIN = 0,
+    BCMOLT_ENQUEUE_ALGORITHM_TAIL_DROP = 0, /**< tail drop. */
+    BCMOLT_ENQUEUE_ALGORITHM__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_enqueue_algorithm;
 
 /** erps_control. */
 typedef enum
@@ -867,11 +894,13 @@ typedef enum
     BCMOLT_INJECT_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_inject_type;
 
-/** The FEC mode that the INNI should use.  Options are:
-  * 1.  mode default - use the default mode for the rate and physical layer
-  * 2.  RS FEC (CL91/CL108)
-  * 3.  FC FEC (CL74)
-  * 4.  Use auto negotiation to select a mode. */
+/**
+ * The FEC mode that the INNI should use.  Options are:
+ * 1.  mode default - use the default mode for the rate and physical layer
+ * 2.  RS FEC (CL91/CL108)
+ * 3.  FC FEC (CL74)
+ * 4.  Use auto negotiation to select a mode.
+ */
 typedef enum
 {
     BCMOLT_INNI_FEC_MODES__BEGIN = 0,
@@ -931,6 +960,7 @@ typedef enum
     BCMOLT_INTERFACE_TYPE_PROTECTION = 7, /**< PON, NNI or LAG 1 to 1 Redundancy Pair, subtype indicated in underlying protection_interface intf_ref fields */
     BCMOLT_INTERFACE_TYPE_UNASSIGNED = 8, /**< No Type Assigned */
     BCMOLT_INTERFACE_TYPE_REMOTE_PON = 9, /**< Represents a PON interface that is not local to this device. Interfaces of this type do not have an ID. */
+    BCMOLT_INTERFACE_TYPE_NIC = 10, /**< NIC Interface */
     BCMOLT_INTERFACE_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_interface_type;
 
@@ -951,6 +981,45 @@ typedef enum
     BCMOLT_INTF_OPT_NONE = 0,
     BCMOLT_INTF_OPT_ERPS_EXCLUDE_FROM_MC_GROUP = 0x01, /**< Exclude this ERPS Port from MC Flooding Group */
 } bcmolt_intf_opt;
+
+/** l2 dump mode. */
+typedef enum
+{
+    BCMOLT_L2_DUMP_MODE_NONE = 0,
+    BCMOLT_L2_DUMP_MODE_DYNAMIC = 0x1, /**< dump dynamic l2 entries */
+    BCMOLT_L2_DUMP_MODE_STAT = 0x2, /**< dump static l2 entries */
+} bcmolt_l2_dump_mode;
+
+/** l2 event. */
+typedef enum
+{
+    BCMOLT_L2_EVENT__BEGIN = 2,
+    BCMOLT_L2_EVENT_DUMPED = 2, /**< result from mac table dumped */
+    BCMOLT_L2_EVENT_LEARNED = 3, /**< a new mac address learned */
+    BCMOLT_L2_EVENT_AGED = 4, /**< existing mac address aged out */
+    BCMOLT_L2_EVENT_MOVED = 5, /**< existing mac address moved */
+    BCMOLT_L2_EVENT__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_l2_event;
+
+/** l2 event report control. */
+typedef enum
+{
+    BCMOLT_L2_EVENT_REPORT_CONTROL_NONE = 0,
+    BCMOLT_L2_EVENT_REPORT_CONTROL_NETWORK_PORT = 0x01, /**< enable l2 learning event report from network ports */
+    BCMOLT_L2_EVENT_REPORT_CONTROL_PON_PORT = 0x02, /**< enable l2 learning event report from pon ports */
+} bcmolt_l2_event_report_control;
+
+/** status of the l2 dump thread */
+typedef enum
+{
+    BCMOLT_L2_MACT_DUMP_STATUS__BEGIN = 0,
+    BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED = 0, /**< Not Started */
+    BCMOLT_L2_MACT_DUMP_STATUS_IN_PROGRESS = 1, /**< In Progress */
+    BCMOLT_L2_MACT_DUMP_STATUS_SUCCESS = 2, /**< Success */
+    BCMOLT_L2_MACT_DUMP_STATUS_FAILED = 3, /**< Failed */
+    BCMOLT_L2_MACT_DUMP_STATUS_ABORTED = 4, /**< User Aborted */
+    BCMOLT_L2_MACT_DUMP_STATUS__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_l2_mact_dump_status;
 
 /** LAG hash field flags. */
 typedef enum
@@ -1116,6 +1185,7 @@ typedef enum
     BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD = 0, /**< flood the packet. */
     BCMOLT_MAC_TABLE_MISS_ACTION_DROP = 1, /**< drop the packet. */
     BCMOLT_MAC_TABLE_MISS_ACTION_ERPS_DEFAULT = 2, /**< ERPS default handling. */
+    BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD_TO_FLOWS = 3, /**< nto1 flood to flows. */
     BCMOLT_MAC_TABLE_MISS_ACTION__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_mac_table_miss_action;
 
@@ -1214,6 +1284,15 @@ typedef enum
     BCMOLT_NNI_SUBTYPE_LAG_MEMBER = 3, /**< lag member interface. */
     BCMOLT_NNI_SUBTYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_nni_subtype;
+
+/** nto1 programming mode. */
+typedef enum
+{
+    BCMOLT_NTO1_PROGRAMMING_MODE__BEGIN = 0,
+    BCMOLT_NTO1_PROGRAMMING_MODE_ASYMMETRIC = 0, /**< one DS and N US Flows */
+    BCMOLT_NTO1_PROGRAMMING_MODE_SYMMETRIC = 1, /**< N DS and N US Flows */
+    BCMOLT_NTO1_PROGRAMMING_MODE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_nto1_programming_mode;
 
 /** Number of frames per map. */
 typedef enum
@@ -1338,6 +1417,7 @@ typedef enum
     BCMOLT_ONU_UPGRADE_STATUS_CODE_TCI_MISMATCH = 10, /**< Transaction ID mismatch. */
     BCMOLT_ONU_UPGRADE_STATUS_CODE_GET_IMAGE_FAILED = 11, /**< Get Image Info command failed. */
     BCMOLT_ONU_UPGRADE_STATUS_CODE_ACTIVATION_FAILED = 12, /**< Activation software command failed. */
+    BCMOLT_ONU_UPGRADE_STATUS_CODE_ONU_DEACTIVATED = 13, /**< ONU was deactivated during transfer. */
     BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_PROCESSING_ERROR = 20, /**< Command processing error.
     Possible causes:
     1) CRC mismatches the End Software Download OMCI message.
@@ -1666,6 +1746,25 @@ typedef enum
     BCMOLT_SIGN__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_sign;
 
+/** bitmap of selected src_binding fields */
+typedef enum
+{
+    BCMOLT_SRC_BINDING_FIELDS_NONE = 0,
+    BCMOLT_SRC_BINDING_FIELDS_SRC_MAC = 0x01, /**< src_mac field */
+    BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP = 0x02, /**< ipv4 src ip field */
+    BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP_MASK = 0x04, /**< ipv4 src ip mask field */
+    BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP = 0x08, /**< ipv6 src ip field */
+    BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP_MASK = 0x10, /**< ipv6 src ip mask field */
+} bcmolt_src_binding_fields;
+
+/** source binding id. */
+typedef enum
+{
+    BCMOLT_SRC_BINDING_ID__BEGIN = -1,
+    BCMOLT_SRC_BINDING_ID_INVALID = -1, /**< indicates an invalid value - note that only positive values may be used as an index into the src binding database */
+    BCMOLT_SRC_BINDING_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_src_binding_id;
+
 /** stage of access control. */
 typedef enum
 {
@@ -1695,6 +1794,15 @@ typedef enum
     BCMOLT_STATUS_NO_CHANGE = 2, /**< Status should not be changed (valid for SET API calls only). */
     BCMOLT_STATUS__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_status;
+
+/** SW Error Severity. */
+typedef enum
+{
+    BCMOLT_SW_ERROR_SEVERITY__BEGIN = 0,
+    BCMOLT_SW_ERROR_SEVERITY_HIGH = 0, /**< High severity failure. The system may no longer be in a healthy state. BAL will continue to run but further configuration is not supported and may fail. System reset is recommended. */
+    BCMOLT_SW_ERROR_SEVERITY_FATAL = 1, /**< Fatal error. BAL software has probably crashed and will no longer respond to API requests. Established data paths will remain in place but further configuration will fail. System reset is required. */
+    BCMOLT_SW_ERROR_SEVERITY__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_sw_error_severity;
 
 /** Switch over type c onu state. */
 typedef enum
@@ -1822,7 +1930,6 @@ typedef enum
     BCMOLT_TRAFFIC_TYPE_KNOWN_UNICAST = 1, /**< L2 Unicast (DMAC MSB=0) */
     BCMOLT_TRAFFIC_TYPE_MULTICAST = 2, /**< L2 Multicast  (DMAC MSB=0x01) */
     BCMOLT_TRAFFIC_TYPE_BROADCAST = 3, /**< L2 Broadcast (DMAC=FF:FF:FF:FF:FF) */
-    BCMOLT_TRAFFIC_TYPE_UNK_MULTICAST = 4, /**< L2 Multicast where the DMAC is not found */
     BCMOLT_TRAFFIC_TYPE_ALL_TRAFFIC = 5, /**< Traffic of any type */
     BCMOLT_TRAFFIC_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_traffic_type;
@@ -1859,6 +1966,11 @@ typedef enum
     BCMOLT_TRX_TYPE_LTF_5306 = 29, /**< XGPON / GPON Combo Trx XFP */
     BCMOLT_TRX_TYPE_LTF_5308_B = 30, /**< Ligent LTF5308B. */
     BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA = 31, /**< XGS/GPON combo */
+    BCMOLT_TRX_TYPE_COMBO_GENERAL_1 = 32, /**< Combo general 1. */
+    BCMOLT_TRX_TYPE_COMBO_GENERAL_2 = 33, /**< Combo general 2. */
+    BCMOLT_TRX_TYPE_COMBO_GENERAL_3 = 34, /**< Combo general 3. */
+    BCMOLT_TRX_TYPE_COMBO_GENERAL_4 = 35, /**< Combo general 4. */
+    BCMOLT_TRX_TYPE_LTE_3682_A = 36, /**< GPON/GPON combo */
     BCMOLT_TRX_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_trx_type;
 
@@ -1903,6 +2015,17 @@ typedef enum
     BCMOLT_UART_BAUDRATE_UART_RATE_921600 = 10, /**< UART rate 921600. */
     BCMOLT_UART_BAUDRATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_uart_baudrate;
+
+/** um fwrd state. */
+typedef enum
+{
+    BCMOLT_UM_FWRD_STATE__BEGIN = 0,
+    BCMOLT_UM_FWRD_STATE_DISABLE = 0, /**< Disabled. */
+    BCMOLT_UM_FWRD_STATE_ENABLE = 1, /**< Enabled. */
+    BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6 = 2, /**< Igmp_Icmpv6. */
+    BCMOLT_UM_FWRD_STATE_FLOOD_TO_FLOWS = 3, /**< flood_to_flows. */
+    BCMOLT_UM_FWRD_STATE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+} bcmolt_um_fwrd_state;
 
 /** XGPON ni upstream line rate capabilities */
 typedef enum
@@ -1959,6 +2082,14 @@ typedef enum
     BCMOLT_XGPON_TRX_TYPE_LTF_5308_B = 17, /**< XGS / GPON Combo TRx SFP+ */
     BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA = 18, /**< SDDS ST XS CP CDFA. */
     BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL = 19, /**< Ligent LTF5308E_SL. */
+    BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_1 = 20, /**< XGS general 1. */
+    BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_2 = 21, /**< XGS general 2. */
+    BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_3 = 22, /**< XGS general 3. */
+    BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_4 = 23, /**< XGS general 4. */
+    BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_1 = 24, /**< Combo general 1. */
+    BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_2 = 25, /**< Combo general 2. */
+    BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_3 = 26, /**< Combo general 3. */
+    BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_4 = 27, /**< Combo general 4. */
     BCMOLT_XGPON_TRX_TYPE__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_xgpon_trx_type;
 
@@ -1997,6 +2128,8 @@ typedef enum
     BCMOLT_OBJ_ID_BAL_SYSTEM = 43, /**< BAL System Globals. */
     BCMOLT_OBJ_ID_HOST_LOG_FILE = 44, /**< Host Log File. */
     BCMOLT_OBJ_ID_HOST_LOG = 45, /**< host log. */
+    BCMOLT_OBJ_ID_L2_MAC_TABLE = 46, /**< l2 mac table. */
+    BCMOLT_OBJ_ID_TM_QUEUE_PROFILE = 47, /**< tm queue profile. */
     BCMOLT_OBJ_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -2032,9 +2165,11 @@ typedef enum
 #define bcmolt_obj_id_bal_system BCMOLT_OBJ_ID_BAL_SYSTEM
 #define bcmolt_obj_id_host_log_file BCMOLT_OBJ_ID_HOST_LOG_FILE
 #define bcmolt_obj_id_host_log BCMOLT_OBJ_ID_HOST_LOG
+#define bcmolt_obj_id_l2_mac_table BCMOLT_OBJ_ID_L2_MAC_TABLE
+#define bcmolt_obj_id_tm_queue_profile BCMOLT_OBJ_ID_TM_QUEUE_PROFILE
 #define bcmolt_obj_id__num_of BCMOLT_OBJ_ID__NUM_OF
 #define bcmolt_obj_id_all_properties 0xFFFF
-#define bcmolt_obj_id_full_mask 0x3F9E87FF83F2
+#define bcmolt_obj_id_full_mask 0xFF9E87FF83F2
 
 } bcmolt_obj_id;
 
@@ -2102,246 +2237,270 @@ typedef enum
     BCMOLT_API_GROUP_ID_FLOW_KEY = 57, /**< BAL Flow - key. */
     BCMOLT_API_GROUP_ID_FLOW_STATS = 58, /**< BAL Flow - Statistics. */
     BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET = 59, /**< BAL Flow - send_eth_packet. */
-    BCMOLT_API_GROUP_ID_FLOW_STATS_CFG = 60, /**< BAL Flow - Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED = 61, /**< BAL Flow - Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED = 62, /**< BAL Flow - Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_FLOW_AUTO_CFG = 63, /**< BAL Flow - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_GPIO_KEY = 64, /**< GPIO - key. */
-    BCMOLT_API_GROUP_ID_GPIO_CFG = 65, /**< GPIO - cfg. */
-    BCMOLT_API_GROUP_ID_GROUP_CFG = 66, /**< BAL Group - cfg. */
-    BCMOLT_API_GROUP_ID_GROUP_KEY = 67, /**< BAL Group - key. */
-    BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE = 68, /**< BAL Group - members_update. */
-    BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE = 69, /**< BAL Group - complete_members_update. */
-    BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG = 70, /**< BAL Group - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_KEY = 71, /**< host log - key. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_CFG = 72, /**< host log - cfg. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY = 73, /**< Host Log File - key. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG = 74, /**< Host Log File - cfg. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR = 75, /**< Host Log File - Clear. */
-    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR = 76, /**< Host Log File - Reset Buffer Pointer. */
-    BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG = 77, /**< BAL Inband Management Channel - cfg. */
-    BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY = 78, /**< BAL Inband Management Channel - key. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY = 79, /**< Internal NNI - key. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_CFG = 80, /**< Internal NNI - cfg. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_STATUS_CHANGED = 81, /**< Internal NNI - Status changed. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS = 82, /**< Internal NNI - NNI and AE Counters (RMON). */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS = 83, /**< Internal NNI - Ethernet Statistics. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_PACKET_CAPTURED = 84, /**< Internal NNI - Packet Captured. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_SEND_ETH_PACKET = 85, /**< Internal NNI - send_eth_packet. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_SWAP_COMPLETED = 86, /**< Internal NNI - intetrnal inni sawp completed. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_CFG = 87, /**< Internal NNI - NNI And AE Counters (RMON) Configuration. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_RAISED = 88, /**< Internal NNI - NNI And AE Counters (RMON) Alarm Raised. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_CLEARED = 89, /**< Internal NNI - NNI And AE Counters (RMON) Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_CFG = 90, /**< Internal NNI - Ethernet Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_RAISED = 91, /**< Internal NNI - Ethernet Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_CLEARED = 92, /**< Internal NNI - Ethernet Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_INTERNAL_NNI_AUTO_CFG = 93, /**< Internal NNI - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_KEY = 94, /**< ITU PON Alloc - key. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CFG = 95, /**< ITU PON Alloc - cfg. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CONFIGURATION_COMPLETED = 96, /**< ITU PON Alloc - Configuration Completed. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_STATS = 97, /**< ITU PON Alloc - Get alloc level statistics. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED = 98, /**< ITU PON Alloc - Get alloc level statistics completed. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE = 99, /**< ITU PON Alloc - Set state. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS = 100, /**< ITU PON Alloc - Statistics. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG = 101, /**< ITU PON Alloc - Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED = 102, /**< ITU PON Alloc - Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED = 103, /**< ITU PON Alloc - Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG = 104, /**< ITU PON Alloc - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY = 105, /**< ITU PON GEM Port - key. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG = 106, /**< ITU PON GEM Port - cfg. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS = 107, /**< ITU PON GEM Port - Statistics. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_CONFIGURATION_COMPLETED = 108, /**< ITU PON GEM Port - Configuration Completed. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_SET_STATE = 109, /**< ITU PON GEM Port - Set state. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_CFG = 110, /**< ITU PON GEM Port - Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED = 111, /**< ITU PON GEM Port - Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED = 112, /**< ITU PON GEM Port - Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG = 113, /**< ITU PON GEM Port - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY = 114, /**< LAG interface - key. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG = 115, /**< LAG interface - cfg. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS = 116, /**< LAG interface - LAG Interface Statistics. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_MEMBERS_UPDATE = 117, /**< LAG interface - members_update. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_COMPLETE_MEMBERS_UPDATE = 118, /**< LAG interface - complete_members_update. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATE = 119, /**< LAG interface - state_update. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATED = 120, /**< LAG interface - interface state updated. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_LAG_HEALTH_CHANGE = 121, /**< LAG interface - LAG health change. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_CFG = 122, /**< LAG interface - LAG Interface Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_RAISED = 123, /**< LAG interface - LAG Interface Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_CLEARED = 124, /**< LAG interface - LAG Interface Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_LAG_INTERFACE_AUTO_CFG = 125, /**< LAG interface - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_LOG_KEY = 126, /**< Log - key. */
-    BCMOLT_API_GROUP_ID_LOG_CFG = 127, /**< Log - cfg. */
-    BCMOLT_API_GROUP_ID_LOG_FILE_KEY = 128, /**< Log File - key. */
-    BCMOLT_API_GROUP_ID_LOG_FILE_CFG = 129, /**< Log File - cfg. */
-    BCMOLT_API_GROUP_ID_LOG_FILE_CLEAR = 130, /**< Log File - Clear. */
-    BCMOLT_API_GROUP_ID_LOG_FILE_RESET_BUFFER_PTR = 131, /**< Log File - Reset Buffer Pointer. */
-    BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_KEY = 132, /**< Channel - key. */
-    BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_CFG = 133, /**< Channel - cfg. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_KEY = 134, /**< nni_interface - key. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATE_CHANGE = 135, /**< nni_interface - State Change. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_CFG = 136, /**< nni_interface - cfg. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_SET_NNI_STATE = 137, /**< nni_interface - set_nni_state. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS = 138, /**< nni_interface - NNI Interface Statistics. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE = 139, /**< nni_interface - link_state_change. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_FAULT_CODE_CHANGE = 140, /**< nni_interface - fault_code_change. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_CFG = 141, /**< nni_interface - NNI Interface Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_RAISED = 142, /**< nni_interface - NNI Interface Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_CLEARED = 143, /**< nni_interface - NNI Interface Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_NNI_INTERFACE_AUTO_CFG = 144, /**< nni_interface - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_OLT_KEY = 145, /**< olt - key. */
-    BCMOLT_API_GROUP_ID_OLT_CFG = 146, /**< olt - cfg. */
-    BCMOLT_API_GROUP_ID_OLT_CONNECT = 147, /**< olt - connect. */
-    BCMOLT_API_GROUP_ID_OLT_DISCONNECT = 148, /**< olt - disconnect. */
-    BCMOLT_API_GROUP_ID_OLT_BAL_RESET = 149, /**< olt - Reset BAL and Switch. */
-    BCMOLT_API_GROUP_ID_OLT_BAL_FAILURE = 150, /**< olt - BAL and/or Switch Failed. */
-    BCMOLT_API_GROUP_ID_OLT_BAL_READY = 151, /**< olt - BAL and Switch Ready. */
-    BCMOLT_API_GROUP_ID_OLT_SW_ERROR = 152, /**< olt - OLT Software error. */
-    BCMOLT_API_GROUP_ID_OLT_RESET = 153, /**< olt - OLT Reset. */
-    BCMOLT_API_GROUP_ID_OLT_AUTO_CFG = 154, /**< olt - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_ONU_KEY = 155, /**< ONU - key. */
-    BCMOLT_API_GROUP_ID_ONU_CFG = 156, /**< ONU - cfg. */
-    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS = 157, /**< ONU - ITU PON Statistics. */
-    BCMOLT_API_GROUP_ID_ONU_SET_ONU_STATE = 158, /**< ONU - Set ONU State. */
-    BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT = 159, /**< ONU - RSSI Measurement. */
-    BCMOLT_API_GROUP_ID_ONU_REQUEST_REGISTRATION = 160, /**< ONU - Request registration. */
-    BCMOLT_API_GROUP_ID_ONU_CHANGE_POWER_LEVELLING = 161, /**< ONU - Change power levelling. */
-    BCMOLT_API_GROUP_ID_ONU_GET_POWER_LEVEL = 162, /**< ONU - Get power level. */
-    BCMOLT_API_GROUP_ID_ONU_GET_POWER_CONSUMPTION = 163, /**< ONU - Get power consumption. */
-    BCMOLT_API_GROUP_ID_ONU_ADJUST_TX_WAVELENGTH = 164, /**< ONU - Adjust Tx wavelength. */
-    BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION = 165, /**< ONU - Secure mutual authentication. */
-    BCMOLT_API_GROUP_ID_ONU_TUNING_IN = 166, /**< ONU - ONU Tuning in. */
-    BCMOLT_API_GROUP_ID_ONU_TUNING_OUT = 167, /**< ONU - ONU Tuning out. */
-    BCMOLT_API_GROUP_ID_ONU_XGPON_ALARM = 168, /**< ONU - XGPON ONU Alarm. */
-    BCMOLT_API_GROUP_ID_ONU_GPON_ALARM = 169, /**< ONU - GPON ONU Alarm. */
-    BCMOLT_API_GROUP_ID_ONU_DOWI = 170, /**< ONU - Drift of Window of ONUi. */
-    BCMOLT_API_GROUP_ID_ONU_SFI = 171, /**< ONU - Signal Fail of ONUi. */
-    BCMOLT_API_GROUP_ID_ONU_SDI = 172, /**< ONU - Signal Degraded of ONUi. */
-    BCMOLT_API_GROUP_ID_ONU_DFI = 173, /**< ONU - Receive Dying-Gasp of ONUi. */
-    BCMOLT_API_GROUP_ID_ONU_PQSI = 174, /**< ONU - ploam queue status. */
-    BCMOLT_API_GROUP_ID_ONU_SUFI = 175, /**< ONU - SUFi. */
-    BCMOLT_API_GROUP_ID_ONU_TIWI = 176, /**< ONU - Transmission Interference Warning. */
-    BCMOLT_API_GROUP_ID_ONU_LOOCI = 177, /**< ONU - LOOCi. */
-    BCMOLT_API_GROUP_ID_ONU_LOAI = 178, /**< ONU - LOAi. */
-    BCMOLT_API_GROUP_ID_ONU_DGI = 179, /**< ONU - Receive Dying-Gasp of ONUi. */
-    BCMOLT_API_GROUP_ID_ONU_PEE = 180, /**< ONU - PEE. */
-    BCMOLT_API_GROUP_ID_ONU_PST = 181, /**< ONU - PST. */
-    BCMOLT_API_GROUP_ID_ONU_RANGING_COMPLETED = 182, /**< ONU - Ranging Completed. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_COMPLETED = 183, /**< ONU - ONU Activation Completed. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_DEACTIVATION_COMPLETED = 184, /**< ONU - ONU Deactivation Completed. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_ENABLE_COMPLETED = 185, /**< ONU - ONU Enable Completed. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_DISABLE_COMPLETED = 186, /**< ONU - ONU Disable Completed. */
-    BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT_COMPLETED = 187, /**< ONU - RSSI Measurement Completed. */
-    BCMOLT_API_GROUP_ID_ONU_INVALID_DBRU_REPORT = 188, /**< ONU - Invalid DBRu Report. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_COMPLETED = 189, /**< ONU - Key Exchange Completed. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 190, /**< ONU - Key Exchange Key Request Timeout. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_CYCLE_SKIPPED = 191, /**< ONU - Key Exchange Cycle Skipped. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_MISMATCH = 192, /**< ONU - Key Exchange Key Mismatch. */
-    BCMOLT_API_GROUP_ID_ONU_OPTICAL_REFLECTION = 193, /**< ONU - Optical Reflection. */
-    BCMOLT_API_GROUP_ID_ONU_LOKI = 194, /**< ONU - LOki. */
-    BCMOLT_API_GROUP_ID_ONU_MEMI = 195, /**< ONU - MEMi. */
-    BCMOLT_API_GROUP_ID_ONU_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 196, /**< ONU - OMCI PORT ID Configuration Completed. */
-    BCMOLT_API_GROUP_ID_ONU_BER_INTERVAL_CONFIGURATION_COMPLETED = 197, /**< ONU - BER Interval Configuration Completed. */
-    BCMOLT_API_GROUP_ID_ONU_ERR = 198, /**< ONU - ERR. */
-    BCMOLT_API_GROUP_ID_ONU_PASSWORD_AUTHENTICATION_COMPLETED = 199, /**< ONU - Password Authentication Completed. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 200, /**< ONU - Key Exchange Unconsecutive Index. */
-    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_DECRYPT_REQUIRED = 201, /**< ONU - Key Exchange Decrypt Required. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_STANDBY_COMPLETED = 202, /**< ONU - onu activation standby completed. */
-    BCMOLT_API_GROUP_ID_ONU_POWER_MANAGEMENT_STATE_CHANGE = 203, /**< ONU - Power Management State Change. */
-    BCMOLT_API_GROUP_ID_ONU_POSSIBLE_DRIFT = 204, /**< ONU - Possible Drift. */
-    BCMOLT_API_GROUP_ID_ONU_REGISTRATION_ID = 205, /**< ONU - Registration ID. */
-    BCMOLT_API_GROUP_ID_ONU_POWER_LEVEL_REPORT = 206, /**< ONU - Power level report. */
-    BCMOLT_API_GROUP_ID_ONU_POWER_CONSUMPTION_REPORT = 207, /**< ONU - Power consumption report. */
-    BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 208, /**< ONU - secure mutual authentication failure. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_OUT_COMPLETED = 209, /**< ONU - ONU Tuning out completed. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_IN_COMPLETED = 210, /**< ONU - ONU Tuning in completed. */
-    BCMOLT_API_GROUP_ID_ONU_TUNING_RESPONSE = 211, /**< ONU - Tuning response. */
-    BCMOLT_API_GROUP_ID_ONU_PLOAM_PACKET = 212, /**< ONU - PLOAM Packet. */
-    BCMOLT_API_GROUP_ID_ONU_CPU_PACKETS = 213, /**< ONU - XGPON CPU packets. */
-    BCMOLT_API_GROUP_ID_ONU_CPU_PACKET = 214, /**< ONU - XGPON CPU packet. */
-    BCMOLT_API_GROUP_ID_ONU_OMCI_PACKET = 215, /**< ONU - XGPON OMCI packet. */
-    BCMOLT_API_GROUP_ID_ONU_ONU_READY_FOR_DATA_GRANT = 216, /**< ONU - ONU is ready to be granted data accesses. */
-    BCMOLT_API_GROUP_ID_ONU_REI = 217, /**< ONU - REI. */
-    BCMOLT_API_GROUP_ID_ONU_FORCE_DEACTIVATION = 218, /**< ONU - Force deactivation. */
-    BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE = 219, /**< ONU - State Change. */
-    BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED = 220, /**< ONU - Range Value Changed. */
-    BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM = 221, /**< ONU - XPON Unknown ploam. */
-    BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED = 222, /**< ONU - trap ploam received. */
-    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG = 223, /**< ONU - ITU PON Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED = 224, /**< ONU - ITU PON Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED = 225, /**< ONU - ITU PON Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_ONU_AUTO_CFG = 226, /**< ONU - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY = 227, /**< pbit_to_tc - key. */
-    BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG = 228, /**< pbit_to_tc - cfg. */
-    BCMOLT_API_GROUP_ID_POLICER_PROFILE_KEY = 229, /**< policer (aka meter) profile - key. */
-    BCMOLT_API_GROUP_ID_POLICER_PROFILE_CFG = 230, /**< policer (aka meter) profile - cfg. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_KEY = 231, /**< pon interface - key. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_CFG = 232, /**< pon interface - cfg. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS = 233, /**< pon interface - ITU PON Statistics. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS = 234, /**< pon interface - Active Ethernet Interface Counters. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_PON_INTERFACE_STATE = 235, /**< pon interface - Set PON Interface State. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_ONU_STATE = 236, /**< pon interface - Set ONU State. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_RESET = 237, /**< pon interface - Reset. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_SERIAL_NUMBER = 238, /**< pon interface - Disable Serial Number. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SINGLE_REQUEST_STANDBY_PON_MONITORING = 239, /**< pon interface - Single request standby PON Monitoring. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_RUN_SPECIAL_BW_MAP = 240, /**< pon interface - Run Special BW Map. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST = 241, /**< pon interface - TOD request. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_START_ONU_UPGRADE = 242, /**< pon interface - Start ONU Firmware Upgrade. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ABORT_ONU_UPGRADE = 243, /**< pon interface - Abort ONU Firmware Upgrade. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE = 244, /**< pon interface - protection switching type c set multiple onu state. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA = 245, /**< pon interface - Protection switching apply re-range delta (IEEE). */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS = 246, /**< pon interface - XGPON CPU packets. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_BROADCAST_PLOAM_PACKET = 247, /**< pon interface - Broadcast PLOAM Packet. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_STATE_CHANGE_COMPLETED = 248, /**< pon interface - State Change Completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST_COMPLETED = 249, /**< pon interface - TOD request completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_LOS = 250, /**< pon interface - LOS. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SERIAL_NUMBER_ACQUISITION_CYCLE_START = 251, /**< pon interface - Serial Number Acquisition Cycle Start. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TRAFFIC_RESUME = 252, /**< pon interface - Protection Switching Traffic Resume. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_ONUS_RANGED = 253, /**< pon interface - Protection Switching ONUs Ranged. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_RERANGE_FAILURE = 254, /**< pon interface - Protection Switching Re-range failure  (IEEE). */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED = 255, /**< pon interface - Protection Switching Switchover Completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_STANDBY_PON_MONITORING_CYCLE_COMPLETED = 256, /**< pon interface - Standby PON Monitoring Cycle Completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_DISCOVERED = 257, /**< pon interface - ONU Discovered. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS_FAILURE = 258, /**< pon interface - CPU Packets Failure. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_DEACTIVATE_ALL_ONUS_COMPLETED = 259, /**< pon interface - deactivate all onus completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_ALL_ONUS_COMPLETED = 260, /**< pon interface - disable all onus completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ACTIVATE_ALL_ONUS_COMPLETED = 261, /**< pon interface - activate all onus completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ENABLE_ALL_ONUS_COMPLETED = 262, /**< pon interface - enable all onus completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_COMPLETE = 263, /**< pon interface - ONU Upgrade Complete. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_IEEE_ROGUE_DETECTION_COMPLETED = 264, /**< pon interface - IEEE Rogue Detection Completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_MPCP_TIMESTAMP_CHANGED = 265, /**< pon interface - MPCP Timestamp Changed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE = 266, /**< pon interface - Switch PON type. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED = 267, /**< pon interface - Switch PON type completed. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL = 268, /**< pon interface - rogue detection tool. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE = 269, /**< pon interface - rogue detection tool done. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT = 270, /**< pon interface - ONU Upgrade Activate Commit. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG = 271, /**< pon interface - ITU PON Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED = 272, /**< pon interface - ITU PON Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED = 273, /**< pon interface - ITU PON Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_CFG = 274, /**< pon interface - Active Ethernet Interface Counters Configuration. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_RAISED = 275, /**< pon interface - Active Ethernet Interface Counters Alarm Raised. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_CLEARED = 276, /**< pon interface - Active Ethernet Interface Counters Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_PON_INTERFACE_AUTO_CFG = 277, /**< pon interface - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_KEY = 278, /**< Protection Interface - key. */
-    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_CFG = 279, /**< Protection Interface - cfg. */
-    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH = 280, /**< Protection Interface - Protection Switch. */
-    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH_COMPLETED = 281, /**< Protection Interface - Protection Switch Completed. */
-    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_AUTO_CFG = 282, /**< Protection Interface - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_KEY = 283, /**< Software Error - key. */
-    BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_CFG = 284, /**< Software Error - cfg. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY = 285, /**< switch inni - key. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG = 286, /**< switch inni - cfg. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS = 287, /**< switch inni - Switch INNI Interface Statistics. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG = 288, /**< switch inni - Switch INNI Interface Statistics Configuration. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED = 289, /**< switch inni - Switch INNI Interface Statistics Alarm Raised. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED = 290, /**< switch inni - Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG = 291, /**< switch inni - Indication Configuration. */
-    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY = 292, /**< tc_to_queue - key. */
-    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG = 293, /**< tc_to_queue - cfg. */
-    BCMOLT_API_GROUP_ID_TM_QMP_KEY = 294, /**< tm_qmp - key. */
-    BCMOLT_API_GROUP_ID_TM_QMP_CFG = 295, /**< tm_qmp - cfg. */
-    BCMOLT_API_GROUP_ID_TM_QUEUE_KEY = 296, /**< tm_queue - key. */
-    BCMOLT_API_GROUP_ID_TM_QUEUE_CFG = 297, /**< tm_queue - cfg. */
-    BCMOLT_API_GROUP_ID_TM_SCHED_KEY = 298, /**< tm_sched - key. */
-    BCMOLT_API_GROUP_ID_TM_SCHED_CFG = 299, /**< tm_sched - cfg. */
+    BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE = 60, /**< BAL Flow - source binding update. */
+    BCMOLT_API_GROUP_ID_FLOW_STATS_CFG = 61, /**< BAL Flow - Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED = 62, /**< BAL Flow - Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED = 63, /**< BAL Flow - Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_FLOW_AUTO_CFG = 64, /**< BAL Flow - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_GPIO_KEY = 65, /**< GPIO - key. */
+    BCMOLT_API_GROUP_ID_GPIO_CFG = 66, /**< GPIO - cfg. */
+    BCMOLT_API_GROUP_ID_GROUP_CFG = 67, /**< BAL Group - cfg. */
+    BCMOLT_API_GROUP_ID_GROUP_KEY = 68, /**< BAL Group - key. */
+    BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE = 69, /**< BAL Group - members_update. */
+    BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE = 70, /**< BAL Group - complete_members_update. */
+    BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG = 71, /**< BAL Group - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_KEY = 72, /**< host log - key. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_CFG = 73, /**< host log - cfg. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY = 74, /**< Host Log File - key. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG = 75, /**< Host Log File - cfg. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR = 76, /**< Host Log File - Clear. */
+    BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR = 77, /**< Host Log File - Reset Buffer Pointer. */
+    BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG = 78, /**< BAL Inband Management Channel - cfg. */
+    BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY = 79, /**< BAL Inband Management Channel - key. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY = 80, /**< Internal NNI - key. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_CFG = 81, /**< Internal NNI - cfg. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_STATUS_CHANGED = 82, /**< Internal NNI - Status changed. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS = 83, /**< Internal NNI - NNI and AE Counters (RMON). */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS = 84, /**< Internal NNI - Ethernet Statistics. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_PACKET_CAPTURED = 85, /**< Internal NNI - Packet Captured. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_SEND_ETH_PACKET = 86, /**< Internal NNI - send_eth_packet. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_SWAP_COMPLETED = 87, /**< Internal NNI - intetrnal inni sawp completed. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_CFG = 88, /**< Internal NNI - NNI And AE Counters (RMON) Configuration. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_RAISED = 89, /**< Internal NNI - NNI And AE Counters (RMON) Alarm Raised. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_CLEARED = 90, /**< Internal NNI - NNI And AE Counters (RMON) Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_CFG = 91, /**< Internal NNI - Ethernet Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_RAISED = 92, /**< Internal NNI - Ethernet Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_CLEARED = 93, /**< Internal NNI - Ethernet Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_INTERNAL_NNI_AUTO_CFG = 94, /**< Internal NNI - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_KEY = 95, /**< ITU PON Alloc - key. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CFG = 96, /**< ITU PON Alloc - cfg. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CONFIGURATION_COMPLETED = 97, /**< ITU PON Alloc - Configuration Completed. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_STATS = 98, /**< ITU PON Alloc - Get alloc level statistics. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED = 99, /**< ITU PON Alloc - Get alloc level statistics completed. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE = 100, /**< ITU PON Alloc - Set state. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS = 101, /**< ITU PON Alloc - Statistics. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS = 102, /**< ITU PON Alloc - Accumulated statistics. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS = 103, /**< ITU PON Alloc - latency statistics. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG = 104, /**< ITU PON Alloc - Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED = 105, /**< ITU PON Alloc - Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED = 106, /**< ITU PON Alloc - Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG = 107, /**< ITU PON Alloc - Accumulated Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 108, /**< ITU PON Alloc - Accumulated Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 109, /**< ITU PON Alloc - Accumulated Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG = 110, /**< ITU PON Alloc - Latency Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED = 111, /**< ITU PON Alloc - Latency Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED = 112, /**< ITU PON Alloc - Latency Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG = 113, /**< ITU PON Alloc - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY = 114, /**< ITU PON GEM Port - key. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG = 115, /**< ITU PON GEM Port - cfg. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS = 116, /**< ITU PON GEM Port - Statistics. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_CONFIGURATION_COMPLETED = 117, /**< ITU PON GEM Port - Configuration Completed. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_SET_STATE = 118, /**< ITU PON GEM Port - Set state. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_CFG = 119, /**< ITU PON GEM Port - Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED = 120, /**< ITU PON GEM Port - Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED = 121, /**< ITU PON GEM Port - Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG = 122, /**< ITU PON GEM Port - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY = 123, /**< l2 mac table - key. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG = 124, /**< l2 mac table - cfg. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP = 125, /**< l2 mac table - l2 mact dump. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE = 126, /**< l2 mac table - l2 mact dump completed. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT = 127, /**< l2 mac table - dump abort. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS = 128, /**< l2 mac table - network l2 events. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS = 129, /**< l2 mac table - pon l2 events. */
+    BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG = 130, /**< l2 mac table - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY = 131, /**< LAG interface - key. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG = 132, /**< LAG interface - cfg. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS = 133, /**< LAG interface - LAG Interface Statistics. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_MEMBERS_UPDATE = 134, /**< LAG interface - members_update. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_COMPLETE_MEMBERS_UPDATE = 135, /**< LAG interface - complete_members_update. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATE = 136, /**< LAG interface - state_update. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATED = 137, /**< LAG interface - interface state updated. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_LAG_HEALTH_CHANGE = 138, /**< LAG interface - LAG health change. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_CFG = 139, /**< LAG interface - LAG Interface Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_RAISED = 140, /**< LAG interface - LAG Interface Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_CLEARED = 141, /**< LAG interface - LAG Interface Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_LAG_INTERFACE_AUTO_CFG = 142, /**< LAG interface - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_LOG_KEY = 143, /**< Log - key. */
+    BCMOLT_API_GROUP_ID_LOG_CFG = 144, /**< Log - cfg. */
+    BCMOLT_API_GROUP_ID_LOG_FILE_KEY = 145, /**< Log File - key. */
+    BCMOLT_API_GROUP_ID_LOG_FILE_CFG = 146, /**< Log File - cfg. */
+    BCMOLT_API_GROUP_ID_LOG_FILE_CLEAR = 147, /**< Log File - Clear. */
+    BCMOLT_API_GROUP_ID_LOG_FILE_RESET_BUFFER_PTR = 148, /**< Log File - Reset Buffer Pointer. */
+    BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_KEY = 149, /**< Channel - key. */
+    BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_CFG = 150, /**< Channel - cfg. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_KEY = 151, /**< nni_interface - key. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATE_CHANGE = 152, /**< nni_interface - State Change. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_CFG = 153, /**< nni_interface - cfg. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_SET_NNI_STATE = 154, /**< nni_interface - set_nni_state. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS = 155, /**< nni_interface - NNI Interface Statistics. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE = 156, /**< nni_interface - link_state_change. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_FAULT_CODE_CHANGE = 157, /**< nni_interface - fault_code_change. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_CFG = 158, /**< nni_interface - NNI Interface Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_RAISED = 159, /**< nni_interface - NNI Interface Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_CLEARED = 160, /**< nni_interface - NNI Interface Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_NNI_INTERFACE_AUTO_CFG = 161, /**< nni_interface - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_OLT_KEY = 162, /**< olt - key. */
+    BCMOLT_API_GROUP_ID_OLT_CFG = 163, /**< olt - cfg. */
+    BCMOLT_API_GROUP_ID_OLT_CONNECT = 164, /**< olt - connect. */
+    BCMOLT_API_GROUP_ID_OLT_DISCONNECT = 165, /**< olt - disconnect. */
+    BCMOLT_API_GROUP_ID_OLT_BAL_RESET = 166, /**< olt - Reset BAL and Switch. */
+    BCMOLT_API_GROUP_ID_OLT_BAL_FAILURE = 167, /**< olt - BAL and/or Switch Failed. */
+    BCMOLT_API_GROUP_ID_OLT_BAL_READY = 168, /**< olt - BAL and Switch Ready. */
+    BCMOLT_API_GROUP_ID_OLT_SW_ERROR = 169, /**< olt - OLT Software error. */
+    BCMOLT_API_GROUP_ID_OLT_RESET = 170, /**< olt - OLT Reset. */
+    BCMOLT_API_GROUP_ID_OLT_AUTO_CFG = 171, /**< olt - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_ONU_KEY = 172, /**< ONU - key. */
+    BCMOLT_API_GROUP_ID_ONU_CFG = 173, /**< ONU - cfg. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS = 174, /**< ONU - ITU PON Statistics. */
+    BCMOLT_API_GROUP_ID_ONU_SET_ONU_STATE = 175, /**< ONU - Set ONU State. */
+    BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT = 176, /**< ONU - RSSI Measurement. */
+    BCMOLT_API_GROUP_ID_ONU_REQUEST_REGISTRATION = 177, /**< ONU - Request registration. */
+    BCMOLT_API_GROUP_ID_ONU_CHANGE_POWER_LEVELLING = 178, /**< ONU - Change power levelling. */
+    BCMOLT_API_GROUP_ID_ONU_GET_POWER_LEVEL = 179, /**< ONU - Get power level. */
+    BCMOLT_API_GROUP_ID_ONU_GET_POWER_CONSUMPTION = 180, /**< ONU - Get power consumption. */
+    BCMOLT_API_GROUP_ID_ONU_ADJUST_TX_WAVELENGTH = 181, /**< ONU - Adjust Tx wavelength. */
+    BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION = 182, /**< ONU - Secure mutual authentication. */
+    BCMOLT_API_GROUP_ID_ONU_TUNING_IN = 183, /**< ONU - ONU Tuning in. */
+    BCMOLT_API_GROUP_ID_ONU_TUNING_OUT = 184, /**< ONU - ONU Tuning out. */
+    BCMOLT_API_GROUP_ID_ONU_XGPON_ALARM = 185, /**< ONU - XGPON ONU Alarm. */
+    BCMOLT_API_GROUP_ID_ONU_GPON_ALARM = 186, /**< ONU - GPON ONU Alarm. */
+    BCMOLT_API_GROUP_ID_ONU_DOWI = 187, /**< ONU - Drift of Window of ONUi. */
+    BCMOLT_API_GROUP_ID_ONU_SFI = 188, /**< ONU - Signal Fail of ONUi. */
+    BCMOLT_API_GROUP_ID_ONU_SDI = 189, /**< ONU - Signal Degraded of ONUi. */
+    BCMOLT_API_GROUP_ID_ONU_DFI = 190, /**< ONU - Receive Dying-Gasp of ONUi. */
+    BCMOLT_API_GROUP_ID_ONU_PQSI = 191, /**< ONU - ploam queue status. */
+    BCMOLT_API_GROUP_ID_ONU_SUFI = 192, /**< ONU - SUFi. */
+    BCMOLT_API_GROUP_ID_ONU_TIWI = 193, /**< ONU - Transmission Interference Warning. */
+    BCMOLT_API_GROUP_ID_ONU_LOOCI = 194, /**< ONU - LOOCi. */
+    BCMOLT_API_GROUP_ID_ONU_LOAI = 195, /**< ONU - LOAi. */
+    BCMOLT_API_GROUP_ID_ONU_DGI = 196, /**< ONU - Receive Dying-Gasp of ONUi. */
+    BCMOLT_API_GROUP_ID_ONU_PEE = 197, /**< ONU - PEE. */
+    BCMOLT_API_GROUP_ID_ONU_PST = 198, /**< ONU - PST. */
+    BCMOLT_API_GROUP_ID_ONU_RANGING_COMPLETED = 199, /**< ONU - Ranging Completed. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_COMPLETED = 200, /**< ONU - ONU Activation Completed. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_DEACTIVATION_COMPLETED = 201, /**< ONU - ONU Deactivation Completed. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_ENABLE_COMPLETED = 202, /**< ONU - ONU Enable Completed. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_DISABLE_COMPLETED = 203, /**< ONU - ONU Disable Completed. */
+    BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT_COMPLETED = 204, /**< ONU - RSSI Measurement Completed. */
+    BCMOLT_API_GROUP_ID_ONU_INVALID_DBRU_REPORT = 205, /**< ONU - Invalid DBRu Report. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_COMPLETED = 206, /**< ONU - Key Exchange Completed. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 207, /**< ONU - Key Exchange Key Request Timeout. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_CYCLE_SKIPPED = 208, /**< ONU - Key Exchange Cycle Skipped. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_MISMATCH = 209, /**< ONU - Key Exchange Key Mismatch. */
+    BCMOLT_API_GROUP_ID_ONU_OPTICAL_REFLECTION = 210, /**< ONU - Optical Reflection. */
+    BCMOLT_API_GROUP_ID_ONU_LOKI = 211, /**< ONU - LOki. */
+    BCMOLT_API_GROUP_ID_ONU_MEMI = 212, /**< ONU - MEMi. */
+    BCMOLT_API_GROUP_ID_ONU_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 213, /**< ONU - OMCI PORT ID Configuration Completed. */
+    BCMOLT_API_GROUP_ID_ONU_BER_INTERVAL_CONFIGURATION_COMPLETED = 214, /**< ONU - BER Interval Configuration Completed. */
+    BCMOLT_API_GROUP_ID_ONU_ERR = 215, /**< ONU - ERR. */
+    BCMOLT_API_GROUP_ID_ONU_PASSWORD_AUTHENTICATION_COMPLETED = 216, /**< ONU - Password Authentication Completed. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 217, /**< ONU - Key Exchange Unconsecutive Index. */
+    BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_DECRYPT_REQUIRED = 218, /**< ONU - Key Exchange Decrypt Required. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_STANDBY_COMPLETED = 219, /**< ONU - onu activation standby completed. */
+    BCMOLT_API_GROUP_ID_ONU_POWER_MANAGEMENT_STATE_CHANGE = 220, /**< ONU - Power Management State Change. */
+    BCMOLT_API_GROUP_ID_ONU_POSSIBLE_DRIFT = 221, /**< ONU - Possible Drift. */
+    BCMOLT_API_GROUP_ID_ONU_REGISTRATION_ID = 222, /**< ONU - Registration ID. */
+    BCMOLT_API_GROUP_ID_ONU_POWER_LEVEL_REPORT = 223, /**< ONU - Power level report. */
+    BCMOLT_API_GROUP_ID_ONU_POWER_CONSUMPTION_REPORT = 224, /**< ONU - Power consumption report. */
+    BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 225, /**< ONU - secure mutual authentication failure. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_OUT_COMPLETED = 226, /**< ONU - ONU Tuning out completed. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_IN_COMPLETED = 227, /**< ONU - ONU Tuning in completed. */
+    BCMOLT_API_GROUP_ID_ONU_TUNING_RESPONSE = 228, /**< ONU - Tuning response. */
+    BCMOLT_API_GROUP_ID_ONU_PLOAM_PACKET = 229, /**< ONU - PLOAM Packet. */
+    BCMOLT_API_GROUP_ID_ONU_CPU_PACKETS = 230, /**< ONU - XGPON CPU packets. */
+    BCMOLT_API_GROUP_ID_ONU_CPU_PACKET = 231, /**< ONU - XGPON CPU packet. */
+    BCMOLT_API_GROUP_ID_ONU_OMCI_PACKET = 232, /**< ONU - XGPON OMCI packet. */
+    BCMOLT_API_GROUP_ID_ONU_ONU_READY_FOR_DATA_GRANT = 233, /**< ONU - ONU is ready to be granted data accesses. */
+    BCMOLT_API_GROUP_ID_ONU_REI = 234, /**< ONU - REI. */
+    BCMOLT_API_GROUP_ID_ONU_FORCE_DEACTIVATION = 235, /**< ONU - Force deactivation. */
+    BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE = 236, /**< ONU - State Change. */
+    BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED = 237, /**< ONU - Range Value Changed. */
+    BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM = 238, /**< ONU - XPON Unknown ploam. */
+    BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED = 239, /**< ONU - trap ploam received. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS = 240, /**< ONU - Accumulated statistics. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG = 241, /**< ONU - ITU PON Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED = 242, /**< ONU - ITU PON Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED = 243, /**< ONU - ITU PON Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG = 244, /**< ONU - Accumulated Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 245, /**< ONU - Accumulated Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 246, /**< ONU - Accumulated Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_ONU_AUTO_CFG = 247, /**< ONU - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY = 248, /**< pbit_to_tc - key. */
+    BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG = 249, /**< pbit_to_tc - cfg. */
+    BCMOLT_API_GROUP_ID_POLICER_PROFILE_KEY = 250, /**< policer (aka meter) profile - key. */
+    BCMOLT_API_GROUP_ID_POLICER_PROFILE_CFG = 251, /**< policer (aka meter) profile - cfg. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_KEY = 252, /**< pon interface - key. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_CFG = 253, /**< pon interface - cfg. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS = 254, /**< pon interface - ITU PON Statistics. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS = 255, /**< pon interface - Active Ethernet Interface Counters. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_PON_INTERFACE_STATE = 256, /**< pon interface - Set PON Interface State. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_ONU_STATE = 257, /**< pon interface - Set ONU State. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_RESET = 258, /**< pon interface - Reset. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_SERIAL_NUMBER = 259, /**< pon interface - Disable Serial Number. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SINGLE_REQUEST_STANDBY_PON_MONITORING = 260, /**< pon interface - Single request standby PON Monitoring. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_RUN_SPECIAL_BW_MAP = 261, /**< pon interface - Run Special BW Map. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST = 262, /**< pon interface - TOD request. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_START_ONU_UPGRADE = 263, /**< pon interface - Start ONU Firmware Upgrade. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ABORT_ONU_UPGRADE = 264, /**< pon interface - Abort ONU Firmware Upgrade. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE = 265, /**< pon interface - protection switching type c set multiple onu state. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA = 266, /**< pon interface - Protection switching apply re-range delta (IEEE). */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS = 267, /**< pon interface - XGPON CPU packets. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_BROADCAST_PLOAM_PACKET = 268, /**< pon interface - Broadcast PLOAM Packet. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_STATE_CHANGE_COMPLETED = 269, /**< pon interface - State Change Completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST_COMPLETED = 270, /**< pon interface - TOD request completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_LOS = 271, /**< pon interface - LOS. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SERIAL_NUMBER_ACQUISITION_CYCLE_START = 272, /**< pon interface - Serial Number Acquisition Cycle Start. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TRAFFIC_RESUME = 273, /**< pon interface - Protection Switching Traffic Resume. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_ONUS_RANGED = 274, /**< pon interface - Protection Switching ONUs Ranged. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_RERANGE_FAILURE = 275, /**< pon interface - Protection Switching Re-range failure  (IEEE). */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED = 276, /**< pon interface - Protection Switching Switchover Completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_STANDBY_PON_MONITORING_CYCLE_COMPLETED = 277, /**< pon interface - Standby PON Monitoring Cycle Completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_DISCOVERED = 278, /**< pon interface - ONU Discovered. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS_FAILURE = 279, /**< pon interface - CPU Packets Failure. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_DEACTIVATE_ALL_ONUS_COMPLETED = 280, /**< pon interface - deactivate all onus completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_ALL_ONUS_COMPLETED = 281, /**< pon interface - disable all onus completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ACTIVATE_ALL_ONUS_COMPLETED = 282, /**< pon interface - activate all onus completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ENABLE_ALL_ONUS_COMPLETED = 283, /**< pon interface - enable all onus completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_COMPLETE = 284, /**< pon interface - ONU Upgrade Complete. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_IEEE_ROGUE_DETECTION_COMPLETED = 285, /**< pon interface - IEEE Rogue Detection Completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_MPCP_TIMESTAMP_CHANGED = 286, /**< pon interface - MPCP Timestamp Changed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE = 287, /**< pon interface - Switch PON type. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED = 288, /**< pon interface - Switch PON type completed. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL = 289, /**< pon interface - rogue detection tool. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE = 290, /**< pon interface - rogue detection tool done. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT = 291, /**< pon interface - ONU Upgrade Activate Commit. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG = 292, /**< pon interface - ITU PON Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED = 293, /**< pon interface - ITU PON Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED = 294, /**< pon interface - ITU PON Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_CFG = 295, /**< pon interface - Active Ethernet Interface Counters Configuration. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_RAISED = 296, /**< pon interface - Active Ethernet Interface Counters Alarm Raised. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_CLEARED = 297, /**< pon interface - Active Ethernet Interface Counters Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_PON_INTERFACE_AUTO_CFG = 298, /**< pon interface - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_KEY = 299, /**< Protection Interface - key. */
+    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_CFG = 300, /**< Protection Interface - cfg. */
+    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH = 301, /**< Protection Interface - Protection Switch. */
+    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH_COMPLETED = 302, /**< Protection Interface - Protection Switch Completed. */
+    BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_AUTO_CFG = 303, /**< Protection Interface - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_KEY = 304, /**< Software Error - key. */
+    BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_CFG = 305, /**< Software Error - cfg. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY = 306, /**< switch inni - key. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG = 307, /**< switch inni - cfg. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS = 308, /**< switch inni - Switch INNI Interface Statistics. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE = 309, /**< switch inni - link_state_change. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG = 310, /**< switch inni - Switch INNI Interface Statistics Configuration. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED = 311, /**< switch inni - Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED = 312, /**< switch inni - Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG = 313, /**< switch inni - Indication Configuration. */
+    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY = 314, /**< tc_to_queue - key. */
+    BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG = 315, /**< tc_to_queue - cfg. */
+    BCMOLT_API_GROUP_ID_TM_QMP_KEY = 316, /**< tm_qmp - key. */
+    BCMOLT_API_GROUP_ID_TM_QMP_CFG = 317, /**< tm_qmp - cfg. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_KEY = 318, /**< tm_queue - key. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_CFG = 319, /**< tm_queue - cfg. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_KEY = 320, /**< tm queue profile - key. */
+    BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_CFG = 321, /**< tm queue profile - cfg. */
+    BCMOLT_API_GROUP_ID_TM_SCHED_KEY = 322, /**< tm_sched - key. */
+    BCMOLT_API_GROUP_ID_TM_SCHED_CFG = 323, /**< tm_sched - cfg. */
     BCMOLT_API_GROUP_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 } bcmolt_api_group_id;
 
@@ -2683,15 +2842,17 @@ typedef enum
     BCMOLT_FLOW_OPER_SUBGROUP__BEGIN = 0,
     BCMOLT_FLOW_OPER_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
     BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET = 1, /**< send_eth_packet. */
+    BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE = 2, /**< source binding update. */
     BCMOLT_FLOW_OPER_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_flow_oper_subgroup__begin BCMOLT_FLOW_OPER_SUBGROUP__BEGIN
 #define bcmolt_flow_oper_subgroup_all BCMOLT_FLOW_OPER_SUBGROUP_ALL
 #define bcmolt_flow_oper_subgroup_send_eth_packet BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET
+#define bcmolt_flow_oper_subgroup_src_binding_update BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE
 #define bcmolt_flow_oper_subgroup__num_of BCMOLT_FLOW_OPER_SUBGROUP__NUM_OF
 #define bcmolt_flow_oper_subgroup_all_properties 0xFFFF
-#define bcmolt_flow_oper_subgroup_full_mask 0x3
+#define bcmolt_flow_oper_subgroup_full_mask 0x7
 
 } bcmolt_flow_oper_subgroup;
 
@@ -2844,16 +3005,20 @@ typedef enum
 {
     BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP__BEGIN = 0,
     BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS = 1, /**< Statistics. */
+    BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS = 1, /**< Accumulated statistics. */
+    BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS = 2, /**< latency statistics. */
+    BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS = 3, /**< Statistics. */
     BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_itupon_alloc_stat_subgroup__begin BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP__BEGIN
 #define bcmolt_itupon_alloc_stat_subgroup_all BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALL
+#define bcmolt_itupon_alloc_stat_subgroup_alloc_onu_accumulated_stats BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS
+#define bcmolt_itupon_alloc_stat_subgroup_latency_stats BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS
 #define bcmolt_itupon_alloc_stat_subgroup_stats BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS
 #define bcmolt_itupon_alloc_stat_subgroup__num_of BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP__NUM_OF
 #define bcmolt_itupon_alloc_stat_subgroup_all_properties 0xFFFF
-#define bcmolt_itupon_alloc_stat_subgroup_full_mask 0x3
+#define bcmolt_itupon_alloc_stat_subgroup_full_mask 0xF
 
 } bcmolt_itupon_alloc_stat_subgroup;
 
@@ -2862,16 +3027,20 @@ typedef enum
 {
     BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP__BEGIN = 0,
     BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG = 1, /**< Statistics Configuration. */
+    BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG = 1, /**< Accumulated Statistics Configuration. */
+    BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG = 2, /**< Latency Statistics Configuration. */
+    BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG = 3, /**< Statistics Configuration. */
     BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_itupon_alloc_stat_cfg_subgroup__begin BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP__BEGIN
 #define bcmolt_itupon_alloc_stat_cfg_subgroup_all BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALL
+#define bcmolt_itupon_alloc_stat_cfg_subgroup_alloc_onu_accumulated_stats_cfg BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG
+#define bcmolt_itupon_alloc_stat_cfg_subgroup_latency_stats_cfg BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG
 #define bcmolt_itupon_alloc_stat_cfg_subgroup_stats_cfg BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG
 #define bcmolt_itupon_alloc_stat_cfg_subgroup__num_of BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP__NUM_OF
 #define bcmolt_itupon_alloc_stat_cfg_subgroup_all_properties 0xFFFF
-#define bcmolt_itupon_alloc_stat_cfg_subgroup_full_mask 0x3
+#define bcmolt_itupon_alloc_stat_cfg_subgroup_full_mask 0xF
 
 } bcmolt_itupon_alloc_stat_cfg_subgroup;
 
@@ -2880,22 +3049,30 @@ typedef enum
 {
     BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP__BEGIN = 0,
     BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED = 1, /**< Configuration Completed. */
-    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED = 2, /**< Get alloc level statistics completed. */
-    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 3, /**< Statistics Alarm Cleared. */
-    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED = 4, /**< Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 1, /**< Accumulated Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 2, /**< Accumulated Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED = 3, /**< Configuration Completed. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED = 4, /**< Get alloc level statistics completed. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED = 5, /**< Latency Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED = 6, /**< Latency Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 7, /**< Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED = 8, /**< Statistics Alarm Raised. */
     BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_itupon_alloc_auto_subgroup__begin BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP__BEGIN
 #define bcmolt_itupon_alloc_auto_subgroup_all BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALL
+#define bcmolt_itupon_alloc_auto_subgroup_alloc_onu_accumulated_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED
+#define bcmolt_itupon_alloc_auto_subgroup_alloc_onu_accumulated_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_subgroup_configuration_completed BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED
 #define bcmolt_itupon_alloc_auto_subgroup_get_alloc_stats_completed BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED
+#define bcmolt_itupon_alloc_auto_subgroup_latency_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED
+#define bcmolt_itupon_alloc_auto_subgroup_latency_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_subgroup_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED
 #define bcmolt_itupon_alloc_auto_subgroup_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_subgroup__num_of BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP__NUM_OF
 #define bcmolt_itupon_alloc_auto_subgroup_all_properties 0xFFFF
-#define bcmolt_itupon_alloc_auto_subgroup_full_mask 0x1F
+#define bcmolt_itupon_alloc_auto_subgroup_full_mask 0x1FF
 
 } bcmolt_itupon_alloc_auto_subgroup;
 
@@ -2994,6 +3171,48 @@ typedef enum
 #define bcmolt_itupon_gem_oper_subgroup_full_mask 0x3
 
 } bcmolt_itupon_gem_oper_subgroup;
+
+/** List of all l2_mac_table groups of type auto. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE = 1, /**< l2 mact dump completed. */
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS = 2, /**< network l2 events. */
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS = 3, /**< pon l2 events. */
+    BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_auto_subgroup__begin BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP__BEGIN
+#define bcmolt_l2_mac_table_auto_subgroup_all BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_ALL
+#define bcmolt_l2_mac_table_auto_subgroup_dump_complete BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE
+#define bcmolt_l2_mac_table_auto_subgroup_network_events BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS
+#define bcmolt_l2_mac_table_auto_subgroup_pon_events BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS
+#define bcmolt_l2_mac_table_auto_subgroup__num_of BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP__NUM_OF
+#define bcmolt_l2_mac_table_auto_subgroup_all_properties 0xFFFF
+#define bcmolt_l2_mac_table_auto_subgroup_full_mask 0xF
+
+} bcmolt_l2_mac_table_auto_subgroup;
+
+/** List of all l2_mac_table groups of type oper. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
+    BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP = 1, /**< l2 mact dump. */
+    BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT = 2, /**< dump abort. */
+    BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_oper_subgroup__begin BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP__BEGIN
+#define bcmolt_l2_mac_table_oper_subgroup_all BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_ALL
+#define bcmolt_l2_mac_table_oper_subgroup_dump BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP
+#define bcmolt_l2_mac_table_oper_subgroup_dump_abort BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT
+#define bcmolt_l2_mac_table_oper_subgroup__num_of BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP__NUM_OF
+#define bcmolt_l2_mac_table_oper_subgroup_all_properties 0xFFFF
+#define bcmolt_l2_mac_table_oper_subgroup_full_mask 0x7
+
+} bcmolt_l2_mac_table_oper_subgroup;
 
 /** List of all lag_interface groups of type stat. */
 typedef enum
@@ -3228,16 +3447,18 @@ typedef enum
 {
     BCMOLT_ONU_STAT_SUBGROUP__BEGIN = 0,
     BCMOLT_ONU_STAT_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS = 1, /**< ITU PON Statistics. */
+    BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS = 1, /**< Accumulated statistics. */
+    BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS = 2, /**< ITU PON Statistics. */
     BCMOLT_ONU_STAT_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_onu_stat_subgroup__begin BCMOLT_ONU_STAT_SUBGROUP__BEGIN
 #define bcmolt_onu_stat_subgroup_all BCMOLT_ONU_STAT_SUBGROUP_ALL
+#define bcmolt_onu_stat_subgroup_itu_alloc_onu_accumulated_stats BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS
 #define bcmolt_onu_stat_subgroup_itu_pon_stats BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS
 #define bcmolt_onu_stat_subgroup__num_of BCMOLT_ONU_STAT_SUBGROUP__NUM_OF
 #define bcmolt_onu_stat_subgroup_all_properties 0xFFFF
-#define bcmolt_onu_stat_subgroup_full_mask 0x3
+#define bcmolt_onu_stat_subgroup_full_mask 0x7
 
 } bcmolt_onu_stat_subgroup;
 
@@ -3246,16 +3467,18 @@ typedef enum
 {
     BCMOLT_ONU_STAT_CFG_SUBGROUP__BEGIN = 0,
     BCMOLT_ONU_STAT_CFG_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG = 1, /**< ITU PON Statistics Configuration. */
+    BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG = 1, /**< Accumulated Statistics Configuration. */
+    BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG = 2, /**< ITU PON Statistics Configuration. */
     BCMOLT_ONU_STAT_CFG_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_onu_stat_cfg_subgroup__begin BCMOLT_ONU_STAT_CFG_SUBGROUP__BEGIN
 #define bcmolt_onu_stat_cfg_subgroup_all BCMOLT_ONU_STAT_CFG_SUBGROUP_ALL
+#define bcmolt_onu_stat_cfg_subgroup_itu_alloc_onu_accumulated_stats_cfg BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG
 #define bcmolt_onu_stat_cfg_subgroup_itu_pon_stats_cfg BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG
 #define bcmolt_onu_stat_cfg_subgroup__num_of BCMOLT_ONU_STAT_CFG_SUBGROUP__NUM_OF
 #define bcmolt_onu_stat_cfg_subgroup_all_properties 0xFFFF
-#define bcmolt_onu_stat_cfg_subgroup_full_mask 0x3
+#define bcmolt_onu_stat_cfg_subgroup_full_mask 0x7
 
 } bcmolt_onu_stat_cfg_subgroup;
 
@@ -3272,52 +3495,54 @@ typedef enum
     BCMOLT_ONU_AUTO_SUBGROUP_ERR = 6, /**< ERR. */
     BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM = 7, /**< GPON ONU Alarm. */
     BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT = 8, /**< Invalid DBRu Report. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED = 9, /**< ITU PON Statistics Alarm Cleared. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED = 10, /**< ITU PON Statistics Alarm Raised. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED = 11, /**< Key Exchange Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_CYCLE_SKIPPED = 12, /**< Key Exchange Cycle Skipped. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_DECRYPT_REQUIRED = 13, /**< Key Exchange Decrypt Required. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_MISMATCH = 14, /**< Key Exchange Key Mismatch. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 15, /**< Key Exchange Key Request Timeout. */
-    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 16, /**< Key Exchange Unconsecutive Index. */
-    BCMOLT_ONU_AUTO_SUBGROUP_LOAI = 17, /**< LOAi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_LOKI = 18, /**< LOki. */
-    BCMOLT_ONU_AUTO_SUBGROUP_LOOCI = 19, /**< LOOCi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_MEMI = 20, /**< MEMi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PACKET = 21, /**< XGPON OMCI packet. */
-    BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 22, /**< OMCI PORT ID Configuration Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_COMPLETED = 23, /**< ONU Activation Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_STANDBY_COMPLETED = 24, /**< onu activation standby completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_DEACTIVATION_COMPLETED = 25, /**< ONU Deactivation Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_DISABLE_COMPLETED = 26, /**< ONU Disable Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ENABLE_COMPLETED = 27, /**< ONU Enable Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_READY_FOR_DATA_GRANT = 28, /**< ONU is ready to be granted data accesses. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_IN_COMPLETED = 29, /**< ONU Tuning in completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_OUT_COMPLETED = 30, /**< ONU Tuning out completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_OPTICAL_REFLECTION = 31, /**< Optical Reflection. */
-    BCMOLT_ONU_AUTO_SUBGROUP_PASSWORD_AUTHENTICATION_COMPLETED = 32, /**< Password Authentication Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_PEE = 33, /**< PEE. */
-    BCMOLT_ONU_AUTO_SUBGROUP_POSSIBLE_DRIFT = 34, /**< Possible Drift. */
-    BCMOLT_ONU_AUTO_SUBGROUP_POWER_CONSUMPTION_REPORT = 35, /**< Power consumption report. */
-    BCMOLT_ONU_AUTO_SUBGROUP_POWER_LEVEL_REPORT = 36, /**< Power level report. */
-    BCMOLT_ONU_AUTO_SUBGROUP_POWER_MANAGEMENT_STATE_CHANGE = 37, /**< Power Management State Change. */
-    BCMOLT_ONU_AUTO_SUBGROUP_PQSI = 38, /**< ploam queue status. */
-    BCMOLT_ONU_AUTO_SUBGROUP_PST = 39, /**< PST. */
-    BCMOLT_ONU_AUTO_SUBGROUP_RANGE_VALUE_CHANGED = 40, /**< Range Value Changed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_RANGING_COMPLETED = 41, /**< Ranging Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_REGISTRATION_ID = 42, /**< Registration ID. */
-    BCMOLT_ONU_AUTO_SUBGROUP_REI = 43, /**< REI. */
-    BCMOLT_ONU_AUTO_SUBGROUP_RSSI_MEASUREMENT_COMPLETED = 44, /**< RSSI Measurement Completed. */
-    BCMOLT_ONU_AUTO_SUBGROUP_SDI = 45, /**< Signal Degraded of ONUi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 46, /**< secure mutual authentication failure. */
-    BCMOLT_ONU_AUTO_SUBGROUP_SFI = 47, /**< Signal Fail of ONUi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE = 48, /**< State Change. */
-    BCMOLT_ONU_AUTO_SUBGROUP_SUFI = 49, /**< SUFi. */
-    BCMOLT_ONU_AUTO_SUBGROUP_TIWI = 50, /**< Transmission Interference Warning. */
-    BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED = 51, /**< trap ploam received. */
-    BCMOLT_ONU_AUTO_SUBGROUP_TUNING_RESPONSE = 52, /**< Tuning response. */
-    BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM = 53, /**< XGPON ONU Alarm. */
-    BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM = 54, /**< XPON Unknown ploam. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 9, /**< Accumulated Statistics Alarm Cleared. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 10, /**< Accumulated Statistics Alarm Raised. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED = 11, /**< ITU PON Statistics Alarm Cleared. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED = 12, /**< ITU PON Statistics Alarm Raised. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED = 13, /**< Key Exchange Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_CYCLE_SKIPPED = 14, /**< Key Exchange Cycle Skipped. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_DECRYPT_REQUIRED = 15, /**< Key Exchange Decrypt Required. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_MISMATCH = 16, /**< Key Exchange Key Mismatch. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 17, /**< Key Exchange Key Request Timeout. */
+    BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 18, /**< Key Exchange Unconsecutive Index. */
+    BCMOLT_ONU_AUTO_SUBGROUP_LOAI = 19, /**< LOAi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_LOKI = 20, /**< LOki. */
+    BCMOLT_ONU_AUTO_SUBGROUP_LOOCI = 21, /**< LOOCi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_MEMI = 22, /**< MEMi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PACKET = 23, /**< XGPON OMCI packet. */
+    BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 24, /**< OMCI PORT ID Configuration Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_COMPLETED = 25, /**< ONU Activation Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_STANDBY_COMPLETED = 26, /**< onu activation standby completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_DEACTIVATION_COMPLETED = 27, /**< ONU Deactivation Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_DISABLE_COMPLETED = 28, /**< ONU Disable Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_ENABLE_COMPLETED = 29, /**< ONU Enable Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_READY_FOR_DATA_GRANT = 30, /**< ONU is ready to be granted data accesses. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_IN_COMPLETED = 31, /**< ONU Tuning in completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_OUT_COMPLETED = 32, /**< ONU Tuning out completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_OPTICAL_REFLECTION = 33, /**< Optical Reflection. */
+    BCMOLT_ONU_AUTO_SUBGROUP_PASSWORD_AUTHENTICATION_COMPLETED = 34, /**< Password Authentication Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_PEE = 35, /**< PEE. */
+    BCMOLT_ONU_AUTO_SUBGROUP_POSSIBLE_DRIFT = 36, /**< Possible Drift. */
+    BCMOLT_ONU_AUTO_SUBGROUP_POWER_CONSUMPTION_REPORT = 37, /**< Power consumption report. */
+    BCMOLT_ONU_AUTO_SUBGROUP_POWER_LEVEL_REPORT = 38, /**< Power level report. */
+    BCMOLT_ONU_AUTO_SUBGROUP_POWER_MANAGEMENT_STATE_CHANGE = 39, /**< Power Management State Change. */
+    BCMOLT_ONU_AUTO_SUBGROUP_PQSI = 40, /**< ploam queue status. */
+    BCMOLT_ONU_AUTO_SUBGROUP_PST = 41, /**< PST. */
+    BCMOLT_ONU_AUTO_SUBGROUP_RANGE_VALUE_CHANGED = 42, /**< Range Value Changed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_RANGING_COMPLETED = 43, /**< Ranging Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_REGISTRATION_ID = 44, /**< Registration ID. */
+    BCMOLT_ONU_AUTO_SUBGROUP_REI = 45, /**< REI. */
+    BCMOLT_ONU_AUTO_SUBGROUP_RSSI_MEASUREMENT_COMPLETED = 46, /**< RSSI Measurement Completed. */
+    BCMOLT_ONU_AUTO_SUBGROUP_SDI = 47, /**< Signal Degraded of ONUi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 48, /**< secure mutual authentication failure. */
+    BCMOLT_ONU_AUTO_SUBGROUP_SFI = 49, /**< Signal Fail of ONUi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE = 50, /**< State Change. */
+    BCMOLT_ONU_AUTO_SUBGROUP_SUFI = 51, /**< SUFi. */
+    BCMOLT_ONU_AUTO_SUBGROUP_TIWI = 52, /**< Transmission Interference Warning. */
+    BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED = 53, /**< trap ploam received. */
+    BCMOLT_ONU_AUTO_SUBGROUP_TUNING_RESPONSE = 54, /**< Tuning response. */
+    BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM = 55, /**< XGPON ONU Alarm. */
+    BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM = 56, /**< XPON Unknown ploam. */
     BCMOLT_ONU_AUTO_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -3331,6 +3556,8 @@ typedef enum
 #define bcmolt_onu_auto_subgroup_err BCMOLT_ONU_AUTO_SUBGROUP_ERR
 #define bcmolt_onu_auto_subgroup_gpon_alarm BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM
 #define bcmolt_onu_auto_subgroup_invalid_dbru_report BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT
+#define bcmolt_onu_auto_subgroup_itu_alloc_onu_accumulated_stats_alarm_cleared BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED
+#define bcmolt_onu_auto_subgroup_itu_alloc_onu_accumulated_stats_alarm_raised BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED
 #define bcmolt_onu_auto_subgroup_itu_pon_stats_alarm_cleared BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED
 #define bcmolt_onu_auto_subgroup_itu_pon_stats_alarm_raised BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED
 #define bcmolt_onu_auto_subgroup_key_exchange_completed BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED
@@ -3379,7 +3606,7 @@ typedef enum
 #define bcmolt_onu_auto_subgroup_xpon_unknown_ploam BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM
 #define bcmolt_onu_auto_subgroup__num_of BCMOLT_ONU_AUTO_SUBGROUP__NUM_OF
 #define bcmolt_onu_auto_subgroup_all_properties 0xFFFF
-#define bcmolt_onu_auto_subgroup_full_mask 0x7FFFFFFFFFFFFF
+#define bcmolt_onu_auto_subgroup_full_mask 0x1FFFFFFFFFFFFFF
 
 } bcmolt_onu_auto_subgroup;
 
@@ -3654,18 +3881,20 @@ typedef enum
 {
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__BEGIN = 0,
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL = 0, /**< Subscribe to all subgroups (reserved value). */
-    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 1, /**< Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED = 2, /**< Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE = 1, /**< link_state_change. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED = 2, /**< Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED = 3, /**< Switch INNI Interface Statistics Alarm Raised. */
     BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_auto_subgroup__begin BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__BEGIN
 #define bcmolt_switch_inni_auto_subgroup_all BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL
+#define bcmolt_switch_inni_auto_subgroup_link_state_change BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE
 #define bcmolt_switch_inni_auto_subgroup_stats_alarm_cleared BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED
 #define bcmolt_switch_inni_auto_subgroup_stats_alarm_raised BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED
 #define bcmolt_switch_inni_auto_subgroup__num_of BCMOLT_SWITCH_INNI_AUTO_SUBGROUP__NUM_OF
 #define bcmolt_switch_inni_auto_subgroup_all_properties 0xFFFF
-#define bcmolt_switch_inni_auto_subgroup_full_mask 0x7
+#define bcmolt_switch_inni_auto_subgroup_full_mask 0xF
 
 } bcmolt_switch_inni_auto_subgroup;
 
@@ -3894,6 +4123,8 @@ typedef enum
     BCMOLT_CLASSIFIER_ID_I_PBITS_MASK = 26, /**< Inner Pbits mask. */
     BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK = 27, /**< Ether type mask. */
     BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK = 28, /**< IP Protocol mask. */
+    BCMOLT_CLASSIFIER_ID_O_TPID = 29, /**< outer tag TPID classify. */
+    BCMOLT_CLASSIFIER_ID_I_TPID = 30, /**< inner tag TPID classify. */
     BCMOLT_CLASSIFIER_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -3927,9 +4158,11 @@ typedef enum
 #define bcmolt_classifier_id_i_pbits_mask BCMOLT_CLASSIFIER_ID_I_PBITS_MASK
 #define bcmolt_classifier_id_ether_type_mask BCMOLT_CLASSIFIER_ID_ETHER_TYPE_MASK
 #define bcmolt_classifier_id_ip_proto_mask BCMOLT_CLASSIFIER_ID_IP_PROTO_MASK
+#define bcmolt_classifier_id_o_tpid BCMOLT_CLASSIFIER_ID_O_TPID
+#define bcmolt_classifier_id_i_tpid BCMOLT_CLASSIFIER_ID_I_TPID
 #define bcmolt_classifier_id__num_of BCMOLT_CLASSIFIER_ID__NUM_OF
 #define bcmolt_classifier_id_all_properties 0xFF
-#define bcmolt_classifier_id_full_mask 0x1FFFFFFF
+#define bcmolt_classifier_id_full_mask 0x7FFFFFFF
 
 } bcmolt_classifier_id;
 
@@ -4420,14 +4653,16 @@ typedef enum
 {
     BCMOLT_GPON_TRX_ID__BEGIN = 0,
     BCMOLT_GPON_TRX_ID_TRANSCEIVER_TYPE = 0, /**< transceiver type. */
+    BCMOLT_GPON_TRX_ID_TRX_NAME = 25, /**< TRX name. */
     BCMOLT_GPON_TRX_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_gpon_trx_id__begin BCMOLT_GPON_TRX_ID__BEGIN
 #define bcmolt_gpon_trx_id_transceiver_type BCMOLT_GPON_TRX_ID_TRANSCEIVER_TYPE
+#define bcmolt_gpon_trx_id_trx_name BCMOLT_GPON_TRX_ID_TRX_NAME
 #define bcmolt_gpon_trx_id__num_of BCMOLT_GPON_TRX_ID__NUM_OF
 #define bcmolt_gpon_trx_id_all_properties 0xFF
-#define bcmolt_gpon_trx_id_full_mask 0x1
+#define bcmolt_gpon_trx_id_full_mask 0x2000001
 
 } bcmolt_gpon_trx_id;
 
@@ -4475,15 +4710,17 @@ typedef enum
     BCMOLT_HOST_PORT_PARAMS_ID__BEGIN = 0,
     BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS = 0, /**< pir_kbps. */
     BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES = 1, /**< queue size kbytes. */
+    BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL = 2, /**< pir kbps actual. */
     BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_host_port_params_id__begin BCMOLT_HOST_PORT_PARAMS_ID__BEGIN
 #define bcmolt_host_port_params_id_pir_kbps BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS
 #define bcmolt_host_port_params_id_queue_size_kbytes BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES
+#define bcmolt_host_port_params_id_pir_kbps_actual BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL
 #define bcmolt_host_port_params_id__num_of BCMOLT_HOST_PORT_PARAMS_ID__NUM_OF
 #define bcmolt_host_port_params_id_all_properties 0xFF
-#define bcmolt_host_port_params_id_full_mask 0x3
+#define bcmolt_host_port_params_id_full_mask 0x7
 
 } bcmolt_host_port_params_id;
 
@@ -4663,6 +4900,42 @@ typedef enum
 
 } bcmolt_intf_ref_id;
 
+/** Identifiers for all fields in a 'ip_v_4_src_binding'. */
+typedef enum
+{
+    BCMOLT_IP_V_4_SRC_BINDING_ID__BEGIN = 0,
+    BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP = 0, /**< Source IPv4 Address. */
+    BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK = 1, /**< Source IPv4 Address Mask. */
+    BCMOLT_IP_V_4_SRC_BINDING_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_ip_v_4_src_binding_id__begin BCMOLT_IP_V_4_SRC_BINDING_ID__BEGIN
+#define bcmolt_ip_v_4_src_binding_id_src_ip BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP
+#define bcmolt_ip_v_4_src_binding_id_src_ip_mask BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK
+#define bcmolt_ip_v_4_src_binding_id__num_of BCMOLT_IP_V_4_SRC_BINDING_ID__NUM_OF
+#define bcmolt_ip_v_4_src_binding_id_all_properties 0xFF
+#define bcmolt_ip_v_4_src_binding_id_full_mask 0x3
+
+} bcmolt_ip_v_4_src_binding_id;
+
+/** Identifiers for all fields in a 'ip_v_6_src_binding'. */
+typedef enum
+{
+    BCMOLT_IP_V_6_SRC_BINDING_ID__BEGIN = 0,
+    BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6 = 0, /**< Source IPv6 address. */
+    BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK = 1, /**< Source IPv6 Address mask. */
+    BCMOLT_IP_V_6_SRC_BINDING_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_ip_v_6_src_binding_id__begin BCMOLT_IP_V_6_SRC_BINDING_ID__BEGIN
+#define bcmolt_ip_v_6_src_binding_id_src_ip_v_6 BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6
+#define bcmolt_ip_v_6_src_binding_id_src_ip_v_6_mask BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK
+#define bcmolt_ip_v_6_src_binding_id__num_of BCMOLT_IP_V_6_SRC_BINDING_ID__NUM_OF
+#define bcmolt_ip_v_6_src_binding_id_all_properties 0xFF
+#define bcmolt_ip_v_6_src_binding_id_full_mask 0x3
+
+} bcmolt_ip_v_6_src_binding_id;
+
 /** Identifiers for all fields in a 'itu_onu_params'. */
 typedef enum
 {
@@ -4727,6 +5000,9 @@ typedef enum
     BCMOLT_ITU_PON_PARAMS_ID_GPON = 29, /**< GPON Parameters. */
     BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_CLASS_STATS = 31, /**< BW Eligibility Class Statistics. */
     BCMOLT_ITU_PON_PARAMS_ID_DBA = 32, /**< DBA. */
+    BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ = 33, /**< Clear-on-read BW Eligibility Class Statistics. */
+    BCMOLT_ITU_PON_PARAMS_ID_ALLOC_ONU_ACCUMULATED_STATS = 34, /**< Alloc and ONU accumulated statistics. */
+    BCMOLT_ITU_PON_PARAMS_ID_ALLOC_LATENCY_STATS = 35, /**< Alloc Latency statistics. */
     BCMOLT_ITU_PON_PARAMS_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -4759,9 +5035,12 @@ typedef enum
 #define bcmolt_itu_pon_params_id_gpon BCMOLT_ITU_PON_PARAMS_ID_GPON
 #define bcmolt_itu_pon_params_id_bw_eligibility_class_stats BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_CLASS_STATS
 #define bcmolt_itu_pon_params_id_dba BCMOLT_ITU_PON_PARAMS_ID_DBA
+#define bcmolt_itu_pon_params_id_bw_eligibility_stats_clear_on_read BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ
+#define bcmolt_itu_pon_params_id_alloc_onu_accumulated_stats BCMOLT_ITU_PON_PARAMS_ID_ALLOC_ONU_ACCUMULATED_STATS
+#define bcmolt_itu_pon_params_id_alloc_latency_stats BCMOLT_ITU_PON_PARAMS_ID_ALLOC_LATENCY_STATS
 #define bcmolt_itu_pon_params_id__num_of BCMOLT_ITU_PON_PARAMS_ID__NUM_OF
 #define bcmolt_itu_pon_params_id_all_properties 0xFF
-#define bcmolt_itu_pon_params_id_full_mask 0x1ABEBFFFF
+#define bcmolt_itu_pon_params_id_full_mask 0xFABEBFFFF
 
 } bcmolt_itu_pon_params_id;
 
@@ -4920,6 +5199,66 @@ typedef enum
 #define bcmolt_key_exchange_id_full_mask 0xF
 
 } bcmolt_key_exchange_id;
+
+/** Identifiers for all fields in a 'l2_dump_filters'. */
+typedef enum
+{
+    BCMOLT_L2_DUMP_FILTERS_ID__BEGIN = 0,
+    BCMOLT_L2_DUMP_FILTERS_ID_O_VID = 0, /**< outer vlan. */
+    BCMOLT_L2_DUMP_FILTERS_ID_I_VID = 1, /**< inner vlan. */
+    BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE = 2, /**< interface. */
+    BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS = 3, /**< mac address. */
+    BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK = 4, /**< mac address mask. */
+    BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN = 5, /**< port domain. */
+    BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE = 6, /**< pkt tag type. */
+    BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID = 7, /**< service port id. */
+    BCMOLT_L2_DUMP_FILTERS_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_dump_filters_id__begin BCMOLT_L2_DUMP_FILTERS_ID__BEGIN
+#define bcmolt_l2_dump_filters_id_o_vid BCMOLT_L2_DUMP_FILTERS_ID_O_VID
+#define bcmolt_l2_dump_filters_id_i_vid BCMOLT_L2_DUMP_FILTERS_ID_I_VID
+#define bcmolt_l2_dump_filters_id_interface BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE
+#define bcmolt_l2_dump_filters_id_mac_address BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS
+#define bcmolt_l2_dump_filters_id_mac_address_mask BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK
+#define bcmolt_l2_dump_filters_id_domain BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN
+#define bcmolt_l2_dump_filters_id_pkt_tag_type BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE
+#define bcmolt_l2_dump_filters_id_svc_port_id BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID
+#define bcmolt_l2_dump_filters_id__num_of BCMOLT_L2_DUMP_FILTERS_ID__NUM_OF
+#define bcmolt_l2_dump_filters_id_all_properties 0xFF
+#define bcmolt_l2_dump_filters_id_full_mask 0xFF
+
+} bcmolt_l2_dump_filters_id;
+
+/** Identifiers for all fields in a 'l2_mact_entry'. */
+typedef enum
+{
+    BCMOLT_L2_MACT_ENTRY_ID__BEGIN = 0,
+    BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE = 0, /**< pkt tag type. */
+    BCMOLT_L2_MACT_ENTRY_ID_O_VID = 1, /**< outer vid. */
+    BCMOLT_L2_MACT_ENTRY_ID_I_VID = 2, /**< inner vid. */
+    BCMOLT_L2_MACT_ENTRY_ID_INTERFACE = 3, /**< interface. */
+    BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID = 4, /**< service port id. */
+    BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS = 5, /**< mac address. */
+    BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE = 6, /**< event type. */
+    BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC = 7, /**< is static. */
+    BCMOLT_L2_MACT_ENTRY_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mact_entry_id__begin BCMOLT_L2_MACT_ENTRY_ID__BEGIN
+#define bcmolt_l2_mact_entry_id_pkt_tag_type BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE
+#define bcmolt_l2_mact_entry_id_o_vid BCMOLT_L2_MACT_ENTRY_ID_O_VID
+#define bcmolt_l2_mact_entry_id_i_vid BCMOLT_L2_MACT_ENTRY_ID_I_VID
+#define bcmolt_l2_mact_entry_id_interface BCMOLT_L2_MACT_ENTRY_ID_INTERFACE
+#define bcmolt_l2_mact_entry_id_svc_port_id BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID
+#define bcmolt_l2_mact_entry_id_mac_address BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS
+#define bcmolt_l2_mact_entry_id_event_type BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE
+#define bcmolt_l2_mact_entry_id_is_static BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC
+#define bcmolt_l2_mact_entry_id__num_of BCMOLT_L2_MACT_ENTRY_ID__NUM_OF
+#define bcmolt_l2_mact_entry_id_all_properties 0xFF
+#define bcmolt_l2_mact_entry_id_full_mask 0xFF
+
+} bcmolt_l2_mact_entry_id;
 
 /** Identifiers for all fields in a 'lag_global_parms'. */
 typedef enum
@@ -5785,6 +6124,28 @@ typedef enum
 
 } bcmolt_service_discovery_id;
 
+/** Identifiers for all fields in a 'src_binding_info'. */
+typedef enum
+{
+    BCMOLT_SRC_BINDING_INFO_ID__BEGIN = 0,
+    BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC = 0, /**< source mac. */
+    BCMOLT_SRC_BINDING_INFO_ID_IP_V_4 = 1, /**< ipv4. */
+    BCMOLT_SRC_BINDING_INFO_ID_IP_V_6 = 2, /**< ipv6. */
+    BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS = 3, /**< selected src binding fields. */
+    BCMOLT_SRC_BINDING_INFO_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_src_binding_info_id__begin BCMOLT_SRC_BINDING_INFO_ID__BEGIN
+#define bcmolt_src_binding_info_id_src_mac BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC
+#define bcmolt_src_binding_info_id_ip_v_4 BCMOLT_SRC_BINDING_INFO_ID_IP_V_4
+#define bcmolt_src_binding_info_id_ip_v_6 BCMOLT_SRC_BINDING_INFO_ID_IP_V_6
+#define bcmolt_src_binding_info_id_src_binding_fields BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS
+#define bcmolt_src_binding_info_id__num_of BCMOLT_SRC_BINDING_INFO_ID__NUM_OF
+#define bcmolt_src_binding_info_id_all_properties 0xFF
+#define bcmolt_src_binding_info_id_full_mask 0xF
+
+} bcmolt_src_binding_info_id;
+
 /** Identifiers for all fields in a 'stat_alarm_config'. */
 typedef enum
 {
@@ -5959,6 +6320,22 @@ typedef enum
 
 } bcmolt_system_profile_id;
 
+/** Identifiers for all fields in a 'taildrop_params'. */
+typedef enum
+{
+    BCMOLT_TAILDROP_PARAMS_ID__BEGIN = 0,
+    BCMOLT_TAILDROP_PARAMS_ID_MAX_SIZE_KBYTES = 0, /**< max size kbytes. */
+    BCMOLT_TAILDROP_PARAMS_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_taildrop_params_id__begin BCMOLT_TAILDROP_PARAMS_ID__BEGIN
+#define bcmolt_taildrop_params_id_max_size_kbytes BCMOLT_TAILDROP_PARAMS_ID_MAX_SIZE_KBYTES
+#define bcmolt_taildrop_params_id__num_of BCMOLT_TAILDROP_PARAMS_ID__NUM_OF
+#define bcmolt_taildrop_params_id_all_properties 0xFF
+#define bcmolt_taildrop_params_id_full_mask 0x1
+
+} bcmolt_taildrop_params_id;
+
 /** Identifiers for all fields in a 'tm_queue_ref'. */
 typedef enum
 {
@@ -6098,6 +6475,10 @@ typedef enum
     BCMOLT_TM_SHAPING_ID_CIR = 0, /**< CIR. */
     BCMOLT_TM_SHAPING_ID_PIR = 1, /**< PIR. */
     BCMOLT_TM_SHAPING_ID_BURST = 2, /**< burst. */
+    BCMOLT_TM_SHAPING_ID_CIR_ACTUAL = 3, /**< cir actual. */
+    BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL = 4, /**< cir burst actual. */
+    BCMOLT_TM_SHAPING_ID_EIR_ACTUAL = 5, /**< eir actual. */
+    BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL = 6, /**< eir burst actual. */
     BCMOLT_TM_SHAPING_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6105,9 +6486,13 @@ typedef enum
 #define bcmolt_tm_shaping_id_cir BCMOLT_TM_SHAPING_ID_CIR
 #define bcmolt_tm_shaping_id_pir BCMOLT_TM_SHAPING_ID_PIR
 #define bcmolt_tm_shaping_id_burst BCMOLT_TM_SHAPING_ID_BURST
+#define bcmolt_tm_shaping_id_cir_actual BCMOLT_TM_SHAPING_ID_CIR_ACTUAL
+#define bcmolt_tm_shaping_id_cir_burst_actual BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL
+#define bcmolt_tm_shaping_id_eir_actual BCMOLT_TM_SHAPING_ID_EIR_ACTUAL
+#define bcmolt_tm_shaping_id_eir_burst_actual BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL
 #define bcmolt_tm_shaping_id__num_of BCMOLT_TM_SHAPING_ID__NUM_OF
 #define bcmolt_tm_shaping_id_all_properties 0xFF
-#define bcmolt_tm_shaping_id_full_mask 0x7
+#define bcmolt_tm_shaping_id_full_mask 0x7F
 
 } bcmolt_tm_shaping_id;
 
@@ -6441,15 +6826,17 @@ typedef enum
     BCMOLT_XGPON_TRX_ID__BEGIN = 0,
     BCMOLT_XGPON_TRX_ID_BURST_PROFILE = 0, /**< burst profile. */
     BCMOLT_XGPON_TRX_ID_TRANSCEIVER_TYPE = 2, /**< trx type. */
+    BCMOLT_XGPON_TRX_ID_TRX_NAME = 17, /**< TRX name. */
     BCMOLT_XGPON_TRX_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_xgpon_trx_id__begin BCMOLT_XGPON_TRX_ID__BEGIN
 #define bcmolt_xgpon_trx_id_burst_profile BCMOLT_XGPON_TRX_ID_BURST_PROFILE
 #define bcmolt_xgpon_trx_id_transceiver_type BCMOLT_XGPON_TRX_ID_TRANSCEIVER_TYPE
+#define bcmolt_xgpon_trx_id_trx_name BCMOLT_XGPON_TRX_ID_TRX_NAME
 #define bcmolt_xgpon_trx_id__num_of BCMOLT_XGPON_TRX_ID__NUM_OF
 #define bcmolt_xgpon_trx_id_all_properties 0xFF
-#define bcmolt_xgpon_trx_id_full_mask 0x5
+#define bcmolt_xgpon_trx_id_full_mask 0x20005
 
 } bcmolt_xgpon_trx_id;
 
@@ -6656,6 +7043,7 @@ typedef enum
     BCMOLT_BAL_SYSTEM_CFG_DATA_ID_LAG_PARMS = 4, /**< LAG Global Params. */
     BCMOLT_BAL_SYSTEM_CFG_DATA_ID_CONFIG_STATE = 5, /**< Configuration State. */
     BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT = 6, /**< host port. */
+    BCMOLT_BAL_SYSTEM_CFG_DATA_ID_NTO1_PROGRAMMING_MODEL = 7, /**< nto1 programming model. */
     BCMOLT_BAL_SYSTEM_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6663,9 +7051,10 @@ typedef enum
 #define bcmolt_bal_system_cfg_data_id_lag_parms BCMOLT_BAL_SYSTEM_CFG_DATA_ID_LAG_PARMS
 #define bcmolt_bal_system_cfg_data_id_config_state BCMOLT_BAL_SYSTEM_CFG_DATA_ID_CONFIG_STATE
 #define bcmolt_bal_system_cfg_data_id_host_port BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT
+#define bcmolt_bal_system_cfg_data_id_nto1_programming_model BCMOLT_BAL_SYSTEM_CFG_DATA_ID_NTO1_PROGRAMMING_MODEL
 #define bcmolt_bal_system_cfg_data_id__num_of BCMOLT_BAL_SYSTEM_CFG_DATA_ID__NUM_OF
 #define bcmolt_bal_system_cfg_data_id_all_properties 0xFF
-#define bcmolt_bal_system_cfg_data_id_full_mask 0x70
+#define bcmolt_bal_system_cfg_data_id_full_mask 0xF0
 
 } bcmolt_bal_system_cfg_data_id;
 
@@ -6736,6 +7125,8 @@ typedef enum
     BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP = 36, /**< Swap UART ports 0 and 1. */
     BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA = 37, /**< In-Band Connection Data. */
     BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI = 38, /**< In-Band Internal NNI. */
+    BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_CODE = 39, /**< Device debug BAS code. */
+    BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_ENABLED = 40, /**< Debug BAS enabled flag. */
     BCMOLT_DEVICE_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -6771,9 +7162,11 @@ typedef enum
 #define bcmolt_device_cfg_data_id_debug_uart_port_swap BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP
 #define bcmolt_device_cfg_data_id_inband_conn_data BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA
 #define bcmolt_device_cfg_data_id_inband_internal_nni BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI
+#define bcmolt_device_cfg_data_id_debug_bas_code BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_CODE
+#define bcmolt_device_cfg_data_id_debug_bas_enabled BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_ENABLED
 #define bcmolt_device_cfg_data_id__num_of BCMOLT_DEVICE_CFG_DATA_ID__NUM_OF
 #define bcmolt_device_cfg_data_id_all_properties 0xFF
-#define bcmolt_device_cfg_data_id_full_mask 0x7FF83F3EFF
+#define bcmolt_device_cfg_data_id_full_mask 0x1FFF83F3EFF
 
 } bcmolt_device_cfg_data_id;
 
@@ -7613,6 +8006,8 @@ typedef enum
     BCMOLT_FLOW_CFG_DATA_ID_MAC_TABLE_MISS_ACTION = 13, /**< action on mac table miss. */
     BCMOLT_FLOW_CFG_DATA_ID_POLICER_PROFILE = 14, /**< policer profile. */
     BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING = 15, /**< um forwarding. */
+    BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS = 16, /**< source bindings. */
+    BCMOLT_FLOW_CFG_DATA_ID_BC_FORWARDING = 17, /**< bc_forwarding. */
     BCMOLT_FLOW_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -7633,9 +8028,11 @@ typedef enum
 #define bcmolt_flow_cfg_data_id_mac_table_miss_action BCMOLT_FLOW_CFG_DATA_ID_MAC_TABLE_MISS_ACTION
 #define bcmolt_flow_cfg_data_id_policer_profile BCMOLT_FLOW_CFG_DATA_ID_POLICER_PROFILE
 #define bcmolt_flow_cfg_data_id_um_forwarding BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING
+#define bcmolt_flow_cfg_data_id_src_bindings BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS
+#define bcmolt_flow_cfg_data_id_bc_forwarding BCMOLT_FLOW_CFG_DATA_ID_BC_FORWARDING
 #define bcmolt_flow_cfg_data_id__num_of BCMOLT_FLOW_CFG_DATA_ID__NUM_OF
 #define bcmolt_flow_cfg_data_id_all_properties 0xFF
-#define bcmolt_flow_cfg_data_id_full_mask 0xFFFF
+#define bcmolt_flow_cfg_data_id_full_mask 0x3FFFF
 
 } bcmolt_flow_cfg_data_id;
 
@@ -7700,6 +8097,24 @@ typedef enum
 #define bcmolt_flow_send_eth_packet_data_id_full_mask 0xF
 
 } bcmolt_flow_send_eth_packet_data_id;
+
+/** Identifiers for all fields in a 'flow_src_binding_update_data'. */
+typedef enum
+{
+    BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID__BEGIN = 0,
+    BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND = 0, /**< source binding command. */
+    BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING = 1, /**< src_binding. */
+    BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_flow_src_binding_update_data_id__begin BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID__BEGIN
+#define bcmolt_flow_src_binding_update_data_id_command BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND
+#define bcmolt_flow_src_binding_update_data_id_src_binding BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING
+#define bcmolt_flow_src_binding_update_data_id__num_of BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID__NUM_OF
+#define bcmolt_flow_src_binding_update_data_id_all_properties 0xFF
+#define bcmolt_flow_src_binding_update_data_id_full_mask 0x3
+
+} bcmolt_flow_src_binding_update_data_id;
 
 /** Identifiers for all fields in a 'flow_stats_cfg_data'. */
 typedef enum
@@ -8587,6 +9002,7 @@ typedef enum
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS = 3, /**< Enable statistics collection on the alloc id. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE = 4, /**< The maximum size of the TCONT queue for this alloc ID in the ONU, in bytes. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE = 5, /**< Is the alloc latency sensitive ?. */
+    BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS = 6, /**< Enable latency statistics. */
     BCMOLT_ITUPON_ALLOC_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -8597,9 +9013,10 @@ typedef enum
 #define bcmolt_itupon_alloc_cfg_data_id_collect_stats BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS
 #define bcmolt_itupon_alloc_cfg_data_id_onu_tcont_max_queue_size BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE
 #define bcmolt_itupon_alloc_cfg_data_id_latency_sensitive BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE
+#define bcmolt_itupon_alloc_cfg_data_id_enable_latency_stats BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS
 #define bcmolt_itupon_alloc_cfg_data_id__num_of BCMOLT_ITUPON_ALLOC_CFG_DATA_ID__NUM_OF
 #define bcmolt_itupon_alloc_cfg_data_id_all_properties 0xFF
-#define bcmolt_itupon_alloc_cfg_data_id_full_mask 0x3F
+#define bcmolt_itupon_alloc_cfg_data_id_full_mask 0x7F
 
 } bcmolt_itupon_alloc_cfg_data_id;
 
@@ -8691,6 +9108,72 @@ typedef enum
 
 } bcmolt_itupon_alloc_stats_data_id;
 
+/** Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED = 0, /**< tm used. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED = 1, /**< tm allocated. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC = 2, /**< Buffer occupancy. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR = 3, /**< CBR BW Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR = 4, /**< Guaranteed BW above CBR Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL = 5, /**< Additional BW Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id__begin BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_tm_used BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_tm_allocated BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_bufocc BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_used_cbr BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_used_guaranteed_above_cbr BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_used_additional BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id__num_of BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_full_mask 0x3F
+
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_latency_stats_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE = 0, /**< ONU TCONT maximum queue size. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY = 1, /**< allocation busy. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC = 2, /**< latency distribution bucket 0-0.1 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC = 3, /**< latency distribution bucket 0.1-0.2 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC = 4, /**< latency distribution bucket 0.2-0.3 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC = 5, /**< latency distribution bucket 0.3-0.4 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC = 6, /**< latency distribution bucket 0.4-0.6 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC = 7, /**< latency distribution bucket 0.6-0.8 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC = 8, /**< latency distribution bucket 0.8-1 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC = 9, /**< latency distribution bucket 1-3 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC = 10, /**< latency distribution bucket 3-5 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC = 11, /**< latency distribution bucket 5-10 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC = 12, /**< latency distribution bucket more then 10ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_latency_stats_data_id__begin BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_latency_stats_data_id_onu_tcont_max_queue_size BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE
+#define bcmolt_itupon_alloc_latency_stats_data_id_allocation_busy BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_0_100_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_100_200_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_200_300_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_300_400_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_400_600_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_600_800_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_800_1000_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_1_3_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_3_5_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_5_10_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC
+#define bcmolt_itupon_alloc_latency_stats_data_id_latency_bucket_more_than_10_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC
+#define bcmolt_itupon_alloc_latency_stats_data_id__num_of BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_latency_stats_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_latency_stats_data_id_full_mask 0x1FFF
+
+} bcmolt_itupon_alloc_latency_stats_data_id;
+
 /** Identifiers for all fields in a 'itupon_alloc_stats_cfg_data'. */
 typedef enum
 {
@@ -8739,25 +9222,163 @@ typedef enum
 
 } bcmolt_itupon_alloc_stats_alarm_cleared_data_id;
 
+/** Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_cfg_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED = 0, /**< tm used. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED = 1, /**< tm allocated. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC = 2, /**< Buffer occupancy. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR = 3, /**< CBR BW Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR = 4, /**< Guaranteed BW above CBR Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL = 5, /**< Additional BW Used units. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id__begin BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_tm_used BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_tm_allocated BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_bufocc BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_used_cbr BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_used_guaranteed_above_cbr BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_used_additional BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id__num_of BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_full_mask 0x3F
+
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id__begin BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_stat BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id__num_of BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_full_mask 0x1
+
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id__begin BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_stat BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id__num_of BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_full_mask 0x1
+
+} bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_latency_stats_cfg_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE = 0, /**< ONU TCONT maximum queue size. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY = 1, /**< allocation busy. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC = 2, /**< latency distribution bucket 0-0.1 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC = 3, /**< latency distribution bucket 0.1-0.2 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC = 4, /**< latency distribution bucket 0.2-0.3 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC = 5, /**< latency distribution bucket 0.3-0.4 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC = 6, /**< latency distribution bucket 0.4-0.6 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC = 7, /**< latency distribution bucket 0.6-0.8 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC = 8, /**< latency distribution bucket 0.8-1 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC = 9, /**< latency distribution bucket 1-3 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC = 10, /**< latency distribution bucket 3-5 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC = 11, /**< latency distribution bucket 5-10 ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC = 12, /**< latency distribution bucket more then 10ms. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id__begin BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_onu_tcont_max_queue_size BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_allocation_busy BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_0_100_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_100_200_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_200_300_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_300_400_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_400_600_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_600_800_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_800_1000_usec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_1_3_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_3_5_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_5_10_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_latency_bucket_more_than_10_msec BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id__num_of BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_latency_stats_cfg_data_id_full_mask 0x1FFF
+
+} bcmolt_itupon_alloc_latency_stats_cfg_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_raised_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id__begin BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_stat BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT
+#define bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id__num_of BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_full_mask 0x1
+
+} bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id;
+
+/** Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_cleared_data'. */
+typedef enum
+{
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID__BEGIN = 0,
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id__begin BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_stat BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT
+#define bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id__num_of BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID__NUM_OF
+#define bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_all_properties 0xFF
+#define bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_full_mask 0x1
+
+} bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id;
+
 /** Identifiers for all fields in a 'itupon_alloc_auto_cfg_data'. */
 typedef enum
 {
     BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID__BEGIN = 0,
-    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED = 0, /**< Configuration Completed. */
-    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED = 1, /**< Get alloc level statistics completed. */
-    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 2, /**< Statistics Alarm Cleared. */
-    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 3, /**< Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 0, /**< Accumulated Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 1, /**< Accumulated Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED = 2, /**< Configuration Completed. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED = 3, /**< Get alloc level statistics completed. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED = 4, /**< Latency Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED = 5, /**< Latency Statistics Alarm Raised. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 6, /**< Statistics Alarm Cleared. */
+    BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 7, /**< Statistics Alarm Raised. */
     BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_itupon_alloc_auto_cfg_data_id__begin BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID__BEGIN
+#define bcmolt_itupon_alloc_auto_cfg_data_id_alloc_onu_accumulated_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED
+#define bcmolt_itupon_alloc_auto_cfg_data_id_alloc_onu_accumulated_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_cfg_data_id_configuration_completed BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED
 #define bcmolt_itupon_alloc_auto_cfg_data_id_get_alloc_stats_completed BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED
+#define bcmolt_itupon_alloc_auto_cfg_data_id_latency_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED
+#define bcmolt_itupon_alloc_auto_cfg_data_id_latency_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_cfg_data_id_stats_alarm_cleared BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED
 #define bcmolt_itupon_alloc_auto_cfg_data_id_stats_alarm_raised BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED
 #define bcmolt_itupon_alloc_auto_cfg_data_id__num_of BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID__NUM_OF
 #define bcmolt_itupon_alloc_auto_cfg_data_id_all_properties 0xFF
-#define bcmolt_itupon_alloc_auto_cfg_data_id_full_mask 0xF
+#define bcmolt_itupon_alloc_auto_cfg_data_id_full_mask 0xFF
 
 } bcmolt_itupon_alloc_auto_cfg_data_id;
 
@@ -8938,6 +9559,138 @@ typedef enum
 #define bcmolt_itupon_gem_auto_cfg_data_id_full_mask 0x7
 
 } bcmolt_itupon_gem_auto_cfg_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_key'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_KEY_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_KEY_ID_ID = 0, /**< id. */
+    BCMOLT_L2_MAC_TABLE_KEY_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_key_id__begin BCMOLT_L2_MAC_TABLE_KEY_ID__BEGIN
+#define bcmolt_l2_mac_table_key_id_id BCMOLT_L2_MAC_TABLE_KEY_ID_ID
+#define bcmolt_l2_mac_table_key_id__num_of BCMOLT_L2_MAC_TABLE_KEY_ID__NUM_OF
+#define bcmolt_l2_mac_table_key_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_key_id_full_mask 0x1
+
+} bcmolt_l2_mac_table_key_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_cfg_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE = 0, /**< state. */
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS = 1, /**< dump status. */
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT = 2, /**< last dump_result. */
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT = 3, /**< report learning events. */
+    BCMOLT_L2_MAC_TABLE_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_cfg_data_id__begin BCMOLT_L2_MAC_TABLE_CFG_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_cfg_data_id_state BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE
+#define bcmolt_l2_mac_table_cfg_data_id_dump_status BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS
+#define bcmolt_l2_mac_table_cfg_data_id_last_dump_result BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT
+#define bcmolt_l2_mac_table_cfg_data_id_report_event BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT
+#define bcmolt_l2_mac_table_cfg_data_id__num_of BCMOLT_L2_MAC_TABLE_CFG_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_cfg_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_cfg_data_id_full_mask 0xF
+
+} bcmolt_l2_mac_table_cfg_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_dump_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME = 0, /**< file name. */
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE = 1, /**< dump mode. */
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS = 2, /**< dump filters. */
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION = 3, /**< report as indication. */
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION = 4, /**< max number of entries per dump indication. */
+    BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_dump_data_id__begin BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_dump_data_id_file_name BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME
+#define bcmolt_l2_mac_table_dump_data_id_mode BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE
+#define bcmolt_l2_mac_table_dump_data_id_filters BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS
+#define bcmolt_l2_mac_table_dump_data_id_report_as_indication BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION
+#define bcmolt_l2_mac_table_dump_data_id_max_entry_per_indication BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION
+#define bcmolt_l2_mac_table_dump_data_id__num_of BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_dump_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_dump_data_id_full_mask 0x1F
+
+} bcmolt_l2_mac_table_dump_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_dump_complete_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME = 0, /**< file name. */
+    BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT = 1, /**< result. */
+    BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_dump_complete_data_id__begin BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_dump_complete_data_id_file_name BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME
+#define bcmolt_l2_mac_table_dump_complete_data_id_result BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT
+#define bcmolt_l2_mac_table_dump_complete_data_id__num_of BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_dump_complete_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_dump_complete_data_id_full_mask 0x3
+
+} bcmolt_l2_mac_table_dump_complete_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_network_events_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES = 0, /**< entries. */
+    BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_network_events_data_id__begin BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_network_events_data_id_entries BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES
+#define bcmolt_l2_mac_table_network_events_data_id__num_of BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_network_events_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_network_events_data_id_full_mask 0x1
+
+} bcmolt_l2_mac_table_network_events_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_pon_events_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES = 0, /**< entries. */
+    BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_pon_events_data_id__begin BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_pon_events_data_id_entries BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES
+#define bcmolt_l2_mac_table_pon_events_data_id__num_of BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_pon_events_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_pon_events_data_id_full_mask 0x1
+
+} bcmolt_l2_mac_table_pon_events_data_id;
+
+/** Identifiers for all fields in a 'l2_mac_table_auto_cfg_data'. */
+typedef enum
+{
+    BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE = 0, /**< l2 mact dump completed. */
+    BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS = 1, /**< network l2 events. */
+    BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS = 2, /**< pon l2 events. */
+    BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_l2_mac_table_auto_cfg_data_id__begin BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID__BEGIN
+#define bcmolt_l2_mac_table_auto_cfg_data_id_dump_complete BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE
+#define bcmolt_l2_mac_table_auto_cfg_data_id_network_events BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS
+#define bcmolt_l2_mac_table_auto_cfg_data_id_pon_events BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS
+#define bcmolt_l2_mac_table_auto_cfg_data_id__num_of BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID__NUM_OF
+#define bcmolt_l2_mac_table_auto_cfg_data_id_all_properties 0xFF
+#define bcmolt_l2_mac_table_auto_cfg_data_id_full_mask 0x7
+
+} bcmolt_l2_mac_table_auto_cfg_data_id;
 
 /** Identifiers for all fields in a 'lag_interface_key'. */
 typedef enum
@@ -9861,6 +10614,7 @@ typedef enum
     BCMOLT_OLT_SW_ERROR_DATA_ID_FILE_NAME = 1, /**< File Name. */
     BCMOLT_OLT_SW_ERROR_DATA_ID_LINE_NUMBER = 2, /**< Line Number. */
     BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING = 3, /**< User error string. */
+    BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY = 4, /**< Severity. */
     BCMOLT_OLT_SW_ERROR_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -9869,9 +10623,10 @@ typedef enum
 #define bcmolt_olt_sw_error_data_id_file_name BCMOLT_OLT_SW_ERROR_DATA_ID_FILE_NAME
 #define bcmolt_olt_sw_error_data_id_line_number BCMOLT_OLT_SW_ERROR_DATA_ID_LINE_NUMBER
 #define bcmolt_olt_sw_error_data_id_error_string BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING
+#define bcmolt_olt_sw_error_data_id_severity BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY
 #define bcmolt_olt_sw_error_data_id__num_of BCMOLT_OLT_SW_ERROR_DATA_ID__NUM_OF
 #define bcmolt_olt_sw_error_data_id_all_properties 0xFF
-#define bcmolt_olt_sw_error_data_id_full_mask 0xF
+#define bcmolt_olt_sw_error_data_id_full_mask 0x1F
 
 } bcmolt_olt_sw_error_data_id;
 
@@ -9960,11 +10715,11 @@ typedef enum
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_DELIMITER_MISS_DETECTION = 2, /**< delimiter miss detection. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_BIP_ERRORS = 3, /**< bip errors. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_BIP_UNITS = 4, /**< Received units (In GPON units are bits, in other system modes units are Bytes) protected by BIP. */
-    BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_SYMBOLS = 5, /**< fec corrected symbols  (Not relevant in GPON system modes). */
+    BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_SYMBOLS = 5, /**< fec corrected symbols - bytes. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_CORRECTED = 6, /**< fec corrected codewords. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_UNCORRECTABLE = 7, /**< fec uncorrectable codewords. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS = 8, /**< fec total codewords. */
-    BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_UNITS = 9, /**< fec corrected units (In GPON units are bits in other system modes, units are Bytes). */
+    BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_UNITS = 9, /**< fec corrected units - bits. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_XGEM_KEY_ERRORS = 10, /**< xgem key error. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_XGEM_LOSS = 11, /**< xgem loss. */
     BCMOLT_ONU_ITU_PON_STATS_DATA_ID_RX_PLOAMS_ERROR = 12, /**< mic error ploam. */
@@ -11021,6 +11776,32 @@ typedef enum
 
 } bcmolt_onu_trap_ploam_received_data_id;
 
+/** Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_data'. */
+typedef enum
+{
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__BEGIN = 0,
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED = 0, /**< tm used. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED = 1, /**< tm allocated. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC = 2, /**< Buffer occupancy. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR = 3, /**< CBR BW Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR = 4, /**< Guaranteed BW above CBR Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL = 5, /**< Additional BW Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id__begin BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__BEGIN
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_tm_used BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_tm_allocated BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_bufocc BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_used_cbr BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_used_guaranteed_above_cbr BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_used_additional BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id__num_of BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID__NUM_OF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_all_properties 0xFF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_full_mask 0x3F
+
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id;
+
 /** Identifiers for all fields in a 'onu_itu_pon_stats_cfg_data'. */
 typedef enum
 {
@@ -11030,11 +11811,11 @@ typedef enum
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_DELIMITER_MISS_DETECTION = 2, /**< delimiter miss detection. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_BIP_ERRORS = 3, /**< bip errors. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_BIP_UNITS = 4, /**< Received units (In GPON units are bits, in other system modes units are Bytes) protected by BIP. */
-    BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_SYMBOLS = 5, /**< fec corrected symbols  (Not relevant in GPON system modes). */
+    BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_SYMBOLS = 5, /**< fec corrected symbols - bytes. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS_CORRECTED = 6, /**< fec corrected codewords. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS_UNCORRECTABLE = 7, /**< fec uncorrectable codewords. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS = 8, /**< fec total codewords. */
-    BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_UNITS = 9, /**< fec corrected units (In GPON units are bits in other system modes, units are Bytes). */
+    BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_UNITS = 9, /**< fec corrected units - bits. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_XGEM_KEY_ERRORS = 10, /**< xgem key error. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_XGEM_LOSS = 11, /**< xgem loss. */
     BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_RX_PLOAMS_ERROR = 12, /**< mic error ploam. */
@@ -11113,6 +11894,64 @@ typedef enum
 
 } bcmolt_onu_itu_pon_stats_alarm_cleared_data_id;
 
+/** Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_cfg_data'. */
+typedef enum
+{
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED = 0, /**< tm used. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED = 1, /**< tm allocated. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC = 2, /**< Buffer occupancy. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR = 3, /**< CBR BW Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR = 4, /**< Guaranteed BW above CBR Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL = 5, /**< Additional BW Used units. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id__begin BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__BEGIN
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_tm_used BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_tm_allocated BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_bufocc BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_used_cbr BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_used_guaranteed_above_cbr BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_used_additional BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id__num_of BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID__NUM_OF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_all_properties 0xFF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_full_mask 0x3F
+
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id;
+
+/** Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_raised_data'. */
+typedef enum
+{
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__BEGIN = 0,
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id__begin BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__BEGIN
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_stat BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id__num_of BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID__NUM_OF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_all_properties 0xFF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_full_mask 0x1
+
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id;
+
+/** Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data'. */
+typedef enum
+{
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__BEGIN = 0,
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT = 0, /**< Statistic ID. */
+    BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id__begin BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__BEGIN
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_stat BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id__num_of BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID__NUM_OF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_all_properties 0xFF
+#define bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_full_mask 0x1
+
+} bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id;
+
 /** Identifiers for all fields in a 'onu_auto_cfg_data'. */
 typedef enum
 {
@@ -11125,52 +11964,54 @@ typedef enum
     BCMOLT_ONU_AUTO_CFG_DATA_ID_ERR = 5, /**< ERR. */
     BCMOLT_ONU_AUTO_CFG_DATA_ID_GPON_ALARM = 6, /**< GPON ONU Alarm. */
     BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT = 7, /**< Invalid DBRu Report. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED = 8, /**< ITU PON Statistics Alarm Cleared. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_RAISED = 9, /**< ITU PON Statistics Alarm Raised. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_COMPLETED = 10, /**< Key Exchange Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_CYCLE_SKIPPED = 11, /**< Key Exchange Cycle Skipped. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_DECRYPT_REQUIRED = 12, /**< Key Exchange Decrypt Required. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_KEY_MISMATCH = 13, /**< Key Exchange Key Mismatch. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 14, /**< Key Exchange Key Request Timeout. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 15, /**< Key Exchange Unconsecutive Index. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOAI = 16, /**< LOAi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOKI = 17, /**< LOki. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOOCI = 18, /**< LOOCi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_MEMI = 19, /**< MEMi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_OMCI_PACKET = 20, /**< XGPON OMCI packet. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 21, /**< OMCI PORT ID Configuration Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ACTIVATION_COMPLETED = 22, /**< ONU Activation Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ACTIVATION_STANDBY_COMPLETED = 23, /**< onu activation standby completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_DEACTIVATION_COMPLETED = 24, /**< ONU Deactivation Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_DISABLE_COMPLETED = 25, /**< ONU Disable Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ENABLE_COMPLETED = 26, /**< ONU Enable Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_READY_FOR_DATA_GRANT = 27, /**< ONU is ready to be granted data accesses. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_TUNING_IN_COMPLETED = 28, /**< ONU Tuning in completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_TUNING_OUT_COMPLETED = 29, /**< ONU Tuning out completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_OPTICAL_REFLECTION = 30, /**< Optical Reflection. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_PASSWORD_AUTHENTICATION_COMPLETED = 31, /**< Password Authentication Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_PEE = 32, /**< PEE. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_POSSIBLE_DRIFT = 33, /**< Possible Drift. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_CONSUMPTION_REPORT = 34, /**< Power consumption report. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_LEVEL_REPORT = 35, /**< Power level report. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_MANAGEMENT_STATE_CHANGE = 36, /**< Power Management State Change. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_PQSI = 37, /**< ploam queue status. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_PST = 38, /**< PST. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_RANGE_VALUE_CHANGED = 39, /**< Range Value Changed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_RANGING_COMPLETED = 40, /**< Ranging Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_REGISTRATION_ID = 41, /**< Registration ID. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_REI = 42, /**< REI. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_RSSI_MEASUREMENT_COMPLETED = 43, /**< RSSI Measurement Completed. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_SDI = 44, /**< Signal Degraded of ONUi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 45, /**< secure mutual authentication failure. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_SFI = 46, /**< Signal Fail of ONUi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_STATE_CHANGE = 47, /**< State Change. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_SUFI = 48, /**< SUFi. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_TIWI = 49, /**< Transmission Interference Warning. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_TRAP_PLOAM_RECEIVED = 50, /**< trap ploam received. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_TUNING_RESPONSE = 51, /**< Tuning response. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_XGPON_ALARM = 52, /**< XGPON ONU Alarm. */
-    BCMOLT_ONU_AUTO_CFG_DATA_ID_XPON_UNKNOWN_PLOAM = 53, /**< XPON Unknown ploam. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED = 8, /**< Accumulated Statistics Alarm Cleared. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED = 9, /**< Accumulated Statistics Alarm Raised. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED = 10, /**< ITU PON Statistics Alarm Cleared. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_RAISED = 11, /**< ITU PON Statistics Alarm Raised. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_COMPLETED = 12, /**< Key Exchange Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_CYCLE_SKIPPED = 13, /**< Key Exchange Cycle Skipped. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_DECRYPT_REQUIRED = 14, /**< Key Exchange Decrypt Required. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_KEY_MISMATCH = 15, /**< Key Exchange Key Mismatch. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT = 16, /**< Key Exchange Key Request Timeout. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_UNCONSECUTIVE_INDEX = 17, /**< Key Exchange Unconsecutive Index. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOAI = 18, /**< LOAi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOKI = 19, /**< LOki. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_LOOCI = 20, /**< LOOCi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_MEMI = 21, /**< MEMi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_OMCI_PACKET = 22, /**< XGPON OMCI packet. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_OMCI_PORT_ID_CONFIGURATION_COMPLETED = 23, /**< OMCI PORT ID Configuration Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ACTIVATION_COMPLETED = 24, /**< ONU Activation Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ACTIVATION_STANDBY_COMPLETED = 25, /**< onu activation standby completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_DEACTIVATION_COMPLETED = 26, /**< ONU Deactivation Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_DISABLE_COMPLETED = 27, /**< ONU Disable Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_ENABLE_COMPLETED = 28, /**< ONU Enable Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_READY_FOR_DATA_GRANT = 29, /**< ONU is ready to be granted data accesses. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_TUNING_IN_COMPLETED = 30, /**< ONU Tuning in completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_ONU_TUNING_OUT_COMPLETED = 31, /**< ONU Tuning out completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_OPTICAL_REFLECTION = 32, /**< Optical Reflection. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_PASSWORD_AUTHENTICATION_COMPLETED = 33, /**< Password Authentication Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_PEE = 34, /**< PEE. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_POSSIBLE_DRIFT = 35, /**< Possible Drift. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_CONSUMPTION_REPORT = 36, /**< Power consumption report. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_LEVEL_REPORT = 37, /**< Power level report. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_POWER_MANAGEMENT_STATE_CHANGE = 38, /**< Power Management State Change. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_PQSI = 39, /**< ploam queue status. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_PST = 40, /**< PST. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_RANGE_VALUE_CHANGED = 41, /**< Range Value Changed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_RANGING_COMPLETED = 42, /**< Ranging Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_REGISTRATION_ID = 43, /**< Registration ID. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_REI = 44, /**< REI. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_RSSI_MEASUREMENT_COMPLETED = 45, /**< RSSI Measurement Completed. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_SDI = 46, /**< Signal Degraded of ONUi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_SECURE_MUTUAL_AUTHENTICATION_FAILURE = 47, /**< secure mutual authentication failure. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_SFI = 48, /**< Signal Fail of ONUi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_STATE_CHANGE = 49, /**< State Change. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_SUFI = 50, /**< SUFi. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_TIWI = 51, /**< Transmission Interference Warning. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_TRAP_PLOAM_RECEIVED = 52, /**< trap ploam received. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_TUNING_RESPONSE = 53, /**< Tuning response. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_XGPON_ALARM = 54, /**< XGPON ONU Alarm. */
+    BCMOLT_ONU_AUTO_CFG_DATA_ID_XPON_UNKNOWN_PLOAM = 55, /**< XPON Unknown ploam. */
     BCMOLT_ONU_AUTO_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -11183,6 +12024,8 @@ typedef enum
 #define bcmolt_onu_auto_cfg_data_id_err BCMOLT_ONU_AUTO_CFG_DATA_ID_ERR
 #define bcmolt_onu_auto_cfg_data_id_gpon_alarm BCMOLT_ONU_AUTO_CFG_DATA_ID_GPON_ALARM
 #define bcmolt_onu_auto_cfg_data_id_invalid_dbru_report BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT
+#define bcmolt_onu_auto_cfg_data_id_itu_alloc_onu_accumulated_stats_alarm_cleared BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED
+#define bcmolt_onu_auto_cfg_data_id_itu_alloc_onu_accumulated_stats_alarm_raised BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED
 #define bcmolt_onu_auto_cfg_data_id_itu_pon_stats_alarm_cleared BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED
 #define bcmolt_onu_auto_cfg_data_id_itu_pon_stats_alarm_raised BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_RAISED
 #define bcmolt_onu_auto_cfg_data_id_key_exchange_completed BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_COMPLETED
@@ -11231,7 +12074,7 @@ typedef enum
 #define bcmolt_onu_auto_cfg_data_id_xpon_unknown_ploam BCMOLT_ONU_AUTO_CFG_DATA_ID_XPON_UNKNOWN_PLOAM
 #define bcmolt_onu_auto_cfg_data_id__num_of BCMOLT_ONU_AUTO_CFG_DATA_ID__NUM_OF
 #define bcmolt_onu_auto_cfg_data_id_all_properties 0xFF
-#define bcmolt_onu_auto_cfg_data_id_full_mask 0x3FFFFFFFFFFFFF
+#define bcmolt_onu_auto_cfg_data_id_full_mask 0xFFFFFFFFFFFFFF
 
 } bcmolt_onu_auto_cfg_data_id;
 
@@ -11416,6 +12259,8 @@ typedef enum
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL = 36, /**< Received illegal GEM frames. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_DROPPED_TOTAL = 37, /**< Total transmit packets droped. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS = 38, /**< Received packets. */
+    BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES = 39, /**< Transmitted bytes. */
+    BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES = 40, /**< Received bytes. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -11459,9 +12304,11 @@ typedef enum
 #define bcmolt_pon_interface_itu_pon_stats_data_id_rx_gem_illegal BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL
 #define bcmolt_pon_interface_itu_pon_stats_data_id_tx_dropped_total BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_DROPPED_TOTAL
 #define bcmolt_pon_interface_itu_pon_stats_data_id_rx_packets BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS
+#define bcmolt_pon_interface_itu_pon_stats_data_id_tx_bytes BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES
+#define bcmolt_pon_interface_itu_pon_stats_data_id_rx_bytes BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES
 #define bcmolt_pon_interface_itu_pon_stats_data_id__num_of BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID__NUM_OF
 #define bcmolt_pon_interface_itu_pon_stats_data_id_all_properties 0xFF
-#define bcmolt_pon_interface_itu_pon_stats_data_id_full_mask 0x7FFFFFFFFF
+#define bcmolt_pon_interface_itu_pon_stats_data_id_full_mask 0x1FFFFFFFFFF
 
 } bcmolt_pon_interface_itu_pon_stats_data_id;
 
@@ -11639,8 +12486,10 @@ typedef enum
 
 } bcmolt_pon_interface_start_onu_upgrade_data_id;
 
-/** Identifiers for all fields in a
-  * 'pon_interface_protection_switching_type_c_set_multiple_onu_state_data'. */
+/**
+ * Identifiers for all fields in a
+ * 'pon_interface_protection_switching_type_c_set_multiple_onu_state_data'.
+ */
 typedef enum
 {
     BCMOLT_PON_INTERFACE_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE_DATA_ID__BEGIN = 0,
@@ -12008,15 +12857,17 @@ typedef enum
     BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID__BEGIN = 0,
     BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_RESULT = 0, /**< result. */
     BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_OUTPUT = 1, /**< output. */
+    BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_ONU_ID = 2, /**< onu id. */
     BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_pon_interface_rogue_detection_tool_done_data_id__begin BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID__BEGIN
 #define bcmolt_pon_interface_rogue_detection_tool_done_data_id_result BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_RESULT
 #define bcmolt_pon_interface_rogue_detection_tool_done_data_id_output BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_OUTPUT
+#define bcmolt_pon_interface_rogue_detection_tool_done_data_id_onu_id BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_ONU_ID
 #define bcmolt_pon_interface_rogue_detection_tool_done_data_id__num_of BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID__NUM_OF
 #define bcmolt_pon_interface_rogue_detection_tool_done_data_id_all_properties 0xFF
-#define bcmolt_pon_interface_rogue_detection_tool_done_data_id_full_mask 0x3
+#define bcmolt_pon_interface_rogue_detection_tool_done_data_id_full_mask 0x7
 
 } bcmolt_pon_interface_rogue_detection_tool_done_data_id;
 
@@ -12079,6 +12930,8 @@ typedef enum
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_GEM_ILLEGAL = 36, /**< Received illegal GEM frames. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_DROPPED_TOTAL = 37, /**< Total transmit packets droped. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_PACKETS = 38, /**< Received packets. */
+    BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES = 39, /**< Transmitted bytes. */
+    BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES = 40, /**< Received bytes. */
     BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -12122,9 +12975,11 @@ typedef enum
 #define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_rx_gem_illegal BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_GEM_ILLEGAL
 #define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_tx_dropped_total BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_DROPPED_TOTAL
 #define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_rx_packets BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_PACKETS
+#define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_tx_bytes BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES
+#define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_rx_bytes BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES
 #define bcmolt_pon_interface_itu_pon_stats_cfg_data_id__num_of BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID__NUM_OF
 #define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_all_properties 0xFF
-#define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_full_mask 0x7FFFFFFFFF
+#define bcmolt_pon_interface_itu_pon_stats_cfg_data_id_full_mask 0x1FFFFFFFFFF
 
 } bcmolt_pon_interface_itu_pon_stats_cfg_data_id;
 
@@ -12467,14 +13322,16 @@ typedef enum
 {
     BCMOLT_SWITCH_INNI_CFG_DATA_ID__BEGIN = 0,
     BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE = 0, /**< config state. */
+    BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE = 1, /**< Link State. */
     BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_cfg_data_id__begin BCMOLT_SWITCH_INNI_CFG_DATA_ID__BEGIN
 #define bcmolt_switch_inni_cfg_data_id_config_state BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE
+#define bcmolt_switch_inni_cfg_data_id_link_state BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE
 #define bcmolt_switch_inni_cfg_data_id__num_of BCMOLT_SWITCH_INNI_CFG_DATA_ID__NUM_OF
 #define bcmolt_switch_inni_cfg_data_id_all_properties 0xFF
-#define bcmolt_switch_inni_cfg_data_id_full_mask 0x1
+#define bcmolt_switch_inni_cfg_data_id_full_mask 0x3
 
 } bcmolt_switch_inni_cfg_data_id;
 
@@ -12569,6 +13426,24 @@ typedef enum
 #define bcmolt_switch_inni_stats_data_id_full_mask 0xFFFFFFFFBF
 
 } bcmolt_switch_inni_stats_data_id;
+
+/** Identifiers for all fields in a 'switch_inni_link_state_change_data'. */
+typedef enum
+{
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__BEGIN = 0,
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE = 0, /**< old_state. */
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE = 1, /**< new_state. */
+    BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_switch_inni_link_state_change_data_id__begin BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__BEGIN
+#define bcmolt_switch_inni_link_state_change_data_id_old_state BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE
+#define bcmolt_switch_inni_link_state_change_data_id_new_state BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE
+#define bcmolt_switch_inni_link_state_change_data_id__num_of BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID__NUM_OF
+#define bcmolt_switch_inni_link_state_change_data_id_all_properties 0xFF
+#define bcmolt_switch_inni_link_state_change_data_id_full_mask 0x3
+
+} bcmolt_switch_inni_link_state_change_data_id;
 
 /** Identifiers for all fields in a 'switch_inni_stats_cfg_data'. */
 typedef enum
@@ -12698,17 +13573,19 @@ typedef enum
 typedef enum
 {
     BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__BEGIN = 0,
-    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 0, /**< Switch INNI Interface Statistics Alarm Cleared. */
-    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 1, /**< Switch INNI Interface Statistics Alarm Raised. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE = 0, /**< link_state_change. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED = 1, /**< Switch INNI Interface Statistics Alarm Cleared. */
+    BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED = 2, /**< Switch INNI Interface Statistics Alarm Raised. */
     BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
 #define bcmolt_switch_inni_auto_cfg_data_id__begin BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__BEGIN
+#define bcmolt_switch_inni_auto_cfg_data_id_link_state_change BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE
 #define bcmolt_switch_inni_auto_cfg_data_id_stats_alarm_cleared BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED
 #define bcmolt_switch_inni_auto_cfg_data_id_stats_alarm_raised BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED
 #define bcmolt_switch_inni_auto_cfg_data_id__num_of BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID__NUM_OF
 #define bcmolt_switch_inni_auto_cfg_data_id_all_properties 0xFF
-#define bcmolt_switch_inni_auto_cfg_data_id_full_mask 0x3
+#define bcmolt_switch_inni_auto_cfg_data_id_full_mask 0x7
 
 } bcmolt_switch_inni_auto_cfg_data_id;
 
@@ -12811,6 +13688,7 @@ typedef enum
     BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE = 3, /**< rate. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE = 4, /**< control state. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT = 5, /**< TM sched and priority line where CIR queue is attached. */
+    BCMOLT_TM_QUEUE_CFG_DATA_ID_PROFILE_ID = 6, /**< profile_id. */
     BCMOLT_TM_QUEUE_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
 
     /* Lower-case versions for macro support. */
@@ -12820,11 +13698,48 @@ typedef enum
 #define bcmolt_tm_queue_cfg_data_id_rate BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE
 #define bcmolt_tm_queue_cfg_data_id_control_state BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE
 #define bcmolt_tm_queue_cfg_data_id_cir_attachment_point BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT
+#define bcmolt_tm_queue_cfg_data_id_profile_id BCMOLT_TM_QUEUE_CFG_DATA_ID_PROFILE_ID
 #define bcmolt_tm_queue_cfg_data_id__num_of BCMOLT_TM_QUEUE_CFG_DATA_ID__NUM_OF
 #define bcmolt_tm_queue_cfg_data_id_all_properties 0xFF
-#define bcmolt_tm_queue_cfg_data_id_full_mask 0x3B
+#define bcmolt_tm_queue_cfg_data_id_full_mask 0x7B
 
 } bcmolt_tm_queue_cfg_data_id;
+
+/** Identifiers for all fields in a 'tm_queue_profile_key'. */
+typedef enum
+{
+    BCMOLT_TM_QUEUE_PROFILE_KEY_ID__BEGIN = 0,
+    BCMOLT_TM_QUEUE_PROFILE_KEY_ID_ID = 0, /**< id. */
+    BCMOLT_TM_QUEUE_PROFILE_KEY_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_tm_queue_profile_key_id__begin BCMOLT_TM_QUEUE_PROFILE_KEY_ID__BEGIN
+#define bcmolt_tm_queue_profile_key_id_id BCMOLT_TM_QUEUE_PROFILE_KEY_ID_ID
+#define bcmolt_tm_queue_profile_key_id__num_of BCMOLT_TM_QUEUE_PROFILE_KEY_ID__NUM_OF
+#define bcmolt_tm_queue_profile_key_id_all_properties 0xFF
+#define bcmolt_tm_queue_profile_key_id_full_mask 0x1
+
+} bcmolt_tm_queue_profile_key_id;
+
+/** Identifiers for all fields in a 'tm_queue_profile_cfg_data'. */
+typedef enum
+{
+    BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID__BEGIN = 0,
+    BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_STATE = 0, /**< state. */
+    BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_ENQUEUE = 1, /**< enqueue. */
+    BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_TAILDROP = 2, /**< taildrop. */
+    BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID__NUM_OF, /**< Constant to use for sizing arrays - note that enum may have holes. */
+
+    /* Lower-case versions for macro support. */
+#define bcmolt_tm_queue_profile_cfg_data_id__begin BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID__BEGIN
+#define bcmolt_tm_queue_profile_cfg_data_id_state BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_STATE
+#define bcmolt_tm_queue_profile_cfg_data_id_enqueue BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_ENQUEUE
+#define bcmolt_tm_queue_profile_cfg_data_id_taildrop BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_TAILDROP
+#define bcmolt_tm_queue_profile_cfg_data_id__num_of BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID__NUM_OF
+#define bcmolt_tm_queue_profile_cfg_data_id_all_properties 0xFF
+#define bcmolt_tm_queue_profile_cfg_data_id_full_mask 0x7
+
+} bcmolt_tm_queue_profile_cfg_data_id;
 
 /** Identifiers for all fields in a 'tm_sched_key'. */
 typedef enum

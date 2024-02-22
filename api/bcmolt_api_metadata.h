@@ -27,49 +27,77 @@
 #include <bcmolt_set_metadata.h>
 #include <bcmolt_api_model.h>
 
-/* Metadata set representing the BCMOLT API */
+/** @brief Metadata set representing the BCMOLT API */
 extern const bcmolt_metadata_set *bcmolt_api_metadata;
 
-/* Convenient accessors for generic metadata functions. */
+/*===== Convenient accessors for generic metadata functions ===== */
 #define bcmolt_api_obj_descr_get(...) bcmolt_obj_descr_get(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_group_descr_get(...) bcmolt_group_descr_get(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_group_descr_get_by_group_id(...) bcmolt_group_descr_get_by_group_id(bcmolt_api_metadata, __VA_ARGS__)
-#define bcmolt_api_group_descr_get_by_global_id(...) \
-    bcmolt_group_descr_get_by_global_id(bcmolt_api_metadata, __VA_ARGS__)
+#define bcmolt_api_group_descr_get_by_global_id(...) bcmolt_group_descr_get_by_global_id(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_group_count_get(...) bcmolt_group_count_get(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_group_id_split(...) bcmolt_group_id_split(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_group_id_combine(...) bcmolt_group_id_combine(bcmolt_api_metadata, __VA_ARGS__)
 #define bcmolt_api_tag_descr_get(...) bcmolt_tag_descr_get(bcmolt_api_metadata, __VA_ARGS__)
 
-/* Get tags by system mode */
-bcmolt_tag bcmolt_system_mode_tags(bcmolt_system_mode system_mode);
-
-/* Get tags for an object */
-bcmolt_tag bcmolt_object_tags(bcmolt_obj_id obj);
-
-/* Detect whether or not a given object is supported in a given system mode. */
-bcmos_bool bcmolt_object_is_supported(bcmolt_system_mode system_mode, bcmolt_obj_id obj);
-
-/** Gets the device ID and interface ID for a given message based on the object key.
+/**
+ * @brief Get tags by system mode
  *
- * \param msg[in] The message to check.
- * \param has_device_id[out] TRUE if *device_id is set
- * \param device_id[out] The device ID field of the object key (unchanged if device ID doesn't exist).
- * \param has_interface_id[out] TRUE if *interface_id is set
- * \param interface_id[out] The interface ID field of the object key (unchanged if interface ID doesn't exist).
+ * @param[in] system_mode  System mode
+ * @return BCMOLT API tag bitmap
  */
-void bcmolt_devif_get(const bcmolt_msg *msg, bcmos_bool *has_device_id, bcmolt_ldid *device_id,
-    bcmos_bool *has_interface_id, bcmolt_interface *interface_id);
+bcmolt_tag bcmolt_system_mode_tags(
+    bcmolt_system_mode system_mode);
 
-/** Sets the device ID and interface ID for a given message by mutating the object key.
+/**
+ * @brief Get tags for an object
  *
- * \param msg[in/out] The message to change.
- * \param device_id[in] The device ID field of the object key (not used if device ID doesn't exist).
- * \param interface_id[in] The interface ID field of the object key (not used if interface ID doesn't exist).
+ * @param[in] obj  BCMOLT API object ID
+ * @return BCMOLT API tag bitmap
  */
-void bcmolt_devif_set(bcmolt_msg *msg, bcmolt_ldid device_id, bcmolt_interface interface_id);
+bcmolt_tag bcmolt_object_tags(
+    bcmolt_obj_id obj);
 
-/** Enum string tables. */
+/**
+ * @brief Detect whether or not a given object is supported in a given system mode
+ *
+ * @param[in] system_mode  System mode
+ * @param[in] obj          BCMOLT API object ID
+ * @return whether or not the object is supported in the given system mode
+ */
+bcmos_bool bcmolt_object_is_supported(
+    bcmolt_system_mode system_mode,
+    bcmolt_obj_id obj);
+
+/**
+ * @brief Get the device ID and interface ID for a given message based on the object key
+ *
+ * @param[in]  p_msg               The message to check
+ * @param[out] p_has_device_id     TRUE if *p_device_id is set
+ * @param[out] p_device_id         The device ID field of the object key (unchanged if device ID doesn't exist)
+ * @param[out] p_has_interface_id  TRUE if *p_interface_id is set
+ * @param[out] p_interface_id      The interface ID field of the object key (unchanged if interface ID doesn't exist)
+ */
+void bcmolt_devif_get(
+    const bcmolt_msg *p_msg,
+    bcmos_bool *p_has_device_id,
+    bcmolt_ldid *p_device_id,
+    bcmos_bool *p_has_interface_id,
+    bcmolt_interface *p_interface_id);
+
+/**
+ * @brief Set the device ID and interface ID for a given message by mutating the object key
+ *
+ * @param[in,out] p_msg         The message to change
+ * @param[in]     device_id     The device ID field of the object key (not used if device ID doesn't exist)
+ * @param[in]     interface_id  The interface ID field of the object key (not used if interface ID doesn't exist)
+ */
+void bcmolt_devif_set(
+    bcmolt_msg *p_msg,
+    bcmolt_ldid device_id,
+    bcmolt_interface interface_id);
+
+/* ===== Enum string tables ===== */
 extern const bcmolt_enum_val bcmolt_access_control_fwd_action_type_string_table[];
 extern const bcmolt_enum_val bcmolt_action_cmd_id_string_table[];
 extern const bcmolt_enum_val bcmolt_action_control_pkt_modifiers_string_table[];
@@ -83,6 +111,8 @@ extern const bcmolt_enum_val bcmolt_alloc_type_string_table[];
 extern const bcmolt_enum_val bcmolt_automatic_onu_deactivation_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_bal_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_bal_state_string_table[];
+extern const bcmolt_enum_val bcmolt_bc_fwrd_state_string_table[];
+extern const bcmolt_enum_val bcmolt_binding_command_string_table[];
 extern const bcmolt_enum_val bcmolt_burst_profile_type_string_table[];
 extern const bcmolt_enum_val bcmolt_calibration_record_string_table[];
 extern const bcmolt_enum_val bcmolt_ccm_event_string_table[];
@@ -105,6 +135,7 @@ extern const bcmolt_enum_val bcmolt_disable_serial_number_control_string_table[]
 extern const bcmolt_enum_val bcmolt_duplex_mode_string_table[];
 extern const bcmolt_enum_val bcmolt_egress_qos_type_string_table[];
 extern const bcmolt_enum_val bcmolt_embedded_image_transfer_status_string_table[];
+extern const bcmolt_enum_val bcmolt_enqueue_algorithm_string_table[];
 extern const bcmolt_enum_val bcmolt_erps_control_string_table[];
 extern const bcmolt_enum_val bcmolt_erps_port_string_table[];
 extern const bcmolt_enum_val bcmolt_ext_irq_string_table[];
@@ -139,6 +170,10 @@ extern const bcmolt_enum_val bcmolt_interface_state_string_table[];
 extern const bcmolt_enum_val bcmolt_interface_type_string_table[];
 extern const bcmolt_enum_val bcmolt_internal_nni_redundancy_string_table[];
 extern const bcmolt_enum_val bcmolt_intf_opt_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_dump_mode_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_event_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_event_report_control_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mact_dump_status_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_hash_field_flags_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_hash_polynomial_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_health_string_table[];
@@ -163,6 +198,7 @@ extern const bcmolt_enum_val bcmolt_nni_connection_string_table[];
 extern const bcmolt_enum_val bcmolt_nni_loopback_type_string_table[];
 extern const bcmolt_enum_val bcmolt_nni_protection_mode_string_table[];
 extern const bcmolt_enum_val bcmolt_nni_subtype_string_table[];
+extern const bcmolt_enum_val bcmolt_nto1_programming_mode_string_table[];
 extern const bcmolt_enum_val bcmolt_num_of_frames_per_map_string_table[];
 extern const bcmolt_enum_val bcmolt_odn_class_string_table[];
 extern const bcmolt_enum_val bcmolt_omci_device_id_string_table[];
@@ -199,9 +235,12 @@ extern const bcmolt_enum_val bcmolt_ring_port_state_string_table[];
 extern const bcmolt_enum_val bcmolt_rssi_measurement_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_secure_mutual_authentication_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_sign_string_table[];
+extern const bcmolt_enum_val bcmolt_src_binding_fields_string_table[];
+extern const bcmolt_enum_val bcmolt_src_binding_id_string_table[];
 extern const bcmolt_enum_val bcmolt_stage_string_table[];
 extern const bcmolt_enum_val bcmolt_stat_condition_type_string_table[];
 extern const bcmolt_enum_val bcmolt_status_string_table[];
+extern const bcmolt_enum_val bcmolt_sw_error_severity_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_over_type_c_onu_state_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_pon_type_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_system_mode_string_table[];
@@ -219,6 +258,7 @@ extern const bcmolt_enum_val bcmolt_trx_type_string_table[];
 extern const bcmolt_enum_val bcmolt_tune_in_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_tune_out_fail_reason_string_table[];
 extern const bcmolt_enum_val bcmolt_uart_baudrate_string_table[];
+extern const bcmolt_enum_val bcmolt_um_fwrd_state_string_table[];
 extern const bcmolt_enum_val bcmolt_upstream_line_rate_capabilities_string_table[];
 extern const bcmolt_enum_val bcmolt_us_gem_port_destination_string_table[];
 extern const bcmolt_enum_val bcmolt_us_operating_wavelength_bands_string_table[];
@@ -256,6 +296,8 @@ extern const bcmolt_enum_val bcmolt_itupon_gem_stat_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_stat_cfg_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_auto_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_oper_subgroup_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_auto_subgroup_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_oper_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_stat_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_stat_cfg_subgroup_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_auto_subgroup_string_table[];
@@ -325,6 +367,8 @@ extern const bcmolt_enum_val bcmolt_inband_conn_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_indication_shaping_id_string_table[];
 extern const bcmolt_enum_val bcmolt_inni_config_id_string_table[];
 extern const bcmolt_enum_val bcmolt_intf_ref_id_string_table[];
+extern const bcmolt_enum_val bcmolt_ip_v_4_src_binding_id_string_table[];
+extern const bcmolt_enum_val bcmolt_ip_v_6_src_binding_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itu_onu_params_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itu_pon_params_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itu_tod_id_string_table[];
@@ -334,6 +378,8 @@ extern const bcmolt_enum_val bcmolt_itupon_onu_aes_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_onu_eqd_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_protection_switching_id_string_table[];
 extern const bcmolt_enum_val bcmolt_key_exchange_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_dump_filters_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mact_entry_id_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_global_parms_id_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_members_update_command_id_string_table[];
 extern const bcmolt_enum_val bcmolt_layer_4_port_range_id_string_table[];
@@ -376,6 +422,7 @@ extern const bcmolt_enum_val bcmolt_ring_port_detailed_state_id_string_table[];
 extern const bcmolt_enum_val bcmolt_rssi_measurement_result_id_string_table[];
 extern const bcmolt_enum_val bcmolt_serial_number_id_string_table[];
 extern const bcmolt_enum_val bcmolt_service_discovery_id_string_table[];
+extern const bcmolt_enum_val bcmolt_src_binding_info_id_string_table[];
 extern const bcmolt_enum_val bcmolt_stat_alarm_config_id_string_table[];
 extern const bcmolt_enum_val bcmolt_stat_alarm_soak_config_id_string_table[];
 extern const bcmolt_enum_val bcmolt_stat_alarm_trigger_config_id_string_table[];
@@ -385,6 +432,7 @@ extern const bcmolt_enum_val bcmolt_stat_alarm_trigger_config_value_threshold_id
 extern const bcmolt_enum_val bcmolt_stat_alarm_trigger_config_none_id_string_table[];
 extern const bcmolt_enum_val bcmolt_sw_error_id_string_table[];
 extern const bcmolt_enum_val bcmolt_system_profile_id_string_table[];
+extern const bcmolt_enum_val bcmolt_taildrop_params_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_queue_ref_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_sched_attachment_point_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_sched_attachment_point_interface_id_string_table[];
@@ -463,6 +511,7 @@ extern const bcmolt_enum_val bcmolt_flow_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_stats_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_send_eth_packet_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_flow_src_binding_update_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_stats_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_stats_alarm_raised_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_flow_stats_alarm_cleared_data_id_string_table[];
@@ -501,9 +550,17 @@ extern const bcmolt_enum_val bcmolt_itupon_alloc_get_stats_data_id_string_table[
 extern const bcmolt_enum_val bcmolt_itupon_alloc_get_alloc_stats_completed_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_set_state_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_stats_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_stats_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_stats_alarm_raised_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_stats_alarm_cleared_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_alloc_auto_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_cfg_data_id_string_table[];
@@ -514,6 +571,13 @@ extern const bcmolt_enum_val bcmolt_itupon_gem_stats_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_stats_alarm_raised_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_stats_alarm_cleared_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_itupon_gem_auto_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_key_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_dump_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_dump_complete_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_network_events_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_pon_events_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_l2_mac_table_auto_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_lag_interface_stats_data_id_string_table[];
@@ -608,9 +672,13 @@ extern const bcmolt_enum_val bcmolt_onu_state_change_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_range_value_changed_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_xpon_unknown_ploam_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_trap_ploam_received_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_itu_pon_stats_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_itu_pon_stats_alarm_raised_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_itu_pon_stats_alarm_cleared_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_pbit_to_tc_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_pbit_to_tc_cfg_data_id_string_table[];
@@ -662,6 +730,7 @@ extern const bcmolt_enum_val bcmolt_software_error_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_stats_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_switch_inni_link_state_change_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_stats_alarm_raised_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_switch_inni_stats_alarm_cleared_data_id_string_table[];
@@ -672,10 +741,12 @@ extern const bcmolt_enum_val bcmolt_tm_qmp_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_qmp_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_queue_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_queue_cfg_data_id_string_table[];
+extern const bcmolt_enum_val bcmolt_tm_queue_profile_key_id_string_table[];
+extern const bcmolt_enum_val bcmolt_tm_queue_profile_cfg_data_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_sched_key_id_string_table[];
 extern const bcmolt_enum_val bcmolt_tm_sched_cfg_data_id_string_table[];
 
-/** Type descriptors exported for use with macros. */
+/* ===== Type descriptors exported for use with macros ===== */
 extern const bcmolt_type_descr type_descr_bcmolt_access_control_fwd_action;
 extern const bcmolt_type_descr type_descr_bcmolt_access_control_fwd_action_type;
 #define type_descr_bcmolt_access_control_id type_descr_uint16_t
@@ -701,6 +772,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_arr_nni_id_8;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_ploam_filter_5;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_policer_ref_4;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_power_consumption_channel_report_8;
+extern const bcmolt_type_descr type_descr_bcmolt_arr_src_binding_info_16;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_tm_queue_ref_8;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_u16_2;
 extern const bcmolt_type_descr type_descr_bcmolt_arr_u64_4;
@@ -712,6 +784,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_automatic_onu_deactivation_reas
 extern const bcmolt_type_descr type_descr_bcmolt_bal_fail_reason;
 extern const bcmolt_type_descr type_descr_bcmolt_bal_state;
 #define type_descr_bcmolt_bal_system_id type_descr_uint8_t
+extern const bcmolt_type_descr type_descr_bcmolt_bc_fwrd_state;
 #define type_descr_bcmolt_ber_interval type_descr_uint32_t
 extern const bcmolt_type_descr type_descr_bcmolt_ber_monitor_params;
 extern const bcmolt_type_descr type_descr_bcmolt_bin_str;
@@ -723,6 +796,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_bin_str_4;
 extern const bcmolt_type_descr type_descr_bcmolt_bin_str_40;
 extern const bcmolt_type_descr type_descr_bcmolt_bin_str_48;
 extern const bcmolt_type_descr type_descr_bcmolt_bin_str_8;
+extern const bcmolt_type_descr type_descr_bcmolt_binding_command;
 #define type_descr_bcmolt_burst_profile_index type_descr_uint8_t
 extern const bcmolt_type_descr type_descr_bcmolt_burst_profile_type;
 extern const bcmolt_type_descr type_descr_bcmolt_calibration_record;
@@ -758,6 +832,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_egress_qos_type;
 extern const bcmolt_type_descr type_descr_bcmolt_embedded_image_entry;
 extern const bcmolt_type_descr type_descr_bcmolt_embedded_image_entry_list_u8_max_4;
 extern const bcmolt_type_descr type_descr_bcmolt_embedded_image_transfer_status;
+extern const bcmolt_type_descr type_descr_bcmolt_enqueue_algorithm;
 extern const bcmolt_type_descr type_descr_bcmolt_erps_control;
 #define type_descr_bcmolt_erps_id type_descr_uint16_t
 extern const bcmolt_type_descr type_descr_bcmolt_erps_intf_ref;
@@ -823,6 +898,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_internal_nni_redundancy;
 extern const bcmolt_type_descr type_descr_bcmolt_intf_opt;
 extern const bcmolt_type_descr type_descr_bcmolt_intf_ref;
 extern const bcmolt_type_descr type_descr_bcmolt_intf_ref_list_u8;
+extern const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding;
+extern const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_onu_params;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_pon_params;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_tod;
@@ -833,6 +910,14 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd_list_u32;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_protection_switching;
 extern const bcmolt_type_descr type_descr_bcmolt_key_exchange;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_dump_mode;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_event;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_event_report_control;
+#define type_descr_bcmolt_l2_mac_table_id type_descr_uint8_t
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mact_dump_status;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_list_u32;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_global_parms;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_hash_field_flags;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_hash_polynomial;
@@ -873,6 +958,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_nni_link_status;
 extern const bcmolt_type_descr type_descr_bcmolt_nni_loopback_type;
 extern const bcmolt_type_descr type_descr_bcmolt_nni_protection_mode;
 extern const bcmolt_type_descr type_descr_bcmolt_nni_subtype;
+extern const bcmolt_type_descr type_descr_bcmolt_nto1_programming_mode;
 extern const bcmolt_type_descr type_descr_bcmolt_num_of_frames_per_map;
 #define type_descr_bcmolt_odid type_descr_uint8_t
 extern const bcmolt_type_descr type_descr_bcmolt_odn_class;
@@ -948,6 +1034,9 @@ extern const bcmolt_type_descr type_descr_bcmolt_serial_number;
 extern const bcmolt_type_descr type_descr_bcmolt_service_discovery;
 #define type_descr_bcmolt_service_port_id type_descr_uint32_t
 extern const bcmolt_type_descr type_descr_bcmolt_sign;
+extern const bcmolt_type_descr type_descr_bcmolt_src_binding_fields;
+extern const bcmolt_type_descr type_descr_bcmolt_src_binding_id;
+extern const bcmolt_type_descr type_descr_bcmolt_src_binding_info;
 extern const bcmolt_type_descr type_descr_bcmolt_stage;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_config;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_soak_config;
@@ -955,6 +1044,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_condition_type;
 extern const bcmolt_type_descr type_descr_bcmolt_status;
 extern const bcmolt_type_descr type_descr_bcmolt_str_100;
+extern const bcmolt_type_descr type_descr_bcmolt_str_128;
 extern const bcmolt_type_descr type_descr_bcmolt_str_16;
 extern const bcmolt_type_descr type_descr_bcmolt_str_2000;
 extern const bcmolt_type_descr type_descr_bcmolt_str_2048;
@@ -963,17 +1053,20 @@ extern const bcmolt_type_descr type_descr_bcmolt_str_32;
 extern const bcmolt_type_descr type_descr_bcmolt_str_48;
 extern const bcmolt_type_descr type_descr_bcmolt_str_64;
 extern const bcmolt_type_descr type_descr_bcmolt_sw_error;
+extern const bcmolt_type_descr type_descr_bcmolt_sw_error_severity;
 #define type_descr_bcmolt_switch_inni_id type_descr_uint8_t
 extern const bcmolt_type_descr type_descr_bcmolt_switch_over_type_c_onu_state;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_pon_type_fail_reason;
 extern const bcmolt_type_descr type_descr_bcmolt_system_mode;
 extern const bcmolt_type_descr type_descr_bcmolt_system_profile;
+extern const bcmolt_type_descr type_descr_bcmolt_taildrop_params;
 extern const bcmolt_type_descr type_descr_bcmolt_tc_protocol;
 #define type_descr_bcmolt_time_quanta type_descr_uint32_t
 #define type_descr_bcmolt_tm_priority type_descr_uint8_t
 #define type_descr_bcmolt_tm_qmp_id type_descr_uint8_t
 extern const bcmolt_type_descr type_descr_bcmolt_tm_qmp_type;
 #define type_descr_bcmolt_tm_queue_id type_descr_uint16_t
+#define type_descr_bcmolt_tm_queue_profile_id type_descr_uint16_t
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_ref;
 #define type_descr_bcmolt_tm_queue_set_id type_descr_uint16_t
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point;
@@ -1000,6 +1093,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_tune_out_fail_reason;
 extern const bcmolt_type_descr type_descr_bcmolt_u64_list_u32_hex;
 extern const bcmolt_type_descr type_descr_bcmolt_u8_list_u8_hex;
 extern const bcmolt_type_descr type_descr_bcmolt_uart_baudrate;
+extern const bcmolt_type_descr type_descr_bcmolt_um_fwrd_state;
 extern const bcmolt_type_descr type_descr_bcmolt_upstream_line_rate_capabilities;
 extern const bcmolt_type_descr type_descr_bcmolt_us_gem_port_destination;
 extern const bcmolt_type_descr type_descr_bcmolt_us_operating_wavelength_bands;
@@ -1071,6 +1165,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_flow_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_key;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_data;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data;
+extern const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_raised_data;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_cleared_data;
@@ -1109,9 +1204,17 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_stats_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_set_state_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_key;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_cfg_data;
@@ -1122,6 +1225,13 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_raised_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_key;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_data;
@@ -1216,9 +1326,13 @@ extern const bcmolt_type_descr type_descr_bcmolt_onu_state_change_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_range_value_changed_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_auto_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_key;
 extern const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_cfg_data;
@@ -1270,6 +1384,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_software_error_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_key;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data;
+extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_raised_data;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data;
@@ -1280,6 +1395,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_tm_qmp_key;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_qmp_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_key;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_cfg_data;
+extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_key;
+extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_key;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_cfg_data;
 extern const bcmolt_type_descr type_descr_bcmolt_obj_id;
@@ -1315,6 +1432,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stat_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stat_cfg_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_oper_subgroup;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_subgroup;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_oper_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_stat_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_stat_cfg_subgroup;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_auto_subgroup;
@@ -1384,6 +1503,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_inband_conn_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_indication_shaping_id;
 extern const bcmolt_type_descr type_descr_bcmolt_inni_config_id;
 extern const bcmolt_type_descr type_descr_bcmolt_intf_ref_id;
+extern const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding_id;
+extern const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_onu_params_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_pon_params_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itu_tod_id;
@@ -1393,6 +1514,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_onu_aes_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_protection_switching_id;
 extern const bcmolt_type_descr type_descr_bcmolt_key_exchange_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_id;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_global_parms_id;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_members_update_command_id;
 extern const bcmolt_type_descr type_descr_bcmolt_layer_4_port_range_id;
@@ -1435,6 +1558,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_ring_port_detailed_state_id;
 extern const bcmolt_type_descr type_descr_bcmolt_rssi_measurement_result_id;
 extern const bcmolt_type_descr type_descr_bcmolt_serial_number_id;
 extern const bcmolt_type_descr type_descr_bcmolt_service_discovery_id;
+extern const bcmolt_type_descr type_descr_bcmolt_src_binding_info_id;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_config_id;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_soak_config_id;
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_id;
@@ -1444,6 +1568,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_value
 extern const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_none_id;
 extern const bcmolt_type_descr type_descr_bcmolt_sw_error_id;
 extern const bcmolt_type_descr type_descr_bcmolt_system_profile_id;
+extern const bcmolt_type_descr type_descr_bcmolt_taildrop_params_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_ref_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point_interface_id;
@@ -1522,6 +1647,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_flow_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_raised_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_cleared_data_id;
@@ -1560,9 +1686,17 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_stats_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_set_state_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_cfg_data_id;
@@ -1573,6 +1707,13 @@ extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_data_id;
@@ -1667,9 +1808,13 @@ extern const bcmolt_type_descr type_descr_bcmolt_onu_state_change_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_range_value_changed_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_onu_auto_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_cfg_data_id;
@@ -1721,6 +1866,7 @@ extern const bcmolt_type_descr type_descr_bcmolt_software_error_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_raised_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_id;
@@ -1731,6 +1877,8 @@ extern const bcmolt_type_descr type_descr_bcmolt_tm_qmp_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_qmp_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_cfg_data_id;
+extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_key_id;
+extern const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_cfg_data_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_key_id;
 extern const bcmolt_type_descr type_descr_bcmolt_tm_sched_cfg_data_id;
 

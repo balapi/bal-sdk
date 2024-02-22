@@ -25,8 +25,8 @@
 #include <bcmolt_api_model.h>
 #include "bcmolt_api_metadata.h"
 
-/** ===== Tags ===== */
-static bcmolt_tag_descr tags[] =
+/* ===== Tags ===== */
+static const bcmolt_tag_descr _tags[] =
 {
     { .id = BCMOLT_TAG_DEVICE, .name = "DEVICE" },
     { .id = BCMOLT_TAG_GPON, .name = "GPON" },
@@ -35,8 +35,9 @@ static bcmolt_tag_descr tags[] =
     { .id = BCMOLT_TAG_XGPON, .name = "XGPON" },
     { .id = BCMOLT_TAG_XGS, .name = "XGS" },
 };
-/** ===== Types ===== */
-static bcmolt_field_descr type_descr_bcmolt_access_control_fwd_action_fields[] =
+
+/* ===== Types ===== */
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_fwd_action_fields[] =
 {
     {
         .name = "action",
@@ -63,7 +64,7 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_fwd_action =
     .size = sizeof(bcmolt_access_control_fwd_action),
     .mask_offset = offsetof(bcmolt_access_control_fwd_action, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_fwd_action_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_fwd_action_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_fwd_action_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_fwd_action_fields } },
 };
 
 const bcmolt_enum_val bcmolt_access_control_fwd_action_type_string_table[] =
@@ -86,7 +87,7 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_fwd_action_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_access_control_fwd_action_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_pkt_modifier_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_pkt_modifier_fields[] =
 {
     {
         .name = "pkt_modifier_bit_mask",
@@ -153,10 +154,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_pkt_modifier =
     .size = sizeof(bcmolt_access_control_pkt_modifier),
     .mask_offset = offsetof(bcmolt_access_control_pkt_modifier, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_pkt_modifier_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_pkt_modifier_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_pkt_modifier_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_pkt_modifier_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_action_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_action_fields[] =
 {
     {
         .name = "cmds_bitmask",
@@ -215,7 +216,7 @@ const bcmolt_type_descr type_descr_bcmolt_action =
     .size = sizeof(bcmolt_action),
     .mask_offset = offsetof(bcmolt_action, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_action_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_action_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_action_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_action_fields } },
 };
 
 const bcmolt_enum_val bcmolt_action_cmd_id_string_table[] =
@@ -352,7 +353,7 @@ const bcmolt_type_descr type_descr_bcmolt_additional_bw_eligibility =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_additional_bw_eligibility_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_aes_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_aes_key_fields[] =
 {
     {
         .name = "bytes",
@@ -371,7 +372,7 @@ const bcmolt_type_descr type_descr_bcmolt_aes_key =
     .size = sizeof(bcmolt_aes_key),
     .mask_offset = offsetof(bcmolt_aes_key, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_aes_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_aes_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_aes_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_aes_key_fields } },
 };
 
 const bcmolt_enum_val bcmolt_alloc_operation_string_table[] =
@@ -497,6 +498,16 @@ const bcmolt_type_descr type_descr_bcmolt_arr_power_consumption_channel_report_8
     .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_power_consumption_channel_report, .data_offset = offsetof(bcmolt_arr_power_consumption_channel_report_8, arr), .size = 8 } },
 };
 
+const bcmolt_type_descr type_descr_bcmolt_arr_src_binding_info_16 =
+{
+    .name = "arr_src_binding_info_16",
+    .descr = "Fixed-Length list: 16x src_binding_info",
+    .size = sizeof(bcmolt_arr_src_binding_info_16),
+    .mask_offset = offsetof(bcmolt_arr_src_binding_info_16, arr_index_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_ARR_FIXED,
+    .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_src_binding_info, .data_offset = offsetof(bcmolt_arr_src_binding_info_16, arr), .size = 16 } },
+};
+
 const bcmolt_type_descr type_descr_bcmolt_arr_tm_queue_ref_8 =
 {
     .name = "arr_tm_queue_ref_8",
@@ -557,7 +568,7 @@ const bcmolt_type_descr type_descr_bcmolt_arr_xgpon_burst_profile_4 =
     .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_xgpon_burst_profile, .data_offset = offsetof(bcmolt_arr_xgpon_burst_profile_4, arr), .size = 4 } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_automatic_onu_deactivation_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_automatic_onu_deactivation_fields[] =
 {
     {
         .name = "los",
@@ -616,7 +627,7 @@ const bcmolt_type_descr type_descr_bcmolt_automatic_onu_deactivation =
     .size = sizeof(bcmolt_automatic_onu_deactivation),
     .mask_offset = offsetof(bcmolt_automatic_onu_deactivation, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_automatic_onu_deactivation_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_automatic_onu_deactivation_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_automatic_onu_deactivation_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_automatic_onu_deactivation_fields } },
 };
 
 const bcmolt_enum_val bcmolt_automatic_onu_deactivation_reason_string_table[] =
@@ -683,7 +694,24 @@ const bcmolt_type_descr type_descr_bcmolt_bal_state =
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_bal_state_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ber_monitor_params_fields[] =
+const bcmolt_enum_val bcmolt_bc_fwrd_state_string_table[] =
+{
+    { .name = "disable", .val = BCMOLT_BC_FWRD_STATE_DISABLE, .tags = 0 },
+    { .name = "enable", .val = BCMOLT_BC_FWRD_STATE_ENABLE, .tags = 0 },
+    { .name = "flood_to_flows", .val = BCMOLT_BC_FWRD_STATE_FLOOD_TO_FLOWS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_bc_fwrd_state =
+{
+    .name = "bc_fwrd_state",
+    .descr = "bc fwrd state",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_bc_fwrd_state),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_bc_fwrd_state_string_table } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_ber_monitor_params_fields[] =
 {
     {
         .name = "us_ber_interval",
@@ -718,7 +746,7 @@ const bcmolt_type_descr type_descr_bcmolt_ber_monitor_params =
     .size = sizeof(bcmolt_ber_monitor_params),
     .mask_offset = offsetof(bcmolt_ber_monitor_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ber_monitor_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ber_monitor_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ber_monitor_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ber_monitor_params_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_bin_str =
@@ -811,6 +839,22 @@ const bcmolt_type_descr type_descr_bcmolt_bin_str_8 =
     .x = { .binary_fixed = { .len = 8, .data_offset = offsetof(bcmolt_bin_str_8, arr) } },
 };
 
+const bcmolt_enum_val bcmolt_binding_command_string_table[] =
+{
+    { .name = "add", .val = BCMOLT_BINDING_COMMAND_ADD, .tags = 0 },
+    { .name = "remove", .val = BCMOLT_BINDING_COMMAND_REMOVE, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_binding_command =
+{
+    .name = "binding_command",
+    .descr = "binding command",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_binding_command),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_binding_command_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_burst_profile_type_string_table[] =
 {
     { .name = "ranging", .val = BCMOLT_BURST_PROFILE_TYPE_RANGING, .tags = 0 },
@@ -845,7 +889,7 @@ const bcmolt_type_descr type_descr_bcmolt_calibration_record =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_calibration_record_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_cbr_rt_allocation_profile_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_cbr_rt_allocation_profile_fields[] =
 {
     {
         .name = "ma_7",
@@ -880,7 +924,7 @@ const bcmolt_type_descr type_descr_bcmolt_cbr_rt_allocation_profile =
     .size = sizeof(bcmolt_cbr_rt_allocation_profile),
     .mask_offset = offsetof(bcmolt_cbr_rt_allocation_profile, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_cbr_rt_allocation_profile_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_cbr_rt_allocation_profile_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_cbr_rt_allocation_profile_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_cbr_rt_allocation_profile_fields } },
 };
 
 const bcmolt_enum_val bcmolt_ccm_event_string_table[] =
@@ -923,7 +967,7 @@ const bcmolt_type_descr type_descr_bcmolt_ccm_interval =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_ccm_interval_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_channel_profile_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_channel_profile_fields[] =
 {
     {
         .name = "version",
@@ -1031,7 +1075,7 @@ const bcmolt_type_descr type_descr_bcmolt_channel_profile =
     .size = sizeof(bcmolt_channel_profile),
     .mask_offset = offsetof(bcmolt_channel_profile, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_channel_profile_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_channel_profile_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_channel_profile_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_channel_profile_fields } },
 };
 
 const bcmolt_enum_val bcmolt_chip_family_string_table[] =
@@ -1051,7 +1095,7 @@ const bcmolt_type_descr type_descr_bcmolt_chip_family =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_chip_family_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_classifier_fields[] =
 {
     {
         .name = "classifier_bitmap",
@@ -1286,6 +1330,22 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .offset = offsetof(bcmolt_classifier, slow_proto_subtype),
         .type = &type_descr_uint8_t,
     },
+    {
+        .name = "o_tpid",
+        .descr = "outer tag TPID value for classification (0x8100 or 0x88A8 only)",
+        .id = BCMOLT_CLASSIFIER_ID_O_TPID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, o_tpid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "i_tpid",
+        .descr = "inner tag TPID value for classification (0x8100 or 0x88A8 only)",
+        .id = BCMOLT_CLASSIFIER_ID_I_TPID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_classifier, i_tpid),
+        .type = &type_descr_uint16_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_classifier =
@@ -1295,10 +1355,10 @@ const bcmolt_type_descr type_descr_bcmolt_classifier =
     .size = sizeof(bcmolt_classifier),
     .mask_offset = offsetof(bcmolt_classifier, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_classifier_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_classifier_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_classifier_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_classifier_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_classifier_ip_v_6_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_classifier_ip_v_6_fields[] =
 {
     {
         .name = "classifier_ip_v_6_bitmap",
@@ -1366,7 +1426,7 @@ const bcmolt_type_descr type_descr_bcmolt_classifier_ip_v_6 =
     .size = sizeof(bcmolt_classifier_ip_v_6),
     .mask_offset = offsetof(bcmolt_classifier_ip_v_6, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_classifier_ip_v_6_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_classifier_ip_v_6_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_classifier_ip_v_6_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_classifier_ip_v_6_fields } },
 };
 
 const bcmolt_enum_val bcmolt_comm_mode_string_table[] =
@@ -1465,7 +1525,7 @@ const bcmolt_type_descr type_descr_bcmolt_dba_options =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_dba_options_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ddr_test_completed_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ddr_test_completed_fields[] =
 {
     {
         .name = "status",
@@ -1477,7 +1537,7 @@ static bcmolt_field_descr type_descr_bcmolt_ddr_test_completed_fields[] =
     },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ddr_test_completed_completed_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ddr_test_completed_completed_fields[] =
 {
     {
         .name = "cpu_result",
@@ -1512,10 +1572,10 @@ const bcmolt_type_descr type_descr_bcmolt_ddr_test_completed_completed =
     .size = sizeof(((bcmolt_ddr_test_completed *)0)->u.completed),
     .mask_offset = (uint16_t)(offsetof(bcmolt_ddr_test_completed, u.completed.presence_mask) - offsetof(bcmolt_ddr_test_completed, u.completed.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ddr_test_completed_completed_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ddr_test_completed_completed_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ddr_test_completed_completed_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ddr_test_completed_completed_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ddr_test_completed_connection_failed_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ddr_test_completed_connection_failed_fields[] =
 {
     {
         .name = "reason",
@@ -1534,10 +1594,10 @@ const bcmolt_type_descr type_descr_bcmolt_ddr_test_completed_connection_failed =
     .size = sizeof(((bcmolt_ddr_test_completed *)0)->u.connection_failed),
     .mask_offset = (uint16_t)(offsetof(bcmolt_ddr_test_completed, u.connection_failed.presence_mask) - offsetof(bcmolt_ddr_test_completed, u.connection_failed.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ddr_test_completed_connection_failed_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ddr_test_completed_connection_failed_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ddr_test_completed_connection_failed_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ddr_test_completed_connection_failed_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ddr_test_completed_union_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ddr_test_completed_union_fields[] =
 {
     {
         .name = "completed",
@@ -1561,7 +1621,7 @@ const bcmolt_type_descr type_descr_bcmolt_ddr_test_completed =
     .descr = "Results of the DDR test",
     .base_type = BCMOLT_BASE_TYPE_ID_UNION,
     .size = sizeof(bcmolt_ddr_test_completed),
-    .x = { .u = { .num_common_fields = sizeof(type_descr_bcmolt_ddr_test_completed_fields) / sizeof(bcmolt_field_descr), .common_fields = type_descr_bcmolt_ddr_test_completed_fields, .classifier_idx = 0, .union_fields = type_descr_bcmolt_ddr_test_completed_union_fields } },
+    .x = { .u = { .num_common_fields = sizeof(_type_descr_bcmolt_ddr_test_completed_fields) / sizeof(bcmolt_field_descr), .common_fields = _type_descr_bcmolt_ddr_test_completed_fields, .classifier_idx = 0, .union_fields = _type_descr_bcmolt_ddr_test_completed_union_fields } },
 };
 
 const bcmolt_enum_val bcmolt_ddr_test_mode_string_table[] =
@@ -1638,7 +1698,7 @@ const bcmolt_type_descr type_descr_bcmolt_deactivation_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_deactivation_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_debug_device_cfg_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_debug_device_cfg_fields[] =
 {
     {
         .name = "use_prev_pon_serdes_firmware",
@@ -1665,10 +1725,10 @@ const bcmolt_type_descr type_descr_bcmolt_debug_device_cfg =
     .size = sizeof(bcmolt_debug_device_cfg),
     .mask_offset = offsetof(bcmolt_debug_device_cfg, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_debug_device_cfg_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_debug_device_cfg_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_debug_device_cfg_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_debug_device_cfg_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_debug_flow_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_debug_flow_config_fields[] =
 {
     {
         .name = "untagged_flow",
@@ -1695,7 +1755,7 @@ const bcmolt_type_descr type_descr_bcmolt_debug_flow_config =
     .size = sizeof(bcmolt_debug_flow_config),
     .mask_offset = offsetof(bcmolt_debug_flow_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_debug_flow_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_debug_flow_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_debug_flow_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_debug_flow_config_fields } },
 };
 
 const bcmolt_enum_val bcmolt_device_chip_revision_string_table[] =
@@ -1774,7 +1834,7 @@ const bcmolt_type_descr type_descr_bcmolt_disable_serial_number_control =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_disable_serial_number_control_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ds_frequency_offset_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ds_frequency_offset_fields[] =
 {
     {
         .name = "sign",
@@ -1801,7 +1861,7 @@ const bcmolt_type_descr type_descr_bcmolt_ds_frequency_offset =
     .size = sizeof(bcmolt_ds_frequency_offset),
     .mask_offset = offsetof(bcmolt_ds_frequency_offset, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ds_frequency_offset_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ds_frequency_offset_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ds_frequency_offset_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ds_frequency_offset_fields } },
 };
 
 const bcmolt_enum_val bcmolt_duplex_mode_string_table[] =
@@ -1820,7 +1880,7 @@ const bcmolt_type_descr type_descr_bcmolt_duplex_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_duplex_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_fields[] =
 {
     {
         .name = "type",
@@ -1840,7 +1900,7 @@ static bcmolt_field_descr type_descr_bcmolt_egress_qos_fields[] =
     },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_fixed_queue_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_fixed_queue_fields[] =
 {
     {
         .name = "queue_id",
@@ -1859,10 +1919,10 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos_fixed_queue =
     .size = sizeof(((bcmolt_egress_qos *)0)->u.fixed_queue),
     .mask_offset = (uint16_t)(offsetof(bcmolt_egress_qos, u.fixed_queue.presence_mask) - offsetof(bcmolt_egress_qos, u.fixed_queue.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_egress_qos_fixed_queue_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_egress_qos_fixed_queue_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_egress_qos_fixed_queue_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_egress_qos_fixed_queue_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_tc_to_queue_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_tc_to_queue_fields[] =
 {
     {
         .name = "tc_id",
@@ -1889,10 +1949,10 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos_tc_to_queue =
     .size = sizeof(((bcmolt_egress_qos *)0)->u.tc_to_queue),
     .mask_offset = (uint16_t)(offsetof(bcmolt_egress_qos, u.tc_to_queue.presence_mask) - offsetof(bcmolt_egress_qos, u.tc_to_queue.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_egress_qos_tc_to_queue_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_egress_qos_tc_to_queue_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_egress_qos_tc_to_queue_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_egress_qos_tc_to_queue_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_pbit_to_tc_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_pbit_to_tc_fields[] =
 {
     {
         .name = "pbit_to_tc_id",
@@ -1919,10 +1979,10 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos_pbit_to_tc =
     .size = sizeof(((bcmolt_egress_qos *)0)->u.pbit_to_tc),
     .mask_offset = (uint16_t)(offsetof(bcmolt_egress_qos, u.pbit_to_tc.presence_mask) - offsetof(bcmolt_egress_qos, u.pbit_to_tc.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_egress_qos_pbit_to_tc_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_egress_qos_pbit_to_tc_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_egress_qos_pbit_to_tc_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_egress_qos_pbit_to_tc_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_priority_to_queue_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_priority_to_queue_fields[] =
 {
     {
         .name = "tm_qmp_id",
@@ -1949,10 +2009,10 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos_priority_to_queue =
     .size = sizeof(((bcmolt_egress_qos *)0)->u.priority_to_queue),
     .mask_offset = (uint16_t)(offsetof(bcmolt_egress_qos, u.priority_to_queue.presence_mask) - offsetof(bcmolt_egress_qos, u.priority_to_queue.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_egress_qos_priority_to_queue_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_egress_qos_priority_to_queue_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_egress_qos_priority_to_queue_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_egress_qos_priority_to_queue_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_egress_qos_union_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_egress_qos_union_fields[] =
 {
     {
         .name = "fixed_queue",
@@ -1988,7 +2048,7 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos =
     .descr = "egress qos",
     .base_type = BCMOLT_BASE_TYPE_ID_UNION,
     .size = sizeof(bcmolt_egress_qos),
-    .x = { .u = { .num_common_fields = sizeof(type_descr_bcmolt_egress_qos_fields) / sizeof(bcmolt_field_descr), .common_fields = type_descr_bcmolt_egress_qos_fields, .classifier_idx = 0, .union_fields = type_descr_bcmolt_egress_qos_union_fields } },
+    .x = { .u = { .num_common_fields = sizeof(_type_descr_bcmolt_egress_qos_fields) / sizeof(bcmolt_field_descr), .common_fields = _type_descr_bcmolt_egress_qos_fields, .classifier_idx = 0, .union_fields = _type_descr_bcmolt_egress_qos_union_fields } },
 };
 
 const bcmolt_enum_val bcmolt_egress_qos_type_string_table[] =
@@ -2010,7 +2070,7 @@ const bcmolt_type_descr type_descr_bcmolt_egress_qos_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_egress_qos_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_embedded_image_entry_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_embedded_image_entry_fields[] =
 {
     {
         .name = "image_type",
@@ -2061,7 +2121,7 @@ const bcmolt_type_descr type_descr_bcmolt_embedded_image_entry =
     .size = sizeof(bcmolt_embedded_image_entry),
     .mask_offset = offsetof(bcmolt_embedded_image_entry, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_embedded_image_entry_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_embedded_image_entry_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_embedded_image_entry_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_embedded_image_entry_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_embedded_image_entry_list_u8_max_4 =
@@ -2092,6 +2152,21 @@ const bcmolt_type_descr type_descr_bcmolt_embedded_image_transfer_status =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_embedded_image_transfer_status_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_enqueue_algorithm_string_table[] =
+{
+    { .name = "tail_drop", .val = BCMOLT_ENQUEUE_ALGORITHM_TAIL_DROP, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_enqueue_algorithm =
+{
+    .name = "enqueue_algorithm",
+    .descr = "enqueue algorithm",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_enqueue_algorithm),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_enqueue_algorithm_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_erps_control_string_table[] =
 {
     { .name = "unassigned", .val = BCMOLT_ERPS_CONTROL_UNASSIGNED, .tags = 0 },
@@ -2112,7 +2187,7 @@ const bcmolt_type_descr type_descr_bcmolt_erps_control =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_erps_control_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_intf_ref_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_intf_ref_fields[] =
 {
     {
         .name = "intf_id",
@@ -2163,7 +2238,7 @@ const bcmolt_type_descr type_descr_bcmolt_erps_intf_ref =
     .size = sizeof(bcmolt_erps_intf_ref),
     .mask_offset = offsetof(bcmolt_erps_intf_ref, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_intf_ref_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_intf_ref_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_intf_ref_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_intf_ref_fields } },
 };
 
 const bcmolt_enum_val bcmolt_erps_port_string_table[] =
@@ -2203,7 +2278,7 @@ const bcmolt_type_descr type_descr_bcmolt_ext_irq =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ext_irq_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_extended_dba_priority_adjustment_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_extended_dba_priority_adjustment_fields[] =
 {
     {
         .name = "control",
@@ -2230,7 +2305,7 @@ const bcmolt_type_descr type_descr_bcmolt_extended_dba_priority_adjustment =
     .size = sizeof(bcmolt_extended_dba_priority_adjustment),
     .mask_offset = offsetof(bcmolt_extended_dba_priority_adjustment, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_extended_dba_priority_adjustment_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_extended_dba_priority_adjustment_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_extended_dba_priority_adjustment_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_extended_dba_priority_adjustment_fields } },
 };
 
 const bcmolt_enum_val bcmolt_external_dba_options_string_table[] =
@@ -2249,7 +2324,7 @@ const bcmolt_type_descr type_descr_bcmolt_external_dba_options =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_external_dba_options_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_firmware_sw_version_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_firmware_sw_version_fields[] =
 {
     {
         .name = "major",
@@ -2305,7 +2380,7 @@ const bcmolt_type_descr type_descr_bcmolt_firmware_sw_version =
     .size = sizeof(bcmolt_firmware_sw_version),
     .mask_offset = offsetof(bcmolt_firmware_sw_version, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_firmware_sw_version_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_firmware_sw_version_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_firmware_sw_version_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_firmware_sw_version_fields } },
 };
 
 const bcmolt_enum_val bcmolt_flow_control_mode_string_table[] =
@@ -2376,7 +2451,7 @@ const bcmolt_type_descr type_descr_bcmolt_frequency_adjustment_direction =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_frequency_adjustment_direction_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gem_port_configuration_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gem_port_configuration_fields[] =
 {
     {
         .name = "direction",
@@ -2403,7 +2478,7 @@ const bcmolt_type_descr type_descr_bcmolt_gem_port_configuration =
     .size = sizeof(bcmolt_gem_port_configuration),
     .mask_offset = offsetof(bcmolt_gem_port_configuration, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gem_port_configuration_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gem_port_configuration_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gem_port_configuration_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gem_port_configuration_fields } },
 };
 
 const bcmolt_enum_val bcmolt_gem_port_direction_string_table[] =
@@ -2750,7 +2825,7 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_key_exchange_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_gpon_key_exchange_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_onu_alarm_state_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_onu_alarm_state_fields[] =
 {
     {
         .name = "losi",
@@ -2857,10 +2932,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_onu_alarm_state =
     .size = sizeof(bcmolt_gpon_onu_alarm_state),
     .mask_offset = offsetof(bcmolt_gpon_onu_alarm_state, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_onu_alarm_state_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_onu_alarm_state_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_onu_alarm_state_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_onu_alarm_state_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_onu_alarms_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_onu_alarms_fields[] =
 {
     {
         .name = "losi",
@@ -2895,10 +2970,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_onu_alarms =
     .size = sizeof(bcmolt_gpon_onu_alarms),
     .mask_offset = offsetof(bcmolt_gpon_onu_alarms, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_onu_alarms_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_onu_alarms_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_onu_alarms_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_onu_alarms_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_onu_alarms_thresholds_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_onu_alarms_thresholds_fields[] =
 {
     {
         .name = "losi",
@@ -2933,10 +3008,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_onu_alarms_thresholds =
     .size = sizeof(bcmolt_gpon_onu_alarms_thresholds),
     .mask_offset = offsetof(bcmolt_gpon_onu_alarms_thresholds, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_onu_alarms_thresholds_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_onu_alarms_thresholds_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_onu_alarms_thresholds_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_onu_alarms_thresholds_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_onu_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_onu_params_fields[] =
 {
     {
         .name = "password",
@@ -2987,10 +3062,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_onu_params =
     .size = sizeof(bcmolt_gpon_onu_params),
     .mask_offset = offsetof(bcmolt_gpon_onu_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_onu_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_onu_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_pon_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_pon_params_fields[] =
 {
     {
         .name = "onu_alarms_thresholds",
@@ -3049,10 +3124,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_pon_params =
     .size = sizeof(bcmolt_gpon_pon_params),
     .mask_offset = offsetof(bcmolt_gpon_pon_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_pon_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_pon_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpon_trx_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpon_trx_fields[] =
 {
     {
         .name = "transceiver_type",
@@ -3061,6 +3136,14 @@ static bcmolt_field_descr type_descr_bcmolt_gpon_trx_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_gpon_trx, transceiver_type),
         .type = &type_descr_bcmolt_trx_type,
+    },
+    {
+        .name = "trx_name",
+        .descr = "TRX name",
+        .id = BCMOLT_GPON_TRX_ID_TRX_NAME,
+        .tags = 0,
+        .offset = offsetof(bcmolt_gpon_trx, trx_name),
+        .type = &type_descr_bcmolt_str_100,
     },
 };
 
@@ -3071,10 +3154,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_trx =
     .size = sizeof(bcmolt_gpon_trx),
     .mask_offset = offsetof(bcmolt_gpon_trx, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpon_trx_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpon_trx_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpon_trx_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpon_trx_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_member_info_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_member_info_fields[] =
 {
     {
         .name = "intf",
@@ -3109,7 +3192,7 @@ const bcmolt_type_descr type_descr_bcmolt_group_member_info =
     .size = sizeof(bcmolt_group_member_info),
     .mask_offset = offsetof(bcmolt_group_member_info, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_member_info_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_member_info_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_member_info_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_member_info_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_group_member_info_list_u8 =
@@ -3143,7 +3226,7 @@ const bcmolt_type_descr type_descr_bcmolt_group_member_update_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_group_member_update_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_members_update_command_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_members_update_command_fields[] =
 {
     {
         .name = "command",
@@ -3170,7 +3253,7 @@ const bcmolt_type_descr type_descr_bcmolt_group_members_update_command =
     .size = sizeof(bcmolt_group_members_update_command),
     .mask_offset = offsetof(bcmolt_group_members_update_command, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_members_update_command_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_members_update_command_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_members_update_command_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_members_update_command_fields } },
 };
 
 const bcmolt_enum_val bcmolt_group_state_string_table[] =
@@ -3245,7 +3328,7 @@ const bcmolt_type_descr type_descr_bcmolt_host_log_file_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_host_log_file_id_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_port_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_port_params_fields[] =
 {
     {
         .name = "pir_kbps",
@@ -3263,6 +3346,15 @@ static bcmolt_field_descr type_descr_bcmolt_host_port_params_fields[] =
         .offset = offsetof(bcmolt_host_port_params, queue_size_kbytes),
         .type = &type_descr_uint16_t,
     },
+    {
+        .name = "pir_kbps_actual",
+        .descr = "Actual Shaping Rate read from device (kilobits per sec)",
+        .id = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_host_port_params, pir_kbps_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_host_port_params =
@@ -3272,10 +3364,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_port_params =
     .size = sizeof(bcmolt_host_port_params),
     .mask_offset = offsetof(bcmolt_host_port_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_port_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_port_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_port_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_port_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_sw_version_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_sw_version_fields[] =
 {
     {
         .name = "major",
@@ -3331,10 +3423,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_sw_version =
     .size = sizeof(bcmolt_host_sw_version),
     .mask_offset = offsetof(bcmolt_host_sw_version, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_sw_version_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_sw_version_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_sw_version_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_sw_version_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_hw_pon_id_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_hw_pon_id_fields[] =
 {
     {
         .name = "pon_id_1",
@@ -3361,10 +3453,10 @@ const bcmolt_type_descr type_descr_bcmolt_hw_pon_id =
     .size = sizeof(bcmolt_hw_pon_id),
     .mask_offset = offsetof(bcmolt_hw_pon_id, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_hw_pon_id_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_hw_pon_id_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_hw_pon_id_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_hw_pon_id_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ieee_8021_as_tod_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ieee_8021_as_tod_fields[] =
 {
     {
         .name = "tod_format",
@@ -3399,7 +3491,7 @@ const bcmolt_type_descr type_descr_bcmolt_ieee_8021_as_tod =
     .size = sizeof(bcmolt_ieee_8021_as_tod),
     .mask_offset = offsetof(bcmolt_ieee_8021_as_tod, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ieee_8021_as_tod_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ieee_8021_as_tod_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ieee_8021_as_tod_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ieee_8021_as_tod_fields } },
 };
 
 const bcmolt_enum_val bcmolt_image_transfer_status_string_table[] =
@@ -3425,7 +3517,7 @@ const bcmolt_type_descr type_descr_bcmolt_image_transfer_status =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_image_transfer_status_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_inband_config_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_inband_config_data_fields[] =
 {
     {
         .name = "control",
@@ -3484,10 +3576,10 @@ const bcmolt_type_descr type_descr_bcmolt_inband_config_data =
     .size = sizeof(bcmolt_inband_config_data),
     .mask_offset = offsetof(bcmolt_inband_config_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_inband_config_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_inband_config_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_inband_config_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_inband_config_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_inband_conn_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_inband_conn_data_fields[] =
 {
     {
         .name = "device_ip_address",
@@ -3514,7 +3606,7 @@ const bcmolt_type_descr type_descr_bcmolt_inband_conn_data =
     .size = sizeof(bcmolt_inband_conn_data),
     .mask_offset = offsetof(bcmolt_inband_conn_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_inband_conn_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_inband_conn_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_inband_conn_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_inband_conn_data_fields } },
 };
 
 const bcmolt_enum_val bcmolt_inband_mgmt_action_type_string_table[] =
@@ -3549,7 +3641,7 @@ const bcmolt_type_descr type_descr_bcmolt_inband_mgmt_state =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_inband_mgmt_state_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_indication_shaping_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_indication_shaping_fields[] =
 {
     {
         .name = "enabled",
@@ -3584,7 +3676,7 @@ const bcmolt_type_descr type_descr_bcmolt_indication_shaping =
     .size = sizeof(bcmolt_indication_shaping),
     .mask_offset = offsetof(bcmolt_indication_shaping, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_indication_shaping_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_indication_shaping_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_indication_shaping_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_indication_shaping_fields } },
 };
 
 const bcmolt_enum_val bcmolt_inject_type_string_table[] =
@@ -3603,7 +3695,7 @@ const bcmolt_type_descr type_descr_bcmolt_inject_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_inject_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_inni_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_inni_config_fields[] =
 {
     {
         .name = "mode",
@@ -3678,7 +3770,7 @@ const bcmolt_type_descr type_descr_bcmolt_inni_config =
     .size = sizeof(bcmolt_inni_config),
     .mask_offset = offsetof(bcmolt_inni_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_inni_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_inni_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_inni_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_inni_config_fields } },
 };
 
 const bcmolt_enum_val bcmolt_inni_fec_modes_string_table[] =
@@ -3806,6 +3898,7 @@ const bcmolt_enum_val bcmolt_interface_type_string_table[] =
     { .name = "protection", .val = BCMOLT_INTERFACE_TYPE_PROTECTION, .tags = 0 },
     { .name = "unassigned", .val = BCMOLT_INTERFACE_TYPE_UNASSIGNED, .tags = 0 },
     { .name = "remote_pon", .val = BCMOLT_INTERFACE_TYPE_REMOTE_PON, .tags = 0 },
+    { .name = "nic", .val = BCMOLT_INTERFACE_TYPE_NIC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -3852,7 +3945,7 @@ const bcmolt_type_descr type_descr_bcmolt_intf_opt =
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_intf_opt_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_intf_ref_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_intf_ref_fields[] =
 {
     {
         .name = "intf_type",
@@ -3887,7 +3980,7 @@ const bcmolt_type_descr type_descr_bcmolt_intf_ref =
     .size = sizeof(bcmolt_intf_ref),
     .mask_offset = offsetof(bcmolt_intf_ref, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_intf_ref_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_intf_ref_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_intf_ref_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_intf_ref_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_intf_ref_list_u8 =
@@ -3900,7 +3993,67 @@ const bcmolt_type_descr type_descr_bcmolt_intf_ref_list_u8 =
     .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_intf_ref, .len_type = &type_descr_uint8_t, .len_offset = offsetof(bcmolt_intf_ref_list_u8, len), .data_offset = offsetof(bcmolt_intf_ref_list_u8, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(bcmolt_intf_ref), .is_array_backend = BCMOS_FALSE } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itu_onu_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ip_v_4_src_binding_fields[] =
+{
+    {
+        .name = "src_ip",
+        .descr = "Source IPv4 Address",
+        .id = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ip_v_4_src_binding, src_ip),
+        .type = &type_descr_bcmos_ipv4_address,
+    },
+    {
+        .name = "src_ip_mask",
+        .descr = "Source IPv4 Address Mask",
+        .id = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ip_v_4_src_binding, src_ip_mask),
+        .type = &type_descr_bcmos_ipv4_address,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding =
+{
+    .name = "ip_v_4_src_binding",
+    .descr = "ipv4 source binding information",
+    .size = sizeof(bcmolt_ip_v_4_src_binding),
+    .mask_offset = offsetof(bcmolt_ip_v_4_src_binding, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ip_v_4_src_binding_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ip_v_4_src_binding_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_ip_v_6_src_binding_fields[] =
+{
+    {
+        .name = "src_ip_v_6",
+        .descr = "Source IPv6 address",
+        .id = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ip_v_6_src_binding, src_ip_v_6),
+        .type = &type_descr_bcmos_ipv6_address,
+    },
+    {
+        .name = "src_ip_v_6_mask",
+        .descr = "Source IPv6 Address mask",
+        .id = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_ip_v_6_src_binding, src_ip_v_6_mask),
+        .type = &type_descr_bcmos_ipv6_address,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding =
+{
+    .name = "ip_v_6_src_binding",
+    .descr = "ipv6 source binding information",
+    .size = sizeof(bcmolt_ip_v_6_src_binding),
+    .mask_offset = offsetof(bcmolt_ip_v_6_src_binding, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ip_v_6_src_binding_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ip_v_6_src_binding_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itu_onu_params_fields[] =
 {
     {
         .name = "serial_number",
@@ -3985,10 +4138,10 @@ const bcmolt_type_descr type_descr_bcmolt_itu_onu_params =
     .size = sizeof(bcmolt_itu_onu_params),
     .mask_offset = offsetof(bcmolt_itu_onu_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itu_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itu_onu_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itu_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itu_onu_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itu_pon_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itu_pon_params_fields[] =
 {
     {
         .name = "available_bandwidth",
@@ -4218,6 +4371,30 @@ static bcmolt_field_descr type_descr_bcmolt_itu_pon_params_fields[] =
         .offset = offsetof(bcmolt_itu_pon_params, dba),
         .type = &type_descr_bcmolt_itupon_dba,
     },
+    {
+        .name = "bw_eligibility_stats_clear_on_read",
+        .descr = "Clear-on-read BW Eligibility Class Statistics",
+        .id = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itu_pon_params, bw_eligibility_stats_clear_on_read),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "alloc_onu_accumulated_stats",
+        .descr = "Alloc and ONU accumulated statistics",
+        .id = BCMOLT_ITU_PON_PARAMS_ID_ALLOC_ONU_ACCUMULATED_STATS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itu_pon_params, alloc_onu_accumulated_stats),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "alloc_latency_stats",
+        .descr = "Alloc Latency statistics",
+        .id = BCMOLT_ITU_PON_PARAMS_ID_ALLOC_LATENCY_STATS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itu_pon_params, alloc_latency_stats),
+        .type = &type_descr_bcmos_bool,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itu_pon_params =
@@ -4227,10 +4404,10 @@ const bcmolt_type_descr type_descr_bcmolt_itu_pon_params =
     .size = sizeof(bcmolt_itu_pon_params),
     .mask_offset = offsetof(bcmolt_itu_pon_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itu_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itu_pon_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itu_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itu_pon_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itu_tod_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itu_tod_fields[] =
 {
     {
         .name = "tod_enable",
@@ -4273,10 +4450,10 @@ const bcmolt_type_descr type_descr_bcmolt_itu_tod =
     .size = sizeof(bcmolt_itu_tod),
     .mask_offset = offsetof(bcmolt_itu_tod, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itu_tod_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itu_tod_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itu_tod_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itu_tod_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ituonu_upgrade_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ituonu_upgrade_params_fields[] =
 {
     {
         .name = "response_timeout_ms",
@@ -4351,10 +4528,10 @@ const bcmolt_type_descr type_descr_bcmolt_ituonu_upgrade_params =
     .size = sizeof(bcmolt_ituonu_upgrade_params),
     .mask_offset = offsetof(bcmolt_ituonu_upgrade_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ituonu_upgrade_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ituonu_upgrade_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ituonu_upgrade_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ituonu_upgrade_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_dba_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_dba_fields[] =
 {
     {
         .name = "implementation_type",
@@ -4405,10 +4582,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_dba =
     .size = sizeof(bcmolt_itupon_dba),
     .mask_offset = offsetof(bcmolt_itupon_dba, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_dba_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_dba_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_dba_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_dba_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_onu_aes_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_onu_aes_key_fields[] =
 {
     {
         .name = "encryption_key",
@@ -4435,10 +4612,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_onu_aes_key =
     .size = sizeof(bcmolt_itupon_onu_aes_key),
     .mask_offset = offsetof(bcmolt_itupon_onu_aes_key, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_onu_aes_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_onu_aes_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_onu_aes_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_onu_aes_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_onu_eqd_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_onu_eqd_fields[] =
 {
     {
         .name = "onu_id",
@@ -4465,7 +4642,7 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd =
     .size = sizeof(bcmolt_itupon_onu_eqd),
     .mask_offset = offsetof(bcmolt_itupon_onu_eqd, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_onu_eqd_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_onu_eqd_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_onu_eqd_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_onu_eqd_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd_list_u32 =
@@ -4478,7 +4655,7 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_onu_eqd_list_u32 =
     .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_itupon_onu_eqd, .len_type = &type_descr_uint32_t, .len_offset = offsetof(bcmolt_itupon_onu_eqd_list_u32, len), .data_offset = offsetof(bcmolt_itupon_onu_eqd_list_u32, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(bcmolt_itupon_onu_eqd), .is_array_backend = BCMOS_FALSE } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_protection_switching_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_protection_switching_fields[] =
 {
     {
         .name = "timeout",
@@ -4490,7 +4667,7 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_protection_switching_fields[]
     },
     {
         .name = "gpio_pin",
-        .descr = "GPIO pin for input/output signal",
+        .descr = "GPIO pin for input/output signal. Supported in BCM6865X only. ",
         .id = BCMOLT_ITUPON_PROTECTION_SWITCHING_ID_GPIO_PIN,
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_protection_switching, gpio_pin),
@@ -4521,10 +4698,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_protection_switching =
     .size = sizeof(bcmolt_itupon_protection_switching),
     .mask_offset = offsetof(bcmolt_itupon_protection_switching, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_protection_switching_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_protection_switching_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_protection_switching_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_protection_switching_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_key_exchange_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_key_exchange_fields[] =
 {
     {
         .name = "interval",
@@ -4567,10 +4744,247 @@ const bcmolt_type_descr type_descr_bcmolt_key_exchange =
     .size = sizeof(bcmolt_key_exchange),
     .mask_offset = offsetof(bcmolt_key_exchange, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_key_exchange_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_key_exchange_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_key_exchange_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_key_exchange_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_global_parms_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_l2_dump_filters_fields[] =
+{
+    {
+        .name = "o_vid",
+        .descr = "outer vlan",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_O_VID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, o_vid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "i_vid",
+        .descr = "inner vlan",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_I_VID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, i_vid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "interface",
+        .descr = "interface",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, interface),
+        .type = &type_descr_bcmolt_intf_ref,
+    },
+    {
+        .name = "mac_address",
+        .descr = "mac address",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, mac_address),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
+        .name = "mac_address_mask",
+        .descr = "mac address mask",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, mac_address_mask),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
+        .name = "domain",
+        .descr = "port domain",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, domain),
+        .type = &type_descr_bcmolt_l2_event_report_control,
+    },
+    {
+        .name = "pkt_tag_type",
+        .descr = "pkt tag type",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, pkt_tag_type),
+        .type = &type_descr_bcmolt_pkt_tag_type,
+    },
+    {
+        .name = "svc_port_id",
+        .descr = "service port id",
+        .id = BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_dump_filters, svc_port_id),
+        .type = &type_descr_uint32_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters =
+{
+    .name = "l2_dump_filters",
+    .descr = "l2 dump filters",
+    .size = sizeof(bcmolt_l2_dump_filters),
+    .mask_offset = offsetof(bcmolt_l2_dump_filters, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_dump_filters_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_dump_filters_fields } },
+};
+
+const bcmolt_enum_val bcmolt_l2_dump_mode_string_table[] =
+{
+    { .name = "none", .val = BCMOLT_L2_DUMP_MODE_NONE },
+    { .name = "dynamic", .val = BCMOLT_L2_DUMP_MODE_DYNAMIC, .tags = 0 },
+    { .name = "static", .val = BCMOLT_L2_DUMP_MODE_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_dump_mode =
+{
+    .name = "l2_dump_mode",
+    .descr = "l2 dump mode",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
+    .size = sizeof(bcmolt_l2_dump_mode),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_dump_mode_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_event_string_table[] =
+{
+    { .name = "dumped", .val = BCMOLT_L2_EVENT_DUMPED, .tags = 0 },
+    { .name = "learned", .val = BCMOLT_L2_EVENT_LEARNED, .tags = 0 },
+    { .name = "aged", .val = BCMOLT_L2_EVENT_AGED, .tags = 0 },
+    { .name = "moved", .val = BCMOLT_L2_EVENT_MOVED, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_event =
+{
+    .name = "l2_event",
+    .descr = "l2 event",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_event),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_event_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_event_report_control_string_table[] =
+{
+    { .name = "none", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_NONE },
+    { .name = "network_port", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_NETWORK_PORT, .tags = 0 },
+    { .name = "pon_port", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_PON_PORT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_event_report_control =
+{
+    .name = "l2_event_report_control",
+    .descr = "l2 event report control",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
+    .size = sizeof(bcmolt_l2_event_report_control),
+    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_event_report_control_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mact_dump_status_string_table[] =
+{
+    { .name = "not_started", .val = BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED, .tags = 0 },
+    { .name = "in_progress", .val = BCMOLT_L2_MACT_DUMP_STATUS_IN_PROGRESS, .tags = 0 },
+    { .name = "success", .val = BCMOLT_L2_MACT_DUMP_STATUS_SUCCESS, .tags = 0 },
+    { .name = "failed", .val = BCMOLT_L2_MACT_DUMP_STATUS_FAILED, .tags = 0 },
+    { .name = "aborted", .val = BCMOLT_L2_MACT_DUMP_STATUS_ABORTED, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mact_dump_status =
+{
+    .name = "l2_mact_dump_status",
+    .descr = "status of the l2 dump thread",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mact_dump_status),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mact_dump_status_string_table } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mact_entry_fields[] =
+{
+    {
+        .name = "pkt_tag_type",
+        .descr = "pkt tag type",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, pkt_tag_type),
+        .type = &type_descr_bcmolt_pkt_tag_type,
+    },
+    {
+        .name = "o_vid",
+        .descr = "outer vid",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_O_VID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, o_vid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "i_vid",
+        .descr = "inner vid",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_I_VID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, i_vid),
+        .type = &type_descr_uint16_t,
+    },
+    {
+        .name = "interface",
+        .descr = "interface",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_INTERFACE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, interface),
+        .type = &type_descr_bcmolt_intf_ref,
+    },
+    {
+        .name = "svc_port_id",
+        .descr = "service port id",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, svc_port_id),
+        .type = &type_descr_uint32_t,
+    },
+    {
+        .name = "mac_address",
+        .descr = "mac address",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, mac_address),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
+        .name = "event_type",
+        .descr = "event type",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, event_type),
+        .type = &type_descr_bcmolt_l2_event,
+    },
+    {
+        .name = "is_static",
+        .descr = "is static",
+        .id = BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mact_entry, is_static),
+        .type = &type_descr_bcmos_bool,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry =
+{
+    .name = "l2_mact_entry",
+    .descr = "l2 mac table entry",
+    .size = sizeof(bcmolt_l2_mact_entry),
+    .mask_offset = offsetof(bcmolt_l2_mact_entry, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mact_entry_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mact_entry_fields } },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_list_u32 =
+{
+    .name = "l2_mact_entry_list_u32",
+    .descr = "Variable-length list of l2_mact_entry",
+    .size = sizeof(bcmolt_l2_mact_entry_list_u32),
+    .mask_offset = offsetof(bcmolt_l2_mact_entry_list_u32, arr_index_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_ARR_DYN,
+    .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_l2_mact_entry, .len_type = &type_descr_uint32_t, .len_offset = offsetof(bcmolt_l2_mact_entry_list_u32, len), .data_offset = offsetof(bcmolt_l2_mact_entry_list_u32, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(bcmolt_l2_mact_entry), .is_array_backend = BCMOS_FALSE } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_lag_global_parms_fields[] =
 {
     {
         .name = "polynomial",
@@ -4597,7 +5011,7 @@ const bcmolt_type_descr type_descr_bcmolt_lag_global_parms =
     .size = sizeof(bcmolt_lag_global_parms),
     .mask_offset = offsetof(bcmolt_lag_global_parms, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_global_parms_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_global_parms_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_global_parms_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_global_parms_fields } },
 };
 
 const bcmolt_enum_val bcmolt_lag_hash_field_flags_string_table[] =
@@ -4665,7 +5079,7 @@ const bcmolt_type_descr type_descr_bcmolt_lag_health =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_lag_health_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_members_update_command_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_members_update_command_fields[] =
 {
     {
         .name = "command",
@@ -4692,7 +5106,7 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_members_update_command =
     .size = sizeof(bcmolt_lag_interface_members_update_command),
     .mask_offset = offsetof(bcmolt_lag_interface_members_update_command, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_members_update_command_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_members_update_command_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_members_update_command_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_members_update_command_fields } },
 };
 
 const bcmolt_enum_val bcmolt_lag_member_update_fail_reason_string_table[] =
@@ -4748,7 +5162,7 @@ const bcmolt_type_descr type_descr_bcmolt_lag_subtype =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_lag_subtype_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_layer_4_port_range_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_layer_4_port_range_fields[] =
 {
     {
         .name = "min",
@@ -4775,7 +5189,7 @@ const bcmolt_type_descr type_descr_bcmolt_layer_4_port_range =
     .size = sizeof(bcmolt_layer_4_port_range),
     .mask_offset = offsetof(bcmolt_layer_4_port_range, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_layer_4_port_range_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_layer_4_port_range_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_layer_4_port_range_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_layer_4_port_range_fields } },
 };
 
 const bcmolt_enum_val bcmolt_link_fault_code_string_table[] =
@@ -4846,7 +5260,7 @@ const bcmolt_type_descr type_descr_bcmolt_loc_clear_threshold =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_loc_clear_threshold_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_local_mep_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_local_mep_fields[] =
 {
     {
         .name = "id",
@@ -4882,7 +5296,7 @@ const bcmolt_type_descr type_descr_bcmolt_local_mep =
     .size = sizeof(bcmolt_local_mep),
     .mask_offset = offsetof(bcmolt_local_mep, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_local_mep_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_local_mep_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_local_mep_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_local_mep_fields } },
 };
 
 const bcmolt_enum_val bcmolt_log_file_id_string_table[] =
@@ -4921,7 +5335,7 @@ const bcmolt_type_descr type_descr_bcmolt_log_level =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_log_level_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_level_msg_count_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_level_msg_count_fields[] =
 {
     {
         .name = "no_log",
@@ -4980,10 +5394,10 @@ const bcmolt_type_descr type_descr_bcmolt_log_level_msg_count =
     .size = sizeof(bcmolt_log_level_msg_count),
     .mask_offset = offsetof(bcmolt_log_level_msg_count, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_level_msg_count_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_level_msg_count_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_level_msg_count_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_level_msg_count_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_level_per_file_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_level_per_file_fields[] =
 {
     {
         .name = "print",
@@ -5010,7 +5424,7 @@ const bcmolt_type_descr type_descr_bcmolt_log_level_per_file =
     .size = sizeof(bcmolt_log_level_per_file),
     .mask_offset = offsetof(bcmolt_log_level_per_file, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_level_per_file_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_level_per_file_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_level_per_file_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_level_per_file_fields } },
 };
 
 const bcmolt_enum_val bcmolt_log_style_string_table[] =
@@ -5055,6 +5469,7 @@ const bcmolt_enum_val bcmolt_mac_table_miss_action_string_table[] =
     { .name = "flood", .val = BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD, .tags = 0 },
     { .name = "drop", .val = BCMOLT_MAC_TABLE_MISS_ACTION_DROP, .tags = 0 },
     { .name = "erps_default", .val = BCMOLT_MAC_TABLE_MISS_ACTION_ERPS_DEFAULT, .tags = 0 },
+    { .name = "flood_to_flows", .val = BCMOLT_MAC_TABLE_MISS_ACTION_FLOOD_TO_FLOWS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -5067,7 +5482,7 @@ const bcmolt_type_descr type_descr_bcmolt_mac_table_miss_action =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_mac_table_miss_action_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_meg_cfg_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_meg_cfg_fields[] =
 {
     {
         .name = "name",
@@ -5102,7 +5517,7 @@ const bcmolt_type_descr type_descr_bcmolt_meg_cfg =
     .size = sizeof(bcmolt_meg_cfg),
     .mask_offset = offsetof(bcmolt_meg_cfg, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_meg_cfg_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_meg_cfg_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_meg_cfg_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_meg_cfg_fields } },
 };
 
 const bcmolt_enum_val bcmolt_meg_format_string_table[] =
@@ -5177,7 +5592,7 @@ const bcmolt_type_descr type_descr_bcmolt_mep_type =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_mep_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_mirror_action_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_mirror_action_fields[] =
 {
     {
         .name = "mirror_dest_intf",
@@ -5196,7 +5611,7 @@ const bcmolt_type_descr type_descr_bcmolt_mirror_action =
     .size = sizeof(bcmolt_mirror_action),
     .mask_offset = offsetof(bcmolt_mirror_action, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_mirror_action_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_mirror_action_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_mirror_action_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_mirror_action_fields } },
 };
 
 const bcmolt_enum_val bcmolt_mpcp_discovery_info_string_table[] =
@@ -5220,7 +5635,7 @@ const bcmolt_type_descr type_descr_bcmolt_mpcp_discovery_info =
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_mpcp_discovery_info_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ngpon2_onu_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ngpon2_onu_params_fields[] =
 {
     {
         .name = "calibration_record",
@@ -5287,10 +5702,10 @@ const bcmolt_type_descr type_descr_bcmolt_ngpon2_onu_params =
     .size = sizeof(bcmolt_ngpon2_onu_params),
     .mask_offset = offsetof(bcmolt_ngpon2_onu_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ngpon2_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ngpon2_onu_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ngpon2_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ngpon2_onu_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ngpon2_pon_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ngpon2_pon_params_fields[] =
 {
     {
         .name = "ngpon2_amd1",
@@ -5317,7 +5732,7 @@ const bcmolt_type_descr type_descr_bcmolt_ngpon2_pon_params =
     .size = sizeof(bcmolt_ngpon2_pon_params),
     .mask_offset = offsetof(bcmolt_ngpon2_pon_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ngpon2_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ngpon2_pon_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ngpon2_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ngpon2_pon_params_fields } },
 };
 
 const bcmolt_enum_val bcmolt_nni_connection_string_table[] =
@@ -5336,7 +5751,7 @@ const bcmolt_type_descr type_descr_bcmolt_nni_connection =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_nni_connection_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_link_status_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_link_status_fields[] =
 {
     {
         .name = "link_status",
@@ -5374,7 +5789,7 @@ const bcmolt_type_descr type_descr_bcmolt_nni_link_status =
     .size = sizeof(bcmolt_nni_link_status),
     .mask_offset = offsetof(bcmolt_nni_link_status, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_link_status_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_link_status_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_link_status_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_link_status_fields } },
 };
 
 const bcmolt_enum_val bcmolt_nni_loopback_type_string_table[] =
@@ -5427,6 +5842,22 @@ const bcmolt_type_descr type_descr_bcmolt_nni_subtype =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_nni_subtype),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_nni_subtype_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_nto1_programming_mode_string_table[] =
+{
+    { .name = "asymmetric", .val = BCMOLT_NTO1_PROGRAMMING_MODE_ASYMMETRIC, .tags = 0 },
+    { .name = "symmetric", .val = BCMOLT_NTO1_PROGRAMMING_MODE_SYMMETRIC, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_nto1_programming_mode =
+{
+    .name = "nto1_programming_mode",
+    .descr = "nto1 programming mode",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_nto1_programming_mode),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_nto1_programming_mode_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_num_of_frames_per_map_string_table[] =
@@ -5497,7 +5928,7 @@ const bcmolt_type_descr type_descr_bcmolt_omci_port_id_operation =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_omci_port_id_operation_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_activation_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_activation_fields[] =
 {
     {
         .name = "key_exchange",
@@ -5532,7 +5963,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_activation =
     .size = sizeof(bcmolt_onu_activation),
     .mask_offset = offsetof(bcmolt_onu_activation, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_activation_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_activation_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_activation_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_activation_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_onu_id_list_u32 =
@@ -5583,7 +6014,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_post_discovery_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_post_discovery_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_power_management_configuration_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_power_management_configuration_fields[] =
 {
     {
         .name = "ilowpower",
@@ -5634,10 +6065,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_management_configuration =
     .size = sizeof(bcmolt_onu_power_management_configuration),
     .mask_offset = offsetof(bcmolt_onu_power_management_configuration, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_power_management_configuration_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_power_management_configuration_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_power_management_configuration_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_power_management_configuration_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_ps_type_w_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_ps_type_w_fields[] =
 {
     {
         .name = "control",
@@ -5672,7 +6103,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_ps_type_w =
     .size = sizeof(bcmolt_onu_ps_type_w),
     .mask_offset = offsetof(bcmolt_onu_ps_type_w, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_ps_type_w_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_ps_type_w_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_ps_type_w_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_ps_type_w_fields } },
 };
 
 const bcmolt_enum_val bcmolt_onu_rate_string_table[] =
@@ -5721,7 +6152,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_state =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_state_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_tuning_configuration_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_tuning_configuration_fields[] =
 {
     {
         .name = "tsource",
@@ -5772,7 +6203,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tuning_configuration =
     .size = sizeof(bcmolt_onu_tuning_configuration),
     .mask_offset = offsetof(bcmolt_onu_tuning_configuration, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_tuning_configuration_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_tuning_configuration_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_tuning_configuration_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_tuning_configuration_fields } },
 };
 
 const bcmolt_enum_val bcmolt_onu_tuning_range_mode_string_table[] =
@@ -5792,7 +6223,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tuning_range_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_tuning_range_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_upgrade_status_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_upgrade_status_fields[] =
 {
     {
         .name = "onu_id",
@@ -5827,7 +6258,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_upgrade_status =
     .size = sizeof(bcmolt_onu_upgrade_status),
     .mask_offset = offsetof(bcmolt_onu_upgrade_status, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_upgrade_status_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_upgrade_status_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_upgrade_status_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_upgrade_status_fields } },
 };
 
 const bcmolt_enum_val bcmolt_onu_upgrade_status_code_string_table[] =
@@ -5845,6 +6276,7 @@ const bcmolt_enum_val bcmolt_onu_upgrade_status_code_string_table[] =
     { .name = "tci_mismatch", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_TCI_MISMATCH, .tags = 0 },
     { .name = "get_image_failed", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_GET_IMAGE_FAILED, .tags = 0 },
     { .name = "activation_failed", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_ACTIVATION_FAILED, .tags = 0 },
+    { .name = "onu_deactivated", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_ONU_DEACTIVATED, .tags = 0 },
     { .name = "omci_processing_error", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_PROCESSING_ERROR, .tags = 0 },
     { .name = "omci_not_supported", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_NOT_SUPPORTED, .tags = 0 },
     { .name = "omci_parameter_error", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_PARAMETER_ERROR, .tags = 0 },
@@ -5902,7 +6334,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_upgrade_status_list_u32_max_128 =
     .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_onu_upgrade_status, .len_type = &type_descr_uint32_t, .len_offset = offsetof(bcmolt_onu_upgrade_status_list_u32_max_128, len), .data_offset = offsetof(bcmolt_onu_upgrade_status_list_u32_max_128, arr), .max_size = 128, .is_array_backend = BCMOS_FALSE } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_operation_control_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_operation_control_fields[] =
 {
     {
         .name = "re",
@@ -5978,7 +6410,7 @@ const bcmolt_type_descr type_descr_bcmolt_operation_control =
     .size = sizeof(bcmolt_operation_control),
     .mask_offset = offsetof(bcmolt_operation_control, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_operation_control_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_operation_control_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_operation_control_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_operation_control_fields } },
 };
 
 const bcmolt_enum_val bcmolt_packet_injection_error_string_table[] =
@@ -6035,7 +6467,7 @@ const bcmolt_type_descr type_descr_bcmolt_password_authentication_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_password_authentication_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pcie_conn_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pcie_conn_data_fields[] =
 {
     {
         .name = "host_dma_rx_queue_size",
@@ -6086,10 +6518,10 @@ const bcmolt_type_descr type_descr_bcmolt_pcie_conn_data =
     .size = sizeof(bcmolt_pcie_conn_data),
     .mask_offset = offsetof(bcmolt_pcie_conn_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pcie_conn_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pcie_conn_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pcie_conn_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pcie_conn_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_periodic_ploams_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_periodic_ploams_fields[] =
 {
     {
         .name = "control",
@@ -6116,10 +6548,10 @@ const bcmolt_type_descr type_descr_bcmolt_periodic_ploams =
     .size = sizeof(bcmolt_periodic_ploams),
     .mask_offset = offsetof(bcmolt_periodic_ploams, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_periodic_ploams_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_periodic_ploams_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_periodic_ploams_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_periodic_ploams_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_periodic_standby_pon_monitoring_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_periodic_standby_pon_monitoring_fields[] =
 {
     {
         .name = "interval",
@@ -6146,7 +6578,7 @@ const bcmolt_type_descr type_descr_bcmolt_periodic_standby_pon_monitoring =
     .size = sizeof(bcmolt_periodic_standby_pon_monitoring),
     .mask_offset = offsetof(bcmolt_periodic_standby_pon_monitoring, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_periodic_standby_pon_monitoring_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_periodic_standby_pon_monitoring_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_periodic_standby_pon_monitoring_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_periodic_standby_pon_monitoring_fields } },
 };
 
 const bcmolt_enum_val bcmolt_pkt_tag_type_string_table[] =
@@ -6169,7 +6601,7 @@ const bcmolt_type_descr type_descr_bcmolt_pkt_tag_type =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_pkt_tag_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ploam_filter_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ploam_filter_fields[] =
 {
     {
         .name = "ploam_id",
@@ -6188,10 +6620,10 @@ const bcmolt_type_descr type_descr_bcmolt_ploam_filter =
     .size = sizeof(bcmolt_ploam_filter),
     .mask_offset = offsetof(bcmolt_ploam_filter, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ploam_filter_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ploam_filter_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ploam_filter_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ploam_filter_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ploam_retransmission_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ploam_retransmission_fields[] =
 {
     {
         .name = "retrans_ranging_time",
@@ -6234,10 +6666,10 @@ const bcmolt_type_descr type_descr_bcmolt_ploam_retransmission =
     .size = sizeof(bcmolt_ploam_retransmission),
     .mask_offset = offsetof(bcmolt_ploam_retransmission, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ploam_retransmission_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ploam_retransmission_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ploam_retransmission_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ploam_retransmission_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_policer_action_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_policer_action_fields[] =
 {
     {
         .name = "state",
@@ -6265,10 +6697,10 @@ const bcmolt_type_descr type_descr_bcmolt_policer_action =
     .size = sizeof(bcmolt_policer_action),
     .mask_offset = offsetof(bcmolt_policer_action, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_policer_action_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_policer_action_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_policer_action_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_policer_action_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_policer_ref_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_policer_ref_fields[] =
 {
     {
         .name = "type",
@@ -6295,7 +6727,7 @@ const bcmolt_type_descr type_descr_bcmolt_policer_ref =
     .size = sizeof(bcmolt_policer_ref),
     .mask_offset = offsetof(bcmolt_policer_ref, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_policer_ref_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_policer_ref_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_policer_ref_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_policer_ref_fields } },
 };
 
 const bcmolt_enum_val bcmolt_policer_reference_type_string_table[] =
@@ -6330,7 +6762,7 @@ const bcmolt_type_descr type_descr_bcmolt_policer_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_policer_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_alloc_sla_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_alloc_sla_fields[] =
 {
     {
         .name = "cbr_rt_bw",
@@ -6429,14 +6861,14 @@ const bcmolt_type_descr type_descr_bcmolt_pon_alloc_sla =
     .size = sizeof(bcmolt_pon_alloc_sla),
     .mask_offset = offsetof(bcmolt_pon_alloc_sla, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_alloc_sla_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_alloc_sla_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_alloc_sla_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_alloc_sla_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_available_bandwidth_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_available_bandwidth_fields[] =
 {
     {
         .name = "cbr_bw",
-        .descr = "Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/secin XGPON.",
+        .descr = "Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/sec in XGPON.",
         .id = BCMOLT_PON_AVAILABLE_BANDWIDTH_ID_CBR_BW,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_available_bandwidth, cbr_bw),
@@ -6475,10 +6907,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_available_bandwidth =
     .size = sizeof(bcmolt_pon_available_bandwidth),
     .mask_offset = offsetof(bcmolt_pon_available_bandwidth, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_available_bandwidth_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_available_bandwidth_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_available_bandwidth_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_available_bandwidth_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_distance_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_distance_fields[] =
 {
     {
         .name = "max_log_distance",
@@ -6505,10 +6937,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_distance =
     .size = sizeof(bcmolt_pon_distance),
     .mask_offset = offsetof(bcmolt_pon_distance, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_distance_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_distance_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_distance_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_distance_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_drift_control_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_drift_control_fields[] =
 {
     {
         .name = "drift_interval",
@@ -6543,10 +6975,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_drift_control =
     .size = sizeof(bcmolt_pon_drift_control),
     .mask_offset = offsetof(bcmolt_pon_drift_control, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_drift_control_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_drift_control_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_drift_control_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_drift_control_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_id_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_id_fields[] =
 {
     {
         .name = "administrative_label",
@@ -6573,7 +7005,7 @@ const bcmolt_type_descr type_descr_bcmolt_pon_id =
     .size = sizeof(bcmolt_pon_id),
     .mask_offset = offsetof(bcmolt_pon_id, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_id_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_id_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_id_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_id_fields } },
 };
 
 const bcmolt_enum_val bcmolt_pon_ni_onu_upgrade_status_code_string_table[] =
@@ -6595,7 +7027,7 @@ const bcmolt_type_descr type_descr_bcmolt_pon_ni_onu_upgrade_status_code =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_pon_ni_onu_upgrade_status_code_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_onu_upgrade_status_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_onu_upgrade_status_fields[] =
 {
     {
         .name = "overall_status",
@@ -6630,10 +7062,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_onu_upgrade_status =
     .size = sizeof(bcmolt_pon_onu_upgrade_status),
     .mask_offset = offsetof(bcmolt_pon_onu_upgrade_status, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_onu_upgrade_status_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_onu_upgrade_status_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_onu_upgrade_status_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_onu_upgrade_status_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_power_level_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_power_level_fields[] =
 {
     {
         .name = "pls_maximum_allocation_size",
@@ -6660,7 +7092,7 @@ const bcmolt_type_descr type_descr_bcmolt_pon_power_level =
     .size = sizeof(bcmolt_pon_power_level),
     .mask_offset = offsetof(bcmolt_pon_power_level, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_power_level_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_power_level_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_power_level_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_power_level_fields } },
 };
 
 const bcmolt_enum_val bcmolt_pon_protection_switching_options_string_table[] =
@@ -6722,7 +7154,7 @@ const bcmolt_type_descr type_descr_bcmolt_port_command =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_port_command_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_power_consumption_channel_report_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_power_consumption_channel_report_fields[] =
 {
     {
         .name = "ds_wavelength_channel_id",
@@ -6757,7 +7189,7 @@ const bcmolt_type_descr type_descr_bcmolt_power_consumption_channel_report =
     .size = sizeof(bcmolt_power_consumption_channel_report),
     .mask_offset = offsetof(bcmolt_power_consumption_channel_report, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_power_consumption_channel_report_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_power_consumption_channel_report_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_power_consumption_channel_report_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_power_consumption_channel_report_fields } },
 };
 
 const bcmolt_enum_val bcmolt_power_levelling_control_string_table[] =
@@ -6801,7 +7233,7 @@ const bcmolt_type_descr type_descr_bcmolt_power_management_transition_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_power_management_transition_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_prbs_checker_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_prbs_checker_config_fields[] =
 {
     {
         .name = "polynom",
@@ -6852,7 +7284,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_checker_config =
     .size = sizeof(bcmolt_prbs_checker_config),
     .mask_offset = offsetof(bcmolt_prbs_checker_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_prbs_checker_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_prbs_checker_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_prbs_checker_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_prbs_checker_config_fields } },
 };
 
 const bcmolt_enum_val bcmolt_prbs_checker_mode_string_table[] =
@@ -6872,7 +7304,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_checker_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_prbs_checker_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_prbs_generator_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_prbs_generator_config_fields[] =
 {
     {
         .name = "polynom",
@@ -6915,7 +7347,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_generator_config =
     .size = sizeof(bcmolt_prbs_generator_config),
     .mask_offset = offsetof(bcmolt_prbs_generator_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_prbs_generator_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_prbs_generator_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_prbs_generator_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_prbs_generator_config_fields } },
 };
 
 const bcmolt_enum_val bcmolt_prbs_lock_state_string_table[] =
@@ -6955,7 +7387,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_polynomial =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_prbs_polynomial_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_prbs_status_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_prbs_status_fields[] =
 {
     {
         .name = "lock_state",
@@ -7006,7 +7438,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_status =
     .size = sizeof(bcmolt_prbs_status),
     .mask_offset = offsetof(bcmolt_prbs_status, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_prbs_status_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_prbs_status_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_prbs_status_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_prbs_status_fields } },
 };
 
 const bcmolt_enum_val bcmolt_prbs_test_status_type_string_table[] =
@@ -7026,7 +7458,7 @@ const bcmolt_type_descr type_descr_bcmolt_prbs_test_status_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_prbs_test_status_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_protection_type_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_protection_type_fields[] =
 {
     {
         .name = "mode",
@@ -7045,7 +7477,7 @@ const bcmolt_type_descr type_descr_bcmolt_protection_type =
     .size = sizeof(bcmolt_protection_type),
     .mask_offset = offsetof(bcmolt_protection_type, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_protection_type_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_protection_type_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_protection_type_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_protection_type_fields } },
 };
 
 const bcmolt_enum_val bcmolt_ranging_fail_reason_string_table[] =
@@ -7090,7 +7522,7 @@ const bcmolt_type_descr type_descr_bcmolt_ras_ddr_usage_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ras_ddr_usage_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_remote_mep_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_remote_mep_fields[] =
 {
     {
         .name = "id",
@@ -7126,7 +7558,7 @@ const bcmolt_type_descr type_descr_bcmolt_remote_mep =
     .size = sizeof(bcmolt_remote_mep),
     .mask_offset = offsetof(bcmolt_remote_mep, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_remote_mep_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_remote_mep_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_remote_mep_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_remote_mep_fields } },
 };
 
 const bcmolt_enum_val bcmolt_request_registration_fail_reason_string_table[] =
@@ -7148,7 +7580,7 @@ const bcmolt_type_descr type_descr_bcmolt_request_registration_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_request_registration_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_request_registration_status_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_request_registration_status_fields[] =
 {
     {
         .name = "request_registration_state",
@@ -7175,7 +7607,7 @@ const bcmolt_type_descr type_descr_bcmolt_request_registration_status =
     .size = sizeof(bcmolt_request_registration_status),
     .mask_offset = offsetof(bcmolt_request_registration_status, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_request_registration_status_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_request_registration_status_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_request_registration_status_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_request_registration_status_fields } },
 };
 
 const bcmolt_enum_val bcmolt_reset_mode_string_table[] =
@@ -7227,7 +7659,7 @@ const bcmolt_type_descr type_descr_bcmolt_ring_port =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ring_port_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ring_port_detailed_state_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ring_port_detailed_state_fields[] =
 {
     {
         .name = "rx_state",
@@ -7254,7 +7686,7 @@ const bcmolt_type_descr type_descr_bcmolt_ring_port_detailed_state =
     .size = sizeof(bcmolt_ring_port_detailed_state),
     .mask_offset = offsetof(bcmolt_ring_port_detailed_state, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ring_port_detailed_state_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ring_port_detailed_state_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ring_port_detailed_state_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ring_port_detailed_state_fields } },
 };
 
 const bcmolt_enum_val bcmolt_ring_port_state_string_table[] =
@@ -7292,7 +7724,7 @@ const bcmolt_type_descr type_descr_bcmolt_rssi_measurement_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_rssi_measurement_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_rssi_measurement_result_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_rssi_measurement_result_fields[] =
 {
     {
         .name = "rssi_done",
@@ -7319,7 +7751,7 @@ const bcmolt_type_descr type_descr_bcmolt_rssi_measurement_result =
     .size = sizeof(bcmolt_rssi_measurement_result),
     .mask_offset = offsetof(bcmolt_rssi_measurement_result, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_rssi_measurement_result_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_rssi_measurement_result_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_rssi_measurement_result_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_rssi_measurement_result_fields } },
 };
 
 const bcmolt_enum_val bcmolt_secure_mutual_authentication_fail_reason_string_table[] =
@@ -7337,7 +7769,7 @@ const bcmolt_type_descr type_descr_bcmolt_secure_mutual_authentication_fail_reas
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_secure_mutual_authentication_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_serial_number_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_serial_number_fields[] =
 {
     {
         .name = "vendor_id",
@@ -7364,10 +7796,10 @@ const bcmolt_type_descr type_descr_bcmolt_serial_number =
     .size = sizeof(bcmolt_serial_number),
     .mask_offset = offsetof(bcmolt_serial_number, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_serial_number_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_serial_number_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_serial_number_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_serial_number_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_service_discovery_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_service_discovery_fields[] =
 {
     {
         .name = "interval",
@@ -7410,7 +7842,7 @@ const bcmolt_type_descr type_descr_bcmolt_service_discovery =
     .size = sizeof(bcmolt_service_discovery),
     .mask_offset = offsetof(bcmolt_service_discovery, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_service_discovery_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_service_discovery_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_service_discovery_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_service_discovery_fields } },
 };
 
 const bcmolt_enum_val bcmolt_sign_string_table[] =
@@ -7429,6 +7861,88 @@ const bcmolt_type_descr type_descr_bcmolt_sign =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_sign_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_src_binding_fields_string_table[] =
+{
+    { .name = "none", .val = BCMOLT_SRC_BINDING_FIELDS_NONE },
+    { .name = "src_mac", .val = BCMOLT_SRC_BINDING_FIELDS_SRC_MAC, .tags = 0 },
+    { .name = "ip_v_4_src_ip", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP, .tags = 0 },
+    { .name = "ip_v_4_src_ip_mask", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP_MASK, .tags = 0 },
+    { .name = "ip_v_6_src_ip", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP, .tags = 0 },
+    { .name = "ip_v_6_src_ip_mask", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP_MASK, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_src_binding_fields =
+{
+    .name = "src_binding_fields",
+    .descr = "bitmap of selected src_binding fields",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
+    .size = sizeof(bcmolt_src_binding_fields),
+    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_src_binding_fields_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_src_binding_id_string_table[] =
+{
+    { .name = "invalid", .val = BCMOLT_SRC_BINDING_ID_INVALID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_src_binding_id =
+{
+    .name = "src_binding_id",
+    .descr = "source binding id",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_src_binding_id),
+    .x = { .e = { .base_type = &type_descr_int32_t,.vals = bcmolt_src_binding_id_string_table } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_src_binding_info_fields[] =
+{
+    {
+        .name = "src_mac",
+        .descr = "mac address binding parameter",
+        .id = BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_src_binding_info, src_mac),
+        .type = &type_descr_bcmos_mac_address,
+    },
+    {
+        .name = "ip_v_4",
+        .descr = "ipv4 binding parameters, may not be configured at the same time as ipv6 binding parameters",
+        .id = BCMOLT_SRC_BINDING_INFO_ID_IP_V_4,
+        .tags = 0,
+        .offset = offsetof(bcmolt_src_binding_info, ip_v_4),
+        .type = &type_descr_bcmolt_ip_v_4_src_binding,
+    },
+    {
+        .name = "ip_v_6",
+        .descr = "ipv6 binding parameters, may not be configured at the same time as ipv4 binding parameters",
+        .id = BCMOLT_SRC_BINDING_INFO_ID_IP_V_6,
+        .tags = 0,
+        .offset = offsetof(bcmolt_src_binding_info, ip_v_6),
+        .type = &type_descr_bcmolt_ip_v_6_src_binding,
+    },
+    {
+        .name = "src_binding_fields",
+        .descr = "selected src binding fields (RO)",
+        .id = BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_src_binding_info, src_binding_fields),
+        .type = &type_descr_bcmolt_src_binding_fields,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_src_binding_info =
+{
+    .name = "src_binding_info",
+    .descr = "source binding information",
+    .size = sizeof(bcmolt_src_binding_info),
+    .mask_offset = offsetof(bcmolt_src_binding_info, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_src_binding_info_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_src_binding_info_fields } },
+};
+
 const bcmolt_enum_val bcmolt_stage_string_table[] =
 {
     { .name = "ingress", .val = BCMOLT_STAGE_INGRESS, .tags = 0 },
@@ -7445,7 +7959,7 @@ const bcmolt_type_descr type_descr_bcmolt_stage =
     .x = { .e = { .base_type = &type_descr_uint32_t,.vals = bcmolt_stage_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_config_fields[] =
 {
     {
         .name = "trigger",
@@ -7472,10 +7986,10 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_config =
     .size = sizeof(bcmolt_stat_alarm_config),
     .mask_offset = offsetof(bcmolt_stat_alarm_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_stat_alarm_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_stat_alarm_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_stat_alarm_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_stat_alarm_config_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_soak_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_soak_config_fields[] =
 {
     {
         .name = "active_soak_time",
@@ -7502,10 +8016,10 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_soak_config =
     .size = sizeof(bcmolt_stat_alarm_soak_config),
     .mask_offset = offsetof(bcmolt_stat_alarm_soak_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_stat_alarm_soak_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_stat_alarm_soak_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_stat_alarm_soak_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_stat_alarm_soak_config_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_trigger_config_fields[] =
 {
     {
         .name = "type",
@@ -7517,7 +8031,7 @@ static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_fields[] =
     },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields[] =
 {
     {
         .name = "rising",
@@ -7544,10 +8058,10 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_rate_thresho
     .size = sizeof(((bcmolt_stat_alarm_trigger_config *)0)->u.rate_threshold),
     .mask_offset = (uint16_t)(offsetof(bcmolt_stat_alarm_trigger_config, u.rate_threshold.presence_mask) - offsetof(bcmolt_stat_alarm_trigger_config, u.rate_threshold.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_stat_alarm_trigger_config_rate_threshold_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields[] =
 {
     {
         .name = "upper",
@@ -7574,10 +8088,10 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_rate_range =
     .size = sizeof(((bcmolt_stat_alarm_trigger_config *)0)->u.rate_range),
     .mask_offset = (uint16_t)(offsetof(bcmolt_stat_alarm_trigger_config, u.rate_range.presence_mask) - offsetof(bcmolt_stat_alarm_trigger_config, u.rate_range.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_stat_alarm_trigger_config_rate_range_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields[] =
 {
     {
         .name = "limit",
@@ -7596,10 +8110,10 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config_value_thresh
     .size = sizeof(((bcmolt_stat_alarm_trigger_config *)0)->u.value_threshold),
     .mask_offset = (uint16_t)(offsetof(bcmolt_stat_alarm_trigger_config, u.value_threshold.presence_mask) - offsetof(bcmolt_stat_alarm_trigger_config, u.value_threshold.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_stat_alarm_trigger_config_value_threshold_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_stat_alarm_trigger_config_union_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_stat_alarm_trigger_config_union_fields[] =
 {
     {},
     {
@@ -7629,7 +8143,7 @@ const bcmolt_type_descr type_descr_bcmolt_stat_alarm_trigger_config =
     .descr = "Statistic alarm trigger configuration.",
     .base_type = BCMOLT_BASE_TYPE_ID_UNION,
     .size = sizeof(bcmolt_stat_alarm_trigger_config),
-    .x = { .u = { .num_common_fields = sizeof(type_descr_bcmolt_stat_alarm_trigger_config_fields) / sizeof(bcmolt_field_descr), .common_fields = type_descr_bcmolt_stat_alarm_trigger_config_fields, .classifier_idx = 0, .union_fields = type_descr_bcmolt_stat_alarm_trigger_config_union_fields } },
+    .x = { .u = { .num_common_fields = sizeof(_type_descr_bcmolt_stat_alarm_trigger_config_fields) / sizeof(bcmolt_field_descr), .common_fields = _type_descr_bcmolt_stat_alarm_trigger_config_fields, .classifier_idx = 0, .union_fields = _type_descr_bcmolt_stat_alarm_trigger_config_union_fields } },
 };
 
 const bcmolt_enum_val bcmolt_stat_condition_type_string_table[] =
@@ -7672,6 +8186,15 @@ const bcmolt_type_descr type_descr_bcmolt_str_100 =
     .name = "str_100",
     .descr = "ASCII string with max length 100",
     .size = sizeof(bcmolt_str_100),
+    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
+    .base_type = BCMOLT_BASE_TYPE_ID_STRING,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_str_128 =
+{
+    .name = "str_128",
+    .descr = "ASCII string with max length 128",
+    .size = sizeof(bcmolt_str_128),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRING,
 };
@@ -7739,7 +8262,7 @@ const bcmolt_type_descr type_descr_bcmolt_str_64 =
     .base_type = BCMOLT_BASE_TYPE_ID_STRING,
 };
 
-static bcmolt_field_descr type_descr_bcmolt_sw_error_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_sw_error_fields[] =
 {
     {
         .name = "first_error_time_us",
@@ -7806,7 +8329,23 @@ const bcmolt_type_descr type_descr_bcmolt_sw_error =
     .size = sizeof(bcmolt_sw_error),
     .mask_offset = offsetof(bcmolt_sw_error, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_sw_error_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_sw_error_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_sw_error_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_sw_error_fields } },
+};
+
+const bcmolt_enum_val bcmolt_sw_error_severity_string_table[] =
+{
+    { .name = "high", .val = BCMOLT_SW_ERROR_SEVERITY_HIGH, .tags = 0 },
+    { .name = "fatal", .val = BCMOLT_SW_ERROR_SEVERITY_FATAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_sw_error_severity =
+{
+    .name = "sw_error_severity",
+    .descr = "SW Error Severity",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_sw_error_severity),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_sw_error_severity_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_switch_over_type_c_onu_state_string_table[] =
@@ -7869,7 +8408,7 @@ const bcmolt_type_descr type_descr_bcmolt_system_mode =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_system_mode_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_system_profile_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_system_profile_fields[] =
 {
     {
         .name = "ng_2_sys_id",
@@ -7944,7 +8483,29 @@ const bcmolt_type_descr type_descr_bcmolt_system_profile =
     .size = sizeof(bcmolt_system_profile),
     .mask_offset = offsetof(bcmolt_system_profile, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_system_profile_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_system_profile_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_system_profile_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_system_profile_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_taildrop_params_fields[] =
+{
+    {
+        .name = "max_size_kbytes",
+        .descr = "max size kbytes",
+        .id = BCMOLT_TAILDROP_PARAMS_ID_MAX_SIZE_KBYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_taildrop_params, max_size_kbytes),
+        .type = &type_descr_uint16_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_taildrop_params =
+{
+    .name = "taildrop_params",
+    .descr = "taildrop_params",
+    .size = sizeof(bcmolt_taildrop_params),
+    .mask_offset = offsetof(bcmolt_taildrop_params, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_taildrop_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_taildrop_params_fields } },
 };
 
 const bcmolt_enum_val bcmolt_tc_protocol_string_table[] =
@@ -7980,7 +8541,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_qmp_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_qmp_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_queue_ref_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_queue_ref_fields[] =
 {
     {
         .name = "sched_id",
@@ -8007,10 +8568,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_queue_ref =
     .size = sizeof(bcmolt_tm_queue_ref),
     .mask_offset = offsetof(bcmolt_tm_queue_ref, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_queue_ref_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_queue_ref_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_queue_ref_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_queue_ref_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_attachment_point_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_attachment_point_fields[] =
 {
     {
         .name = "type",
@@ -8022,7 +8583,7 @@ static bcmolt_field_descr type_descr_bcmolt_tm_sched_attachment_point_fields[] =
     },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_attachment_point_interface_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_attachment_point_interface_fields[] =
 {
     {
         .name = "interface_ref",
@@ -8041,10 +8602,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point_interface =
     .size = sizeof(((bcmolt_tm_sched_attachment_point *)0)->u.interface),
     .mask_offset = (uint16_t)(offsetof(bcmolt_tm_sched_attachment_point, u.interface.presence_mask) - offsetof(bcmolt_tm_sched_attachment_point, u.interface.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_attachment_point_interface_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_attachment_point_interface_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_attachment_point_interface_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_attachment_point_interface_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields[] =
 {
     {
         .name = "tm_sched_id",
@@ -8071,10 +8632,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point_tm_sched =
     .size = sizeof(((bcmolt_tm_sched_attachment_point *)0)->u.tm_sched),
     .mask_offset = (uint16_t)(offsetof(bcmolt_tm_sched_attachment_point, u.tm_sched.presence_mask) - offsetof(bcmolt_tm_sched_attachment_point, u.tm_sched.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_attachment_point_tm_sched_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_attachment_point_union_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_attachment_point_union_fields[] =
 {
     {},
     {
@@ -8098,7 +8659,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_attachment_point =
     .descr = "TM Scheduler Attachment Point (Output)",
     .base_type = BCMOLT_BASE_TYPE_ID_UNION,
     .size = sizeof(bcmolt_tm_sched_attachment_point),
-    .x = { .u = { .num_common_fields = sizeof(type_descr_bcmolt_tm_sched_attachment_point_fields) / sizeof(bcmolt_field_descr), .common_fields = type_descr_bcmolt_tm_sched_attachment_point_fields, .classifier_idx = 0, .union_fields = type_descr_bcmolt_tm_sched_attachment_point_union_fields } },
+    .x = { .u = { .num_common_fields = sizeof(_type_descr_bcmolt_tm_sched_attachment_point_fields) / sizeof(bcmolt_field_descr), .common_fields = _type_descr_bcmolt_tm_sched_attachment_point_fields, .classifier_idx = 0, .union_fields = _type_descr_bcmolt_tm_sched_attachment_point_union_fields } },
 };
 
 const bcmolt_enum_val bcmolt_tm_sched_dir_string_table[] =
@@ -8134,7 +8695,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_output_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_sched_output_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_param_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_param_fields[] =
 {
     {
         .name = "type",
@@ -8146,7 +8707,7 @@ static bcmolt_field_descr type_descr_bcmolt_tm_sched_param_fields[] =
     },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_param_priority_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_param_priority_fields[] =
 {
     {
         .name = "priority",
@@ -8165,10 +8726,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_param_priority =
     .size = sizeof(((bcmolt_tm_sched_param *)0)->u.priority),
     .mask_offset = (uint16_t)(offsetof(bcmolt_tm_sched_param, u.priority.presence_mask) - offsetof(bcmolt_tm_sched_param, u.priority.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_param_priority_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_param_priority_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_param_priority_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_param_priority_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_param_weight_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_param_weight_fields[] =
 {
     {
         .name = "weight",
@@ -8187,10 +8748,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_param_weight =
     .size = sizeof(((bcmolt_tm_sched_param *)0)->u.weight),
     .mask_offset = (uint16_t)(offsetof(bcmolt_tm_sched_param, u.weight.presence_mask) - offsetof(bcmolt_tm_sched_param, u.weight.presence_mask)),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_param_weight_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_param_weight_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_param_weight_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_param_weight_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_param_union_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_param_union_fields[] =
 {
     {},
     {
@@ -8214,7 +8775,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_param =
     .descr = "TM Sched Param",
     .base_type = BCMOLT_BASE_TYPE_ID_UNION,
     .size = sizeof(bcmolt_tm_sched_param),
-    .x = { .u = { .num_common_fields = sizeof(type_descr_bcmolt_tm_sched_param_fields) / sizeof(bcmolt_field_descr), .common_fields = type_descr_bcmolt_tm_sched_param_fields, .classifier_idx = 0, .union_fields = type_descr_bcmolt_tm_sched_param_union_fields } },
+    .x = { .u = { .num_common_fields = sizeof(_type_descr_bcmolt_tm_sched_param_fields) / sizeof(bcmolt_field_descr), .common_fields = _type_descr_bcmolt_tm_sched_param_fields, .classifier_idx = 0, .union_fields = _type_descr_bcmolt_tm_sched_param_union_fields } },
 };
 
 const bcmolt_enum_val bcmolt_tm_sched_param_type_string_table[] =
@@ -8234,7 +8795,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_param_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_sched_param_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_ref_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_ref_fields[] =
 {
     {
         .name = "id",
@@ -8253,7 +8814,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_ref =
     .size = sizeof(bcmolt_tm_sched_ref),
     .mask_offset = offsetof(bcmolt_tm_sched_ref, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_ref_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_ref_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_ref_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_ref_fields } },
 };
 
 const bcmolt_enum_val bcmolt_tm_sched_type_string_table[] =
@@ -8274,7 +8835,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_sched_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_shaping_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_shaping_fields[] =
 {
     {
         .name = "cir",
@@ -8300,6 +8861,42 @@ static bcmolt_field_descr type_descr_bcmolt_tm_shaping_fields[] =
         .offset = offsetof(bcmolt_tm_shaping, burst),
         .type = &type_descr_uint32_t,
     },
+    {
+        .name = "cir_actual",
+        .descr = "Actual CIR Rate (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, cir_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "cir_burst_actual",
+        .descr = "Actual CIR Max Burst (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, cir_burst_actual),
+        .type = &type_descr_int32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "eir_actual",
+        .descr = "Actual EIR (PIR-CIR) Rate (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, eir_actual),
+        .type = &type_descr_uint32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "eir_burst_actual",
+        .descr = "Actual EIR Max Burst (read from device)",
+        .id = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_shaping, eir_burst_actual),
+        .type = &type_descr_int32_t,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_tm_shaping =
@@ -8309,7 +8906,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_shaping =
     .size = sizeof(bcmolt_tm_shaping),
     .mask_offset = offsetof(bcmolt_tm_shaping, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_shaping_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_shaping_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_shaping_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_shaping_fields } },
 };
 
 const bcmolt_enum_val bcmolt_tod_calibration_fail_reason_string_table[] =
@@ -8329,7 +8926,7 @@ const bcmolt_type_descr type_descr_bcmolt_tod_calibration_fail_reason =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tod_calibration_fail_reason_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_topology_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_topology_fields[] =
 {
     {
         .name = "num_switch_ports",
@@ -8356,10 +8953,10 @@ const bcmolt_type_descr type_descr_bcmolt_topology =
     .size = sizeof(bcmolt_topology),
     .mask_offset = offsetof(bcmolt_topology, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_topology_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_topology_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_topology_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_topology_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_topology_map_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_topology_map_fields[] =
 {
     {
         .name = "local_device_id",
@@ -8402,7 +8999,7 @@ const bcmolt_type_descr type_descr_bcmolt_topology_map =
     .size = sizeof(bcmolt_topology_map),
     .mask_offset = offsetof(bcmolt_topology_map, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_topology_map_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_topology_map_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_topology_map_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_topology_map_fields } },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_topology_map_list_u32 =
@@ -8438,7 +9035,6 @@ const bcmolt_enum_val bcmolt_traffic_type_string_table[] =
     { .name = "known_unicast", .val = BCMOLT_TRAFFIC_TYPE_KNOWN_UNICAST, .tags = 0 },
     { .name = "unk_unicast", .val = BCMOLT_TRAFFIC_TYPE_UNK_UNICAST, .tags = 0 },
     { .name = "multicast", .val = BCMOLT_TRAFFIC_TYPE_MULTICAST, .tags = 0 },
-    { .name = "unk_multicast", .val = BCMOLT_TRAFFIC_TYPE_UNK_MULTICAST, .tags = 0 },
     { .name = "all_traffic", .val = BCMOLT_TRAFFIC_TYPE_ALL_TRAFFIC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -8452,7 +9048,7 @@ const bcmolt_type_descr type_descr_bcmolt_traffic_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_traffic_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_trap_config_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_trap_config_fields[] =
 {
     {
         .name = "tpid",
@@ -8511,7 +9107,7 @@ const bcmolt_type_descr type_descr_bcmolt_trap_config =
     .size = sizeof(bcmolt_trap_config),
     .mask_offset = offsetof(bcmolt_trap_config, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_trap_config_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_trap_config_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_trap_config_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_trap_config_fields } },
 };
 
 const bcmolt_enum_val bcmolt_trivalent_string_table[] =
@@ -8551,6 +9147,11 @@ const bcmolt_enum_val bcmolt_trx_type_string_table[] =
     { .name = "ltf_5306", .val = BCMOLT_TRX_TYPE_LTF_5306, .tags = 0 },
     { .name = "ltf_5308_b", .val = BCMOLT_TRX_TYPE_LTF_5308_B, .tags = 0 },
     { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
+    { .name = "combo_general_1", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_1, .tags = 0 },
+    { .name = "combo_general_2", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_2, .tags = 0 },
+    { .name = "combo_general_3", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_3, .tags = 0 },
+    { .name = "combo_general_4", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_4, .tags = 0 },
+    { .name = "lte_3682_a", .val = BCMOLT_TRX_TYPE_LTE_3682_A, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -8646,6 +9247,24 @@ const bcmolt_type_descr type_descr_bcmolt_uart_baudrate =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_uart_baudrate_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_um_fwrd_state_string_table[] =
+{
+    { .name = "disable", .val = BCMOLT_UM_FWRD_STATE_DISABLE, .tags = 0 },
+    { .name = "enable", .val = BCMOLT_UM_FWRD_STATE_ENABLE, .tags = 0 },
+    { .name = "igmp_icmpv6", .val = BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6, .tags = 0 },
+    { .name = "flood_to_flows", .val = BCMOLT_UM_FWRD_STATE_FLOOD_TO_FLOWS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_um_fwrd_state =
+{
+    .name = "um_fwrd_state",
+    .descr = "um fwrd state",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_um_fwrd_state),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_um_fwrd_state_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_upstream_line_rate_capabilities_string_table[] =
 {
     { .name = "rate_2_p_5_g", .val = BCMOLT_UPSTREAM_LINE_RATE_CAPABILITIES_RATE_2_P_5_G, .tags = 0 },
@@ -8701,7 +9320,7 @@ const bcmolt_type_descr type_descr_bcmolt_us_operating_wavelength_bands =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_us_operating_wavelength_bands_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_burst_profile_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_burst_profile_fields[] =
 {
     {
         .name = "profile_version",
@@ -8825,10 +9444,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_burst_profile =
     .size = sizeof(bcmolt_xgpon_burst_profile),
     .mask_offset = offsetof(bcmolt_xgpon_burst_profile, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_burst_profile_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_burst_profile_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_burst_profile_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_burst_profile_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_multicast_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_multicast_key_fields[] =
 {
     {
         .name = "key",
@@ -8855,10 +9474,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_multicast_key =
     .size = sizeof(bcmolt_xgpon_multicast_key),
     .mask_offset = offsetof(bcmolt_xgpon_multicast_key, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_multicast_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_multicast_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_multicast_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_multicast_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields[] =
 {
     {
         .name = "loai",
@@ -8885,10 +9504,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_alarm_indication_control =
     .size = sizeof(bcmolt_xgpon_onu_alarm_indication_control),
     .mask_offset = offsetof(bcmolt_xgpon_onu_alarm_indication_control, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_alarm_indication_control_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_alarm_state_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_alarm_state_fields[] =
 {
     {
         .name = "losi",
@@ -9019,10 +9638,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_alarm_state =
     .size = sizeof(bcmolt_xgpon_onu_alarm_state),
     .mask_offset = offsetof(bcmolt_xgpon_onu_alarm_state, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_alarm_state_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_alarm_state_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_alarm_state_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_alarm_state_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_alarms_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_alarms_fields[] =
 {
     {
         .name = "losi",
@@ -9065,10 +9684,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_alarms =
     .size = sizeof(bcmolt_xgpon_onu_alarms),
     .mask_offset = offsetof(bcmolt_xgpon_onu_alarms, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_alarms_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_alarms_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_alarms_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_alarms_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields[] =
 {
     {
         .name = "losi",
@@ -9111,10 +9730,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_alarms_thresholds =
     .size = sizeof(bcmolt_xgpon_onu_alarms_thresholds),
     .mask_offset = offsetof(bcmolt_xgpon_onu_alarms_thresholds, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_alarms_thresholds_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_params_fields[] =
 {
     {
         .name = "alarm_state",
@@ -9182,10 +9801,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_params =
     .size = sizeof(bcmolt_xgpon_onu_params),
     .mask_offset = offsetof(bcmolt_xgpon_onu_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_onu_registration_keys_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_onu_registration_keys_fields[] =
 {
     {
         .name = "ploam_ik",
@@ -9236,10 +9855,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_onu_registration_keys =
     .size = sizeof(bcmolt_xgpon_onu_registration_keys),
     .mask_offset = offsetof(bcmolt_xgpon_onu_registration_keys, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_onu_registration_keys_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_onu_registration_keys_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_onu_registration_keys_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_onu_registration_keys_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_pon_params_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_pon_params_fields[] =
 {
     {
         .name = "hw_pon_id",
@@ -9354,10 +9973,10 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_pon_params =
     .size = sizeof(bcmolt_xgpon_pon_params),
     .mask_offset = offsetof(bcmolt_xgpon_pon_params, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_pon_params_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_pon_params_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_pon_params_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_xgpon_trx_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_xgpon_trx_fields[] =
 {
     {
         .name = "burst_profile",
@@ -9375,6 +9994,14 @@ static bcmolt_field_descr type_descr_bcmolt_xgpon_trx_fields[] =
         .offset = offsetof(bcmolt_xgpon_trx, transceiver_type),
         .type = &type_descr_bcmolt_xgpon_trx_type,
     },
+    {
+        .name = "trx_name",
+        .descr = "TRX name",
+        .id = BCMOLT_XGPON_TRX_ID_TRX_NAME,
+        .tags = 0,
+        .offset = offsetof(bcmolt_xgpon_trx, trx_name),
+        .type = &type_descr_bcmolt_str_100,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_xgpon_trx =
@@ -9384,7 +10011,7 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_trx =
     .size = sizeof(bcmolt_xgpon_trx),
     .mask_offset = offsetof(bcmolt_xgpon_trx, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_xgpon_trx_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_xgpon_trx_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_xgpon_trx_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_xgpon_trx_fields } },
 };
 
 const bcmolt_enum_val bcmolt_xgpon_trx_type_string_table[] =
@@ -9406,6 +10033,14 @@ const bcmolt_enum_val bcmolt_xgpon_trx_type_string_table[] =
     { .name = "ltf_5308_b", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_B, .tags = 0 },
     { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
     { .name = "ltf_5308_e_sl", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL, .tags = 0 },
+    { .name = "xgs_general_1", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_1, .tags = 0 },
+    { .name = "xgs_general_2", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_2, .tags = 0 },
+    { .name = "xgs_general_3", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_3, .tags = 0 },
+    { .name = "xgs_general_4", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_4, .tags = 0 },
+    { .name = "combo_general_1", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_1, .tags = 0 },
+    { .name = "combo_general_2", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_2, .tags = 0 },
+    { .name = "combo_general_3", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_3, .tags = 0 },
+    { .name = "combo_general_4", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_4, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -9418,7 +10053,7 @@ const bcmolt_type_descr type_descr_bcmolt_xgpon_trx_type =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_xgpon_trx_type_string_table } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_key_fields[] =
 {
     {
         .name = "id",
@@ -9437,10 +10072,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_key =
     .size = sizeof(bcmolt_access_control_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_cfg_data_fields[] =
 {
     {
         .name = "classifier",
@@ -9541,10 +10176,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_cfg_data =
     .size = sizeof(bcmolt_access_control_cfg_data),
     .mask_offset = offsetof(bcmolt_access_control_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_stats_data_fields[] =
 {
     {
         .name = "packets",
@@ -9603,10 +10238,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_stats_data =
     .size = sizeof(bcmolt_access_control_stats_data),
     .mask_offset = offsetof(bcmolt_access_control_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_receive_eth_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_receive_eth_packet_data_fields[] =
 {
     {
         .name = "interface_ref",
@@ -9649,10 +10284,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_receive_eth_packet_data
     .size = sizeof(bcmolt_access_control_receive_eth_packet_data),
     .mask_offset = offsetof(bcmolt_access_control_receive_eth_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_receive_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_receive_eth_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_receive_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_receive_eth_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_interfaces_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_interfaces_update_data_fields[] =
 {
     {
         .name = "command",
@@ -9679,10 +10314,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_interfaces_update_data 
     .size = sizeof(bcmolt_access_control_interfaces_update_data),
     .mask_offset = offsetof(bcmolt_access_control_interfaces_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_interfaces_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_interfaces_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_interfaces_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_interfaces_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_stats_cfg_data_fields[] =
 {
     {
         .name = "packets",
@@ -9741,10 +10376,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_stats_cfg_data =
     .size = sizeof(bcmolt_access_control_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_access_control_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -9763,10 +10398,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_stats_alarm_raised_data
     .size = sizeof(bcmolt_access_control_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_access_control_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -9785,10 +10420,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_stats_alarm_cleared_dat
     .size = sizeof(bcmolt_access_control_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_access_control_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_access_control_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_access_control_auto_cfg_data_fields[] =
 {
     {
         .name = "receive_eth_packet",
@@ -9823,10 +10458,10 @@ const bcmolt_type_descr type_descr_bcmolt_access_control_auto_cfg_data =
     .size = sizeof(bcmolt_access_control_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_access_control_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_access_control_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_access_control_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_access_control_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_access_control_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_bal_system_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_bal_system_cfg_data_fields[] =
 {
     {
         .name = "config_state",
@@ -9853,6 +10488,14 @@ static bcmolt_field_descr type_descr_bcmolt_bal_system_cfg_data_fields[] =
         .offset = offsetof(bcmolt_bal_system_cfg_data, host_port),
         .type = &type_descr_bcmolt_host_port_params,
     },
+    {
+        .name = "nto1_programming_model",
+        .descr = "nto1 programming model",
+        .id = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_NTO1_PROGRAMMING_MODEL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_bal_system_cfg_data, nto1_programming_model),
+        .type = &type_descr_bcmolt_nto1_programming_mode,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_bal_system_cfg_data =
@@ -9862,10 +10505,10 @@ const bcmolt_type_descr type_descr_bcmolt_bal_system_cfg_data =
     .size = sizeof(bcmolt_bal_system_cfg_data),
     .mask_offset = offsetof(bcmolt_bal_system_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_bal_system_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_bal_system_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_bal_system_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_bal_system_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_bal_system_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_bal_system_key_fields[] =
 {
     {
         .name = "id",
@@ -9884,10 +10527,10 @@ const bcmolt_type_descr type_descr_bcmolt_bal_system_key =
     .size = sizeof(bcmolt_bal_system_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_bal_system_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_bal_system_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_bal_system_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_bal_system_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_key_fields[] =
 {
     {
         .name = "device_id",
@@ -9907,10 +10550,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_key =
     .size = sizeof(bcmolt_device_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_cfg_data_fields[] =
 {
     {
         .name = "system_mode",
@@ -10001,7 +10644,7 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
     },
     {
         .name = "protection_switching_ext_irq",
-        .descr = "The selected external IRQ for protection switching",
+        .descr = "Supported in BCM6862X only. The selected external IRQ for protection switching",
         .id = BCMOLT_DEVICE_CFG_DATA_ID_PROTECTION_SWITCHING_EXT_IRQ,
         .tags = 0,
         .offset = offsetof(bcmolt_device_cfg_data, protection_switching_ext_irq),
@@ -10176,6 +10819,23 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
         .offset = offsetof(bcmolt_device_cfg_data, inband_internal_nni),
         .type = &type_descr_uint8_t,
     },
+    {
+        .name = "debug_bas_code",
+        .descr = "Permission code of BAS features in the device.",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_CODE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_cfg_data, debug_bas_code),
+        .type = &type_descr_bcmolt_str_32,
+    },
+    {
+        .name = "debug_bas_enabled",
+        .descr = "BAS status in the device: enabled or not",
+        .id = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_ENABLED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_device_cfg_data, debug_bas_enabled),
+        .type = &type_descr_bcmos_bool,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_device_cfg_data =
@@ -10185,10 +10845,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_cfg_data =
     .size = sizeof(bcmolt_device_cfg_data),
     .mask_offset = offsetof(bcmolt_device_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_connect_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_connect_data_fields[] =
 {
     {
         .name = "system_mode",
@@ -10287,10 +10947,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_connect_data =
     .size = sizeof(bcmolt_device_connect_data),
     .mask_offset = offsetof(bcmolt_device_connect_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_connect_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_connect_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_connect_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_connect_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_host_keep_alive_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_host_keep_alive_data_fields[] =
 {
     {
         .name = "sequence_number",
@@ -10317,10 +10977,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_host_keep_alive_data =
     .size = sizeof(bcmolt_device_host_keep_alive_data),
     .mask_offset = offsetof(bcmolt_device_host_keep_alive_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_host_keep_alive_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_host_keep_alive_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_host_keep_alive_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_host_keep_alive_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_set_8021_as_tod_string_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_set_8021_as_tod_string_data_fields[] =
 {
     {
         .name = "tod_string",
@@ -10339,10 +10999,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_set_8021_as_tod_string_data =
     .size = sizeof(bcmolt_device_set_8021_as_tod_string_data),
     .mask_offset = offsetof(bcmolt_device_set_8021_as_tod_string_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_set_8021_as_tod_string_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_set_8021_as_tod_string_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_set_8021_as_tod_string_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_set_8021_as_tod_string_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_image_transfer_start_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_image_transfer_start_data_fields[] =
 {
     {
         .name = "image_type",
@@ -10385,10 +11045,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_image_transfer_start_data =
     .size = sizeof(bcmolt_device_image_transfer_start_data),
     .mask_offset = offsetof(bcmolt_device_image_transfer_start_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_image_transfer_start_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_image_transfer_start_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_image_transfer_start_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_image_transfer_start_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_image_transfer_data_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_image_transfer_data_data_fields[] =
 {
     {
         .name = "block_number",
@@ -10423,10 +11083,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_image_transfer_data_data =
     .size = sizeof(bcmolt_device_image_transfer_data_data),
     .mask_offset = offsetof(bcmolt_device_image_transfer_data_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_image_transfer_data_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_image_transfer_data_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_image_transfer_data_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_image_transfer_data_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_run_ddr_test_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_run_ddr_test_data_fields[] =
 {
     {
         .name = "cpu",
@@ -10461,10 +11121,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_run_ddr_test_data =
     .size = sizeof(bcmolt_device_run_ddr_test_data),
     .mask_offset = offsetof(bcmolt_device_run_ddr_test_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_run_ddr_test_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_run_ddr_test_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_run_ddr_test_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_run_ddr_test_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_device_ready_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_device_ready_data_fields[] =
 {
     {
         .name = "firmware_sw_version",
@@ -10523,10 +11183,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_device_ready_data =
     .size = sizeof(bcmolt_device_device_ready_data),
     .mask_offset = offsetof(bcmolt_device_device_ready_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_device_ready_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_device_ready_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_device_ready_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_device_ready_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_device_keep_alive_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_device_keep_alive_data_fields[] =
 {
     {
         .name = "sequence_number",
@@ -10569,10 +11229,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_device_keep_alive_data =
     .size = sizeof(bcmolt_device_device_keep_alive_data),
     .mask_offset = offsetof(bcmolt_device_device_keep_alive_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_device_keep_alive_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_device_keep_alive_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_device_keep_alive_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_device_keep_alive_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_connection_failure_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_connection_failure_data_fields[] =
 {
     {
         .name = "reason",
@@ -10607,10 +11267,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_connection_failure_data =
     .size = sizeof(bcmolt_device_connection_failure_data),
     .mask_offset = offsetof(bcmolt_device_connection_failure_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_connection_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_connection_failure_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_connection_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_connection_failure_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_connection_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_connection_complete_data_fields[] =
 {
     {
         .name = "standalone",
@@ -10637,10 +11297,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_connection_complete_data =
     .size = sizeof(bcmolt_device_connection_complete_data),
     .mask_offset = offsetof(bcmolt_device_connection_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_connection_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_connection_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_connection_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_connection_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_disconnection_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_disconnection_complete_data_fields[] =
 {
     {
         .name = "reason",
@@ -10659,10 +11319,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_disconnection_complete_data =
     .size = sizeof(bcmolt_device_disconnection_complete_data),
     .mask_offset = offsetof(bcmolt_device_disconnection_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_disconnection_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_disconnection_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_disconnection_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_disconnection_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_sw_error_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_sw_error_data_fields[] =
 {
     {
         .name = "task_name",
@@ -10705,10 +11365,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_sw_error_data =
     .size = sizeof(bcmolt_device_sw_error_data),
     .mask_offset = offsetof(bcmolt_device_sw_error_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_sw_error_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_sw_error_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_sw_error_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_sw_error_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_sw_exception_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_sw_exception_data_fields[] =
 {
     {
         .name = "cpu_id",
@@ -10735,10 +11395,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_sw_exception_data =
     .size = sizeof(bcmolt_device_sw_exception_data),
     .mask_offset = offsetof(bcmolt_device_sw_exception_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_sw_exception_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_sw_exception_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_sw_exception_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_sw_exception_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_image_transfer_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_image_transfer_complete_data_fields[] =
 {
     {
         .name = "image_type",
@@ -10773,10 +11433,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_image_transfer_complete_data =
     .size = sizeof(bcmolt_device_image_transfer_complete_data),
     .mask_offset = offsetof(bcmolt_device_image_transfer_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_image_transfer_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_image_transfer_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_image_transfer_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_image_transfer_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_ddr_test_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_ddr_test_complete_data_fields[] =
 {
     {
         .name = "ddr_test",
@@ -10795,10 +11455,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_ddr_test_complete_data =
     .size = sizeof(bcmolt_device_ddr_test_complete_data),
     .mask_offset = offsetof(bcmolt_device_ddr_test_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_ddr_test_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_ddr_test_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_ddr_test_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_ddr_test_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_sw_health_check_failure_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_sw_health_check_failure_data_fields[] =
 {
     {
         .name = "module_name",
@@ -10833,10 +11493,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_sw_health_check_failure_data =
     .size = sizeof(bcmolt_device_sw_health_check_failure_data),
     .mask_offset = offsetof(bcmolt_device_sw_health_check_failure_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_sw_health_check_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_sw_health_check_failure_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_sw_health_check_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_sw_health_check_failure_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_change_inni_mux_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_change_inni_mux_data_fields[] =
 {
     {
         .name = "mux",
@@ -10863,10 +11523,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_change_inni_mux_data =
     .size = sizeof(bcmolt_device_change_inni_mux_data),
     .mask_offset = offsetof(bcmolt_device_change_inni_mux_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_change_inni_mux_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_change_inni_mux_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_change_inni_mux_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_change_inni_mux_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields[] =
 {
     {
         .name = "new_mux",
@@ -10893,10 +11553,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_inni_mux_configuration_complete
     .size = sizeof(bcmolt_device_inni_mux_configuration_completed_data),
     .mask_offset = offsetof(bcmolt_device_inni_mux_configuration_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_inni_mux_configuration_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_tod_calibration_done_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_tod_calibration_done_data_fields[] =
 {
     {
         .name = "pon_ni",
@@ -10931,10 +11591,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_tod_calibration_done_data =
     .size = sizeof(bcmolt_device_tod_calibration_done_data),
     .mask_offset = offsetof(bcmolt_device_tod_calibration_done_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_tod_calibration_done_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_tod_calibration_done_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_tod_calibration_done_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_tod_calibration_done_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_device_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_device_auto_cfg_data_fields[] =
 {
     {
         .name = "connection_complete",
@@ -11049,10 +11709,10 @@ const bcmolt_type_descr type_descr_bcmolt_device_auto_cfg_data =
     .size = sizeof(bcmolt_device_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_device_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_device_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_device_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_device_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_device_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_key_fields[] =
 {
     {
         .name = "id",
@@ -11071,10 +11731,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_key =
     .size = sizeof(bcmolt_erps_interface_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -11163,10 +11823,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_cfg_data =
     .size = sizeof(bcmolt_erps_interface_cfg_data),
     .mask_offset = offsetof(bcmolt_erps_interface_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields[] =
 {
     {
         .name = "command",
@@ -11193,10 +11853,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_set_ring_port_control_d
     .size = sizeof(bcmolt_erps_interface_set_ring_port_control_data),
     .mask_offset = offsetof(bcmolt_erps_interface_set_ring_port_control_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_set_ring_port_control_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_ring_port_control_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_ring_port_control_data_fields[] =
 {
     {
         .name = "port_id",
@@ -11247,10 +11907,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_ring_port_control_data 
     .size = sizeof(bcmolt_erps_interface_ring_port_control_data),
     .mask_offset = offsetof(bcmolt_erps_interface_ring_port_control_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_ring_port_control_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_ring_port_control_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_ring_port_control_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_ring_port_control_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_set_intf_opt_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_set_intf_opt_data_fields[] =
 {
     {
         .name = "port",
@@ -11277,10 +11937,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_set_intf_opt_data =
     .size = sizeof(bcmolt_erps_interface_set_intf_opt_data),
     .mask_offset = offsetof(bcmolt_erps_interface_set_intf_opt_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_set_intf_opt_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_set_intf_opt_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_set_intf_opt_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_set_intf_opt_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_port_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_port_update_data_fields[] =
 {
     {
         .name = "command",
@@ -11315,10 +11975,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_port_update_data =
     .size = sizeof(bcmolt_erps_interface_port_update_data),
     .mask_offset = offsetof(bcmolt_erps_interface_port_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_port_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_port_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_port_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_port_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields[] =
 {
     {
         .name = "port",
@@ -11345,10 +12005,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_set_intf_opt_complete_d
     .size = sizeof(bcmolt_erps_interface_set_intf_opt_complete_data),
     .mask_offset = offsetof(bcmolt_erps_interface_set_intf_opt_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_set_intf_opt_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_port_update_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_port_update_complete_data_fields[] =
 {
     {
         .name = "command",
@@ -11391,10 +12051,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_port_update_complete_da
     .size = sizeof(bcmolt_erps_interface_port_update_complete_data),
     .mask_offset = offsetof(bcmolt_erps_interface_port_update_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_port_update_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_port_update_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_port_update_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_port_update_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_erps_interface_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_erps_interface_auto_cfg_data_fields[] =
 {
     {
         .name = "port_update_complete",
@@ -11429,10 +12089,10 @@ const bcmolt_type_descr type_descr_bcmolt_erps_interface_auto_cfg_data =
     .size = sizeof(bcmolt_erps_interface_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_erps_interface_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_erps_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_erps_interface_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_erps_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_erps_interface_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_key_fields[] =
 {
     {
         .name = "id",
@@ -11451,10 +12111,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_key =
     .size = sizeof(bcmolt_eth_oam_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -11578,10 +12238,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_cfg_data =
     .size = sizeof(bcmolt_eth_oam_cfg_data),
     .mask_offset = offsetof(bcmolt_eth_oam_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_ccm_event_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_ccm_event_data_fields[] =
 {
     {
         .name = "event",
@@ -11600,10 +12260,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_ccm_event_data =
     .size = sizeof(bcmolt_eth_oam_ccm_event_data),
     .mask_offset = offsetof(bcmolt_eth_oam_ccm_event_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_ccm_event_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_ccm_event_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_ccm_event_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_ccm_event_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_stats_data_fields[] =
 {
     {
         .name = "ccm_tx_count",
@@ -11630,10 +12290,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_stats_data =
     .size = sizeof(bcmolt_eth_oam_stats_data),
     .mask_offset = offsetof(bcmolt_eth_oam_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_set_mep_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_set_mep_state_data_fields[] =
 {
     {
         .name = "type",
@@ -11660,10 +12320,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_set_mep_state_data =
     .size = sizeof(bcmolt_eth_oam_set_mep_state_data),
     .mask_offset = offsetof(bcmolt_eth_oam_set_mep_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_set_mep_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_set_mep_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_set_mep_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_set_mep_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_state_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_state_change_data_fields[] =
 {
     {
         .name = "result",
@@ -11698,10 +12358,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_state_change_data =
     .size = sizeof(bcmolt_eth_oam_state_change_data),
     .mask_offset = offsetof(bcmolt_eth_oam_state_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_state_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_state_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_stats_cfg_data_fields[] =
 {
     {
         .name = "ccm_tx_count",
@@ -11728,10 +12388,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_stats_cfg_data =
     .size = sizeof(bcmolt_eth_oam_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_eth_oam_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -11750,10 +12410,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_stats_alarm_raised_data =
     .size = sizeof(bcmolt_eth_oam_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_eth_oam_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -11772,10 +12432,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_stats_alarm_cleared_data =
     .size = sizeof(bcmolt_eth_oam_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_eth_oam_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_eth_oam_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_eth_oam_auto_cfg_data_fields[] =
 {
     {
         .name = "ccm_event",
@@ -11818,10 +12478,10 @@ const bcmolt_type_descr type_descr_bcmolt_eth_oam_auto_cfg_data =
     .size = sizeof(bcmolt_eth_oam_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_eth_oam_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_eth_oam_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_eth_oam_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_eth_oam_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_eth_oam_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_cfg_data_fields[] =
 {
     {
         .name = "ingress_intf",
@@ -11949,7 +12609,24 @@ static bcmolt_field_descr type_descr_bcmolt_flow_cfg_data_fields[] =
         .id = BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING,
         .tags = 0,
         .offset = offsetof(bcmolt_flow_cfg_data, um_forwarding),
-        .type = &type_descr_bcmolt_control_state,
+        .type = &type_descr_bcmolt_um_fwrd_state,
+    },
+    {
+        .name = "bc_forwarding",
+        .descr = "bc_forwarding",
+        .id = BCMOLT_FLOW_CFG_DATA_ID_BC_FORWARDING,
+        .tags = 0,
+        .offset = offsetof(bcmolt_flow_cfg_data, bc_forwarding),
+        .type = &type_descr_bcmolt_bc_fwrd_state,
+    },
+    {
+        .name = "src_bindings",
+        .descr = "source bindings for a flow",
+        .id = BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_flow_cfg_data, src_bindings),
+        .type = &type_descr_bcmolt_arr_src_binding_info_16,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
 };
 
@@ -11960,10 +12637,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_cfg_data =
     .size = sizeof(bcmolt_flow_cfg_data),
     .mask_offset = offsetof(bcmolt_flow_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_key_fields[] =
 {
     {
         .name = "flow_id",
@@ -11990,10 +12667,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_key =
     .size = sizeof(bcmolt_flow_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_stats_data_fields[] =
 {
     {
         .name = "rx_packets",
@@ -12036,10 +12713,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_stats_data =
     .size = sizeof(bcmolt_flow_stats_data),
     .mask_offset = offsetof(bcmolt_flow_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_send_eth_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_send_eth_packet_data_fields[] =
 {
     {
         .name = "buffer",
@@ -12082,10 +12759,40 @@ const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data =
     .size = sizeof(bcmolt_flow_send_eth_packet_data),
     .mask_offset = offsetof(bcmolt_flow_send_eth_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_send_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_send_eth_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_send_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_send_eth_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_src_binding_update_data_fields[] =
+{
+    {
+        .name = "command",
+        .descr = "binding command",
+        .id = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND,
+        .tags = 0,
+        .offset = offsetof(bcmolt_flow_src_binding_update_data, command),
+        .type = &type_descr_bcmolt_binding_command,
+    },
+    {
+        .name = "src_binding",
+        .descr = "source binding parameters",
+        .id = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING,
+        .tags = 0,
+        .offset = offsetof(bcmolt_flow_src_binding_update_data, src_binding),
+        .type = &type_descr_bcmolt_src_binding_info,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data =
+{
+    .name = "flow_src_binding_update_data",
+    .descr = "BAL Flow: source binding update",
+    .size = sizeof(bcmolt_flow_src_binding_update_data),
+    .mask_offset = offsetof(bcmolt_flow_src_binding_update_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_src_binding_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_src_binding_update_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_flow_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_packets",
@@ -12128,10 +12835,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_stats_cfg_data =
     .size = sizeof(bcmolt_flow_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_flow_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -12150,10 +12857,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_raised_data =
     .size = sizeof(bcmolt_flow_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_flow_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -12172,10 +12879,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_stats_alarm_cleared_data =
     .size = sizeof(bcmolt_flow_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_flow_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_flow_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_flow_auto_cfg_data_fields[] =
 {
     {
         .name = "stats_alarm_cleared",
@@ -12202,10 +12909,10 @@ const bcmolt_type_descr type_descr_bcmolt_flow_auto_cfg_data =
     .size = sizeof(bcmolt_flow_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_flow_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_flow_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_flow_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpio_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpio_key_fields[] =
 {
     {
         .name = "device_id",
@@ -12233,10 +12940,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpio_key =
     .size = sizeof(bcmolt_gpio_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpio_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpio_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpio_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpio_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_gpio_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_gpio_cfg_data_fields[] =
 {
     {
         .name = "direction",
@@ -12263,10 +12970,10 @@ const bcmolt_type_descr type_descr_bcmolt_gpio_cfg_data =
     .size = sizeof(bcmolt_gpio_cfg_data),
     .mask_offset = offsetof(bcmolt_gpio_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_gpio_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_gpio_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_gpio_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_gpio_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_cfg_data_fields[] =
 {
     {
         .name = "members",
@@ -12319,10 +13026,10 @@ const bcmolt_type_descr type_descr_bcmolt_group_cfg_data =
     .size = sizeof(bcmolt_group_cfg_data),
     .mask_offset = offsetof(bcmolt_group_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_key_fields[] =
 {
     {
         .name = "id",
@@ -12341,10 +13048,10 @@ const bcmolt_type_descr type_descr_bcmolt_group_key =
     .size = sizeof(bcmolt_group_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_members_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_members_update_data_fields[] =
 {
     {
         .name = "members_cmd",
@@ -12363,10 +13070,10 @@ const bcmolt_type_descr type_descr_bcmolt_group_members_update_data =
     .size = sizeof(bcmolt_group_members_update_data),
     .mask_offset = offsetof(bcmolt_group_members_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_members_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_members_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_complete_members_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_complete_members_update_data_fields[] =
 {
     {
         .name = "result",
@@ -12393,10 +13100,10 @@ const bcmolt_type_descr type_descr_bcmolt_group_complete_members_update_data =
     .size = sizeof(bcmolt_group_complete_members_update_data),
     .mask_offset = offsetof(bcmolt_group_complete_members_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_complete_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_complete_members_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_complete_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_complete_members_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_group_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_group_auto_cfg_data_fields[] =
 {
     {
         .name = "complete_members_update",
@@ -12415,10 +13122,10 @@ const bcmolt_type_descr type_descr_bcmolt_group_auto_cfg_data =
     .size = sizeof(bcmolt_group_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_group_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_group_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_group_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_group_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_group_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_log_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_log_key_fields[] =
 {
     {
         .name = "name",
@@ -12437,10 +13144,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_log_key =
     .size = sizeof(bcmolt_host_log_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_log_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_log_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_log_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_log_cfg_data_fields[] =
 {
     {
         .name = "type",
@@ -12493,10 +13200,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_log_cfg_data =
     .size = sizeof(bcmolt_host_log_cfg_data),
     .mask_offset = offsetof(bcmolt_host_log_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_log_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_log_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_log_file_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_log_file_key_fields[] =
 {
     {
         .name = "file_id",
@@ -12515,10 +13222,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_log_file_key =
     .size = sizeof(bcmolt_host_log_file_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_file_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_file_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_log_file_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_log_file_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_host_log_file_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_host_log_file_cfg_data_fields[] =
 {
     {
         .name = "wrap_around",
@@ -12581,10 +13288,10 @@ const bcmolt_type_descr type_descr_bcmolt_host_log_file_cfg_data =
     .size = sizeof(bcmolt_host_log_file_cfg_data),
     .mask_offset = offsetof(bcmolt_host_log_file_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_host_log_file_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_host_log_file_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_host_log_file_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_host_log_file_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields[] =
 {
     {
         .name = "nni_intf",
@@ -12652,10 +13359,10 @@ const bcmolt_type_descr type_descr_bcmolt_inband_mgmt_channel_cfg_data =
     .size = sizeof(bcmolt_inband_mgmt_channel_cfg_data),
     .mask_offset = offsetof(bcmolt_inband_mgmt_channel_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_inband_mgmt_channel_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_inband_mgmt_channel_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_inband_mgmt_channel_key_fields[] =
 {
     {
         .name = "id",
@@ -12674,10 +13381,10 @@ const bcmolt_type_descr type_descr_bcmolt_inband_mgmt_channel_key =
     .size = sizeof(bcmolt_inband_mgmt_channel_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_inband_mgmt_channel_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_inband_mgmt_channel_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_inband_mgmt_channel_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_inband_mgmt_channel_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -12697,10 +13404,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_key =
     .size = sizeof(bcmolt_internal_nni_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_cfg_data_fields[] =
 {
     {
         .name = "mac_address",
@@ -12843,10 +13550,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_cfg_data =
     .size = sizeof(bcmolt_internal_nni_cfg_data),
     .mask_offset = offsetof(bcmolt_internal_nni_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_status_changed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_status_changed_data_fields[] =
 {
     {
         .name = "new_status",
@@ -12889,10 +13596,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_status_changed_data =
     .size = sizeof(bcmolt_internal_nni_status_changed_data),
     .mask_offset = offsetof(bcmolt_internal_nni_status_changed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_status_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_status_changed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_status_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_status_changed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_nni_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_nni_stats_data_fields[] =
 {
     {
         .name = "rx_good_frames",
@@ -13135,10 +13842,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_nni_stats_data =
     .size = sizeof(bcmolt_internal_nni_nni_stats_data),
     .mask_offset = offsetof(bcmolt_internal_nni_nni_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_nni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_nni_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_nni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_nni_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_enet_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_enet_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -13453,10 +14160,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_enet_stats_data =
     .size = sizeof(bcmolt_internal_nni_enet_stats_data),
     .mask_offset = offsetof(bcmolt_internal_nni_enet_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_enet_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_enet_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_enet_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_enet_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_packet_captured_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_packet_captured_data_fields[] =
 {
     {
         .name = "packet_size",
@@ -13483,10 +14190,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_packet_captured_data =
     .size = sizeof(bcmolt_internal_nni_packet_captured_data),
     .mask_offset = offsetof(bcmolt_internal_nni_packet_captured_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_packet_captured_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_packet_captured_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_packet_captured_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_packet_captured_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_send_eth_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_send_eth_packet_data_fields[] =
 {
     {
         .name = "buffer",
@@ -13505,10 +14212,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_send_eth_packet_data =
     .size = sizeof(bcmolt_internal_nni_send_eth_packet_data),
     .mask_offset = offsetof(bcmolt_internal_nni_send_eth_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_send_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_send_eth_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_send_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_send_eth_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_good_frames",
@@ -13751,10 +14458,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_nni_stats_cfg_data =
     .size = sizeof(bcmolt_internal_nni_nni_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_internal_nni_nni_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_nni_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -13773,10 +14480,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_da
     .size = sizeof(bcmolt_internal_nni_nni_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_internal_nni_nni_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -13795,10 +14502,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_d
     .size = sizeof(bcmolt_internal_nni_nni_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_internal_nni_nni_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -14113,10 +14820,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_enet_stats_cfg_data =
     .size = sizeof(bcmolt_internal_nni_enet_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_internal_nni_enet_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_enet_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -14135,10 +14842,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_d
     .size = sizeof(bcmolt_internal_nni_enet_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_internal_nni_enet_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -14157,10 +14864,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_
     .size = sizeof(bcmolt_internal_nni_enet_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_internal_nni_enet_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_internal_nni_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_internal_nni_auto_cfg_data_fields[] =
 {
     {
         .name = "enet_stats_alarm_cleared",
@@ -14227,10 +14934,10 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_auto_cfg_data =
     .size = sizeof(bcmolt_internal_nni_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_internal_nni_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_internal_nni_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_internal_nni_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_internal_nni_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_internal_nni_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -14258,10 +14965,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_key =
     .size = sizeof(bcmolt_itupon_alloc_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -14312,6 +15019,14 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
         .offset = offsetof(bcmolt_itupon_alloc_cfg_data, latency_sensitive),
         .type = &type_descr_bcmos_bool,
     },
+    {
+        .name = "enable_latency_stats",
+        .descr = "Enable latency statistics",
+        .id = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_cfg_data, enable_latency_stats),
+        .type = &type_descr_bcmos_bool,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_cfg_data =
@@ -14321,10 +15036,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_cfg_data =
     .size = sizeof(bcmolt_itupon_alloc_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -14351,10 +15066,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_configuration_completed_d
     .size = sizeof(bcmolt_itupon_alloc_configuration_completed_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_configuration_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_configuration_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_get_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_get_stats_data_fields[] =
 {
     {
         .name = "num_of_cycles",
@@ -14373,10 +15088,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_stats_data =
     .size = sizeof(bcmolt_itupon_alloc_get_stats_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_get_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_get_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_get_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_get_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_get_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -14419,10 +15134,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed
     .size = sizeof(bcmolt_itupon_alloc_get_alloc_stats_completed_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_get_alloc_stats_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_set_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_set_state_data_fields[] =
 {
     {
         .name = "state",
@@ -14441,10 +15156,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_set_state_data =
     .size = sizeof(bcmolt_itupon_alloc_set_state_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_set_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_set_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_set_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_set_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_set_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -14463,10 +15178,190 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data =
     .size = sizeof(bcmolt_itupon_alloc_stats_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields[] =
+{
+    {
+        .name = "tm_used",
+        .descr = "tm used",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, tm_used),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "tm_allocated",
+        .descr = "tm allocated",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, tm_allocated),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "bufocc",
+        .descr = "Buffer occupancy",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, bufocc),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_cbr",
+        .descr = "CBR BW Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, used_cbr),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_guaranteed_above_cbr",
+        .descr = "Guaranteed BW above CBR Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, used_guaranteed_above_cbr),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_additional",
+        .descr = "Additional BW Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, used_additional),
+        .type = &type_descr_uint64_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_data",
+    .descr = "ITU PON Alloc: Accumulated statistics",
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_latency_stats_data_fields[] =
+{
+    {
+        .name = "onu_tcont_max_queue_size",
+        .descr = " ONU TCONT maximum queue size",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, onu_tcont_max_queue_size),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "allocation_busy",
+        .descr = "allocation busy",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, allocation_busy),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_0_100_usec",
+        .descr = "latency distribution bucket 0-0.1 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_0_100_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_100_200_usec",
+        .descr = "latency distribution bucket 0.1-0.2 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_100_200_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_200_300_usec",
+        .descr = "latency distribution bucket 0.2-0.3 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_200_300_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_300_400_usec",
+        .descr = "latency distribution bucket 0.3-0.4 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_300_400_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_400_600_usec",
+        .descr = "latency distribution bucket 0.4-0.6 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_400_600_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_600_800_usec",
+        .descr = "latency distribution bucket 0.6-0.8 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_600_800_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_800_1000_usec",
+        .descr = "latency distribution bucket 0.8-1 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_800_1000_usec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_1_3_msec",
+        .descr = "latency distribution bucket 1-3 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_1_3_msec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_3_5_msec",
+        .descr = "latency distribution bucket 3-5 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_3_5_msec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_5_10_msec",
+        .descr = "latency distribution bucket 5-10 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_5_10_msec),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "latency_bucket_more_than_10_msec",
+        .descr = "latency distribution bucket more then 10ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_more_than_10_msec),
+        .type = &type_descr_uint64_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data =
+{
+    .name = "itupon_alloc_latency_stats_data",
+    .descr = "ITU PON Alloc: latency statistics",
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_latency_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_latency_stats_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -14485,10 +15380,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_cfg_data =
     .size = sizeof(bcmolt_itupon_alloc_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -14507,10 +15402,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data =
     .size = sizeof(bcmolt_itupon_alloc_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -14529,11 +15424,295 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data 
     .size = sizeof(bcmolt_itupon_alloc_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields[] =
 {
+    {
+        .name = "tm_used",
+        .descr = "tm used",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, tm_used),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "tm_allocated",
+        .descr = "tm allocated",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, tm_allocated),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "bufocc",
+        .descr = "Buffer occupancy",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, bufocc),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_cbr",
+        .descr = "CBR BW Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, used_cbr),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_guaranteed_above_cbr",
+        .descr = "Guaranteed BW above CBR Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, used_guaranteed_above_cbr),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_additional",
+        .descr = "Additional BW Used units",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, used_additional),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg_data",
+    .descr = "ITU PON Alloc: Accumulated Statistics Configuration",
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data, stat),
+        .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data",
+    .descr = "ITU PON Alloc: Accumulated Statistics Alarm Raised",
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data, stat),
+        .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data",
+    .descr = "ITU PON Alloc: Accumulated Statistics Alarm Cleared",
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields[] =
+{
+    {
+        .name = "onu_tcont_max_queue_size",
+        .descr = " ONU TCONT maximum queue size",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, onu_tcont_max_queue_size),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "allocation_busy",
+        .descr = "allocation busy",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, allocation_busy),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_0_100_usec",
+        .descr = "latency distribution bucket 0-0.1 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_0_100_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_100_200_usec",
+        .descr = "latency distribution bucket 0.1-0.2 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_100_200_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_200_300_usec",
+        .descr = "latency distribution bucket 0.2-0.3 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_200_300_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_300_400_usec",
+        .descr = "latency distribution bucket 0.3-0.4 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_300_400_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_400_600_usec",
+        .descr = "latency distribution bucket 0.4-0.6 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_400_600_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_600_800_usec",
+        .descr = "latency distribution bucket 0.6-0.8 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_600_800_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_800_1000_usec",
+        .descr = "latency distribution bucket 0.8-1 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_800_1000_usec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_1_3_msec",
+        .descr = "latency distribution bucket 1-3 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_1_3_msec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_3_5_msec",
+        .descr = "latency distribution bucket 3-5 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_3_5_msec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_5_10_msec",
+        .descr = "latency distribution bucket 5-10 ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_5_10_msec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "latency_bucket_more_than_10_msec",
+        .descr = "latency distribution bucket more then 10ms",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_more_than_10_msec),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data =
+{
+    .name = "itupon_alloc_latency_stats_cfg_data",
+    .descr = "ITU PON Alloc: Latency Statistics Configuration",
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data, stat),
+        .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data =
+{
+    .name = "itupon_alloc_latency_stats_alarm_raised_data",
+    .descr = "ITU PON Alloc: Latency Statistics Alarm Raised",
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data, stat),
+        .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data =
+{
+    .name = "itupon_alloc_latency_stats_alarm_cleared_data",
+    .descr = "ITU PON Alloc: Latency Statistics Alarm Cleared",
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data),
+    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields[] =
+{
+    {
+        .name = "alloc_onu_accumulated_stats_alarm_cleared",
+        .descr = "If true, indications of type \"alloc_onu_accumulated_stats_alarm_cleared\" will be generated.",
+        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, alloc_onu_accumulated_stats_alarm_cleared),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "alloc_onu_accumulated_stats_alarm_raised",
+        .descr = "If true, indications of type \"alloc_onu_accumulated_stats_alarm_raised\" will be generated.",
+        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, alloc_onu_accumulated_stats_alarm_raised),
+        .type = &type_descr_bcmos_bool,
+    },
     {
         .name = "configuration_completed",
         .descr = "If true, indications of type \"configuration_completed\" will be generated.",
@@ -14548,6 +15727,22 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields[] 
         .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED,
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, get_alloc_stats_completed),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "latency_stats_alarm_cleared",
+        .descr = "If true, indications of type \"latency_stats_alarm_cleared\" will be generated.",
+        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, latency_stats_alarm_cleared),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "latency_stats_alarm_raised",
+        .descr = "If true, indications of type \"latency_stats_alarm_raised\" will be generated.",
+        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, latency_stats_alarm_raised),
         .type = &type_descr_bcmos_bool,
     },
     {
@@ -14575,10 +15770,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data =
     .size = sizeof(bcmolt_itupon_alloc_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -14606,10 +15801,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_key =
     .size = sizeof(bcmolt_itupon_gem_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_cfg_data_fields[] =
 {
     {
         .name = "configuration",
@@ -14685,10 +15880,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_cfg_data =
     .size = sizeof(bcmolt_itupon_gem_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_stats_data_fields[] =
 {
     {
         .name = "rx_packets",
@@ -14731,10 +15926,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_data =
     .size = sizeof(bcmolt_itupon_gem_stats_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_configuration_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_configuration_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -14761,10 +15956,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_configuration_completed_dat
     .size = sizeof(bcmolt_itupon_gem_configuration_completed_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_configuration_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_configuration_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_configuration_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_set_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_set_state_data_fields[] =
 {
     {
         .name = "state",
@@ -14783,10 +15978,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_set_state_data =
     .size = sizeof(bcmolt_itupon_gem_set_state_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_set_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_set_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_set_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_set_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_set_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_packets",
@@ -14829,10 +16024,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_cfg_data =
     .size = sizeof(bcmolt_itupon_gem_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -14851,10 +16046,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_raised_data =
     .size = sizeof(bcmolt_itupon_gem_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -14873,10 +16068,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data =
     .size = sizeof(bcmolt_itupon_gem_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_gem_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_itupon_gem_auto_cfg_data_fields[] =
 {
     {
         .name = "configuration_completed",
@@ -14911,10 +16106,247 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data =
     .size = sizeof(bcmolt_itupon_gem_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_itupon_gem_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_itupon_gem_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_itupon_gem_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_key_fields[] =
+{
+    {
+        .name = "id",
+        .descr = "id",
+        .id = BCMOLT_FIELD_DESCR_ID_NONE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_key, id),
+        .type = &type_descr_uint8_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key =
+{
+    .name = "l2_mac_table_key",
+    .descr = "l2 mac table: key",
+    .size = sizeof(bcmolt_l2_mac_table_key),
+    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_key_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_cfg_data_fields[] =
+{
+    {
+        .name = "state",
+        .descr = "state",
+        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, state),
+        .type = &type_descr_bcmolt_config_state,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "dump_status",
+        .descr = "dump status",
+        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, dump_status),
+        .type = &type_descr_bcmolt_l2_mact_dump_status,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "last_dump_result",
+        .descr = "last dump_result",
+        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, last_dump_result),
+        .type = &type_descr_bcmolt_l2_mact_dump_status,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "report_event",
+        .descr = "report learning events",
+        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, report_event),
+        .type = &type_descr_bcmolt_l2_event_report_control,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data =
+{
+    .name = "l2_mac_table_cfg_data",
+    .descr = "l2 mac table: cfg",
+    .size = sizeof(bcmolt_l2_mac_table_cfg_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_dump_data_fields[] =
+{
+    {
+        .name = "file_name",
+        .descr = "file name",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_data, file_name),
+        .type = &type_descr_bcmolt_str_128,
+    },
+    {
+        .name = "mode",
+        .descr = "dump mode",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_data, mode),
+        .type = &type_descr_bcmolt_l2_dump_mode,
+    },
+    {
+        .name = "filters",
+        .descr = "dump filters",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_data, filters),
+        .type = &type_descr_bcmolt_l2_dump_filters,
+    },
+    {
+        .name = "report_as_indication",
+        .descr = "report as indication",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_data, report_as_indication),
+        .type = &type_descr_bcmolt_control_state,
+    },
+    {
+        .name = "max_entry_per_indication",
+        .descr = "max number of entries per dump indication",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_data, max_entry_per_indication),
+        .type = &type_descr_uint16_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data =
+{
+    .name = "l2_mac_table_dump_data",
+    .descr = "l2 mac table: l2 mact dump",
+    .size = sizeof(bcmolt_l2_mac_table_dump_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_dump_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_dump_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_dump_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_dump_complete_data_fields[] =
+{
+    {
+        .name = "file_name",
+        .descr = "file name",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, file_name),
+        .type = &type_descr_bcmolt_str_128,
+    },
+    {
+        .name = "result",
+        .descr = "result",
+        .id = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, result),
+        .type = &type_descr_bcmolt_l2_mact_dump_status,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data =
+{
+    .name = "l2_mac_table_dump_complete_data",
+    .descr = "l2 mac table: l2 mact dump completed",
+    .size = sizeof(bcmolt_l2_mac_table_dump_complete_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_dump_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_dump_complete_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_network_events_data_fields[] =
+{
+    {
+        .name = "entries",
+        .descr = "entries",
+        .id = BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_network_events_data, entries),
+        .type = &type_descr_bcmolt_l2_mact_entry_list_u32,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data =
+{
+    .name = "l2_mac_table_network_events_data",
+    .descr = "l2 mac table: network l2 events",
+    .size = sizeof(bcmolt_l2_mac_table_network_events_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_network_events_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_network_events_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_network_events_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_pon_events_data_fields[] =
+{
+    {
+        .name = "entries",
+        .descr = "entries",
+        .id = BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_pon_events_data, entries),
+        .type = &type_descr_bcmolt_l2_mact_entry_list_u32,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data =
+{
+    .name = "l2_mac_table_pon_events_data",
+    .descr = "l2 mac table: pon l2 events",
+    .size = sizeof(bcmolt_l2_mac_table_pon_events_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_pon_events_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_pon_events_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_pon_events_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields[] =
+{
+    {
+        .name = "dump_complete",
+        .descr = "If true, indications of type \"dump_complete\" will be generated.",
+        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, dump_complete),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "network_events",
+        .descr = "If true, indications of type \"network_events\" will be generated.",
+        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, network_events),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "pon_events",
+        .descr = "If true, indications of type \"pon_events\" will be generated.",
+        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS,
+        .tags = 0,
+        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, pon_events),
+        .type = &type_descr_bcmos_bool,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data =
+{
+    .name = "l2_mac_table_auto_cfg_data",
+    .descr = "l2 mac table: Indication Configuration",
+    .size = sizeof(bcmolt_l2_mac_table_auto_cfg_data),
+    .mask_offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_key_fields[] =
 {
     {
         .name = "id",
@@ -14933,10 +16365,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_key =
     .size = sizeof(bcmolt_lag_interface_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_cfg_data_fields[] =
 {
     {
         .name = "config_state",
@@ -15036,10 +16468,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_cfg_data =
     .size = sizeof(bcmolt_lag_interface_cfg_data),
     .mask_offset = offsetof(bcmolt_lag_interface_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -15362,10 +16794,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_data =
     .size = sizeof(bcmolt_lag_interface_stats_data),
     .mask_offset = offsetof(bcmolt_lag_interface_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_members_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_members_update_data_fields[] =
 {
     {
         .name = "members_cmd",
@@ -15384,10 +16816,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_members_update_data =
     .size = sizeof(bcmolt_lag_interface_members_update_data),
     .mask_offset = offsetof(bcmolt_lag_interface_members_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_members_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_members_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_complete_members_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_complete_members_update_data_fields[] =
 {
     {
         .name = "result",
@@ -15414,10 +16846,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_complete_members_update_
     .size = sizeof(bcmolt_lag_interface_complete_members_update_data),
     .mask_offset = offsetof(bcmolt_lag_interface_complete_members_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_complete_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_complete_members_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_complete_members_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_complete_members_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_state_update_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_state_update_data_fields[] =
 {
     {
         .name = "lag_state",
@@ -15436,10 +16868,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_state_update_data =
     .size = sizeof(bcmolt_lag_interface_state_update_data),
     .mask_offset = offsetof(bcmolt_lag_interface_state_update_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_state_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_state_update_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_state_update_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_state_update_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_state_updated_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_state_updated_data_fields[] =
 {
     {
         .name = "new_state",
@@ -15474,10 +16906,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_state_updated_data =
     .size = sizeof(bcmolt_lag_interface_state_updated_data),
     .mask_offset = offsetof(bcmolt_lag_interface_state_updated_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_state_updated_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_state_updated_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_state_updated_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_state_updated_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_lag_health_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_lag_health_change_data_fields[] =
 {
     {
         .name = "new_state",
@@ -15504,10 +16936,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_lag_health_change_data =
     .size = sizeof(bcmolt_lag_interface_lag_health_change_data),
     .mask_offset = offsetof(bcmolt_lag_interface_lag_health_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_lag_health_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_lag_health_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_lag_health_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_lag_health_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -15830,10 +17262,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_cfg_data =
     .size = sizeof(bcmolt_lag_interface_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_lag_interface_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -15852,10 +17284,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_alarm_raised_data 
     .size = sizeof(bcmolt_lag_interface_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_lag_interface_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -15874,10 +17306,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_stats_alarm_cleared_data
     .size = sizeof(bcmolt_lag_interface_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_lag_interface_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_lag_interface_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_lag_interface_auto_cfg_data_fields[] =
 {
     {
         .name = "complete_members_update",
@@ -15928,10 +17360,10 @@ const bcmolt_type_descr type_descr_bcmolt_lag_interface_auto_cfg_data =
     .size = sizeof(bcmolt_lag_interface_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_lag_interface_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_lag_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_lag_interface_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_lag_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_lag_interface_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_key_fields[] =
 {
     {
         .name = "device_id",
@@ -15959,10 +17391,10 @@ const bcmolt_type_descr type_descr_bcmolt_log_key =
     .size = sizeof(bcmolt_log_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_cfg_data_fields[] =
 {
     {
         .name = "type",
@@ -16015,10 +17447,10 @@ const bcmolt_type_descr type_descr_bcmolt_log_cfg_data =
     .size = sizeof(bcmolt_log_cfg_data),
     .mask_offset = offsetof(bcmolt_log_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_file_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_file_key_fields[] =
 {
     {
         .name = "device_id",
@@ -16046,10 +17478,10 @@ const bcmolt_type_descr type_descr_bcmolt_log_file_key =
     .size = sizeof(bcmolt_log_file_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_file_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_file_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_file_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_file_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_log_file_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_log_file_cfg_data_fields[] =
 {
     {
         .name = "wrap_around",
@@ -16112,10 +17544,10 @@ const bcmolt_type_descr type_descr_bcmolt_log_file_cfg_data =
     .size = sizeof(bcmolt_log_file_cfg_data),
     .mask_offset = offsetof(bcmolt_log_file_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_log_file_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_log_file_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_log_file_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_log_file_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ngpon2_channel_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ngpon2_channel_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -16135,10 +17567,10 @@ const bcmolt_type_descr type_descr_bcmolt_ngpon2_channel_key =
     .size = sizeof(bcmolt_ngpon2_channel_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ngpon2_channel_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ngpon2_channel_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ngpon2_channel_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ngpon2_channel_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_ngpon2_channel_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_ngpon2_channel_cfg_data_fields[] =
 {
     {
         .name = "system_profile",
@@ -16165,10 +17597,10 @@ const bcmolt_type_descr type_descr_bcmolt_ngpon2_channel_cfg_data =
     .size = sizeof(bcmolt_ngpon2_channel_cfg_data),
     .mask_offset = offsetof(bcmolt_ngpon2_channel_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ngpon2_channel_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ngpon2_channel_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_ngpon2_channel_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_ngpon2_channel_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_key_fields[] =
 {
     {
         .name = "id",
@@ -16187,10 +17619,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_key =
     .size = sizeof(bcmolt_nni_interface_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_state_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_state_change_data_fields[] =
 {
     {
         .name = "result",
@@ -16225,10 +17657,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_state_change_data =
     .size = sizeof(bcmolt_nni_interface_state_change_data),
     .mask_offset = offsetof(bcmolt_nni_interface_state_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_state_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_state_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_cfg_data_fields[] =
 {
     {
         .name = "config_state",
@@ -16336,10 +17768,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_cfg_data =
     .size = sizeof(bcmolt_nni_interface_cfg_data),
     .mask_offset = offsetof(bcmolt_nni_interface_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_set_nni_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_set_nni_state_data_fields[] =
 {
     {
         .name = "nni_state",
@@ -16358,10 +17790,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_set_nni_state_data =
     .size = sizeof(bcmolt_nni_interface_set_nni_state_data),
     .mask_offset = offsetof(bcmolt_nni_interface_set_nni_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_set_nni_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_set_nni_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_set_nni_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_set_nni_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -16684,10 +18116,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_stats_data =
     .size = sizeof(bcmolt_nni_interface_stats_data),
     .mask_offset = offsetof(bcmolt_nni_interface_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_link_state_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_link_state_change_data_fields[] =
 {
     {
         .name = "old_state",
@@ -16714,10 +18146,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_link_state_change_data =
     .size = sizeof(bcmolt_nni_interface_link_state_change_data),
     .mask_offset = offsetof(bcmolt_nni_interface_link_state_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_link_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_link_state_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_link_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_link_state_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_fault_code_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_fault_code_change_data_fields[] =
 {
     {
         .name = "old_fault_code",
@@ -16744,10 +18176,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_fault_code_change_data =
     .size = sizeof(bcmolt_nni_interface_fault_code_change_data),
     .mask_offset = offsetof(bcmolt_nni_interface_fault_code_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_fault_code_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_fault_code_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_fault_code_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_fault_code_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -17070,10 +18502,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_stats_cfg_data =
     .size = sizeof(bcmolt_nni_interface_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_nni_interface_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -17092,10 +18524,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_stats_alarm_raised_data 
     .size = sizeof(bcmolt_nni_interface_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_nni_interface_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -17114,10 +18546,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_stats_alarm_cleared_data
     .size = sizeof(bcmolt_nni_interface_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_nni_interface_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_nni_interface_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_nni_interface_auto_cfg_data_fields[] =
 {
     {
         .name = "fault_code_change",
@@ -17168,10 +18600,10 @@ const bcmolt_type_descr type_descr_bcmolt_nni_interface_auto_cfg_data =
     .size = sizeof(bcmolt_nni_interface_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_nni_interface_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_nni_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_nni_interface_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_nni_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_nni_interface_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_key_fields[] =
 {
     {
         .name = "reserved",
@@ -17191,10 +18623,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_key =
     .size = sizeof(bcmolt_olt_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_cfg_data_fields[] =
 {
     {
         .name = "topology",
@@ -17232,10 +18664,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_cfg_data =
     .size = sizeof(bcmolt_olt_cfg_data),
     .mask_offset = offsetof(bcmolt_olt_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_bal_failure_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_bal_failure_data_fields[] =
 {
     {
         .name = "reason",
@@ -17254,10 +18686,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_bal_failure_data =
     .size = sizeof(bcmolt_olt_bal_failure_data),
     .mask_offset = offsetof(bcmolt_olt_bal_failure_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_bal_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_bal_failure_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_bal_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_bal_failure_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_sw_error_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_sw_error_data_fields[] =
 {
     {
         .name = "task_name",
@@ -17289,7 +18721,15 @@ static bcmolt_field_descr type_descr_bcmolt_olt_sw_error_data_fields[] =
         .id = BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING,
         .tags = 0,
         .offset = offsetof(bcmolt_olt_sw_error_data, error_string),
-        .type = &type_descr_bcmolt_str_100,
+        .type = &type_descr_bcmolt_str_256,
+    },
+    {
+        .name = "severity",
+        .descr = "Severity",
+        .id = BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY,
+        .tags = 0,
+        .offset = offsetof(bcmolt_olt_sw_error_data, severity),
+        .type = &type_descr_bcmolt_sw_error_severity,
     },
 };
 
@@ -17300,10 +18740,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_sw_error_data =
     .size = sizeof(bcmolt_olt_sw_error_data),
     .mask_offset = offsetof(bcmolt_olt_sw_error_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_sw_error_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_sw_error_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_sw_error_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_sw_error_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_reset_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_reset_data_fields[] =
 {
     {
         .name = "mode",
@@ -17322,10 +18762,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_reset_data =
     .size = sizeof(bcmolt_olt_reset_data),
     .mask_offset = offsetof(bcmolt_olt_reset_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_reset_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_reset_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_reset_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_reset_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_olt_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_olt_auto_cfg_data_fields[] =
 {
     {
         .name = "bal_failure",
@@ -17360,10 +18800,10 @@ const bcmolt_type_descr type_descr_bcmolt_olt_auto_cfg_data =
     .size = sizeof(bcmolt_olt_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_olt_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_olt_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_olt_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_olt_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_olt_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -17391,10 +18831,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_key =
     .size = sizeof(bcmolt_onu_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_cfg_data_fields[] =
 {
     {
         .name = "onu_state",
@@ -17438,10 +18878,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_cfg_data =
     .size = sizeof(bcmolt_onu_cfg_data),
     .mask_offset = offsetof(bcmolt_onu_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_pon_stats_data_fields[] =
 {
     {
         .name = "positive_drift",
@@ -17485,7 +18925,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_data_fields[] =
     },
     {
         .name = "fec_corrected_symbols",
-        .descr = "fec corrected symbols  (Not relevant in GPON system modes)",
+        .descr = "fec corrected symbols - bytes",
         .id = BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_SYMBOLS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_data, fec_corrected_symbols),
@@ -17517,7 +18957,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_data_fields[] =
     },
     {
         .name = "fec_corrected_units",
-        .descr = "fec corrected units (In GPON units are bits in other system modes, units are Bytes)",
+        .descr = "fec corrected units - bits, supported for xGPON only",
         .id = BCMOLT_ONU_ITU_PON_STATS_DATA_ID_FEC_CORRECTED_UNITS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_data, fec_corrected_units),
@@ -17636,10 +19076,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_data =
     .size = sizeof(bcmolt_onu_itu_pon_stats_data),
     .mask_offset = offsetof(bcmolt_onu_itu_pon_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_pon_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_pon_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_pon_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_pon_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_set_onu_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_set_onu_state_data_fields[] =
 {
     {
         .name = "onu_state",
@@ -17666,10 +19106,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_set_onu_state_data =
     .size = sizeof(bcmolt_onu_set_onu_state_data),
     .mask_offset = offsetof(bcmolt_onu_set_onu_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_set_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_set_onu_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_set_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_set_onu_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_request_registration_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_request_registration_data_fields[] =
 {
     {
         .name = "sma_flag",
@@ -17688,10 +19128,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_request_registration_data =
     .size = sizeof(bcmolt_onu_request_registration_data),
     .mask_offset = offsetof(bcmolt_onu_request_registration_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_request_registration_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_request_registration_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_request_registration_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_request_registration_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_change_power_levelling_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_change_power_levelling_data_fields[] =
 {
     {
         .name = "control",
@@ -17718,10 +19158,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_change_power_levelling_data =
     .size = sizeof(bcmolt_onu_change_power_levelling_data),
     .mask_offset = offsetof(bcmolt_onu_change_power_levelling_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_change_power_levelling_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_change_power_levelling_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_change_power_levelling_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_change_power_levelling_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields[] =
 {
     {
         .name = "frequency_adjustment_direction",
@@ -17748,10 +19188,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_adjust_tx_wavelength_data =
     .size = sizeof(bcmolt_onu_adjust_tx_wavelength_data),
     .mask_offset = offsetof(bcmolt_onu_adjust_tx_wavelength_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_adjust_tx_wavelength_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_secure_mutual_authentication_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_secure_mutual_authentication_data_fields[] =
 {
     {
         .name = "master_key",
@@ -17786,10 +19226,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_secure_mutual_authentication_data 
     .size = sizeof(bcmolt_onu_secure_mutual_authentication_data),
     .mask_offset = offsetof(bcmolt_onu_secure_mutual_authentication_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_secure_mutual_authentication_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_secure_mutual_authentication_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_secure_mutual_authentication_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_secure_mutual_authentication_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_tuning_out_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_tuning_out_data_fields[] =
 {
     {
         .name = "target_ds_pon_id",
@@ -17840,10 +19280,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tuning_out_data =
     .size = sizeof(bcmolt_onu_tuning_out_data),
     .mask_offset = offsetof(bcmolt_onu_tuning_out_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_tuning_out_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_tuning_out_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_tuning_out_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_tuning_out_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_xgpon_alarm_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_xgpon_alarm_data_fields[] =
 {
     {
         .name = "xgpon_onu_alarm",
@@ -17862,10 +19302,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_xgpon_alarm_data =
     .size = sizeof(bcmolt_onu_xgpon_alarm_data),
     .mask_offset = offsetof(bcmolt_onu_xgpon_alarm_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_xgpon_alarm_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_xgpon_alarm_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_xgpon_alarm_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_xgpon_alarm_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_gpon_alarm_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_gpon_alarm_data_fields[] =
 {
     {
         .name = "gpon_onu_alarm",
@@ -17884,10 +19324,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_gpon_alarm_data =
     .size = sizeof(bcmolt_onu_gpon_alarm_data),
     .mask_offset = offsetof(bcmolt_onu_gpon_alarm_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_gpon_alarm_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_gpon_alarm_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_gpon_alarm_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_gpon_alarm_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_dowi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_dowi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -17922,10 +19362,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_dowi_data =
     .size = sizeof(bcmolt_onu_dowi_data),
     .mask_offset = offsetof(bcmolt_onu_dowi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_dowi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_dowi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_dowi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_dowi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_sfi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_sfi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -17952,10 +19392,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_sfi_data =
     .size = sizeof(bcmolt_onu_sfi_data),
     .mask_offset = offsetof(bcmolt_onu_sfi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_sfi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_sfi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_sfi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_sfi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_sdi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_sdi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -17982,10 +19422,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_sdi_data =
     .size = sizeof(bcmolt_onu_sdi_data),
     .mask_offset = offsetof(bcmolt_onu_sdi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_sdi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_sdi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_sdi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_sdi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_dfi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_dfi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18004,10 +19444,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_dfi_data =
     .size = sizeof(bcmolt_onu_dfi_data),
     .mask_offset = offsetof(bcmolt_onu_dfi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_dfi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_dfi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_dfi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_dfi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_pqsi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_pqsi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18026,10 +19466,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_pqsi_data =
     .size = sizeof(bcmolt_onu_pqsi_data),
     .mask_offset = offsetof(bcmolt_onu_pqsi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_pqsi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_pqsi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_pqsi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_pqsi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_sufi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_sufi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18048,10 +19488,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_sufi_data =
     .size = sizeof(bcmolt_onu_sufi_data),
     .mask_offset = offsetof(bcmolt_onu_sufi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_sufi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_sufi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_sufi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_sufi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_tiwi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_tiwi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18078,10 +19518,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tiwi_data =
     .size = sizeof(bcmolt_onu_tiwi_data),
     .mask_offset = offsetof(bcmolt_onu_tiwi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_tiwi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_tiwi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_tiwi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_tiwi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_looci_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_looci_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18100,10 +19540,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_looci_data =
     .size = sizeof(bcmolt_onu_looci_data),
     .mask_offset = offsetof(bcmolt_onu_looci_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_looci_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_looci_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_looci_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_looci_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_loai_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_loai_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18122,10 +19562,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_loai_data =
     .size = sizeof(bcmolt_onu_loai_data),
     .mask_offset = offsetof(bcmolt_onu_loai_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_loai_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_loai_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_loai_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_loai_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_dgi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_dgi_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18144,10 +19584,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_dgi_data =
     .size = sizeof(bcmolt_onu_dgi_data),
     .mask_offset = offsetof(bcmolt_onu_dgi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_dgi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_dgi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_dgi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_dgi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_pee_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_pee_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18166,10 +19606,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_pee_data =
     .size = sizeof(bcmolt_onu_pee_data),
     .mask_offset = offsetof(bcmolt_onu_pee_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_pee_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_pee_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_pee_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_pee_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_pst_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_pst_data_fields[] =
 {
     {
         .name = "link_number",
@@ -18204,10 +19644,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_pst_data =
     .size = sizeof(bcmolt_onu_pst_data),
     .mask_offset = offsetof(bcmolt_onu_pst_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_pst_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_pst_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_pst_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_pst_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_ranging_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_ranging_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -18250,10 +19690,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_ranging_completed_data =
     .size = sizeof(bcmolt_onu_ranging_completed_data),
     .mask_offset = offsetof(bcmolt_onu_ranging_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_ranging_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_ranging_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_ranging_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_ranging_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_activation_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_activation_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -18304,10 +19744,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_activation_completed_data =
     .size = sizeof(bcmolt_onu_onu_activation_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_activation_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_activation_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_activation_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_activation_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_activation_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_deactivation_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_deactivation_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -18334,10 +19774,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_deactivation_completed_data =
     .size = sizeof(bcmolt_onu_onu_deactivation_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_deactivation_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_deactivation_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_deactivation_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_deactivation_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_deactivation_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_enable_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_enable_completed_data_fields[] =
 {
     {
         .name = "serial_number",
@@ -18356,10 +19796,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_enable_completed_data =
     .size = sizeof(bcmolt_onu_onu_enable_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_enable_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_enable_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_enable_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_enable_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_enable_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_disable_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_disable_completed_data_fields[] =
 {
     {
         .name = "serial_number",
@@ -18394,10 +19834,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_disable_completed_data =
     .size = sizeof(bcmolt_onu_onu_disable_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_disable_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_disable_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_disable_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_disable_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_disable_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_rssi_measurement_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_rssi_measurement_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -18424,10 +19864,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_rssi_measurement_completed_data =
     .size = sizeof(bcmolt_onu_rssi_measurement_completed_data),
     .mask_offset = offsetof(bcmolt_onu_rssi_measurement_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_rssi_measurement_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_rssi_measurement_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_rssi_measurement_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_rssi_measurement_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_invalid_dbru_report_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_invalid_dbru_report_data_fields[] =
 {
     {
         .name = "alloc_id",
@@ -18446,10 +19886,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_invalid_dbru_report_data =
     .size = sizeof(bcmolt_onu_invalid_dbru_report_data),
     .mask_offset = offsetof(bcmolt_onu_invalid_dbru_report_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_invalid_dbru_report_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_invalid_dbru_report_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_invalid_dbru_report_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_invalid_dbru_report_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_key_exchange_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_key_exchange_completed_data_fields[] =
 {
     {
         .name = "new_key",
@@ -18468,10 +19908,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_key_exchange_completed_data =
     .size = sizeof(bcmolt_onu_key_exchange_completed_data),
     .mask_offset = offsetof(bcmolt_onu_key_exchange_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_key_exchange_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_key_exchange_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_key_exchange_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_key_exchange_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields[] =
 {
     {
         .name = "expected_key",
@@ -18498,10 +19938,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_key_exchange_key_mismatch_data =
     .size = sizeof(bcmolt_onu_key_exchange_key_mismatch_data),
     .mask_offset = offsetof(bcmolt_onu_key_exchange_key_mismatch_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_key_exchange_key_mismatch_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_loki_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_loki_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18520,10 +19960,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_loki_data =
     .size = sizeof(bcmolt_onu_loki_data),
     .mask_offset = offsetof(bcmolt_onu_loki_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_loki_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_loki_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_loki_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_loki_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_memi_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_memi_data_fields[] =
 {
     {
         .name = "ploam_buffer",
@@ -18542,10 +19982,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_memi_data =
     .size = sizeof(bcmolt_onu_memi_data),
     .mask_offset = offsetof(bcmolt_onu_memi_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_memi_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_memi_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_memi_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_memi_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields[] =
 {
     {
         .name = "gem_port",
@@ -18580,10 +20020,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_omci_port_id_configuration_complet
     .size = sizeof(bcmolt_onu_omci_port_id_configuration_completed_data),
     .mask_offset = offsetof(bcmolt_onu_omci_port_id_configuration_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_omci_port_id_configuration_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields[] =
 {
     {
         .name = "ber_interval",
@@ -18610,10 +20050,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_ber_interval_configuration_complet
     .size = sizeof(bcmolt_onu_ber_interval_configuration_completed_data),
     .mask_offset = offsetof(bcmolt_onu_ber_interval_configuration_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_ber_interval_configuration_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_err_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_err_data_fields[] =
 {
     {
         .name = "bip8_errors",
@@ -18621,7 +20061,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_err_data_fields[] =
         .id = BCMOLT_ONU_ERR_DATA_ID_BIP8_ERRORS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_err_data, bip8_errors),
-        .type = &type_descr_uint8_t,
+        .type = &type_descr_uint32_t,
     },
 };
 
@@ -18632,10 +20072,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_err_data =
     .size = sizeof(bcmolt_onu_err_data),
     .mask_offset = offsetof(bcmolt_onu_err_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_err_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_err_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_err_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_err_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_password_authentication_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_password_authentication_completed_data_fields[] =
 {
     {
         .name = "status",
@@ -18670,10 +20110,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_password_authentication_completed_
     .size = sizeof(bcmolt_onu_password_authentication_completed_data),
     .mask_offset = offsetof(bcmolt_onu_password_authentication_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_password_authentication_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_password_authentication_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_password_authentication_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_password_authentication_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields[] =
 {
     {
         .name = "expected_index",
@@ -18700,10 +20140,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_key_exchange_unconsecutive_index_d
     .size = sizeof(bcmolt_onu_key_exchange_unconsecutive_index_data),
     .mask_offset = offsetof(bcmolt_onu_key_exchange_unconsecutive_index_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields[] =
 {
     {
         .name = "new_key",
@@ -18722,10 +20162,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_key_exchange_decrypt_required_data
     .size = sizeof(bcmolt_onu_key_exchange_decrypt_required_data),
     .mask_offset = offsetof(bcmolt_onu_key_exchange_decrypt_required_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_key_exchange_decrypt_required_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -18744,10 +20184,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_activation_standby_completed_d
     .size = sizeof(bcmolt_onu_onu_activation_standby_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_activation_standby_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_activation_standby_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_power_management_state_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_power_management_state_change_data_fields[] =
 {
     {
         .name = "old_state",
@@ -18782,10 +20222,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_management_state_change_data
     .size = sizeof(bcmolt_onu_power_management_state_change_data),
     .mask_offset = offsetof(bcmolt_onu_power_management_state_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_power_management_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_power_management_state_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_power_management_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_power_management_state_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_possible_drift_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_possible_drift_data_fields[] =
 {
     {
         .name = "alarm_status",
@@ -18812,10 +20252,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_possible_drift_data =
     .size = sizeof(bcmolt_onu_possible_drift_data),
     .mask_offset = offsetof(bcmolt_onu_possible_drift_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_possible_drift_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_possible_drift_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_possible_drift_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_possible_drift_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_registration_id_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_registration_id_data_fields[] =
 {
     {
         .name = "registration_id",
@@ -18850,10 +20290,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_registration_id_data =
     .size = sizeof(bcmolt_onu_registration_id_data),
     .mask_offset = offsetof(bcmolt_onu_registration_id_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_registration_id_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_registration_id_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_registration_id_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_registration_id_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_power_level_report_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_power_level_report_data_fields[] =
 {
     {
         .name = "attenuation",
@@ -18880,10 +20320,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_level_report_data =
     .size = sizeof(bcmolt_onu_power_level_report_data),
     .mask_offset = offsetof(bcmolt_onu_power_level_report_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_power_level_report_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_power_level_report_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_power_level_report_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_power_level_report_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_power_consumption_report_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_power_consumption_report_data_fields[] =
 {
     {
         .name = "power_consumption_report",
@@ -18902,10 +20342,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_power_consumption_report_data =
     .size = sizeof(bcmolt_onu_power_consumption_report_data),
     .mask_offset = offsetof(bcmolt_onu_power_consumption_report_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_power_consumption_report_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_power_consumption_report_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_power_consumption_report_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_power_consumption_report_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields[] =
 {
     {
         .name = "status",
@@ -18932,10 +20372,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_secure_mutual_authentication_failu
     .size = sizeof(bcmolt_onu_secure_mutual_authentication_failure_data),
     .mask_offset = offsetof(bcmolt_onu_secure_mutual_authentication_failure_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_secure_mutual_authentication_failure_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -18962,10 +20402,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_tuning_out_completed_data =
     .size = sizeof(bcmolt_onu_onu_tuning_out_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_tuning_out_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_tuning_out_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -18992,10 +20432,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_onu_tuning_in_completed_data =
     .size = sizeof(bcmolt_onu_onu_tuning_in_completed_data),
     .mask_offset = offsetof(bcmolt_onu_onu_tuning_in_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_onu_tuning_in_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_tuning_response_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_tuning_response_data_fields[] =
 {
     {
         .name = "ack",
@@ -19022,10 +20462,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_tuning_response_data =
     .size = sizeof(bcmolt_onu_tuning_response_data),
     .mask_offset = offsetof(bcmolt_onu_tuning_response_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_tuning_response_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_tuning_response_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_tuning_response_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_tuning_response_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_ploam_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_ploam_packet_data_fields[] =
 {
     {
         .name = "default_key",
@@ -19052,10 +20492,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_ploam_packet_data =
     .size = sizeof(bcmolt_onu_ploam_packet_data),
     .mask_offset = offsetof(bcmolt_onu_ploam_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_ploam_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_ploam_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_ploam_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_ploam_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_cpu_packets_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_cpu_packets_data_fields[] =
 {
     {
         .name = "packet_type",
@@ -19106,10 +20546,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_cpu_packets_data =
     .size = sizeof(bcmolt_onu_cpu_packets_data),
     .mask_offset = offsetof(bcmolt_onu_cpu_packets_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_cpu_packets_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_cpu_packets_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_cpu_packets_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_cpu_packets_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_cpu_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_cpu_packet_data_fields[] =
 {
     {
         .name = "port_id",
@@ -19152,10 +20592,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_cpu_packet_data =
     .size = sizeof(bcmolt_onu_cpu_packet_data),
     .mask_offset = offsetof(bcmolt_onu_cpu_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_cpu_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_cpu_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_cpu_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_cpu_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_omci_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_omci_packet_data_fields[] =
 {
     {
         .name = "port_id",
@@ -19198,10 +20638,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_omci_packet_data =
     .size = sizeof(bcmolt_onu_omci_packet_data),
     .mask_offset = offsetof(bcmolt_onu_omci_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_omci_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_omci_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_omci_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_omci_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_rei_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_rei_data_fields[] =
 {
     {
         .name = "bip8_errors",
@@ -19209,7 +20649,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_rei_data_fields[] =
         .id = BCMOLT_ONU_REI_DATA_ID_BIP8_ERRORS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_rei_data, bip8_errors),
-        .type = &type_descr_uint8_t,
+        .type = &type_descr_uint32_t,
     },
 };
 
@@ -19220,10 +20660,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_rei_data =
     .size = sizeof(bcmolt_onu_rei_data),
     .mask_offset = offsetof(bcmolt_onu_rei_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_rei_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_rei_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_rei_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_rei_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_state_change_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_state_change_data_fields[] =
 {
     {
         .name = "new_onu_state",
@@ -19242,10 +20682,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_state_change_data =
     .size = sizeof(bcmolt_onu_state_change_data),
     .mask_offset = offsetof(bcmolt_onu_state_change_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_state_change_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_state_change_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_range_value_changed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_range_value_changed_data_fields[] =
 {
     {
         .name = "range_value_tq",
@@ -19264,10 +20704,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_range_value_changed_data =
     .size = sizeof(bcmolt_onu_range_value_changed_data),
     .mask_offset = offsetof(bcmolt_onu_range_value_changed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_range_value_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_range_value_changed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_range_value_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_range_value_changed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields[] =
 {
     {
         .name = "ploam_buffer",
@@ -19286,10 +20726,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_xpon_unknown_ploam_data =
     .size = sizeof(bcmolt_onu_xpon_unknown_ploam_data),
     .mask_offset = offsetof(bcmolt_onu_xpon_unknown_ploam_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_xpon_unknown_ploam_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_trap_ploam_received_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_trap_ploam_received_data_fields[] =
 {
     {
         .name = "message_id",
@@ -19324,10 +20764,72 @@ const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data =
     .size = sizeof(bcmolt_onu_trap_ploam_received_data),
     .mask_offset = offsetof(bcmolt_onu_trap_ploam_received_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_trap_ploam_received_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_trap_ploam_received_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_trap_ploam_received_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_trap_ploam_received_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields[] =
+{
+    {
+        .name = "tm_used",
+        .descr = "tm used",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, tm_used),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "tm_allocated",
+        .descr = "tm allocated",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, tm_allocated),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "bufocc",
+        .descr = "Buffer occupancy",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, bufocc),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_cbr",
+        .descr = "CBR BW Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, used_cbr),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_guaranteed_above_cbr",
+        .descr = "Guaranteed BW above CBR Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, used_guaranteed_above_cbr),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "used_additional",
+        .descr = "Additional BW Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, used_additional),
+        .type = &type_descr_uint64_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_data",
+    .descr = "ONU: Accumulated statistics",
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data),
+    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] =
 {
     {
         .name = "positive_drift",
@@ -19371,7 +20873,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] 
     },
     {
         .name = "fec_corrected_symbols",
-        .descr = "fec corrected symbols  (Not relevant in GPON system modes)",
+        .descr = "fec corrected symbols - bytes",
         .id = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_SYMBOLS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_cfg_data, fec_corrected_symbols),
@@ -19403,7 +20905,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] 
     },
     {
         .name = "fec_corrected_units",
-        .descr = "fec corrected units (In GPON units are bits in other system modes, units are Bytes)",
+        .descr = "fec corrected units - bits, supported for xGPON only",
         .id = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_FEC_CORRECTED_UNITS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_itu_pon_stats_cfg_data, fec_corrected_units),
@@ -19522,10 +21024,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data =
     .size = sizeof(bcmolt_onu_itu_pon_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_onu_itu_pon_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -19544,10 +21046,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data =
     .size = sizeof(bcmolt_onu_itu_pon_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_onu_itu_pon_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -19566,10 +21068,116 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data =
     .size = sizeof(bcmolt_onu_itu_pon_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_onu_itu_pon_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields[] =
+{
+    {
+        .name = "tm_used",
+        .descr = "tm used",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, tm_used),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "tm_allocated",
+        .descr = "tm allocated",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, tm_allocated),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "bufocc",
+        .descr = "Buffer occupancy",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, bufocc),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_cbr",
+        .descr = "CBR BW Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, used_cbr),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_guaranteed_above_cbr",
+        .descr = "Guaranteed BW above CBR Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, used_guaranteed_above_cbr),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "used_additional",
+        .descr = "Additional BW Used units",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, used_additional),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_cfg_data",
+    .descr = "ONU: Accumulated Statistics Configuration",
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data),
+    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data, stat),
+        .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised_data",
+    .descr = "ONU: Accumulated Statistics Alarm Raised",
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data),
+    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields[] =
+{
+    {
+        .name = "stat",
+        .descr = "Statistic identifier.",
+        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data, stat),
+        .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data",
+    .descr = "ONU: Accumulated Statistics Alarm Cleared",
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data),
+    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_onu_auto_cfg_data_fields[] =
 {
     {
         .name = "ber_interval_configuration_completed",
@@ -19633,6 +21241,22 @@ static bcmolt_field_descr type_descr_bcmolt_onu_auto_cfg_data_fields[] =
         .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_auto_cfg_data, invalid_dbru_report),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "itu_alloc_onu_accumulated_stats_alarm_cleared",
+        .descr = "If true, indications of type \"itu_alloc_onu_accumulated_stats_alarm_cleared\" will be generated.",
+        .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_auto_cfg_data, itu_alloc_onu_accumulated_stats_alarm_cleared),
+        .type = &type_descr_bcmos_bool,
+    },
+    {
+        .name = "itu_alloc_onu_accumulated_stats_alarm_raised",
+        .descr = "If true, indications of type \"itu_alloc_onu_accumulated_stats_alarm_raised\" will be generated.",
+        .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+        .tags = 0,
+        .offset = offsetof(bcmolt_onu_auto_cfg_data, itu_alloc_onu_accumulated_stats_alarm_raised),
         .type = &type_descr_bcmos_bool,
     },
     {
@@ -20012,10 +21636,10 @@ const bcmolt_type_descr type_descr_bcmolt_onu_auto_cfg_data =
     .size = sizeof(bcmolt_onu_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_onu_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_onu_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_onu_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pbit_to_tc_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pbit_to_tc_key_fields[] =
 {
     {
         .name = "id",
@@ -20042,10 +21666,10 @@ const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_key =
     .size = sizeof(bcmolt_pbit_to_tc_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pbit_to_tc_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pbit_to_tc_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pbit_to_tc_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pbit_to_tc_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pbit_to_tc_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pbit_to_tc_cfg_data_fields[] =
 {
     {
         .name = "tc",
@@ -20064,10 +21688,10 @@ const bcmolt_type_descr type_descr_bcmolt_pbit_to_tc_cfg_data =
     .size = sizeof(bcmolt_pbit_to_tc_cfg_data),
     .mask_offset = offsetof(bcmolt_pbit_to_tc_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pbit_to_tc_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pbit_to_tc_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pbit_to_tc_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pbit_to_tc_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_policer_profile_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_policer_profile_key_fields[] =
 {
     {
         .name = "id",
@@ -20086,10 +21710,10 @@ const bcmolt_type_descr type_descr_bcmolt_policer_profile_key =
     .size = sizeof(bcmolt_policer_profile_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_policer_profile_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_policer_profile_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_policer_profile_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_policer_profile_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_policer_profile_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_policer_profile_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -20175,10 +21799,10 @@ const bcmolt_type_descr type_descr_bcmolt_policer_profile_cfg_data =
     .size = sizeof(bcmolt_policer_profile_cfg_data),
     .mask_offset = offsetof(bcmolt_policer_profile_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_policer_profile_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_policer_profile_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_policer_profile_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_policer_profile_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_key_fields[] =
 {
     {
         .name = "pon_ni",
@@ -20198,10 +21822,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_key =
     .size = sizeof(bcmolt_pon_interface_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -20321,10 +21945,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_cfg_data =
     .size = sizeof(bcmolt_pon_interface_cfg_data),
     .mask_offset = offsetof(bcmolt_pon_interface_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields[] =
 {
     {
         .name = "fec_codewords",
@@ -20638,6 +22262,22 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_data_fie
         .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, rx_packets),
         .type = &type_descr_uint64_t,
     },
+    {
+        .name = "tx_bytes",
+        .descr = "Transmitted bytes",
+        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, tx_bytes),
+        .type = &type_descr_uint64_t,
+    },
+    {
+        .name = "rx_bytes",
+        .descr = "Received bytes",
+        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, rx_bytes),
+        .type = &type_descr_uint64_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_data =
@@ -20647,10 +22287,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_data =
     .size = sizeof(bcmolt_pon_interface_itu_pon_stats_data),
     .mask_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_itu_pon_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_ae_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_ae_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -20957,10 +22597,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_ae_stats_data =
     .size = sizeof(bcmolt_pon_interface_ae_stats_data),
     .mask_offset = offsetof(bcmolt_pon_interface_ae_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_ae_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_ae_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_ae_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_ae_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields[] =
 {
     {
         .name = "operation",
@@ -20979,10 +22619,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_set_pon_interface_state_
     .size = sizeof(bcmolt_pon_interface_set_pon_interface_state_data),
     .mask_offset = offsetof(bcmolt_pon_interface_set_pon_interface_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_set_pon_interface_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_set_onu_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_set_onu_state_data_fields[] =
 {
     {
         .name = "onu_state",
@@ -21001,10 +22641,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_set_onu_state_data =
     .size = sizeof(bcmolt_pon_interface_set_onu_state_data),
     .mask_offset = offsetof(bcmolt_pon_interface_set_onu_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_set_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_set_onu_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_set_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_set_onu_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_disable_serial_number_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_disable_serial_number_data_fields[] =
 {
     {
         .name = "control",
@@ -21031,10 +22671,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_disable_serial_number_da
     .size = sizeof(bcmolt_pon_interface_disable_serial_number_data),
     .mask_offset = offsetof(bcmolt_pon_interface_disable_serial_number_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_disable_serial_number_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_disable_serial_number_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_disable_serial_number_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_disable_serial_number_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields[] =
 {
     {
         .name = "number_of_cycle",
@@ -21069,10 +22709,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_run_special_bw_map_data 
     .size = sizeof(bcmolt_pon_interface_run_special_bw_map_data),
     .mask_offset = offsetof(bcmolt_pon_interface_run_special_bw_map_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_run_special_bw_map_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields[] =
 {
     {
         .name = "list_of_onu_ids",
@@ -21091,10 +22731,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_start_onu_upgrade_data =
     .size = sizeof(bcmolt_pon_interface_start_onu_upgrade_data),
     .mask_offset = offsetof(bcmolt_pon_interface_start_onu_upgrade_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_start_onu_upgrade_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields[] =
 {
     {
         .name = "onu_state",
@@ -21121,10 +22761,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_protection_switching_typ
     .size = sizeof(bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data),
     .mask_offset = offsetof(bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields[] =
 {
     {
         .name = "rerange_delta",
@@ -21143,10 +22783,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_protection_switching_app
     .size = sizeof(bcmolt_pon_interface_protection_switching_apply_rerange_delta_data),
     .mask_offset = offsetof(bcmolt_pon_interface_protection_switching_apply_rerange_delta_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_cpu_packets_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_cpu_packets_data_fields[] =
 {
     {
         .name = "packet_type",
@@ -21189,10 +22829,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_cpu_packets_data =
     .size = sizeof(bcmolt_pon_interface_cpu_packets_data),
     .mask_offset = offsetof(bcmolt_pon_interface_cpu_packets_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_cpu_packets_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_cpu_packets_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_cpu_packets_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_cpu_packets_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields[] =
 {
     {
         .name = "ploam",
@@ -21211,10 +22851,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_broadcast_ploam_packet_d
     .size = sizeof(bcmolt_pon_interface_broadcast_ploam_packet_data),
     .mask_offset = offsetof(bcmolt_pon_interface_broadcast_ploam_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_state_change_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_state_change_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -21249,10 +22889,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_state_change_completed_d
     .size = sizeof(bcmolt_pon_interface_state_change_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_state_change_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_state_change_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_state_change_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_state_change_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_state_change_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_tod_request_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_tod_request_completed_data_fields[] =
 {
     {
         .name = "tod_string",
@@ -21303,10 +22943,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_tod_request_completed_da
     .size = sizeof(bcmolt_pon_interface_tod_request_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_tod_request_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_tod_request_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_tod_request_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_tod_request_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_tod_request_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_los_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_los_data_fields[] =
 {
     {
         .name = "status",
@@ -21325,10 +22965,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_los_data =
     .size = sizeof(bcmolt_pon_interface_los_data),
     .mask_offset = offsetof(bcmolt_pon_interface_los_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_los_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_los_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_los_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_los_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields[] =
 {
     {
         .name = "result",
@@ -21347,10 +22987,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_protection_switching_tra
     .size = sizeof(bcmolt_pon_interface_protection_switching_traffic_resume_data),
     .mask_offset = offsetof(bcmolt_pon_interface_protection_switching_traffic_resume_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields[] =
 {
     {
         .name = "onus",
@@ -21369,10 +23009,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_protection_switching_onu
     .size = sizeof(bcmolt_pon_interface_protection_switching_onus_ranged_data),
     .mask_offset = offsetof(bcmolt_pon_interface_protection_switching_onus_ranged_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -21391,10 +23031,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_protection_switching_swi
     .size = sizeof(bcmolt_pon_interface_protection_switching_switchover_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_protection_switching_switchover_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields[] =
 {
     {
         .name = "number_of_detected_delimiter",
@@ -21421,10 +23061,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_standby_pon_monitoring_c
     .size = sizeof(bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_onu_discovered_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_onu_discovered_data_fields[] =
 {
     {
         .name = "serial_number",
@@ -21523,10 +23163,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_onu_discovered_data =
     .size = sizeof(bcmolt_pon_interface_onu_discovered_data),
     .mask_offset = offsetof(bcmolt_pon_interface_onu_discovered_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_onu_discovered_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_onu_discovered_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_onu_discovered_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_onu_discovered_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields[] =
 {
     {
         .name = "error",
@@ -21553,10 +23193,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_cpu_packets_failure_data
     .size = sizeof(bcmolt_pon_interface_cpu_packets_failure_data),
     .mask_offset = offsetof(bcmolt_pon_interface_cpu_packets_failure_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_cpu_packets_failure_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -21575,10 +23215,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_activate_all_onus_comple
     .size = sizeof(bcmolt_pon_interface_activate_all_onus_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_activate_all_onus_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_activate_all_onus_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields[] =
 {
     {
         .name = "overall_status",
@@ -21613,10 +23253,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_onu_upgrade_complete_dat
     .size = sizeof(bcmolt_pon_interface_onu_upgrade_complete_data),
     .mask_offset = offsetof(bcmolt_pon_interface_onu_upgrade_complete_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_onu_upgrade_complete_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields[] =
 {
     {
         .name = "mpcp_timestamp",
@@ -21635,10 +23275,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_d
     .size = sizeof(bcmolt_pon_interface_mpcp_timestamp_changed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_mpcp_timestamp_changed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_switch_pon_type_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_switch_pon_type_data_fields[] =
 {
     {
         .name = "new_pon_type",
@@ -21657,10 +23297,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_switch_pon_type_data =
     .size = sizeof(bcmolt_pon_interface_switch_pon_type_data),
     .mask_offset = offsetof(bcmolt_pon_interface_switch_pon_type_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_switch_pon_type_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_switch_pon_type_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_switch_pon_type_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_switch_pon_type_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields[] =
 {
     {
         .name = "result",
@@ -21703,10 +23343,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_switch_pon_type_complete
     .size = sizeof(bcmolt_pon_interface_switch_pon_type_completed_data),
     .mask_offset = offsetof(bcmolt_pon_interface_switch_pon_type_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_switch_pon_type_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields[] =
 {
     {
         .name = "start_offset",
@@ -21730,7 +23370,7 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_d
         .id = BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DATA_ID_ONU_ID,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_data, onu_id),
-        .type = &type_descr_uint8_t,
+        .type = &type_descr_uint16_t,
     },
 };
 
@@ -21741,10 +23381,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_dat
     .size = sizeof(bcmolt_pon_interface_rogue_detection_tool_data),
     .mask_offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_rogue_detection_tool_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields[] =
 {
     {
         .name = "result",
@@ -21762,6 +23402,14 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_d
         .offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_done_data, output),
         .type = &type_descr_bcmolt_u64_list_u32_hex,
     },
+    {
+        .name = "onu_id",
+        .descr = "onu id",
+        .id = BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_ONU_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_done_data, onu_id),
+        .type = &type_descr_uint16_t,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data =
@@ -21771,10 +23419,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_rogue_detection_tool_don
     .size = sizeof(bcmolt_pon_interface_rogue_detection_tool_done_data),
     .mask_offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_done_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields[] =
 {
     {
         .name = "list_of_onu_ids",
@@ -21793,10 +23441,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_onu_upgrade_activate_com
     .size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit_data),
     .mask_offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields[] =
 {
     {
         .name = "fec_codewords",
@@ -22110,6 +23758,22 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data
         .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, rx_packets),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
+    {
+        .name = "tx_bytes",
+        .descr = "Transmitted bytes",
+        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, tx_bytes),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
+    {
+        .name = "rx_bytes",
+        .descr = "Received bytes",
+        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES,
+        .tags = 0,
+        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, rx_bytes),
+        .type = &type_descr_bcmolt_stat_alarm_config,
+    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data =
@@ -22119,10 +23783,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data =
     .size = sizeof(bcmolt_pon_interface_itu_pon_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -22141,10 +23805,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_rais
     .size = sizeof(bcmolt_pon_interface_itu_pon_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -22163,10 +23827,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_clea
     .size = sizeof(bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -22473,10 +24137,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_ae_stats_cfg_data =
     .size = sizeof(bcmolt_pon_interface_ae_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_pon_interface_ae_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_ae_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -22495,10 +24159,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_da
     .size = sizeof(bcmolt_pon_interface_ae_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_pon_interface_ae_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -22517,10 +24181,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_d
     .size = sizeof(bcmolt_pon_interface_ae_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_pon_interface_ae_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_pon_interface_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_pon_interface_auto_cfg_data_fields[] =
 {
     {
         .name = "activate_all_onus_completed",
@@ -22723,10 +24387,10 @@ const bcmolt_type_descr type_descr_bcmolt_pon_interface_auto_cfg_data =
     .size = sizeof(bcmolt_pon_interface_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_pon_interface_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_pon_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_pon_interface_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_pon_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_pon_interface_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_protection_interface_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_protection_interface_key_fields[] =
 {
     {
         .name = "id",
@@ -22745,10 +24409,10 @@ const bcmolt_type_descr type_descr_bcmolt_protection_interface_key =
     .size = sizeof(bcmolt_protection_interface_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_protection_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_protection_interface_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_protection_interface_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_protection_interface_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_protection_interface_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_protection_interface_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -22793,10 +24457,10 @@ const bcmolt_type_descr type_descr_bcmolt_protection_interface_cfg_data =
     .size = sizeof(bcmolt_protection_interface_cfg_data),
     .mask_offset = offsetof(bcmolt_protection_interface_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_protection_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_protection_interface_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_protection_interface_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_protection_interface_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields[] =
 {
     {
         .name = "active_interface",
@@ -22815,10 +24479,10 @@ const bcmolt_type_descr type_descr_bcmolt_protection_interface_protection_switch
     .size = sizeof(bcmolt_protection_interface_protection_switch_completed_data),
     .mask_offset = offsetof(bcmolt_protection_interface_protection_switch_completed_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_protection_interface_protection_switch_completed_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_protection_interface_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_protection_interface_auto_cfg_data_fields[] =
 {
     {
         .name = "protection_switch_completed",
@@ -22837,10 +24501,10 @@ const bcmolt_type_descr type_descr_bcmolt_protection_interface_auto_cfg_data =
     .size = sizeof(bcmolt_protection_interface_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_protection_interface_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_protection_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_protection_interface_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_protection_interface_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_protection_interface_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_software_error_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_software_error_key_fields[] =
 {
     {
         .name = "device_id",
@@ -22868,10 +24532,10 @@ const bcmolt_type_descr type_descr_bcmolt_software_error_key =
     .size = sizeof(bcmolt_software_error_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_software_error_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_software_error_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_software_error_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_software_error_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_software_error_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_software_error_cfg_data_fields[] =
 {
     {
         .name = "entry",
@@ -22891,10 +24555,10 @@ const bcmolt_type_descr type_descr_bcmolt_software_error_cfg_data =
     .size = sizeof(bcmolt_software_error_cfg_data),
     .mask_offset = offsetof(bcmolt_software_error_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_software_error_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_software_error_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_software_error_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_software_error_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_key_fields[] =
 {
     {
         .name = "id",
@@ -22913,10 +24577,10 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_key =
     .size = sizeof(bcmolt_switch_inni_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_cfg_data_fields[] =
 {
     {
         .name = "config_state",
@@ -22925,6 +24589,15 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_cfg_data_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_switch_inni_cfg_data, config_state),
         .type = &type_descr_bcmolt_config_state,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "link_state",
+        .descr = "Current Link State (Link Up or Link Down)",
+        .id = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_cfg_data, link_state),
+        .type = &type_descr_bcmolt_link_state,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
 };
@@ -22936,10 +24609,10 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_cfg_data =
     .size = sizeof(bcmolt_switch_inni_cfg_data),
     .mask_offset = offsetof(bcmolt_switch_inni_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_stats_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -23262,10 +24935,40 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data =
     .size = sizeof(bcmolt_switch_inni_stats_data),
     .mask_offset = offsetof(bcmolt_switch_inni_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_link_state_change_data_fields[] =
+{
+    {
+        .name = "old_state",
+        .descr = "old_state",
+        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, old_state),
+        .type = &type_descr_bcmolt_link_state,
+    },
+    {
+        .name = "new_state",
+        .descr = "new_state",
+        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, new_state),
+        .type = &type_descr_bcmolt_link_state,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data =
+{
+    .name = "switch_inni_link_state_change_data",
+    .descr = "switch inni: link_state_change",
+    .size = sizeof(bcmolt_switch_inni_link_state_change_data),
+    .mask_offset = offsetof(bcmolt_switch_inni_link_state_change_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_link_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_link_state_change_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] =
 {
     {
         .name = "rx_bytes",
@@ -23588,10 +25291,10 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_cfg_data =
     .size = sizeof(bcmolt_switch_inni_stats_cfg_data),
     .mask_offset = offsetof(bcmolt_switch_inni_stats_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_stats_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields[] =
 {
     {
         .name = "stat",
@@ -23610,10 +25313,10 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_raised_data =
     .size = sizeof(bcmolt_switch_inni_stats_alarm_raised_data),
     .mask_offset = offsetof(bcmolt_switch_inni_stats_alarm_raised_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_stats_alarm_raised_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields[] =
 {
     {
         .name = "stat",
@@ -23632,11 +25335,19 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data =
     .size = sizeof(bcmolt_switch_inni_stats_alarm_cleared_data),
     .mask_offset = offsetof(bcmolt_switch_inni_stats_alarm_cleared_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_auto_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_switch_inni_auto_cfg_data_fields[] =
 {
+    {
+        .name = "link_state_change",
+        .descr = "If true, indications of type \"link_state_change\" will be generated.",
+        .id = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_switch_inni_auto_cfg_data, link_state_change),
+        .type = &type_descr_bcmos_bool,
+    },
     {
         .name = "stats_alarm_cleared",
         .descr = "If true, indications of type \"stats_alarm_cleared\" will be generated.",
@@ -23662,10 +25373,10 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_auto_cfg_data =
     .size = sizeof(bcmolt_switch_inni_auto_cfg_data),
     .mask_offset = offsetof(bcmolt_switch_inni_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_auto_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_switch_inni_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_switch_inni_auto_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tc_to_queue_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tc_to_queue_key_fields[] =
 {
     {
         .name = "id",
@@ -23692,10 +25403,10 @@ const bcmolt_type_descr type_descr_bcmolt_tc_to_queue_key =
     .size = sizeof(bcmolt_tc_to_queue_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tc_to_queue_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tc_to_queue_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tc_to_queue_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tc_to_queue_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tc_to_queue_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tc_to_queue_cfg_data_fields[] =
 {
     {
         .name = "queue",
@@ -23714,10 +25425,10 @@ const bcmolt_type_descr type_descr_bcmolt_tc_to_queue_cfg_data =
     .size = sizeof(bcmolt_tc_to_queue_cfg_data),
     .mask_offset = offsetof(bcmolt_tc_to_queue_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tc_to_queue_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tc_to_queue_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tc_to_queue_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tc_to_queue_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_qmp_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_qmp_key_fields[] =
 {
     {
         .name = "id",
@@ -23736,10 +25447,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_qmp_key =
     .size = sizeof(bcmolt_tm_qmp_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_qmp_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_qmp_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_qmp_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_qmp_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_qmp_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_qmp_cfg_data_fields[] =
 {
     {
         .name = "type",
@@ -23775,10 +25486,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_qmp_cfg_data =
     .size = sizeof(bcmolt_tm_qmp_cfg_data),
     .mask_offset = offsetof(bcmolt_tm_qmp_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_qmp_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_qmp_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_qmp_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_qmp_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_queue_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_queue_key_fields[] =
 {
     {
         .name = "sched_id",
@@ -23813,10 +25524,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_queue_key =
     .size = sizeof(bcmolt_tm_queue_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_queue_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_queue_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_queue_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_queue_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_queue_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_queue_cfg_data_fields[] =
 {
     {
         .name = "state",
@@ -23834,6 +25545,14 @@ static bcmolt_field_descr type_descr_bcmolt_tm_queue_cfg_data_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_tm_queue_cfg_data, tm_sched_param),
         .type = &type_descr_bcmolt_tm_sched_param,
+    },
+    {
+        .name = "profile_id",
+        .descr = "queue profile. id=0 reserved for cpu, do not use.",
+        .id = BCMOLT_TM_QUEUE_CFG_DATA_ID_PROFILE_ID,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_cfg_data, profile_id),
+        .type = &type_descr_uint16_t,
     },
     {
         .name = "rate",
@@ -23868,10 +25587,71 @@ const bcmolt_type_descr type_descr_bcmolt_tm_queue_cfg_data =
     .size = sizeof(bcmolt_tm_queue_cfg_data),
     .mask_offset = offsetof(bcmolt_tm_queue_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_queue_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_queue_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_queue_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_queue_cfg_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_key_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_queue_profile_key_fields[] =
+{
+    {
+        .name = "id",
+        .descr = "id",
+        .id = BCMOLT_FIELD_DESCR_ID_NONE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_profile_key, id),
+        .type = &type_descr_uint16_t,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_key =
+{
+    .name = "tm_queue_profile_key",
+    .descr = "tm queue profile: key",
+    .size = sizeof(bcmolt_tm_queue_profile_key),
+    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_queue_profile_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_queue_profile_key_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_tm_queue_profile_cfg_data_fields[] =
+{
+    {
+        .name = "state",
+        .descr = "state",
+        .id = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_STATE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_profile_cfg_data, state),
+        .type = &type_descr_bcmolt_config_state,
+        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+    },
+    {
+        .name = "enqueue",
+        .descr = "default is tail drop",
+        .id = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_ENQUEUE,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_profile_cfg_data, enqueue),
+        .type = &type_descr_bcmolt_enqueue_algorithm,
+    },
+    {
+        .name = "taildrop",
+        .descr = "taildrop",
+        .id = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_TAILDROP,
+        .tags = 0,
+        .offset = offsetof(bcmolt_tm_queue_profile_cfg_data, taildrop),
+        .type = &type_descr_bcmolt_taildrop_params,
+    },
+};
+
+const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_cfg_data =
+{
+    .name = "tm_queue_profile_cfg_data",
+    .descr = "tm queue profile: cfg",
+    .size = sizeof(bcmolt_tm_queue_profile_cfg_data),
+    .mask_offset = offsetof(bcmolt_tm_queue_profile_cfg_data, presence_mask),
+    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_queue_profile_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_queue_profile_cfg_data_fields } },
+};
+
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_key_fields[] =
 {
     {
         .name = "id",
@@ -23890,10 +25670,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_key =
     .size = sizeof(bcmolt_tm_sched_key),
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_key_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_key_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_key_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_tm_sched_cfg_data_fields[] =
+static const bcmolt_field_descr _type_descr_bcmolt_tm_sched_cfg_data_fields[] =
 {
     {
         .name = "attachment_point",
@@ -23953,7 +25733,7 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_cfg_data =
     .size = sizeof(bcmolt_tm_sched_cfg_data),
     .mask_offset = offsetof(bcmolt_tm_sched_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_tm_sched_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_tm_sched_cfg_data_fields } },
+    .x = { .s = { .num_fields = sizeof(_type_descr_bcmolt_tm_sched_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = _type_descr_bcmolt_tm_sched_cfg_data_fields } },
 };
 
 const bcmolt_enum_val bcmolt_obj_id_string_table[] =
@@ -23972,6 +25752,7 @@ const bcmolt_enum_val bcmolt_obj_id_string_table[] =
     { .name = "internal_nni", .val = BCMOLT_OBJ_ID_INTERNAL_NNI, .tags = 0 },
     { .name = "itupon_alloc", .val = BCMOLT_OBJ_ID_ITUPON_ALLOC, .tags = 0 },
     { .name = "itupon_gem", .val = BCMOLT_OBJ_ID_ITUPON_GEM, .tags = 0 },
+    { .name = "l2_mac_table", .val = BCMOLT_OBJ_ID_L2_MAC_TABLE, .tags = 0 },
     { .name = "lag_interface", .val = BCMOLT_OBJ_ID_LAG_INTERFACE, .tags = 0 },
     { .name = "log", .val = BCMOLT_OBJ_ID_LOG, .tags = 0 },
     { .name = "log_file", .val = BCMOLT_OBJ_ID_LOG_FILE, .tags = 0 },
@@ -23988,6 +25769,7 @@ const bcmolt_enum_val bcmolt_obj_id_string_table[] =
     { .name = "tc_to_queue", .val = BCMOLT_OBJ_ID_TC_TO_QUEUE, .tags = 0 },
     { .name = "tm_qmp", .val = BCMOLT_OBJ_ID_TM_QMP, .tags = 0 },
     { .name = "tm_queue", .val = BCMOLT_OBJ_ID_TM_QUEUE, .tags = 0 },
+    { .name = "tm_queue_profile", .val = BCMOLT_OBJ_ID_TM_QUEUE_PROFILE, .tags = 0 },
     { .name = "tm_sched", .val = BCMOLT_OBJ_ID_TM_SCHED, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -24063,6 +25845,7 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "flow_key", .val = BCMOLT_API_GROUP_ID_FLOW_KEY, .tags = 0 },
     { .name = "flow_stats", .val = BCMOLT_API_GROUP_ID_FLOW_STATS, .tags = 0 },
     { .name = "flow_send_eth_packet", .val = BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET, .tags = 0 },
+    { .name = "flow_src_binding_update", .val = BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE, .tags = 0 },
     { .name = "flow_stats_cfg", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_CFG, .tags = 0 },
     { .name = "flow_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "flow_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED, .tags = 0 },
@@ -24104,9 +25887,17 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "itupon_alloc_get_alloc_stats_completed", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
     { .name = "itupon_alloc_set_state", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE, .tags = 0 },
     { .name = "itupon_alloc_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS, .tags = 0 },
+    { .name = "itupon_alloc_alloc_onu_accumulated_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
+    { .name = "itupon_alloc_latency_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS, .tags = 0 },
     { .name = "itupon_alloc_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG, .tags = 0 },
     { .name = "itupon_alloc_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itupon_alloc_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
+    { .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
+    { .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "itupon_alloc_latency_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG, .tags = 0 },
+    { .name = "itupon_alloc_latency_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
+    { .name = "itupon_alloc_latency_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itupon_alloc_auto_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG, .tags = 0 },
     { .name = "itupon_gem_key", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY, .tags = 0 },
     { .name = "itupon_gem_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG, .tags = 0 },
@@ -24117,6 +25908,14 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "itupon_gem_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itupon_gem_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itupon_gem_auto_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG, .tags = 0 },
+    { .name = "l2_mac_table_key", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY, .tags = 0 },
+    { .name = "l2_mac_table_cfg", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG, .tags = 0 },
+    { .name = "l2_mac_table_dump", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP, .tags = 0 },
+    { .name = "l2_mac_table_dump_complete", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE, .tags = 0 },
+    { .name = "l2_mac_table_dump_abort", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT, .tags = 0 },
+    { .name = "l2_mac_table_network_events", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS, .tags = 0 },
+    { .name = "l2_mac_table_pon_events", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS, .tags = 0 },
+    { .name = "l2_mac_table_auto_cfg", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG, .tags = 0 },
     { .name = "lag_interface_key", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY, .tags = 0 },
     { .name = "lag_interface_cfg", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG, .tags = 0 },
     { .name = "lag_interface_stats", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS, .tags = 0 },
@@ -24226,9 +26025,13 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "onu_range_value_changed", .val = BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED, .tags = 0 },
     { .name = "onu_xpon_unknown_ploam", .val = BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM, .tags = 0 },
     { .name = "onu_trap_ploam_received", .val = BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED, .tags = 0 },
+    { .name = "onu_itu_alloc_onu_accumulated_stats", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
     { .name = "onu_itu_pon_stats_cfg", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "onu_itu_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
+    { .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
+    { .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "onu_auto_cfg", .val = BCMOLT_API_GROUP_ID_ONU_AUTO_CFG, .tags = 0 },
     { .name = "pbit_to_tc_key", .val = BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY, .tags = 0 },
     { .name = "pbit_to_tc_cfg", .val = BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG, .tags = 0 },
@@ -24291,6 +26094,7 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "switch_inni_key", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY, .tags = 0 },
     { .name = "switch_inni_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG, .tags = 0 },
     { .name = "switch_inni_stats", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS, .tags = 0 },
+    { .name = "switch_inni_link_state_change", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "switch_inni_stats_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG, .tags = 0 },
     { .name = "switch_inni_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "switch_inni_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED, .tags = 0 },
@@ -24301,6 +26105,8 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "tm_qmp_cfg", .val = BCMOLT_API_GROUP_ID_TM_QMP_CFG, .tags = 0 },
     { .name = "tm_queue_key", .val = BCMOLT_API_GROUP_ID_TM_QUEUE_KEY, .tags = 0 },
     { .name = "tm_queue_cfg", .val = BCMOLT_API_GROUP_ID_TM_QUEUE_CFG, .tags = 0 },
+    { .name = "tm_queue_profile_key", .val = BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_KEY, .tags = 0 },
+    { .name = "tm_queue_profile_cfg", .val = BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_CFG, .tags = 0 },
     { .name = "tm_sched_key", .val = BCMOLT_API_GROUP_ID_TM_SCHED_KEY, .tags = 0 },
     { .name = "tm_sched_cfg", .val = BCMOLT_API_GROUP_ID_TM_SCHED_CFG, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -24590,6 +26396,7 @@ const bcmolt_enum_val bcmolt_flow_oper_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_FLOW_OPER_SUBGROUP_ALL, .tags = 0 },
     { .name = "send_eth_packet", .val = BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET, .tags = 0 },
+    { .name = "src_binding_update", .val = BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -24726,6 +26533,8 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_oper_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_stat_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALL, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
+    { .name = "latency_stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS, .tags = 0 },
     { .name = "stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -24742,6 +26551,8 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stat_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_stat_cfg_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALL, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
+    { .name = "latency_stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG, .tags = 0 },
     { .name = "stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -24758,8 +26569,12 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stat_cfg_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_auto_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALL, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "configuration_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED, .tags = 0 },
     { .name = "get_alloc_stats_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
+    { .name = "latency_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "latency_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -24855,6 +26670,41 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_oper_subgroup =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_itupon_gem_oper_subgroup),
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_itupon_gem_oper_subgroup_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_auto_subgroup_string_table[] =
+{
+    { .name = "all", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_ALL, .tags = 0 },
+    { .name = "dump_complete", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE, .tags = 0 },
+    { .name = "network_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS, .tags = 0 },
+    { .name = "pon_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_subgroup =
+{
+    .name = "l2_mac_table_auto_subgroup",
+    .descr = "List of all l2_mac_table groups of type auto.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_auto_subgroup),
+    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_mac_table_auto_subgroup_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_oper_subgroup_string_table[] =
+{
+    { .name = "all", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_ALL, .tags = 0 },
+    { .name = "dump", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP, .tags = 0 },
+    { .name = "dump_abort", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_oper_subgroup =
+{
+    .name = "l2_mac_table_oper_subgroup",
+    .descr = "List of all l2_mac_table groups of type oper.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_oper_subgroup),
+    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_mac_table_oper_subgroup_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_interface_stat_subgroup_string_table[] =
@@ -25051,6 +26901,7 @@ const bcmolt_type_descr type_descr_bcmolt_olt_oper_subgroup =
 const bcmolt_enum_val bcmolt_onu_stat_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ONU_STAT_SUBGROUP_ALL, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats", .val = BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
     { .name = "itu_pon_stats", .val = BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -25067,6 +26918,7 @@ const bcmolt_type_descr type_descr_bcmolt_onu_stat_subgroup =
 const bcmolt_enum_val bcmolt_onu_stat_cfg_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ALL, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
     { .name = "itu_pon_stats_cfg", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -25091,6 +26943,8 @@ const bcmolt_enum_val bcmolt_onu_auto_subgroup_string_table[] =
     { .name = "err", .val = BCMOLT_ONU_AUTO_SUBGROUP_ERR, .tags = 0 },
     { .name = "gpon_alarm", .val = BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM, .tags = 0 },
     { .name = "invalid_dbru_report", .val = BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "key_exchange_completed", .val = BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED, .tags = 0 },
@@ -25348,6 +27202,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stat_cfg_subgroup =
 const bcmolt_enum_val bcmolt_switch_inni_auto_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL, .tags = 0 },
+    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -25545,6 +27400,8 @@ const bcmolt_enum_val bcmolt_classifier_id_string_table[] =
     { .name = "ip_v_6", .val = BCMOLT_CLASSIFIER_ID_IP_V_6, .tags = 0 },
     { .name = "i2_vid", .val = BCMOLT_CLASSIFIER_ID_I2_VID, .tags = 0 },
     { .name = "slow_proto_subtype", .val = BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE, .tags = 0 },
+    { .name = "o_tpid", .val = BCMOLT_CLASSIFIER_ID_O_TPID, .tags = 0 },
+    { .name = "i_tpid", .val = BCMOLT_CLASSIFIER_ID_I_TPID, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -25971,6 +27828,7 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_pon_params_id =
 const bcmolt_enum_val bcmolt_gpon_trx_id_string_table[] =
 {
     { .name = "transceiver_type", .val = BCMOLT_GPON_TRX_ID_TRANSCEIVER_TYPE, .tags = 0 },
+    { .name = "trx_name", .val = BCMOLT_GPON_TRX_ID_TRX_NAME, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26020,6 +27878,7 @@ const bcmolt_enum_val bcmolt_host_port_params_id_string_table[] =
 {
     { .name = "pir_kbps", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS, .tags = 0 },
     { .name = "queue_size_kbytes", .val = BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES, .tags = 0 },
+    { .name = "pir_kbps_actual", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26176,6 +28035,38 @@ const bcmolt_type_descr type_descr_bcmolt_intf_ref_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_intf_ref_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_ip_v_4_src_binding_id_string_table[] =
+{
+    { .name = "src_ip", .val = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP, .tags = 0 },
+    { .name = "src_ip_mask", .val = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding_id =
+{
+    .name = "ip_v_4_src_binding_id",
+    .descr = "Identifiers for all fields in a 'ip_v_4_src_binding'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_ip_v_4_src_binding_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ip_v_4_src_binding_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_ip_v_6_src_binding_id_string_table[] =
+{
+    { .name = "src_ip_v_6", .val = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6, .tags = 0 },
+    { .name = "src_ip_v_6_mask", .val = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding_id =
+{
+    .name = "ip_v_6_src_binding_id",
+    .descr = "Identifiers for all fields in a 'ip_v_6_src_binding'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_ip_v_6_src_binding_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ip_v_6_src_binding_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_itu_onu_params_id_string_table[] =
 {
     { .name = "serial_number", .val = BCMOLT_ITU_ONU_PARAMS_ID_SERIAL_NUMBER, .tags = 0 },
@@ -26229,6 +28120,9 @@ const bcmolt_enum_val bcmolt_itu_pon_params_id_string_table[] =
     { .name = "gpon", .val = BCMOLT_ITU_PON_PARAMS_ID_GPON, .tags = 0 },
     { .name = "bw_eligibility_class_stats", .val = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_CLASS_STATS, .tags = 0 },
     { .name = "dba", .val = BCMOLT_ITU_PON_PARAMS_ID_DBA, .tags = 0 },
+    { .name = "bw_eligibility_stats_clear_on_read", .val = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats", .val = BCMOLT_ITU_PON_PARAMS_ID_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
+    { .name = "alloc_latency_stats", .val = BCMOLT_ITU_PON_PARAMS_ID_ALLOC_LATENCY_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26366,6 +28260,50 @@ const bcmolt_type_descr type_descr_bcmolt_key_exchange_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_key_exchange_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_key_exchange_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_dump_filters_id_string_table[] =
+{
+    { .name = "o_vid", .val = BCMOLT_L2_DUMP_FILTERS_ID_O_VID, .tags = 0 },
+    { .name = "i_vid", .val = BCMOLT_L2_DUMP_FILTERS_ID_I_VID, .tags = 0 },
+    { .name = "interface", .val = BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE, .tags = 0 },
+    { .name = "mac_address", .val = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS, .tags = 0 },
+    { .name = "mac_address_mask", .val = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK, .tags = 0 },
+    { .name = "domain", .val = BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN, .tags = 0 },
+    { .name = "pkt_tag_type", .val = BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE, .tags = 0 },
+    { .name = "svc_port_id", .val = BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters_id =
+{
+    .name = "l2_dump_filters_id",
+    .descr = "Identifiers for all fields in a 'l2_dump_filters'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_dump_filters_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_dump_filters_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mact_entry_id_string_table[] =
+{
+    { .name = "pkt_tag_type", .val = BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE, .tags = 0 },
+    { .name = "o_vid", .val = BCMOLT_L2_MACT_ENTRY_ID_O_VID, .tags = 0 },
+    { .name = "i_vid", .val = BCMOLT_L2_MACT_ENTRY_ID_I_VID, .tags = 0 },
+    { .name = "interface", .val = BCMOLT_L2_MACT_ENTRY_ID_INTERFACE, .tags = 0 },
+    { .name = "svc_port_id", .val = BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID, .tags = 0 },
+    { .name = "mac_address", .val = BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS, .tags = 0 },
+    { .name = "event_type", .val = BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE, .tags = 0 },
+    { .name = "is_static", .val = BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_id =
+{
+    .name = "l2_mact_entry_id",
+    .descr = "Identifiers for all fields in a 'l2_mact_entry'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mact_entry_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mact_entry_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_global_parms_id_string_table[] =
@@ -27094,6 +29032,24 @@ const bcmolt_type_descr type_descr_bcmolt_service_discovery_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_service_discovery_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_src_binding_info_id_string_table[] =
+{
+    { .name = "src_mac", .val = BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC, .tags = 0 },
+    { .name = "ip_v_4", .val = BCMOLT_SRC_BINDING_INFO_ID_IP_V_4, .tags = 0 },
+    { .name = "ip_v_6", .val = BCMOLT_SRC_BINDING_INFO_ID_IP_V_6, .tags = 0 },
+    { .name = "src_binding_fields", .val = BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_src_binding_info_id =
+{
+    .name = "src_binding_info_id",
+    .descr = "Identifiers for all fields in a 'src_binding_info'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_src_binding_info_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_src_binding_info_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_stat_alarm_config_id_string_table[] =
 {
     { .name = "trigger", .val = BCMOLT_STAT_ALARM_CONFIG_ID_TRIGGER, .tags = 0 },
@@ -27245,6 +29201,21 @@ const bcmolt_type_descr type_descr_bcmolt_system_profile_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_system_profile_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_taildrop_params_id_string_table[] =
+{
+    { .name = "max_size_kbytes", .val = BCMOLT_TAILDROP_PARAMS_ID_MAX_SIZE_KBYTES, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_taildrop_params_id =
+{
+    .name = "taildrop_params_id",
+    .descr = "Identifiers for all fields in a 'taildrop_params'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_taildrop_params_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_taildrop_params_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_tm_queue_ref_id_string_table[] =
 {
     { .name = "sched_id", .val = BCMOLT_TM_QUEUE_REF_ID_SCHED_ID, .tags = 0 },
@@ -27372,6 +29343,10 @@ const bcmolt_enum_val bcmolt_tm_shaping_id_string_table[] =
     { .name = "cir", .val = BCMOLT_TM_SHAPING_ID_CIR, .tags = 0 },
     { .name = "pir", .val = BCMOLT_TM_SHAPING_ID_PIR, .tags = 0 },
     { .name = "burst", .val = BCMOLT_TM_SHAPING_ID_BURST, .tags = 0 },
+    { .name = "cir_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL, .tags = 0 },
+    { .name = "cir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL, .tags = 0 },
+    { .name = "eir_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL, .tags = 0 },
+    { .name = "eir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27634,6 +29609,7 @@ const bcmolt_enum_val bcmolt_xgpon_trx_id_string_table[] =
 {
     { .name = "burst_profile", .val = BCMOLT_XGPON_TRX_ID_BURST_PROFILE, .tags = 0 },
     { .name = "transceiver_type", .val = BCMOLT_XGPON_TRX_ID_TRANSCEIVER_TYPE, .tags = 0 },
+    { .name = "trx_name", .val = BCMOLT_XGPON_TRX_ID_TRX_NAME, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27812,6 +29788,7 @@ const bcmolt_enum_val bcmolt_bal_system_cfg_data_id_string_table[] =
     { .name = "config_state", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_CONFIG_STATE, .tags = 0 },
     { .name = "lag_parms", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_LAG_PARMS, .tags = 0 },
     { .name = "host_port", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_HOST_PORT, .tags = 0 },
+    { .name = "nto1_programming_model", .val = BCMOLT_BAL_SYSTEM_CFG_DATA_ID_NTO1_PROGRAMMING_MODEL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27887,6 +29864,8 @@ const bcmolt_enum_val bcmolt_device_cfg_data_id_string_table[] =
     { .name = "debug_uart_port_swap", .val = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_UART_PORT_SWAP, .tags = 0 },
     { .name = "inband_conn_data", .val = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_CONN_DATA, .tags = 0 },
     { .name = "inband_internal_nni", .val = BCMOLT_DEVICE_CFG_DATA_ID_INBAND_INTERNAL_NNI, .tags = 0 },
+    { .name = "debug_bas_code", .val = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_CODE, .tags = 0 },
+    { .name = "debug_bas_enabled", .val = BCMOLT_DEVICE_CFG_DATA_ID_DEBUG_BAS_ENABLED, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28598,6 +30577,8 @@ const bcmolt_enum_val bcmolt_flow_cfg_data_id_string_table[] =
     { .name = "mac_table_miss_action", .val = BCMOLT_FLOW_CFG_DATA_ID_MAC_TABLE_MISS_ACTION, .tags = 0 },
     { .name = "policer_profile", .val = BCMOLT_FLOW_CFG_DATA_ID_POLICER_PROFILE, .tags = 0 },
     { .name = "um_forwarding", .val = BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING, .tags = 0 },
+    { .name = "bc_forwarding", .val = BCMOLT_FLOW_CFG_DATA_ID_BC_FORWARDING, .tags = 0 },
+    { .name = "src_bindings", .val = BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -28660,6 +30641,22 @@ const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_flow_send_eth_packet_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_flow_send_eth_packet_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_flow_src_binding_update_data_id_string_table[] =
+{
+    { .name = "command", .val = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND, .tags = 0 },
+    { .name = "src_binding", .val = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data_id =
+{
+    .name = "flow_src_binding_update_data_id",
+    .descr = "Identifiers for all fields in a 'flow_src_binding_update_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_flow_src_binding_update_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_flow_src_binding_update_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_flow_stats_cfg_data_id_string_table[] =
@@ -29332,6 +31329,7 @@ const bcmolt_enum_val bcmolt_itupon_alloc_cfg_data_id_string_table[] =
     { .name = "collect_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS, .tags = 0 },
     { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
     { .name = "latency_sensitive", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE, .tags = 0 },
+    { .name = "enable_latency_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -29423,6 +31421,53 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_stats_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_string_table[] =
+{
+    { .name = "tm_used", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED, .tags = 0 },
+    { .name = "tm_allocated", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED, .tags = 0 },
+    { .name = "bufocc", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC, .tags = 0 },
+    { .name = "used_cbr", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR, .tags = 0 },
+    { .name = "used_guaranteed_above_cbr", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR, .tags = 0 },
+    { .name = "used_additional", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_data_id_string_table[] =
+{
+    { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
+    { .name = "allocation_busy", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY, .tags = 0 },
+    { .name = "latency_bucket_0_100_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC, .tags = 0 },
+    { .name = "latency_bucket_100_200_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC, .tags = 0 },
+    { .name = "latency_bucket_200_300_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC, .tags = 0 },
+    { .name = "latency_bucket_300_400_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC, .tags = 0 },
+    { .name = "latency_bucket_400_600_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC, .tags = 0 },
+    { .name = "latency_bucket_600_800_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC, .tags = 0 },
+    { .name = "latency_bucket_800_1000_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC, .tags = 0 },
+    { .name = "latency_bucket_1_3_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC, .tags = 0 },
+    { .name = "latency_bucket_3_5_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC, .tags = 0 },
+    { .name = "latency_bucket_5_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC, .tags = 0 },
+    { .name = "latency_bucket_more_than_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data_id =
+{
+    .name = "itupon_alloc_latency_stats_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_itupon_alloc_stats_cfg_data_id_string_table[] =
 {
     { .name = "rx_bytes", .val = BCMOLT_ITUPON_ALLOC_STATS_CFG_DATA_ID_RX_BYTES, .tags = 0 },
@@ -29468,10 +31513,121 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_stats_alarm_cleared_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_string_table[] =
+{
+    { .name = "tm_used", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED, .tags = 0 },
+    { .name = "tm_allocated", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED, .tags = 0 },
+    { .name = "bufocc", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC, .tags = 0 },
+    { .name = "used_cbr", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR, .tags = 0 },
+    { .name = "used_guaranteed_above_cbr", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR, .tags = 0 },
+    { .name = "used_additional", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id =
+{
+    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_cfg_data_id_string_table[] =
+{
+    { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
+    { .name = "allocation_busy", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY, .tags = 0 },
+    { .name = "latency_bucket_0_100_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC, .tags = 0 },
+    { .name = "latency_bucket_100_200_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC, .tags = 0 },
+    { .name = "latency_bucket_200_300_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC, .tags = 0 },
+    { .name = "latency_bucket_300_400_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC, .tags = 0 },
+    { .name = "latency_bucket_400_600_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC, .tags = 0 },
+    { .name = "latency_bucket_600_800_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC, .tags = 0 },
+    { .name = "latency_bucket_800_1000_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC, .tags = 0 },
+    { .name = "latency_bucket_1_3_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC, .tags = 0 },
+    { .name = "latency_bucket_3_5_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC, .tags = 0 },
+    { .name = "latency_bucket_5_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC, .tags = 0 },
+    { .name = "latency_bucket_more_than_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_id =
+{
+    .name = "itupon_alloc_latency_stats_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id =
+{
+    .name = "itupon_alloc_latency_stats_alarm_raised_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_raised_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id =
+{
+    .name = "itupon_alloc_latency_stats_alarm_cleared_data_id",
+    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_cleared_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_itupon_alloc_auto_cfg_data_id_string_table[] =
 {
+    { .name = "alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "configuration_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED, .tags = 0 },
     { .name = "get_alloc_stats_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
+    { .name = "latency_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "latency_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -29636,6 +31792,121 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_itupon_gem_auto_cfg_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_gem_auto_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_key_id_string_table[] =
+{
+    { .name = "id", .val = BCMOLT_L2_MAC_TABLE_KEY_ID_ID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key_id =
+{
+    .name = "l2_mac_table_key_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_key'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_key_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_key_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_cfg_data_id_string_table[] =
+{
+    { .name = "state", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE, .tags = 0 },
+    { .name = "dump_status", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS, .tags = 0 },
+    { .name = "last_dump_result", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT, .tags = 0 },
+    { .name = "report_event", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data_id =
+{
+    .name = "l2_mac_table_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_dump_data_id_string_table[] =
+{
+    { .name = "file_name", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME, .tags = 0 },
+    { .name = "mode", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE, .tags = 0 },
+    { .name = "filters", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS, .tags = 0 },
+    { .name = "report_as_indication", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION, .tags = 0 },
+    { .name = "max_entry_per_indication", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data_id =
+{
+    .name = "l2_mac_table_dump_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_dump_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_dump_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_dump_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_dump_complete_data_id_string_table[] =
+{
+    { .name = "file_name", .val = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME, .tags = 0 },
+    { .name = "result", .val = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data_id =
+{
+    .name = "l2_mac_table_dump_complete_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_dump_complete_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_dump_complete_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_dump_complete_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_network_events_data_id_string_table[] =
+{
+    { .name = "entries", .val = BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data_id =
+{
+    .name = "l2_mac_table_network_events_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_network_events_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_network_events_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_network_events_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_pon_events_data_id_string_table[] =
+{
+    { .name = "entries", .val = BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data_id =
+{
+    .name = "l2_mac_table_pon_events_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_pon_events_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_pon_events_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_pon_events_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_l2_mac_table_auto_cfg_data_id_string_table[] =
+{
+    { .name = "dump_complete", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE, .tags = 0 },
+    { .name = "network_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS, .tags = 0 },
+    { .name = "pon_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data_id =
+{
+    .name = "l2_mac_table_auto_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'l2_mac_table_auto_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_l2_mac_table_auto_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_auto_cfg_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_interface_key_id_string_table[] =
@@ -30325,6 +32596,7 @@ const bcmolt_enum_val bcmolt_olt_sw_error_data_id_string_table[] =
     { .name = "file_name", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_FILE_NAME, .tags = 0 },
     { .name = "line_number", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_LINE_NUMBER, .tags = 0 },
     { .name = "error_string", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING, .tags = 0 },
+    { .name = "severity", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -31337,6 +33609,26 @@ const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_trap_ploam_received_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_string_table[] =
+{
+    { .name = "tm_used", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED, .tags = 0 },
+    { .name = "tm_allocated", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED, .tags = 0 },
+    { .name = "bufocc", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC, .tags = 0 },
+    { .name = "used_cbr", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_CBR, .tags = 0 },
+    { .name = "used_guaranteed_above_cbr", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_GUARANTEED_ABOVE_CBR, .tags = 0 },
+    { .name = "used_additional", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_USED_ADDITIONAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_data_id",
+    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_onu_itu_pon_stats_cfg_data_id_string_table[] =
 {
     { .name = "positive_drift", .val = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_POSITIVE_DRIFT, .tags = 0 },
@@ -31404,6 +33696,56 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_i
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_pon_stats_alarm_cleared_data_id_string_table } },
 };
 
+const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_string_table[] =
+{
+    { .name = "tm_used", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED, .tags = 0 },
+    { .name = "tm_allocated", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED, .tags = 0 },
+    { .name = "bufocc", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC, .tags = 0 },
+    { .name = "used_cbr", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_CBR, .tags = 0 },
+    { .name = "used_guaranteed_above_cbr", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_GUARANTEED_ABOVE_CBR, .tags = 0 },
+    { .name = "used_additional", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_USED_ADDITIONAL, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id",
+    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_raised_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[] =
+{
+    { .name = "stat", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id =
+{
+    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id",
+    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table } },
+};
+
 const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[] =
 {
     { .name = "ber_interval_configuration_completed", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_BER_INTERVAL_CONFIGURATION_COMPLETED, .tags = 0 },
@@ -31414,6 +33756,8 @@ const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[] =
     { .name = "err", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ERR, .tags = 0 },
     { .name = "gpon_alarm", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_GPON_ALARM, .tags = 0 },
     { .name = "invalid_dbru_report", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
+    { .name = "itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "key_exchange_completed", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_COMPLETED, .tags = 0 },
@@ -31624,6 +33968,8 @@ const bcmolt_enum_val bcmolt_pon_interface_itu_pon_stats_data_id_string_table[] 
     { .name = "fec_codewords_uncorrected", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_UNCORRECTED, .tags = 0 },
     { .name = "rx_gem_illegal", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL, .tags = 0 },
     { .name = "rx_packets", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS, .tags = 0 },
+    { .name = "tx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES, .tags = 0 },
+    { .name = "rx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -32083,6 +34429,7 @@ const bcmolt_enum_val bcmolt_pon_interface_rogue_detection_tool_done_data_id_str
 {
     { .name = "result", .val = BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_RESULT, .tags = 0 },
     { .name = "output", .val = BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_OUTPUT, .tags = 0 },
+    { .name = "onu_id", .val = BCMOLT_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE_DATA_ID_ONU_ID, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -32151,6 +34498,8 @@ const bcmolt_enum_val bcmolt_pon_interface_itu_pon_stats_cfg_data_id_string_tabl
     { .name = "fec_codewords_uncorrected", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS_UNCORRECTED, .tags = 0 },
     { .name = "rx_gem_illegal", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_GEM_ILLEGAL, .tags = 0 },
     { .name = "rx_packets", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_PACKETS, .tags = 0 },
+    { .name = "tx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES, .tags = 0 },
+    { .name = "rx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -32424,6 +34773,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_key_id =
 const bcmolt_enum_val bcmolt_switch_inni_cfg_data_id_string_table[] =
 {
     { .name = "config_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE, .tags = 0 },
+    { .name = "link_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -32487,6 +34837,22 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_switch_inni_stats_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_stats_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_switch_inni_link_state_change_data_id_string_table[] =
+{
+    { .name = "old_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE, .tags = 0 },
+    { .name = "new_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data_id =
+{
+    .name = "switch_inni_link_state_change_data_id",
+    .descr = "Identifiers for all fields in a 'switch_inni_link_state_change_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_switch_inni_link_state_change_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_link_state_change_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[] =
@@ -32574,6 +34940,7 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_i
 
 const bcmolt_enum_val bcmolt_switch_inni_auto_cfg_data_id_string_table[] =
 {
+    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -32672,6 +35039,7 @@ const bcmolt_enum_val bcmolt_tm_queue_cfg_data_id_string_table[] =
 {
     { .name = "state", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_STATE, .tags = 0 },
     { .name = "tm_sched_param", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_TM_SCHED_PARAM, .tags = 0 },
+    { .name = "profile_id", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_PROFILE_ID, .tags = 0 },
     { .name = "rate", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_RATE, .tags = 0 },
     { .name = "control_state", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CONTROL_STATE, .tags = 0 },
     { .name = "cir_attachment_point", .val = BCMOLT_TM_QUEUE_CFG_DATA_ID_CIR_ATTACHMENT_POINT, .tags = 0 },
@@ -32685,6 +35053,38 @@ const bcmolt_type_descr type_descr_bcmolt_tm_queue_cfg_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_tm_queue_cfg_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_queue_cfg_data_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_tm_queue_profile_key_id_string_table[] =
+{
+    { .name = "id", .val = BCMOLT_TM_QUEUE_PROFILE_KEY_ID_ID, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_key_id =
+{
+    .name = "tm_queue_profile_key_id",
+    .descr = "Identifiers for all fields in a 'tm_queue_profile_key'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_tm_queue_profile_key_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_queue_profile_key_id_string_table } },
+};
+
+const bcmolt_enum_val bcmolt_tm_queue_profile_cfg_data_id_string_table[] =
+{
+    { .name = "state", .val = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_STATE, .tags = 0 },
+    { .name = "enqueue", .val = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_ENQUEUE, .tags = 0 },
+    { .name = "taildrop", .val = BCMOLT_TM_QUEUE_PROFILE_CFG_DATA_ID_TAILDROP, .tags = 0 },
+    BCMOLT_ENUM_LAST,
+};
+
+const bcmolt_type_descr type_descr_bcmolt_tm_queue_profile_cfg_data_id =
+{
+    .name = "tm_queue_profile_cfg_data_id",
+    .descr = "Identifiers for all fields in a 'tm_queue_profile_cfg_data'.",
+    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
+    .size = sizeof(bcmolt_tm_queue_profile_cfg_data_id),
+    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_queue_profile_cfg_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_tm_sched_key_id_string_table[] =
@@ -32722,10 +35122,10 @@ const bcmolt_type_descr type_descr_bcmolt_tm_sched_cfg_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_tm_sched_cfg_data_id_string_table } },
 };
 
-/** ===== Objects ===== */
-/** ==== Object: access_control ==== */
-/** Group: access_control - key. */
-static bcmolt_group_descr group_descr_access_control_key =
+/* ===== Objects ===== */
+/* ===== Object: access_control ===== */
+/* ===== Group: access_control - key ===== */
+static const bcmolt_group_descr _group_descr_access_control_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -32743,8 +35143,8 @@ static bcmolt_group_descr group_descr_access_control_key =
     .type = &type_descr_bcmolt_access_control_key,
 };
 
-/** Group: access_control - cfg. */
-static bcmolt_multi_group_descr multi_descr_access_control_cfg =
+/* ===== Group: access_control - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_access_control_cfg =
 {
     .container_size = sizeof(bcmolt_access_control_multi_cfg),
     .key_offset = offsetof(bcmolt_access_control_multi_cfg, key),
@@ -32756,7 +35156,7 @@ static bcmolt_multi_group_descr multi_descr_access_control_cfg =
     .responses_offset = offsetof(bcmolt_access_control_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_access_control_cfg =
+static const bcmolt_group_descr _group_descr_access_control_cfg =
 {
     .container_size = sizeof(bcmolt_access_control_cfg),
     .data_offset = offsetof(bcmolt_access_control_cfg, data),
@@ -32767,7 +35167,7 @@ static bcmolt_group_descr group_descr_access_control_cfg =
     .key_offset = offsetof(bcmolt_access_control_cfg, key),
     .key_size = sizeof(bcmolt_access_control_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_access_control_cfg,
+    .multi = &_multi_descr_access_control_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ACCESS_CONTROL,
     .subgroup_idx = 0,
@@ -32775,8 +35175,8 @@ static bcmolt_group_descr group_descr_access_control_cfg =
     .type = &type_descr_bcmolt_access_control_cfg_data,
 };
 
-/** Group: access_control - stats. */
-static bcmolt_multi_group_descr multi_descr_access_control_stats =
+/* ===== Group: access_control - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_access_control_stats =
 {
     .container_size = sizeof(bcmolt_access_control_multi_stats),
     .key_offset = offsetof(bcmolt_access_control_multi_stats, key),
@@ -32788,7 +35188,7 @@ static bcmolt_multi_group_descr multi_descr_access_control_stats =
     .responses_offset = offsetof(bcmolt_access_control_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_access_control_stats =
+static const bcmolt_group_descr _group_descr_access_control_stats =
 {
     .container_size = sizeof(bcmolt_access_control_stats),
     .data_offset = offsetof(bcmolt_access_control_stats, data),
@@ -32799,7 +35199,7 @@ static bcmolt_group_descr group_descr_access_control_stats =
     .key_offset = offsetof(bcmolt_access_control_stats, key),
     .key_size = sizeof(bcmolt_access_control_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_access_control_stats,
+    .multi = &_multi_descr_access_control_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_ACCESS_CONTROL,
     .subgroup_idx = BCMOLT_ACCESS_CONTROL_STAT_SUBGROUP_STATS,
@@ -32807,8 +35207,8 @@ static bcmolt_group_descr group_descr_access_control_stats =
     .type = &type_descr_bcmolt_access_control_stats_data,
 };
 
-/** Group: access_control - receive_eth_packet. */
-static bcmolt_group_descr group_descr_access_control_receive_eth_packet =
+/* ===== Group: access_control - receive_eth_packet ===== */
+static const bcmolt_group_descr _group_descr_access_control_receive_eth_packet =
 {
     .container_size = sizeof(bcmolt_access_control_receive_eth_packet),
     .data_offset = offsetof(bcmolt_access_control_receive_eth_packet, data),
@@ -32826,8 +35226,8 @@ static bcmolt_group_descr group_descr_access_control_receive_eth_packet =
     .type = &type_descr_bcmolt_access_control_receive_eth_packet_data,
 };
 
-/** Group: access_control - interfaces_update. */
-static bcmolt_group_descr group_descr_access_control_interfaces_update =
+/* ===== Group: access_control - interfaces_update ===== */
+static const bcmolt_group_descr _group_descr_access_control_interfaces_update =
 {
     .container_size = sizeof(bcmolt_access_control_interfaces_update),
     .data_offset = offsetof(bcmolt_access_control_interfaces_update, data),
@@ -32845,8 +35245,8 @@ static bcmolt_group_descr group_descr_access_control_interfaces_update =
     .type = &type_descr_bcmolt_access_control_interfaces_update_data,
 };
 
-/** Group: access_control - stats_cfg. */
-static bcmolt_group_descr group_descr_access_control_stats_cfg =
+/* ===== Group: access_control - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_access_control_stats_cfg =
 {
     .container_size = sizeof(bcmolt_access_control_stats_cfg),
     .data_offset = offsetof(bcmolt_access_control_stats_cfg, data),
@@ -32864,8 +35264,8 @@ static bcmolt_group_descr group_descr_access_control_stats_cfg =
     .type = &type_descr_bcmolt_access_control_stats_cfg_data,
 };
 
-/** Group: access_control - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_access_control_stats_alarm_raised =
+/* ===== Group: access_control - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_access_control_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_access_control_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_access_control_stats_alarm_raised, data),
@@ -32883,8 +35283,8 @@ static bcmolt_group_descr group_descr_access_control_stats_alarm_raised =
     .type = &type_descr_bcmolt_access_control_stats_alarm_raised_data,
 };
 
-/** Group: access_control - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_access_control_stats_alarm_cleared =
+/* ===== Group: access_control - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_access_control_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_access_control_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_access_control_stats_alarm_cleared, data),
@@ -32902,8 +35302,8 @@ static bcmolt_group_descr group_descr_access_control_stats_alarm_cleared =
     .type = &type_descr_bcmolt_access_control_stats_alarm_cleared_data,
 };
 
-/** Group: access_control - auto_cfg. */
-static bcmolt_group_descr group_descr_access_control_auto_cfg =
+/* ===== Group: access_control - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_access_control_auto_cfg =
 {
     .container_size = sizeof(bcmolt_access_control_auto_cfg),
     .data_offset = offsetof(bcmolt_access_control_auto_cfg, data),
@@ -32921,34 +35321,34 @@ static bcmolt_group_descr group_descr_access_control_auto_cfg =
     .type = &type_descr_bcmolt_access_control_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_access_control[] =
+static const bcmolt_group_descr *_groups_access_control[] =
 {
-    &group_descr_access_control_key,
-    &group_descr_access_control_cfg,
-    &group_descr_access_control_stats,
-    &group_descr_access_control_receive_eth_packet,
-    &group_descr_access_control_interfaces_update,
-    &group_descr_access_control_stats_cfg,
-    &group_descr_access_control_stats_alarm_raised,
-    &group_descr_access_control_stats_alarm_cleared,
-    &group_descr_access_control_auto_cfg,
+    &_group_descr_access_control_key,
+    &_group_descr_access_control_cfg,
+    &_group_descr_access_control_stats,
+    &_group_descr_access_control_receive_eth_packet,
+    &_group_descr_access_control_interfaces_update,
+    &_group_descr_access_control_stats_cfg,
+    &_group_descr_access_control_stats_alarm_raised,
+    &_group_descr_access_control_stats_alarm_cleared,
+    &_group_descr_access_control_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_access_control =
+static const bcmolt_obj_descr _obj_descr_access_control =
 {
     .name = "access_control",
     .descr = "access control.",
     .id = BCMOLT_OBJ_ID_ACCESS_CONTROL,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_access_control_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_access_control),
-    .groups = groups_access_control,
+    .num_groups = BCM_SIZEOFARRAY(_groups_access_control),
+    .groups = _groups_access_control,
 };
 
 
-/** ==== Object: bal_system ==== */
-/** Group: bal_system - cfg. */
-static bcmolt_multi_group_descr multi_descr_bal_system_cfg =
+/* ===== Object: bal_system ===== */
+/* ===== Group: bal_system - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_bal_system_cfg =
 {
     .container_size = sizeof(bcmolt_bal_system_multi_cfg),
     .key_offset = offsetof(bcmolt_bal_system_multi_cfg, key),
@@ -32960,7 +35360,7 @@ static bcmolt_multi_group_descr multi_descr_bal_system_cfg =
     .responses_offset = offsetof(bcmolt_bal_system_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_bal_system_cfg =
+static const bcmolt_group_descr _group_descr_bal_system_cfg =
 {
     .container_size = sizeof(bcmolt_bal_system_cfg),
     .data_offset = offsetof(bcmolt_bal_system_cfg, data),
@@ -32971,7 +35371,7 @@ static bcmolt_group_descr group_descr_bal_system_cfg =
     .key_offset = offsetof(bcmolt_bal_system_cfg, key),
     .key_size = sizeof(bcmolt_bal_system_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_bal_system_cfg,
+    .multi = &_multi_descr_bal_system_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_BAL_SYSTEM,
     .subgroup_idx = 0,
@@ -32979,8 +35379,8 @@ static bcmolt_group_descr group_descr_bal_system_cfg =
     .type = &type_descr_bcmolt_bal_system_cfg_data,
 };
 
-/** Group: bal_system - key. */
-static bcmolt_group_descr group_descr_bal_system_key =
+/* ===== Group: bal_system - key ===== */
+static const bcmolt_group_descr _group_descr_bal_system_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -32998,27 +35398,27 @@ static bcmolt_group_descr group_descr_bal_system_key =
     .type = &type_descr_bcmolt_bal_system_key,
 };
 
-static const bcmolt_group_descr *groups_bal_system[] =
+static const bcmolt_group_descr *_groups_bal_system[] =
 {
-    &group_descr_bal_system_cfg,
-    &group_descr_bal_system_key,
+    &_group_descr_bal_system_cfg,
+    &_group_descr_bal_system_key,
 };
 
-static bcmolt_obj_descr obj_descr_bal_system =
+static const bcmolt_obj_descr _obj_descr_bal_system =
 {
     .name = "bal_system",
     .descr = "BAL System Wide Global Config record.",
     .id = BCMOLT_OBJ_ID_BAL_SYSTEM,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_bal_system_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_bal_system),
-    .groups = groups_bal_system,
+    .num_groups = BCM_SIZEOFARRAY(_groups_bal_system),
+    .groups = _groups_bal_system,
 };
 
 
-/** ==== Object: device ==== */
-/** Group: device - key. */
-static bcmolt_group_descr group_descr_device_key =
+/* ===== Object: device ===== */
+/* ===== Group: device - key ===== */
+static const bcmolt_group_descr _group_descr_device_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -33036,8 +35436,8 @@ static bcmolt_group_descr group_descr_device_key =
     .type = &type_descr_bcmolt_device_key,
 };
 
-/** Group: device - cfg. */
-static bcmolt_multi_group_descr multi_descr_device_cfg =
+/* ===== Group: device - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_device_cfg =
 {
     .container_size = sizeof(bcmolt_device_multi_cfg),
     .key_offset = offsetof(bcmolt_device_multi_cfg, key),
@@ -33049,7 +35449,7 @@ static bcmolt_multi_group_descr multi_descr_device_cfg =
     .responses_offset = offsetof(bcmolt_device_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_device_cfg =
+static const bcmolt_group_descr _group_descr_device_cfg =
 {
     .container_size = sizeof(bcmolt_device_cfg),
     .data_offset = offsetof(bcmolt_device_cfg, data),
@@ -33060,7 +35460,7 @@ static bcmolt_group_descr group_descr_device_cfg =
     .key_offset = offsetof(bcmolt_device_cfg, key),
     .key_size = sizeof(bcmolt_device_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_device_cfg,
+    .multi = &_multi_descr_device_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_DEVICE,
     .subgroup_idx = 0,
@@ -33068,8 +35468,8 @@ static bcmolt_group_descr group_descr_device_cfg =
     .type = &type_descr_bcmolt_device_cfg_data,
 };
 
-/** Group: device - connect. */
-static bcmolt_group_descr group_descr_device_connect =
+/* ===== Group: device - connect ===== */
+static const bcmolt_group_descr _group_descr_device_connect =
 {
     .container_size = sizeof(bcmolt_device_connect),
     .data_offset = offsetof(bcmolt_device_connect, data),
@@ -33087,8 +35487,8 @@ static bcmolt_group_descr group_descr_device_connect =
     .type = &type_descr_bcmolt_device_connect_data,
 };
 
-/** Group: device - disconnect. */
-static bcmolt_group_descr group_descr_device_disconnect =
+/* ===== Group: device - disconnect ===== */
+static const bcmolt_group_descr _group_descr_device_disconnect =
 {
     .container_size = sizeof(bcmolt_device_disconnect),
     .data_offset = 0,
@@ -33106,8 +35506,8 @@ static bcmolt_group_descr group_descr_device_disconnect =
     .type = NULL,
 };
 
-/** Group: device - reset. */
-static bcmolt_group_descr group_descr_device_reset =
+/* ===== Group: device - reset ===== */
+static const bcmolt_group_descr _group_descr_device_reset =
 {
     .container_size = sizeof(bcmolt_device_reset),
     .data_offset = 0,
@@ -33125,8 +35525,8 @@ static bcmolt_group_descr group_descr_device_reset =
     .type = NULL,
 };
 
-/** Group: device - host_keep_alive. */
-static bcmolt_group_descr group_descr_device_host_keep_alive =
+/* ===== Group: device - host_keep_alive ===== */
+static const bcmolt_group_descr _group_descr_device_host_keep_alive =
 {
     .container_size = sizeof(bcmolt_device_host_keep_alive),
     .data_offset = offsetof(bcmolt_device_host_keep_alive, data),
@@ -33144,8 +35544,8 @@ static bcmolt_group_descr group_descr_device_host_keep_alive =
     .type = &type_descr_bcmolt_device_host_keep_alive_data,
 };
 
-/** Group: device - sw_upgrade_activate. */
-static bcmolt_group_descr group_descr_device_sw_upgrade_activate =
+/* ===== Group: device - sw_upgrade_activate ===== */
+static const bcmolt_group_descr _group_descr_device_sw_upgrade_activate =
 {
     .container_size = sizeof(bcmolt_device_sw_upgrade_activate),
     .data_offset = 0,
@@ -33163,8 +35563,8 @@ static bcmolt_group_descr group_descr_device_sw_upgrade_activate =
     .type = NULL,
 };
 
-/** Group: device - set_8021_as_tod_string. */
-static bcmolt_group_descr group_descr_device_set_8021_as_tod_string =
+/* ===== Group: device - set_8021_as_tod_string ===== */
+static const bcmolt_group_descr _group_descr_device_set_8021_as_tod_string =
 {
     .container_size = sizeof(bcmolt_device_set_8021_as_tod_string),
     .data_offset = offsetof(bcmolt_device_set_8021_as_tod_string, data),
@@ -33182,8 +35582,8 @@ static bcmolt_group_descr group_descr_device_set_8021_as_tod_string =
     .type = &type_descr_bcmolt_device_set_8021_as_tod_string_data,
 };
 
-/** Group: device - image_transfer_start. */
-static bcmolt_group_descr group_descr_device_image_transfer_start =
+/* ===== Group: device - image_transfer_start ===== */
+static const bcmolt_group_descr _group_descr_device_image_transfer_start =
 {
     .container_size = sizeof(bcmolt_device_image_transfer_start),
     .data_offset = offsetof(bcmolt_device_image_transfer_start, data),
@@ -33201,8 +35601,8 @@ static bcmolt_group_descr group_descr_device_image_transfer_start =
     .type = &type_descr_bcmolt_device_image_transfer_start_data,
 };
 
-/** Group: device - image_transfer_data. */
-static bcmolt_group_descr group_descr_device_image_transfer_data =
+/* ===== Group: device - image_transfer_data ===== */
+static const bcmolt_group_descr _group_descr_device_image_transfer_data =
 {
     .container_size = sizeof(bcmolt_device_image_transfer_data),
     .data_offset = offsetof(bcmolt_device_image_transfer_data, data),
@@ -33220,8 +35620,8 @@ static bcmolt_group_descr group_descr_device_image_transfer_data =
     .type = &type_descr_bcmolt_device_image_transfer_data_data,
 };
 
-/** Group: device - run_ddr_test. */
-static bcmolt_group_descr group_descr_device_run_ddr_test =
+/* ===== Group: device - run_ddr_test ===== */
+static const bcmolt_group_descr _group_descr_device_run_ddr_test =
 {
     .container_size = sizeof(bcmolt_device_run_ddr_test),
     .data_offset = offsetof(bcmolt_device_run_ddr_test, data),
@@ -33239,8 +35639,8 @@ static bcmolt_group_descr group_descr_device_run_ddr_test =
     .type = &type_descr_bcmolt_device_run_ddr_test_data,
 };
 
-/** Group: device - device_ready. */
-static bcmolt_group_descr group_descr_device_device_ready =
+/* ===== Group: device - device_ready ===== */
+static const bcmolt_group_descr _group_descr_device_device_ready =
 {
     .container_size = sizeof(bcmolt_device_device_ready),
     .data_offset = offsetof(bcmolt_device_device_ready, data),
@@ -33258,8 +35658,8 @@ static bcmolt_group_descr group_descr_device_device_ready =
     .type = &type_descr_bcmolt_device_device_ready_data,
 };
 
-/** Group: device - connection_established. */
-static bcmolt_group_descr group_descr_device_connection_established =
+/* ===== Group: device - connection_established ===== */
+static const bcmolt_group_descr _group_descr_device_connection_established =
 {
     .container_size = sizeof(bcmolt_device_connection_established),
     .data_offset = 0,
@@ -33277,8 +35677,8 @@ static bcmolt_group_descr group_descr_device_connection_established =
     .type = NULL,
 };
 
-/** Group: device - device_keep_alive. */
-static bcmolt_group_descr group_descr_device_device_keep_alive =
+/* ===== Group: device - device_keep_alive ===== */
+static const bcmolt_group_descr _group_descr_device_device_keep_alive =
 {
     .container_size = sizeof(bcmolt_device_device_keep_alive),
     .data_offset = offsetof(bcmolt_device_device_keep_alive, data),
@@ -33296,8 +35696,8 @@ static bcmolt_group_descr group_descr_device_device_keep_alive =
     .type = &type_descr_bcmolt_device_device_keep_alive_data,
 };
 
-/** Group: device - connection_failure. */
-static bcmolt_group_descr group_descr_device_connection_failure =
+/* ===== Group: device - connection_failure ===== */
+static const bcmolt_group_descr _group_descr_device_connection_failure =
 {
     .container_size = sizeof(bcmolt_device_connection_failure),
     .data_offset = offsetof(bcmolt_device_connection_failure, data),
@@ -33315,8 +35715,8 @@ static bcmolt_group_descr group_descr_device_connection_failure =
     .type = &type_descr_bcmolt_device_connection_failure_data,
 };
 
-/** Group: device - connection_complete. */
-static bcmolt_group_descr group_descr_device_connection_complete =
+/* ===== Group: device - connection_complete ===== */
+static const bcmolt_group_descr _group_descr_device_connection_complete =
 {
     .container_size = sizeof(bcmolt_device_connection_complete),
     .data_offset = offsetof(bcmolt_device_connection_complete, data),
@@ -33334,8 +35734,8 @@ static bcmolt_group_descr group_descr_device_connection_complete =
     .type = &type_descr_bcmolt_device_connection_complete_data,
 };
 
-/** Group: device - disconnection_complete. */
-static bcmolt_group_descr group_descr_device_disconnection_complete =
+/* ===== Group: device - disconnection_complete ===== */
+static const bcmolt_group_descr _group_descr_device_disconnection_complete =
 {
     .container_size = sizeof(bcmolt_device_disconnection_complete),
     .data_offset = offsetof(bcmolt_device_disconnection_complete, data),
@@ -33353,8 +35753,8 @@ static bcmolt_group_descr group_descr_device_disconnection_complete =
     .type = &type_descr_bcmolt_device_disconnection_complete_data,
 };
 
-/** Group: device - sw_error. */
-static bcmolt_group_descr group_descr_device_sw_error =
+/* ===== Group: device - sw_error ===== */
+static const bcmolt_group_descr _group_descr_device_sw_error =
 {
     .container_size = sizeof(bcmolt_device_sw_error),
     .data_offset = offsetof(bcmolt_device_sw_error, data),
@@ -33372,8 +35772,8 @@ static bcmolt_group_descr group_descr_device_sw_error =
     .type = &type_descr_bcmolt_device_sw_error_data,
 };
 
-/** Group: device - sw_exception. */
-static bcmolt_group_descr group_descr_device_sw_exception =
+/* ===== Group: device - sw_exception ===== */
+static const bcmolt_group_descr _group_descr_device_sw_exception =
 {
     .container_size = sizeof(bcmolt_device_sw_exception),
     .data_offset = offsetof(bcmolt_device_sw_exception, data),
@@ -33391,8 +35791,8 @@ static bcmolt_group_descr group_descr_device_sw_exception =
     .type = &type_descr_bcmolt_device_sw_exception_data,
 };
 
-/** Group: device - image_transfer_complete. */
-static bcmolt_group_descr group_descr_device_image_transfer_complete =
+/* ===== Group: device - image_transfer_complete ===== */
+static const bcmolt_group_descr _group_descr_device_image_transfer_complete =
 {
     .container_size = sizeof(bcmolt_device_image_transfer_complete),
     .data_offset = offsetof(bcmolt_device_image_transfer_complete, data),
@@ -33410,8 +35810,8 @@ static bcmolt_group_descr group_descr_device_image_transfer_complete =
     .type = &type_descr_bcmolt_device_image_transfer_complete_data,
 };
 
-/** Group: device - ddr_test_complete. */
-static bcmolt_group_descr group_descr_device_ddr_test_complete =
+/* ===== Group: device - ddr_test_complete ===== */
+static const bcmolt_group_descr _group_descr_device_ddr_test_complete =
 {
     .container_size = sizeof(bcmolt_device_ddr_test_complete),
     .data_offset = offsetof(bcmolt_device_ddr_test_complete, data),
@@ -33429,8 +35829,8 @@ static bcmolt_group_descr group_descr_device_ddr_test_complete =
     .type = &type_descr_bcmolt_device_ddr_test_complete_data,
 };
 
-/** Group: device - sw_health_check_failure. */
-static bcmolt_group_descr group_descr_device_sw_health_check_failure =
+/* ===== Group: device - sw_health_check_failure ===== */
+static const bcmolt_group_descr _group_descr_device_sw_health_check_failure =
 {
     .container_size = sizeof(bcmolt_device_sw_health_check_failure),
     .data_offset = offsetof(bcmolt_device_sw_health_check_failure, data),
@@ -33448,8 +35848,8 @@ static bcmolt_group_descr group_descr_device_sw_health_check_failure =
     .type = &type_descr_bcmolt_device_sw_health_check_failure_data,
 };
 
-/** Group: device - change_inni_mux. */
-static bcmolt_group_descr group_descr_device_change_inni_mux =
+/* ===== Group: device - change_inni_mux ===== */
+static const bcmolt_group_descr _group_descr_device_change_inni_mux =
 {
     .container_size = sizeof(bcmolt_device_change_inni_mux),
     .data_offset = offsetof(bcmolt_device_change_inni_mux, data),
@@ -33467,8 +35867,8 @@ static bcmolt_group_descr group_descr_device_change_inni_mux =
     .type = &type_descr_bcmolt_device_change_inni_mux_data,
 };
 
-/** Group: device - inni_mux_configuration_completed. */
-static bcmolt_group_descr group_descr_device_inni_mux_configuration_completed =
+/* ===== Group: device - inni_mux_configuration_completed ===== */
+static const bcmolt_group_descr _group_descr_device_inni_mux_configuration_completed =
 {
     .container_size = sizeof(bcmolt_device_inni_mux_configuration_completed),
     .data_offset = offsetof(bcmolt_device_inni_mux_configuration_completed, data),
@@ -33486,8 +35886,8 @@ static bcmolt_group_descr group_descr_device_inni_mux_configuration_completed =
     .type = &type_descr_bcmolt_device_inni_mux_configuration_completed_data,
 };
 
-/** Group: device - tod_calibration_done. */
-static bcmolt_group_descr group_descr_device_tod_calibration_done =
+/* ===== Group: device - tod_calibration_done ===== */
+static const bcmolt_group_descr _group_descr_device_tod_calibration_done =
 {
     .container_size = sizeof(bcmolt_device_tod_calibration_done),
     .data_offset = offsetof(bcmolt_device_tod_calibration_done, data),
@@ -33505,8 +35905,8 @@ static bcmolt_group_descr group_descr_device_tod_calibration_done =
     .type = &type_descr_bcmolt_device_tod_calibration_done_data,
 };
 
-/** Group: device - auto_cfg. */
-static bcmolt_group_descr group_descr_device_auto_cfg =
+/* ===== Group: device - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_device_auto_cfg =
 {
     .container_size = sizeof(bcmolt_device_auto_cfg),
     .data_offset = offsetof(bcmolt_device_auto_cfg, data),
@@ -33524,51 +35924,51 @@ static bcmolt_group_descr group_descr_device_auto_cfg =
     .type = &type_descr_bcmolt_device_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_device[] =
+static const bcmolt_group_descr *_groups_device[] =
 {
-    &group_descr_device_key,
-    &group_descr_device_cfg,
-    &group_descr_device_connect,
-    &group_descr_device_disconnect,
-    &group_descr_device_reset,
-    &group_descr_device_host_keep_alive,
-    &group_descr_device_sw_upgrade_activate,
-    &group_descr_device_set_8021_as_tod_string,
-    &group_descr_device_image_transfer_start,
-    &group_descr_device_image_transfer_data,
-    &group_descr_device_run_ddr_test,
-    &group_descr_device_device_ready,
-    &group_descr_device_connection_established,
-    &group_descr_device_device_keep_alive,
-    &group_descr_device_connection_failure,
-    &group_descr_device_connection_complete,
-    &group_descr_device_disconnection_complete,
-    &group_descr_device_sw_error,
-    &group_descr_device_sw_exception,
-    &group_descr_device_image_transfer_complete,
-    &group_descr_device_ddr_test_complete,
-    &group_descr_device_sw_health_check_failure,
-    &group_descr_device_change_inni_mux,
-    &group_descr_device_inni_mux_configuration_completed,
-    &group_descr_device_tod_calibration_done,
-    &group_descr_device_auto_cfg,
+    &_group_descr_device_key,
+    &_group_descr_device_cfg,
+    &_group_descr_device_connect,
+    &_group_descr_device_disconnect,
+    &_group_descr_device_reset,
+    &_group_descr_device_host_keep_alive,
+    &_group_descr_device_sw_upgrade_activate,
+    &_group_descr_device_set_8021_as_tod_string,
+    &_group_descr_device_image_transfer_start,
+    &_group_descr_device_image_transfer_data,
+    &_group_descr_device_run_ddr_test,
+    &_group_descr_device_device_ready,
+    &_group_descr_device_connection_established,
+    &_group_descr_device_device_keep_alive,
+    &_group_descr_device_connection_failure,
+    &_group_descr_device_connection_complete,
+    &_group_descr_device_disconnection_complete,
+    &_group_descr_device_sw_error,
+    &_group_descr_device_sw_exception,
+    &_group_descr_device_image_transfer_complete,
+    &_group_descr_device_ddr_test_complete,
+    &_group_descr_device_sw_health_check_failure,
+    &_group_descr_device_change_inni_mux,
+    &_group_descr_device_inni_mux_configuration_completed,
+    &_group_descr_device_tod_calibration_done,
+    &_group_descr_device_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_device =
+static const bcmolt_obj_descr _obj_descr_device =
 {
     .name = "device",
     .descr = "Singleton object representing the device as a whole.",
     .id = BCMOLT_OBJ_ID_DEVICE,
     .tags = BCMOLT_TAG_DEVICE | BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_device_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_device),
-    .groups = groups_device,
+    .num_groups = BCM_SIZEOFARRAY(_groups_device),
+    .groups = _groups_device,
 };
 
 
-/** ==== Object: erps_interface ==== */
-/** Group: erps_interface - key. */
-static bcmolt_group_descr group_descr_erps_interface_key =
+/* ===== Object: erps_interface ===== */
+/* ===== Group: erps_interface - key ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -33586,8 +35986,8 @@ static bcmolt_group_descr group_descr_erps_interface_key =
     .type = &type_descr_bcmolt_erps_interface_key,
 };
 
-/** Group: erps_interface - cfg. */
-static bcmolt_multi_group_descr multi_descr_erps_interface_cfg =
+/* ===== Group: erps_interface - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_erps_interface_cfg =
 {
     .container_size = sizeof(bcmolt_erps_interface_multi_cfg),
     .key_offset = offsetof(bcmolt_erps_interface_multi_cfg, key),
@@ -33599,7 +35999,7 @@ static bcmolt_multi_group_descr multi_descr_erps_interface_cfg =
     .responses_offset = offsetof(bcmolt_erps_interface_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_erps_interface_cfg =
+static const bcmolt_group_descr _group_descr_erps_interface_cfg =
 {
     .container_size = sizeof(bcmolt_erps_interface_cfg),
     .data_offset = offsetof(bcmolt_erps_interface_cfg, data),
@@ -33610,7 +36010,7 @@ static bcmolt_group_descr group_descr_erps_interface_cfg =
     .key_offset = offsetof(bcmolt_erps_interface_cfg, key),
     .key_size = sizeof(bcmolt_erps_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_erps_interface_cfg,
+    .multi = &_multi_descr_erps_interface_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ERPS_INTERFACE,
     .subgroup_idx = 0,
@@ -33618,8 +36018,8 @@ static bcmolt_group_descr group_descr_erps_interface_cfg =
     .type = &type_descr_bcmolt_erps_interface_cfg_data,
 };
 
-/** Group: erps_interface - set_ring_port_control. */
-static bcmolt_group_descr group_descr_erps_interface_set_ring_port_control =
+/* ===== Group: erps_interface - set_ring_port_control ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_set_ring_port_control =
 {
     .container_size = sizeof(bcmolt_erps_interface_set_ring_port_control),
     .data_offset = offsetof(bcmolt_erps_interface_set_ring_port_control, data),
@@ -33637,8 +36037,8 @@ static bcmolt_group_descr group_descr_erps_interface_set_ring_port_control =
     .type = &type_descr_bcmolt_erps_interface_set_ring_port_control_data,
 };
 
-/** Group: erps_interface - ring_port_control. */
-static bcmolt_group_descr group_descr_erps_interface_ring_port_control =
+/* ===== Group: erps_interface - ring_port_control ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_ring_port_control =
 {
     .container_size = sizeof(bcmolt_erps_interface_ring_port_control),
     .data_offset = offsetof(bcmolt_erps_interface_ring_port_control, data),
@@ -33656,8 +36056,8 @@ static bcmolt_group_descr group_descr_erps_interface_ring_port_control =
     .type = &type_descr_bcmolt_erps_interface_ring_port_control_data,
 };
 
-/** Group: erps_interface - set_intf_opt. */
-static bcmolt_group_descr group_descr_erps_interface_set_intf_opt =
+/* ===== Group: erps_interface - set_intf_opt ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_set_intf_opt =
 {
     .container_size = sizeof(bcmolt_erps_interface_set_intf_opt),
     .data_offset = offsetof(bcmolt_erps_interface_set_intf_opt, data),
@@ -33675,8 +36075,8 @@ static bcmolt_group_descr group_descr_erps_interface_set_intf_opt =
     .type = &type_descr_bcmolt_erps_interface_set_intf_opt_data,
 };
 
-/** Group: erps_interface - port_update. */
-static bcmolt_group_descr group_descr_erps_interface_port_update =
+/* ===== Group: erps_interface - port_update ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_port_update =
 {
     .container_size = sizeof(bcmolt_erps_interface_port_update),
     .data_offset = offsetof(bcmolt_erps_interface_port_update, data),
@@ -33694,8 +36094,8 @@ static bcmolt_group_descr group_descr_erps_interface_port_update =
     .type = &type_descr_bcmolt_erps_interface_port_update_data,
 };
 
-/** Group: erps_interface - set_intf_opt_complete. */
-static bcmolt_group_descr group_descr_erps_interface_set_intf_opt_complete =
+/* ===== Group: erps_interface - set_intf_opt_complete ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_set_intf_opt_complete =
 {
     .container_size = sizeof(bcmolt_erps_interface_set_intf_opt_complete),
     .data_offset = offsetof(bcmolt_erps_interface_set_intf_opt_complete, data),
@@ -33713,8 +36113,8 @@ static bcmolt_group_descr group_descr_erps_interface_set_intf_opt_complete =
     .type = &type_descr_bcmolt_erps_interface_set_intf_opt_complete_data,
 };
 
-/** Group: erps_interface - port_update_complete. */
-static bcmolt_group_descr group_descr_erps_interface_port_update_complete =
+/* ===== Group: erps_interface - port_update_complete ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_port_update_complete =
 {
     .container_size = sizeof(bcmolt_erps_interface_port_update_complete),
     .data_offset = offsetof(bcmolt_erps_interface_port_update_complete, data),
@@ -33732,8 +36132,8 @@ static bcmolt_group_descr group_descr_erps_interface_port_update_complete =
     .type = &type_descr_bcmolt_erps_interface_port_update_complete_data,
 };
 
-/** Group: erps_interface - auto_cfg. */
-static bcmolt_group_descr group_descr_erps_interface_auto_cfg =
+/* ===== Group: erps_interface - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_erps_interface_auto_cfg =
 {
     .container_size = sizeof(bcmolt_erps_interface_auto_cfg),
     .data_offset = offsetof(bcmolt_erps_interface_auto_cfg, data),
@@ -33751,34 +36151,34 @@ static bcmolt_group_descr group_descr_erps_interface_auto_cfg =
     .type = &type_descr_bcmolt_erps_interface_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_erps_interface[] =
+static const bcmolt_group_descr *_groups_erps_interface[] =
 {
-    &group_descr_erps_interface_key,
-    &group_descr_erps_interface_cfg,
-    &group_descr_erps_interface_set_ring_port_control,
-    &group_descr_erps_interface_ring_port_control,
-    &group_descr_erps_interface_set_intf_opt,
-    &group_descr_erps_interface_port_update,
-    &group_descr_erps_interface_set_intf_opt_complete,
-    &group_descr_erps_interface_port_update_complete,
-    &group_descr_erps_interface_auto_cfg,
+    &_group_descr_erps_interface_key,
+    &_group_descr_erps_interface_cfg,
+    &_group_descr_erps_interface_set_ring_port_control,
+    &_group_descr_erps_interface_ring_port_control,
+    &_group_descr_erps_interface_set_intf_opt,
+    &_group_descr_erps_interface_port_update,
+    &_group_descr_erps_interface_set_intf_opt_complete,
+    &_group_descr_erps_interface_port_update_complete,
+    &_group_descr_erps_interface_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_erps_interface =
+static const bcmolt_obj_descr _obj_descr_erps_interface =
 {
     .name = "erps_interface",
     .descr = "G.8032 Ethernet Ring Protection Switching ERPS.",
     .id = BCMOLT_OBJ_ID_ERPS_INTERFACE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_erps_interface_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_erps_interface),
-    .groups = groups_erps_interface,
+    .num_groups = BCM_SIZEOFARRAY(_groups_erps_interface),
+    .groups = _groups_erps_interface,
 };
 
 
-/** ==== Object: eth_oam ==== */
-/** Group: eth_oam - key. */
-static bcmolt_group_descr group_descr_eth_oam_key =
+/* ===== Object: eth_oam ===== */
+/* ===== Group: eth_oam - key ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -33796,8 +36196,8 @@ static bcmolt_group_descr group_descr_eth_oam_key =
     .type = &type_descr_bcmolt_eth_oam_key,
 };
 
-/** Group: eth_oam - cfg. */
-static bcmolt_multi_group_descr multi_descr_eth_oam_cfg =
+/* ===== Group: eth_oam - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_eth_oam_cfg =
 {
     .container_size = sizeof(bcmolt_eth_oam_multi_cfg),
     .key_offset = offsetof(bcmolt_eth_oam_multi_cfg, key),
@@ -33809,7 +36209,7 @@ static bcmolt_multi_group_descr multi_descr_eth_oam_cfg =
     .responses_offset = offsetof(bcmolt_eth_oam_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_eth_oam_cfg =
+static const bcmolt_group_descr _group_descr_eth_oam_cfg =
 {
     .container_size = sizeof(bcmolt_eth_oam_cfg),
     .data_offset = offsetof(bcmolt_eth_oam_cfg, data),
@@ -33820,7 +36220,7 @@ static bcmolt_group_descr group_descr_eth_oam_cfg =
     .key_offset = offsetof(bcmolt_eth_oam_cfg, key),
     .key_size = sizeof(bcmolt_eth_oam_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_eth_oam_cfg,
+    .multi = &_multi_descr_eth_oam_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ETH_OAM,
     .subgroup_idx = 0,
@@ -33828,8 +36228,8 @@ static bcmolt_group_descr group_descr_eth_oam_cfg =
     .type = &type_descr_bcmolt_eth_oam_cfg_data,
 };
 
-/** Group: eth_oam - ccm_event. */
-static bcmolt_group_descr group_descr_eth_oam_ccm_event =
+/* ===== Group: eth_oam - ccm_event ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_ccm_event =
 {
     .container_size = sizeof(bcmolt_eth_oam_ccm_event),
     .data_offset = offsetof(bcmolt_eth_oam_ccm_event, data),
@@ -33847,8 +36247,8 @@ static bcmolt_group_descr group_descr_eth_oam_ccm_event =
     .type = &type_descr_bcmolt_eth_oam_ccm_event_data,
 };
 
-/** Group: eth_oam - stats. */
-static bcmolt_multi_group_descr multi_descr_eth_oam_stats =
+/* ===== Group: eth_oam - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_eth_oam_stats =
 {
     .container_size = sizeof(bcmolt_eth_oam_multi_stats),
     .key_offset = offsetof(bcmolt_eth_oam_multi_stats, key),
@@ -33860,7 +36260,7 @@ static bcmolt_multi_group_descr multi_descr_eth_oam_stats =
     .responses_offset = offsetof(bcmolt_eth_oam_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_eth_oam_stats =
+static const bcmolt_group_descr _group_descr_eth_oam_stats =
 {
     .container_size = sizeof(bcmolt_eth_oam_stats),
     .data_offset = offsetof(bcmolt_eth_oam_stats, data),
@@ -33871,7 +36271,7 @@ static bcmolt_group_descr group_descr_eth_oam_stats =
     .key_offset = offsetof(bcmolt_eth_oam_stats, key),
     .key_size = sizeof(bcmolt_eth_oam_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_eth_oam_stats,
+    .multi = &_multi_descr_eth_oam_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_ETH_OAM,
     .subgroup_idx = BCMOLT_ETH_OAM_STAT_SUBGROUP_STATS,
@@ -33879,8 +36279,8 @@ static bcmolt_group_descr group_descr_eth_oam_stats =
     .type = &type_descr_bcmolt_eth_oam_stats_data,
 };
 
-/** Group: eth_oam - set_mep_state. */
-static bcmolt_group_descr group_descr_eth_oam_set_mep_state =
+/* ===== Group: eth_oam - set_mep_state ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_set_mep_state =
 {
     .container_size = sizeof(bcmolt_eth_oam_set_mep_state),
     .data_offset = offsetof(bcmolt_eth_oam_set_mep_state, data),
@@ -33898,8 +36298,8 @@ static bcmolt_group_descr group_descr_eth_oam_set_mep_state =
     .type = &type_descr_bcmolt_eth_oam_set_mep_state_data,
 };
 
-/** Group: eth_oam - state_change. */
-static bcmolt_group_descr group_descr_eth_oam_state_change =
+/* ===== Group: eth_oam - state_change ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_state_change =
 {
     .container_size = sizeof(bcmolt_eth_oam_state_change),
     .data_offset = offsetof(bcmolt_eth_oam_state_change, data),
@@ -33917,8 +36317,8 @@ static bcmolt_group_descr group_descr_eth_oam_state_change =
     .type = &type_descr_bcmolt_eth_oam_state_change_data,
 };
 
-/** Group: eth_oam - stats_cfg. */
-static bcmolt_group_descr group_descr_eth_oam_stats_cfg =
+/* ===== Group: eth_oam - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_stats_cfg =
 {
     .container_size = sizeof(bcmolt_eth_oam_stats_cfg),
     .data_offset = offsetof(bcmolt_eth_oam_stats_cfg, data),
@@ -33936,8 +36336,8 @@ static bcmolt_group_descr group_descr_eth_oam_stats_cfg =
     .type = &type_descr_bcmolt_eth_oam_stats_cfg_data,
 };
 
-/** Group: eth_oam - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_eth_oam_stats_alarm_raised =
+/* ===== Group: eth_oam - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_eth_oam_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_eth_oam_stats_alarm_raised, data),
@@ -33955,8 +36355,8 @@ static bcmolt_group_descr group_descr_eth_oam_stats_alarm_raised =
     .type = &type_descr_bcmolt_eth_oam_stats_alarm_raised_data,
 };
 
-/** Group: eth_oam - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_eth_oam_stats_alarm_cleared =
+/* ===== Group: eth_oam - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_eth_oam_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_eth_oam_stats_alarm_cleared, data),
@@ -33974,8 +36374,8 @@ static bcmolt_group_descr group_descr_eth_oam_stats_alarm_cleared =
     .type = &type_descr_bcmolt_eth_oam_stats_alarm_cleared_data,
 };
 
-/** Group: eth_oam - auto_cfg. */
-static bcmolt_group_descr group_descr_eth_oam_auto_cfg =
+/* ===== Group: eth_oam - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_eth_oam_auto_cfg =
 {
     .container_size = sizeof(bcmolt_eth_oam_auto_cfg),
     .data_offset = offsetof(bcmolt_eth_oam_auto_cfg, data),
@@ -33993,35 +36393,35 @@ static bcmolt_group_descr group_descr_eth_oam_auto_cfg =
     .type = &type_descr_bcmolt_eth_oam_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_eth_oam[] =
+static const bcmolt_group_descr *_groups_eth_oam[] =
 {
-    &group_descr_eth_oam_key,
-    &group_descr_eth_oam_cfg,
-    &group_descr_eth_oam_ccm_event,
-    &group_descr_eth_oam_stats,
-    &group_descr_eth_oam_set_mep_state,
-    &group_descr_eth_oam_state_change,
-    &group_descr_eth_oam_stats_cfg,
-    &group_descr_eth_oam_stats_alarm_raised,
-    &group_descr_eth_oam_stats_alarm_cleared,
-    &group_descr_eth_oam_auto_cfg,
+    &_group_descr_eth_oam_key,
+    &_group_descr_eth_oam_cfg,
+    &_group_descr_eth_oam_ccm_event,
+    &_group_descr_eth_oam_stats,
+    &_group_descr_eth_oam_set_mep_state,
+    &_group_descr_eth_oam_state_change,
+    &_group_descr_eth_oam_stats_cfg,
+    &_group_descr_eth_oam_stats_alarm_raised,
+    &_group_descr_eth_oam_stats_alarm_cleared,
+    &_group_descr_eth_oam_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_eth_oam =
+static const bcmolt_obj_descr _obj_descr_eth_oam =
 {
     .name = "eth_oam",
     .descr = "Container to provision OAMP for Ethernet OAM features. .",
     .id = BCMOLT_OBJ_ID_ETH_OAM,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_eth_oam_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_eth_oam),
-    .groups = groups_eth_oam,
+    .num_groups = BCM_SIZEOFARRAY(_groups_eth_oam),
+    .groups = _groups_eth_oam,
 };
 
 
-/** ==== Object: flow ==== */
-/** Group: flow - cfg. */
-static bcmolt_multi_group_descr multi_descr_flow_cfg =
+/* ===== Object: flow ===== */
+/* ===== Group: flow - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_flow_cfg =
 {
     .container_size = sizeof(bcmolt_flow_multi_cfg),
     .key_offset = offsetof(bcmolt_flow_multi_cfg, key),
@@ -34033,7 +36433,7 @@ static bcmolt_multi_group_descr multi_descr_flow_cfg =
     .responses_offset = offsetof(bcmolt_flow_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_flow_cfg =
+static const bcmolt_group_descr _group_descr_flow_cfg =
 {
     .container_size = sizeof(bcmolt_flow_cfg),
     .data_offset = offsetof(bcmolt_flow_cfg, data),
@@ -34044,7 +36444,7 @@ static bcmolt_group_descr group_descr_flow_cfg =
     .key_offset = offsetof(bcmolt_flow_cfg, key),
     .key_size = sizeof(bcmolt_flow_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_flow_cfg,
+    .multi = &_multi_descr_flow_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_FLOW,
     .subgroup_idx = 0,
@@ -34052,8 +36452,8 @@ static bcmolt_group_descr group_descr_flow_cfg =
     .type = &type_descr_bcmolt_flow_cfg_data,
 };
 
-/** Group: flow - key. */
-static bcmolt_group_descr group_descr_flow_key =
+/* ===== Group: flow - key ===== */
+static const bcmolt_group_descr _group_descr_flow_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34071,8 +36471,8 @@ static bcmolt_group_descr group_descr_flow_key =
     .type = &type_descr_bcmolt_flow_key,
 };
 
-/** Group: flow - stats. */
-static bcmolt_multi_group_descr multi_descr_flow_stats =
+/* ===== Group: flow - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_flow_stats =
 {
     .container_size = sizeof(bcmolt_flow_multi_stats),
     .key_offset = offsetof(bcmolt_flow_multi_stats, key),
@@ -34084,7 +36484,7 @@ static bcmolt_multi_group_descr multi_descr_flow_stats =
     .responses_offset = offsetof(bcmolt_flow_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_flow_stats =
+static const bcmolt_group_descr _group_descr_flow_stats =
 {
     .container_size = sizeof(bcmolt_flow_stats),
     .data_offset = offsetof(bcmolt_flow_stats, data),
@@ -34095,7 +36495,7 @@ static bcmolt_group_descr group_descr_flow_stats =
     .key_offset = offsetof(bcmolt_flow_stats, key),
     .key_size = sizeof(bcmolt_flow_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_flow_stats,
+    .multi = &_multi_descr_flow_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_FLOW,
     .subgroup_idx = BCMOLT_FLOW_STAT_SUBGROUP_STATS,
@@ -34103,8 +36503,8 @@ static bcmolt_group_descr group_descr_flow_stats =
     .type = &type_descr_bcmolt_flow_stats_data,
 };
 
-/** Group: flow - send_eth_packet. */
-static bcmolt_group_descr group_descr_flow_send_eth_packet =
+/* ===== Group: flow - send_eth_packet ===== */
+static const bcmolt_group_descr _group_descr_flow_send_eth_packet =
 {
     .container_size = sizeof(bcmolt_flow_send_eth_packet),
     .data_offset = offsetof(bcmolt_flow_send_eth_packet, data),
@@ -34122,8 +36522,27 @@ static bcmolt_group_descr group_descr_flow_send_eth_packet =
     .type = &type_descr_bcmolt_flow_send_eth_packet_data,
 };
 
-/** Group: flow - stats_cfg. */
-static bcmolt_group_descr group_descr_flow_stats_cfg =
+/* ===== Group: flow - src_binding_update ===== */
+static const bcmolt_group_descr _group_descr_flow_src_binding_update =
+{
+    .container_size = sizeof(bcmolt_flow_src_binding_update),
+    .data_offset = offsetof(bcmolt_flow_src_binding_update, data),
+    .data_size = sizeof(bcmolt_flow_src_binding_update_data),
+    .descr = "source binding update.",
+    .global_id = BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE,
+    .id = 4,
+    .key_offset = offsetof(bcmolt_flow_src_binding_update, key),
+    .key_size = sizeof(bcmolt_flow_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "src_binding_update",
+    .obj_id = BCMOLT_OBJ_ID_FLOW,
+    .subgroup_idx = BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE,
+    .tags = 0,
+    .type = &type_descr_bcmolt_flow_src_binding_update_data,
+};
+
+/* ===== Group: flow - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_flow_stats_cfg =
 {
     .container_size = sizeof(bcmolt_flow_stats_cfg),
     .data_offset = offsetof(bcmolt_flow_stats_cfg, data),
@@ -34141,8 +36560,8 @@ static bcmolt_group_descr group_descr_flow_stats_cfg =
     .type = &type_descr_bcmolt_flow_stats_cfg_data,
 };
 
-/** Group: flow - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_flow_stats_alarm_raised =
+/* ===== Group: flow - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_flow_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_flow_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_flow_stats_alarm_raised, data),
@@ -34160,8 +36579,8 @@ static bcmolt_group_descr group_descr_flow_stats_alarm_raised =
     .type = &type_descr_bcmolt_flow_stats_alarm_raised_data,
 };
 
-/** Group: flow - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_flow_stats_alarm_cleared =
+/* ===== Group: flow - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_flow_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_flow_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_flow_stats_alarm_cleared, data),
@@ -34179,8 +36598,8 @@ static bcmolt_group_descr group_descr_flow_stats_alarm_cleared =
     .type = &type_descr_bcmolt_flow_stats_alarm_cleared_data,
 };
 
-/** Group: flow - auto_cfg. */
-static bcmolt_group_descr group_descr_flow_auto_cfg =
+/* ===== Group: flow - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_flow_auto_cfg =
 {
     .container_size = sizeof(bcmolt_flow_auto_cfg),
     .data_offset = offsetof(bcmolt_flow_auto_cfg, data),
@@ -34198,33 +36617,34 @@ static bcmolt_group_descr group_descr_flow_auto_cfg =
     .type = &type_descr_bcmolt_flow_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_flow[] =
+static const bcmolt_group_descr *_groups_flow[] =
 {
-    &group_descr_flow_cfg,
-    &group_descr_flow_key,
-    &group_descr_flow_stats,
-    &group_descr_flow_send_eth_packet,
-    &group_descr_flow_stats_cfg,
-    &group_descr_flow_stats_alarm_raised,
-    &group_descr_flow_stats_alarm_cleared,
-    &group_descr_flow_auto_cfg,
+    &_group_descr_flow_cfg,
+    &_group_descr_flow_key,
+    &_group_descr_flow_stats,
+    &_group_descr_flow_send_eth_packet,
+    &_group_descr_flow_src_binding_update,
+    &_group_descr_flow_stats_cfg,
+    &_group_descr_flow_stats_alarm_raised,
+    &_group_descr_flow_stats_alarm_cleared,
+    &_group_descr_flow_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_flow =
+static const bcmolt_obj_descr _obj_descr_flow =
 {
     .name = "flow",
     .descr = "BAL Flow.",
     .id = BCMOLT_OBJ_ID_FLOW,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_flow_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_flow),
-    .groups = groups_flow,
+    .num_groups = BCM_SIZEOFARRAY(_groups_flow),
+    .groups = _groups_flow,
 };
 
 
-/** ==== Object: gpio ==== */
-/** Group: gpio - key. */
-static bcmolt_group_descr group_descr_gpio_key =
+/* ===== Object: gpio ===== */
+/* ===== Group: gpio - key ===== */
+static const bcmolt_group_descr _group_descr_gpio_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34242,8 +36662,8 @@ static bcmolt_group_descr group_descr_gpio_key =
     .type = &type_descr_bcmolt_gpio_key,
 };
 
-/** Group: gpio - cfg. */
-static bcmolt_multi_group_descr multi_descr_gpio_cfg =
+/* ===== Group: gpio - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_gpio_cfg =
 {
     .container_size = sizeof(bcmolt_gpio_multi_cfg),
     .key_offset = offsetof(bcmolt_gpio_multi_cfg, key),
@@ -34255,7 +36675,7 @@ static bcmolt_multi_group_descr multi_descr_gpio_cfg =
     .responses_offset = offsetof(bcmolt_gpio_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_gpio_cfg =
+static const bcmolt_group_descr _group_descr_gpio_cfg =
 {
     .container_size = sizeof(bcmolt_gpio_cfg),
     .data_offset = offsetof(bcmolt_gpio_cfg, data),
@@ -34266,7 +36686,7 @@ static bcmolt_group_descr group_descr_gpio_cfg =
     .key_offset = offsetof(bcmolt_gpio_cfg, key),
     .key_size = sizeof(bcmolt_gpio_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_gpio_cfg,
+    .multi = &_multi_descr_gpio_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_GPIO,
     .subgroup_idx = 0,
@@ -34274,27 +36694,27 @@ static bcmolt_group_descr group_descr_gpio_cfg =
     .type = &type_descr_bcmolt_gpio_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_gpio[] =
+static const bcmolt_group_descr *_groups_gpio[] =
 {
-    &group_descr_gpio_key,
-    &group_descr_gpio_cfg,
+    &_group_descr_gpio_key,
+    &_group_descr_gpio_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_gpio =
+static const bcmolt_obj_descr _obj_descr_gpio =
 {
     .name = "gpio",
     .descr = "GPIO control.",
     .id = BCMOLT_OBJ_ID_GPIO,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_gpio_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_gpio),
-    .groups = groups_gpio,
+    .num_groups = BCM_SIZEOFARRAY(_groups_gpio),
+    .groups = _groups_gpio,
 };
 
 
-/** ==== Object: group ==== */
-/** Group: group - cfg. */
-static bcmolt_multi_group_descr multi_descr_group_cfg =
+/* ===== Object: group ===== */
+/* ===== Group: group - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_group_cfg =
 {
     .container_size = sizeof(bcmolt_group_multi_cfg),
     .key_offset = offsetof(bcmolt_group_multi_cfg, key),
@@ -34306,7 +36726,7 @@ static bcmolt_multi_group_descr multi_descr_group_cfg =
     .responses_offset = offsetof(bcmolt_group_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_group_cfg =
+static const bcmolt_group_descr _group_descr_group_cfg =
 {
     .container_size = sizeof(bcmolt_group_cfg),
     .data_offset = offsetof(bcmolt_group_cfg, data),
@@ -34317,7 +36737,7 @@ static bcmolt_group_descr group_descr_group_cfg =
     .key_offset = offsetof(bcmolt_group_cfg, key),
     .key_size = sizeof(bcmolt_group_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_group_cfg,
+    .multi = &_multi_descr_group_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_GROUP,
     .subgroup_idx = 0,
@@ -34325,8 +36745,8 @@ static bcmolt_group_descr group_descr_group_cfg =
     .type = &type_descr_bcmolt_group_cfg_data,
 };
 
-/** Group: group - key. */
-static bcmolt_group_descr group_descr_group_key =
+/* ===== Group: group - key ===== */
+static const bcmolt_group_descr _group_descr_group_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34344,8 +36764,8 @@ static bcmolt_group_descr group_descr_group_key =
     .type = &type_descr_bcmolt_group_key,
 };
 
-/** Group: group - members_update. */
-static bcmolt_group_descr group_descr_group_members_update =
+/* ===== Group: group - members_update ===== */
+static const bcmolt_group_descr _group_descr_group_members_update =
 {
     .container_size = sizeof(bcmolt_group_members_update),
     .data_offset = offsetof(bcmolt_group_members_update, data),
@@ -34363,8 +36783,8 @@ static bcmolt_group_descr group_descr_group_members_update =
     .type = &type_descr_bcmolt_group_members_update_data,
 };
 
-/** Group: group - complete_members_update. */
-static bcmolt_group_descr group_descr_group_complete_members_update =
+/* ===== Group: group - complete_members_update ===== */
+static const bcmolt_group_descr _group_descr_group_complete_members_update =
 {
     .container_size = sizeof(bcmolt_group_complete_members_update),
     .data_offset = offsetof(bcmolt_group_complete_members_update, data),
@@ -34382,8 +36802,8 @@ static bcmolt_group_descr group_descr_group_complete_members_update =
     .type = &type_descr_bcmolt_group_complete_members_update_data,
 };
 
-/** Group: group - auto_cfg. */
-static bcmolt_group_descr group_descr_group_auto_cfg =
+/* ===== Group: group - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_group_auto_cfg =
 {
     .container_size = sizeof(bcmolt_group_auto_cfg),
     .data_offset = offsetof(bcmolt_group_auto_cfg, data),
@@ -34401,30 +36821,30 @@ static bcmolt_group_descr group_descr_group_auto_cfg =
     .type = &type_descr_bcmolt_group_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_group[] =
+static const bcmolt_group_descr *_groups_group[] =
 {
-    &group_descr_group_cfg,
-    &group_descr_group_key,
-    &group_descr_group_members_update,
-    &group_descr_group_complete_members_update,
-    &group_descr_group_auto_cfg,
+    &_group_descr_group_cfg,
+    &_group_descr_group_key,
+    &_group_descr_group_members_update,
+    &_group_descr_group_complete_members_update,
+    &_group_descr_group_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_group =
+static const bcmolt_obj_descr _obj_descr_group =
 {
     .name = "group",
     .descr = "BAL Group.",
     .id = BCMOLT_OBJ_ID_GROUP,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_group_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_group),
-    .groups = groups_group,
+    .num_groups = BCM_SIZEOFARRAY(_groups_group),
+    .groups = _groups_group,
 };
 
 
-/** ==== Object: host_log ==== */
-/** Group: host_log - key. */
-static bcmolt_group_descr group_descr_host_log_key =
+/* ===== Object: host_log ===== */
+/* ===== Group: host_log - key ===== */
+static const bcmolt_group_descr _group_descr_host_log_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34442,8 +36862,8 @@ static bcmolt_group_descr group_descr_host_log_key =
     .type = &type_descr_bcmolt_host_log_key,
 };
 
-/** Group: host_log - cfg. */
-static bcmolt_multi_group_descr multi_descr_host_log_cfg =
+/* ===== Group: host_log - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_host_log_cfg =
 {
     .container_size = sizeof(bcmolt_host_log_multi_cfg),
     .key_offset = offsetof(bcmolt_host_log_multi_cfg, key),
@@ -34455,7 +36875,7 @@ static bcmolt_multi_group_descr multi_descr_host_log_cfg =
     .responses_offset = offsetof(bcmolt_host_log_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_host_log_cfg =
+static const bcmolt_group_descr _group_descr_host_log_cfg =
 {
     .container_size = sizeof(bcmolt_host_log_cfg),
     .data_offset = offsetof(bcmolt_host_log_cfg, data),
@@ -34466,7 +36886,7 @@ static bcmolt_group_descr group_descr_host_log_cfg =
     .key_offset = offsetof(bcmolt_host_log_cfg, key),
     .key_size = sizeof(bcmolt_host_log_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_host_log_cfg,
+    .multi = &_multi_descr_host_log_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_HOST_LOG,
     .subgroup_idx = 0,
@@ -34474,27 +36894,27 @@ static bcmolt_group_descr group_descr_host_log_cfg =
     .type = &type_descr_bcmolt_host_log_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_host_log[] =
+static const bcmolt_group_descr *_groups_host_log[] =
 {
-    &group_descr_host_log_key,
-    &group_descr_host_log_cfg,
+    &_group_descr_host_log_key,
+    &_group_descr_host_log_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_host_log =
+static const bcmolt_obj_descr _obj_descr_host_log =
 {
     .name = "host_log",
     .descr = "A single host log source.",
     .id = BCMOLT_OBJ_ID_HOST_LOG,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_host_log_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_host_log),
-    .groups = groups_host_log,
+    .num_groups = BCM_SIZEOFARRAY(_groups_host_log),
+    .groups = _groups_host_log,
 };
 
 
-/** ==== Object: host_log_file ==== */
-/** Group: host_log_file - key. */
-static bcmolt_group_descr group_descr_host_log_file_key =
+/* ===== Object: host_log_file ===== */
+/* ===== Group: host_log_file - key ===== */
+static const bcmolt_group_descr _group_descr_host_log_file_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34512,8 +36932,8 @@ static bcmolt_group_descr group_descr_host_log_file_key =
     .type = &type_descr_bcmolt_host_log_file_key,
 };
 
-/** Group: host_log_file - cfg. */
-static bcmolt_multi_group_descr multi_descr_host_log_file_cfg =
+/* ===== Group: host_log_file - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_host_log_file_cfg =
 {
     .container_size = sizeof(bcmolt_host_log_file_multi_cfg),
     .key_offset = offsetof(bcmolt_host_log_file_multi_cfg, key),
@@ -34525,7 +36945,7 @@ static bcmolt_multi_group_descr multi_descr_host_log_file_cfg =
     .responses_offset = offsetof(bcmolt_host_log_file_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_host_log_file_cfg =
+static const bcmolt_group_descr _group_descr_host_log_file_cfg =
 {
     .container_size = sizeof(bcmolt_host_log_file_cfg),
     .data_offset = offsetof(bcmolt_host_log_file_cfg, data),
@@ -34536,7 +36956,7 @@ static bcmolt_group_descr group_descr_host_log_file_cfg =
     .key_offset = offsetof(bcmolt_host_log_file_cfg, key),
     .key_size = sizeof(bcmolt_host_log_file_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_host_log_file_cfg,
+    .multi = &_multi_descr_host_log_file_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
     .subgroup_idx = 0,
@@ -34544,8 +36964,8 @@ static bcmolt_group_descr group_descr_host_log_file_cfg =
     .type = &type_descr_bcmolt_host_log_file_cfg_data,
 };
 
-/** Group: host_log_file - clear. */
-static bcmolt_group_descr group_descr_host_log_file_clear =
+/* ===== Group: host_log_file - clear ===== */
+static const bcmolt_group_descr _group_descr_host_log_file_clear =
 {
     .container_size = sizeof(bcmolt_host_log_file_clear),
     .data_offset = 0,
@@ -34563,8 +36983,8 @@ static bcmolt_group_descr group_descr_host_log_file_clear =
     .type = NULL,
 };
 
-/** Group: host_log_file - reset_buffer_ptr. */
-static bcmolt_group_descr group_descr_host_log_file_reset_buffer_ptr =
+/* ===== Group: host_log_file - reset_buffer_ptr ===== */
+static const bcmolt_group_descr _group_descr_host_log_file_reset_buffer_ptr =
 {
     .container_size = sizeof(bcmolt_host_log_file_reset_buffer_ptr),
     .data_offset = 0,
@@ -34582,29 +37002,29 @@ static bcmolt_group_descr group_descr_host_log_file_reset_buffer_ptr =
     .type = NULL,
 };
 
-static const bcmolt_group_descr *groups_host_log_file[] =
+static const bcmolt_group_descr *_groups_host_log_file[] =
 {
-    &group_descr_host_log_file_key,
-    &group_descr_host_log_file_cfg,
-    &group_descr_host_log_file_clear,
-    &group_descr_host_log_file_reset_buffer_ptr,
+    &_group_descr_host_log_file_key,
+    &_group_descr_host_log_file_cfg,
+    &_group_descr_host_log_file_clear,
+    &_group_descr_host_log_file_reset_buffer_ptr,
 };
 
-static bcmolt_obj_descr obj_descr_host_log_file =
+static const bcmolt_obj_descr _obj_descr_host_log_file =
 {
     .name = "host_log_file",
     .descr = "Memory file generated by host system logs.",
     .id = BCMOLT_OBJ_ID_HOST_LOG_FILE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_host_log_file_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_host_log_file),
-    .groups = groups_host_log_file,
+    .num_groups = BCM_SIZEOFARRAY(_groups_host_log_file),
+    .groups = _groups_host_log_file,
 };
 
 
-/** ==== Object: inband_mgmt_channel ==== */
-/** Group: inband_mgmt_channel - cfg. */
-static bcmolt_multi_group_descr multi_descr_inband_mgmt_channel_cfg =
+/* ===== Object: inband_mgmt_channel ===== */
+/* ===== Group: inband_mgmt_channel - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_inband_mgmt_channel_cfg =
 {
     .container_size = sizeof(bcmolt_inband_mgmt_channel_multi_cfg),
     .key_offset = offsetof(bcmolt_inband_mgmt_channel_multi_cfg, key),
@@ -34616,7 +37036,7 @@ static bcmolt_multi_group_descr multi_descr_inband_mgmt_channel_cfg =
     .responses_offset = offsetof(bcmolt_inband_mgmt_channel_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_inband_mgmt_channel_cfg =
+static const bcmolt_group_descr _group_descr_inband_mgmt_channel_cfg =
 {
     .container_size = sizeof(bcmolt_inband_mgmt_channel_cfg),
     .data_offset = offsetof(bcmolt_inband_mgmt_channel_cfg, data),
@@ -34627,7 +37047,7 @@ static bcmolt_group_descr group_descr_inband_mgmt_channel_cfg =
     .key_offset = offsetof(bcmolt_inband_mgmt_channel_cfg, key),
     .key_size = sizeof(bcmolt_inband_mgmt_channel_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_inband_mgmt_channel_cfg,
+    .multi = &_multi_descr_inband_mgmt_channel_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL,
     .subgroup_idx = 0,
@@ -34635,8 +37055,8 @@ static bcmolt_group_descr group_descr_inband_mgmt_channel_cfg =
     .type = &type_descr_bcmolt_inband_mgmt_channel_cfg_data,
 };
 
-/** Group: inband_mgmt_channel - key. */
-static bcmolt_group_descr group_descr_inband_mgmt_channel_key =
+/* ===== Group: inband_mgmt_channel - key ===== */
+static const bcmolt_group_descr _group_descr_inband_mgmt_channel_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34654,27 +37074,27 @@ static bcmolt_group_descr group_descr_inband_mgmt_channel_key =
     .type = &type_descr_bcmolt_inband_mgmt_channel_key,
 };
 
-static const bcmolt_group_descr *groups_inband_mgmt_channel[] =
+static const bcmolt_group_descr *_groups_inband_mgmt_channel[] =
 {
-    &group_descr_inband_mgmt_channel_cfg,
-    &group_descr_inband_mgmt_channel_key,
+    &_group_descr_inband_mgmt_channel_cfg,
+    &_group_descr_inband_mgmt_channel_key,
 };
 
-static bcmolt_obj_descr obj_descr_inband_mgmt_channel =
+static const bcmolt_obj_descr _obj_descr_inband_mgmt_channel =
 {
     .name = "inband_mgmt_channel",
     .descr = "BAL Inband Management Channel.",
     .id = BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_inband_mgmt_channel_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_inband_mgmt_channel),
-    .groups = groups_inband_mgmt_channel,
+    .num_groups = BCM_SIZEOFARRAY(_groups_inband_mgmt_channel),
+    .groups = _groups_inband_mgmt_channel,
 };
 
 
-/** ==== Object: internal_nni ==== */
-/** Group: internal_nni - key. */
-static bcmolt_group_descr group_descr_internal_nni_key =
+/* ===== Object: internal_nni ===== */
+/* ===== Group: internal_nni - key ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -34692,8 +37112,8 @@ static bcmolt_group_descr group_descr_internal_nni_key =
     .type = &type_descr_bcmolt_internal_nni_key,
 };
 
-/** Group: internal_nni - cfg. */
-static bcmolt_multi_group_descr multi_descr_internal_nni_cfg =
+/* ===== Group: internal_nni - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_internal_nni_cfg =
 {
     .container_size = sizeof(bcmolt_internal_nni_multi_cfg),
     .key_offset = offsetof(bcmolt_internal_nni_multi_cfg, key),
@@ -34705,7 +37125,7 @@ static bcmolt_multi_group_descr multi_descr_internal_nni_cfg =
     .responses_offset = offsetof(bcmolt_internal_nni_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_internal_nni_cfg =
+static const bcmolt_group_descr _group_descr_internal_nni_cfg =
 {
     .container_size = sizeof(bcmolt_internal_nni_cfg),
     .data_offset = offsetof(bcmolt_internal_nni_cfg, data),
@@ -34716,7 +37136,7 @@ static bcmolt_group_descr group_descr_internal_nni_cfg =
     .key_offset = offsetof(bcmolt_internal_nni_cfg, key),
     .key_size = sizeof(bcmolt_internal_nni_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_internal_nni_cfg,
+    .multi = &_multi_descr_internal_nni_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_INTERNAL_NNI,
     .subgroup_idx = 0,
@@ -34724,8 +37144,8 @@ static bcmolt_group_descr group_descr_internal_nni_cfg =
     .type = &type_descr_bcmolt_internal_nni_cfg_data,
 };
 
-/** Group: internal_nni - status_changed. */
-static bcmolt_group_descr group_descr_internal_nni_status_changed =
+/* ===== Group: internal_nni - status_changed ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_status_changed =
 {
     .container_size = sizeof(bcmolt_internal_nni_status_changed),
     .data_offset = offsetof(bcmolt_internal_nni_status_changed, data),
@@ -34743,8 +37163,8 @@ static bcmolt_group_descr group_descr_internal_nni_status_changed =
     .type = &type_descr_bcmolt_internal_nni_status_changed_data,
 };
 
-/** Group: internal_nni - nni_stats. */
-static bcmolt_multi_group_descr multi_descr_internal_nni_nni_stats =
+/* ===== Group: internal_nni - nni_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_internal_nni_nni_stats =
 {
     .container_size = sizeof(bcmolt_internal_nni_multi_nni_stats),
     .key_offset = offsetof(bcmolt_internal_nni_multi_nni_stats, key),
@@ -34756,7 +37176,7 @@ static bcmolt_multi_group_descr multi_descr_internal_nni_nni_stats =
     .responses_offset = offsetof(bcmolt_internal_nni_multi_nni_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_internal_nni_nni_stats =
+static const bcmolt_group_descr _group_descr_internal_nni_nni_stats =
 {
     .container_size = sizeof(bcmolt_internal_nni_nni_stats),
     .data_offset = offsetof(bcmolt_internal_nni_nni_stats, data),
@@ -34767,7 +37187,7 @@ static bcmolt_group_descr group_descr_internal_nni_nni_stats =
     .key_offset = offsetof(bcmolt_internal_nni_nni_stats, key),
     .key_size = sizeof(bcmolt_internal_nni_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_internal_nni_nni_stats,
+    .multi = &_multi_descr_internal_nni_nni_stats,
     .name = "nni_stats",
     .obj_id = BCMOLT_OBJ_ID_INTERNAL_NNI,
     .subgroup_idx = BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_NNI_STATS,
@@ -34775,8 +37195,8 @@ static bcmolt_group_descr group_descr_internal_nni_nni_stats =
     .type = &type_descr_bcmolt_internal_nni_nni_stats_data,
 };
 
-/** Group: internal_nni - enet_stats. */
-static bcmolt_multi_group_descr multi_descr_internal_nni_enet_stats =
+/* ===== Group: internal_nni - enet_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_internal_nni_enet_stats =
 {
     .container_size = sizeof(bcmolt_internal_nni_multi_enet_stats),
     .key_offset = offsetof(bcmolt_internal_nni_multi_enet_stats, key),
@@ -34788,7 +37208,7 @@ static bcmolt_multi_group_descr multi_descr_internal_nni_enet_stats =
     .responses_offset = offsetof(bcmolt_internal_nni_multi_enet_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_internal_nni_enet_stats =
+static const bcmolt_group_descr _group_descr_internal_nni_enet_stats =
 {
     .container_size = sizeof(bcmolt_internal_nni_enet_stats),
     .data_offset = offsetof(bcmolt_internal_nni_enet_stats, data),
@@ -34799,7 +37219,7 @@ static bcmolt_group_descr group_descr_internal_nni_enet_stats =
     .key_offset = offsetof(bcmolt_internal_nni_enet_stats, key),
     .key_size = sizeof(bcmolt_internal_nni_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_internal_nni_enet_stats,
+    .multi = &_multi_descr_internal_nni_enet_stats,
     .name = "enet_stats",
     .obj_id = BCMOLT_OBJ_ID_INTERNAL_NNI,
     .subgroup_idx = BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_ENET_STATS,
@@ -34807,8 +37227,8 @@ static bcmolt_group_descr group_descr_internal_nni_enet_stats =
     .type = &type_descr_bcmolt_internal_nni_enet_stats_data,
 };
 
-/** Group: internal_nni - packet_captured. */
-static bcmolt_group_descr group_descr_internal_nni_packet_captured =
+/* ===== Group: internal_nni - packet_captured ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_packet_captured =
 {
     .container_size = sizeof(bcmolt_internal_nni_packet_captured),
     .data_offset = offsetof(bcmolt_internal_nni_packet_captured, data),
@@ -34826,8 +37246,8 @@ static bcmolt_group_descr group_descr_internal_nni_packet_captured =
     .type = &type_descr_bcmolt_internal_nni_packet_captured_data,
 };
 
-/** Group: internal_nni - send_eth_packet. */
-static bcmolt_group_descr group_descr_internal_nni_send_eth_packet =
+/* ===== Group: internal_nni - send_eth_packet ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_send_eth_packet =
 {
     .container_size = sizeof(bcmolt_internal_nni_send_eth_packet),
     .data_offset = offsetof(bcmolt_internal_nni_send_eth_packet, data),
@@ -34845,8 +37265,8 @@ static bcmolt_group_descr group_descr_internal_nni_send_eth_packet =
     .type = &type_descr_bcmolt_internal_nni_send_eth_packet_data,
 };
 
-/** Group: internal_nni - swap_completed. */
-static bcmolt_group_descr group_descr_internal_nni_swap_completed =
+/* ===== Group: internal_nni - swap_completed ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_swap_completed =
 {
     .container_size = sizeof(bcmolt_internal_nni_swap_completed),
     .data_offset = 0,
@@ -34864,8 +37284,8 @@ static bcmolt_group_descr group_descr_internal_nni_swap_completed =
     .type = NULL,
 };
 
-/** Group: internal_nni - nni_stats_cfg. */
-static bcmolt_group_descr group_descr_internal_nni_nni_stats_cfg =
+/* ===== Group: internal_nni - nni_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_nni_stats_cfg =
 {
     .container_size = sizeof(bcmolt_internal_nni_nni_stats_cfg),
     .data_offset = offsetof(bcmolt_internal_nni_nni_stats_cfg, data),
@@ -34883,8 +37303,8 @@ static bcmolt_group_descr group_descr_internal_nni_nni_stats_cfg =
     .type = &type_descr_bcmolt_internal_nni_nni_stats_cfg_data,
 };
 
-/** Group: internal_nni - nni_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_internal_nni_nni_stats_alarm_raised =
+/* ===== Group: internal_nni - nni_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_nni_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_internal_nni_nni_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_internal_nni_nni_stats_alarm_raised, data),
@@ -34902,8 +37322,8 @@ static bcmolt_group_descr group_descr_internal_nni_nni_stats_alarm_raised =
     .type = &type_descr_bcmolt_internal_nni_nni_stats_alarm_raised_data,
 };
 
-/** Group: internal_nni - nni_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_internal_nni_nni_stats_alarm_cleared =
+/* ===== Group: internal_nni - nni_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_nni_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_internal_nni_nni_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_internal_nni_nni_stats_alarm_cleared, data),
@@ -34921,8 +37341,8 @@ static bcmolt_group_descr group_descr_internal_nni_nni_stats_alarm_cleared =
     .type = &type_descr_bcmolt_internal_nni_nni_stats_alarm_cleared_data,
 };
 
-/** Group: internal_nni - enet_stats_cfg. */
-static bcmolt_group_descr group_descr_internal_nni_enet_stats_cfg =
+/* ===== Group: internal_nni - enet_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_enet_stats_cfg =
 {
     .container_size = sizeof(bcmolt_internal_nni_enet_stats_cfg),
     .data_offset = offsetof(bcmolt_internal_nni_enet_stats_cfg, data),
@@ -34940,8 +37360,8 @@ static bcmolt_group_descr group_descr_internal_nni_enet_stats_cfg =
     .type = &type_descr_bcmolt_internal_nni_enet_stats_cfg_data,
 };
 
-/** Group: internal_nni - enet_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_internal_nni_enet_stats_alarm_raised =
+/* ===== Group: internal_nni - enet_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_enet_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_internal_nni_enet_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_internal_nni_enet_stats_alarm_raised, data),
@@ -34959,8 +37379,8 @@ static bcmolt_group_descr group_descr_internal_nni_enet_stats_alarm_raised =
     .type = &type_descr_bcmolt_internal_nni_enet_stats_alarm_raised_data,
 };
 
-/** Group: internal_nni - enet_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_internal_nni_enet_stats_alarm_cleared =
+/* ===== Group: internal_nni - enet_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_enet_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_internal_nni_enet_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_internal_nni_enet_stats_alarm_cleared, data),
@@ -34978,8 +37398,8 @@ static bcmolt_group_descr group_descr_internal_nni_enet_stats_alarm_cleared =
     .type = &type_descr_bcmolt_internal_nni_enet_stats_alarm_cleared_data,
 };
 
-/** Group: internal_nni - auto_cfg. */
-static bcmolt_group_descr group_descr_internal_nni_auto_cfg =
+/* ===== Group: internal_nni - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_internal_nni_auto_cfg =
 {
     .container_size = sizeof(bcmolt_internal_nni_auto_cfg),
     .data_offset = offsetof(bcmolt_internal_nni_auto_cfg, data),
@@ -34997,40 +37417,40 @@ static bcmolt_group_descr group_descr_internal_nni_auto_cfg =
     .type = &type_descr_bcmolt_internal_nni_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_internal_nni[] =
+static const bcmolt_group_descr *_groups_internal_nni[] =
 {
-    &group_descr_internal_nni_key,
-    &group_descr_internal_nni_cfg,
-    &group_descr_internal_nni_status_changed,
-    &group_descr_internal_nni_nni_stats,
-    &group_descr_internal_nni_enet_stats,
-    &group_descr_internal_nni_packet_captured,
-    &group_descr_internal_nni_send_eth_packet,
-    &group_descr_internal_nni_swap_completed,
-    &group_descr_internal_nni_nni_stats_cfg,
-    &group_descr_internal_nni_nni_stats_alarm_raised,
-    &group_descr_internal_nni_nni_stats_alarm_cleared,
-    &group_descr_internal_nni_enet_stats_cfg,
-    &group_descr_internal_nni_enet_stats_alarm_raised,
-    &group_descr_internal_nni_enet_stats_alarm_cleared,
-    &group_descr_internal_nni_auto_cfg,
+    &_group_descr_internal_nni_key,
+    &_group_descr_internal_nni_cfg,
+    &_group_descr_internal_nni_status_changed,
+    &_group_descr_internal_nni_nni_stats,
+    &_group_descr_internal_nni_enet_stats,
+    &_group_descr_internal_nni_packet_captured,
+    &_group_descr_internal_nni_send_eth_packet,
+    &_group_descr_internal_nni_swap_completed,
+    &_group_descr_internal_nni_nni_stats_cfg,
+    &_group_descr_internal_nni_nni_stats_alarm_raised,
+    &_group_descr_internal_nni_nni_stats_alarm_cleared,
+    &_group_descr_internal_nni_enet_stats_cfg,
+    &_group_descr_internal_nni_enet_stats_alarm_raised,
+    &_group_descr_internal_nni_enet_stats_alarm_cleared,
+    &_group_descr_internal_nni_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_internal_nni =
+static const bcmolt_obj_descr _obj_descr_internal_nni =
 {
     .name = "internal_nni",
     .descr = "Internal Network-Network Interface.",
     .id = BCMOLT_OBJ_ID_INTERNAL_NNI,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_internal_nni_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_internal_nni),
-    .groups = groups_internal_nni,
+    .num_groups = BCM_SIZEOFARRAY(_groups_internal_nni),
+    .groups = _groups_internal_nni,
 };
 
 
-/** ==== Object: itupon_alloc ==== */
-/** Group: itupon_alloc - key. */
-static bcmolt_group_descr group_descr_itupon_alloc_key =
+/* ===== Object: itupon_alloc ===== */
+/* ===== Group: itupon_alloc - key ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35048,8 +37468,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_key =
     .type = &type_descr_bcmolt_itupon_alloc_key,
 };
 
-/** Group: itupon_alloc - cfg. */
-static bcmolt_multi_group_descr multi_descr_itupon_alloc_cfg =
+/* ===== Group: itupon_alloc - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_alloc_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_multi_cfg),
     .key_offset = offsetof(bcmolt_itupon_alloc_multi_cfg, key),
@@ -35061,7 +37481,7 @@ static bcmolt_multi_group_descr multi_descr_itupon_alloc_cfg =
     .responses_offset = offsetof(bcmolt_itupon_alloc_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_itupon_alloc_cfg =
+static const bcmolt_group_descr _group_descr_itupon_alloc_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_cfg),
     .data_offset = offsetof(bcmolt_itupon_alloc_cfg, data),
@@ -35072,7 +37492,7 @@ static bcmolt_group_descr group_descr_itupon_alloc_cfg =
     .key_offset = offsetof(bcmolt_itupon_alloc_cfg, key),
     .key_size = sizeof(bcmolt_itupon_alloc_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_itupon_alloc_cfg,
+    .multi = &_multi_descr_itupon_alloc_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
     .subgroup_idx = 0,
@@ -35080,8 +37500,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_cfg =
     .type = &type_descr_bcmolt_itupon_alloc_cfg_data,
 };
 
-/** Group: itupon_alloc - configuration_completed. */
-static bcmolt_group_descr group_descr_itupon_alloc_configuration_completed =
+/* ===== Group: itupon_alloc - configuration_completed ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_configuration_completed =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_configuration_completed),
     .data_offset = offsetof(bcmolt_itupon_alloc_configuration_completed, data),
@@ -35099,8 +37519,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_configuration_completed =
     .type = &type_descr_bcmolt_itupon_alloc_configuration_completed_data,
 };
 
-/** Group: itupon_alloc - get_stats. */
-static bcmolt_group_descr group_descr_itupon_alloc_get_stats =
+/* ===== Group: itupon_alloc - get_stats ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_get_stats =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_get_stats),
     .data_offset = offsetof(bcmolt_itupon_alloc_get_stats, data),
@@ -35118,8 +37538,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_get_stats =
     .type = &type_descr_bcmolt_itupon_alloc_get_stats_data,
 };
 
-/** Group: itupon_alloc - get_alloc_stats_completed. */
-static bcmolt_group_descr group_descr_itupon_alloc_get_alloc_stats_completed =
+/* ===== Group: itupon_alloc - get_alloc_stats_completed ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_get_alloc_stats_completed =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_get_alloc_stats_completed),
     .data_offset = offsetof(bcmolt_itupon_alloc_get_alloc_stats_completed, data),
@@ -35137,8 +37557,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_get_alloc_stats_completed =
     .type = &type_descr_bcmolt_itupon_alloc_get_alloc_stats_completed_data,
 };
 
-/** Group: itupon_alloc - set_state. */
-static bcmolt_group_descr group_descr_itupon_alloc_set_state =
+/* ===== Group: itupon_alloc - set_state ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_set_state =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_set_state),
     .data_offset = offsetof(bcmolt_itupon_alloc_set_state, data),
@@ -35156,8 +37576,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_set_state =
     .type = &type_descr_bcmolt_itupon_alloc_set_state_data,
 };
 
-/** Group: itupon_alloc - stats. */
-static bcmolt_multi_group_descr multi_descr_itupon_alloc_stats =
+/* ===== Group: itupon_alloc - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_alloc_stats =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_multi_stats),
     .key_offset = offsetof(bcmolt_itupon_alloc_multi_stats, key),
@@ -35169,7 +37589,7 @@ static bcmolt_multi_group_descr multi_descr_itupon_alloc_stats =
     .responses_offset = offsetof(bcmolt_itupon_alloc_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_itupon_alloc_stats =
+static const bcmolt_group_descr _group_descr_itupon_alloc_stats =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_stats),
     .data_offset = offsetof(bcmolt_itupon_alloc_stats, data),
@@ -35180,7 +37600,7 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats =
     .key_offset = offsetof(bcmolt_itupon_alloc_stats, key),
     .key_size = sizeof(bcmolt_itupon_alloc_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_itupon_alloc_stats,
+    .multi = &_multi_descr_itupon_alloc_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
     .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS,
@@ -35188,8 +37608,72 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats =
     .type = &type_descr_bcmolt_itupon_alloc_stats_data,
 };
 
-/** Group: itupon_alloc - stats_cfg. */
-static bcmolt_group_descr group_descr_itupon_alloc_stats_cfg =
+/* ===== Group: itupon_alloc - alloc_onu_accumulated_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_alloc_alloc_onu_accumulated_stats =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats),
+    .key_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, key),
+    .next_key_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, next_key),
+    .filter_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, filter),
+    .request_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, request),
+    .more_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, more),
+    .num_responses_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, num_responses),
+    .responses_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, responses),
+};
+
+static const bcmolt_group_descr _group_descr_itupon_alloc_alloc_onu_accumulated_stats =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats),
+    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data),
+    .descr = "Accumulated statistics.",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS,
+    .id = 7,
+    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT,
+    .multi = &_multi_descr_itupon_alloc_alloc_onu_accumulated_stats,
+    .name = "alloc_onu_accumulated_stats",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS,
+    .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_GPON | BCMOLT_TAG_NGPON2 | BCMOLT_TAG_XGPON,
+    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data,
+};
+
+/* ===== Group: itupon_alloc - latency_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_alloc_latency_stats =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_multi_latency_stats),
+    .key_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, key),
+    .next_key_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, next_key),
+    .filter_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, filter),
+    .request_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, request),
+    .more_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, more),
+    .num_responses_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, num_responses),
+    .responses_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, responses),
+};
+
+static const bcmolt_group_descr _group_descr_itupon_alloc_latency_stats =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats),
+    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_data),
+    .descr = "latency statistics.",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS,
+    .id = 8,
+    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT,
+    .multi = &_multi_descr_itupon_alloc_latency_stats,
+    .name = "latency_stats",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data,
+};
+
+/* ===== Group: itupon_alloc - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_stats_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_stats_cfg),
     .data_offset = offsetof(bcmolt_itupon_alloc_stats_cfg, data),
@@ -35207,8 +37691,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats_cfg =
     .type = &type_descr_bcmolt_itupon_alloc_stats_cfg_data,
 };
 
-/** Group: itupon_alloc - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_itupon_alloc_stats_alarm_raised =
+/* ===== Group: itupon_alloc - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_itupon_alloc_stats_alarm_raised, data),
@@ -35226,8 +37710,8 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats_alarm_raised =
     .type = &type_descr_bcmolt_itupon_alloc_stats_alarm_raised_data,
 };
 
-/** Group: itupon_alloc - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_itupon_alloc_stats_alarm_cleared =
+/* ===== Group: itupon_alloc - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_itupon_alloc_stats_alarm_cleared, data),
@@ -35245,8 +37729,122 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats_alarm_cleared =
     .type = &type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data,
 };
 
-/** Group: itupon_alloc - auto_cfg. */
-static bcmolt_group_descr group_descr_itupon_alloc_auto_cfg =
+/* ===== Group: itupon_alloc - alloc_onu_accumulated_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg),
+    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data),
+    .descr = "Accumulated Statistics Configuration.",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG,
+    .id = 4231,
+    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
+    .name = "alloc_onu_accumulated_stats",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data,
+};
+
+/* ===== Group: itupon_alloc - alloc_onu_accumulated_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised),
+    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data),
+    .descr = "Sent when a configured statistic alarm condition has been met..",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+    .id = 4359,
+    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "alloc_onu_accumulated_stats_alarm_raised",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data,
+};
+
+/* ===== Group: itupon_alloc - alloc_onu_accumulated_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared),
+    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data),
+    .descr = "Sent when a configured statistic alarm condition is no longer met..",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+    .id = 4487,
+    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "alloc_onu_accumulated_stats_alarm_cleared",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data,
+};
+
+/* ===== Group: itupon_alloc - latency_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_latency_stats_cfg =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg),
+    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data),
+    .descr = "Latency Statistics Configuration.",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG,
+    .id = 4232,
+    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
+    .name = "latency_stats",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data,
+};
+
+/* ===== Group: itupon_alloc - latency_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_latency_stats_alarm_raised =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised),
+    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data),
+    .descr = "Sent when a configured statistic alarm condition has been met..",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED,
+    .id = 4360,
+    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "latency_stats_alarm_raised",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data,
+};
+
+/* ===== Group: itupon_alloc - latency_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_latency_stats_alarm_cleared =
+{
+    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared),
+    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared, data),
+    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data),
+    .descr = "Sent when a configured statistic alarm condition is no longer met..",
+    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED,
+    .id = 4488,
+    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared, key),
+    .key_size = sizeof(bcmolt_itupon_alloc_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "latency_stats_alarm_cleared",
+    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
+    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data,
+};
+
+/* ===== Group: itupon_alloc - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_alloc_auto_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_alloc_auto_cfg),
     .data_offset = offsetof(bcmolt_itupon_alloc_auto_cfg, data),
@@ -35264,36 +37862,44 @@ static bcmolt_group_descr group_descr_itupon_alloc_auto_cfg =
     .type = &type_descr_bcmolt_itupon_alloc_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_itupon_alloc[] =
+static const bcmolt_group_descr *_groups_itupon_alloc[] =
 {
-    &group_descr_itupon_alloc_key,
-    &group_descr_itupon_alloc_cfg,
-    &group_descr_itupon_alloc_configuration_completed,
-    &group_descr_itupon_alloc_get_stats,
-    &group_descr_itupon_alloc_get_alloc_stats_completed,
-    &group_descr_itupon_alloc_set_state,
-    &group_descr_itupon_alloc_stats,
-    &group_descr_itupon_alloc_stats_cfg,
-    &group_descr_itupon_alloc_stats_alarm_raised,
-    &group_descr_itupon_alloc_stats_alarm_cleared,
-    &group_descr_itupon_alloc_auto_cfg,
+    &_group_descr_itupon_alloc_key,
+    &_group_descr_itupon_alloc_cfg,
+    &_group_descr_itupon_alloc_configuration_completed,
+    &_group_descr_itupon_alloc_get_stats,
+    &_group_descr_itupon_alloc_get_alloc_stats_completed,
+    &_group_descr_itupon_alloc_set_state,
+    &_group_descr_itupon_alloc_stats,
+    &_group_descr_itupon_alloc_alloc_onu_accumulated_stats,
+    &_group_descr_itupon_alloc_latency_stats,
+    &_group_descr_itupon_alloc_stats_cfg,
+    &_group_descr_itupon_alloc_stats_alarm_raised,
+    &_group_descr_itupon_alloc_stats_alarm_cleared,
+    &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
+    &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
+    &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
+    &_group_descr_itupon_alloc_latency_stats_cfg,
+    &_group_descr_itupon_alloc_latency_stats_alarm_raised,
+    &_group_descr_itupon_alloc_latency_stats_alarm_cleared,
+    &_group_descr_itupon_alloc_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_itupon_alloc =
+static const bcmolt_obj_descr _obj_descr_itupon_alloc =
 {
     .name = "itupon_alloc",
     .descr = "ITU PON Alloc.",
     .id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_itupon_alloc_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_itupon_alloc),
-    .groups = groups_itupon_alloc,
+    .num_groups = BCM_SIZEOFARRAY(_groups_itupon_alloc),
+    .groups = _groups_itupon_alloc,
 };
 
 
-/** ==== Object: itupon_gem ==== */
-/** Group: itupon_gem - key. */
-static bcmolt_group_descr group_descr_itupon_gem_key =
+/* ===== Object: itupon_gem ===== */
+/* ===== Group: itupon_gem - key ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35311,8 +37917,8 @@ static bcmolt_group_descr group_descr_itupon_gem_key =
     .type = &type_descr_bcmolt_itupon_gem_key,
 };
 
-/** Group: itupon_gem - cfg. */
-static bcmolt_multi_group_descr multi_descr_itupon_gem_cfg =
+/* ===== Group: itupon_gem - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_gem_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_gem_multi_cfg),
     .key_offset = offsetof(bcmolt_itupon_gem_multi_cfg, key),
@@ -35324,7 +37930,7 @@ static bcmolt_multi_group_descr multi_descr_itupon_gem_cfg =
     .responses_offset = offsetof(bcmolt_itupon_gem_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_itupon_gem_cfg =
+static const bcmolt_group_descr _group_descr_itupon_gem_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_gem_cfg),
     .data_offset = offsetof(bcmolt_itupon_gem_cfg, data),
@@ -35335,7 +37941,7 @@ static bcmolt_group_descr group_descr_itupon_gem_cfg =
     .key_offset = offsetof(bcmolt_itupon_gem_cfg, key),
     .key_size = sizeof(bcmolt_itupon_gem_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_itupon_gem_cfg,
+    .multi = &_multi_descr_itupon_gem_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ITUPON_GEM,
     .subgroup_idx = 0,
@@ -35343,8 +37949,8 @@ static bcmolt_group_descr group_descr_itupon_gem_cfg =
     .type = &type_descr_bcmolt_itupon_gem_cfg_data,
 };
 
-/** Group: itupon_gem - stats. */
-static bcmolt_multi_group_descr multi_descr_itupon_gem_stats =
+/* ===== Group: itupon_gem - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_itupon_gem_stats =
 {
     .container_size = sizeof(bcmolt_itupon_gem_multi_stats),
     .key_offset = offsetof(bcmolt_itupon_gem_multi_stats, key),
@@ -35356,7 +37962,7 @@ static bcmolt_multi_group_descr multi_descr_itupon_gem_stats =
     .responses_offset = offsetof(bcmolt_itupon_gem_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_itupon_gem_stats =
+static const bcmolt_group_descr _group_descr_itupon_gem_stats =
 {
     .container_size = sizeof(bcmolt_itupon_gem_stats),
     .data_offset = offsetof(bcmolt_itupon_gem_stats, data),
@@ -35367,7 +37973,7 @@ static bcmolt_group_descr group_descr_itupon_gem_stats =
     .key_offset = offsetof(bcmolt_itupon_gem_stats, key),
     .key_size = sizeof(bcmolt_itupon_gem_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_itupon_gem_stats,
+    .multi = &_multi_descr_itupon_gem_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_ITUPON_GEM,
     .subgroup_idx = BCMOLT_ITUPON_GEM_STAT_SUBGROUP_STATS,
@@ -35375,8 +37981,8 @@ static bcmolt_group_descr group_descr_itupon_gem_stats =
     .type = &type_descr_bcmolt_itupon_gem_stats_data,
 };
 
-/** Group: itupon_gem - configuration_completed. */
-static bcmolt_group_descr group_descr_itupon_gem_configuration_completed =
+/* ===== Group: itupon_gem - configuration_completed ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_configuration_completed =
 {
     .container_size = sizeof(bcmolt_itupon_gem_configuration_completed),
     .data_offset = offsetof(bcmolt_itupon_gem_configuration_completed, data),
@@ -35394,8 +38000,8 @@ static bcmolt_group_descr group_descr_itupon_gem_configuration_completed =
     .type = &type_descr_bcmolt_itupon_gem_configuration_completed_data,
 };
 
-/** Group: itupon_gem - set_state. */
-static bcmolt_group_descr group_descr_itupon_gem_set_state =
+/* ===== Group: itupon_gem - set_state ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_set_state =
 {
     .container_size = sizeof(bcmolt_itupon_gem_set_state),
     .data_offset = offsetof(bcmolt_itupon_gem_set_state, data),
@@ -35413,8 +38019,8 @@ static bcmolt_group_descr group_descr_itupon_gem_set_state =
     .type = &type_descr_bcmolt_itupon_gem_set_state_data,
 };
 
-/** Group: itupon_gem - stats_cfg. */
-static bcmolt_group_descr group_descr_itupon_gem_stats_cfg =
+/* ===== Group: itupon_gem - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_stats_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_gem_stats_cfg),
     .data_offset = offsetof(bcmolt_itupon_gem_stats_cfg, data),
@@ -35432,8 +38038,8 @@ static bcmolt_group_descr group_descr_itupon_gem_stats_cfg =
     .type = &type_descr_bcmolt_itupon_gem_stats_cfg_data,
 };
 
-/** Group: itupon_gem - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_itupon_gem_stats_alarm_raised =
+/* ===== Group: itupon_gem - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_itupon_gem_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_itupon_gem_stats_alarm_raised, data),
@@ -35451,8 +38057,8 @@ static bcmolt_group_descr group_descr_itupon_gem_stats_alarm_raised =
     .type = &type_descr_bcmolt_itupon_gem_stats_alarm_raised_data,
 };
 
-/** Group: itupon_gem - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_itupon_gem_stats_alarm_cleared =
+/* ===== Group: itupon_gem - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_itupon_gem_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_itupon_gem_stats_alarm_cleared, data),
@@ -35470,8 +38076,8 @@ static bcmolt_group_descr group_descr_itupon_gem_stats_alarm_cleared =
     .type = &type_descr_bcmolt_itupon_gem_stats_alarm_cleared_data,
 };
 
-/** Group: itupon_gem - auto_cfg. */
-static bcmolt_group_descr group_descr_itupon_gem_auto_cfg =
+/* ===== Group: itupon_gem - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_itupon_gem_auto_cfg =
 {
     .container_size = sizeof(bcmolt_itupon_gem_auto_cfg),
     .data_offset = offsetof(bcmolt_itupon_gem_auto_cfg, data),
@@ -35489,34 +38095,224 @@ static bcmolt_group_descr group_descr_itupon_gem_auto_cfg =
     .type = &type_descr_bcmolt_itupon_gem_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_itupon_gem[] =
+static const bcmolt_group_descr *_groups_itupon_gem[] =
 {
-    &group_descr_itupon_gem_key,
-    &group_descr_itupon_gem_cfg,
-    &group_descr_itupon_gem_stats,
-    &group_descr_itupon_gem_configuration_completed,
-    &group_descr_itupon_gem_set_state,
-    &group_descr_itupon_gem_stats_cfg,
-    &group_descr_itupon_gem_stats_alarm_raised,
-    &group_descr_itupon_gem_stats_alarm_cleared,
-    &group_descr_itupon_gem_auto_cfg,
+    &_group_descr_itupon_gem_key,
+    &_group_descr_itupon_gem_cfg,
+    &_group_descr_itupon_gem_stats,
+    &_group_descr_itupon_gem_configuration_completed,
+    &_group_descr_itupon_gem_set_state,
+    &_group_descr_itupon_gem_stats_cfg,
+    &_group_descr_itupon_gem_stats_alarm_raised,
+    &_group_descr_itupon_gem_stats_alarm_cleared,
+    &_group_descr_itupon_gem_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_itupon_gem =
+static const bcmolt_obj_descr _obj_descr_itupon_gem =
 {
     .name = "itupon_gem",
     .descr = "ITU PON GEM Port.",
     .id = BCMOLT_OBJ_ID_ITUPON_GEM,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_itupon_gem_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_itupon_gem),
-    .groups = groups_itupon_gem,
+    .num_groups = BCM_SIZEOFARRAY(_groups_itupon_gem),
+    .groups = _groups_itupon_gem,
 };
 
 
-/** ==== Object: lag_interface ==== */
-/** Group: lag_interface - key. */
-static bcmolt_group_descr group_descr_lag_interface_key =
+/* ===== Object: l2_mac_table ===== */
+/* ===== Group: l2_mac_table - key ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_key =
+{
+    .container_size = 0,
+    .data_offset = 0,
+    .data_size = sizeof(bcmolt_l2_mac_table_key),
+    .descr = "key.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY,
+    .id = 0,
+    .key_offset = 0,
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_KEY,
+    .name = "key",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_key,
+};
+
+/* ===== Group: l2_mac_table - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_l2_mac_table_cfg =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_multi_cfg),
+    .key_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, key),
+    .next_key_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, next_key),
+    .filter_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, filter),
+    .request_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, request),
+    .more_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, more),
+    .num_responses_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, num_responses),
+    .responses_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, responses),
+};
+
+static const bcmolt_group_descr _group_descr_l2_mac_table_cfg =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_cfg),
+    .data_offset = offsetof(bcmolt_l2_mac_table_cfg, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_cfg_data),
+    .descr = "cfg.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG,
+    .id = 1,
+    .key_offset = offsetof(bcmolt_l2_mac_table_cfg, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_CFG,
+    .multi = &_multi_descr_l2_mac_table_cfg,
+    .name = "cfg",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_cfg_data,
+};
+
+/* ===== Group: l2_mac_table - dump ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_dump =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_dump),
+    .data_offset = offsetof(bcmolt_l2_mac_table_dump, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_dump_data),
+    .descr = "dump l2 tables.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP,
+    .id = 2,
+    .key_offset = offsetof(bcmolt_l2_mac_table_dump, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "dump",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_dump_data,
+};
+
+/* ===== Group: l2_mac_table - dump_complete ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_dump_complete =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_dump_complete),
+    .data_offset = offsetof(bcmolt_l2_mac_table_dump_complete, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_dump_complete_data),
+    .descr = "l2 mact dump completed.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE,
+    .id = 3,
+    .key_offset = offsetof(bcmolt_l2_mac_table_dump_complete, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "dump_complete",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_dump_complete_data,
+};
+
+/* ===== Group: l2_mac_table - dump_abort ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_dump_abort =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_dump_abort),
+    .data_offset = 0,
+    .data_size = 0,
+    .descr = "dump abort.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT,
+    .id = 4,
+    .key_offset = offsetof(bcmolt_l2_mac_table_dump_abort, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_OPER,
+    .name = "dump_abort",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT,
+    .tags = 0,
+    .type = NULL,
+};
+
+/* ===== Group: l2_mac_table - network_events ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_network_events =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_network_events),
+    .data_offset = offsetof(bcmolt_l2_mac_table_network_events, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_network_events_data),
+    .descr = "network l2 events.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS,
+    .id = 5,
+    .key_offset = offsetof(bcmolt_l2_mac_table_network_events, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "network_events",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_network_events_data,
+};
+
+/* ===== Group: l2_mac_table - pon_events ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_pon_events =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_pon_events),
+    .data_offset = offsetof(bcmolt_l2_mac_table_pon_events, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_pon_events_data),
+    .descr = "pon l2 events.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS,
+    .id = 6,
+    .key_offset = offsetof(bcmolt_l2_mac_table_pon_events, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "pon_events",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_pon_events_data,
+};
+
+/* ===== Group: l2_mac_table - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_l2_mac_table_auto_cfg =
+{
+    .container_size = sizeof(bcmolt_l2_mac_table_auto_cfg),
+    .data_offset = offsetof(bcmolt_l2_mac_table_auto_cfg, data),
+    .data_size = sizeof(bcmolt_l2_mac_table_auto_cfg_data),
+    .descr = "Indication Configuration.",
+    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG,
+    .id = 4096,
+    .key_offset = offsetof(bcmolt_l2_mac_table_auto_cfg, key),
+    .key_size = sizeof(bcmolt_l2_mac_table_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO_CFG,
+    .name = "auto_cfg",
+    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_l2_mac_table_auto_cfg_data,
+};
+
+static const bcmolt_group_descr *_groups_l2_mac_table[] =
+{
+    &_group_descr_l2_mac_table_key,
+    &_group_descr_l2_mac_table_cfg,
+    &_group_descr_l2_mac_table_dump,
+    &_group_descr_l2_mac_table_dump_complete,
+    &_group_descr_l2_mac_table_dump_abort,
+    &_group_descr_l2_mac_table_network_events,
+    &_group_descr_l2_mac_table_pon_events,
+    &_group_descr_l2_mac_table_auto_cfg,
+};
+
+static const bcmolt_obj_descr _obj_descr_l2_mac_table =
+{
+    .name = "l2_mac_table",
+    .descr = "l2 mac table.",
+    .id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
+    .tags = BCMOLT_TAG_SYSTEM,
+    .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_l2_mac_table_get_active_tags,
+    .num_groups = BCM_SIZEOFARRAY(_groups_l2_mac_table),
+    .groups = _groups_l2_mac_table,
+};
+
+
+/* ===== Object: lag_interface ===== */
+/* ===== Group: lag_interface - key ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35534,8 +38330,8 @@ static bcmolt_group_descr group_descr_lag_interface_key =
     .type = &type_descr_bcmolt_lag_interface_key,
 };
 
-/** Group: lag_interface - cfg. */
-static bcmolt_multi_group_descr multi_descr_lag_interface_cfg =
+/* ===== Group: lag_interface - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_lag_interface_cfg =
 {
     .container_size = sizeof(bcmolt_lag_interface_multi_cfg),
     .key_offset = offsetof(bcmolt_lag_interface_multi_cfg, key),
@@ -35547,7 +38343,7 @@ static bcmolt_multi_group_descr multi_descr_lag_interface_cfg =
     .responses_offset = offsetof(bcmolt_lag_interface_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_lag_interface_cfg =
+static const bcmolt_group_descr _group_descr_lag_interface_cfg =
 {
     .container_size = sizeof(bcmolt_lag_interface_cfg),
     .data_offset = offsetof(bcmolt_lag_interface_cfg, data),
@@ -35558,7 +38354,7 @@ static bcmolt_group_descr group_descr_lag_interface_cfg =
     .key_offset = offsetof(bcmolt_lag_interface_cfg, key),
     .key_size = sizeof(bcmolt_lag_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_lag_interface_cfg,
+    .multi = &_multi_descr_lag_interface_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_LAG_INTERFACE,
     .subgroup_idx = 0,
@@ -35566,8 +38362,8 @@ static bcmolt_group_descr group_descr_lag_interface_cfg =
     .type = &type_descr_bcmolt_lag_interface_cfg_data,
 };
 
-/** Group: lag_interface - stats. */
-static bcmolt_multi_group_descr multi_descr_lag_interface_stats =
+/* ===== Group: lag_interface - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_lag_interface_stats =
 {
     .container_size = sizeof(bcmolt_lag_interface_multi_stats),
     .key_offset = offsetof(bcmolt_lag_interface_multi_stats, key),
@@ -35579,7 +38375,7 @@ static bcmolt_multi_group_descr multi_descr_lag_interface_stats =
     .responses_offset = offsetof(bcmolt_lag_interface_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_lag_interface_stats =
+static const bcmolt_group_descr _group_descr_lag_interface_stats =
 {
     .container_size = sizeof(bcmolt_lag_interface_stats),
     .data_offset = offsetof(bcmolt_lag_interface_stats, data),
@@ -35590,7 +38386,7 @@ static bcmolt_group_descr group_descr_lag_interface_stats =
     .key_offset = offsetof(bcmolt_lag_interface_stats, key),
     .key_size = sizeof(bcmolt_lag_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_lag_interface_stats,
+    .multi = &_multi_descr_lag_interface_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_LAG_INTERFACE,
     .subgroup_idx = BCMOLT_LAG_INTERFACE_STAT_SUBGROUP_STATS,
@@ -35598,8 +38394,8 @@ static bcmolt_group_descr group_descr_lag_interface_stats =
     .type = &type_descr_bcmolt_lag_interface_stats_data,
 };
 
-/** Group: lag_interface - members_update. */
-static bcmolt_group_descr group_descr_lag_interface_members_update =
+/* ===== Group: lag_interface - members_update ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_members_update =
 {
     .container_size = sizeof(bcmolt_lag_interface_members_update),
     .data_offset = offsetof(bcmolt_lag_interface_members_update, data),
@@ -35617,8 +38413,8 @@ static bcmolt_group_descr group_descr_lag_interface_members_update =
     .type = &type_descr_bcmolt_lag_interface_members_update_data,
 };
 
-/** Group: lag_interface - complete_members_update. */
-static bcmolt_group_descr group_descr_lag_interface_complete_members_update =
+/* ===== Group: lag_interface - complete_members_update ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_complete_members_update =
 {
     .container_size = sizeof(bcmolt_lag_interface_complete_members_update),
     .data_offset = offsetof(bcmolt_lag_interface_complete_members_update, data),
@@ -35636,8 +38432,8 @@ static bcmolt_group_descr group_descr_lag_interface_complete_members_update =
     .type = &type_descr_bcmolt_lag_interface_complete_members_update_data,
 };
 
-/** Group: lag_interface - state_update. */
-static bcmolt_group_descr group_descr_lag_interface_state_update =
+/* ===== Group: lag_interface - state_update ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_state_update =
 {
     .container_size = sizeof(bcmolt_lag_interface_state_update),
     .data_offset = offsetof(bcmolt_lag_interface_state_update, data),
@@ -35655,8 +38451,8 @@ static bcmolt_group_descr group_descr_lag_interface_state_update =
     .type = &type_descr_bcmolt_lag_interface_state_update_data,
 };
 
-/** Group: lag_interface - state_updated. */
-static bcmolt_group_descr group_descr_lag_interface_state_updated =
+/* ===== Group: lag_interface - state_updated ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_state_updated =
 {
     .container_size = sizeof(bcmolt_lag_interface_state_updated),
     .data_offset = offsetof(bcmolt_lag_interface_state_updated, data),
@@ -35674,8 +38470,8 @@ static bcmolt_group_descr group_descr_lag_interface_state_updated =
     .type = &type_descr_bcmolt_lag_interface_state_updated_data,
 };
 
-/** Group: lag_interface - lag_health_change. */
-static bcmolt_group_descr group_descr_lag_interface_lag_health_change =
+/* ===== Group: lag_interface - lag_health_change ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_lag_health_change =
 {
     .container_size = sizeof(bcmolt_lag_interface_lag_health_change),
     .data_offset = offsetof(bcmolt_lag_interface_lag_health_change, data),
@@ -35693,8 +38489,8 @@ static bcmolt_group_descr group_descr_lag_interface_lag_health_change =
     .type = &type_descr_bcmolt_lag_interface_lag_health_change_data,
 };
 
-/** Group: lag_interface - stats_cfg. */
-static bcmolt_group_descr group_descr_lag_interface_stats_cfg =
+/* ===== Group: lag_interface - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_stats_cfg =
 {
     .container_size = sizeof(bcmolt_lag_interface_stats_cfg),
     .data_offset = offsetof(bcmolt_lag_interface_stats_cfg, data),
@@ -35712,8 +38508,8 @@ static bcmolt_group_descr group_descr_lag_interface_stats_cfg =
     .type = &type_descr_bcmolt_lag_interface_stats_cfg_data,
 };
 
-/** Group: lag_interface - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_lag_interface_stats_alarm_raised =
+/* ===== Group: lag_interface - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_lag_interface_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_lag_interface_stats_alarm_raised, data),
@@ -35731,8 +38527,8 @@ static bcmolt_group_descr group_descr_lag_interface_stats_alarm_raised =
     .type = &type_descr_bcmolt_lag_interface_stats_alarm_raised_data,
 };
 
-/** Group: lag_interface - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_lag_interface_stats_alarm_cleared =
+/* ===== Group: lag_interface - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_lag_interface_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_lag_interface_stats_alarm_cleared, data),
@@ -35750,8 +38546,8 @@ static bcmolt_group_descr group_descr_lag_interface_stats_alarm_cleared =
     .type = &type_descr_bcmolt_lag_interface_stats_alarm_cleared_data,
 };
 
-/** Group: lag_interface - auto_cfg. */
-static bcmolt_group_descr group_descr_lag_interface_auto_cfg =
+/* ===== Group: lag_interface - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_lag_interface_auto_cfg =
 {
     .container_size = sizeof(bcmolt_lag_interface_auto_cfg),
     .data_offset = offsetof(bcmolt_lag_interface_auto_cfg, data),
@@ -35769,37 +38565,37 @@ static bcmolt_group_descr group_descr_lag_interface_auto_cfg =
     .type = &type_descr_bcmolt_lag_interface_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_lag_interface[] =
+static const bcmolt_group_descr *_groups_lag_interface[] =
 {
-    &group_descr_lag_interface_key,
-    &group_descr_lag_interface_cfg,
-    &group_descr_lag_interface_stats,
-    &group_descr_lag_interface_members_update,
-    &group_descr_lag_interface_complete_members_update,
-    &group_descr_lag_interface_state_update,
-    &group_descr_lag_interface_state_updated,
-    &group_descr_lag_interface_lag_health_change,
-    &group_descr_lag_interface_stats_cfg,
-    &group_descr_lag_interface_stats_alarm_raised,
-    &group_descr_lag_interface_stats_alarm_cleared,
-    &group_descr_lag_interface_auto_cfg,
+    &_group_descr_lag_interface_key,
+    &_group_descr_lag_interface_cfg,
+    &_group_descr_lag_interface_stats,
+    &_group_descr_lag_interface_members_update,
+    &_group_descr_lag_interface_complete_members_update,
+    &_group_descr_lag_interface_state_update,
+    &_group_descr_lag_interface_state_updated,
+    &_group_descr_lag_interface_lag_health_change,
+    &_group_descr_lag_interface_stats_cfg,
+    &_group_descr_lag_interface_stats_alarm_raised,
+    &_group_descr_lag_interface_stats_alarm_cleared,
+    &_group_descr_lag_interface_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_lag_interface =
+static const bcmolt_obj_descr _obj_descr_lag_interface =
 {
     .name = "lag_interface",
     .descr = "Link Aggregation Group.",
     .id = BCMOLT_OBJ_ID_LAG_INTERFACE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_lag_interface_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_lag_interface),
-    .groups = groups_lag_interface,
+    .num_groups = BCM_SIZEOFARRAY(_groups_lag_interface),
+    .groups = _groups_lag_interface,
 };
 
 
-/** ==== Object: log ==== */
-/** Group: log - key. */
-static bcmolt_group_descr group_descr_log_key =
+/* ===== Object: log ===== */
+/* ===== Group: log - key ===== */
+static const bcmolt_group_descr _group_descr_log_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35817,8 +38613,8 @@ static bcmolt_group_descr group_descr_log_key =
     .type = &type_descr_bcmolt_log_key,
 };
 
-/** Group: log - cfg. */
-static bcmolt_multi_group_descr multi_descr_log_cfg =
+/* ===== Group: log - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_log_cfg =
 {
     .container_size = sizeof(bcmolt_log_multi_cfg),
     .key_offset = offsetof(bcmolt_log_multi_cfg, key),
@@ -35830,7 +38626,7 @@ static bcmolt_multi_group_descr multi_descr_log_cfg =
     .responses_offset = offsetof(bcmolt_log_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_log_cfg =
+static const bcmolt_group_descr _group_descr_log_cfg =
 {
     .container_size = sizeof(bcmolt_log_cfg),
     .data_offset = offsetof(bcmolt_log_cfg, data),
@@ -35841,7 +38637,7 @@ static bcmolt_group_descr group_descr_log_cfg =
     .key_offset = offsetof(bcmolt_log_cfg, key),
     .key_size = sizeof(bcmolt_log_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_log_cfg,
+    .multi = &_multi_descr_log_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_LOG,
     .subgroup_idx = 0,
@@ -35849,27 +38645,27 @@ static bcmolt_group_descr group_descr_log_cfg =
     .type = &type_descr_bcmolt_log_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_log[] =
+static const bcmolt_group_descr *_groups_log[] =
 {
-    &group_descr_log_key,
-    &group_descr_log_cfg,
+    &_group_descr_log_key,
+    &_group_descr_log_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_log =
+static const bcmolt_obj_descr _obj_descr_log =
 {
     .name = "log",
     .descr = "A single embedded log source (usually a single task).",
     .id = BCMOLT_OBJ_ID_LOG,
     .tags = BCMOLT_TAG_DEVICE,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_log_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_log),
-    .groups = groups_log,
+    .num_groups = BCM_SIZEOFARRAY(_groups_log),
+    .groups = _groups_log,
 };
 
 
-/** ==== Object: log_file ==== */
-/** Group: log_file - key. */
-static bcmolt_group_descr group_descr_log_file_key =
+/* ===== Object: log_file ===== */
+/* ===== Group: log_file - key ===== */
+static const bcmolt_group_descr _group_descr_log_file_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35887,8 +38683,8 @@ static bcmolt_group_descr group_descr_log_file_key =
     .type = &type_descr_bcmolt_log_file_key,
 };
 
-/** Group: log_file - cfg. */
-static bcmolt_multi_group_descr multi_descr_log_file_cfg =
+/* ===== Group: log_file - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_log_file_cfg =
 {
     .container_size = sizeof(bcmolt_log_file_multi_cfg),
     .key_offset = offsetof(bcmolt_log_file_multi_cfg, key),
@@ -35900,7 +38696,7 @@ static bcmolt_multi_group_descr multi_descr_log_file_cfg =
     .responses_offset = offsetof(bcmolt_log_file_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_log_file_cfg =
+static const bcmolt_group_descr _group_descr_log_file_cfg =
 {
     .container_size = sizeof(bcmolt_log_file_cfg),
     .data_offset = offsetof(bcmolt_log_file_cfg, data),
@@ -35911,7 +38707,7 @@ static bcmolt_group_descr group_descr_log_file_cfg =
     .key_offset = offsetof(bcmolt_log_file_cfg, key),
     .key_size = sizeof(bcmolt_log_file_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_log_file_cfg,
+    .multi = &_multi_descr_log_file_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_LOG_FILE,
     .subgroup_idx = 0,
@@ -35919,8 +38715,8 @@ static bcmolt_group_descr group_descr_log_file_cfg =
     .type = &type_descr_bcmolt_log_file_cfg_data,
 };
 
-/** Group: log_file - clear. */
-static bcmolt_group_descr group_descr_log_file_clear =
+/* ===== Group: log_file - clear ===== */
+static const bcmolt_group_descr _group_descr_log_file_clear =
 {
     .container_size = sizeof(bcmolt_log_file_clear),
     .data_offset = 0,
@@ -35938,8 +38734,8 @@ static bcmolt_group_descr group_descr_log_file_clear =
     .type = NULL,
 };
 
-/** Group: log_file - reset_buffer_ptr. */
-static bcmolt_group_descr group_descr_log_file_reset_buffer_ptr =
+/* ===== Group: log_file - reset_buffer_ptr ===== */
+static const bcmolt_group_descr _group_descr_log_file_reset_buffer_ptr =
 {
     .container_size = sizeof(bcmolt_log_file_reset_buffer_ptr),
     .data_offset = 0,
@@ -35957,29 +38753,29 @@ static bcmolt_group_descr group_descr_log_file_reset_buffer_ptr =
     .type = NULL,
 };
 
-static const bcmolt_group_descr *groups_log_file[] =
+static const bcmolt_group_descr *_groups_log_file[] =
 {
-    &group_descr_log_file_key,
-    &group_descr_log_file_cfg,
-    &group_descr_log_file_clear,
-    &group_descr_log_file_reset_buffer_ptr,
+    &_group_descr_log_file_key,
+    &_group_descr_log_file_cfg,
+    &_group_descr_log_file_clear,
+    &_group_descr_log_file_reset_buffer_ptr,
 };
 
-static bcmolt_obj_descr obj_descr_log_file =
+static const bcmolt_obj_descr _obj_descr_log_file =
 {
     .name = "log_file",
     .descr = "Memory file generated by system logs.",
     .id = BCMOLT_OBJ_ID_LOG_FILE,
     .tags = BCMOLT_TAG_DEVICE | BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_log_file_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_log_file),
-    .groups = groups_log_file,
+    .num_groups = BCM_SIZEOFARRAY(_groups_log_file),
+    .groups = _groups_log_file,
 };
 
 
-/** ==== Object: ngpon2_channel ==== */
-/** Group: ngpon2_channel - key. */
-static bcmolt_group_descr group_descr_ngpon2_channel_key =
+/* ===== Object: ngpon2_channel ===== */
+/* ===== Group: ngpon2_channel - key ===== */
+static const bcmolt_group_descr _group_descr_ngpon2_channel_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -35997,8 +38793,8 @@ static bcmolt_group_descr group_descr_ngpon2_channel_key =
     .type = &type_descr_bcmolt_ngpon2_channel_key,
 };
 
-/** Group: ngpon2_channel - cfg. */
-static bcmolt_multi_group_descr multi_descr_ngpon2_channel_cfg =
+/* ===== Group: ngpon2_channel - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_ngpon2_channel_cfg =
 {
     .container_size = sizeof(bcmolt_ngpon2_channel_multi_cfg),
     .key_offset = offsetof(bcmolt_ngpon2_channel_multi_cfg, key),
@@ -36010,7 +38806,7 @@ static bcmolt_multi_group_descr multi_descr_ngpon2_channel_cfg =
     .responses_offset = offsetof(bcmolt_ngpon2_channel_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_ngpon2_channel_cfg =
+static const bcmolt_group_descr _group_descr_ngpon2_channel_cfg =
 {
     .container_size = sizeof(bcmolt_ngpon2_channel_cfg),
     .data_offset = offsetof(bcmolt_ngpon2_channel_cfg, data),
@@ -36021,7 +38817,7 @@ static bcmolt_group_descr group_descr_ngpon2_channel_cfg =
     .key_offset = offsetof(bcmolt_ngpon2_channel_cfg, key),
     .key_size = sizeof(bcmolt_ngpon2_channel_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_ngpon2_channel_cfg,
+    .multi = &_multi_descr_ngpon2_channel_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_NGPON2_CHANNEL,
     .subgroup_idx = 0,
@@ -36029,27 +38825,27 @@ static bcmolt_group_descr group_descr_ngpon2_channel_cfg =
     .type = &type_descr_bcmolt_ngpon2_channel_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_ngpon2_channel[] =
+static const bcmolt_group_descr *_groups_ngpon2_channel[] =
 {
-    &group_descr_ngpon2_channel_key,
-    &group_descr_ngpon2_channel_cfg,
+    &_group_descr_ngpon2_channel_key,
+    &_group_descr_ngpon2_channel_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_ngpon2_channel =
+static const bcmolt_obj_descr _obj_descr_ngpon2_channel =
 {
     .name = "ngpon2_channel",
     .descr = "Channel.",
     .id = BCMOLT_OBJ_ID_NGPON2_CHANNEL,
     .tags = BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_ngpon2_channel_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_ngpon2_channel),
-    .groups = groups_ngpon2_channel,
+    .num_groups = BCM_SIZEOFARRAY(_groups_ngpon2_channel),
+    .groups = _groups_ngpon2_channel,
 };
 
 
-/** ==== Object: nni_interface ==== */
-/** Group: nni_interface - key. */
-static bcmolt_group_descr group_descr_nni_interface_key =
+/* ===== Object: nni_interface ===== */
+/* ===== Group: nni_interface - key ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -36067,8 +38863,8 @@ static bcmolt_group_descr group_descr_nni_interface_key =
     .type = &type_descr_bcmolt_nni_interface_key,
 };
 
-/** Group: nni_interface - state_change. */
-static bcmolt_group_descr group_descr_nni_interface_state_change =
+/* ===== Group: nni_interface - state_change ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_state_change =
 {
     .container_size = sizeof(bcmolt_nni_interface_state_change),
     .data_offset = offsetof(bcmolt_nni_interface_state_change, data),
@@ -36086,8 +38882,8 @@ static bcmolt_group_descr group_descr_nni_interface_state_change =
     .type = &type_descr_bcmolt_nni_interface_state_change_data,
 };
 
-/** Group: nni_interface - cfg. */
-static bcmolt_multi_group_descr multi_descr_nni_interface_cfg =
+/* ===== Group: nni_interface - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_nni_interface_cfg =
 {
     .container_size = sizeof(bcmolt_nni_interface_multi_cfg),
     .key_offset = offsetof(bcmolt_nni_interface_multi_cfg, key),
@@ -36099,7 +38895,7 @@ static bcmolt_multi_group_descr multi_descr_nni_interface_cfg =
     .responses_offset = offsetof(bcmolt_nni_interface_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_nni_interface_cfg =
+static const bcmolt_group_descr _group_descr_nni_interface_cfg =
 {
     .container_size = sizeof(bcmolt_nni_interface_cfg),
     .data_offset = offsetof(bcmolt_nni_interface_cfg, data),
@@ -36110,7 +38906,7 @@ static bcmolt_group_descr group_descr_nni_interface_cfg =
     .key_offset = offsetof(bcmolt_nni_interface_cfg, key),
     .key_size = sizeof(bcmolt_nni_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_nni_interface_cfg,
+    .multi = &_multi_descr_nni_interface_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_NNI_INTERFACE,
     .subgroup_idx = 0,
@@ -36118,8 +38914,8 @@ static bcmolt_group_descr group_descr_nni_interface_cfg =
     .type = &type_descr_bcmolt_nni_interface_cfg_data,
 };
 
-/** Group: nni_interface - set_nni_state. */
-static bcmolt_group_descr group_descr_nni_interface_set_nni_state =
+/* ===== Group: nni_interface - set_nni_state ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_set_nni_state =
 {
     .container_size = sizeof(bcmolt_nni_interface_set_nni_state),
     .data_offset = offsetof(bcmolt_nni_interface_set_nni_state, data),
@@ -36137,8 +38933,8 @@ static bcmolt_group_descr group_descr_nni_interface_set_nni_state =
     .type = &type_descr_bcmolt_nni_interface_set_nni_state_data,
 };
 
-/** Group: nni_interface - stats. */
-static bcmolt_multi_group_descr multi_descr_nni_interface_stats =
+/* ===== Group: nni_interface - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_nni_interface_stats =
 {
     .container_size = sizeof(bcmolt_nni_interface_multi_stats),
     .key_offset = offsetof(bcmolt_nni_interface_multi_stats, key),
@@ -36150,7 +38946,7 @@ static bcmolt_multi_group_descr multi_descr_nni_interface_stats =
     .responses_offset = offsetof(bcmolt_nni_interface_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_nni_interface_stats =
+static const bcmolt_group_descr _group_descr_nni_interface_stats =
 {
     .container_size = sizeof(bcmolt_nni_interface_stats),
     .data_offset = offsetof(bcmolt_nni_interface_stats, data),
@@ -36161,7 +38957,7 @@ static bcmolt_group_descr group_descr_nni_interface_stats =
     .key_offset = offsetof(bcmolt_nni_interface_stats, key),
     .key_size = sizeof(bcmolt_nni_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_nni_interface_stats,
+    .multi = &_multi_descr_nni_interface_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_NNI_INTERFACE,
     .subgroup_idx = BCMOLT_NNI_INTERFACE_STAT_SUBGROUP_STATS,
@@ -36169,13 +38965,13 @@ static bcmolt_group_descr group_descr_nni_interface_stats =
     .type = &type_descr_bcmolt_nni_interface_stats_data,
 };
 
-/** Group: nni_interface - link_state_change. */
-static bcmolt_group_descr group_descr_nni_interface_link_state_change =
+/* ===== Group: nni_interface - link_state_change ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_link_state_change =
 {
     .container_size = sizeof(bcmolt_nni_interface_link_state_change),
     .data_offset = offsetof(bcmolt_nni_interface_link_state_change, data),
     .data_size = sizeof(bcmolt_nni_interface_link_state_change_data),
-    .descr = "Link State Change reported by Switch..",
+    .descr = "Link State Change report.",
     .global_id = BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE,
     .id = 9,
     .key_offset = offsetof(bcmolt_nni_interface_link_state_change, key),
@@ -36188,8 +38984,8 @@ static bcmolt_group_descr group_descr_nni_interface_link_state_change =
     .type = &type_descr_bcmolt_nni_interface_link_state_change_data,
 };
 
-/** Group: nni_interface - fault_code_change. */
-static bcmolt_group_descr group_descr_nni_interface_fault_code_change =
+/* ===== Group: nni_interface - fault_code_change ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_fault_code_change =
 {
     .container_size = sizeof(bcmolt_nni_interface_fault_code_change),
     .data_offset = offsetof(bcmolt_nni_interface_fault_code_change, data),
@@ -36207,8 +39003,8 @@ static bcmolt_group_descr group_descr_nni_interface_fault_code_change =
     .type = &type_descr_bcmolt_nni_interface_fault_code_change_data,
 };
 
-/** Group: nni_interface - stats_cfg. */
-static bcmolt_group_descr group_descr_nni_interface_stats_cfg =
+/* ===== Group: nni_interface - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_stats_cfg =
 {
     .container_size = sizeof(bcmolt_nni_interface_stats_cfg),
     .data_offset = offsetof(bcmolt_nni_interface_stats_cfg, data),
@@ -36226,8 +39022,8 @@ static bcmolt_group_descr group_descr_nni_interface_stats_cfg =
     .type = &type_descr_bcmolt_nni_interface_stats_cfg_data,
 };
 
-/** Group: nni_interface - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_nni_interface_stats_alarm_raised =
+/* ===== Group: nni_interface - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_nni_interface_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_nni_interface_stats_alarm_raised, data),
@@ -36245,8 +39041,8 @@ static bcmolt_group_descr group_descr_nni_interface_stats_alarm_raised =
     .type = &type_descr_bcmolt_nni_interface_stats_alarm_raised_data,
 };
 
-/** Group: nni_interface - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_nni_interface_stats_alarm_cleared =
+/* ===== Group: nni_interface - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_nni_interface_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_nni_interface_stats_alarm_cleared, data),
@@ -36264,8 +39060,8 @@ static bcmolt_group_descr group_descr_nni_interface_stats_alarm_cleared =
     .type = &type_descr_bcmolt_nni_interface_stats_alarm_cleared_data,
 };
 
-/** Group: nni_interface - auto_cfg. */
-static bcmolt_group_descr group_descr_nni_interface_auto_cfg =
+/* ===== Group: nni_interface - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_nni_interface_auto_cfg =
 {
     .container_size = sizeof(bcmolt_nni_interface_auto_cfg),
     .data_offset = offsetof(bcmolt_nni_interface_auto_cfg, data),
@@ -36283,36 +39079,36 @@ static bcmolt_group_descr group_descr_nni_interface_auto_cfg =
     .type = &type_descr_bcmolt_nni_interface_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_nni_interface[] =
+static const bcmolt_group_descr *_groups_nni_interface[] =
 {
-    &group_descr_nni_interface_key,
-    &group_descr_nni_interface_state_change,
-    &group_descr_nni_interface_cfg,
-    &group_descr_nni_interface_set_nni_state,
-    &group_descr_nni_interface_stats,
-    &group_descr_nni_interface_link_state_change,
-    &group_descr_nni_interface_fault_code_change,
-    &group_descr_nni_interface_stats_cfg,
-    &group_descr_nni_interface_stats_alarm_raised,
-    &group_descr_nni_interface_stats_alarm_cleared,
-    &group_descr_nni_interface_auto_cfg,
+    &_group_descr_nni_interface_key,
+    &_group_descr_nni_interface_state_change,
+    &_group_descr_nni_interface_cfg,
+    &_group_descr_nni_interface_set_nni_state,
+    &_group_descr_nni_interface_stats,
+    &_group_descr_nni_interface_link_state_change,
+    &_group_descr_nni_interface_fault_code_change,
+    &_group_descr_nni_interface_stats_cfg,
+    &_group_descr_nni_interface_stats_alarm_raised,
+    &_group_descr_nni_interface_stats_alarm_cleared,
+    &_group_descr_nni_interface_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_nni_interface =
+static const bcmolt_obj_descr _obj_descr_nni_interface =
 {
     .name = "nni_interface",
     .descr = "nni_interface.",
     .id = BCMOLT_OBJ_ID_NNI_INTERFACE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_nni_interface_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_nni_interface),
-    .groups = groups_nni_interface,
+    .num_groups = BCM_SIZEOFARRAY(_groups_nni_interface),
+    .groups = _groups_nni_interface,
 };
 
 
-/** ==== Object: olt ==== */
-/** Group: olt - key. */
-static bcmolt_group_descr group_descr_olt_key =
+/* ===== Object: olt ===== */
+/* ===== Group: olt - key ===== */
+static const bcmolt_group_descr _group_descr_olt_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -36330,8 +39126,8 @@ static bcmolt_group_descr group_descr_olt_key =
     .type = &type_descr_bcmolt_olt_key,
 };
 
-/** Group: olt - cfg. */
-static bcmolt_multi_group_descr multi_descr_olt_cfg =
+/* ===== Group: olt - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_olt_cfg =
 {
     .container_size = sizeof(bcmolt_olt_multi_cfg),
     .key_offset = offsetof(bcmolt_olt_multi_cfg, key),
@@ -36343,7 +39139,7 @@ static bcmolt_multi_group_descr multi_descr_olt_cfg =
     .responses_offset = offsetof(bcmolt_olt_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_olt_cfg =
+static const bcmolt_group_descr _group_descr_olt_cfg =
 {
     .container_size = sizeof(bcmolt_olt_cfg),
     .data_offset = offsetof(bcmolt_olt_cfg, data),
@@ -36354,7 +39150,7 @@ static bcmolt_group_descr group_descr_olt_cfg =
     .key_offset = offsetof(bcmolt_olt_cfg, key),
     .key_size = sizeof(bcmolt_olt_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_olt_cfg,
+    .multi = &_multi_descr_olt_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_OLT,
     .subgroup_idx = 0,
@@ -36362,8 +39158,8 @@ static bcmolt_group_descr group_descr_olt_cfg =
     .type = &type_descr_bcmolt_olt_cfg_data,
 };
 
-/** Group: olt - connect. */
-static bcmolt_group_descr group_descr_olt_connect =
+/* ===== Group: olt - connect ===== */
+static const bcmolt_group_descr _group_descr_olt_connect =
 {
     .container_size = sizeof(bcmolt_olt_connect),
     .data_offset = 0,
@@ -36381,8 +39177,8 @@ static bcmolt_group_descr group_descr_olt_connect =
     .type = NULL,
 };
 
-/** Group: olt - disconnect. */
-static bcmolt_group_descr group_descr_olt_disconnect =
+/* ===== Group: olt - disconnect ===== */
+static const bcmolt_group_descr _group_descr_olt_disconnect =
 {
     .container_size = sizeof(bcmolt_olt_disconnect),
     .data_offset = 0,
@@ -36400,8 +39196,8 @@ static bcmolt_group_descr group_descr_olt_disconnect =
     .type = NULL,
 };
 
-/** Group: olt - bal_reset. */
-static bcmolt_group_descr group_descr_olt_bal_reset =
+/* ===== Group: olt - bal_reset ===== */
+static const bcmolt_group_descr _group_descr_olt_bal_reset =
 {
     .container_size = sizeof(bcmolt_olt_bal_reset),
     .data_offset = 0,
@@ -36419,8 +39215,8 @@ static bcmolt_group_descr group_descr_olt_bal_reset =
     .type = NULL,
 };
 
-/** Group: olt - bal_failure. */
-static bcmolt_group_descr group_descr_olt_bal_failure =
+/* ===== Group: olt - bal_failure ===== */
+static const bcmolt_group_descr _group_descr_olt_bal_failure =
 {
     .container_size = sizeof(bcmolt_olt_bal_failure),
     .data_offset = offsetof(bcmolt_olt_bal_failure, data),
@@ -36438,8 +39234,8 @@ static bcmolt_group_descr group_descr_olt_bal_failure =
     .type = &type_descr_bcmolt_olt_bal_failure_data,
 };
 
-/** Group: olt - bal_ready. */
-static bcmolt_group_descr group_descr_olt_bal_ready =
+/* ===== Group: olt - bal_ready ===== */
+static const bcmolt_group_descr _group_descr_olt_bal_ready =
 {
     .container_size = sizeof(bcmolt_olt_bal_ready),
     .data_offset = 0,
@@ -36457,8 +39253,8 @@ static bcmolt_group_descr group_descr_olt_bal_ready =
     .type = NULL,
 };
 
-/** Group: olt - sw_error. */
-static bcmolt_group_descr group_descr_olt_sw_error =
+/* ===== Group: olt - sw_error ===== */
+static const bcmolt_group_descr _group_descr_olt_sw_error =
 {
     .container_size = sizeof(bcmolt_olt_sw_error),
     .data_offset = offsetof(bcmolt_olt_sw_error, data),
@@ -36476,8 +39272,8 @@ static bcmolt_group_descr group_descr_olt_sw_error =
     .type = &type_descr_bcmolt_olt_sw_error_data,
 };
 
-/** Group: olt - reset. */
-static bcmolt_group_descr group_descr_olt_reset =
+/* ===== Group: olt - reset ===== */
+static const bcmolt_group_descr _group_descr_olt_reset =
 {
     .container_size = sizeof(bcmolt_olt_reset),
     .data_offset = offsetof(bcmolt_olt_reset, data),
@@ -36495,8 +39291,8 @@ static bcmolt_group_descr group_descr_olt_reset =
     .type = &type_descr_bcmolt_olt_reset_data,
 };
 
-/** Group: olt - auto_cfg. */
-static bcmolt_group_descr group_descr_olt_auto_cfg =
+/* ===== Group: olt - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_olt_auto_cfg =
 {
     .container_size = sizeof(bcmolt_olt_auto_cfg),
     .data_offset = offsetof(bcmolt_olt_auto_cfg, data),
@@ -36514,35 +39310,35 @@ static bcmolt_group_descr group_descr_olt_auto_cfg =
     .type = &type_descr_bcmolt_olt_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_olt[] =
+static const bcmolt_group_descr *_groups_olt[] =
 {
-    &group_descr_olt_key,
-    &group_descr_olt_cfg,
-    &group_descr_olt_connect,
-    &group_descr_olt_disconnect,
-    &group_descr_olt_bal_reset,
-    &group_descr_olt_bal_failure,
-    &group_descr_olt_bal_ready,
-    &group_descr_olt_sw_error,
-    &group_descr_olt_reset,
-    &group_descr_olt_auto_cfg,
+    &_group_descr_olt_key,
+    &_group_descr_olt_cfg,
+    &_group_descr_olt_connect,
+    &_group_descr_olt_disconnect,
+    &_group_descr_olt_bal_reset,
+    &_group_descr_olt_bal_failure,
+    &_group_descr_olt_bal_ready,
+    &_group_descr_olt_sw_error,
+    &_group_descr_olt_reset,
+    &_group_descr_olt_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_olt =
+static const bcmolt_obj_descr _obj_descr_olt =
 {
     .name = "olt",
     .descr = "olt.",
     .id = BCMOLT_OBJ_ID_OLT,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_olt_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_olt),
-    .groups = groups_olt,
+    .num_groups = BCM_SIZEOFARRAY(_groups_olt),
+    .groups = _groups_olt,
 };
 
 
-/** ==== Object: onu ==== */
-/** Group: onu - key. */
-static bcmolt_group_descr group_descr_onu_key =
+/* ===== Object: onu ===== */
+/* ===== Group: onu - key ===== */
+static const bcmolt_group_descr _group_descr_onu_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -36560,8 +39356,8 @@ static bcmolt_group_descr group_descr_onu_key =
     .type = &type_descr_bcmolt_onu_key,
 };
 
-/** Group: onu - cfg. */
-static bcmolt_multi_group_descr multi_descr_onu_cfg =
+/* ===== Group: onu - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_onu_cfg =
 {
     .container_size = sizeof(bcmolt_onu_multi_cfg),
     .key_offset = offsetof(bcmolt_onu_multi_cfg, key),
@@ -36573,7 +39369,7 @@ static bcmolt_multi_group_descr multi_descr_onu_cfg =
     .responses_offset = offsetof(bcmolt_onu_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_onu_cfg =
+static const bcmolt_group_descr _group_descr_onu_cfg =
 {
     .container_size = sizeof(bcmolt_onu_cfg),
     .data_offset = offsetof(bcmolt_onu_cfg, data),
@@ -36584,7 +39380,7 @@ static bcmolt_group_descr group_descr_onu_cfg =
     .key_offset = offsetof(bcmolt_onu_cfg, key),
     .key_size = sizeof(bcmolt_onu_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_onu_cfg,
+    .multi = &_multi_descr_onu_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_ONU,
     .subgroup_idx = 0,
@@ -36592,8 +39388,8 @@ static bcmolt_group_descr group_descr_onu_cfg =
     .type = &type_descr_bcmolt_onu_cfg_data,
 };
 
-/** Group: onu - itu_pon_stats. */
-static bcmolt_multi_group_descr multi_descr_onu_itu_pon_stats =
+/* ===== Group: onu - itu_pon_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_onu_itu_pon_stats =
 {
     .container_size = sizeof(bcmolt_onu_multi_itu_pon_stats),
     .key_offset = offsetof(bcmolt_onu_multi_itu_pon_stats, key),
@@ -36605,7 +39401,7 @@ static bcmolt_multi_group_descr multi_descr_onu_itu_pon_stats =
     .responses_offset = offsetof(bcmolt_onu_multi_itu_pon_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_onu_itu_pon_stats =
+static const bcmolt_group_descr _group_descr_onu_itu_pon_stats =
 {
     .container_size = sizeof(bcmolt_onu_itu_pon_stats),
     .data_offset = offsetof(bcmolt_onu_itu_pon_stats, data),
@@ -36616,7 +39412,7 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats =
     .key_offset = offsetof(bcmolt_onu_itu_pon_stats, key),
     .key_size = sizeof(bcmolt_onu_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_onu_itu_pon_stats,
+    .multi = &_multi_descr_onu_itu_pon_stats,
     .name = "itu_pon_stats",
     .obj_id = BCMOLT_OBJ_ID_ONU,
     .subgroup_idx = BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS,
@@ -36624,8 +39420,8 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats =
     .type = &type_descr_bcmolt_onu_itu_pon_stats_data,
 };
 
-/** Group: onu - set_onu_state. */
-static bcmolt_group_descr group_descr_onu_set_onu_state =
+/* ===== Group: onu - set_onu_state ===== */
+static const bcmolt_group_descr _group_descr_onu_set_onu_state =
 {
     .container_size = sizeof(bcmolt_onu_set_onu_state),
     .data_offset = offsetof(bcmolt_onu_set_onu_state, data),
@@ -36643,8 +39439,8 @@ static bcmolt_group_descr group_descr_onu_set_onu_state =
     .type = &type_descr_bcmolt_onu_set_onu_state_data,
 };
 
-/** Group: onu - rssi_measurement. */
-static bcmolt_group_descr group_descr_onu_rssi_measurement =
+/* ===== Group: onu - rssi_measurement ===== */
+static const bcmolt_group_descr _group_descr_onu_rssi_measurement =
 {
     .container_size = sizeof(bcmolt_onu_rssi_measurement),
     .data_offset = 0,
@@ -36662,8 +39458,8 @@ static bcmolt_group_descr group_descr_onu_rssi_measurement =
     .type = NULL,
 };
 
-/** Group: onu - request_registration. */
-static bcmolt_group_descr group_descr_onu_request_registration =
+/* ===== Group: onu - request_registration ===== */
+static const bcmolt_group_descr _group_descr_onu_request_registration =
 {
     .container_size = sizeof(bcmolt_onu_request_registration),
     .data_offset = offsetof(bcmolt_onu_request_registration, data),
@@ -36681,8 +39477,8 @@ static bcmolt_group_descr group_descr_onu_request_registration =
     .type = &type_descr_bcmolt_onu_request_registration_data,
 };
 
-/** Group: onu - change_power_levelling. */
-static bcmolt_group_descr group_descr_onu_change_power_levelling =
+/* ===== Group: onu - change_power_levelling ===== */
+static const bcmolt_group_descr _group_descr_onu_change_power_levelling =
 {
     .container_size = sizeof(bcmolt_onu_change_power_levelling),
     .data_offset = offsetof(bcmolt_onu_change_power_levelling, data),
@@ -36700,8 +39496,8 @@ static bcmolt_group_descr group_descr_onu_change_power_levelling =
     .type = &type_descr_bcmolt_onu_change_power_levelling_data,
 };
 
-/** Group: onu - get_power_level. */
-static bcmolt_group_descr group_descr_onu_get_power_level =
+/* ===== Group: onu - get_power_level ===== */
+static const bcmolt_group_descr _group_descr_onu_get_power_level =
 {
     .container_size = sizeof(bcmolt_onu_get_power_level),
     .data_offset = 0,
@@ -36719,8 +39515,8 @@ static bcmolt_group_descr group_descr_onu_get_power_level =
     .type = NULL,
 };
 
-/** Group: onu - get_power_consumption. */
-static bcmolt_group_descr group_descr_onu_get_power_consumption =
+/* ===== Group: onu - get_power_consumption ===== */
+static const bcmolt_group_descr _group_descr_onu_get_power_consumption =
 {
     .container_size = sizeof(bcmolt_onu_get_power_consumption),
     .data_offset = 0,
@@ -36738,8 +39534,8 @@ static bcmolt_group_descr group_descr_onu_get_power_consumption =
     .type = NULL,
 };
 
-/** Group: onu - adjust_tx_wavelength. */
-static bcmolt_group_descr group_descr_onu_adjust_tx_wavelength =
+/* ===== Group: onu - adjust_tx_wavelength ===== */
+static const bcmolt_group_descr _group_descr_onu_adjust_tx_wavelength =
 {
     .container_size = sizeof(bcmolt_onu_adjust_tx_wavelength),
     .data_offset = offsetof(bcmolt_onu_adjust_tx_wavelength, data),
@@ -36757,8 +39553,8 @@ static bcmolt_group_descr group_descr_onu_adjust_tx_wavelength =
     .type = &type_descr_bcmolt_onu_adjust_tx_wavelength_data,
 };
 
-/** Group: onu - secure_mutual_authentication. */
-static bcmolt_group_descr group_descr_onu_secure_mutual_authentication =
+/* ===== Group: onu - secure_mutual_authentication ===== */
+static const bcmolt_group_descr _group_descr_onu_secure_mutual_authentication =
 {
     .container_size = sizeof(bcmolt_onu_secure_mutual_authentication),
     .data_offset = offsetof(bcmolt_onu_secure_mutual_authentication, data),
@@ -36776,8 +39572,8 @@ static bcmolt_group_descr group_descr_onu_secure_mutual_authentication =
     .type = &type_descr_bcmolt_onu_secure_mutual_authentication_data,
 };
 
-/** Group: onu - tuning_in. */
-static bcmolt_group_descr group_descr_onu_tuning_in =
+/* ===== Group: onu - tuning_in ===== */
+static const bcmolt_group_descr _group_descr_onu_tuning_in =
 {
     .container_size = sizeof(bcmolt_onu_tuning_in),
     .data_offset = 0,
@@ -36795,8 +39591,8 @@ static bcmolt_group_descr group_descr_onu_tuning_in =
     .type = NULL,
 };
 
-/** Group: onu - tuning_out. */
-static bcmolt_group_descr group_descr_onu_tuning_out =
+/* ===== Group: onu - tuning_out ===== */
+static const bcmolt_group_descr _group_descr_onu_tuning_out =
 {
     .container_size = sizeof(bcmolt_onu_tuning_out),
     .data_offset = offsetof(bcmolt_onu_tuning_out, data),
@@ -36814,8 +39610,8 @@ static bcmolt_group_descr group_descr_onu_tuning_out =
     .type = &type_descr_bcmolt_onu_tuning_out_data,
 };
 
-/** Group: onu - xgpon_alarm. */
-static bcmolt_group_descr group_descr_onu_xgpon_alarm =
+/* ===== Group: onu - xgpon_alarm ===== */
+static const bcmolt_group_descr _group_descr_onu_xgpon_alarm =
 {
     .container_size = sizeof(bcmolt_onu_xgpon_alarm),
     .data_offset = offsetof(bcmolt_onu_xgpon_alarm, data),
@@ -36833,8 +39629,8 @@ static bcmolt_group_descr group_descr_onu_xgpon_alarm =
     .type = &type_descr_bcmolt_onu_xgpon_alarm_data,
 };
 
-/** Group: onu - gpon_alarm. */
-static bcmolt_group_descr group_descr_onu_gpon_alarm =
+/* ===== Group: onu - gpon_alarm ===== */
+static const bcmolt_group_descr _group_descr_onu_gpon_alarm =
 {
     .container_size = sizeof(bcmolt_onu_gpon_alarm),
     .data_offset = offsetof(bcmolt_onu_gpon_alarm, data),
@@ -36852,8 +39648,8 @@ static bcmolt_group_descr group_descr_onu_gpon_alarm =
     .type = &type_descr_bcmolt_onu_gpon_alarm_data,
 };
 
-/** Group: onu - dowi. */
-static bcmolt_group_descr group_descr_onu_dowi =
+/* ===== Group: onu - dowi ===== */
+static const bcmolt_group_descr _group_descr_onu_dowi =
 {
     .container_size = sizeof(bcmolt_onu_dowi),
     .data_offset = offsetof(bcmolt_onu_dowi, data),
@@ -36871,8 +39667,8 @@ static bcmolt_group_descr group_descr_onu_dowi =
     .type = &type_descr_bcmolt_onu_dowi_data,
 };
 
-/** Group: onu - sfi. */
-static bcmolt_group_descr group_descr_onu_sfi =
+/* ===== Group: onu - sfi ===== */
+static const bcmolt_group_descr _group_descr_onu_sfi =
 {
     .container_size = sizeof(bcmolt_onu_sfi),
     .data_offset = offsetof(bcmolt_onu_sfi, data),
@@ -36890,8 +39686,8 @@ static bcmolt_group_descr group_descr_onu_sfi =
     .type = &type_descr_bcmolt_onu_sfi_data,
 };
 
-/** Group: onu - sdi. */
-static bcmolt_group_descr group_descr_onu_sdi =
+/* ===== Group: onu - sdi ===== */
+static const bcmolt_group_descr _group_descr_onu_sdi =
 {
     .container_size = sizeof(bcmolt_onu_sdi),
     .data_offset = offsetof(bcmolt_onu_sdi, data),
@@ -36909,8 +39705,8 @@ static bcmolt_group_descr group_descr_onu_sdi =
     .type = &type_descr_bcmolt_onu_sdi_data,
 };
 
-/** Group: onu - dfi. */
-static bcmolt_group_descr group_descr_onu_dfi =
+/* ===== Group: onu - dfi ===== */
+static const bcmolt_group_descr _group_descr_onu_dfi =
 {
     .container_size = sizeof(bcmolt_onu_dfi),
     .data_offset = offsetof(bcmolt_onu_dfi, data),
@@ -36928,8 +39724,8 @@ static bcmolt_group_descr group_descr_onu_dfi =
     .type = &type_descr_bcmolt_onu_dfi_data,
 };
 
-/** Group: onu - pqsi. */
-static bcmolt_group_descr group_descr_onu_pqsi =
+/* ===== Group: onu - pqsi ===== */
+static const bcmolt_group_descr _group_descr_onu_pqsi =
 {
     .container_size = sizeof(bcmolt_onu_pqsi),
     .data_offset = offsetof(bcmolt_onu_pqsi, data),
@@ -36947,8 +39743,8 @@ static bcmolt_group_descr group_descr_onu_pqsi =
     .type = &type_descr_bcmolt_onu_pqsi_data,
 };
 
-/** Group: onu - sufi. */
-static bcmolt_group_descr group_descr_onu_sufi =
+/* ===== Group: onu - sufi ===== */
+static const bcmolt_group_descr _group_descr_onu_sufi =
 {
     .container_size = sizeof(bcmolt_onu_sufi),
     .data_offset = offsetof(bcmolt_onu_sufi, data),
@@ -36966,8 +39762,8 @@ static bcmolt_group_descr group_descr_onu_sufi =
     .type = &type_descr_bcmolt_onu_sufi_data,
 };
 
-/** Group: onu - tiwi. */
-static bcmolt_group_descr group_descr_onu_tiwi =
+/* ===== Group: onu - tiwi ===== */
+static const bcmolt_group_descr _group_descr_onu_tiwi =
 {
     .container_size = sizeof(bcmolt_onu_tiwi),
     .data_offset = offsetof(bcmolt_onu_tiwi, data),
@@ -36985,8 +39781,8 @@ static bcmolt_group_descr group_descr_onu_tiwi =
     .type = &type_descr_bcmolt_onu_tiwi_data,
 };
 
-/** Group: onu - looci. */
-static bcmolt_group_descr group_descr_onu_looci =
+/* ===== Group: onu - looci ===== */
+static const bcmolt_group_descr _group_descr_onu_looci =
 {
     .container_size = sizeof(bcmolt_onu_looci),
     .data_offset = offsetof(bcmolt_onu_looci, data),
@@ -37004,8 +39800,8 @@ static bcmolt_group_descr group_descr_onu_looci =
     .type = &type_descr_bcmolt_onu_looci_data,
 };
 
-/** Group: onu - loai. */
-static bcmolt_group_descr group_descr_onu_loai =
+/* ===== Group: onu - loai ===== */
+static const bcmolt_group_descr _group_descr_onu_loai =
 {
     .container_size = sizeof(bcmolt_onu_loai),
     .data_offset = offsetof(bcmolt_onu_loai, data),
@@ -37023,8 +39819,8 @@ static bcmolt_group_descr group_descr_onu_loai =
     .type = &type_descr_bcmolt_onu_loai_data,
 };
 
-/** Group: onu - dgi. */
-static bcmolt_group_descr group_descr_onu_dgi =
+/* ===== Group: onu - dgi ===== */
+static const bcmolt_group_descr _group_descr_onu_dgi =
 {
     .container_size = sizeof(bcmolt_onu_dgi),
     .data_offset = offsetof(bcmolt_onu_dgi, data),
@@ -37042,8 +39838,8 @@ static bcmolt_group_descr group_descr_onu_dgi =
     .type = &type_descr_bcmolt_onu_dgi_data,
 };
 
-/** Group: onu - pee. */
-static bcmolt_group_descr group_descr_onu_pee =
+/* ===== Group: onu - pee ===== */
+static const bcmolt_group_descr _group_descr_onu_pee =
 {
     .container_size = sizeof(bcmolt_onu_pee),
     .data_offset = offsetof(bcmolt_onu_pee, data),
@@ -37061,8 +39857,8 @@ static bcmolt_group_descr group_descr_onu_pee =
     .type = &type_descr_bcmolt_onu_pee_data,
 };
 
-/** Group: onu - pst. */
-static bcmolt_group_descr group_descr_onu_pst =
+/* ===== Group: onu - pst ===== */
+static const bcmolt_group_descr _group_descr_onu_pst =
 {
     .container_size = sizeof(bcmolt_onu_pst),
     .data_offset = offsetof(bcmolt_onu_pst, data),
@@ -37080,8 +39876,8 @@ static bcmolt_group_descr group_descr_onu_pst =
     .type = &type_descr_bcmolt_onu_pst_data,
 };
 
-/** Group: onu - ranging_completed. */
-static bcmolt_group_descr group_descr_onu_ranging_completed =
+/* ===== Group: onu - ranging_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_ranging_completed =
 {
     .container_size = sizeof(bcmolt_onu_ranging_completed),
     .data_offset = offsetof(bcmolt_onu_ranging_completed, data),
@@ -37099,8 +39895,8 @@ static bcmolt_group_descr group_descr_onu_ranging_completed =
     .type = &type_descr_bcmolt_onu_ranging_completed_data,
 };
 
-/** Group: onu - onu_activation_completed. */
-static bcmolt_group_descr group_descr_onu_onu_activation_completed =
+/* ===== Group: onu - onu_activation_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_activation_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_activation_completed),
     .data_offset = offsetof(bcmolt_onu_onu_activation_completed, data),
@@ -37118,8 +39914,8 @@ static bcmolt_group_descr group_descr_onu_onu_activation_completed =
     .type = &type_descr_bcmolt_onu_onu_activation_completed_data,
 };
 
-/** Group: onu - onu_deactivation_completed. */
-static bcmolt_group_descr group_descr_onu_onu_deactivation_completed =
+/* ===== Group: onu - onu_deactivation_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_deactivation_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_deactivation_completed),
     .data_offset = offsetof(bcmolt_onu_onu_deactivation_completed, data),
@@ -37137,8 +39933,8 @@ static bcmolt_group_descr group_descr_onu_onu_deactivation_completed =
     .type = &type_descr_bcmolt_onu_onu_deactivation_completed_data,
 };
 
-/** Group: onu - onu_enable_completed. */
-static bcmolt_group_descr group_descr_onu_onu_enable_completed =
+/* ===== Group: onu - onu_enable_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_enable_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_enable_completed),
     .data_offset = offsetof(bcmolt_onu_onu_enable_completed, data),
@@ -37156,8 +39952,8 @@ static bcmolt_group_descr group_descr_onu_onu_enable_completed =
     .type = &type_descr_bcmolt_onu_onu_enable_completed_data,
 };
 
-/** Group: onu - onu_disable_completed. */
-static bcmolt_group_descr group_descr_onu_onu_disable_completed =
+/* ===== Group: onu - onu_disable_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_disable_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_disable_completed),
     .data_offset = offsetof(bcmolt_onu_onu_disable_completed, data),
@@ -37175,8 +39971,8 @@ static bcmolt_group_descr group_descr_onu_onu_disable_completed =
     .type = &type_descr_bcmolt_onu_onu_disable_completed_data,
 };
 
-/** Group: onu - rssi_measurement_completed. */
-static bcmolt_group_descr group_descr_onu_rssi_measurement_completed =
+/* ===== Group: onu - rssi_measurement_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_rssi_measurement_completed =
 {
     .container_size = sizeof(bcmolt_onu_rssi_measurement_completed),
     .data_offset = offsetof(bcmolt_onu_rssi_measurement_completed, data),
@@ -37194,8 +39990,8 @@ static bcmolt_group_descr group_descr_onu_rssi_measurement_completed =
     .type = &type_descr_bcmolt_onu_rssi_measurement_completed_data,
 };
 
-/** Group: onu - invalid_dbru_report. */
-static bcmolt_group_descr group_descr_onu_invalid_dbru_report =
+/* ===== Group: onu - invalid_dbru_report ===== */
+static const bcmolt_group_descr _group_descr_onu_invalid_dbru_report =
 {
     .container_size = sizeof(bcmolt_onu_invalid_dbru_report),
     .data_offset = offsetof(bcmolt_onu_invalid_dbru_report, data),
@@ -37213,8 +40009,8 @@ static bcmolt_group_descr group_descr_onu_invalid_dbru_report =
     .type = &type_descr_bcmolt_onu_invalid_dbru_report_data,
 };
 
-/** Group: onu - key_exchange_completed. */
-static bcmolt_group_descr group_descr_onu_key_exchange_completed =
+/* ===== Group: onu - key_exchange_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_completed =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_completed),
     .data_offset = offsetof(bcmolt_onu_key_exchange_completed, data),
@@ -37232,8 +40028,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_completed =
     .type = &type_descr_bcmolt_onu_key_exchange_completed_data,
 };
 
-/** Group: onu - key_exchange_key_request_timeout. */
-static bcmolt_group_descr group_descr_onu_key_exchange_key_request_timeout =
+/* ===== Group: onu - key_exchange_key_request_timeout ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_key_request_timeout =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_key_request_timeout),
     .data_offset = 0,
@@ -37251,8 +40047,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_key_request_timeout =
     .type = NULL,
 };
 
-/** Group: onu - key_exchange_cycle_skipped. */
-static bcmolt_group_descr group_descr_onu_key_exchange_cycle_skipped =
+/* ===== Group: onu - key_exchange_cycle_skipped ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_cycle_skipped =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_cycle_skipped),
     .data_offset = 0,
@@ -37270,8 +40066,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_cycle_skipped =
     .type = NULL,
 };
 
-/** Group: onu - key_exchange_key_mismatch. */
-static bcmolt_group_descr group_descr_onu_key_exchange_key_mismatch =
+/* ===== Group: onu - key_exchange_key_mismatch ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_key_mismatch =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_key_mismatch),
     .data_offset = offsetof(bcmolt_onu_key_exchange_key_mismatch, data),
@@ -37289,8 +40085,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_key_mismatch =
     .type = &type_descr_bcmolt_onu_key_exchange_key_mismatch_data,
 };
 
-/** Group: onu - optical_reflection. */
-static bcmolt_group_descr group_descr_onu_optical_reflection =
+/* ===== Group: onu - optical_reflection ===== */
+static const bcmolt_group_descr _group_descr_onu_optical_reflection =
 {
     .container_size = sizeof(bcmolt_onu_optical_reflection),
     .data_offset = 0,
@@ -37308,8 +40104,8 @@ static bcmolt_group_descr group_descr_onu_optical_reflection =
     .type = NULL,
 };
 
-/** Group: onu - loki. */
-static bcmolt_group_descr group_descr_onu_loki =
+/* ===== Group: onu - loki ===== */
+static const bcmolt_group_descr _group_descr_onu_loki =
 {
     .container_size = sizeof(bcmolt_onu_loki),
     .data_offset = offsetof(bcmolt_onu_loki, data),
@@ -37327,8 +40123,8 @@ static bcmolt_group_descr group_descr_onu_loki =
     .type = &type_descr_bcmolt_onu_loki_data,
 };
 
-/** Group: onu - memi. */
-static bcmolt_group_descr group_descr_onu_memi =
+/* ===== Group: onu - memi ===== */
+static const bcmolt_group_descr _group_descr_onu_memi =
 {
     .container_size = sizeof(bcmolt_onu_memi),
     .data_offset = offsetof(bcmolt_onu_memi, data),
@@ -37346,8 +40142,8 @@ static bcmolt_group_descr group_descr_onu_memi =
     .type = &type_descr_bcmolt_onu_memi_data,
 };
 
-/** Group: onu - omci_port_id_configuration_completed. */
-static bcmolt_group_descr group_descr_onu_omci_port_id_configuration_completed =
+/* ===== Group: onu - omci_port_id_configuration_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_omci_port_id_configuration_completed =
 {
     .container_size = sizeof(bcmolt_onu_omci_port_id_configuration_completed),
     .data_offset = offsetof(bcmolt_onu_omci_port_id_configuration_completed, data),
@@ -37365,8 +40161,8 @@ static bcmolt_group_descr group_descr_onu_omci_port_id_configuration_completed =
     .type = &type_descr_bcmolt_onu_omci_port_id_configuration_completed_data,
 };
 
-/** Group: onu - ber_interval_configuration_completed. */
-static bcmolt_group_descr group_descr_onu_ber_interval_configuration_completed =
+/* ===== Group: onu - ber_interval_configuration_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_ber_interval_configuration_completed =
 {
     .container_size = sizeof(bcmolt_onu_ber_interval_configuration_completed),
     .data_offset = offsetof(bcmolt_onu_ber_interval_configuration_completed, data),
@@ -37384,8 +40180,8 @@ static bcmolt_group_descr group_descr_onu_ber_interval_configuration_completed =
     .type = &type_descr_bcmolt_onu_ber_interval_configuration_completed_data,
 };
 
-/** Group: onu - err. */
-static bcmolt_group_descr group_descr_onu_err =
+/* ===== Group: onu - err ===== */
+static const bcmolt_group_descr _group_descr_onu_err =
 {
     .container_size = sizeof(bcmolt_onu_err),
     .data_offset = offsetof(bcmolt_onu_err, data),
@@ -37403,8 +40199,8 @@ static bcmolt_group_descr group_descr_onu_err =
     .type = &type_descr_bcmolt_onu_err_data,
 };
 
-/** Group: onu - password_authentication_completed. */
-static bcmolt_group_descr group_descr_onu_password_authentication_completed =
+/* ===== Group: onu - password_authentication_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_password_authentication_completed =
 {
     .container_size = sizeof(bcmolt_onu_password_authentication_completed),
     .data_offset = offsetof(bcmolt_onu_password_authentication_completed, data),
@@ -37422,8 +40218,8 @@ static bcmolt_group_descr group_descr_onu_password_authentication_completed =
     .type = &type_descr_bcmolt_onu_password_authentication_completed_data,
 };
 
-/** Group: onu - key_exchange_unconsecutive_index. */
-static bcmolt_group_descr group_descr_onu_key_exchange_unconsecutive_index =
+/* ===== Group: onu - key_exchange_unconsecutive_index ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_unconsecutive_index =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_unconsecutive_index),
     .data_offset = offsetof(bcmolt_onu_key_exchange_unconsecutive_index, data),
@@ -37441,8 +40237,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_unconsecutive_index =
     .type = &type_descr_bcmolt_onu_key_exchange_unconsecutive_index_data,
 };
 
-/** Group: onu - key_exchange_decrypt_required. */
-static bcmolt_group_descr group_descr_onu_key_exchange_decrypt_required =
+/* ===== Group: onu - key_exchange_decrypt_required ===== */
+static const bcmolt_group_descr _group_descr_onu_key_exchange_decrypt_required =
 {
     .container_size = sizeof(bcmolt_onu_key_exchange_decrypt_required),
     .data_offset = offsetof(bcmolt_onu_key_exchange_decrypt_required, data),
@@ -37460,8 +40256,8 @@ static bcmolt_group_descr group_descr_onu_key_exchange_decrypt_required =
     .type = &type_descr_bcmolt_onu_key_exchange_decrypt_required_data,
 };
 
-/** Group: onu - onu_activation_standby_completed. */
-static bcmolt_group_descr group_descr_onu_onu_activation_standby_completed =
+/* ===== Group: onu - onu_activation_standby_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_activation_standby_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_activation_standby_completed),
     .data_offset = offsetof(bcmolt_onu_onu_activation_standby_completed, data),
@@ -37479,8 +40275,8 @@ static bcmolt_group_descr group_descr_onu_onu_activation_standby_completed =
     .type = &type_descr_bcmolt_onu_onu_activation_standby_completed_data,
 };
 
-/** Group: onu - power_management_state_change. */
-static bcmolt_group_descr group_descr_onu_power_management_state_change =
+/* ===== Group: onu - power_management_state_change ===== */
+static const bcmolt_group_descr _group_descr_onu_power_management_state_change =
 {
     .container_size = sizeof(bcmolt_onu_power_management_state_change),
     .data_offset = offsetof(bcmolt_onu_power_management_state_change, data),
@@ -37498,8 +40294,8 @@ static bcmolt_group_descr group_descr_onu_power_management_state_change =
     .type = &type_descr_bcmolt_onu_power_management_state_change_data,
 };
 
-/** Group: onu - possible_drift. */
-static bcmolt_group_descr group_descr_onu_possible_drift =
+/* ===== Group: onu - possible_drift ===== */
+static const bcmolt_group_descr _group_descr_onu_possible_drift =
 {
     .container_size = sizeof(bcmolt_onu_possible_drift),
     .data_offset = offsetof(bcmolt_onu_possible_drift, data),
@@ -37517,8 +40313,8 @@ static bcmolt_group_descr group_descr_onu_possible_drift =
     .type = &type_descr_bcmolt_onu_possible_drift_data,
 };
 
-/** Group: onu - registration_id. */
-static bcmolt_group_descr group_descr_onu_registration_id =
+/* ===== Group: onu - registration_id ===== */
+static const bcmolt_group_descr _group_descr_onu_registration_id =
 {
     .container_size = sizeof(bcmolt_onu_registration_id),
     .data_offset = offsetof(bcmolt_onu_registration_id, data),
@@ -37536,8 +40332,8 @@ static bcmolt_group_descr group_descr_onu_registration_id =
     .type = &type_descr_bcmolt_onu_registration_id_data,
 };
 
-/** Group: onu - power_level_report. */
-static bcmolt_group_descr group_descr_onu_power_level_report =
+/* ===== Group: onu - power_level_report ===== */
+static const bcmolt_group_descr _group_descr_onu_power_level_report =
 {
     .container_size = sizeof(bcmolt_onu_power_level_report),
     .data_offset = offsetof(bcmolt_onu_power_level_report, data),
@@ -37555,8 +40351,8 @@ static bcmolt_group_descr group_descr_onu_power_level_report =
     .type = &type_descr_bcmolt_onu_power_level_report_data,
 };
 
-/** Group: onu - power_consumption_report. */
-static bcmolt_group_descr group_descr_onu_power_consumption_report =
+/* ===== Group: onu - power_consumption_report ===== */
+static const bcmolt_group_descr _group_descr_onu_power_consumption_report =
 {
     .container_size = sizeof(bcmolt_onu_power_consumption_report),
     .data_offset = offsetof(bcmolt_onu_power_consumption_report, data),
@@ -37574,8 +40370,8 @@ static bcmolt_group_descr group_descr_onu_power_consumption_report =
     .type = &type_descr_bcmolt_onu_power_consumption_report_data,
 };
 
-/** Group: onu - secure_mutual_authentication_failure. */
-static bcmolt_group_descr group_descr_onu_secure_mutual_authentication_failure =
+/* ===== Group: onu - secure_mutual_authentication_failure ===== */
+static const bcmolt_group_descr _group_descr_onu_secure_mutual_authentication_failure =
 {
     .container_size = sizeof(bcmolt_onu_secure_mutual_authentication_failure),
     .data_offset = offsetof(bcmolt_onu_secure_mutual_authentication_failure, data),
@@ -37593,8 +40389,8 @@ static bcmolt_group_descr group_descr_onu_secure_mutual_authentication_failure =
     .type = &type_descr_bcmolt_onu_secure_mutual_authentication_failure_data,
 };
 
-/** Group: onu - onu_tuning_out_completed. */
-static bcmolt_group_descr group_descr_onu_onu_tuning_out_completed =
+/* ===== Group: onu - onu_tuning_out_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_tuning_out_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_tuning_out_completed),
     .data_offset = offsetof(bcmolt_onu_onu_tuning_out_completed, data),
@@ -37612,8 +40408,8 @@ static bcmolt_group_descr group_descr_onu_onu_tuning_out_completed =
     .type = &type_descr_bcmolt_onu_onu_tuning_out_completed_data,
 };
 
-/** Group: onu - onu_tuning_in_completed. */
-static bcmolt_group_descr group_descr_onu_onu_tuning_in_completed =
+/* ===== Group: onu - onu_tuning_in_completed ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_tuning_in_completed =
 {
     .container_size = sizeof(bcmolt_onu_onu_tuning_in_completed),
     .data_offset = offsetof(bcmolt_onu_onu_tuning_in_completed, data),
@@ -37631,8 +40427,8 @@ static bcmolt_group_descr group_descr_onu_onu_tuning_in_completed =
     .type = &type_descr_bcmolt_onu_onu_tuning_in_completed_data,
 };
 
-/** Group: onu - tuning_response. */
-static bcmolt_group_descr group_descr_onu_tuning_response =
+/* ===== Group: onu - tuning_response ===== */
+static const bcmolt_group_descr _group_descr_onu_tuning_response =
 {
     .container_size = sizeof(bcmolt_onu_tuning_response),
     .data_offset = offsetof(bcmolt_onu_tuning_response, data),
@@ -37650,8 +40446,8 @@ static bcmolt_group_descr group_descr_onu_tuning_response =
     .type = &type_descr_bcmolt_onu_tuning_response_data,
 };
 
-/** Group: onu - ploam_packet. */
-static bcmolt_group_descr group_descr_onu_ploam_packet =
+/* ===== Group: onu - ploam_packet ===== */
+static const bcmolt_group_descr _group_descr_onu_ploam_packet =
 {
     .container_size = sizeof(bcmolt_onu_ploam_packet),
     .data_offset = offsetof(bcmolt_onu_ploam_packet, data),
@@ -37669,8 +40465,8 @@ static bcmolt_group_descr group_descr_onu_ploam_packet =
     .type = &type_descr_bcmolt_onu_ploam_packet_data,
 };
 
-/** Group: onu - cpu_packets. */
-static bcmolt_group_descr group_descr_onu_cpu_packets =
+/* ===== Group: onu - cpu_packets ===== */
+static const bcmolt_group_descr _group_descr_onu_cpu_packets =
 {
     .container_size = sizeof(bcmolt_onu_cpu_packets),
     .data_offset = offsetof(bcmolt_onu_cpu_packets, data),
@@ -37688,8 +40484,8 @@ static bcmolt_group_descr group_descr_onu_cpu_packets =
     .type = &type_descr_bcmolt_onu_cpu_packets_data,
 };
 
-/** Group: onu - cpu_packet. */
-static bcmolt_group_descr group_descr_onu_cpu_packet =
+/* ===== Group: onu - cpu_packet ===== */
+static const bcmolt_group_descr _group_descr_onu_cpu_packet =
 {
     .container_size = sizeof(bcmolt_onu_cpu_packet),
     .data_offset = offsetof(bcmolt_onu_cpu_packet, data),
@@ -37707,8 +40503,8 @@ static bcmolt_group_descr group_descr_onu_cpu_packet =
     .type = &type_descr_bcmolt_onu_cpu_packet_data,
 };
 
-/** Group: onu - omci_packet. */
-static bcmolt_group_descr group_descr_onu_omci_packet =
+/* ===== Group: onu - omci_packet ===== */
+static const bcmolt_group_descr _group_descr_onu_omci_packet =
 {
     .container_size = sizeof(bcmolt_onu_omci_packet),
     .data_offset = offsetof(bcmolt_onu_omci_packet, data),
@@ -37726,8 +40522,8 @@ static bcmolt_group_descr group_descr_onu_omci_packet =
     .type = &type_descr_bcmolt_onu_omci_packet_data,
 };
 
-/** Group: onu - onu_ready_for_data_grant. */
-static bcmolt_group_descr group_descr_onu_onu_ready_for_data_grant =
+/* ===== Group: onu - onu_ready_for_data_grant ===== */
+static const bcmolt_group_descr _group_descr_onu_onu_ready_for_data_grant =
 {
     .container_size = sizeof(bcmolt_onu_onu_ready_for_data_grant),
     .data_offset = 0,
@@ -37745,8 +40541,8 @@ static bcmolt_group_descr group_descr_onu_onu_ready_for_data_grant =
     .type = NULL,
 };
 
-/** Group: onu - rei. */
-static bcmolt_group_descr group_descr_onu_rei =
+/* ===== Group: onu - rei ===== */
+static const bcmolt_group_descr _group_descr_onu_rei =
 {
     .container_size = sizeof(bcmolt_onu_rei),
     .data_offset = offsetof(bcmolt_onu_rei, data),
@@ -37764,8 +40560,8 @@ static bcmolt_group_descr group_descr_onu_rei =
     .type = &type_descr_bcmolt_onu_rei_data,
 };
 
-/** Group: onu - force_deactivation. */
-static bcmolt_group_descr group_descr_onu_force_deactivation =
+/* ===== Group: onu - force_deactivation ===== */
+static const bcmolt_group_descr _group_descr_onu_force_deactivation =
 {
     .container_size = sizeof(bcmolt_onu_force_deactivation),
     .data_offset = 0,
@@ -37783,8 +40579,8 @@ static bcmolt_group_descr group_descr_onu_force_deactivation =
     .type = NULL,
 };
 
-/** Group: onu - state_change. */
-static bcmolt_group_descr group_descr_onu_state_change =
+/* ===== Group: onu - state_change ===== */
+static const bcmolt_group_descr _group_descr_onu_state_change =
 {
     .container_size = sizeof(bcmolt_onu_state_change),
     .data_offset = offsetof(bcmolt_onu_state_change, data),
@@ -37802,8 +40598,8 @@ static bcmolt_group_descr group_descr_onu_state_change =
     .type = &type_descr_bcmolt_onu_state_change_data,
 };
 
-/** Group: onu - range_value_changed. */
-static bcmolt_group_descr group_descr_onu_range_value_changed =
+/* ===== Group: onu - range_value_changed ===== */
+static const bcmolt_group_descr _group_descr_onu_range_value_changed =
 {
     .container_size = sizeof(bcmolt_onu_range_value_changed),
     .data_offset = offsetof(bcmolt_onu_range_value_changed, data),
@@ -37821,8 +40617,8 @@ static bcmolt_group_descr group_descr_onu_range_value_changed =
     .type = &type_descr_bcmolt_onu_range_value_changed_data,
 };
 
-/** Group: onu - xpon_unknown_ploam. */
-static bcmolt_group_descr group_descr_onu_xpon_unknown_ploam =
+/* ===== Group: onu - xpon_unknown_ploam ===== */
+static const bcmolt_group_descr _group_descr_onu_xpon_unknown_ploam =
 {
     .container_size = sizeof(bcmolt_onu_xpon_unknown_ploam),
     .data_offset = offsetof(bcmolt_onu_xpon_unknown_ploam, data),
@@ -37840,8 +40636,8 @@ static bcmolt_group_descr group_descr_onu_xpon_unknown_ploam =
     .type = &type_descr_bcmolt_onu_xpon_unknown_ploam_data,
 };
 
-/** Group: onu - trap_ploam_received. */
-static bcmolt_group_descr group_descr_onu_trap_ploam_received =
+/* ===== Group: onu - trap_ploam_received ===== */
+static const bcmolt_group_descr _group_descr_onu_trap_ploam_received =
 {
     .container_size = sizeof(bcmolt_onu_trap_ploam_received),
     .data_offset = offsetof(bcmolt_onu_trap_ploam_received, data),
@@ -37859,8 +40655,40 @@ static bcmolt_group_descr group_descr_onu_trap_ploam_received =
     .type = &type_descr_bcmolt_onu_trap_ploam_received_data,
 };
 
-/** Group: onu - itu_pon_stats_cfg. */
-static bcmolt_group_descr group_descr_onu_itu_pon_stats_cfg =
+/* ===== Group: onu - itu_alloc_onu_accumulated_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_onu_itu_alloc_onu_accumulated_stats =
+{
+    .container_size = sizeof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats),
+    .key_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, key),
+    .next_key_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, next_key),
+    .filter_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, filter),
+    .request_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, request),
+    .more_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, more),
+    .num_responses_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, num_responses),
+    .responses_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, responses),
+};
+
+static const bcmolt_group_descr _group_descr_onu_itu_alloc_onu_accumulated_stats =
+{
+    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats),
+    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats, data),
+    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data),
+    .descr = "Accumulated statistics.",
+    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS,
+    .id = 70,
+    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats, key),
+    .key_size = sizeof(bcmolt_onu_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT,
+    .multi = &_multi_descr_onu_itu_alloc_onu_accumulated_stats,
+    .name = "itu_alloc_onu_accumulated_stats",
+    .obj_id = BCMOLT_OBJ_ID_ONU,
+    .subgroup_idx = BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS,
+    .tags = 0,
+    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data,
+};
+
+/* ===== Group: onu - itu_pon_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_pon_stats_cfg =
 {
     .container_size = sizeof(bcmolt_onu_itu_pon_stats_cfg),
     .data_offset = offsetof(bcmolt_onu_itu_pon_stats_cfg, data),
@@ -37878,8 +40706,8 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats_cfg =
     .type = &type_descr_bcmolt_onu_itu_pon_stats_cfg_data,
 };
 
-/** Group: onu - itu_pon_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_onu_itu_pon_stats_alarm_raised =
+/* ===== Group: onu - itu_pon_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_pon_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_onu_itu_pon_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_onu_itu_pon_stats_alarm_raised, data),
@@ -37897,8 +40725,8 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats_alarm_raised =
     .type = &type_descr_bcmolt_onu_itu_pon_stats_alarm_raised_data,
 };
 
-/** Group: onu - itu_pon_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_onu_itu_pon_stats_alarm_cleared =
+/* ===== Group: onu - itu_pon_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_pon_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_onu_itu_pon_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_onu_itu_pon_stats_alarm_cleared, data),
@@ -37916,8 +40744,65 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats_alarm_cleared =
     .type = &type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data,
 };
 
-/** Group: onu - auto_cfg. */
-static bcmolt_group_descr group_descr_onu_auto_cfg =
+/* ===== Group: onu - itu_alloc_onu_accumulated_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_alloc_onu_accumulated_stats_cfg =
+{
+    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg),
+    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg, data),
+    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data),
+    .descr = "Accumulated Statistics Configuration.",
+    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG,
+    .id = 4294,
+    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg, key),
+    .key_size = sizeof(bcmolt_onu_key),
+    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
+    .name = "itu_alloc_onu_accumulated_stats",
+    .obj_id = BCMOLT_OBJ_ID_ONU,
+    .subgroup_idx = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG,
+    .tags = 0,
+    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data,
+};
+
+/* ===== Group: onu - itu_alloc_onu_accumulated_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised =
+{
+    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised),
+    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised, data),
+    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data),
+    .descr = "Sent when a configured statistic alarm condition has been met..",
+    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+    .id = 4422,
+    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised, key),
+    .key_size = sizeof(bcmolt_onu_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "itu_alloc_onu_accumulated_stats_alarm_raised",
+    .obj_id = BCMOLT_OBJ_ID_ONU,
+    .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data,
+};
+
+/* ===== Group: onu - itu_alloc_onu_accumulated_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared =
+{
+    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared),
+    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared, data),
+    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data),
+    .descr = "Sent when a configured statistic alarm condition is no longer met..",
+    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+    .id = 4550,
+    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared, key),
+    .key_size = sizeof(bcmolt_onu_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "itu_alloc_onu_accumulated_stats_alarm_cleared",
+    .obj_id = BCMOLT_OBJ_ID_ONU,
+    .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
+    .tags = 0,
+    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data,
+};
+
+/* ===== Group: onu - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_onu_auto_cfg =
 {
     .container_size = sizeof(bcmolt_onu_auto_cfg),
     .data_offset = offsetof(bcmolt_onu_auto_cfg, data),
@@ -37935,97 +40820,101 @@ static bcmolt_group_descr group_descr_onu_auto_cfg =
     .type = &type_descr_bcmolt_onu_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_onu[] =
+static const bcmolt_group_descr *_groups_onu[] =
 {
-    &group_descr_onu_key,
-    &group_descr_onu_cfg,
-    &group_descr_onu_itu_pon_stats,
-    &group_descr_onu_set_onu_state,
-    &group_descr_onu_rssi_measurement,
-    &group_descr_onu_request_registration,
-    &group_descr_onu_change_power_levelling,
-    &group_descr_onu_get_power_level,
-    &group_descr_onu_get_power_consumption,
-    &group_descr_onu_adjust_tx_wavelength,
-    &group_descr_onu_secure_mutual_authentication,
-    &group_descr_onu_tuning_in,
-    &group_descr_onu_tuning_out,
-    &group_descr_onu_xgpon_alarm,
-    &group_descr_onu_gpon_alarm,
-    &group_descr_onu_dowi,
-    &group_descr_onu_sfi,
-    &group_descr_onu_sdi,
-    &group_descr_onu_dfi,
-    &group_descr_onu_pqsi,
-    &group_descr_onu_sufi,
-    &group_descr_onu_tiwi,
-    &group_descr_onu_looci,
-    &group_descr_onu_loai,
-    &group_descr_onu_dgi,
-    &group_descr_onu_pee,
-    &group_descr_onu_pst,
-    &group_descr_onu_ranging_completed,
-    &group_descr_onu_onu_activation_completed,
-    &group_descr_onu_onu_deactivation_completed,
-    &group_descr_onu_onu_enable_completed,
-    &group_descr_onu_onu_disable_completed,
-    &group_descr_onu_rssi_measurement_completed,
-    &group_descr_onu_invalid_dbru_report,
-    &group_descr_onu_key_exchange_completed,
-    &group_descr_onu_key_exchange_key_request_timeout,
-    &group_descr_onu_key_exchange_cycle_skipped,
-    &group_descr_onu_key_exchange_key_mismatch,
-    &group_descr_onu_optical_reflection,
-    &group_descr_onu_loki,
-    &group_descr_onu_memi,
-    &group_descr_onu_omci_port_id_configuration_completed,
-    &group_descr_onu_ber_interval_configuration_completed,
-    &group_descr_onu_err,
-    &group_descr_onu_password_authentication_completed,
-    &group_descr_onu_key_exchange_unconsecutive_index,
-    &group_descr_onu_key_exchange_decrypt_required,
-    &group_descr_onu_onu_activation_standby_completed,
-    &group_descr_onu_power_management_state_change,
-    &group_descr_onu_possible_drift,
-    &group_descr_onu_registration_id,
-    &group_descr_onu_power_level_report,
-    &group_descr_onu_power_consumption_report,
-    &group_descr_onu_secure_mutual_authentication_failure,
-    &group_descr_onu_onu_tuning_out_completed,
-    &group_descr_onu_onu_tuning_in_completed,
-    &group_descr_onu_tuning_response,
-    &group_descr_onu_ploam_packet,
-    &group_descr_onu_cpu_packets,
-    &group_descr_onu_cpu_packet,
-    &group_descr_onu_omci_packet,
-    &group_descr_onu_onu_ready_for_data_grant,
-    &group_descr_onu_rei,
-    &group_descr_onu_force_deactivation,
-    &group_descr_onu_state_change,
-    &group_descr_onu_range_value_changed,
-    &group_descr_onu_xpon_unknown_ploam,
-    &group_descr_onu_trap_ploam_received,
-    &group_descr_onu_itu_pon_stats_cfg,
-    &group_descr_onu_itu_pon_stats_alarm_raised,
-    &group_descr_onu_itu_pon_stats_alarm_cleared,
-    &group_descr_onu_auto_cfg,
+    &_group_descr_onu_key,
+    &_group_descr_onu_cfg,
+    &_group_descr_onu_itu_pon_stats,
+    &_group_descr_onu_set_onu_state,
+    &_group_descr_onu_rssi_measurement,
+    &_group_descr_onu_request_registration,
+    &_group_descr_onu_change_power_levelling,
+    &_group_descr_onu_get_power_level,
+    &_group_descr_onu_get_power_consumption,
+    &_group_descr_onu_adjust_tx_wavelength,
+    &_group_descr_onu_secure_mutual_authentication,
+    &_group_descr_onu_tuning_in,
+    &_group_descr_onu_tuning_out,
+    &_group_descr_onu_xgpon_alarm,
+    &_group_descr_onu_gpon_alarm,
+    &_group_descr_onu_dowi,
+    &_group_descr_onu_sfi,
+    &_group_descr_onu_sdi,
+    &_group_descr_onu_dfi,
+    &_group_descr_onu_pqsi,
+    &_group_descr_onu_sufi,
+    &_group_descr_onu_tiwi,
+    &_group_descr_onu_looci,
+    &_group_descr_onu_loai,
+    &_group_descr_onu_dgi,
+    &_group_descr_onu_pee,
+    &_group_descr_onu_pst,
+    &_group_descr_onu_ranging_completed,
+    &_group_descr_onu_onu_activation_completed,
+    &_group_descr_onu_onu_deactivation_completed,
+    &_group_descr_onu_onu_enable_completed,
+    &_group_descr_onu_onu_disable_completed,
+    &_group_descr_onu_rssi_measurement_completed,
+    &_group_descr_onu_invalid_dbru_report,
+    &_group_descr_onu_key_exchange_completed,
+    &_group_descr_onu_key_exchange_key_request_timeout,
+    &_group_descr_onu_key_exchange_cycle_skipped,
+    &_group_descr_onu_key_exchange_key_mismatch,
+    &_group_descr_onu_optical_reflection,
+    &_group_descr_onu_loki,
+    &_group_descr_onu_memi,
+    &_group_descr_onu_omci_port_id_configuration_completed,
+    &_group_descr_onu_ber_interval_configuration_completed,
+    &_group_descr_onu_err,
+    &_group_descr_onu_password_authentication_completed,
+    &_group_descr_onu_key_exchange_unconsecutive_index,
+    &_group_descr_onu_key_exchange_decrypt_required,
+    &_group_descr_onu_onu_activation_standby_completed,
+    &_group_descr_onu_power_management_state_change,
+    &_group_descr_onu_possible_drift,
+    &_group_descr_onu_registration_id,
+    &_group_descr_onu_power_level_report,
+    &_group_descr_onu_power_consumption_report,
+    &_group_descr_onu_secure_mutual_authentication_failure,
+    &_group_descr_onu_onu_tuning_out_completed,
+    &_group_descr_onu_onu_tuning_in_completed,
+    &_group_descr_onu_tuning_response,
+    &_group_descr_onu_ploam_packet,
+    &_group_descr_onu_cpu_packets,
+    &_group_descr_onu_cpu_packet,
+    &_group_descr_onu_omci_packet,
+    &_group_descr_onu_onu_ready_for_data_grant,
+    &_group_descr_onu_rei,
+    &_group_descr_onu_force_deactivation,
+    &_group_descr_onu_state_change,
+    &_group_descr_onu_range_value_changed,
+    &_group_descr_onu_xpon_unknown_ploam,
+    &_group_descr_onu_trap_ploam_received,
+    &_group_descr_onu_itu_alloc_onu_accumulated_stats,
+    &_group_descr_onu_itu_pon_stats_cfg,
+    &_group_descr_onu_itu_pon_stats_alarm_raised,
+    &_group_descr_onu_itu_pon_stats_alarm_cleared,
+    &_group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
+    &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
+    &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
+    &_group_descr_onu_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_onu =
+static const bcmolt_obj_descr _obj_descr_onu =
 {
     .name = "onu",
     .descr = "ONU.",
     .id = BCMOLT_OBJ_ID_ONU,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_onu_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_onu),
-    .groups = groups_onu,
+    .num_groups = BCM_SIZEOFARRAY(_groups_onu),
+    .groups = _groups_onu,
 };
 
 
-/** ==== Object: pbit_to_tc ==== */
-/** Group: pbit_to_tc - key. */
-static bcmolt_group_descr group_descr_pbit_to_tc_key =
+/* ===== Object: pbit_to_tc ===== */
+/* ===== Group: pbit_to_tc - key ===== */
+static const bcmolt_group_descr _group_descr_pbit_to_tc_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -38043,8 +40932,8 @@ static bcmolt_group_descr group_descr_pbit_to_tc_key =
     .type = &type_descr_bcmolt_pbit_to_tc_key,
 };
 
-/** Group: pbit_to_tc - cfg. */
-static bcmolt_multi_group_descr multi_descr_pbit_to_tc_cfg =
+/* ===== Group: pbit_to_tc - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_pbit_to_tc_cfg =
 {
     .container_size = sizeof(bcmolt_pbit_to_tc_multi_cfg),
     .key_offset = offsetof(bcmolt_pbit_to_tc_multi_cfg, key),
@@ -38056,7 +40945,7 @@ static bcmolt_multi_group_descr multi_descr_pbit_to_tc_cfg =
     .responses_offset = offsetof(bcmolt_pbit_to_tc_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_pbit_to_tc_cfg =
+static const bcmolt_group_descr _group_descr_pbit_to_tc_cfg =
 {
     .container_size = sizeof(bcmolt_pbit_to_tc_cfg),
     .data_offset = offsetof(bcmolt_pbit_to_tc_cfg, data),
@@ -38067,7 +40956,7 @@ static bcmolt_group_descr group_descr_pbit_to_tc_cfg =
     .key_offset = offsetof(bcmolt_pbit_to_tc_cfg, key),
     .key_size = sizeof(bcmolt_pbit_to_tc_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_pbit_to_tc_cfg,
+    .multi = &_multi_descr_pbit_to_tc_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_PBIT_TO_TC,
     .subgroup_idx = 0,
@@ -38075,27 +40964,27 @@ static bcmolt_group_descr group_descr_pbit_to_tc_cfg =
     .type = &type_descr_bcmolt_pbit_to_tc_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_pbit_to_tc[] =
+static const bcmolt_group_descr *_groups_pbit_to_tc[] =
 {
-    &group_descr_pbit_to_tc_key,
-    &group_descr_pbit_to_tc_cfg,
+    &_group_descr_pbit_to_tc_key,
+    &_group_descr_pbit_to_tc_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_pbit_to_tc =
+static const bcmolt_obj_descr _obj_descr_pbit_to_tc =
 {
     .name = "pbit_to_tc",
     .descr = "pbit to tc.",
     .id = BCMOLT_OBJ_ID_PBIT_TO_TC,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_pbit_to_tc_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_pbit_to_tc),
-    .groups = groups_pbit_to_tc,
+    .num_groups = BCM_SIZEOFARRAY(_groups_pbit_to_tc),
+    .groups = _groups_pbit_to_tc,
 };
 
 
-/** ==== Object: policer_profile ==== */
-/** Group: policer_profile - key. */
-static bcmolt_group_descr group_descr_policer_profile_key =
+/* ===== Object: policer_profile ===== */
+/* ===== Group: policer_profile - key ===== */
+static const bcmolt_group_descr _group_descr_policer_profile_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -38113,8 +41002,8 @@ static bcmolt_group_descr group_descr_policer_profile_key =
     .type = &type_descr_bcmolt_policer_profile_key,
 };
 
-/** Group: policer_profile - cfg. */
-static bcmolt_multi_group_descr multi_descr_policer_profile_cfg =
+/* ===== Group: policer_profile - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_policer_profile_cfg =
 {
     .container_size = sizeof(bcmolt_policer_profile_multi_cfg),
     .key_offset = offsetof(bcmolt_policer_profile_multi_cfg, key),
@@ -38126,7 +41015,7 @@ static bcmolt_multi_group_descr multi_descr_policer_profile_cfg =
     .responses_offset = offsetof(bcmolt_policer_profile_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_policer_profile_cfg =
+static const bcmolt_group_descr _group_descr_policer_profile_cfg =
 {
     .container_size = sizeof(bcmolt_policer_profile_cfg),
     .data_offset = offsetof(bcmolt_policer_profile_cfg, data),
@@ -38137,7 +41026,7 @@ static bcmolt_group_descr group_descr_policer_profile_cfg =
     .key_offset = offsetof(bcmolt_policer_profile_cfg, key),
     .key_size = sizeof(bcmolt_policer_profile_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_policer_profile_cfg,
+    .multi = &_multi_descr_policer_profile_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_POLICER_PROFILE,
     .subgroup_idx = 0,
@@ -38145,27 +41034,27 @@ static bcmolt_group_descr group_descr_policer_profile_cfg =
     .type = &type_descr_bcmolt_policer_profile_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_policer_profile[] =
+static const bcmolt_group_descr *_groups_policer_profile[] =
 {
-    &group_descr_policer_profile_key,
-    &group_descr_policer_profile_cfg,
+    &_group_descr_policer_profile_key,
+    &_group_descr_policer_profile_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_policer_profile =
+static const bcmolt_obj_descr _obj_descr_policer_profile =
 {
     .name = "policer_profile",
     .descr = "Parameters needed to instantiate a policer.",
     .id = BCMOLT_OBJ_ID_POLICER_PROFILE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_policer_profile_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_policer_profile),
-    .groups = groups_policer_profile,
+    .num_groups = BCM_SIZEOFARRAY(_groups_policer_profile),
+    .groups = _groups_policer_profile,
 };
 
 
-/** ==== Object: pon_interface ==== */
-/** Group: pon_interface - key. */
-static bcmolt_group_descr group_descr_pon_interface_key =
+/* ===== Object: pon_interface ===== */
+/* ===== Group: pon_interface - key ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -38183,8 +41072,8 @@ static bcmolt_group_descr group_descr_pon_interface_key =
     .type = &type_descr_bcmolt_pon_interface_key,
 };
 
-/** Group: pon_interface - cfg. */
-static bcmolt_multi_group_descr multi_descr_pon_interface_cfg =
+/* ===== Group: pon_interface - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_pon_interface_cfg =
 {
     .container_size = sizeof(bcmolt_pon_interface_multi_cfg),
     .key_offset = offsetof(bcmolt_pon_interface_multi_cfg, key),
@@ -38196,7 +41085,7 @@ static bcmolt_multi_group_descr multi_descr_pon_interface_cfg =
     .responses_offset = offsetof(bcmolt_pon_interface_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_pon_interface_cfg =
+static const bcmolt_group_descr _group_descr_pon_interface_cfg =
 {
     .container_size = sizeof(bcmolt_pon_interface_cfg),
     .data_offset = offsetof(bcmolt_pon_interface_cfg, data),
@@ -38207,7 +41096,7 @@ static bcmolt_group_descr group_descr_pon_interface_cfg =
     .key_offset = offsetof(bcmolt_pon_interface_cfg, key),
     .key_size = sizeof(bcmolt_pon_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_pon_interface_cfg,
+    .multi = &_multi_descr_pon_interface_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_PON_INTERFACE,
     .subgroup_idx = 0,
@@ -38215,8 +41104,8 @@ static bcmolt_group_descr group_descr_pon_interface_cfg =
     .type = &type_descr_bcmolt_pon_interface_cfg_data,
 };
 
-/** Group: pon_interface - itu_pon_stats. */
-static bcmolt_multi_group_descr multi_descr_pon_interface_itu_pon_stats =
+/* ===== Group: pon_interface - itu_pon_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_pon_interface_itu_pon_stats =
 {
     .container_size = sizeof(bcmolt_pon_interface_multi_itu_pon_stats),
     .key_offset = offsetof(bcmolt_pon_interface_multi_itu_pon_stats, key),
@@ -38228,7 +41117,7 @@ static bcmolt_multi_group_descr multi_descr_pon_interface_itu_pon_stats =
     .responses_offset = offsetof(bcmolt_pon_interface_multi_itu_pon_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats =
+static const bcmolt_group_descr _group_descr_pon_interface_itu_pon_stats =
 {
     .container_size = sizeof(bcmolt_pon_interface_itu_pon_stats),
     .data_offset = offsetof(bcmolt_pon_interface_itu_pon_stats, data),
@@ -38239,7 +41128,7 @@ static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats =
     .key_offset = offsetof(bcmolt_pon_interface_itu_pon_stats, key),
     .key_size = sizeof(bcmolt_pon_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_pon_interface_itu_pon_stats,
+    .multi = &_multi_descr_pon_interface_itu_pon_stats,
     .name = "itu_pon_stats",
     .obj_id = BCMOLT_OBJ_ID_PON_INTERFACE,
     .subgroup_idx = BCMOLT_PON_INTERFACE_STAT_SUBGROUP_ITU_PON_STATS,
@@ -38247,8 +41136,8 @@ static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats =
     .type = &type_descr_bcmolt_pon_interface_itu_pon_stats_data,
 };
 
-/** Group: pon_interface - ae_stats. */
-static bcmolt_multi_group_descr multi_descr_pon_interface_ae_stats =
+/* ===== Group: pon_interface - ae_stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_pon_interface_ae_stats =
 {
     .container_size = sizeof(bcmolt_pon_interface_multi_ae_stats),
     .key_offset = offsetof(bcmolt_pon_interface_multi_ae_stats, key),
@@ -38260,7 +41149,7 @@ static bcmolt_multi_group_descr multi_descr_pon_interface_ae_stats =
     .responses_offset = offsetof(bcmolt_pon_interface_multi_ae_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_pon_interface_ae_stats =
+static const bcmolt_group_descr _group_descr_pon_interface_ae_stats =
 {
     .container_size = sizeof(bcmolt_pon_interface_ae_stats),
     .data_offset = offsetof(bcmolt_pon_interface_ae_stats, data),
@@ -38271,7 +41160,7 @@ static bcmolt_group_descr group_descr_pon_interface_ae_stats =
     .key_offset = offsetof(bcmolt_pon_interface_ae_stats, key),
     .key_size = sizeof(bcmolt_pon_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_pon_interface_ae_stats,
+    .multi = &_multi_descr_pon_interface_ae_stats,
     .name = "ae_stats",
     .obj_id = BCMOLT_OBJ_ID_PON_INTERFACE,
     .subgroup_idx = BCMOLT_PON_INTERFACE_STAT_SUBGROUP_AE_STATS,
@@ -38279,8 +41168,8 @@ static bcmolt_group_descr group_descr_pon_interface_ae_stats =
     .type = &type_descr_bcmolt_pon_interface_ae_stats_data,
 };
 
-/** Group: pon_interface - set_pon_interface_state. */
-static bcmolt_group_descr group_descr_pon_interface_set_pon_interface_state =
+/* ===== Group: pon_interface - set_pon_interface_state ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_set_pon_interface_state =
 {
     .container_size = sizeof(bcmolt_pon_interface_set_pon_interface_state),
     .data_offset = offsetof(bcmolt_pon_interface_set_pon_interface_state, data),
@@ -38298,8 +41187,8 @@ static bcmolt_group_descr group_descr_pon_interface_set_pon_interface_state =
     .type = &type_descr_bcmolt_pon_interface_set_pon_interface_state_data,
 };
 
-/** Group: pon_interface - set_onu_state. */
-static bcmolt_group_descr group_descr_pon_interface_set_onu_state =
+/* ===== Group: pon_interface - set_onu_state ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_set_onu_state =
 {
     .container_size = sizeof(bcmolt_pon_interface_set_onu_state),
     .data_offset = offsetof(bcmolt_pon_interface_set_onu_state, data),
@@ -38317,8 +41206,8 @@ static bcmolt_group_descr group_descr_pon_interface_set_onu_state =
     .type = &type_descr_bcmolt_pon_interface_set_onu_state_data,
 };
 
-/** Group: pon_interface - reset. */
-static bcmolt_group_descr group_descr_pon_interface_reset =
+/* ===== Group: pon_interface - reset ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_reset =
 {
     .container_size = sizeof(bcmolt_pon_interface_reset),
     .data_offset = 0,
@@ -38336,8 +41225,8 @@ static bcmolt_group_descr group_descr_pon_interface_reset =
     .type = NULL,
 };
 
-/** Group: pon_interface - disable_serial_number. */
-static bcmolt_group_descr group_descr_pon_interface_disable_serial_number =
+/* ===== Group: pon_interface - disable_serial_number ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_disable_serial_number =
 {
     .container_size = sizeof(bcmolt_pon_interface_disable_serial_number),
     .data_offset = offsetof(bcmolt_pon_interface_disable_serial_number, data),
@@ -38355,8 +41244,8 @@ static bcmolt_group_descr group_descr_pon_interface_disable_serial_number =
     .type = &type_descr_bcmolt_pon_interface_disable_serial_number_data,
 };
 
-/** Group: pon_interface - single_request_standby_pon_monitoring. */
-static bcmolt_group_descr group_descr_pon_interface_single_request_standby_pon_monitoring =
+/* ===== Group: pon_interface - single_request_standby_pon_monitoring ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_single_request_standby_pon_monitoring =
 {
     .container_size = sizeof(bcmolt_pon_interface_single_request_standby_pon_monitoring),
     .data_offset = 0,
@@ -38374,8 +41263,8 @@ static bcmolt_group_descr group_descr_pon_interface_single_request_standby_pon_m
     .type = NULL,
 };
 
-/** Group: pon_interface - run_special_bw_map. */
-static bcmolt_group_descr group_descr_pon_interface_run_special_bw_map =
+/* ===== Group: pon_interface - run_special_bw_map ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_run_special_bw_map =
 {
     .container_size = sizeof(bcmolt_pon_interface_run_special_bw_map),
     .data_offset = offsetof(bcmolt_pon_interface_run_special_bw_map, data),
@@ -38393,8 +41282,8 @@ static bcmolt_group_descr group_descr_pon_interface_run_special_bw_map =
     .type = &type_descr_bcmolt_pon_interface_run_special_bw_map_data,
 };
 
-/** Group: pon_interface - tod_request. */
-static bcmolt_group_descr group_descr_pon_interface_tod_request =
+/* ===== Group: pon_interface - tod_request ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_tod_request =
 {
     .container_size = sizeof(bcmolt_pon_interface_tod_request),
     .data_offset = 0,
@@ -38412,8 +41301,8 @@ static bcmolt_group_descr group_descr_pon_interface_tod_request =
     .type = NULL,
 };
 
-/** Group: pon_interface - start_onu_upgrade. */
-static bcmolt_group_descr group_descr_pon_interface_start_onu_upgrade =
+/* ===== Group: pon_interface - start_onu_upgrade ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_start_onu_upgrade =
 {
     .container_size = sizeof(bcmolt_pon_interface_start_onu_upgrade),
     .data_offset = offsetof(bcmolt_pon_interface_start_onu_upgrade, data),
@@ -38431,8 +41320,8 @@ static bcmolt_group_descr group_descr_pon_interface_start_onu_upgrade =
     .type = &type_descr_bcmolt_pon_interface_start_onu_upgrade_data,
 };
 
-/** Group: pon_interface - abort_onu_upgrade. */
-static bcmolt_group_descr group_descr_pon_interface_abort_onu_upgrade =
+/* ===== Group: pon_interface - abort_onu_upgrade ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_abort_onu_upgrade =
 {
     .container_size = sizeof(bcmolt_pon_interface_abort_onu_upgrade),
     .data_offset = 0,
@@ -38450,8 +41339,8 @@ static bcmolt_group_descr group_descr_pon_interface_abort_onu_upgrade =
     .type = NULL,
 };
 
-/** Group: pon_interface - protection_switching_type_c_set_multiple_onu_state. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state =
+/* ===== Group: pon_interface - protection_switching_type_c_set_multiple_onu_state ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state),
     .data_offset = offsetof(bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state, data),
@@ -38469,8 +41358,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_type_c_
     .type = &type_descr_bcmolt_pon_interface_protection_switching_type_c_set_multiple_onu_state_data,
 };
 
-/** Group: pon_interface - protection_switching_apply_rerange_delta. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_apply_rerange_delta =
+/* ===== Group: pon_interface - protection_switching_apply_rerange_delta ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_apply_rerange_delta =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_apply_rerange_delta),
     .data_offset = offsetof(bcmolt_pon_interface_protection_switching_apply_rerange_delta, data),
@@ -38488,8 +41377,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_apply_r
     .type = &type_descr_bcmolt_pon_interface_protection_switching_apply_rerange_delta_data,
 };
 
-/** Group: pon_interface - cpu_packets. */
-static bcmolt_group_descr group_descr_pon_interface_cpu_packets =
+/* ===== Group: pon_interface - cpu_packets ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_cpu_packets =
 {
     .container_size = sizeof(bcmolt_pon_interface_cpu_packets),
     .data_offset = offsetof(bcmolt_pon_interface_cpu_packets, data),
@@ -38507,8 +41396,8 @@ static bcmolt_group_descr group_descr_pon_interface_cpu_packets =
     .type = &type_descr_bcmolt_pon_interface_cpu_packets_data,
 };
 
-/** Group: pon_interface - broadcast_ploam_packet. */
-static bcmolt_group_descr group_descr_pon_interface_broadcast_ploam_packet =
+/* ===== Group: pon_interface - broadcast_ploam_packet ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_broadcast_ploam_packet =
 {
     .container_size = sizeof(bcmolt_pon_interface_broadcast_ploam_packet),
     .data_offset = offsetof(bcmolt_pon_interface_broadcast_ploam_packet, data),
@@ -38526,8 +41415,8 @@ static bcmolt_group_descr group_descr_pon_interface_broadcast_ploam_packet =
     .type = &type_descr_bcmolt_pon_interface_broadcast_ploam_packet_data,
 };
 
-/** Group: pon_interface - state_change_completed. */
-static bcmolt_group_descr group_descr_pon_interface_state_change_completed =
+/* ===== Group: pon_interface - state_change_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_state_change_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_state_change_completed),
     .data_offset = offsetof(bcmolt_pon_interface_state_change_completed, data),
@@ -38545,8 +41434,8 @@ static bcmolt_group_descr group_descr_pon_interface_state_change_completed =
     .type = &type_descr_bcmolt_pon_interface_state_change_completed_data,
 };
 
-/** Group: pon_interface - tod_request_completed. */
-static bcmolt_group_descr group_descr_pon_interface_tod_request_completed =
+/* ===== Group: pon_interface - tod_request_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_tod_request_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_tod_request_completed),
     .data_offset = offsetof(bcmolt_pon_interface_tod_request_completed, data),
@@ -38564,8 +41453,8 @@ static bcmolt_group_descr group_descr_pon_interface_tod_request_completed =
     .type = &type_descr_bcmolt_pon_interface_tod_request_completed_data,
 };
 
-/** Group: pon_interface - los. */
-static bcmolt_group_descr group_descr_pon_interface_los =
+/* ===== Group: pon_interface - los ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_los =
 {
     .container_size = sizeof(bcmolt_pon_interface_los),
     .data_offset = offsetof(bcmolt_pon_interface_los, data),
@@ -38583,8 +41472,8 @@ static bcmolt_group_descr group_descr_pon_interface_los =
     .type = &type_descr_bcmolt_pon_interface_los_data,
 };
 
-/** Group: pon_interface - serial_number_acquisition_cycle_start. */
-static bcmolt_group_descr group_descr_pon_interface_serial_number_acquisition_cycle_start =
+/* ===== Group: pon_interface - serial_number_acquisition_cycle_start ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_serial_number_acquisition_cycle_start =
 {
     .container_size = sizeof(bcmolt_pon_interface_serial_number_acquisition_cycle_start),
     .data_offset = 0,
@@ -38602,8 +41491,8 @@ static bcmolt_group_descr group_descr_pon_interface_serial_number_acquisition_cy
     .type = NULL,
 };
 
-/** Group: pon_interface - protection_switching_traffic_resume. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_traffic_resume =
+/* ===== Group: pon_interface - protection_switching_traffic_resume ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_traffic_resume =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_traffic_resume),
     .data_offset = offsetof(bcmolt_pon_interface_protection_switching_traffic_resume, data),
@@ -38621,8 +41510,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_traffic
     .type = &type_descr_bcmolt_pon_interface_protection_switching_traffic_resume_data,
 };
 
-/** Group: pon_interface - protection_switching_onus_ranged. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_onus_ranged =
+/* ===== Group: pon_interface - protection_switching_onus_ranged ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_onus_ranged =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_onus_ranged),
     .data_offset = offsetof(bcmolt_pon_interface_protection_switching_onus_ranged, data),
@@ -38640,8 +41529,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_onus_ra
     .type = &type_descr_bcmolt_pon_interface_protection_switching_onus_ranged_data,
 };
 
-/** Group: pon_interface - protection_switching_rerange_failure. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_rerange_failure =
+/* ===== Group: pon_interface - protection_switching_rerange_failure ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_rerange_failure =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_rerange_failure),
     .data_offset = 0,
@@ -38659,8 +41548,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_rerange
     .type = NULL,
 };
 
-/** Group: pon_interface - protection_switching_switchover_completed. */
-static bcmolt_group_descr group_descr_pon_interface_protection_switching_switchover_completed =
+/* ===== Group: pon_interface - protection_switching_switchover_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_protection_switching_switchover_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_protection_switching_switchover_completed),
     .data_offset = offsetof(bcmolt_pon_interface_protection_switching_switchover_completed, data),
@@ -38678,8 +41567,8 @@ static bcmolt_group_descr group_descr_pon_interface_protection_switching_switcho
     .type = &type_descr_bcmolt_pon_interface_protection_switching_switchover_completed_data,
 };
 
-/** Group: pon_interface - standby_pon_monitoring_cycle_completed. */
-static bcmolt_group_descr group_descr_pon_interface_standby_pon_monitoring_cycle_completed =
+/* ===== Group: pon_interface - standby_pon_monitoring_cycle_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_standby_pon_monitoring_cycle_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_standby_pon_monitoring_cycle_completed),
     .data_offset = offsetof(bcmolt_pon_interface_standby_pon_monitoring_cycle_completed, data),
@@ -38697,8 +41586,8 @@ static bcmolt_group_descr group_descr_pon_interface_standby_pon_monitoring_cycle
     .type = &type_descr_bcmolt_pon_interface_standby_pon_monitoring_cycle_completed_data,
 };
 
-/** Group: pon_interface - onu_discovered. */
-static bcmolt_group_descr group_descr_pon_interface_onu_discovered =
+/* ===== Group: pon_interface - onu_discovered ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_onu_discovered =
 {
     .container_size = sizeof(bcmolt_pon_interface_onu_discovered),
     .data_offset = offsetof(bcmolt_pon_interface_onu_discovered, data),
@@ -38716,8 +41605,8 @@ static bcmolt_group_descr group_descr_pon_interface_onu_discovered =
     .type = &type_descr_bcmolt_pon_interface_onu_discovered_data,
 };
 
-/** Group: pon_interface - cpu_packets_failure. */
-static bcmolt_group_descr group_descr_pon_interface_cpu_packets_failure =
+/* ===== Group: pon_interface - cpu_packets_failure ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_cpu_packets_failure =
 {
     .container_size = sizeof(bcmolt_pon_interface_cpu_packets_failure),
     .data_offset = offsetof(bcmolt_pon_interface_cpu_packets_failure, data),
@@ -38735,8 +41624,8 @@ static bcmolt_group_descr group_descr_pon_interface_cpu_packets_failure =
     .type = &type_descr_bcmolt_pon_interface_cpu_packets_failure_data,
 };
 
-/** Group: pon_interface - deactivate_all_onus_completed. */
-static bcmolt_group_descr group_descr_pon_interface_deactivate_all_onus_completed =
+/* ===== Group: pon_interface - deactivate_all_onus_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_deactivate_all_onus_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_deactivate_all_onus_completed),
     .data_offset = 0,
@@ -38754,8 +41643,8 @@ static bcmolt_group_descr group_descr_pon_interface_deactivate_all_onus_complete
     .type = NULL,
 };
 
-/** Group: pon_interface - disable_all_onus_completed. */
-static bcmolt_group_descr group_descr_pon_interface_disable_all_onus_completed =
+/* ===== Group: pon_interface - disable_all_onus_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_disable_all_onus_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_disable_all_onus_completed),
     .data_offset = 0,
@@ -38773,8 +41662,8 @@ static bcmolt_group_descr group_descr_pon_interface_disable_all_onus_completed =
     .type = NULL,
 };
 
-/** Group: pon_interface - activate_all_onus_completed. */
-static bcmolt_group_descr group_descr_pon_interface_activate_all_onus_completed =
+/* ===== Group: pon_interface - activate_all_onus_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_activate_all_onus_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_activate_all_onus_completed),
     .data_offset = offsetof(bcmolt_pon_interface_activate_all_onus_completed, data),
@@ -38792,8 +41681,8 @@ static bcmolt_group_descr group_descr_pon_interface_activate_all_onus_completed 
     .type = &type_descr_bcmolt_pon_interface_activate_all_onus_completed_data,
 };
 
-/** Group: pon_interface - enable_all_onus_completed. */
-static bcmolt_group_descr group_descr_pon_interface_enable_all_onus_completed =
+/* ===== Group: pon_interface - enable_all_onus_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_enable_all_onus_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_enable_all_onus_completed),
     .data_offset = 0,
@@ -38811,8 +41700,8 @@ static bcmolt_group_descr group_descr_pon_interface_enable_all_onus_completed =
     .type = NULL,
 };
 
-/** Group: pon_interface - onu_upgrade_complete. */
-static bcmolt_group_descr group_descr_pon_interface_onu_upgrade_complete =
+/* ===== Group: pon_interface - onu_upgrade_complete ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_onu_upgrade_complete =
 {
     .container_size = sizeof(bcmolt_pon_interface_onu_upgrade_complete),
     .data_offset = offsetof(bcmolt_pon_interface_onu_upgrade_complete, data),
@@ -38830,8 +41719,8 @@ static bcmolt_group_descr group_descr_pon_interface_onu_upgrade_complete =
     .type = &type_descr_bcmolt_pon_interface_onu_upgrade_complete_data,
 };
 
-/** Group: pon_interface - ieee_rogue_detection_completed. */
-static bcmolt_group_descr group_descr_pon_interface_ieee_rogue_detection_completed =
+/* ===== Group: pon_interface - ieee_rogue_detection_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_ieee_rogue_detection_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_ieee_rogue_detection_completed),
     .data_offset = 0,
@@ -38849,8 +41738,8 @@ static bcmolt_group_descr group_descr_pon_interface_ieee_rogue_detection_complet
     .type = NULL,
 };
 
-/** Group: pon_interface - mpcp_timestamp_changed. */
-static bcmolt_group_descr group_descr_pon_interface_mpcp_timestamp_changed =
+/* ===== Group: pon_interface - mpcp_timestamp_changed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_mpcp_timestamp_changed =
 {
     .container_size = sizeof(bcmolt_pon_interface_mpcp_timestamp_changed),
     .data_offset = offsetof(bcmolt_pon_interface_mpcp_timestamp_changed, data),
@@ -38868,8 +41757,8 @@ static bcmolt_group_descr group_descr_pon_interface_mpcp_timestamp_changed =
     .type = &type_descr_bcmolt_pon_interface_mpcp_timestamp_changed_data,
 };
 
-/** Group: pon_interface - switch_pon_type. */
-static bcmolt_group_descr group_descr_pon_interface_switch_pon_type =
+/* ===== Group: pon_interface - switch_pon_type ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_switch_pon_type =
 {
     .container_size = sizeof(bcmolt_pon_interface_switch_pon_type),
     .data_offset = offsetof(bcmolt_pon_interface_switch_pon_type, data),
@@ -38887,8 +41776,8 @@ static bcmolt_group_descr group_descr_pon_interface_switch_pon_type =
     .type = &type_descr_bcmolt_pon_interface_switch_pon_type_data,
 };
 
-/** Group: pon_interface - switch_pon_type_completed. */
-static bcmolt_group_descr group_descr_pon_interface_switch_pon_type_completed =
+/* ===== Group: pon_interface - switch_pon_type_completed ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_switch_pon_type_completed =
 {
     .container_size = sizeof(bcmolt_pon_interface_switch_pon_type_completed),
     .data_offset = offsetof(bcmolt_pon_interface_switch_pon_type_completed, data),
@@ -38906,8 +41795,8 @@ static bcmolt_group_descr group_descr_pon_interface_switch_pon_type_completed =
     .type = &type_descr_bcmolt_pon_interface_switch_pon_type_completed_data,
 };
 
-/** Group: pon_interface - rogue_detection_tool. */
-static bcmolt_group_descr group_descr_pon_interface_rogue_detection_tool =
+/* ===== Group: pon_interface - rogue_detection_tool ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_rogue_detection_tool =
 {
     .container_size = sizeof(bcmolt_pon_interface_rogue_detection_tool),
     .data_offset = offsetof(bcmolt_pon_interface_rogue_detection_tool, data),
@@ -38925,8 +41814,8 @@ static bcmolt_group_descr group_descr_pon_interface_rogue_detection_tool =
     .type = &type_descr_bcmolt_pon_interface_rogue_detection_tool_data,
 };
 
-/** Group: pon_interface - rogue_detection_tool_done. */
-static bcmolt_group_descr group_descr_pon_interface_rogue_detection_tool_done =
+/* ===== Group: pon_interface - rogue_detection_tool_done ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_rogue_detection_tool_done =
 {
     .container_size = sizeof(bcmolt_pon_interface_rogue_detection_tool_done),
     .data_offset = offsetof(bcmolt_pon_interface_rogue_detection_tool_done, data),
@@ -38944,8 +41833,8 @@ static bcmolt_group_descr group_descr_pon_interface_rogue_detection_tool_done =
     .type = &type_descr_bcmolt_pon_interface_rogue_detection_tool_done_data,
 };
 
-/** Group: pon_interface - onu_upgrade_activate_commit. */
-static bcmolt_group_descr group_descr_pon_interface_onu_upgrade_activate_commit =
+/* ===== Group: pon_interface - onu_upgrade_activate_commit ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_onu_upgrade_activate_commit =
 {
     .container_size = sizeof(bcmolt_pon_interface_onu_upgrade_activate_commit),
     .data_offset = offsetof(bcmolt_pon_interface_onu_upgrade_activate_commit, data),
@@ -38963,8 +41852,8 @@ static bcmolt_group_descr group_descr_pon_interface_onu_upgrade_activate_commit 
     .type = &type_descr_bcmolt_pon_interface_onu_upgrade_activate_commit_data,
 };
 
-/** Group: pon_interface - itu_pon_stats_cfg. */
-static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_cfg =
+/* ===== Group: pon_interface - itu_pon_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_itu_pon_stats_cfg =
 {
     .container_size = sizeof(bcmolt_pon_interface_itu_pon_stats_cfg),
     .data_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg, data),
@@ -38982,8 +41871,8 @@ static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_cfg =
     .type = &type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data,
 };
 
-/** Group: pon_interface - itu_pon_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_alarm_raised =
+/* ===== Group: pon_interface - itu_pon_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_itu_pon_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_pon_interface_itu_pon_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_alarm_raised, data),
@@ -39001,8 +41890,8 @@ static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_alarm_raised =
     .type = &type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_raised_data,
 };
 
-/** Group: pon_interface - itu_pon_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_alarm_cleared =
+/* ===== Group: pon_interface - itu_pon_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_itu_pon_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_pon_interface_itu_pon_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_pon_interface_itu_pon_stats_alarm_cleared, data),
@@ -39020,8 +41909,8 @@ static bcmolt_group_descr group_descr_pon_interface_itu_pon_stats_alarm_cleared 
     .type = &type_descr_bcmolt_pon_interface_itu_pon_stats_alarm_cleared_data,
 };
 
-/** Group: pon_interface - ae_stats_cfg. */
-static bcmolt_group_descr group_descr_pon_interface_ae_stats_cfg =
+/* ===== Group: pon_interface - ae_stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_ae_stats_cfg =
 {
     .container_size = sizeof(bcmolt_pon_interface_ae_stats_cfg),
     .data_offset = offsetof(bcmolt_pon_interface_ae_stats_cfg, data),
@@ -39039,8 +41928,8 @@ static bcmolt_group_descr group_descr_pon_interface_ae_stats_cfg =
     .type = &type_descr_bcmolt_pon_interface_ae_stats_cfg_data,
 };
 
-/** Group: pon_interface - ae_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_pon_interface_ae_stats_alarm_raised =
+/* ===== Group: pon_interface - ae_stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_ae_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_pon_interface_ae_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_pon_interface_ae_stats_alarm_raised, data),
@@ -39058,8 +41947,8 @@ static bcmolt_group_descr group_descr_pon_interface_ae_stats_alarm_raised =
     .type = &type_descr_bcmolt_pon_interface_ae_stats_alarm_raised_data,
 };
 
-/** Group: pon_interface - ae_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_pon_interface_ae_stats_alarm_cleared =
+/* ===== Group: pon_interface - ae_stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_ae_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_pon_interface_ae_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_pon_interface_ae_stats_alarm_cleared, data),
@@ -39077,8 +41966,8 @@ static bcmolt_group_descr group_descr_pon_interface_ae_stats_alarm_cleared =
     .type = &type_descr_bcmolt_pon_interface_ae_stats_alarm_cleared_data,
 };
 
-/** Group: pon_interface - auto_cfg. */
-static bcmolt_group_descr group_descr_pon_interface_auto_cfg =
+/* ===== Group: pon_interface - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_pon_interface_auto_cfg =
 {
     .container_size = sizeof(bcmolt_pon_interface_auto_cfg),
     .data_offset = offsetof(bcmolt_pon_interface_auto_cfg, data),
@@ -39096,72 +41985,72 @@ static bcmolt_group_descr group_descr_pon_interface_auto_cfg =
     .type = &type_descr_bcmolt_pon_interface_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_pon_interface[] =
+static const bcmolt_group_descr *_groups_pon_interface[] =
 {
-    &group_descr_pon_interface_key,
-    &group_descr_pon_interface_cfg,
-    &group_descr_pon_interface_itu_pon_stats,
-    &group_descr_pon_interface_ae_stats,
-    &group_descr_pon_interface_set_pon_interface_state,
-    &group_descr_pon_interface_set_onu_state,
-    &group_descr_pon_interface_reset,
-    &group_descr_pon_interface_disable_serial_number,
-    &group_descr_pon_interface_single_request_standby_pon_monitoring,
-    &group_descr_pon_interface_run_special_bw_map,
-    &group_descr_pon_interface_tod_request,
-    &group_descr_pon_interface_start_onu_upgrade,
-    &group_descr_pon_interface_abort_onu_upgrade,
-    &group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
-    &group_descr_pon_interface_protection_switching_apply_rerange_delta,
-    &group_descr_pon_interface_cpu_packets,
-    &group_descr_pon_interface_broadcast_ploam_packet,
-    &group_descr_pon_interface_state_change_completed,
-    &group_descr_pon_interface_tod_request_completed,
-    &group_descr_pon_interface_los,
-    &group_descr_pon_interface_serial_number_acquisition_cycle_start,
-    &group_descr_pon_interface_protection_switching_traffic_resume,
-    &group_descr_pon_interface_protection_switching_onus_ranged,
-    &group_descr_pon_interface_protection_switching_rerange_failure,
-    &group_descr_pon_interface_protection_switching_switchover_completed,
-    &group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
-    &group_descr_pon_interface_onu_discovered,
-    &group_descr_pon_interface_cpu_packets_failure,
-    &group_descr_pon_interface_deactivate_all_onus_completed,
-    &group_descr_pon_interface_disable_all_onus_completed,
-    &group_descr_pon_interface_activate_all_onus_completed,
-    &group_descr_pon_interface_enable_all_onus_completed,
-    &group_descr_pon_interface_onu_upgrade_complete,
-    &group_descr_pon_interface_ieee_rogue_detection_completed,
-    &group_descr_pon_interface_mpcp_timestamp_changed,
-    &group_descr_pon_interface_switch_pon_type,
-    &group_descr_pon_interface_switch_pon_type_completed,
-    &group_descr_pon_interface_rogue_detection_tool,
-    &group_descr_pon_interface_rogue_detection_tool_done,
-    &group_descr_pon_interface_onu_upgrade_activate_commit,
-    &group_descr_pon_interface_itu_pon_stats_cfg,
-    &group_descr_pon_interface_itu_pon_stats_alarm_raised,
-    &group_descr_pon_interface_itu_pon_stats_alarm_cleared,
-    &group_descr_pon_interface_ae_stats_cfg,
-    &group_descr_pon_interface_ae_stats_alarm_raised,
-    &group_descr_pon_interface_ae_stats_alarm_cleared,
-    &group_descr_pon_interface_auto_cfg,
+    &_group_descr_pon_interface_key,
+    &_group_descr_pon_interface_cfg,
+    &_group_descr_pon_interface_itu_pon_stats,
+    &_group_descr_pon_interface_ae_stats,
+    &_group_descr_pon_interface_set_pon_interface_state,
+    &_group_descr_pon_interface_set_onu_state,
+    &_group_descr_pon_interface_reset,
+    &_group_descr_pon_interface_disable_serial_number,
+    &_group_descr_pon_interface_single_request_standby_pon_monitoring,
+    &_group_descr_pon_interface_run_special_bw_map,
+    &_group_descr_pon_interface_tod_request,
+    &_group_descr_pon_interface_start_onu_upgrade,
+    &_group_descr_pon_interface_abort_onu_upgrade,
+    &_group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
+    &_group_descr_pon_interface_protection_switching_apply_rerange_delta,
+    &_group_descr_pon_interface_cpu_packets,
+    &_group_descr_pon_interface_broadcast_ploam_packet,
+    &_group_descr_pon_interface_state_change_completed,
+    &_group_descr_pon_interface_tod_request_completed,
+    &_group_descr_pon_interface_los,
+    &_group_descr_pon_interface_serial_number_acquisition_cycle_start,
+    &_group_descr_pon_interface_protection_switching_traffic_resume,
+    &_group_descr_pon_interface_protection_switching_onus_ranged,
+    &_group_descr_pon_interface_protection_switching_rerange_failure,
+    &_group_descr_pon_interface_protection_switching_switchover_completed,
+    &_group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
+    &_group_descr_pon_interface_onu_discovered,
+    &_group_descr_pon_interface_cpu_packets_failure,
+    &_group_descr_pon_interface_deactivate_all_onus_completed,
+    &_group_descr_pon_interface_disable_all_onus_completed,
+    &_group_descr_pon_interface_activate_all_onus_completed,
+    &_group_descr_pon_interface_enable_all_onus_completed,
+    &_group_descr_pon_interface_onu_upgrade_complete,
+    &_group_descr_pon_interface_ieee_rogue_detection_completed,
+    &_group_descr_pon_interface_mpcp_timestamp_changed,
+    &_group_descr_pon_interface_switch_pon_type,
+    &_group_descr_pon_interface_switch_pon_type_completed,
+    &_group_descr_pon_interface_rogue_detection_tool,
+    &_group_descr_pon_interface_rogue_detection_tool_done,
+    &_group_descr_pon_interface_onu_upgrade_activate_commit,
+    &_group_descr_pon_interface_itu_pon_stats_cfg,
+    &_group_descr_pon_interface_itu_pon_stats_alarm_raised,
+    &_group_descr_pon_interface_itu_pon_stats_alarm_cleared,
+    &_group_descr_pon_interface_ae_stats_cfg,
+    &_group_descr_pon_interface_ae_stats_alarm_raised,
+    &_group_descr_pon_interface_ae_stats_alarm_cleared,
+    &_group_descr_pon_interface_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_pon_interface =
+static const bcmolt_obj_descr _obj_descr_pon_interface =
 {
     .name = "pon_interface",
     .descr = "PON Network Interface.",
     .id = BCMOLT_OBJ_ID_PON_INTERFACE,
     .tags = BCMOLT_TAG_GPON | BCMOLT_TAG_XGPON | BCMOLT_TAG_XGS | BCMOLT_TAG_NGPON2,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_pon_interface_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_pon_interface),
-    .groups = groups_pon_interface,
+    .num_groups = BCM_SIZEOFARRAY(_groups_pon_interface),
+    .groups = _groups_pon_interface,
 };
 
 
-/** ==== Object: protection_interface ==== */
-/** Group: protection_interface - key. */
-static bcmolt_group_descr group_descr_protection_interface_key =
+/* ===== Object: protection_interface ===== */
+/* ===== Group: protection_interface - key ===== */
+static const bcmolt_group_descr _group_descr_protection_interface_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39179,8 +42068,8 @@ static bcmolt_group_descr group_descr_protection_interface_key =
     .type = &type_descr_bcmolt_protection_interface_key,
 };
 
-/** Group: protection_interface - cfg. */
-static bcmolt_multi_group_descr multi_descr_protection_interface_cfg =
+/* ===== Group: protection_interface - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_protection_interface_cfg =
 {
     .container_size = sizeof(bcmolt_protection_interface_multi_cfg),
     .key_offset = offsetof(bcmolt_protection_interface_multi_cfg, key),
@@ -39192,7 +42081,7 @@ static bcmolt_multi_group_descr multi_descr_protection_interface_cfg =
     .responses_offset = offsetof(bcmolt_protection_interface_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_protection_interface_cfg =
+static const bcmolt_group_descr _group_descr_protection_interface_cfg =
 {
     .container_size = sizeof(bcmolt_protection_interface_cfg),
     .data_offset = offsetof(bcmolt_protection_interface_cfg, data),
@@ -39203,7 +42092,7 @@ static bcmolt_group_descr group_descr_protection_interface_cfg =
     .key_offset = offsetof(bcmolt_protection_interface_cfg, key),
     .key_size = sizeof(bcmolt_protection_interface_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_protection_interface_cfg,
+    .multi = &_multi_descr_protection_interface_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_PROTECTION_INTERFACE,
     .subgroup_idx = 0,
@@ -39211,8 +42100,8 @@ static bcmolt_group_descr group_descr_protection_interface_cfg =
     .type = &type_descr_bcmolt_protection_interface_cfg_data,
 };
 
-/** Group: protection_interface - protection_switch. */
-static bcmolt_group_descr group_descr_protection_interface_protection_switch =
+/* ===== Group: protection_interface - protection_switch ===== */
+static const bcmolt_group_descr _group_descr_protection_interface_protection_switch =
 {
     .container_size = sizeof(bcmolt_protection_interface_protection_switch),
     .data_offset = 0,
@@ -39230,8 +42119,8 @@ static bcmolt_group_descr group_descr_protection_interface_protection_switch =
     .type = NULL,
 };
 
-/** Group: protection_interface - protection_switch_completed. */
-static bcmolt_group_descr group_descr_protection_interface_protection_switch_completed =
+/* ===== Group: protection_interface - protection_switch_completed ===== */
+static const bcmolt_group_descr _group_descr_protection_interface_protection_switch_completed =
 {
     .container_size = sizeof(bcmolt_protection_interface_protection_switch_completed),
     .data_offset = offsetof(bcmolt_protection_interface_protection_switch_completed, data),
@@ -39249,8 +42138,8 @@ static bcmolt_group_descr group_descr_protection_interface_protection_switch_com
     .type = &type_descr_bcmolt_protection_interface_protection_switch_completed_data,
 };
 
-/** Group: protection_interface - auto_cfg. */
-static bcmolt_group_descr group_descr_protection_interface_auto_cfg =
+/* ===== Group: protection_interface - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_protection_interface_auto_cfg =
 {
     .container_size = sizeof(bcmolt_protection_interface_auto_cfg),
     .data_offset = offsetof(bcmolt_protection_interface_auto_cfg, data),
@@ -39268,30 +42157,30 @@ static bcmolt_group_descr group_descr_protection_interface_auto_cfg =
     .type = &type_descr_bcmolt_protection_interface_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_protection_interface[] =
+static const bcmolt_group_descr *_groups_protection_interface[] =
 {
-    &group_descr_protection_interface_key,
-    &group_descr_protection_interface_cfg,
-    &group_descr_protection_interface_protection_switch,
-    &group_descr_protection_interface_protection_switch_completed,
-    &group_descr_protection_interface_auto_cfg,
+    &_group_descr_protection_interface_key,
+    &_group_descr_protection_interface_cfg,
+    &_group_descr_protection_interface_protection_switch,
+    &_group_descr_protection_interface_protection_switch_completed,
+    &_group_descr_protection_interface_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_protection_interface =
+static const bcmolt_obj_descr _obj_descr_protection_interface =
 {
     .name = "protection_interface",
     .descr = "Virtual interface type used to represent a redundant pair of physical interfaces.",
     .id = BCMOLT_OBJ_ID_PROTECTION_INTERFACE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_protection_interface_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_protection_interface),
-    .groups = groups_protection_interface,
+    .num_groups = BCM_SIZEOFARRAY(_groups_protection_interface),
+    .groups = _groups_protection_interface,
 };
 
 
-/** ==== Object: software_error ==== */
-/** Group: software_error - key. */
-static bcmolt_group_descr group_descr_software_error_key =
+/* ===== Object: software_error ===== */
+/* ===== Group: software_error - key ===== */
+static const bcmolt_group_descr _group_descr_software_error_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39309,8 +42198,8 @@ static bcmolt_group_descr group_descr_software_error_key =
     .type = &type_descr_bcmolt_software_error_key,
 };
 
-/** Group: software_error - cfg. */
-static bcmolt_multi_group_descr multi_descr_software_error_cfg =
+/* ===== Group: software_error - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_software_error_cfg =
 {
     .container_size = sizeof(bcmolt_software_error_multi_cfg),
     .key_offset = offsetof(bcmolt_software_error_multi_cfg, key),
@@ -39322,7 +42211,7 @@ static bcmolt_multi_group_descr multi_descr_software_error_cfg =
     .responses_offset = offsetof(bcmolt_software_error_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_software_error_cfg =
+static const bcmolt_group_descr _group_descr_software_error_cfg =
 {
     .container_size = sizeof(bcmolt_software_error_cfg),
     .data_offset = offsetof(bcmolt_software_error_cfg, data),
@@ -39333,7 +42222,7 @@ static bcmolt_group_descr group_descr_software_error_cfg =
     .key_offset = offsetof(bcmolt_software_error_cfg, key),
     .key_size = sizeof(bcmolt_software_error_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_software_error_cfg,
+    .multi = &_multi_descr_software_error_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_SOFTWARE_ERROR,
     .subgroup_idx = 0,
@@ -39341,27 +42230,27 @@ static bcmolt_group_descr group_descr_software_error_cfg =
     .type = &type_descr_bcmolt_software_error_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_software_error[] =
+static const bcmolt_group_descr *_groups_software_error[] =
 {
-    &group_descr_software_error_key,
-    &group_descr_software_error_cfg,
+    &_group_descr_software_error_key,
+    &_group_descr_software_error_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_software_error =
+static const bcmolt_obj_descr _obj_descr_software_error =
 {
     .name = "software_error",
     .descr = "Software Error.",
     .id = BCMOLT_OBJ_ID_SOFTWARE_ERROR,
     .tags = BCMOLT_TAG_DEVICE | BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_software_error_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_software_error),
-    .groups = groups_software_error,
+    .num_groups = BCM_SIZEOFARRAY(_groups_software_error),
+    .groups = _groups_software_error,
 };
 
 
-/** ==== Object: switch_inni ==== */
-/** Group: switch_inni - key. */
-static bcmolt_group_descr group_descr_switch_inni_key =
+/* ===== Object: switch_inni ===== */
+/* ===== Group: switch_inni - key ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39379,8 +42268,8 @@ static bcmolt_group_descr group_descr_switch_inni_key =
     .type = &type_descr_bcmolt_switch_inni_key,
 };
 
-/** Group: switch_inni - cfg. */
-static bcmolt_multi_group_descr multi_descr_switch_inni_cfg =
+/* ===== Group: switch_inni - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_switch_inni_cfg =
 {
     .container_size = sizeof(bcmolt_switch_inni_multi_cfg),
     .key_offset = offsetof(bcmolt_switch_inni_multi_cfg, key),
@@ -39392,7 +42281,7 @@ static bcmolt_multi_group_descr multi_descr_switch_inni_cfg =
     .responses_offset = offsetof(bcmolt_switch_inni_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_switch_inni_cfg =
+static const bcmolt_group_descr _group_descr_switch_inni_cfg =
 {
     .container_size = sizeof(bcmolt_switch_inni_cfg),
     .data_offset = offsetof(bcmolt_switch_inni_cfg, data),
@@ -39403,7 +42292,7 @@ static bcmolt_group_descr group_descr_switch_inni_cfg =
     .key_offset = offsetof(bcmolt_switch_inni_cfg, key),
     .key_size = sizeof(bcmolt_switch_inni_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_switch_inni_cfg,
+    .multi = &_multi_descr_switch_inni_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_SWITCH_INNI,
     .subgroup_idx = 0,
@@ -39411,8 +42300,8 @@ static bcmolt_group_descr group_descr_switch_inni_cfg =
     .type = &type_descr_bcmolt_switch_inni_cfg_data,
 };
 
-/** Group: switch_inni - stats. */
-static bcmolt_multi_group_descr multi_descr_switch_inni_stats =
+/* ===== Group: switch_inni - stats ===== */
+static const bcmolt_multi_group_descr _multi_descr_switch_inni_stats =
 {
     .container_size = sizeof(bcmolt_switch_inni_multi_stats),
     .key_offset = offsetof(bcmolt_switch_inni_multi_stats, key),
@@ -39424,7 +42313,7 @@ static bcmolt_multi_group_descr multi_descr_switch_inni_stats =
     .responses_offset = offsetof(bcmolt_switch_inni_multi_stats, responses),
 };
 
-static bcmolt_group_descr group_descr_switch_inni_stats =
+static const bcmolt_group_descr _group_descr_switch_inni_stats =
 {
     .container_size = sizeof(bcmolt_switch_inni_stats),
     .data_offset = offsetof(bcmolt_switch_inni_stats, data),
@@ -39435,7 +42324,7 @@ static bcmolt_group_descr group_descr_switch_inni_stats =
     .key_offset = offsetof(bcmolt_switch_inni_stats, key),
     .key_size = sizeof(bcmolt_switch_inni_key),
     .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_switch_inni_stats,
+    .multi = &_multi_descr_switch_inni_stats,
     .name = "stats",
     .obj_id = BCMOLT_OBJ_ID_SWITCH_INNI,
     .subgroup_idx = BCMOLT_SWITCH_INNI_STAT_SUBGROUP_STATS,
@@ -39443,8 +42332,27 @@ static bcmolt_group_descr group_descr_switch_inni_stats =
     .type = &type_descr_bcmolt_switch_inni_stats_data,
 };
 
-/** Group: switch_inni - stats_cfg. */
-static bcmolt_group_descr group_descr_switch_inni_stats_cfg =
+/* ===== Group: switch_inni - link_state_change ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_link_state_change =
+{
+    .container_size = sizeof(bcmolt_switch_inni_link_state_change),
+    .data_offset = offsetof(bcmolt_switch_inni_link_state_change, data),
+    .data_size = sizeof(bcmolt_switch_inni_link_state_change_data),
+    .descr = "Link State Change report.",
+    .global_id = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE,
+    .id = 3,
+    .key_offset = offsetof(bcmolt_switch_inni_link_state_change, key),
+    .key_size = sizeof(bcmolt_switch_inni_key),
+    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
+    .name = "link_state_change",
+    .obj_id = BCMOLT_OBJ_ID_SWITCH_INNI,
+    .subgroup_idx = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE,
+    .tags = 0,
+    .type = &type_descr_bcmolt_switch_inni_link_state_change_data,
+};
+
+/* ===== Group: switch_inni - stats_cfg ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_stats_cfg =
 {
     .container_size = sizeof(bcmolt_switch_inni_stats_cfg),
     .data_offset = offsetof(bcmolt_switch_inni_stats_cfg, data),
@@ -39462,8 +42370,8 @@ static bcmolt_group_descr group_descr_switch_inni_stats_cfg =
     .type = &type_descr_bcmolt_switch_inni_stats_cfg_data,
 };
 
-/** Group: switch_inni - stats_alarm_raised. */
-static bcmolt_group_descr group_descr_switch_inni_stats_alarm_raised =
+/* ===== Group: switch_inni - stats_alarm_raised ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_stats_alarm_raised =
 {
     .container_size = sizeof(bcmolt_switch_inni_stats_alarm_raised),
     .data_offset = offsetof(bcmolt_switch_inni_stats_alarm_raised, data),
@@ -39481,8 +42389,8 @@ static bcmolt_group_descr group_descr_switch_inni_stats_alarm_raised =
     .type = &type_descr_bcmolt_switch_inni_stats_alarm_raised_data,
 };
 
-/** Group: switch_inni - stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_switch_inni_stats_alarm_cleared =
+/* ===== Group: switch_inni - stats_alarm_cleared ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_stats_alarm_cleared =
 {
     .container_size = sizeof(bcmolt_switch_inni_stats_alarm_cleared),
     .data_offset = offsetof(bcmolt_switch_inni_stats_alarm_cleared, data),
@@ -39500,8 +42408,8 @@ static bcmolt_group_descr group_descr_switch_inni_stats_alarm_cleared =
     .type = &type_descr_bcmolt_switch_inni_stats_alarm_cleared_data,
 };
 
-/** Group: switch_inni - auto_cfg. */
-static bcmolt_group_descr group_descr_switch_inni_auto_cfg =
+/* ===== Group: switch_inni - auto_cfg ===== */
+static const bcmolt_group_descr _group_descr_switch_inni_auto_cfg =
 {
     .container_size = sizeof(bcmolt_switch_inni_auto_cfg),
     .data_offset = offsetof(bcmolt_switch_inni_auto_cfg, data),
@@ -39519,32 +42427,33 @@ static bcmolt_group_descr group_descr_switch_inni_auto_cfg =
     .type = &type_descr_bcmolt_switch_inni_auto_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_switch_inni[] =
+static const bcmolt_group_descr *_groups_switch_inni[] =
 {
-    &group_descr_switch_inni_key,
-    &group_descr_switch_inni_cfg,
-    &group_descr_switch_inni_stats,
-    &group_descr_switch_inni_stats_cfg,
-    &group_descr_switch_inni_stats_alarm_raised,
-    &group_descr_switch_inni_stats_alarm_cleared,
-    &group_descr_switch_inni_auto_cfg,
+    &_group_descr_switch_inni_key,
+    &_group_descr_switch_inni_cfg,
+    &_group_descr_switch_inni_stats,
+    &_group_descr_switch_inni_link_state_change,
+    &_group_descr_switch_inni_stats_cfg,
+    &_group_descr_switch_inni_stats_alarm_raised,
+    &_group_descr_switch_inni_stats_alarm_cleared,
+    &_group_descr_switch_inni_auto_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_switch_inni =
+static const bcmolt_obj_descr _obj_descr_switch_inni =
 {
     .name = "switch_inni",
     .descr = "switch inni which is connected to the mac inni.",
     .id = BCMOLT_OBJ_ID_SWITCH_INNI,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_switch_inni_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_switch_inni),
-    .groups = groups_switch_inni,
+    .num_groups = BCM_SIZEOFARRAY(_groups_switch_inni),
+    .groups = _groups_switch_inni,
 };
 
 
-/** ==== Object: tc_to_queue ==== */
-/** Group: tc_to_queue - key. */
-static bcmolt_group_descr group_descr_tc_to_queue_key =
+/* ===== Object: tc_to_queue ===== */
+/* ===== Group: tc_to_queue - key ===== */
+static const bcmolt_group_descr _group_descr_tc_to_queue_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39562,8 +42471,8 @@ static bcmolt_group_descr group_descr_tc_to_queue_key =
     .type = &type_descr_bcmolt_tc_to_queue_key,
 };
 
-/** Group: tc_to_queue - cfg. */
-static bcmolt_multi_group_descr multi_descr_tc_to_queue_cfg =
+/* ===== Group: tc_to_queue - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_tc_to_queue_cfg =
 {
     .container_size = sizeof(bcmolt_tc_to_queue_multi_cfg),
     .key_offset = offsetof(bcmolt_tc_to_queue_multi_cfg, key),
@@ -39575,7 +42484,7 @@ static bcmolt_multi_group_descr multi_descr_tc_to_queue_cfg =
     .responses_offset = offsetof(bcmolt_tc_to_queue_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_tc_to_queue_cfg =
+static const bcmolt_group_descr _group_descr_tc_to_queue_cfg =
 {
     .container_size = sizeof(bcmolt_tc_to_queue_cfg),
     .data_offset = offsetof(bcmolt_tc_to_queue_cfg, data),
@@ -39586,7 +42495,7 @@ static bcmolt_group_descr group_descr_tc_to_queue_cfg =
     .key_offset = offsetof(bcmolt_tc_to_queue_cfg, key),
     .key_size = sizeof(bcmolt_tc_to_queue_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_tc_to_queue_cfg,
+    .multi = &_multi_descr_tc_to_queue_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_TC_TO_QUEUE,
     .subgroup_idx = 0,
@@ -39594,27 +42503,27 @@ static bcmolt_group_descr group_descr_tc_to_queue_cfg =
     .type = &type_descr_bcmolt_tc_to_queue_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_tc_to_queue[] =
+static const bcmolt_group_descr *_groups_tc_to_queue[] =
 {
-    &group_descr_tc_to_queue_key,
-    &group_descr_tc_to_queue_cfg,
+    &_group_descr_tc_to_queue_key,
+    &_group_descr_tc_to_queue_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_tc_to_queue =
+static const bcmolt_obj_descr _obj_descr_tc_to_queue =
 {
     .name = "tc_to_queue",
     .descr = "tc to queue.",
     .id = BCMOLT_OBJ_ID_TC_TO_QUEUE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_tc_to_queue_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_tc_to_queue),
-    .groups = groups_tc_to_queue,
+    .num_groups = BCM_SIZEOFARRAY(_groups_tc_to_queue),
+    .groups = _groups_tc_to_queue,
 };
 
 
-/** ==== Object: tm_qmp ==== */
-/** Group: tm_qmp - key. */
-static bcmolt_group_descr group_descr_tm_qmp_key =
+/* ===== Object: tm_qmp ===== */
+/* ===== Group: tm_qmp - key ===== */
+static const bcmolt_group_descr _group_descr_tm_qmp_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39632,8 +42541,8 @@ static bcmolt_group_descr group_descr_tm_qmp_key =
     .type = &type_descr_bcmolt_tm_qmp_key,
 };
 
-/** Group: tm_qmp - cfg. */
-static bcmolt_multi_group_descr multi_descr_tm_qmp_cfg =
+/* ===== Group: tm_qmp - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_tm_qmp_cfg =
 {
     .container_size = sizeof(bcmolt_tm_qmp_multi_cfg),
     .key_offset = offsetof(bcmolt_tm_qmp_multi_cfg, key),
@@ -39645,7 +42554,7 @@ static bcmolt_multi_group_descr multi_descr_tm_qmp_cfg =
     .responses_offset = offsetof(bcmolt_tm_qmp_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_tm_qmp_cfg =
+static const bcmolt_group_descr _group_descr_tm_qmp_cfg =
 {
     .container_size = sizeof(bcmolt_tm_qmp_cfg),
     .data_offset = offsetof(bcmolt_tm_qmp_cfg, data),
@@ -39656,7 +42565,7 @@ static bcmolt_group_descr group_descr_tm_qmp_cfg =
     .key_offset = offsetof(bcmolt_tm_qmp_cfg, key),
     .key_size = sizeof(bcmolt_tm_qmp_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_tm_qmp_cfg,
+    .multi = &_multi_descr_tm_qmp_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_TM_QMP,
     .subgroup_idx = 0,
@@ -39664,27 +42573,27 @@ static bcmolt_group_descr group_descr_tm_qmp_cfg =
     .type = &type_descr_bcmolt_tm_qmp_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_tm_qmp[] =
+static const bcmolt_group_descr *_groups_tm_qmp[] =
 {
-    &group_descr_tm_qmp_key,
-    &group_descr_tm_qmp_cfg,
+    &_group_descr_tm_qmp_key,
+    &_group_descr_tm_qmp_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_tm_qmp =
+static const bcmolt_obj_descr _obj_descr_tm_qmp =
 {
     .name = "tm_qmp",
     .descr = "tm_qmp.",
     .id = BCMOLT_OBJ_ID_TM_QMP,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_tm_qmp_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_tm_qmp),
-    .groups = groups_tm_qmp,
+    .num_groups = BCM_SIZEOFARRAY(_groups_tm_qmp),
+    .groups = _groups_tm_qmp,
 };
 
 
-/** ==== Object: tm_queue ==== */
-/** Group: tm_queue - key. */
-static bcmolt_group_descr group_descr_tm_queue_key =
+/* ===== Object: tm_queue ===== */
+/* ===== Group: tm_queue - key ===== */
+static const bcmolt_group_descr _group_descr_tm_queue_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39702,8 +42611,8 @@ static bcmolt_group_descr group_descr_tm_queue_key =
     .type = &type_descr_bcmolt_tm_queue_key,
 };
 
-/** Group: tm_queue - cfg. */
-static bcmolt_multi_group_descr multi_descr_tm_queue_cfg =
+/* ===== Group: tm_queue - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_tm_queue_cfg =
 {
     .container_size = sizeof(bcmolt_tm_queue_multi_cfg),
     .key_offset = offsetof(bcmolt_tm_queue_multi_cfg, key),
@@ -39715,7 +42624,7 @@ static bcmolt_multi_group_descr multi_descr_tm_queue_cfg =
     .responses_offset = offsetof(bcmolt_tm_queue_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_tm_queue_cfg =
+static const bcmolt_group_descr _group_descr_tm_queue_cfg =
 {
     .container_size = sizeof(bcmolt_tm_queue_cfg),
     .data_offset = offsetof(bcmolt_tm_queue_cfg, data),
@@ -39726,7 +42635,7 @@ static bcmolt_group_descr group_descr_tm_queue_cfg =
     .key_offset = offsetof(bcmolt_tm_queue_cfg, key),
     .key_size = sizeof(bcmolt_tm_queue_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_tm_queue_cfg,
+    .multi = &_multi_descr_tm_queue_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_TM_QUEUE,
     .subgroup_idx = 0,
@@ -39734,27 +42643,97 @@ static bcmolt_group_descr group_descr_tm_queue_cfg =
     .type = &type_descr_bcmolt_tm_queue_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_tm_queue[] =
+static const bcmolt_group_descr *_groups_tm_queue[] =
 {
-    &group_descr_tm_queue_key,
-    &group_descr_tm_queue_cfg,
+    &_group_descr_tm_queue_key,
+    &_group_descr_tm_queue_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_tm_queue =
+static const bcmolt_obj_descr _obj_descr_tm_queue =
 {
     .name = "tm_queue",
     .descr = "Traffic Management queue.",
     .id = BCMOLT_OBJ_ID_TM_QUEUE,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_tm_queue_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_tm_queue),
-    .groups = groups_tm_queue,
+    .num_groups = BCM_SIZEOFARRAY(_groups_tm_queue),
+    .groups = _groups_tm_queue,
 };
 
 
-/** ==== Object: tm_sched ==== */
-/** Group: tm_sched - key. */
-static bcmolt_group_descr group_descr_tm_sched_key =
+/* ===== Object: tm_queue_profile ===== */
+/* ===== Group: tm_queue_profile - key ===== */
+static const bcmolt_group_descr _group_descr_tm_queue_profile_key =
+{
+    .container_size = 0,
+    .data_offset = 0,
+    .data_size = sizeof(bcmolt_tm_queue_profile_key),
+    .descr = "key.",
+    .global_id = BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_KEY,
+    .id = 0,
+    .key_offset = 0,
+    .key_size = sizeof(bcmolt_tm_queue_profile_key),
+    .mgt_group = BCMOLT_MGT_GROUP_KEY,
+    .name = "key",
+    .obj_id = BCMOLT_OBJ_ID_TM_QUEUE_PROFILE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_tm_queue_profile_key,
+};
+
+/* ===== Group: tm_queue_profile - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_tm_queue_profile_cfg =
+{
+    .container_size = sizeof(bcmolt_tm_queue_profile_multi_cfg),
+    .key_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, key),
+    .next_key_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, next_key),
+    .filter_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, filter),
+    .request_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, request),
+    .more_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, more),
+    .num_responses_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, num_responses),
+    .responses_offset = offsetof(bcmolt_tm_queue_profile_multi_cfg, responses),
+};
+
+static const bcmolt_group_descr _group_descr_tm_queue_profile_cfg =
+{
+    .container_size = sizeof(bcmolt_tm_queue_profile_cfg),
+    .data_offset = offsetof(bcmolt_tm_queue_profile_cfg, data),
+    .data_size = sizeof(bcmolt_tm_queue_profile_cfg_data),
+    .descr = "cfg.",
+    .global_id = BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_CFG,
+    .id = 1,
+    .key_offset = offsetof(bcmolt_tm_queue_profile_cfg, key),
+    .key_size = sizeof(bcmolt_tm_queue_profile_key),
+    .mgt_group = BCMOLT_MGT_GROUP_CFG,
+    .multi = &_multi_descr_tm_queue_profile_cfg,
+    .name = "cfg",
+    .obj_id = BCMOLT_OBJ_ID_TM_QUEUE_PROFILE,
+    .subgroup_idx = 0,
+    .tags = 0,
+    .type = &type_descr_bcmolt_tm_queue_profile_cfg_data,
+};
+
+static const bcmolt_group_descr *_groups_tm_queue_profile[] =
+{
+    &_group_descr_tm_queue_profile_key,
+    &_group_descr_tm_queue_profile_cfg,
+};
+
+static const bcmolt_obj_descr _obj_descr_tm_queue_profile =
+{
+    .name = "tm_queue_profile",
+    .descr = "bundle of queue parameters.",
+    .id = BCMOLT_OBJ_ID_TM_QUEUE_PROFILE,
+    .tags = BCMOLT_TAG_SYSTEM,
+    .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_tm_queue_profile_get_active_tags,
+    .num_groups = BCM_SIZEOFARRAY(_groups_tm_queue_profile),
+    .groups = _groups_tm_queue_profile,
+};
+
+
+/* ===== Object: tm_sched ===== */
+/* ===== Group: tm_sched - key ===== */
+static const bcmolt_group_descr _group_descr_tm_sched_key =
 {
     .container_size = 0,
     .data_offset = 0,
@@ -39772,8 +42751,8 @@ static bcmolt_group_descr group_descr_tm_sched_key =
     .type = &type_descr_bcmolt_tm_sched_key,
 };
 
-/** Group: tm_sched - cfg. */
-static bcmolt_multi_group_descr multi_descr_tm_sched_cfg =
+/* ===== Group: tm_sched - cfg ===== */
+static const bcmolt_multi_group_descr _multi_descr_tm_sched_cfg =
 {
     .container_size = sizeof(bcmolt_tm_sched_multi_cfg),
     .key_offset = offsetof(bcmolt_tm_sched_multi_cfg, key),
@@ -39785,7 +42764,7 @@ static bcmolt_multi_group_descr multi_descr_tm_sched_cfg =
     .responses_offset = offsetof(bcmolt_tm_sched_multi_cfg, responses),
 };
 
-static bcmolt_group_descr group_descr_tm_sched_cfg =
+static const bcmolt_group_descr _group_descr_tm_sched_cfg =
 {
     .container_size = sizeof(bcmolt_tm_sched_cfg),
     .data_offset = offsetof(bcmolt_tm_sched_cfg, data),
@@ -39796,7 +42775,7 @@ static bcmolt_group_descr group_descr_tm_sched_cfg =
     .key_offset = offsetof(bcmolt_tm_sched_cfg, key),
     .key_size = sizeof(bcmolt_tm_sched_key),
     .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_tm_sched_cfg,
+    .multi = &_multi_descr_tm_sched_cfg,
     .name = "cfg",
     .obj_id = BCMOLT_OBJ_ID_TM_SCHED,
     .subgroup_idx = 0,
@@ -39804,364 +42783,392 @@ static bcmolt_group_descr group_descr_tm_sched_cfg =
     .type = &type_descr_bcmolt_tm_sched_cfg_data,
 };
 
-static const bcmolt_group_descr *groups_tm_sched[] =
+static const bcmolt_group_descr *_groups_tm_sched[] =
 {
-    &group_descr_tm_sched_key,
-    &group_descr_tm_sched_cfg,
+    &_group_descr_tm_sched_key,
+    &_group_descr_tm_sched_cfg,
 };
 
-static bcmolt_obj_descr obj_descr_tm_sched =
+static const bcmolt_obj_descr _obj_descr_tm_sched =
 {
     .name = "tm_sched",
     .descr = "Scheduling node.",
     .id = BCMOLT_OBJ_ID_TM_SCHED,
     .tags = BCMOLT_TAG_SYSTEM,
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_tm_sched_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_tm_sched),
-    .groups = groups_tm_sched,
+    .num_groups = BCM_SIZEOFARRAY(_groups_tm_sched),
+    .groups = _groups_tm_sched,
 };
 
 
-static const bcmolt_obj_descr *lookup_obj_by_id[] =
+static const bcmolt_obj_descr *_lookup_obj_by_id[] =
 {
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL] = &obj_descr_access_control,
-    [BCMOLT_OBJ_ID_BAL_SYSTEM] = &obj_descr_bal_system,
-    [BCMOLT_OBJ_ID_DEVICE] = &obj_descr_device,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE] = &obj_descr_erps_interface,
-    [BCMOLT_OBJ_ID_ETH_OAM] = &obj_descr_eth_oam,
-    [BCMOLT_OBJ_ID_FLOW] = &obj_descr_flow,
-    [BCMOLT_OBJ_ID_GPIO] = &obj_descr_gpio,
-    [BCMOLT_OBJ_ID_GROUP] = &obj_descr_group,
-    [BCMOLT_OBJ_ID_HOST_LOG] = &obj_descr_host_log,
-    [BCMOLT_OBJ_ID_HOST_LOG_FILE] = &obj_descr_host_log_file,
-    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL] = &obj_descr_inband_mgmt_channel,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI] = &obj_descr_internal_nni,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC] = &obj_descr_itupon_alloc,
-    [BCMOLT_OBJ_ID_ITUPON_GEM] = &obj_descr_itupon_gem,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE] = &obj_descr_lag_interface,
-    [BCMOLT_OBJ_ID_LOG] = &obj_descr_log,
-    [BCMOLT_OBJ_ID_LOG_FILE] = &obj_descr_log_file,
-    [BCMOLT_OBJ_ID_NGPON2_CHANNEL] = &obj_descr_ngpon2_channel,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE] = &obj_descr_nni_interface,
-    [BCMOLT_OBJ_ID_OLT] = &obj_descr_olt,
-    [BCMOLT_OBJ_ID_ONU] = &obj_descr_onu,
-    [BCMOLT_OBJ_ID_PBIT_TO_TC] = &obj_descr_pbit_to_tc,
-    [BCMOLT_OBJ_ID_POLICER_PROFILE] = &obj_descr_policer_profile,
-    [BCMOLT_OBJ_ID_PON_INTERFACE] = &obj_descr_pon_interface,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE] = &obj_descr_protection_interface,
-    [BCMOLT_OBJ_ID_SOFTWARE_ERROR] = &obj_descr_software_error,
-    [BCMOLT_OBJ_ID_SWITCH_INNI] = &obj_descr_switch_inni,
-    [BCMOLT_OBJ_ID_TC_TO_QUEUE] = &obj_descr_tc_to_queue,
-    [BCMOLT_OBJ_ID_TM_QMP] = &obj_descr_tm_qmp,
-    [BCMOLT_OBJ_ID_TM_QUEUE] = &obj_descr_tm_queue,
-    [BCMOLT_OBJ_ID_TM_SCHED] = &obj_descr_tm_sched,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL] = &_obj_descr_access_control,
+    [BCMOLT_OBJ_ID_BAL_SYSTEM] = &_obj_descr_bal_system,
+    [BCMOLT_OBJ_ID_DEVICE] = &_obj_descr_device,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE] = &_obj_descr_erps_interface,
+    [BCMOLT_OBJ_ID_ETH_OAM] = &_obj_descr_eth_oam,
+    [BCMOLT_OBJ_ID_FLOW] = &_obj_descr_flow,
+    [BCMOLT_OBJ_ID_GPIO] = &_obj_descr_gpio,
+    [BCMOLT_OBJ_ID_GROUP] = &_obj_descr_group,
+    [BCMOLT_OBJ_ID_HOST_LOG] = &_obj_descr_host_log,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE] = &_obj_descr_host_log_file,
+    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL] = &_obj_descr_inband_mgmt_channel,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI] = &_obj_descr_internal_nni,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC] = &_obj_descr_itupon_alloc,
+    [BCMOLT_OBJ_ID_ITUPON_GEM] = &_obj_descr_itupon_gem,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE] = &_obj_descr_l2_mac_table,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE] = &_obj_descr_lag_interface,
+    [BCMOLT_OBJ_ID_LOG] = &_obj_descr_log,
+    [BCMOLT_OBJ_ID_LOG_FILE] = &_obj_descr_log_file,
+    [BCMOLT_OBJ_ID_NGPON2_CHANNEL] = &_obj_descr_ngpon2_channel,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE] = &_obj_descr_nni_interface,
+    [BCMOLT_OBJ_ID_OLT] = &_obj_descr_olt,
+    [BCMOLT_OBJ_ID_ONU] = &_obj_descr_onu,
+    [BCMOLT_OBJ_ID_PBIT_TO_TC] = &_obj_descr_pbit_to_tc,
+    [BCMOLT_OBJ_ID_POLICER_PROFILE] = &_obj_descr_policer_profile,
+    [BCMOLT_OBJ_ID_PON_INTERFACE] = &_obj_descr_pon_interface,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE] = &_obj_descr_protection_interface,
+    [BCMOLT_OBJ_ID_SOFTWARE_ERROR] = &_obj_descr_software_error,
+    [BCMOLT_OBJ_ID_SWITCH_INNI] = &_obj_descr_switch_inni,
+    [BCMOLT_OBJ_ID_TC_TO_QUEUE] = &_obj_descr_tc_to_queue,
+    [BCMOLT_OBJ_ID_TM_QMP] = &_obj_descr_tm_qmp,
+    [BCMOLT_OBJ_ID_TM_QUEUE] = &_obj_descr_tm_queue,
+    [BCMOLT_OBJ_ID_TM_QUEUE_PROFILE] = &_obj_descr_tm_queue_profile,
+    [BCMOLT_OBJ_ID_TM_SCHED] = &_obj_descr_tm_sched,
 };
 
-static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP__NUM_OF][BCMOLT_ONU_AUTO_SUBGROUP__NUM_OF] =
+static const bcmolt_group_descr *_lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP__NUM_OF][BCMOLT_ONU_AUTO_SUBGROUP__NUM_OF] =
 {
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_access_control_key,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_access_control_cfg,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_STAT][BCMOLT_ACCESS_CONTROL_STAT_SUBGROUP_STATS] = &group_descr_access_control_stats,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ACCESS_CONTROL_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_access_control_stats_cfg,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_RECEIVE_ETH_PACKET] = &group_descr_access_control_receive_eth_packet,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_access_control_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_access_control_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_access_control_auto_cfg,
-    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_OPER][BCMOLT_ACCESS_CONTROL_OPER_SUBGROUP_INTERFACES_UPDATE] = &group_descr_access_control_interfaces_update,
-    [BCMOLT_OBJ_ID_BAL_SYSTEM][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_bal_system_key,
-    [BCMOLT_OBJ_ID_BAL_SYSTEM][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_bal_system_cfg,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_device_key,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_device_cfg,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DEVICE_READY] = &group_descr_device_device_ready,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_ESTABLISHED] = &group_descr_device_connection_established,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DEVICE_KEEP_ALIVE] = &group_descr_device_device_keep_alive,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_FAILURE] = &group_descr_device_connection_failure,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_COMPLETE] = &group_descr_device_connection_complete,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DISCONNECTION_COMPLETE] = &group_descr_device_disconnection_complete,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_ERROR] = &group_descr_device_sw_error,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_EXCEPTION] = &group_descr_device_sw_exception,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_IMAGE_TRANSFER_COMPLETE] = &group_descr_device_image_transfer_complete,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DDR_TEST_COMPLETE] = &group_descr_device_ddr_test_complete,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_HEALTH_CHECK_FAILURE] = &group_descr_device_sw_health_check_failure,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_INNI_MUX_CONFIGURATION_COMPLETED] = &group_descr_device_inni_mux_configuration_completed,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_TOD_CALIBRATION_DONE] = &group_descr_device_tod_calibration_done,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_device_auto_cfg,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_CONNECT] = &group_descr_device_connect,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_DISCONNECT] = &group_descr_device_disconnect,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_RESET] = &group_descr_device_reset,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_HOST_KEEP_ALIVE] = &group_descr_device_host_keep_alive,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_SW_UPGRADE_ACTIVATE] = &group_descr_device_sw_upgrade_activate,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_SET_8021_AS_TOD_STRING] = &group_descr_device_set_8021_as_tod_string,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_IMAGE_TRANSFER_START] = &group_descr_device_image_transfer_start,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_IMAGE_TRANSFER_DATA] = &group_descr_device_image_transfer_data,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_RUN_DDR_TEST] = &group_descr_device_run_ddr_test,
-    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_CHANGE_INNI_MUX] = &group_descr_device_change_inni_mux,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_erps_interface_key,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_erps_interface_cfg,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_RING_PORT_CONTROL] = &group_descr_erps_interface_ring_port_control,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_SET_INTF_OPT_COMPLETE] = &group_descr_erps_interface_set_intf_opt_complete,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_PORT_UPDATE_COMPLETE] = &group_descr_erps_interface_port_update_complete,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_erps_interface_auto_cfg,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_SET_RING_PORT_CONTROL] = &group_descr_erps_interface_set_ring_port_control,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_SET_INTF_OPT] = &group_descr_erps_interface_set_intf_opt,
-    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_PORT_UPDATE] = &group_descr_erps_interface_port_update,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_eth_oam_key,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_eth_oam_cfg,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_STAT][BCMOLT_ETH_OAM_STAT_SUBGROUP_STATS] = &group_descr_eth_oam_stats,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ETH_OAM_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_eth_oam_stats_cfg,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_CCM_EVENT] = &group_descr_eth_oam_ccm_event,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATE_CHANGE] = &group_descr_eth_oam_state_change,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_eth_oam_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_eth_oam_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_eth_oam_auto_cfg,
-    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_OPER][BCMOLT_ETH_OAM_OPER_SUBGROUP_SET_MEP_STATE] = &group_descr_eth_oam_set_mep_state,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_flow_key,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_flow_cfg,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_STAT][BCMOLT_FLOW_STAT_SUBGROUP_STATS] = &group_descr_flow_stats,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_FLOW_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_flow_stats_cfg,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO][BCMOLT_FLOW_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_flow_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO][BCMOLT_FLOW_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_flow_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_flow_auto_cfg,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_OPER][BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET] = &group_descr_flow_send_eth_packet,
-    [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_gpio_key,
-    [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_gpio_cfg,
-    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_group_key,
-    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_group_cfg,
-    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO][BCMOLT_GROUP_AUTO_SUBGROUP_COMPLETE_MEMBERS_UPDATE] = &group_descr_group_complete_members_update,
-    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_group_auto_cfg,
-    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_OPER][BCMOLT_GROUP_OPER_SUBGROUP_MEMBERS_UPDATE] = &group_descr_group_members_update,
-    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_host_log_key,
-    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_host_log_cfg,
-    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_host_log_file_key,
-    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_host_log_file_cfg,
-    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_CLEAR] = &group_descr_host_log_file_clear,
-    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR] = &group_descr_host_log_file_reset_buffer_ptr,
-    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_inband_mgmt_channel_key,
-    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_inband_mgmt_channel_cfg,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_internal_nni_key,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_internal_nni_cfg,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_NNI_STATS] = &group_descr_internal_nni_nni_stats,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_ENET_STATS] = &group_descr_internal_nni_enet_stats,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_INTERNAL_NNI_STAT_CFG_SUBGROUP_NNI_STATS_CFG] = &group_descr_internal_nni_nni_stats_cfg,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_INTERNAL_NNI_STAT_CFG_SUBGROUP_ENET_STATS_CFG] = &group_descr_internal_nni_enet_stats_cfg,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_STATUS_CHANGED] = &group_descr_internal_nni_status_changed,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_PACKET_CAPTURED] = &group_descr_internal_nni_packet_captured,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_SWAP_COMPLETED] = &group_descr_internal_nni_swap_completed,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_NNI_STATS_ALARM_RAISED] = &group_descr_internal_nni_nni_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_NNI_STATS_ALARM_CLEARED] = &group_descr_internal_nni_nni_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_ENET_STATS_ALARM_RAISED] = &group_descr_internal_nni_enet_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_ENET_STATS_ALARM_CLEARED] = &group_descr_internal_nni_enet_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_internal_nni_auto_cfg,
-    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_OPER][BCMOLT_INTERNAL_NNI_OPER_SUBGROUP_SEND_ETH_PACKET] = &group_descr_internal_nni_send_eth_packet,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_itupon_alloc_key,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_itupon_alloc_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS] = &group_descr_itupon_alloc_stats,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_itupon_alloc_stats_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED] = &group_descr_itupon_alloc_configuration_completed,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED] = &group_descr_itupon_alloc_get_alloc_stats_completed,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_itupon_alloc_auto_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_GET_STATS] = &group_descr_itupon_alloc_get_stats,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_SET_STATE] = &group_descr_itupon_alloc_set_state,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_itupon_gem_key,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_itupon_gem_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_GEM_STAT_SUBGROUP_STATS] = &group_descr_itupon_gem_stats,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_GEM_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_itupon_gem_stats_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_CONFIGURATION_COMPLETED] = &group_descr_itupon_gem_configuration_completed,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_itupon_gem_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_itupon_gem_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_itupon_gem_auto_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_GEM_OPER_SUBGROUP_SET_STATE] = &group_descr_itupon_gem_set_state,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_lag_interface_key,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_lag_interface_cfg,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_LAG_INTERFACE_STAT_SUBGROUP_STATS] = &group_descr_lag_interface_stats,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_LAG_INTERFACE_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_lag_interface_stats_cfg,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_COMPLETE_MEMBERS_UPDATE] = &group_descr_lag_interface_complete_members_update,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATE_UPDATED] = &group_descr_lag_interface_state_updated,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_LAG_HEALTH_CHANGE] = &group_descr_lag_interface_lag_health_change,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_lag_interface_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_lag_interface_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_lag_interface_auto_cfg,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LAG_INTERFACE_OPER_SUBGROUP_MEMBERS_UPDATE] = &group_descr_lag_interface_members_update,
-    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LAG_INTERFACE_OPER_SUBGROUP_STATE_UPDATE] = &group_descr_lag_interface_state_update,
-    [BCMOLT_OBJ_ID_LOG][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_log_key,
-    [BCMOLT_OBJ_ID_LOG][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_log_cfg,
-    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_log_file_key,
-    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_log_file_cfg,
-    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LOG_FILE_OPER_SUBGROUP_CLEAR] = &group_descr_log_file_clear,
-    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR] = &group_descr_log_file_reset_buffer_ptr,
-    [BCMOLT_OBJ_ID_NGPON2_CHANNEL][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_ngpon2_channel_key,
-    [BCMOLT_OBJ_ID_NGPON2_CHANNEL][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_ngpon2_channel_cfg,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_nni_interface_key,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_nni_interface_cfg,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_NNI_INTERFACE_STAT_SUBGROUP_STATS] = &group_descr_nni_interface_stats,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_NNI_INTERFACE_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_nni_interface_stats_cfg,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATE_CHANGE] = &group_descr_nni_interface_state_change,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_LINK_STATE_CHANGE] = &group_descr_nni_interface_link_state_change,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_FAULT_CODE_CHANGE] = &group_descr_nni_interface_fault_code_change,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_nni_interface_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_nni_interface_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_nni_interface_auto_cfg,
-    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_NNI_INTERFACE_OPER_SUBGROUP_SET_NNI_STATE] = &group_descr_nni_interface_set_nni_state,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_olt_key,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_olt_cfg,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_BAL_FAILURE] = &group_descr_olt_bal_failure,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_BAL_READY] = &group_descr_olt_bal_ready,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_SW_ERROR] = &group_descr_olt_sw_error,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_olt_auto_cfg,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_CONNECT] = &group_descr_olt_connect,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_DISCONNECT] = &group_descr_olt_disconnect,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_BAL_RESET] = &group_descr_olt_bal_reset,
-    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_RESET] = &group_descr_olt_reset,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_onu_key,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_onu_cfg,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT][BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS] = &group_descr_onu_itu_pon_stats,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG] = &group_descr_onu_itu_pon_stats_cfg,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM] = &group_descr_onu_xgpon_alarm,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM] = &group_descr_onu_gpon_alarm,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DOWI] = &group_descr_onu_dowi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SFI] = &group_descr_onu_sfi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SDI] = &group_descr_onu_sdi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DFI] = &group_descr_onu_dfi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PQSI] = &group_descr_onu_pqsi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SUFI] = &group_descr_onu_sufi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TIWI] = &group_descr_onu_tiwi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOOCI] = &group_descr_onu_looci,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOAI] = &group_descr_onu_loai,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DGI] = &group_descr_onu_dgi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PEE] = &group_descr_onu_pee,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PST] = &group_descr_onu_pst,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RANGING_COMPLETED] = &group_descr_onu_ranging_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_COMPLETED] = &group_descr_onu_onu_activation_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_DEACTIVATION_COMPLETED] = &group_descr_onu_onu_deactivation_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ENABLE_COMPLETED] = &group_descr_onu_onu_enable_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_DISABLE_COMPLETED] = &group_descr_onu_onu_disable_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RSSI_MEASUREMENT_COMPLETED] = &group_descr_onu_rssi_measurement_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT] = &group_descr_onu_invalid_dbru_report,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED] = &group_descr_onu_key_exchange_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT] = &group_descr_onu_key_exchange_key_request_timeout,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_CYCLE_SKIPPED] = &group_descr_onu_key_exchange_cycle_skipped,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_MISMATCH] = &group_descr_onu_key_exchange_key_mismatch,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OPTICAL_REFLECTION] = &group_descr_onu_optical_reflection,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOKI] = &group_descr_onu_loki,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_MEMI] = &group_descr_onu_memi,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PORT_ID_CONFIGURATION_COMPLETED] = &group_descr_onu_omci_port_id_configuration_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_BER_INTERVAL_CONFIGURATION_COMPLETED] = &group_descr_onu_ber_interval_configuration_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ERR] = &group_descr_onu_err,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PASSWORD_AUTHENTICATION_COMPLETED] = &group_descr_onu_password_authentication_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_UNCONSECUTIVE_INDEX] = &group_descr_onu_key_exchange_unconsecutive_index,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_DECRYPT_REQUIRED] = &group_descr_onu_key_exchange_decrypt_required,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_STANDBY_COMPLETED] = &group_descr_onu_onu_activation_standby_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_MANAGEMENT_STATE_CHANGE] = &group_descr_onu_power_management_state_change,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POSSIBLE_DRIFT] = &group_descr_onu_possible_drift,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_REGISTRATION_ID] = &group_descr_onu_registration_id,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_LEVEL_REPORT] = &group_descr_onu_power_level_report,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_CONSUMPTION_REPORT] = &group_descr_onu_power_consumption_report,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION_FAILURE] = &group_descr_onu_secure_mutual_authentication_failure,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_OUT_COMPLETED] = &group_descr_onu_onu_tuning_out_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_IN_COMPLETED] = &group_descr_onu_onu_tuning_in_completed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TUNING_RESPONSE] = &group_descr_onu_tuning_response,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_CPU_PACKET] = &group_descr_onu_cpu_packet,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PACKET] = &group_descr_onu_omci_packet,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_READY_FOR_DATA_GRANT] = &group_descr_onu_onu_ready_for_data_grant,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_REI] = &group_descr_onu_rei,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE] = &group_descr_onu_state_change,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RANGE_VALUE_CHANGED] = &group_descr_onu_range_value_changed,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM] = &group_descr_onu_xpon_unknown_ploam,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_onu_auto_cfg,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_SET_ONU_STATE] = &group_descr_onu_set_onu_state,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_RSSI_MEASUREMENT] = &group_descr_onu_rssi_measurement,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_REQUEST_REGISTRATION] = &group_descr_onu_request_registration,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_CHANGE_POWER_LEVELLING] = &group_descr_onu_change_power_levelling,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_GET_POWER_LEVEL] = &group_descr_onu_get_power_level,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_GET_POWER_CONSUMPTION] = &group_descr_onu_get_power_consumption,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_ADJUST_TX_WAVELENGTH] = &group_descr_onu_adjust_tx_wavelength,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION] = &group_descr_onu_secure_mutual_authentication,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_TUNING_IN] = &group_descr_onu_tuning_in,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_TUNING_OUT] = &group_descr_onu_tuning_out,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_PLOAM_PACKET] = &group_descr_onu_ploam_packet,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_CPU_PACKETS] = &group_descr_onu_cpu_packets,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_FORCE_DEACTIVATION] = &group_descr_onu_force_deactivation,
-    [BCMOLT_OBJ_ID_PBIT_TO_TC][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_pbit_to_tc_key,
-    [BCMOLT_OBJ_ID_PBIT_TO_TC][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_pbit_to_tc_cfg,
-    [BCMOLT_OBJ_ID_POLICER_PROFILE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_policer_profile_key,
-    [BCMOLT_OBJ_ID_POLICER_PROFILE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_policer_profile_cfg,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_pon_interface_key,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_pon_interface_cfg,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_PON_INTERFACE_STAT_SUBGROUP_ITU_PON_STATS] = &group_descr_pon_interface_itu_pon_stats,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_PON_INTERFACE_STAT_SUBGROUP_AE_STATS] = &group_descr_pon_interface_ae_stats,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_PON_INTERFACE_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG] = &group_descr_pon_interface_itu_pon_stats_cfg,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_PON_INTERFACE_STAT_CFG_SUBGROUP_AE_STATS_CFG] = &group_descr_pon_interface_ae_stats_cfg,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_STATE_CHANGE_COMPLETED] = &group_descr_pon_interface_state_change_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_TOD_REQUEST_COMPLETED] = &group_descr_pon_interface_tod_request_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_LOS] = &group_descr_pon_interface_los,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_SERIAL_NUMBER_ACQUISITION_CYCLE_START] = &group_descr_pon_interface_serial_number_acquisition_cycle_start,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_TRAFFIC_RESUME] = &group_descr_pon_interface_protection_switching_traffic_resume,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_ONUS_RANGED] = &group_descr_pon_interface_protection_switching_onus_ranged,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_RERANGE_FAILURE] = &group_descr_pon_interface_protection_switching_rerange_failure,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED] = &group_descr_pon_interface_protection_switching_switchover_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_STANDBY_PON_MONITORING_CYCLE_COMPLETED] = &group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ONU_DISCOVERED] = &group_descr_pon_interface_onu_discovered,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_CPU_PACKETS_FAILURE] = &group_descr_pon_interface_cpu_packets_failure,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_DEACTIVATE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_deactivate_all_onus_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_DISABLE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_disable_all_onus_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ACTIVATE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_activate_all_onus_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ENABLE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_enable_all_onus_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ONU_UPGRADE_COMPLETE] = &group_descr_pon_interface_onu_upgrade_complete,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_IEEE_ROGUE_DETECTION_COMPLETED] = &group_descr_pon_interface_ieee_rogue_detection_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_MPCP_TIMESTAMP_CHANGED] = &group_descr_pon_interface_mpcp_timestamp_changed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_SWITCH_PON_TYPE_COMPLETED] = &group_descr_pon_interface_switch_pon_type_completed,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ROGUE_DETECTION_TOOL_DONE] = &group_descr_pon_interface_rogue_detection_tool_done,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &group_descr_pon_interface_itu_pon_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_pon_interface_itu_pon_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_AE_STATS_ALARM_RAISED] = &group_descr_pon_interface_ae_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_AE_STATS_ALARM_CLEARED] = &group_descr_pon_interface_ae_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_pon_interface_auto_cfg,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SET_PON_INTERFACE_STATE] = &group_descr_pon_interface_set_pon_interface_state,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SET_ONU_STATE] = &group_descr_pon_interface_set_onu_state,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_RESET] = &group_descr_pon_interface_reset,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_DISABLE_SERIAL_NUMBER] = &group_descr_pon_interface_disable_serial_number,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SINGLE_REQUEST_STANDBY_PON_MONITORING] = &group_descr_pon_interface_single_request_standby_pon_monitoring,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_RUN_SPECIAL_BW_MAP] = &group_descr_pon_interface_run_special_bw_map,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_TOD_REQUEST] = &group_descr_pon_interface_tod_request,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_START_ONU_UPGRADE] = &group_descr_pon_interface_start_onu_upgrade,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ABORT_ONU_UPGRADE] = &group_descr_pon_interface_abort_onu_upgrade,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE] = &group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA] = &group_descr_pon_interface_protection_switching_apply_rerange_delta,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_CPU_PACKETS] = &group_descr_pon_interface_cpu_packets,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_BROADCAST_PLOAM_PACKET] = &group_descr_pon_interface_broadcast_ploam_packet,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SWITCH_PON_TYPE] = &group_descr_pon_interface_switch_pon_type,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ROGUE_DETECTION_TOOL] = &group_descr_pon_interface_rogue_detection_tool,
-    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ONU_UPGRADE_ACTIVATE_COMMIT] = &group_descr_pon_interface_onu_upgrade_activate_commit,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_protection_interface_key,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_protection_interface_cfg,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PROTECTION_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCH_COMPLETED] = &group_descr_protection_interface_protection_switch_completed,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_protection_interface_auto_cfg,
-    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PROTECTION_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCH] = &group_descr_protection_interface_protection_switch,
-    [BCMOLT_OBJ_ID_SOFTWARE_ERROR][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_software_error_key,
-    [BCMOLT_OBJ_ID_SOFTWARE_ERROR][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_software_error_cfg,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_switch_inni_key,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_switch_inni_cfg,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_SWITCH_INNI_STAT_SUBGROUP_STATS] = &group_descr_switch_inni_stats,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_SWITCH_INNI_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_switch_inni_auto_cfg,
-    [BCMOLT_OBJ_ID_TC_TO_QUEUE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_tc_to_queue_key,
-    [BCMOLT_OBJ_ID_TC_TO_QUEUE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_tc_to_queue_cfg,
-    [BCMOLT_OBJ_ID_TM_QMP][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_tm_qmp_key,
-    [BCMOLT_OBJ_ID_TM_QMP][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_tm_qmp_cfg,
-    [BCMOLT_OBJ_ID_TM_QUEUE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_tm_queue_key,
-    [BCMOLT_OBJ_ID_TM_QUEUE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_tm_queue_cfg,
-    [BCMOLT_OBJ_ID_TM_SCHED][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_tm_sched_key,
-    [BCMOLT_OBJ_ID_TM_SCHED][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_tm_sched_cfg,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_access_control_key,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_access_control_cfg,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_STAT][BCMOLT_ACCESS_CONTROL_STAT_SUBGROUP_STATS] = &_group_descr_access_control_stats,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ACCESS_CONTROL_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_access_control_stats_cfg,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_RECEIVE_ETH_PACKET] = &_group_descr_access_control_receive_eth_packet,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_access_control_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ACCESS_CONTROL_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_access_control_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_access_control_auto_cfg,
+    [BCMOLT_OBJ_ID_ACCESS_CONTROL][BCMOLT_MGT_GROUP_OPER][BCMOLT_ACCESS_CONTROL_OPER_SUBGROUP_INTERFACES_UPDATE] = &_group_descr_access_control_interfaces_update,
+    [BCMOLT_OBJ_ID_BAL_SYSTEM][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_bal_system_key,
+    [BCMOLT_OBJ_ID_BAL_SYSTEM][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_bal_system_cfg,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_device_key,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_device_cfg,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DEVICE_READY] = &_group_descr_device_device_ready,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_ESTABLISHED] = &_group_descr_device_connection_established,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DEVICE_KEEP_ALIVE] = &_group_descr_device_device_keep_alive,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_FAILURE] = &_group_descr_device_connection_failure,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_CONNECTION_COMPLETE] = &_group_descr_device_connection_complete,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DISCONNECTION_COMPLETE] = &_group_descr_device_disconnection_complete,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_ERROR] = &_group_descr_device_sw_error,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_EXCEPTION] = &_group_descr_device_sw_exception,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_IMAGE_TRANSFER_COMPLETE] = &_group_descr_device_image_transfer_complete,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_DDR_TEST_COMPLETE] = &_group_descr_device_ddr_test_complete,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_SW_HEALTH_CHECK_FAILURE] = &_group_descr_device_sw_health_check_failure,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_INNI_MUX_CONFIGURATION_COMPLETED] = &_group_descr_device_inni_mux_configuration_completed,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_DEVICE_AUTO_SUBGROUP_TOD_CALIBRATION_DONE] = &_group_descr_device_tod_calibration_done,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_device_auto_cfg,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_CONNECT] = &_group_descr_device_connect,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_DISCONNECT] = &_group_descr_device_disconnect,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_RESET] = &_group_descr_device_reset,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_HOST_KEEP_ALIVE] = &_group_descr_device_host_keep_alive,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_SW_UPGRADE_ACTIVATE] = &_group_descr_device_sw_upgrade_activate,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_SET_8021_AS_TOD_STRING] = &_group_descr_device_set_8021_as_tod_string,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_IMAGE_TRANSFER_START] = &_group_descr_device_image_transfer_start,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_IMAGE_TRANSFER_DATA] = &_group_descr_device_image_transfer_data,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_RUN_DDR_TEST] = &_group_descr_device_run_ddr_test,
+    [BCMOLT_OBJ_ID_DEVICE][BCMOLT_MGT_GROUP_OPER][BCMOLT_DEVICE_OPER_SUBGROUP_CHANGE_INNI_MUX] = &_group_descr_device_change_inni_mux,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_erps_interface_key,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_erps_interface_cfg,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_RING_PORT_CONTROL] = &_group_descr_erps_interface_ring_port_control,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_SET_INTF_OPT_COMPLETE] = &_group_descr_erps_interface_set_intf_opt_complete,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ERPS_INTERFACE_AUTO_SUBGROUP_PORT_UPDATE_COMPLETE] = &_group_descr_erps_interface_port_update_complete,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_erps_interface_auto_cfg,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_SET_RING_PORT_CONTROL] = &_group_descr_erps_interface_set_ring_port_control,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_SET_INTF_OPT] = &_group_descr_erps_interface_set_intf_opt,
+    [BCMOLT_OBJ_ID_ERPS_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_ERPS_INTERFACE_OPER_SUBGROUP_PORT_UPDATE] = &_group_descr_erps_interface_port_update,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_eth_oam_key,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_eth_oam_cfg,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_STAT][BCMOLT_ETH_OAM_STAT_SUBGROUP_STATS] = &_group_descr_eth_oam_stats,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ETH_OAM_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_eth_oam_stats_cfg,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_CCM_EVENT] = &_group_descr_eth_oam_ccm_event,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATE_CHANGE] = &_group_descr_eth_oam_state_change,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_eth_oam_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ETH_OAM_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_eth_oam_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_eth_oam_auto_cfg,
+    [BCMOLT_OBJ_ID_ETH_OAM][BCMOLT_MGT_GROUP_OPER][BCMOLT_ETH_OAM_OPER_SUBGROUP_SET_MEP_STATE] = &_group_descr_eth_oam_set_mep_state,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_flow_key,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_flow_cfg,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_STAT][BCMOLT_FLOW_STAT_SUBGROUP_STATS] = &_group_descr_flow_stats,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_FLOW_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_flow_stats_cfg,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO][BCMOLT_FLOW_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_flow_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO][BCMOLT_FLOW_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_flow_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_flow_auto_cfg,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_OPER][BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET] = &_group_descr_flow_send_eth_packet,
+    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_OPER][BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE] = &_group_descr_flow_src_binding_update,
+    [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_gpio_key,
+    [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_gpio_cfg,
+    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_group_key,
+    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_group_cfg,
+    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO][BCMOLT_GROUP_AUTO_SUBGROUP_COMPLETE_MEMBERS_UPDATE] = &_group_descr_group_complete_members_update,
+    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_group_auto_cfg,
+    [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_OPER][BCMOLT_GROUP_OPER_SUBGROUP_MEMBERS_UPDATE] = &_group_descr_group_members_update,
+    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_host_log_key,
+    [BCMOLT_OBJ_ID_HOST_LOG][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_host_log_cfg,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_host_log_file_key,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_host_log_file_cfg,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_CLEAR] = &_group_descr_host_log_file_clear,
+    [BCMOLT_OBJ_ID_HOST_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_HOST_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR] = &_group_descr_host_log_file_reset_buffer_ptr,
+    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_inband_mgmt_channel_key,
+    [BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_inband_mgmt_channel_cfg,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_internal_nni_key,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_internal_nni_cfg,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_NNI_STATS] = &_group_descr_internal_nni_nni_stats,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_INTERNAL_NNI_STAT_SUBGROUP_ENET_STATS] = &_group_descr_internal_nni_enet_stats,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_INTERNAL_NNI_STAT_CFG_SUBGROUP_NNI_STATS_CFG] = &_group_descr_internal_nni_nni_stats_cfg,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_INTERNAL_NNI_STAT_CFG_SUBGROUP_ENET_STATS_CFG] = &_group_descr_internal_nni_enet_stats_cfg,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_STATUS_CHANGED] = &_group_descr_internal_nni_status_changed,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_PACKET_CAPTURED] = &_group_descr_internal_nni_packet_captured,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_SWAP_COMPLETED] = &_group_descr_internal_nni_swap_completed,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_NNI_STATS_ALARM_RAISED] = &_group_descr_internal_nni_nni_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_NNI_STATS_ALARM_CLEARED] = &_group_descr_internal_nni_nni_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_ENET_STATS_ALARM_RAISED] = &_group_descr_internal_nni_enet_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_INTERNAL_NNI_AUTO_SUBGROUP_ENET_STATS_ALARM_CLEARED] = &_group_descr_internal_nni_enet_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_internal_nni_auto_cfg,
+    [BCMOLT_OBJ_ID_INTERNAL_NNI][BCMOLT_MGT_GROUP_OPER][BCMOLT_INTERNAL_NNI_OPER_SUBGROUP_SEND_ETH_PACKET] = &_group_descr_internal_nni_send_eth_packet,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_itupon_alloc_key,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_itupon_alloc_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS] = &_group_descr_itupon_alloc_stats,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS] = &_group_descr_itupon_alloc_latency_stats,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_itupon_alloc_stats_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG] = &_group_descr_itupon_alloc_latency_stats_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED] = &_group_descr_itupon_alloc_configuration_completed,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED] = &_group_descr_itupon_alloc_get_alloc_stats_completed,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_latency_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_latency_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_itupon_alloc_auto_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_GET_STATS] = &_group_descr_itupon_alloc_get_stats,
+    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_SET_STATE] = &_group_descr_itupon_alloc_set_state,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_itupon_gem_key,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_itupon_gem_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_GEM_STAT_SUBGROUP_STATS] = &_group_descr_itupon_gem_stats,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_GEM_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_itupon_gem_stats_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_CONFIGURATION_COMPLETED] = &_group_descr_itupon_gem_configuration_completed,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_itupon_gem_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_itupon_gem_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_itupon_gem_auto_cfg,
+    [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_GEM_OPER_SUBGROUP_SET_STATE] = &_group_descr_itupon_gem_set_state,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_l2_mac_table_key,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_l2_mac_table_cfg,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE] = &_group_descr_l2_mac_table_dump_complete,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS] = &_group_descr_l2_mac_table_network_events,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS] = &_group_descr_l2_mac_table_pon_events,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_l2_mac_table_auto_cfg,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_OPER][BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP] = &_group_descr_l2_mac_table_dump,
+    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_OPER][BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT] = &_group_descr_l2_mac_table_dump_abort,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_lag_interface_key,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_lag_interface_cfg,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_LAG_INTERFACE_STAT_SUBGROUP_STATS] = &_group_descr_lag_interface_stats,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_LAG_INTERFACE_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_lag_interface_stats_cfg,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_COMPLETE_MEMBERS_UPDATE] = &_group_descr_lag_interface_complete_members_update,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATE_UPDATED] = &_group_descr_lag_interface_state_updated,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_LAG_HEALTH_CHANGE] = &_group_descr_lag_interface_lag_health_change,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_lag_interface_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_LAG_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_lag_interface_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_lag_interface_auto_cfg,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LAG_INTERFACE_OPER_SUBGROUP_MEMBERS_UPDATE] = &_group_descr_lag_interface_members_update,
+    [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LAG_INTERFACE_OPER_SUBGROUP_STATE_UPDATE] = &_group_descr_lag_interface_state_update,
+    [BCMOLT_OBJ_ID_LOG][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_log_key,
+    [BCMOLT_OBJ_ID_LOG][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_log_cfg,
+    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_log_file_key,
+    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_log_file_cfg,
+    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LOG_FILE_OPER_SUBGROUP_CLEAR] = &_group_descr_log_file_clear,
+    [BCMOLT_OBJ_ID_LOG_FILE][BCMOLT_MGT_GROUP_OPER][BCMOLT_LOG_FILE_OPER_SUBGROUP_RESET_BUFFER_PTR] = &_group_descr_log_file_reset_buffer_ptr,
+    [BCMOLT_OBJ_ID_NGPON2_CHANNEL][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_ngpon2_channel_key,
+    [BCMOLT_OBJ_ID_NGPON2_CHANNEL][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_ngpon2_channel_cfg,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_nni_interface_key,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_nni_interface_cfg,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_NNI_INTERFACE_STAT_SUBGROUP_STATS] = &_group_descr_nni_interface_stats,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_NNI_INTERFACE_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_nni_interface_stats_cfg,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATE_CHANGE] = &_group_descr_nni_interface_state_change,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_LINK_STATE_CHANGE] = &_group_descr_nni_interface_link_state_change,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_FAULT_CODE_CHANGE] = &_group_descr_nni_interface_fault_code_change,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_nni_interface_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_NNI_INTERFACE_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_nni_interface_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_nni_interface_auto_cfg,
+    [BCMOLT_OBJ_ID_NNI_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_NNI_INTERFACE_OPER_SUBGROUP_SET_NNI_STATE] = &_group_descr_nni_interface_set_nni_state,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_olt_key,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_olt_cfg,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_BAL_FAILURE] = &_group_descr_olt_bal_failure,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_BAL_READY] = &_group_descr_olt_bal_ready,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO][BCMOLT_OLT_AUTO_SUBGROUP_SW_ERROR] = &_group_descr_olt_sw_error,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_olt_auto_cfg,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_CONNECT] = &_group_descr_olt_connect,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_DISCONNECT] = &_group_descr_olt_disconnect,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_BAL_RESET] = &_group_descr_olt_bal_reset,
+    [BCMOLT_OBJ_ID_OLT][BCMOLT_MGT_GROUP_OPER][BCMOLT_OLT_OPER_SUBGROUP_RESET] = &_group_descr_olt_reset,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_onu_key,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_onu_cfg,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT][BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS] = &_group_descr_onu_itu_pon_stats,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT][BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS] = &_group_descr_onu_itu_alloc_onu_accumulated_stats,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG] = &_group_descr_onu_itu_pon_stats_cfg,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM] = &_group_descr_onu_xgpon_alarm,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM] = &_group_descr_onu_gpon_alarm,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DOWI] = &_group_descr_onu_dowi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SFI] = &_group_descr_onu_sfi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SDI] = &_group_descr_onu_sdi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DFI] = &_group_descr_onu_dfi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PQSI] = &_group_descr_onu_pqsi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SUFI] = &_group_descr_onu_sufi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TIWI] = &_group_descr_onu_tiwi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOOCI] = &_group_descr_onu_looci,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOAI] = &_group_descr_onu_loai,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DGI] = &_group_descr_onu_dgi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PEE] = &_group_descr_onu_pee,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PST] = &_group_descr_onu_pst,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RANGING_COMPLETED] = &_group_descr_onu_ranging_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_COMPLETED] = &_group_descr_onu_onu_activation_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_DEACTIVATION_COMPLETED] = &_group_descr_onu_onu_deactivation_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ENABLE_COMPLETED] = &_group_descr_onu_onu_enable_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_DISABLE_COMPLETED] = &_group_descr_onu_onu_disable_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RSSI_MEASUREMENT_COMPLETED] = &_group_descr_onu_rssi_measurement_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT] = &_group_descr_onu_invalid_dbru_report,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED] = &_group_descr_onu_key_exchange_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT] = &_group_descr_onu_key_exchange_key_request_timeout,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_CYCLE_SKIPPED] = &_group_descr_onu_key_exchange_cycle_skipped,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_KEY_MISMATCH] = &_group_descr_onu_key_exchange_key_mismatch,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OPTICAL_REFLECTION] = &_group_descr_onu_optical_reflection,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_LOKI] = &_group_descr_onu_loki,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_MEMI] = &_group_descr_onu_memi,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PORT_ID_CONFIGURATION_COMPLETED] = &_group_descr_onu_omci_port_id_configuration_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_BER_INTERVAL_CONFIGURATION_COMPLETED] = &_group_descr_onu_ber_interval_configuration_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ERR] = &_group_descr_onu_err,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_PASSWORD_AUTHENTICATION_COMPLETED] = &_group_descr_onu_password_authentication_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_UNCONSECUTIVE_INDEX] = &_group_descr_onu_key_exchange_unconsecutive_index,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_DECRYPT_REQUIRED] = &_group_descr_onu_key_exchange_decrypt_required,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_ACTIVATION_STANDBY_COMPLETED] = &_group_descr_onu_onu_activation_standby_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_MANAGEMENT_STATE_CHANGE] = &_group_descr_onu_power_management_state_change,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POSSIBLE_DRIFT] = &_group_descr_onu_possible_drift,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_REGISTRATION_ID] = &_group_descr_onu_registration_id,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_LEVEL_REPORT] = &_group_descr_onu_power_level_report,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_POWER_CONSUMPTION_REPORT] = &_group_descr_onu_power_consumption_report,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION_FAILURE] = &_group_descr_onu_secure_mutual_authentication_failure,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_OUT_COMPLETED] = &_group_descr_onu_onu_tuning_out_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_TUNING_IN_COMPLETED] = &_group_descr_onu_onu_tuning_in_completed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TUNING_RESPONSE] = &_group_descr_onu_tuning_response,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_CPU_PACKET] = &_group_descr_onu_cpu_packet,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_OMCI_PACKET] = &_group_descr_onu_omci_packet,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ONU_READY_FOR_DATA_GRANT] = &_group_descr_onu_onu_ready_for_data_grant,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_REI] = &_group_descr_onu_rei,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_STATE_CHANGE] = &_group_descr_onu_state_change,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_RANGE_VALUE_CHANGED] = &_group_descr_onu_range_value_changed,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XPON_UNKNOWN_PLOAM] = &_group_descr_onu_xpon_unknown_ploam,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED] = &_group_descr_onu_trap_ploam_received,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &_group_descr_onu_itu_pon_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &_group_descr_onu_itu_pon_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_onu_auto_cfg,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_SET_ONU_STATE] = &_group_descr_onu_set_onu_state,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_RSSI_MEASUREMENT] = &_group_descr_onu_rssi_measurement,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_REQUEST_REGISTRATION] = &_group_descr_onu_request_registration,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_CHANGE_POWER_LEVELLING] = &_group_descr_onu_change_power_levelling,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_GET_POWER_LEVEL] = &_group_descr_onu_get_power_level,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_GET_POWER_CONSUMPTION] = &_group_descr_onu_get_power_consumption,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_ADJUST_TX_WAVELENGTH] = &_group_descr_onu_adjust_tx_wavelength,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_SECURE_MUTUAL_AUTHENTICATION] = &_group_descr_onu_secure_mutual_authentication,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_TUNING_IN] = &_group_descr_onu_tuning_in,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_TUNING_OUT] = &_group_descr_onu_tuning_out,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_PLOAM_PACKET] = &_group_descr_onu_ploam_packet,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_CPU_PACKETS] = &_group_descr_onu_cpu_packets,
+    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_FORCE_DEACTIVATION] = &_group_descr_onu_force_deactivation,
+    [BCMOLT_OBJ_ID_PBIT_TO_TC][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_pbit_to_tc_key,
+    [BCMOLT_OBJ_ID_PBIT_TO_TC][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_pbit_to_tc_cfg,
+    [BCMOLT_OBJ_ID_POLICER_PROFILE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_policer_profile_key,
+    [BCMOLT_OBJ_ID_POLICER_PROFILE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_policer_profile_cfg,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_pon_interface_key,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_pon_interface_cfg,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_PON_INTERFACE_STAT_SUBGROUP_ITU_PON_STATS] = &_group_descr_pon_interface_itu_pon_stats,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_PON_INTERFACE_STAT_SUBGROUP_AE_STATS] = &_group_descr_pon_interface_ae_stats,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_PON_INTERFACE_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG] = &_group_descr_pon_interface_itu_pon_stats_cfg,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_PON_INTERFACE_STAT_CFG_SUBGROUP_AE_STATS_CFG] = &_group_descr_pon_interface_ae_stats_cfg,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_STATE_CHANGE_COMPLETED] = &_group_descr_pon_interface_state_change_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_TOD_REQUEST_COMPLETED] = &_group_descr_pon_interface_tod_request_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_LOS] = &_group_descr_pon_interface_los,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_SERIAL_NUMBER_ACQUISITION_CYCLE_START] = &_group_descr_pon_interface_serial_number_acquisition_cycle_start,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_TRAFFIC_RESUME] = &_group_descr_pon_interface_protection_switching_traffic_resume,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_ONUS_RANGED] = &_group_descr_pon_interface_protection_switching_onus_ranged,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_RERANGE_FAILURE] = &_group_descr_pon_interface_protection_switching_rerange_failure,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED] = &_group_descr_pon_interface_protection_switching_switchover_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_STANDBY_PON_MONITORING_CYCLE_COMPLETED] = &_group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ONU_DISCOVERED] = &_group_descr_pon_interface_onu_discovered,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_CPU_PACKETS_FAILURE] = &_group_descr_pon_interface_cpu_packets_failure,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_DEACTIVATE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_deactivate_all_onus_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_DISABLE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_disable_all_onus_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ACTIVATE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_activate_all_onus_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ENABLE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_enable_all_onus_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ONU_UPGRADE_COMPLETE] = &_group_descr_pon_interface_onu_upgrade_complete,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_IEEE_ROGUE_DETECTION_COMPLETED] = &_group_descr_pon_interface_ieee_rogue_detection_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_MPCP_TIMESTAMP_CHANGED] = &_group_descr_pon_interface_mpcp_timestamp_changed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_SWITCH_PON_TYPE_COMPLETED] = &_group_descr_pon_interface_switch_pon_type_completed,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ROGUE_DETECTION_TOOL_DONE] = &_group_descr_pon_interface_rogue_detection_tool_done,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &_group_descr_pon_interface_itu_pon_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &_group_descr_pon_interface_itu_pon_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_AE_STATS_ALARM_RAISED] = &_group_descr_pon_interface_ae_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PON_INTERFACE_AUTO_SUBGROUP_AE_STATS_ALARM_CLEARED] = &_group_descr_pon_interface_ae_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_pon_interface_auto_cfg,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SET_PON_INTERFACE_STATE] = &_group_descr_pon_interface_set_pon_interface_state,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SET_ONU_STATE] = &_group_descr_pon_interface_set_onu_state,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_RESET] = &_group_descr_pon_interface_reset,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_DISABLE_SERIAL_NUMBER] = &_group_descr_pon_interface_disable_serial_number,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SINGLE_REQUEST_STANDBY_PON_MONITORING] = &_group_descr_pon_interface_single_request_standby_pon_monitoring,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_RUN_SPECIAL_BW_MAP] = &_group_descr_pon_interface_run_special_bw_map,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_TOD_REQUEST] = &_group_descr_pon_interface_tod_request,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_START_ONU_UPGRADE] = &_group_descr_pon_interface_start_onu_upgrade,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ABORT_ONU_UPGRADE] = &_group_descr_pon_interface_abort_onu_upgrade,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE] = &_group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA] = &_group_descr_pon_interface_protection_switching_apply_rerange_delta,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_CPU_PACKETS] = &_group_descr_pon_interface_cpu_packets,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_BROADCAST_PLOAM_PACKET] = &_group_descr_pon_interface_broadcast_ploam_packet,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_SWITCH_PON_TYPE] = &_group_descr_pon_interface_switch_pon_type,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ROGUE_DETECTION_TOOL] = &_group_descr_pon_interface_rogue_detection_tool,
+    [BCMOLT_OBJ_ID_PON_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PON_INTERFACE_OPER_SUBGROUP_ONU_UPGRADE_ACTIVATE_COMMIT] = &_group_descr_pon_interface_onu_upgrade_activate_commit,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_protection_interface_key,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_protection_interface_cfg,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_PROTECTION_INTERFACE_AUTO_SUBGROUP_PROTECTION_SWITCH_COMPLETED] = &_group_descr_protection_interface_protection_switch_completed,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_protection_interface_auto_cfg,
+    [BCMOLT_OBJ_ID_PROTECTION_INTERFACE][BCMOLT_MGT_GROUP_OPER][BCMOLT_PROTECTION_INTERFACE_OPER_SUBGROUP_PROTECTION_SWITCH] = &_group_descr_protection_interface_protection_switch,
+    [BCMOLT_OBJ_ID_SOFTWARE_ERROR][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_software_error_key,
+    [BCMOLT_OBJ_ID_SOFTWARE_ERROR][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_software_error_cfg,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_switch_inni_key,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_switch_inni_cfg,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_SWITCH_INNI_STAT_SUBGROUP_STATS] = &_group_descr_switch_inni_stats,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_SWITCH_INNI_STAT_CFG_SUBGROUP_STATS_CFG] = &_group_descr_switch_inni_stats_cfg,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE] = &_group_descr_switch_inni_link_state_change,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &_group_descr_switch_inni_stats_alarm_raised,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &_group_descr_switch_inni_stats_alarm_cleared,
+    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &_group_descr_switch_inni_auto_cfg,
+    [BCMOLT_OBJ_ID_TC_TO_QUEUE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_tc_to_queue_key,
+    [BCMOLT_OBJ_ID_TC_TO_QUEUE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_tc_to_queue_cfg,
+    [BCMOLT_OBJ_ID_TM_QMP][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_tm_qmp_key,
+    [BCMOLT_OBJ_ID_TM_QMP][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_tm_qmp_cfg,
+    [BCMOLT_OBJ_ID_TM_QUEUE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_tm_queue_key,
+    [BCMOLT_OBJ_ID_TM_QUEUE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_tm_queue_cfg,
+    [BCMOLT_OBJ_ID_TM_QUEUE_PROFILE][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_tm_queue_profile_key,
+    [BCMOLT_OBJ_ID_TM_QUEUE_PROFILE][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_tm_queue_profile_cfg,
+    [BCMOLT_OBJ_ID_TM_SCHED][BCMOLT_MGT_GROUP_KEY][0] = &_group_descr_tm_sched_key,
+    [BCMOLT_OBJ_ID_TM_SCHED][BCMOLT_MGT_GROUP_CFG][0] = &_group_descr_tm_sched_cfg,
 };
 
-static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_meta_id group)
+static const bcmolt_group_descr *_find_group_descr(
+    bcmolt_meta_id obj,
+    bcmolt_meta_id group)
 {
     switch (obj)
     {
@@ -40169,23 +43176,23 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 1:
-            return &group_descr_access_control_key;
+            return &_group_descr_access_control_key;
         case 0:
-            return &group_descr_access_control_cfg;
+            return &_group_descr_access_control_cfg;
         case 6:
-            return &group_descr_access_control_stats;
+            return &_group_descr_access_control_stats;
         case 4:
-            return &group_descr_access_control_receive_eth_packet;
+            return &_group_descr_access_control_receive_eth_packet;
         case 5:
-            return &group_descr_access_control_interfaces_update;
+            return &_group_descr_access_control_interfaces_update;
         case 4230:
-            return &group_descr_access_control_stats_cfg;
+            return &_group_descr_access_control_stats_cfg;
         case 4358:
-            return &group_descr_access_control_stats_alarm_raised;
+            return &_group_descr_access_control_stats_alarm_raised;
         case 4486:
-            return &group_descr_access_control_stats_alarm_cleared;
+            return &_group_descr_access_control_stats_alarm_cleared;
         case 4096:
-            return &group_descr_access_control_auto_cfg;
+            return &_group_descr_access_control_auto_cfg;
         default:
             return NULL;
         }
@@ -40193,9 +43200,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 1:
-            return &group_descr_bal_system_cfg;
+            return &_group_descr_bal_system_cfg;
         case 2:
-            return &group_descr_bal_system_key;
+            return &_group_descr_bal_system_key;
         default:
             return NULL;
         }
@@ -40203,57 +43210,57 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_device_key;
+            return &_group_descr_device_key;
         case 1:
-            return &group_descr_device_cfg;
+            return &_group_descr_device_cfg;
         case 2:
-            return &group_descr_device_connect;
+            return &_group_descr_device_connect;
         case 3:
-            return &group_descr_device_disconnect;
+            return &_group_descr_device_disconnect;
         case 4:
-            return &group_descr_device_reset;
+            return &_group_descr_device_reset;
         case 5:
-            return &group_descr_device_host_keep_alive;
+            return &_group_descr_device_host_keep_alive;
         case 6:
-            return &group_descr_device_sw_upgrade_activate;
+            return &_group_descr_device_sw_upgrade_activate;
         case 7:
-            return &group_descr_device_set_8021_as_tod_string;
+            return &_group_descr_device_set_8021_as_tod_string;
         case 8:
-            return &group_descr_device_image_transfer_start;
+            return &_group_descr_device_image_transfer_start;
         case 9:
-            return &group_descr_device_image_transfer_data;
+            return &_group_descr_device_image_transfer_data;
         case 10:
-            return &group_descr_device_run_ddr_test;
+            return &_group_descr_device_run_ddr_test;
         case 11:
-            return &group_descr_device_device_ready;
+            return &_group_descr_device_device_ready;
         case 12:
-            return &group_descr_device_connection_established;
+            return &_group_descr_device_connection_established;
         case 13:
-            return &group_descr_device_device_keep_alive;
+            return &_group_descr_device_device_keep_alive;
         case 14:
-            return &group_descr_device_connection_failure;
+            return &_group_descr_device_connection_failure;
         case 15:
-            return &group_descr_device_connection_complete;
+            return &_group_descr_device_connection_complete;
         case 16:
-            return &group_descr_device_disconnection_complete;
+            return &_group_descr_device_disconnection_complete;
         case 17:
-            return &group_descr_device_sw_error;
+            return &_group_descr_device_sw_error;
         case 18:
-            return &group_descr_device_sw_exception;
+            return &_group_descr_device_sw_exception;
         case 20:
-            return &group_descr_device_image_transfer_complete;
+            return &_group_descr_device_image_transfer_complete;
         case 21:
-            return &group_descr_device_ddr_test_complete;
+            return &_group_descr_device_ddr_test_complete;
         case 22:
-            return &group_descr_device_sw_health_check_failure;
+            return &_group_descr_device_sw_health_check_failure;
         case 24:
-            return &group_descr_device_change_inni_mux;
+            return &_group_descr_device_change_inni_mux;
         case 25:
-            return &group_descr_device_inni_mux_configuration_completed;
+            return &_group_descr_device_inni_mux_configuration_completed;
         case 26:
-            return &group_descr_device_tod_calibration_done;
+            return &_group_descr_device_tod_calibration_done;
         case 4096:
-            return &group_descr_device_auto_cfg;
+            return &_group_descr_device_auto_cfg;
         default:
             return NULL;
         }
@@ -40261,23 +43268,23 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_erps_interface_key;
+            return &_group_descr_erps_interface_key;
         case 1:
-            return &group_descr_erps_interface_cfg;
+            return &_group_descr_erps_interface_cfg;
         case 4:
-            return &group_descr_erps_interface_set_ring_port_control;
+            return &_group_descr_erps_interface_set_ring_port_control;
         case 7:
-            return &group_descr_erps_interface_ring_port_control;
+            return &_group_descr_erps_interface_ring_port_control;
         case 10:
-            return &group_descr_erps_interface_set_intf_opt;
+            return &_group_descr_erps_interface_set_intf_opt;
         case 8:
-            return &group_descr_erps_interface_port_update;
+            return &_group_descr_erps_interface_port_update;
         case 11:
-            return &group_descr_erps_interface_set_intf_opt_complete;
+            return &_group_descr_erps_interface_set_intf_opt_complete;
         case 9:
-            return &group_descr_erps_interface_port_update_complete;
+            return &_group_descr_erps_interface_port_update_complete;
         case 4096:
-            return &group_descr_erps_interface_auto_cfg;
+            return &_group_descr_erps_interface_auto_cfg;
         default:
             return NULL;
         }
@@ -40285,25 +43292,25 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_eth_oam_key;
+            return &_group_descr_eth_oam_key;
         case 1:
-            return &group_descr_eth_oam_cfg;
+            return &_group_descr_eth_oam_cfg;
         case 2:
-            return &group_descr_eth_oam_ccm_event;
+            return &_group_descr_eth_oam_ccm_event;
         case 4:
-            return &group_descr_eth_oam_stats;
+            return &_group_descr_eth_oam_stats;
         case 5:
-            return &group_descr_eth_oam_set_mep_state;
+            return &_group_descr_eth_oam_set_mep_state;
         case 6:
-            return &group_descr_eth_oam_state_change;
+            return &_group_descr_eth_oam_state_change;
         case 4228:
-            return &group_descr_eth_oam_stats_cfg;
+            return &_group_descr_eth_oam_stats_cfg;
         case 4356:
-            return &group_descr_eth_oam_stats_alarm_raised;
+            return &_group_descr_eth_oam_stats_alarm_raised;
         case 4484:
-            return &group_descr_eth_oam_stats_alarm_cleared;
+            return &_group_descr_eth_oam_stats_alarm_cleared;
         case 4096:
-            return &group_descr_eth_oam_auto_cfg;
+            return &_group_descr_eth_oam_auto_cfg;
         default:
             return NULL;
         }
@@ -40311,21 +43318,23 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_flow_cfg;
+            return &_group_descr_flow_cfg;
         case 1:
-            return &group_descr_flow_key;
+            return &_group_descr_flow_key;
         case 2:
-            return &group_descr_flow_stats;
+            return &_group_descr_flow_stats;
         case 3:
-            return &group_descr_flow_send_eth_packet;
+            return &_group_descr_flow_send_eth_packet;
+        case 4:
+            return &_group_descr_flow_src_binding_update;
         case 4226:
-            return &group_descr_flow_stats_cfg;
+            return &_group_descr_flow_stats_cfg;
         case 4354:
-            return &group_descr_flow_stats_alarm_raised;
+            return &_group_descr_flow_stats_alarm_raised;
         case 4482:
-            return &group_descr_flow_stats_alarm_cleared;
+            return &_group_descr_flow_stats_alarm_cleared;
         case 4096:
-            return &group_descr_flow_auto_cfg;
+            return &_group_descr_flow_auto_cfg;
         default:
             return NULL;
         }
@@ -40333,9 +43342,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_gpio_key;
+            return &_group_descr_gpio_key;
         case 1:
-            return &group_descr_gpio_cfg;
+            return &_group_descr_gpio_cfg;
         default:
             return NULL;
         }
@@ -40343,15 +43352,15 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_group_cfg;
+            return &_group_descr_group_cfg;
         case 1:
-            return &group_descr_group_key;
+            return &_group_descr_group_key;
         case 2:
-            return &group_descr_group_members_update;
+            return &_group_descr_group_members_update;
         case 3:
-            return &group_descr_group_complete_members_update;
+            return &_group_descr_group_complete_members_update;
         case 4096:
-            return &group_descr_group_auto_cfg;
+            return &_group_descr_group_auto_cfg;
         default:
             return NULL;
         }
@@ -40359,9 +43368,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_host_log_key;
+            return &_group_descr_host_log_key;
         case 1:
-            return &group_descr_host_log_cfg;
+            return &_group_descr_host_log_cfg;
         default:
             return NULL;
         }
@@ -40369,13 +43378,13 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_host_log_file_key;
+            return &_group_descr_host_log_file_key;
         case 1:
-            return &group_descr_host_log_file_cfg;
+            return &_group_descr_host_log_file_cfg;
         case 3:
-            return &group_descr_host_log_file_clear;
+            return &_group_descr_host_log_file_clear;
         case 4:
-            return &group_descr_host_log_file_reset_buffer_ptr;
+            return &_group_descr_host_log_file_reset_buffer_ptr;
         default:
             return NULL;
         }
@@ -40383,9 +43392,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_inband_mgmt_channel_cfg;
+            return &_group_descr_inband_mgmt_channel_cfg;
         case 1:
-            return &group_descr_inband_mgmt_channel_key;
+            return &_group_descr_inband_mgmt_channel_key;
         default:
             return NULL;
         }
@@ -40393,35 +43402,35 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_internal_nni_key;
+            return &_group_descr_internal_nni_key;
         case 1:
-            return &group_descr_internal_nni_cfg;
+            return &_group_descr_internal_nni_cfg;
         case 2:
-            return &group_descr_internal_nni_status_changed;
+            return &_group_descr_internal_nni_status_changed;
         case 3:
-            return &group_descr_internal_nni_nni_stats;
+            return &_group_descr_internal_nni_nni_stats;
         case 4:
-            return &group_descr_internal_nni_enet_stats;
+            return &_group_descr_internal_nni_enet_stats;
         case 5:
-            return &group_descr_internal_nni_packet_captured;
+            return &_group_descr_internal_nni_packet_captured;
         case 6:
-            return &group_descr_internal_nni_send_eth_packet;
+            return &_group_descr_internal_nni_send_eth_packet;
         case 7:
-            return &group_descr_internal_nni_swap_completed;
+            return &_group_descr_internal_nni_swap_completed;
         case 4227:
-            return &group_descr_internal_nni_nni_stats_cfg;
+            return &_group_descr_internal_nni_nni_stats_cfg;
         case 4355:
-            return &group_descr_internal_nni_nni_stats_alarm_raised;
+            return &_group_descr_internal_nni_nni_stats_alarm_raised;
         case 4483:
-            return &group_descr_internal_nni_nni_stats_alarm_cleared;
+            return &_group_descr_internal_nni_nni_stats_alarm_cleared;
         case 4228:
-            return &group_descr_internal_nni_enet_stats_cfg;
+            return &_group_descr_internal_nni_enet_stats_cfg;
         case 4356:
-            return &group_descr_internal_nni_enet_stats_alarm_raised;
+            return &_group_descr_internal_nni_enet_stats_alarm_raised;
         case 4484:
-            return &group_descr_internal_nni_enet_stats_alarm_cleared;
+            return &_group_descr_internal_nni_enet_stats_alarm_cleared;
         case 4096:
-            return &group_descr_internal_nni_auto_cfg;
+            return &_group_descr_internal_nni_auto_cfg;
         default:
             return NULL;
         }
@@ -40429,27 +43438,43 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_itupon_alloc_key;
+            return &_group_descr_itupon_alloc_key;
         case 1:
-            return &group_descr_itupon_alloc_cfg;
+            return &_group_descr_itupon_alloc_cfg;
         case 2:
-            return &group_descr_itupon_alloc_configuration_completed;
+            return &_group_descr_itupon_alloc_configuration_completed;
         case 3:
-            return &group_descr_itupon_alloc_get_stats;
+            return &_group_descr_itupon_alloc_get_stats;
         case 4:
-            return &group_descr_itupon_alloc_get_alloc_stats_completed;
+            return &_group_descr_itupon_alloc_get_alloc_stats_completed;
         case 5:
-            return &group_descr_itupon_alloc_set_state;
+            return &_group_descr_itupon_alloc_set_state;
         case 6:
-            return &group_descr_itupon_alloc_stats;
+            return &_group_descr_itupon_alloc_stats;
+        case 7:
+            return &_group_descr_itupon_alloc_alloc_onu_accumulated_stats;
+        case 8:
+            return &_group_descr_itupon_alloc_latency_stats;
         case 4230:
-            return &group_descr_itupon_alloc_stats_cfg;
+            return &_group_descr_itupon_alloc_stats_cfg;
         case 4358:
-            return &group_descr_itupon_alloc_stats_alarm_raised;
+            return &_group_descr_itupon_alloc_stats_alarm_raised;
         case 4486:
-            return &group_descr_itupon_alloc_stats_alarm_cleared;
+            return &_group_descr_itupon_alloc_stats_alarm_cleared;
+        case 4231:
+            return &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg;
+        case 4359:
+            return &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised;
+        case 4487:
+            return &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared;
+        case 4232:
+            return &_group_descr_itupon_alloc_latency_stats_cfg;
+        case 4360:
+            return &_group_descr_itupon_alloc_latency_stats_alarm_raised;
+        case 4488:
+            return &_group_descr_itupon_alloc_latency_stats_alarm_cleared;
         case 4096:
-            return &group_descr_itupon_alloc_auto_cfg;
+            return &_group_descr_itupon_alloc_auto_cfg;
         default:
             return NULL;
         }
@@ -40457,23 +43482,45 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_itupon_gem_key;
+            return &_group_descr_itupon_gem_key;
         case 1:
-            return &group_descr_itupon_gem_cfg;
+            return &_group_descr_itupon_gem_cfg;
         case 2:
-            return &group_descr_itupon_gem_stats;
+            return &_group_descr_itupon_gem_stats;
         case 3:
-            return &group_descr_itupon_gem_configuration_completed;
+            return &_group_descr_itupon_gem_configuration_completed;
         case 4:
-            return &group_descr_itupon_gem_set_state;
+            return &_group_descr_itupon_gem_set_state;
         case 4226:
-            return &group_descr_itupon_gem_stats_cfg;
+            return &_group_descr_itupon_gem_stats_cfg;
         case 4354:
-            return &group_descr_itupon_gem_stats_alarm_raised;
+            return &_group_descr_itupon_gem_stats_alarm_raised;
         case 4482:
-            return &group_descr_itupon_gem_stats_alarm_cleared;
+            return &_group_descr_itupon_gem_stats_alarm_cleared;
         case 4096:
-            return &group_descr_itupon_gem_auto_cfg;
+            return &_group_descr_itupon_gem_auto_cfg;
+        default:
+            return NULL;
+        }
+    case BCMOLT_OBJ_ID_L2_MAC_TABLE:
+        switch (group)
+        {
+        case 0:
+            return &_group_descr_l2_mac_table_key;
+        case 1:
+            return &_group_descr_l2_mac_table_cfg;
+        case 2:
+            return &_group_descr_l2_mac_table_dump;
+        case 3:
+            return &_group_descr_l2_mac_table_dump_complete;
+        case 4:
+            return &_group_descr_l2_mac_table_dump_abort;
+        case 5:
+            return &_group_descr_l2_mac_table_network_events;
+        case 6:
+            return &_group_descr_l2_mac_table_pon_events;
+        case 4096:
+            return &_group_descr_l2_mac_table_auto_cfg;
         default:
             return NULL;
         }
@@ -40481,29 +43528,29 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_lag_interface_key;
+            return &_group_descr_lag_interface_key;
         case 1:
-            return &group_descr_lag_interface_cfg;
+            return &_group_descr_lag_interface_cfg;
         case 3:
-            return &group_descr_lag_interface_stats;
+            return &_group_descr_lag_interface_stats;
         case 4:
-            return &group_descr_lag_interface_members_update;
+            return &_group_descr_lag_interface_members_update;
         case 6:
-            return &group_descr_lag_interface_complete_members_update;
+            return &_group_descr_lag_interface_complete_members_update;
         case 5:
-            return &group_descr_lag_interface_state_update;
+            return &_group_descr_lag_interface_state_update;
         case 2:
-            return &group_descr_lag_interface_state_updated;
+            return &_group_descr_lag_interface_state_updated;
         case 7:
-            return &group_descr_lag_interface_lag_health_change;
+            return &_group_descr_lag_interface_lag_health_change;
         case 4227:
-            return &group_descr_lag_interface_stats_cfg;
+            return &_group_descr_lag_interface_stats_cfg;
         case 4355:
-            return &group_descr_lag_interface_stats_alarm_raised;
+            return &_group_descr_lag_interface_stats_alarm_raised;
         case 4483:
-            return &group_descr_lag_interface_stats_alarm_cleared;
+            return &_group_descr_lag_interface_stats_alarm_cleared;
         case 4096:
-            return &group_descr_lag_interface_auto_cfg;
+            return &_group_descr_lag_interface_auto_cfg;
         default:
             return NULL;
         }
@@ -40511,9 +43558,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_log_key;
+            return &_group_descr_log_key;
         case 1:
-            return &group_descr_log_cfg;
+            return &_group_descr_log_cfg;
         default:
             return NULL;
         }
@@ -40521,13 +43568,13 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_log_file_key;
+            return &_group_descr_log_file_key;
         case 1:
-            return &group_descr_log_file_cfg;
+            return &_group_descr_log_file_cfg;
         case 3:
-            return &group_descr_log_file_clear;
+            return &_group_descr_log_file_clear;
         case 4:
-            return &group_descr_log_file_reset_buffer_ptr;
+            return &_group_descr_log_file_reset_buffer_ptr;
         default:
             return NULL;
         }
@@ -40535,9 +43582,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_ngpon2_channel_key;
+            return &_group_descr_ngpon2_channel_key;
         case 1:
-            return &group_descr_ngpon2_channel_cfg;
+            return &_group_descr_ngpon2_channel_cfg;
         default:
             return NULL;
         }
@@ -40545,27 +43592,27 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_nni_interface_key;
+            return &_group_descr_nni_interface_key;
         case 1:
-            return &group_descr_nni_interface_state_change;
+            return &_group_descr_nni_interface_state_change;
         case 2:
-            return &group_descr_nni_interface_cfg;
+            return &_group_descr_nni_interface_cfg;
         case 3:
-            return &group_descr_nni_interface_set_nni_state;
+            return &_group_descr_nni_interface_set_nni_state;
         case 4:
-            return &group_descr_nni_interface_stats;
+            return &_group_descr_nni_interface_stats;
         case 9:
-            return &group_descr_nni_interface_link_state_change;
+            return &_group_descr_nni_interface_link_state_change;
         case 10:
-            return &group_descr_nni_interface_fault_code_change;
+            return &_group_descr_nni_interface_fault_code_change;
         case 4228:
-            return &group_descr_nni_interface_stats_cfg;
+            return &_group_descr_nni_interface_stats_cfg;
         case 4356:
-            return &group_descr_nni_interface_stats_alarm_raised;
+            return &_group_descr_nni_interface_stats_alarm_raised;
         case 4484:
-            return &group_descr_nni_interface_stats_alarm_cleared;
+            return &_group_descr_nni_interface_stats_alarm_cleared;
         case 4096:
-            return &group_descr_nni_interface_auto_cfg;
+            return &_group_descr_nni_interface_auto_cfg;
         default:
             return NULL;
         }
@@ -40573,25 +43620,25 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_olt_key;
+            return &_group_descr_olt_key;
         case 1:
-            return &group_descr_olt_cfg;
+            return &_group_descr_olt_cfg;
         case 2:
-            return &group_descr_olt_connect;
+            return &_group_descr_olt_connect;
         case 4:
-            return &group_descr_olt_disconnect;
+            return &_group_descr_olt_disconnect;
         case 5:
-            return &group_descr_olt_bal_reset;
+            return &_group_descr_olt_bal_reset;
         case 7:
-            return &group_descr_olt_bal_failure;
+            return &_group_descr_olt_bal_failure;
         case 8:
-            return &group_descr_olt_bal_ready;
+            return &_group_descr_olt_bal_ready;
         case 9:
-            return &group_descr_olt_sw_error;
+            return &_group_descr_olt_sw_error;
         case 10:
-            return &group_descr_olt_reset;
+            return &_group_descr_olt_reset;
         case 4096:
-            return &group_descr_olt_auto_cfg;
+            return &_group_descr_olt_auto_cfg;
         default:
             return NULL;
         }
@@ -40599,149 +43646,157 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_onu_key;
+            return &_group_descr_onu_key;
         case 1:
-            return &group_descr_onu_cfg;
+            return &_group_descr_onu_cfg;
         case 2:
-            return &group_descr_onu_itu_pon_stats;
+            return &_group_descr_onu_itu_pon_stats;
         case 3:
-            return &group_descr_onu_set_onu_state;
+            return &_group_descr_onu_set_onu_state;
         case 4:
-            return &group_descr_onu_rssi_measurement;
+            return &_group_descr_onu_rssi_measurement;
         case 5:
-            return &group_descr_onu_request_registration;
+            return &_group_descr_onu_request_registration;
         case 6:
-            return &group_descr_onu_change_power_levelling;
+            return &_group_descr_onu_change_power_levelling;
         case 7:
-            return &group_descr_onu_get_power_level;
+            return &_group_descr_onu_get_power_level;
         case 8:
-            return &group_descr_onu_get_power_consumption;
+            return &_group_descr_onu_get_power_consumption;
         case 9:
-            return &group_descr_onu_adjust_tx_wavelength;
+            return &_group_descr_onu_adjust_tx_wavelength;
         case 10:
-            return &group_descr_onu_secure_mutual_authentication;
+            return &_group_descr_onu_secure_mutual_authentication;
         case 11:
-            return &group_descr_onu_tuning_in;
+            return &_group_descr_onu_tuning_in;
         case 12:
-            return &group_descr_onu_tuning_out;
+            return &_group_descr_onu_tuning_out;
         case 13:
-            return &group_descr_onu_xgpon_alarm;
+            return &_group_descr_onu_xgpon_alarm;
         case 14:
-            return &group_descr_onu_gpon_alarm;
+            return &_group_descr_onu_gpon_alarm;
         case 15:
-            return &group_descr_onu_dowi;
+            return &_group_descr_onu_dowi;
         case 16:
-            return &group_descr_onu_sfi;
+            return &_group_descr_onu_sfi;
         case 17:
-            return &group_descr_onu_sdi;
+            return &_group_descr_onu_sdi;
         case 18:
-            return &group_descr_onu_dfi;
+            return &_group_descr_onu_dfi;
         case 19:
-            return &group_descr_onu_pqsi;
+            return &_group_descr_onu_pqsi;
         case 20:
-            return &group_descr_onu_sufi;
+            return &_group_descr_onu_sufi;
         case 21:
-            return &group_descr_onu_tiwi;
+            return &_group_descr_onu_tiwi;
         case 22:
-            return &group_descr_onu_looci;
+            return &_group_descr_onu_looci;
         case 23:
-            return &group_descr_onu_loai;
+            return &_group_descr_onu_loai;
         case 24:
-            return &group_descr_onu_dgi;
+            return &_group_descr_onu_dgi;
         case 25:
-            return &group_descr_onu_pee;
+            return &_group_descr_onu_pee;
         case 26:
-            return &group_descr_onu_pst;
+            return &_group_descr_onu_pst;
         case 27:
-            return &group_descr_onu_ranging_completed;
+            return &_group_descr_onu_ranging_completed;
         case 28:
-            return &group_descr_onu_onu_activation_completed;
+            return &_group_descr_onu_onu_activation_completed;
         case 29:
-            return &group_descr_onu_onu_deactivation_completed;
+            return &_group_descr_onu_onu_deactivation_completed;
         case 30:
-            return &group_descr_onu_onu_enable_completed;
+            return &_group_descr_onu_onu_enable_completed;
         case 31:
-            return &group_descr_onu_onu_disable_completed;
+            return &_group_descr_onu_onu_disable_completed;
         case 32:
-            return &group_descr_onu_rssi_measurement_completed;
+            return &_group_descr_onu_rssi_measurement_completed;
         case 33:
-            return &group_descr_onu_invalid_dbru_report;
+            return &_group_descr_onu_invalid_dbru_report;
         case 34:
-            return &group_descr_onu_key_exchange_completed;
+            return &_group_descr_onu_key_exchange_completed;
         case 35:
-            return &group_descr_onu_key_exchange_key_request_timeout;
+            return &_group_descr_onu_key_exchange_key_request_timeout;
         case 36:
-            return &group_descr_onu_key_exchange_cycle_skipped;
+            return &_group_descr_onu_key_exchange_cycle_skipped;
         case 37:
-            return &group_descr_onu_key_exchange_key_mismatch;
+            return &_group_descr_onu_key_exchange_key_mismatch;
         case 38:
-            return &group_descr_onu_optical_reflection;
+            return &_group_descr_onu_optical_reflection;
         case 39:
-            return &group_descr_onu_loki;
+            return &_group_descr_onu_loki;
         case 40:
-            return &group_descr_onu_memi;
+            return &_group_descr_onu_memi;
         case 41:
-            return &group_descr_onu_omci_port_id_configuration_completed;
+            return &_group_descr_onu_omci_port_id_configuration_completed;
         case 42:
-            return &group_descr_onu_ber_interval_configuration_completed;
+            return &_group_descr_onu_ber_interval_configuration_completed;
         case 43:
-            return &group_descr_onu_err;
+            return &_group_descr_onu_err;
         case 44:
-            return &group_descr_onu_password_authentication_completed;
+            return &_group_descr_onu_password_authentication_completed;
         case 45:
-            return &group_descr_onu_key_exchange_unconsecutive_index;
+            return &_group_descr_onu_key_exchange_unconsecutive_index;
         case 46:
-            return &group_descr_onu_key_exchange_decrypt_required;
+            return &_group_descr_onu_key_exchange_decrypt_required;
         case 47:
-            return &group_descr_onu_onu_activation_standby_completed;
+            return &_group_descr_onu_onu_activation_standby_completed;
         case 48:
-            return &group_descr_onu_power_management_state_change;
+            return &_group_descr_onu_power_management_state_change;
         case 49:
-            return &group_descr_onu_possible_drift;
+            return &_group_descr_onu_possible_drift;
         case 50:
-            return &group_descr_onu_registration_id;
+            return &_group_descr_onu_registration_id;
         case 51:
-            return &group_descr_onu_power_level_report;
+            return &_group_descr_onu_power_level_report;
         case 52:
-            return &group_descr_onu_power_consumption_report;
+            return &_group_descr_onu_power_consumption_report;
         case 53:
-            return &group_descr_onu_secure_mutual_authentication_failure;
+            return &_group_descr_onu_secure_mutual_authentication_failure;
         case 54:
-            return &group_descr_onu_onu_tuning_out_completed;
+            return &_group_descr_onu_onu_tuning_out_completed;
         case 55:
-            return &group_descr_onu_onu_tuning_in_completed;
+            return &_group_descr_onu_onu_tuning_in_completed;
         case 56:
-            return &group_descr_onu_tuning_response;
+            return &_group_descr_onu_tuning_response;
         case 57:
-            return &group_descr_onu_ploam_packet;
+            return &_group_descr_onu_ploam_packet;
         case 58:
-            return &group_descr_onu_cpu_packets;
+            return &_group_descr_onu_cpu_packets;
         case 59:
-            return &group_descr_onu_cpu_packet;
+            return &_group_descr_onu_cpu_packet;
         case 60:
-            return &group_descr_onu_omci_packet;
+            return &_group_descr_onu_omci_packet;
         case 63:
-            return &group_descr_onu_onu_ready_for_data_grant;
+            return &_group_descr_onu_onu_ready_for_data_grant;
         case 64:
-            return &group_descr_onu_rei;
+            return &_group_descr_onu_rei;
         case 65:
-            return &group_descr_onu_force_deactivation;
+            return &_group_descr_onu_force_deactivation;
         case 66:
-            return &group_descr_onu_state_change;
+            return &_group_descr_onu_state_change;
         case 67:
-            return &group_descr_onu_range_value_changed;
+            return &_group_descr_onu_range_value_changed;
         case 68:
-            return &group_descr_onu_xpon_unknown_ploam;
+            return &_group_descr_onu_xpon_unknown_ploam;
         case 69:
-            return &group_descr_onu_trap_ploam_received;
+            return &_group_descr_onu_trap_ploam_received;
+        case 70:
+            return &_group_descr_onu_itu_alloc_onu_accumulated_stats;
         case 4226:
-            return &group_descr_onu_itu_pon_stats_cfg;
+            return &_group_descr_onu_itu_pon_stats_cfg;
         case 4354:
-            return &group_descr_onu_itu_pon_stats_alarm_raised;
+            return &_group_descr_onu_itu_pon_stats_alarm_raised;
         case 4482:
-            return &group_descr_onu_itu_pon_stats_alarm_cleared;
+            return &_group_descr_onu_itu_pon_stats_alarm_cleared;
+        case 4294:
+            return &_group_descr_onu_itu_alloc_onu_accumulated_stats_cfg;
+        case 4422:
+            return &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised;
+        case 4550:
+            return &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared;
         case 4096:
-            return &group_descr_onu_auto_cfg;
+            return &_group_descr_onu_auto_cfg;
         default:
             return NULL;
         }
@@ -40749,9 +43804,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_pbit_to_tc_key;
+            return &_group_descr_pbit_to_tc_key;
         case 1:
-            return &group_descr_pbit_to_tc_cfg;
+            return &_group_descr_pbit_to_tc_cfg;
         default:
             return NULL;
         }
@@ -40759,9 +43814,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_policer_profile_key;
+            return &_group_descr_policer_profile_key;
         case 1:
-            return &group_descr_policer_profile_cfg;
+            return &_group_descr_policer_profile_cfg;
         default:
             return NULL;
         }
@@ -40769,99 +43824,99 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_pon_interface_key;
+            return &_group_descr_pon_interface_key;
         case 1:
-            return &group_descr_pon_interface_cfg;
+            return &_group_descr_pon_interface_cfg;
         case 2:
-            return &group_descr_pon_interface_itu_pon_stats;
+            return &_group_descr_pon_interface_itu_pon_stats;
         case 5:
-            return &group_descr_pon_interface_ae_stats;
+            return &_group_descr_pon_interface_ae_stats;
         case 6:
-            return &group_descr_pon_interface_set_pon_interface_state;
+            return &_group_descr_pon_interface_set_pon_interface_state;
         case 7:
-            return &group_descr_pon_interface_set_onu_state;
+            return &_group_descr_pon_interface_set_onu_state;
         case 8:
-            return &group_descr_pon_interface_reset;
+            return &_group_descr_pon_interface_reset;
         case 9:
-            return &group_descr_pon_interface_disable_serial_number;
+            return &_group_descr_pon_interface_disable_serial_number;
         case 10:
-            return &group_descr_pon_interface_single_request_standby_pon_monitoring;
+            return &_group_descr_pon_interface_single_request_standby_pon_monitoring;
         case 11:
-            return &group_descr_pon_interface_run_special_bw_map;
+            return &_group_descr_pon_interface_run_special_bw_map;
         case 12:
-            return &group_descr_pon_interface_tod_request;
+            return &_group_descr_pon_interface_tod_request;
         case 13:
-            return &group_descr_pon_interface_start_onu_upgrade;
+            return &_group_descr_pon_interface_start_onu_upgrade;
         case 14:
-            return &group_descr_pon_interface_abort_onu_upgrade;
+            return &_group_descr_pon_interface_abort_onu_upgrade;
         case 17:
-            return &group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state;
+            return &_group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state;
         case 18:
-            return &group_descr_pon_interface_protection_switching_apply_rerange_delta;
+            return &_group_descr_pon_interface_protection_switching_apply_rerange_delta;
         case 19:
-            return &group_descr_pon_interface_cpu_packets;
+            return &_group_descr_pon_interface_cpu_packets;
         case 20:
-            return &group_descr_pon_interface_broadcast_ploam_packet;
+            return &_group_descr_pon_interface_broadcast_ploam_packet;
         case 21:
-            return &group_descr_pon_interface_state_change_completed;
+            return &_group_descr_pon_interface_state_change_completed;
         case 22:
-            return &group_descr_pon_interface_tod_request_completed;
+            return &_group_descr_pon_interface_tod_request_completed;
         case 23:
-            return &group_descr_pon_interface_los;
+            return &_group_descr_pon_interface_los;
         case 24:
-            return &group_descr_pon_interface_serial_number_acquisition_cycle_start;
+            return &_group_descr_pon_interface_serial_number_acquisition_cycle_start;
         case 25:
-            return &group_descr_pon_interface_protection_switching_traffic_resume;
+            return &_group_descr_pon_interface_protection_switching_traffic_resume;
         case 26:
-            return &group_descr_pon_interface_protection_switching_onus_ranged;
+            return &_group_descr_pon_interface_protection_switching_onus_ranged;
         case 27:
-            return &group_descr_pon_interface_protection_switching_rerange_failure;
+            return &_group_descr_pon_interface_protection_switching_rerange_failure;
         case 28:
-            return &group_descr_pon_interface_protection_switching_switchover_completed;
+            return &_group_descr_pon_interface_protection_switching_switchover_completed;
         case 29:
-            return &group_descr_pon_interface_standby_pon_monitoring_cycle_completed;
+            return &_group_descr_pon_interface_standby_pon_monitoring_cycle_completed;
         case 30:
-            return &group_descr_pon_interface_onu_discovered;
+            return &_group_descr_pon_interface_onu_discovered;
         case 31:
-            return &group_descr_pon_interface_cpu_packets_failure;
+            return &_group_descr_pon_interface_cpu_packets_failure;
         case 32:
-            return &group_descr_pon_interface_deactivate_all_onus_completed;
+            return &_group_descr_pon_interface_deactivate_all_onus_completed;
         case 33:
-            return &group_descr_pon_interface_disable_all_onus_completed;
+            return &_group_descr_pon_interface_disable_all_onus_completed;
         case 34:
-            return &group_descr_pon_interface_activate_all_onus_completed;
+            return &_group_descr_pon_interface_activate_all_onus_completed;
         case 35:
-            return &group_descr_pon_interface_enable_all_onus_completed;
+            return &_group_descr_pon_interface_enable_all_onus_completed;
         case 36:
-            return &group_descr_pon_interface_onu_upgrade_complete;
+            return &_group_descr_pon_interface_onu_upgrade_complete;
         case 46:
-            return &group_descr_pon_interface_ieee_rogue_detection_completed;
+            return &_group_descr_pon_interface_ieee_rogue_detection_completed;
         case 47:
-            return &group_descr_pon_interface_mpcp_timestamp_changed;
+            return &_group_descr_pon_interface_mpcp_timestamp_changed;
         case 48:
-            return &group_descr_pon_interface_switch_pon_type;
+            return &_group_descr_pon_interface_switch_pon_type;
         case 49:
-            return &group_descr_pon_interface_switch_pon_type_completed;
+            return &_group_descr_pon_interface_switch_pon_type_completed;
         case 53:
-            return &group_descr_pon_interface_rogue_detection_tool;
+            return &_group_descr_pon_interface_rogue_detection_tool;
         case 54:
-            return &group_descr_pon_interface_rogue_detection_tool_done;
+            return &_group_descr_pon_interface_rogue_detection_tool_done;
         case 55:
-            return &group_descr_pon_interface_onu_upgrade_activate_commit;
+            return &_group_descr_pon_interface_onu_upgrade_activate_commit;
         case 4226:
-            return &group_descr_pon_interface_itu_pon_stats_cfg;
+            return &_group_descr_pon_interface_itu_pon_stats_cfg;
         case 4354:
-            return &group_descr_pon_interface_itu_pon_stats_alarm_raised;
+            return &_group_descr_pon_interface_itu_pon_stats_alarm_raised;
         case 4482:
-            return &group_descr_pon_interface_itu_pon_stats_alarm_cleared;
+            return &_group_descr_pon_interface_itu_pon_stats_alarm_cleared;
         case 4229:
-            return &group_descr_pon_interface_ae_stats_cfg;
+            return &_group_descr_pon_interface_ae_stats_cfg;
         case 4357:
-            return &group_descr_pon_interface_ae_stats_alarm_raised;
+            return &_group_descr_pon_interface_ae_stats_alarm_raised;
         case 4485:
-            return &group_descr_pon_interface_ae_stats_alarm_cleared;
+            return &_group_descr_pon_interface_ae_stats_alarm_cleared;
         case 4096:
-            return &group_descr_pon_interface_auto_cfg;
+            return &_group_descr_pon_interface_auto_cfg;
         default:
             return NULL;
         }
@@ -40869,15 +43924,15 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_protection_interface_key;
+            return &_group_descr_protection_interface_key;
         case 1:
-            return &group_descr_protection_interface_cfg;
+            return &_group_descr_protection_interface_cfg;
         case 2:
-            return &group_descr_protection_interface_protection_switch;
+            return &_group_descr_protection_interface_protection_switch;
         case 3:
-            return &group_descr_protection_interface_protection_switch_completed;
+            return &_group_descr_protection_interface_protection_switch_completed;
         case 4096:
-            return &group_descr_protection_interface_auto_cfg;
+            return &_group_descr_protection_interface_auto_cfg;
         default:
             return NULL;
         }
@@ -40885,9 +43940,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_software_error_key;
+            return &_group_descr_software_error_key;
         case 1:
-            return &group_descr_software_error_cfg;
+            return &_group_descr_software_error_cfg;
         default:
             return NULL;
         }
@@ -40895,19 +43950,21 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_switch_inni_key;
+            return &_group_descr_switch_inni_key;
         case 1:
-            return &group_descr_switch_inni_cfg;
+            return &_group_descr_switch_inni_cfg;
         case 2:
-            return &group_descr_switch_inni_stats;
+            return &_group_descr_switch_inni_stats;
+        case 3:
+            return &_group_descr_switch_inni_link_state_change;
         case 4226:
-            return &group_descr_switch_inni_stats_cfg;
+            return &_group_descr_switch_inni_stats_cfg;
         case 4354:
-            return &group_descr_switch_inni_stats_alarm_raised;
+            return &_group_descr_switch_inni_stats_alarm_raised;
         case 4482:
-            return &group_descr_switch_inni_stats_alarm_cleared;
+            return &_group_descr_switch_inni_stats_alarm_cleared;
         case 4096:
-            return &group_descr_switch_inni_auto_cfg;
+            return &_group_descr_switch_inni_auto_cfg;
         default:
             return NULL;
         }
@@ -40915,9 +43972,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_tc_to_queue_key;
+            return &_group_descr_tc_to_queue_key;
         case 1:
-            return &group_descr_tc_to_queue_cfg;
+            return &_group_descr_tc_to_queue_cfg;
         default:
             return NULL;
         }
@@ -40925,9 +43982,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_tm_qmp_key;
+            return &_group_descr_tm_qmp_key;
         case 1:
-            return &group_descr_tm_qmp_cfg;
+            return &_group_descr_tm_qmp_cfg;
         default:
             return NULL;
         }
@@ -40935,9 +43992,19 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_tm_queue_key;
+            return &_group_descr_tm_queue_key;
         case 1:
-            return &group_descr_tm_queue_cfg;
+            return &_group_descr_tm_queue_cfg;
+        default:
+            return NULL;
+        }
+    case BCMOLT_OBJ_ID_TM_QUEUE_PROFILE:
+        switch (group)
+        {
+        case 0:
+            return &_group_descr_tm_queue_profile_key;
+        case 1:
+            return &_group_descr_tm_queue_profile_cfg;
         default:
             return NULL;
         }
@@ -40945,9 +44012,9 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
         switch (group)
         {
         case 0:
-            return &group_descr_tm_sched_key;
+            return &_group_descr_tm_sched_key;
         case 1:
-            return &group_descr_tm_sched_cfg;
+            return &_group_descr_tm_sched_cfg;
         default:
             return NULL;
         }
@@ -40956,328 +44023,353 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
     }
 }
 
-static const bcmolt_group_descr *lookup_group_by_global_id[] =
+static const bcmolt_group_descr *_lookup_group_by_global_id[] =
 {
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_KEY] = &group_descr_access_control_key,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_CFG] = &group_descr_access_control_cfg,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS] = &group_descr_access_control_stats,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_RECEIVE_ETH_PACKET] = &group_descr_access_control_receive_eth_packet,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_INTERFACES_UPDATE] = &group_descr_access_control_interfaces_update,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_CFG] = &group_descr_access_control_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_ALARM_RAISED] = &group_descr_access_control_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_ALARM_CLEARED] = &group_descr_access_control_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_AUTO_CFG] = &group_descr_access_control_auto_cfg,
-    [BCMOLT_API_GROUP_ID_BAL_SYSTEM_CFG] = &group_descr_bal_system_cfg,
-    [BCMOLT_API_GROUP_ID_BAL_SYSTEM_KEY] = &group_descr_bal_system_key,
-    [BCMOLT_API_GROUP_ID_DEVICE_KEY] = &group_descr_device_key,
-    [BCMOLT_API_GROUP_ID_DEVICE_CFG] = &group_descr_device_cfg,
-    [BCMOLT_API_GROUP_ID_DEVICE_CONNECT] = &group_descr_device_connect,
-    [BCMOLT_API_GROUP_ID_DEVICE_DISCONNECT] = &group_descr_device_disconnect,
-    [BCMOLT_API_GROUP_ID_DEVICE_RESET] = &group_descr_device_reset,
-    [BCMOLT_API_GROUP_ID_DEVICE_HOST_KEEP_ALIVE] = &group_descr_device_host_keep_alive,
-    [BCMOLT_API_GROUP_ID_DEVICE_SW_UPGRADE_ACTIVATE] = &group_descr_device_sw_upgrade_activate,
-    [BCMOLT_API_GROUP_ID_DEVICE_SET_8021_AS_TOD_STRING] = &group_descr_device_set_8021_as_tod_string,
-    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_START] = &group_descr_device_image_transfer_start,
-    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_DATA] = &group_descr_device_image_transfer_data,
-    [BCMOLT_API_GROUP_ID_DEVICE_RUN_DDR_TEST] = &group_descr_device_run_ddr_test,
-    [BCMOLT_API_GROUP_ID_DEVICE_DEVICE_READY] = &group_descr_device_device_ready,
-    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_ESTABLISHED] = &group_descr_device_connection_established,
-    [BCMOLT_API_GROUP_ID_DEVICE_DEVICE_KEEP_ALIVE] = &group_descr_device_device_keep_alive,
-    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_FAILURE] = &group_descr_device_connection_failure,
-    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_COMPLETE] = &group_descr_device_connection_complete,
-    [BCMOLT_API_GROUP_ID_DEVICE_DISCONNECTION_COMPLETE] = &group_descr_device_disconnection_complete,
-    [BCMOLT_API_GROUP_ID_DEVICE_SW_ERROR] = &group_descr_device_sw_error,
-    [BCMOLT_API_GROUP_ID_DEVICE_SW_EXCEPTION] = &group_descr_device_sw_exception,
-    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_COMPLETE] = &group_descr_device_image_transfer_complete,
-    [BCMOLT_API_GROUP_ID_DEVICE_DDR_TEST_COMPLETE] = &group_descr_device_ddr_test_complete,
-    [BCMOLT_API_GROUP_ID_DEVICE_SW_HEALTH_CHECK_FAILURE] = &group_descr_device_sw_health_check_failure,
-    [BCMOLT_API_GROUP_ID_DEVICE_CHANGE_INNI_MUX] = &group_descr_device_change_inni_mux,
-    [BCMOLT_API_GROUP_ID_DEVICE_INNI_MUX_CONFIGURATION_COMPLETED] = &group_descr_device_inni_mux_configuration_completed,
-    [BCMOLT_API_GROUP_ID_DEVICE_TOD_CALIBRATION_DONE] = &group_descr_device_tod_calibration_done,
-    [BCMOLT_API_GROUP_ID_DEVICE_AUTO_CFG] = &group_descr_device_auto_cfg,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_KEY] = &group_descr_erps_interface_key,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_CFG] = &group_descr_erps_interface_cfg,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_RING_PORT_CONTROL] = &group_descr_erps_interface_set_ring_port_control,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_RING_PORT_CONTROL] = &group_descr_erps_interface_ring_port_control,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_INTF_OPT] = &group_descr_erps_interface_set_intf_opt,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_PORT_UPDATE] = &group_descr_erps_interface_port_update,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_INTF_OPT_COMPLETE] = &group_descr_erps_interface_set_intf_opt_complete,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_PORT_UPDATE_COMPLETE] = &group_descr_erps_interface_port_update_complete,
-    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_AUTO_CFG] = &group_descr_erps_interface_auto_cfg,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_KEY] = &group_descr_eth_oam_key,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_CFG] = &group_descr_eth_oam_cfg,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_CCM_EVENT] = &group_descr_eth_oam_ccm_event,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS] = &group_descr_eth_oam_stats,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_SET_MEP_STATE] = &group_descr_eth_oam_set_mep_state,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_STATE_CHANGE] = &group_descr_eth_oam_state_change,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_CFG] = &group_descr_eth_oam_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_ALARM_RAISED] = &group_descr_eth_oam_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_ALARM_CLEARED] = &group_descr_eth_oam_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ETH_OAM_AUTO_CFG] = &group_descr_eth_oam_auto_cfg,
-    [BCMOLT_API_GROUP_ID_FLOW_CFG] = &group_descr_flow_cfg,
-    [BCMOLT_API_GROUP_ID_FLOW_KEY] = &group_descr_flow_key,
-    [BCMOLT_API_GROUP_ID_FLOW_STATS] = &group_descr_flow_stats,
-    [BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET] = &group_descr_flow_send_eth_packet,
-    [BCMOLT_API_GROUP_ID_FLOW_STATS_CFG] = &group_descr_flow_stats_cfg,
-    [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED] = &group_descr_flow_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED] = &group_descr_flow_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_FLOW_AUTO_CFG] = &group_descr_flow_auto_cfg,
-    [BCMOLT_API_GROUP_ID_GPIO_KEY] = &group_descr_gpio_key,
-    [BCMOLT_API_GROUP_ID_GPIO_CFG] = &group_descr_gpio_cfg,
-    [BCMOLT_API_GROUP_ID_GROUP_CFG] = &group_descr_group_cfg,
-    [BCMOLT_API_GROUP_ID_GROUP_KEY] = &group_descr_group_key,
-    [BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE] = &group_descr_group_members_update,
-    [BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE] = &group_descr_group_complete_members_update,
-    [BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG] = &group_descr_group_auto_cfg,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_KEY] = &group_descr_host_log_key,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_CFG] = &group_descr_host_log_cfg,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY] = &group_descr_host_log_file_key,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG] = &group_descr_host_log_file_cfg,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR] = &group_descr_host_log_file_clear,
-    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR] = &group_descr_host_log_file_reset_buffer_ptr,
-    [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG] = &group_descr_inband_mgmt_channel_cfg,
-    [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY] = &group_descr_inband_mgmt_channel_key,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY] = &group_descr_internal_nni_key,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_CFG] = &group_descr_internal_nni_cfg,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_STATUS_CHANGED] = &group_descr_internal_nni_status_changed,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS] = &group_descr_internal_nni_nni_stats,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS] = &group_descr_internal_nni_enet_stats,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_PACKET_CAPTURED] = &group_descr_internal_nni_packet_captured,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_SEND_ETH_PACKET] = &group_descr_internal_nni_send_eth_packet,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_SWAP_COMPLETED] = &group_descr_internal_nni_swap_completed,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_CFG] = &group_descr_internal_nni_nni_stats_cfg,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_RAISED] = &group_descr_internal_nni_nni_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_CLEARED] = &group_descr_internal_nni_nni_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_CFG] = &group_descr_internal_nni_enet_stats_cfg,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_RAISED] = &group_descr_internal_nni_enet_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_CLEARED] = &group_descr_internal_nni_enet_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_AUTO_CFG] = &group_descr_internal_nni_auto_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_KEY] = &group_descr_itupon_alloc_key,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CFG] = &group_descr_itupon_alloc_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CONFIGURATION_COMPLETED] = &group_descr_itupon_alloc_configuration_completed,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_STATS] = &group_descr_itupon_alloc_get_stats,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED] = &group_descr_itupon_alloc_get_alloc_stats_completed,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE] = &group_descr_itupon_alloc_set_state,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS] = &group_descr_itupon_alloc_stats,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG] = &group_descr_itupon_alloc_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG] = &group_descr_itupon_alloc_auto_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY] = &group_descr_itupon_gem_key,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG] = &group_descr_itupon_gem_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS] = &group_descr_itupon_gem_stats,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_CONFIGURATION_COMPLETED] = &group_descr_itupon_gem_configuration_completed,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_SET_STATE] = &group_descr_itupon_gem_set_state,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_CFG] = &group_descr_itupon_gem_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED] = &group_descr_itupon_gem_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED] = &group_descr_itupon_gem_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG] = &group_descr_itupon_gem_auto_cfg,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY] = &group_descr_lag_interface_key,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG] = &group_descr_lag_interface_cfg,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS] = &group_descr_lag_interface_stats,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_MEMBERS_UPDATE] = &group_descr_lag_interface_members_update,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_COMPLETE_MEMBERS_UPDATE] = &group_descr_lag_interface_complete_members_update,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATE] = &group_descr_lag_interface_state_update,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATED] = &group_descr_lag_interface_state_updated,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_LAG_HEALTH_CHANGE] = &group_descr_lag_interface_lag_health_change,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_CFG] = &group_descr_lag_interface_stats_cfg,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_RAISED] = &group_descr_lag_interface_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_CLEARED] = &group_descr_lag_interface_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_AUTO_CFG] = &group_descr_lag_interface_auto_cfg,
-    [BCMOLT_API_GROUP_ID_LOG_KEY] = &group_descr_log_key,
-    [BCMOLT_API_GROUP_ID_LOG_CFG] = &group_descr_log_cfg,
-    [BCMOLT_API_GROUP_ID_LOG_FILE_KEY] = &group_descr_log_file_key,
-    [BCMOLT_API_GROUP_ID_LOG_FILE_CFG] = &group_descr_log_file_cfg,
-    [BCMOLT_API_GROUP_ID_LOG_FILE_CLEAR] = &group_descr_log_file_clear,
-    [BCMOLT_API_GROUP_ID_LOG_FILE_RESET_BUFFER_PTR] = &group_descr_log_file_reset_buffer_ptr,
-    [BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_KEY] = &group_descr_ngpon2_channel_key,
-    [BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_CFG] = &group_descr_ngpon2_channel_cfg,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_KEY] = &group_descr_nni_interface_key,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATE_CHANGE] = &group_descr_nni_interface_state_change,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_CFG] = &group_descr_nni_interface_cfg,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_SET_NNI_STATE] = &group_descr_nni_interface_set_nni_state,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS] = &group_descr_nni_interface_stats,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE] = &group_descr_nni_interface_link_state_change,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_FAULT_CODE_CHANGE] = &group_descr_nni_interface_fault_code_change,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_CFG] = &group_descr_nni_interface_stats_cfg,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_RAISED] = &group_descr_nni_interface_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_CLEARED] = &group_descr_nni_interface_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_AUTO_CFG] = &group_descr_nni_interface_auto_cfg,
-    [BCMOLT_API_GROUP_ID_OLT_KEY] = &group_descr_olt_key,
-    [BCMOLT_API_GROUP_ID_OLT_CFG] = &group_descr_olt_cfg,
-    [BCMOLT_API_GROUP_ID_OLT_CONNECT] = &group_descr_olt_connect,
-    [BCMOLT_API_GROUP_ID_OLT_DISCONNECT] = &group_descr_olt_disconnect,
-    [BCMOLT_API_GROUP_ID_OLT_BAL_RESET] = &group_descr_olt_bal_reset,
-    [BCMOLT_API_GROUP_ID_OLT_BAL_FAILURE] = &group_descr_olt_bal_failure,
-    [BCMOLT_API_GROUP_ID_OLT_BAL_READY] = &group_descr_olt_bal_ready,
-    [BCMOLT_API_GROUP_ID_OLT_SW_ERROR] = &group_descr_olt_sw_error,
-    [BCMOLT_API_GROUP_ID_OLT_RESET] = &group_descr_olt_reset,
-    [BCMOLT_API_GROUP_ID_OLT_AUTO_CFG] = &group_descr_olt_auto_cfg,
-    [BCMOLT_API_GROUP_ID_ONU_KEY] = &group_descr_onu_key,
-    [BCMOLT_API_GROUP_ID_ONU_CFG] = &group_descr_onu_cfg,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS] = &group_descr_onu_itu_pon_stats,
-    [BCMOLT_API_GROUP_ID_ONU_SET_ONU_STATE] = &group_descr_onu_set_onu_state,
-    [BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT] = &group_descr_onu_rssi_measurement,
-    [BCMOLT_API_GROUP_ID_ONU_REQUEST_REGISTRATION] = &group_descr_onu_request_registration,
-    [BCMOLT_API_GROUP_ID_ONU_CHANGE_POWER_LEVELLING] = &group_descr_onu_change_power_levelling,
-    [BCMOLT_API_GROUP_ID_ONU_GET_POWER_LEVEL] = &group_descr_onu_get_power_level,
-    [BCMOLT_API_GROUP_ID_ONU_GET_POWER_CONSUMPTION] = &group_descr_onu_get_power_consumption,
-    [BCMOLT_API_GROUP_ID_ONU_ADJUST_TX_WAVELENGTH] = &group_descr_onu_adjust_tx_wavelength,
-    [BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION] = &group_descr_onu_secure_mutual_authentication,
-    [BCMOLT_API_GROUP_ID_ONU_TUNING_IN] = &group_descr_onu_tuning_in,
-    [BCMOLT_API_GROUP_ID_ONU_TUNING_OUT] = &group_descr_onu_tuning_out,
-    [BCMOLT_API_GROUP_ID_ONU_XGPON_ALARM] = &group_descr_onu_xgpon_alarm,
-    [BCMOLT_API_GROUP_ID_ONU_GPON_ALARM] = &group_descr_onu_gpon_alarm,
-    [BCMOLT_API_GROUP_ID_ONU_DOWI] = &group_descr_onu_dowi,
-    [BCMOLT_API_GROUP_ID_ONU_SFI] = &group_descr_onu_sfi,
-    [BCMOLT_API_GROUP_ID_ONU_SDI] = &group_descr_onu_sdi,
-    [BCMOLT_API_GROUP_ID_ONU_DFI] = &group_descr_onu_dfi,
-    [BCMOLT_API_GROUP_ID_ONU_PQSI] = &group_descr_onu_pqsi,
-    [BCMOLT_API_GROUP_ID_ONU_SUFI] = &group_descr_onu_sufi,
-    [BCMOLT_API_GROUP_ID_ONU_TIWI] = &group_descr_onu_tiwi,
-    [BCMOLT_API_GROUP_ID_ONU_LOOCI] = &group_descr_onu_looci,
-    [BCMOLT_API_GROUP_ID_ONU_LOAI] = &group_descr_onu_loai,
-    [BCMOLT_API_GROUP_ID_ONU_DGI] = &group_descr_onu_dgi,
-    [BCMOLT_API_GROUP_ID_ONU_PEE] = &group_descr_onu_pee,
-    [BCMOLT_API_GROUP_ID_ONU_PST] = &group_descr_onu_pst,
-    [BCMOLT_API_GROUP_ID_ONU_RANGING_COMPLETED] = &group_descr_onu_ranging_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_COMPLETED] = &group_descr_onu_onu_activation_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_DEACTIVATION_COMPLETED] = &group_descr_onu_onu_deactivation_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_ENABLE_COMPLETED] = &group_descr_onu_onu_enable_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_DISABLE_COMPLETED] = &group_descr_onu_onu_disable_completed,
-    [BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT_COMPLETED] = &group_descr_onu_rssi_measurement_completed,
-    [BCMOLT_API_GROUP_ID_ONU_INVALID_DBRU_REPORT] = &group_descr_onu_invalid_dbru_report,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_COMPLETED] = &group_descr_onu_key_exchange_completed,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT] = &group_descr_onu_key_exchange_key_request_timeout,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_CYCLE_SKIPPED] = &group_descr_onu_key_exchange_cycle_skipped,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_MISMATCH] = &group_descr_onu_key_exchange_key_mismatch,
-    [BCMOLT_API_GROUP_ID_ONU_OPTICAL_REFLECTION] = &group_descr_onu_optical_reflection,
-    [BCMOLT_API_GROUP_ID_ONU_LOKI] = &group_descr_onu_loki,
-    [BCMOLT_API_GROUP_ID_ONU_MEMI] = &group_descr_onu_memi,
-    [BCMOLT_API_GROUP_ID_ONU_OMCI_PORT_ID_CONFIGURATION_COMPLETED] = &group_descr_onu_omci_port_id_configuration_completed,
-    [BCMOLT_API_GROUP_ID_ONU_BER_INTERVAL_CONFIGURATION_COMPLETED] = &group_descr_onu_ber_interval_configuration_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ERR] = &group_descr_onu_err,
-    [BCMOLT_API_GROUP_ID_ONU_PASSWORD_AUTHENTICATION_COMPLETED] = &group_descr_onu_password_authentication_completed,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_UNCONSECUTIVE_INDEX] = &group_descr_onu_key_exchange_unconsecutive_index,
-    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_DECRYPT_REQUIRED] = &group_descr_onu_key_exchange_decrypt_required,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_STANDBY_COMPLETED] = &group_descr_onu_onu_activation_standby_completed,
-    [BCMOLT_API_GROUP_ID_ONU_POWER_MANAGEMENT_STATE_CHANGE] = &group_descr_onu_power_management_state_change,
-    [BCMOLT_API_GROUP_ID_ONU_POSSIBLE_DRIFT] = &group_descr_onu_possible_drift,
-    [BCMOLT_API_GROUP_ID_ONU_REGISTRATION_ID] = &group_descr_onu_registration_id,
-    [BCMOLT_API_GROUP_ID_ONU_POWER_LEVEL_REPORT] = &group_descr_onu_power_level_report,
-    [BCMOLT_API_GROUP_ID_ONU_POWER_CONSUMPTION_REPORT] = &group_descr_onu_power_consumption_report,
-    [BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION_FAILURE] = &group_descr_onu_secure_mutual_authentication_failure,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_OUT_COMPLETED] = &group_descr_onu_onu_tuning_out_completed,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_IN_COMPLETED] = &group_descr_onu_onu_tuning_in_completed,
-    [BCMOLT_API_GROUP_ID_ONU_TUNING_RESPONSE] = &group_descr_onu_tuning_response,
-    [BCMOLT_API_GROUP_ID_ONU_PLOAM_PACKET] = &group_descr_onu_ploam_packet,
-    [BCMOLT_API_GROUP_ID_ONU_CPU_PACKETS] = &group_descr_onu_cpu_packets,
-    [BCMOLT_API_GROUP_ID_ONU_CPU_PACKET] = &group_descr_onu_cpu_packet,
-    [BCMOLT_API_GROUP_ID_ONU_OMCI_PACKET] = &group_descr_onu_omci_packet,
-    [BCMOLT_API_GROUP_ID_ONU_ONU_READY_FOR_DATA_GRANT] = &group_descr_onu_onu_ready_for_data_grant,
-    [BCMOLT_API_GROUP_ID_ONU_REI] = &group_descr_onu_rei,
-    [BCMOLT_API_GROUP_ID_ONU_FORCE_DEACTIVATION] = &group_descr_onu_force_deactivation,
-    [BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE] = &group_descr_onu_state_change,
-    [BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED] = &group_descr_onu_range_value_changed,
-    [BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM] = &group_descr_onu_xpon_unknown_ploam,
-    [BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG] = &group_descr_onu_itu_pon_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ONU_AUTO_CFG] = &group_descr_onu_auto_cfg,
-    [BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY] = &group_descr_pbit_to_tc_key,
-    [BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG] = &group_descr_pbit_to_tc_cfg,
-    [BCMOLT_API_GROUP_ID_POLICER_PROFILE_KEY] = &group_descr_policer_profile_key,
-    [BCMOLT_API_GROUP_ID_POLICER_PROFILE_CFG] = &group_descr_policer_profile_cfg,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_KEY] = &group_descr_pon_interface_key,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CFG] = &group_descr_pon_interface_cfg,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS] = &group_descr_pon_interface_itu_pon_stats,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS] = &group_descr_pon_interface_ae_stats,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_PON_INTERFACE_STATE] = &group_descr_pon_interface_set_pon_interface_state,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_ONU_STATE] = &group_descr_pon_interface_set_onu_state,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_RESET] = &group_descr_pon_interface_reset,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_SERIAL_NUMBER] = &group_descr_pon_interface_disable_serial_number,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SINGLE_REQUEST_STANDBY_PON_MONITORING] = &group_descr_pon_interface_single_request_standby_pon_monitoring,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_RUN_SPECIAL_BW_MAP] = &group_descr_pon_interface_run_special_bw_map,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST] = &group_descr_pon_interface_tod_request,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_START_ONU_UPGRADE] = &group_descr_pon_interface_start_onu_upgrade,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ABORT_ONU_UPGRADE] = &group_descr_pon_interface_abort_onu_upgrade,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE] = &group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA] = &group_descr_pon_interface_protection_switching_apply_rerange_delta,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS] = &group_descr_pon_interface_cpu_packets,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_BROADCAST_PLOAM_PACKET] = &group_descr_pon_interface_broadcast_ploam_packet,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_STATE_CHANGE_COMPLETED] = &group_descr_pon_interface_state_change_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST_COMPLETED] = &group_descr_pon_interface_tod_request_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_LOS] = &group_descr_pon_interface_los,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SERIAL_NUMBER_ACQUISITION_CYCLE_START] = &group_descr_pon_interface_serial_number_acquisition_cycle_start,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TRAFFIC_RESUME] = &group_descr_pon_interface_protection_switching_traffic_resume,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_ONUS_RANGED] = &group_descr_pon_interface_protection_switching_onus_ranged,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_RERANGE_FAILURE] = &group_descr_pon_interface_protection_switching_rerange_failure,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED] = &group_descr_pon_interface_protection_switching_switchover_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_STANDBY_PON_MONITORING_CYCLE_COMPLETED] = &group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_DISCOVERED] = &group_descr_pon_interface_onu_discovered,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS_FAILURE] = &group_descr_pon_interface_cpu_packets_failure,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DEACTIVATE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_deactivate_all_onus_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_disable_all_onus_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ACTIVATE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_activate_all_onus_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ENABLE_ALL_ONUS_COMPLETED] = &group_descr_pon_interface_enable_all_onus_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_COMPLETE] = &group_descr_pon_interface_onu_upgrade_complete,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_IEEE_ROGUE_DETECTION_COMPLETED] = &group_descr_pon_interface_ieee_rogue_detection_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_MPCP_TIMESTAMP_CHANGED] = &group_descr_pon_interface_mpcp_timestamp_changed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE] = &group_descr_pon_interface_switch_pon_type,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED] = &group_descr_pon_interface_switch_pon_type_completed,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL] = &group_descr_pon_interface_rogue_detection_tool,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE] = &group_descr_pon_interface_rogue_detection_tool_done,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT] = &group_descr_pon_interface_onu_upgrade_activate_commit,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG] = &group_descr_pon_interface_itu_pon_stats_cfg,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED] = &group_descr_pon_interface_itu_pon_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_pon_interface_itu_pon_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_CFG] = &group_descr_pon_interface_ae_stats_cfg,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_RAISED] = &group_descr_pon_interface_ae_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_CLEARED] = &group_descr_pon_interface_ae_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AUTO_CFG] = &group_descr_pon_interface_auto_cfg,
-    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_KEY] = &group_descr_protection_interface_key,
-    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_CFG] = &group_descr_protection_interface_cfg,
-    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH] = &group_descr_protection_interface_protection_switch,
-    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH_COMPLETED] = &group_descr_protection_interface_protection_switch_completed,
-    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_AUTO_CFG] = &group_descr_protection_interface_auto_cfg,
-    [BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_KEY] = &group_descr_software_error_key,
-    [BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_CFG] = &group_descr_software_error_cfg,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY] = &group_descr_switch_inni_key,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG] = &group_descr_switch_inni_cfg,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS] = &group_descr_switch_inni_stats,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG] = &group_descr_switch_inni_auto_cfg,
-    [BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY] = &group_descr_tc_to_queue_key,
-    [BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG] = &group_descr_tc_to_queue_cfg,
-    [BCMOLT_API_GROUP_ID_TM_QMP_KEY] = &group_descr_tm_qmp_key,
-    [BCMOLT_API_GROUP_ID_TM_QMP_CFG] = &group_descr_tm_qmp_cfg,
-    [BCMOLT_API_GROUP_ID_TM_QUEUE_KEY] = &group_descr_tm_queue_key,
-    [BCMOLT_API_GROUP_ID_TM_QUEUE_CFG] = &group_descr_tm_queue_cfg,
-    [BCMOLT_API_GROUP_ID_TM_SCHED_KEY] = &group_descr_tm_sched_key,
-    [BCMOLT_API_GROUP_ID_TM_SCHED_CFG] = &group_descr_tm_sched_cfg,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_KEY] = &_group_descr_access_control_key,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_CFG] = &_group_descr_access_control_cfg,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS] = &_group_descr_access_control_stats,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_RECEIVE_ETH_PACKET] = &_group_descr_access_control_receive_eth_packet,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_INTERFACES_UPDATE] = &_group_descr_access_control_interfaces_update,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_CFG] = &_group_descr_access_control_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_ALARM_RAISED] = &_group_descr_access_control_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_STATS_ALARM_CLEARED] = &_group_descr_access_control_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ACCESS_CONTROL_AUTO_CFG] = &_group_descr_access_control_auto_cfg,
+    [BCMOLT_API_GROUP_ID_BAL_SYSTEM_CFG] = &_group_descr_bal_system_cfg,
+    [BCMOLT_API_GROUP_ID_BAL_SYSTEM_KEY] = &_group_descr_bal_system_key,
+    [BCMOLT_API_GROUP_ID_DEVICE_KEY] = &_group_descr_device_key,
+    [BCMOLT_API_GROUP_ID_DEVICE_CFG] = &_group_descr_device_cfg,
+    [BCMOLT_API_GROUP_ID_DEVICE_CONNECT] = &_group_descr_device_connect,
+    [BCMOLT_API_GROUP_ID_DEVICE_DISCONNECT] = &_group_descr_device_disconnect,
+    [BCMOLT_API_GROUP_ID_DEVICE_RESET] = &_group_descr_device_reset,
+    [BCMOLT_API_GROUP_ID_DEVICE_HOST_KEEP_ALIVE] = &_group_descr_device_host_keep_alive,
+    [BCMOLT_API_GROUP_ID_DEVICE_SW_UPGRADE_ACTIVATE] = &_group_descr_device_sw_upgrade_activate,
+    [BCMOLT_API_GROUP_ID_DEVICE_SET_8021_AS_TOD_STRING] = &_group_descr_device_set_8021_as_tod_string,
+    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_START] = &_group_descr_device_image_transfer_start,
+    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_DATA] = &_group_descr_device_image_transfer_data,
+    [BCMOLT_API_GROUP_ID_DEVICE_RUN_DDR_TEST] = &_group_descr_device_run_ddr_test,
+    [BCMOLT_API_GROUP_ID_DEVICE_DEVICE_READY] = &_group_descr_device_device_ready,
+    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_ESTABLISHED] = &_group_descr_device_connection_established,
+    [BCMOLT_API_GROUP_ID_DEVICE_DEVICE_KEEP_ALIVE] = &_group_descr_device_device_keep_alive,
+    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_FAILURE] = &_group_descr_device_connection_failure,
+    [BCMOLT_API_GROUP_ID_DEVICE_CONNECTION_COMPLETE] = &_group_descr_device_connection_complete,
+    [BCMOLT_API_GROUP_ID_DEVICE_DISCONNECTION_COMPLETE] = &_group_descr_device_disconnection_complete,
+    [BCMOLT_API_GROUP_ID_DEVICE_SW_ERROR] = &_group_descr_device_sw_error,
+    [BCMOLT_API_GROUP_ID_DEVICE_SW_EXCEPTION] = &_group_descr_device_sw_exception,
+    [BCMOLT_API_GROUP_ID_DEVICE_IMAGE_TRANSFER_COMPLETE] = &_group_descr_device_image_transfer_complete,
+    [BCMOLT_API_GROUP_ID_DEVICE_DDR_TEST_COMPLETE] = &_group_descr_device_ddr_test_complete,
+    [BCMOLT_API_GROUP_ID_DEVICE_SW_HEALTH_CHECK_FAILURE] = &_group_descr_device_sw_health_check_failure,
+    [BCMOLT_API_GROUP_ID_DEVICE_CHANGE_INNI_MUX] = &_group_descr_device_change_inni_mux,
+    [BCMOLT_API_GROUP_ID_DEVICE_INNI_MUX_CONFIGURATION_COMPLETED] = &_group_descr_device_inni_mux_configuration_completed,
+    [BCMOLT_API_GROUP_ID_DEVICE_TOD_CALIBRATION_DONE] = &_group_descr_device_tod_calibration_done,
+    [BCMOLT_API_GROUP_ID_DEVICE_AUTO_CFG] = &_group_descr_device_auto_cfg,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_KEY] = &_group_descr_erps_interface_key,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_CFG] = &_group_descr_erps_interface_cfg,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_RING_PORT_CONTROL] = &_group_descr_erps_interface_set_ring_port_control,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_RING_PORT_CONTROL] = &_group_descr_erps_interface_ring_port_control,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_INTF_OPT] = &_group_descr_erps_interface_set_intf_opt,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_PORT_UPDATE] = &_group_descr_erps_interface_port_update,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_SET_INTF_OPT_COMPLETE] = &_group_descr_erps_interface_set_intf_opt_complete,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_PORT_UPDATE_COMPLETE] = &_group_descr_erps_interface_port_update_complete,
+    [BCMOLT_API_GROUP_ID_ERPS_INTERFACE_AUTO_CFG] = &_group_descr_erps_interface_auto_cfg,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_KEY] = &_group_descr_eth_oam_key,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_CFG] = &_group_descr_eth_oam_cfg,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_CCM_EVENT] = &_group_descr_eth_oam_ccm_event,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS] = &_group_descr_eth_oam_stats,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_SET_MEP_STATE] = &_group_descr_eth_oam_set_mep_state,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_STATE_CHANGE] = &_group_descr_eth_oam_state_change,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_CFG] = &_group_descr_eth_oam_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_ALARM_RAISED] = &_group_descr_eth_oam_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_STATS_ALARM_CLEARED] = &_group_descr_eth_oam_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ETH_OAM_AUTO_CFG] = &_group_descr_eth_oam_auto_cfg,
+    [BCMOLT_API_GROUP_ID_FLOW_CFG] = &_group_descr_flow_cfg,
+    [BCMOLT_API_GROUP_ID_FLOW_KEY] = &_group_descr_flow_key,
+    [BCMOLT_API_GROUP_ID_FLOW_STATS] = &_group_descr_flow_stats,
+    [BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET] = &_group_descr_flow_send_eth_packet,
+    [BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE] = &_group_descr_flow_src_binding_update,
+    [BCMOLT_API_GROUP_ID_FLOW_STATS_CFG] = &_group_descr_flow_stats_cfg,
+    [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED] = &_group_descr_flow_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED] = &_group_descr_flow_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_FLOW_AUTO_CFG] = &_group_descr_flow_auto_cfg,
+    [BCMOLT_API_GROUP_ID_GPIO_KEY] = &_group_descr_gpio_key,
+    [BCMOLT_API_GROUP_ID_GPIO_CFG] = &_group_descr_gpio_cfg,
+    [BCMOLT_API_GROUP_ID_GROUP_CFG] = &_group_descr_group_cfg,
+    [BCMOLT_API_GROUP_ID_GROUP_KEY] = &_group_descr_group_key,
+    [BCMOLT_API_GROUP_ID_GROUP_MEMBERS_UPDATE] = &_group_descr_group_members_update,
+    [BCMOLT_API_GROUP_ID_GROUP_COMPLETE_MEMBERS_UPDATE] = &_group_descr_group_complete_members_update,
+    [BCMOLT_API_GROUP_ID_GROUP_AUTO_CFG] = &_group_descr_group_auto_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_KEY] = &_group_descr_host_log_key,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_CFG] = &_group_descr_host_log_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_KEY] = &_group_descr_host_log_file_key,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CFG] = &_group_descr_host_log_file_cfg,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_CLEAR] = &_group_descr_host_log_file_clear,
+    [BCMOLT_API_GROUP_ID_HOST_LOG_FILE_RESET_BUFFER_PTR] = &_group_descr_host_log_file_reset_buffer_ptr,
+    [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_CFG] = &_group_descr_inband_mgmt_channel_cfg,
+    [BCMOLT_API_GROUP_ID_INBAND_MGMT_CHANNEL_KEY] = &_group_descr_inband_mgmt_channel_key,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_KEY] = &_group_descr_internal_nni_key,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_CFG] = &_group_descr_internal_nni_cfg,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_STATUS_CHANGED] = &_group_descr_internal_nni_status_changed,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS] = &_group_descr_internal_nni_nni_stats,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS] = &_group_descr_internal_nni_enet_stats,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_PACKET_CAPTURED] = &_group_descr_internal_nni_packet_captured,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_SEND_ETH_PACKET] = &_group_descr_internal_nni_send_eth_packet,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_SWAP_COMPLETED] = &_group_descr_internal_nni_swap_completed,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_CFG] = &_group_descr_internal_nni_nni_stats_cfg,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_RAISED] = &_group_descr_internal_nni_nni_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_NNI_STATS_ALARM_CLEARED] = &_group_descr_internal_nni_nni_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_CFG] = &_group_descr_internal_nni_enet_stats_cfg,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_RAISED] = &_group_descr_internal_nni_enet_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_ENET_STATS_ALARM_CLEARED] = &_group_descr_internal_nni_enet_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_INTERNAL_NNI_AUTO_CFG] = &_group_descr_internal_nni_auto_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_KEY] = &_group_descr_itupon_alloc_key,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CFG] = &_group_descr_itupon_alloc_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_CONFIGURATION_COMPLETED] = &_group_descr_itupon_alloc_configuration_completed,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_STATS] = &_group_descr_itupon_alloc_get_stats,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED] = &_group_descr_itupon_alloc_get_alloc_stats_completed,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE] = &_group_descr_itupon_alloc_set_state,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS] = &_group_descr_itupon_alloc_stats,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS] = &_group_descr_itupon_alloc_latency_stats,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG] = &_group_descr_itupon_alloc_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG] = &_group_descr_itupon_alloc_latency_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED] = &_group_descr_itupon_alloc_latency_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED] = &_group_descr_itupon_alloc_latency_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG] = &_group_descr_itupon_alloc_auto_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY] = &_group_descr_itupon_gem_key,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG] = &_group_descr_itupon_gem_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS] = &_group_descr_itupon_gem_stats,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_CONFIGURATION_COMPLETED] = &_group_descr_itupon_gem_configuration_completed,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_SET_STATE] = &_group_descr_itupon_gem_set_state,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_CFG] = &_group_descr_itupon_gem_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED] = &_group_descr_itupon_gem_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED] = &_group_descr_itupon_gem_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG] = &_group_descr_itupon_gem_auto_cfg,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY] = &_group_descr_l2_mac_table_key,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG] = &_group_descr_l2_mac_table_cfg,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP] = &_group_descr_l2_mac_table_dump,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE] = &_group_descr_l2_mac_table_dump_complete,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT] = &_group_descr_l2_mac_table_dump_abort,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS] = &_group_descr_l2_mac_table_network_events,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS] = &_group_descr_l2_mac_table_pon_events,
+    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG] = &_group_descr_l2_mac_table_auto_cfg,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY] = &_group_descr_lag_interface_key,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG] = &_group_descr_lag_interface_cfg,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS] = &_group_descr_lag_interface_stats,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_MEMBERS_UPDATE] = &_group_descr_lag_interface_members_update,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_COMPLETE_MEMBERS_UPDATE] = &_group_descr_lag_interface_complete_members_update,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATE] = &_group_descr_lag_interface_state_update,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATE_UPDATED] = &_group_descr_lag_interface_state_updated,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_LAG_HEALTH_CHANGE] = &_group_descr_lag_interface_lag_health_change,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_CFG] = &_group_descr_lag_interface_stats_cfg,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_RAISED] = &_group_descr_lag_interface_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS_ALARM_CLEARED] = &_group_descr_lag_interface_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_LAG_INTERFACE_AUTO_CFG] = &_group_descr_lag_interface_auto_cfg,
+    [BCMOLT_API_GROUP_ID_LOG_KEY] = &_group_descr_log_key,
+    [BCMOLT_API_GROUP_ID_LOG_CFG] = &_group_descr_log_cfg,
+    [BCMOLT_API_GROUP_ID_LOG_FILE_KEY] = &_group_descr_log_file_key,
+    [BCMOLT_API_GROUP_ID_LOG_FILE_CFG] = &_group_descr_log_file_cfg,
+    [BCMOLT_API_GROUP_ID_LOG_FILE_CLEAR] = &_group_descr_log_file_clear,
+    [BCMOLT_API_GROUP_ID_LOG_FILE_RESET_BUFFER_PTR] = &_group_descr_log_file_reset_buffer_ptr,
+    [BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_KEY] = &_group_descr_ngpon2_channel_key,
+    [BCMOLT_API_GROUP_ID_NGPON2_CHANNEL_CFG] = &_group_descr_ngpon2_channel_cfg,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_KEY] = &_group_descr_nni_interface_key,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATE_CHANGE] = &_group_descr_nni_interface_state_change,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_CFG] = &_group_descr_nni_interface_cfg,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_SET_NNI_STATE] = &_group_descr_nni_interface_set_nni_state,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS] = &_group_descr_nni_interface_stats,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE] = &_group_descr_nni_interface_link_state_change,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_FAULT_CODE_CHANGE] = &_group_descr_nni_interface_fault_code_change,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_CFG] = &_group_descr_nni_interface_stats_cfg,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_RAISED] = &_group_descr_nni_interface_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_STATS_ALARM_CLEARED] = &_group_descr_nni_interface_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_NNI_INTERFACE_AUTO_CFG] = &_group_descr_nni_interface_auto_cfg,
+    [BCMOLT_API_GROUP_ID_OLT_KEY] = &_group_descr_olt_key,
+    [BCMOLT_API_GROUP_ID_OLT_CFG] = &_group_descr_olt_cfg,
+    [BCMOLT_API_GROUP_ID_OLT_CONNECT] = &_group_descr_olt_connect,
+    [BCMOLT_API_GROUP_ID_OLT_DISCONNECT] = &_group_descr_olt_disconnect,
+    [BCMOLT_API_GROUP_ID_OLT_BAL_RESET] = &_group_descr_olt_bal_reset,
+    [BCMOLT_API_GROUP_ID_OLT_BAL_FAILURE] = &_group_descr_olt_bal_failure,
+    [BCMOLT_API_GROUP_ID_OLT_BAL_READY] = &_group_descr_olt_bal_ready,
+    [BCMOLT_API_GROUP_ID_OLT_SW_ERROR] = &_group_descr_olt_sw_error,
+    [BCMOLT_API_GROUP_ID_OLT_RESET] = &_group_descr_olt_reset,
+    [BCMOLT_API_GROUP_ID_OLT_AUTO_CFG] = &_group_descr_olt_auto_cfg,
+    [BCMOLT_API_GROUP_ID_ONU_KEY] = &_group_descr_onu_key,
+    [BCMOLT_API_GROUP_ID_ONU_CFG] = &_group_descr_onu_cfg,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS] = &_group_descr_onu_itu_pon_stats,
+    [BCMOLT_API_GROUP_ID_ONU_SET_ONU_STATE] = &_group_descr_onu_set_onu_state,
+    [BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT] = &_group_descr_onu_rssi_measurement,
+    [BCMOLT_API_GROUP_ID_ONU_REQUEST_REGISTRATION] = &_group_descr_onu_request_registration,
+    [BCMOLT_API_GROUP_ID_ONU_CHANGE_POWER_LEVELLING] = &_group_descr_onu_change_power_levelling,
+    [BCMOLT_API_GROUP_ID_ONU_GET_POWER_LEVEL] = &_group_descr_onu_get_power_level,
+    [BCMOLT_API_GROUP_ID_ONU_GET_POWER_CONSUMPTION] = &_group_descr_onu_get_power_consumption,
+    [BCMOLT_API_GROUP_ID_ONU_ADJUST_TX_WAVELENGTH] = &_group_descr_onu_adjust_tx_wavelength,
+    [BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION] = &_group_descr_onu_secure_mutual_authentication,
+    [BCMOLT_API_GROUP_ID_ONU_TUNING_IN] = &_group_descr_onu_tuning_in,
+    [BCMOLT_API_GROUP_ID_ONU_TUNING_OUT] = &_group_descr_onu_tuning_out,
+    [BCMOLT_API_GROUP_ID_ONU_XGPON_ALARM] = &_group_descr_onu_xgpon_alarm,
+    [BCMOLT_API_GROUP_ID_ONU_GPON_ALARM] = &_group_descr_onu_gpon_alarm,
+    [BCMOLT_API_GROUP_ID_ONU_DOWI] = &_group_descr_onu_dowi,
+    [BCMOLT_API_GROUP_ID_ONU_SFI] = &_group_descr_onu_sfi,
+    [BCMOLT_API_GROUP_ID_ONU_SDI] = &_group_descr_onu_sdi,
+    [BCMOLT_API_GROUP_ID_ONU_DFI] = &_group_descr_onu_dfi,
+    [BCMOLT_API_GROUP_ID_ONU_PQSI] = &_group_descr_onu_pqsi,
+    [BCMOLT_API_GROUP_ID_ONU_SUFI] = &_group_descr_onu_sufi,
+    [BCMOLT_API_GROUP_ID_ONU_TIWI] = &_group_descr_onu_tiwi,
+    [BCMOLT_API_GROUP_ID_ONU_LOOCI] = &_group_descr_onu_looci,
+    [BCMOLT_API_GROUP_ID_ONU_LOAI] = &_group_descr_onu_loai,
+    [BCMOLT_API_GROUP_ID_ONU_DGI] = &_group_descr_onu_dgi,
+    [BCMOLT_API_GROUP_ID_ONU_PEE] = &_group_descr_onu_pee,
+    [BCMOLT_API_GROUP_ID_ONU_PST] = &_group_descr_onu_pst,
+    [BCMOLT_API_GROUP_ID_ONU_RANGING_COMPLETED] = &_group_descr_onu_ranging_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_COMPLETED] = &_group_descr_onu_onu_activation_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_DEACTIVATION_COMPLETED] = &_group_descr_onu_onu_deactivation_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_ENABLE_COMPLETED] = &_group_descr_onu_onu_enable_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_DISABLE_COMPLETED] = &_group_descr_onu_onu_disable_completed,
+    [BCMOLT_API_GROUP_ID_ONU_RSSI_MEASUREMENT_COMPLETED] = &_group_descr_onu_rssi_measurement_completed,
+    [BCMOLT_API_GROUP_ID_ONU_INVALID_DBRU_REPORT] = &_group_descr_onu_invalid_dbru_report,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_COMPLETED] = &_group_descr_onu_key_exchange_completed,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_REQUEST_TIMEOUT] = &_group_descr_onu_key_exchange_key_request_timeout,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_CYCLE_SKIPPED] = &_group_descr_onu_key_exchange_cycle_skipped,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_KEY_MISMATCH] = &_group_descr_onu_key_exchange_key_mismatch,
+    [BCMOLT_API_GROUP_ID_ONU_OPTICAL_REFLECTION] = &_group_descr_onu_optical_reflection,
+    [BCMOLT_API_GROUP_ID_ONU_LOKI] = &_group_descr_onu_loki,
+    [BCMOLT_API_GROUP_ID_ONU_MEMI] = &_group_descr_onu_memi,
+    [BCMOLT_API_GROUP_ID_ONU_OMCI_PORT_ID_CONFIGURATION_COMPLETED] = &_group_descr_onu_omci_port_id_configuration_completed,
+    [BCMOLT_API_GROUP_ID_ONU_BER_INTERVAL_CONFIGURATION_COMPLETED] = &_group_descr_onu_ber_interval_configuration_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ERR] = &_group_descr_onu_err,
+    [BCMOLT_API_GROUP_ID_ONU_PASSWORD_AUTHENTICATION_COMPLETED] = &_group_descr_onu_password_authentication_completed,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_UNCONSECUTIVE_INDEX] = &_group_descr_onu_key_exchange_unconsecutive_index,
+    [BCMOLT_API_GROUP_ID_ONU_KEY_EXCHANGE_DECRYPT_REQUIRED] = &_group_descr_onu_key_exchange_decrypt_required,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_ACTIVATION_STANDBY_COMPLETED] = &_group_descr_onu_onu_activation_standby_completed,
+    [BCMOLT_API_GROUP_ID_ONU_POWER_MANAGEMENT_STATE_CHANGE] = &_group_descr_onu_power_management_state_change,
+    [BCMOLT_API_GROUP_ID_ONU_POSSIBLE_DRIFT] = &_group_descr_onu_possible_drift,
+    [BCMOLT_API_GROUP_ID_ONU_REGISTRATION_ID] = &_group_descr_onu_registration_id,
+    [BCMOLT_API_GROUP_ID_ONU_POWER_LEVEL_REPORT] = &_group_descr_onu_power_level_report,
+    [BCMOLT_API_GROUP_ID_ONU_POWER_CONSUMPTION_REPORT] = &_group_descr_onu_power_consumption_report,
+    [BCMOLT_API_GROUP_ID_ONU_SECURE_MUTUAL_AUTHENTICATION_FAILURE] = &_group_descr_onu_secure_mutual_authentication_failure,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_OUT_COMPLETED] = &_group_descr_onu_onu_tuning_out_completed,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_TUNING_IN_COMPLETED] = &_group_descr_onu_onu_tuning_in_completed,
+    [BCMOLT_API_GROUP_ID_ONU_TUNING_RESPONSE] = &_group_descr_onu_tuning_response,
+    [BCMOLT_API_GROUP_ID_ONU_PLOAM_PACKET] = &_group_descr_onu_ploam_packet,
+    [BCMOLT_API_GROUP_ID_ONU_CPU_PACKETS] = &_group_descr_onu_cpu_packets,
+    [BCMOLT_API_GROUP_ID_ONU_CPU_PACKET] = &_group_descr_onu_cpu_packet,
+    [BCMOLT_API_GROUP_ID_ONU_OMCI_PACKET] = &_group_descr_onu_omci_packet,
+    [BCMOLT_API_GROUP_ID_ONU_ONU_READY_FOR_DATA_GRANT] = &_group_descr_onu_onu_ready_for_data_grant,
+    [BCMOLT_API_GROUP_ID_ONU_REI] = &_group_descr_onu_rei,
+    [BCMOLT_API_GROUP_ID_ONU_FORCE_DEACTIVATION] = &_group_descr_onu_force_deactivation,
+    [BCMOLT_API_GROUP_ID_ONU_STATE_CHANGE] = &_group_descr_onu_state_change,
+    [BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED] = &_group_descr_onu_range_value_changed,
+    [BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM] = &_group_descr_onu_xpon_unknown_ploam,
+    [BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED] = &_group_descr_onu_trap_ploam_received,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS] = &_group_descr_onu_itu_alloc_onu_accumulated_stats,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG] = &_group_descr_onu_itu_pon_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED] = &_group_descr_onu_itu_pon_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED] = &_group_descr_onu_itu_pon_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &_group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_ONU_AUTO_CFG] = &_group_descr_onu_auto_cfg,
+    [BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY] = &_group_descr_pbit_to_tc_key,
+    [BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG] = &_group_descr_pbit_to_tc_cfg,
+    [BCMOLT_API_GROUP_ID_POLICER_PROFILE_KEY] = &_group_descr_policer_profile_key,
+    [BCMOLT_API_GROUP_ID_POLICER_PROFILE_CFG] = &_group_descr_policer_profile_cfg,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_KEY] = &_group_descr_pon_interface_key,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CFG] = &_group_descr_pon_interface_cfg,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS] = &_group_descr_pon_interface_itu_pon_stats,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS] = &_group_descr_pon_interface_ae_stats,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_PON_INTERFACE_STATE] = &_group_descr_pon_interface_set_pon_interface_state,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SET_ONU_STATE] = &_group_descr_pon_interface_set_onu_state,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_RESET] = &_group_descr_pon_interface_reset,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_SERIAL_NUMBER] = &_group_descr_pon_interface_disable_serial_number,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SINGLE_REQUEST_STANDBY_PON_MONITORING] = &_group_descr_pon_interface_single_request_standby_pon_monitoring,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_RUN_SPECIAL_BW_MAP] = &_group_descr_pon_interface_run_special_bw_map,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST] = &_group_descr_pon_interface_tod_request,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_START_ONU_UPGRADE] = &_group_descr_pon_interface_start_onu_upgrade,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ABORT_ONU_UPGRADE] = &_group_descr_pon_interface_abort_onu_upgrade,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TYPE_C_SET_MULTIPLE_ONU_STATE] = &_group_descr_pon_interface_protection_switching_type_c_set_multiple_onu_state,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_APPLY_RERANGE_DELTA] = &_group_descr_pon_interface_protection_switching_apply_rerange_delta,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS] = &_group_descr_pon_interface_cpu_packets,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_BROADCAST_PLOAM_PACKET] = &_group_descr_pon_interface_broadcast_ploam_packet,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_STATE_CHANGE_COMPLETED] = &_group_descr_pon_interface_state_change_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_TOD_REQUEST_COMPLETED] = &_group_descr_pon_interface_tod_request_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_LOS] = &_group_descr_pon_interface_los,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SERIAL_NUMBER_ACQUISITION_CYCLE_START] = &_group_descr_pon_interface_serial_number_acquisition_cycle_start,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_TRAFFIC_RESUME] = &_group_descr_pon_interface_protection_switching_traffic_resume,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_ONUS_RANGED] = &_group_descr_pon_interface_protection_switching_onus_ranged,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_RERANGE_FAILURE] = &_group_descr_pon_interface_protection_switching_rerange_failure,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_PROTECTION_SWITCHING_SWITCHOVER_COMPLETED] = &_group_descr_pon_interface_protection_switching_switchover_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_STANDBY_PON_MONITORING_CYCLE_COMPLETED] = &_group_descr_pon_interface_standby_pon_monitoring_cycle_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_DISCOVERED] = &_group_descr_pon_interface_onu_discovered,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_CPU_PACKETS_FAILURE] = &_group_descr_pon_interface_cpu_packets_failure,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DEACTIVATE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_deactivate_all_onus_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_DISABLE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_disable_all_onus_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ACTIVATE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_activate_all_onus_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ENABLE_ALL_ONUS_COMPLETED] = &_group_descr_pon_interface_enable_all_onus_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_COMPLETE] = &_group_descr_pon_interface_onu_upgrade_complete,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_IEEE_ROGUE_DETECTION_COMPLETED] = &_group_descr_pon_interface_ieee_rogue_detection_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_MPCP_TIMESTAMP_CHANGED] = &_group_descr_pon_interface_mpcp_timestamp_changed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE] = &_group_descr_pon_interface_switch_pon_type,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_SWITCH_PON_TYPE_COMPLETED] = &_group_descr_pon_interface_switch_pon_type_completed,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL] = &_group_descr_pon_interface_rogue_detection_tool,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ROGUE_DETECTION_TOOL_DONE] = &_group_descr_pon_interface_rogue_detection_tool_done,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ONU_UPGRADE_ACTIVATE_COMMIT] = &_group_descr_pon_interface_onu_upgrade_activate_commit,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_CFG] = &_group_descr_pon_interface_itu_pon_stats_cfg,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_RAISED] = &_group_descr_pon_interface_itu_pon_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_ITU_PON_STATS_ALARM_CLEARED] = &_group_descr_pon_interface_itu_pon_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_CFG] = &_group_descr_pon_interface_ae_stats_cfg,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_RAISED] = &_group_descr_pon_interface_ae_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AE_STATS_ALARM_CLEARED] = &_group_descr_pon_interface_ae_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_PON_INTERFACE_AUTO_CFG] = &_group_descr_pon_interface_auto_cfg,
+    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_KEY] = &_group_descr_protection_interface_key,
+    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_CFG] = &_group_descr_protection_interface_cfg,
+    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH] = &_group_descr_protection_interface_protection_switch,
+    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_PROTECTION_SWITCH_COMPLETED] = &_group_descr_protection_interface_protection_switch_completed,
+    [BCMOLT_API_GROUP_ID_PROTECTION_INTERFACE_AUTO_CFG] = &_group_descr_protection_interface_auto_cfg,
+    [BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_KEY] = &_group_descr_software_error_key,
+    [BCMOLT_API_GROUP_ID_SOFTWARE_ERROR_CFG] = &_group_descr_software_error_cfg,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY] = &_group_descr_switch_inni_key,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG] = &_group_descr_switch_inni_cfg,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS] = &_group_descr_switch_inni_stats,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE] = &_group_descr_switch_inni_link_state_change,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG] = &_group_descr_switch_inni_stats_cfg,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED] = &_group_descr_switch_inni_stats_alarm_raised,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED] = &_group_descr_switch_inni_stats_alarm_cleared,
+    [BCMOLT_API_GROUP_ID_SWITCH_INNI_AUTO_CFG] = &_group_descr_switch_inni_auto_cfg,
+    [BCMOLT_API_GROUP_ID_TC_TO_QUEUE_KEY] = &_group_descr_tc_to_queue_key,
+    [BCMOLT_API_GROUP_ID_TC_TO_QUEUE_CFG] = &_group_descr_tc_to_queue_cfg,
+    [BCMOLT_API_GROUP_ID_TM_QMP_KEY] = &_group_descr_tm_qmp_key,
+    [BCMOLT_API_GROUP_ID_TM_QMP_CFG] = &_group_descr_tm_qmp_cfg,
+    [BCMOLT_API_GROUP_ID_TM_QUEUE_KEY] = &_group_descr_tm_queue_key,
+    [BCMOLT_API_GROUP_ID_TM_QUEUE_CFG] = &_group_descr_tm_queue_cfg,
+    [BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_KEY] = &_group_descr_tm_queue_profile_key,
+    [BCMOLT_API_GROUP_ID_TM_QUEUE_PROFILE_CFG] = &_group_descr_tm_queue_profile_cfg,
+    [BCMOLT_API_GROUP_ID_TM_SCHED_KEY] = &_group_descr_tm_sched_key,
+    [BCMOLT_API_GROUP_ID_TM_SCHED_CFG] = &_group_descr_tm_sched_cfg,
 };
 
-static const bcmolt_metadata_set bcmolt_api_metadata_private =
+static const bcmolt_metadata_set _bcmolt_api_metadata_private =
 {
     .obj_id_count = BCMOLT_OBJ_ID__NUM_OF,
     .global_id_count = BCMOLT_API_GROUP_ID__NUM_OF,
     .max_subgroup_count = BCMOLT_ONU_AUTO_SUBGROUP__NUM_OF,
-    .tag_count = sizeof(tags) / sizeof(bcmolt_tag_descr),
-    .lookup_obj_by_id = lookup_obj_by_id,
-    .find_group_descr = find_group_descr,
-    .lookup_group_by_global_id = lookup_group_by_global_id,
-    .lookup_group_by_subgroup_idx = &lookup_group_by_subgroup_idx[0][0][0],
-    .tags = tags,
+    .tag_count = sizeof(_tags) / sizeof(bcmolt_tag_descr),
+    .lookup_obj_by_id = _lookup_obj_by_id,
+    .find_group_descr = _find_group_descr,
+    .lookup_group_by_global_id = _lookup_group_by_global_id,
+    .lookup_group_by_subgroup_idx = &_lookup_group_by_subgroup_idx[0][0][0],
+    .tags = _tags,
 };
 
-const bcmolt_metadata_set *bcmolt_api_metadata = &bcmolt_api_metadata_private;
+const bcmolt_metadata_set *bcmolt_api_metadata = &_bcmolt_api_metadata_private;
 
 
 
-bcmolt_tag bcmolt_system_mode_tags(bcmolt_system_mode system_mode)
+bcmolt_tag bcmolt_system_mode_tags(
+    bcmolt_system_mode system_mode)
 {
     bcmolt_tag system_tags = BCMOLT_TAG_DEVICE;
     const bcmolt_enum_val *entry;
@@ -41299,7 +44391,8 @@ bcmolt_tag bcmolt_system_mode_tags(bcmolt_system_mode system_mode)
     return system_tags;
 }
 
-bcmolt_tag bcmolt_object_tags(bcmolt_obj_id obj)
+bcmolt_tag bcmolt_object_tags(
+    bcmolt_obj_id obj)
 {
     const bcmolt_obj_descr *obj_descr;
 
@@ -41311,7 +44404,9 @@ bcmolt_tag bcmolt_object_tags(bcmolt_obj_id obj)
     return (bcmolt_tag)obj_descr->tags;
 }
 
-bcmos_bool bcmolt_object_is_supported(bcmolt_system_mode system_mode, bcmolt_obj_id obj)
+bcmos_bool bcmolt_object_is_supported(
+    bcmolt_system_mode system_mode,
+    bcmolt_obj_id obj)
 {
     bcmolt_tag system_tags = bcmolt_system_mode_tags(system_mode);
     const bcmolt_obj_descr *obj_descr;
@@ -41322,15 +44417,17 @@ bcmos_bool bcmolt_object_is_supported(bcmolt_system_mode system_mode, bcmolt_obj
     return (obj_descr->tags & system_tags) != 0;
 }
 
-static int find_key_id_field_offset(const bcmolt_msg *msg, bcmolt_field_flags flag)
+static int _find_key_id_field_offset(
+    const bcmolt_msg *p_msg,
+    bcmolt_field_flags flag)
 {
     const bcmolt_group_descr *key;
     const bcmolt_group_descr *group;
     const bcmolt_field_descr *field;
     uint16_t i;
 
-    if ((bcmolt_api_group_descr_get(msg->obj_type, BCMOLT_MGT_GROUP_KEY, 0, &key) != BCM_ERR_OK)
-        || (bcmolt_api_group_descr_get(msg->obj_type, msg->group, msg->subgroup, &group) != BCM_ERR_OK))
+    if ((bcmolt_api_group_descr_get(p_msg->obj_type, BCMOLT_MGT_GROUP_KEY, 0, &key) != BCM_ERR_OK)
+        || (bcmolt_api_group_descr_get(p_msg->obj_type, p_msg->group, p_msg->subgroup, &group) != BCM_ERR_OK))
     {
         return (int)BCM_ERR_NOENT;
     }
@@ -41341,7 +44438,7 @@ static int find_key_id_field_offset(const bcmolt_msg *msg, bcmolt_field_flags fl
         {
             BUG_ON(key->type->x.s.fields[i].type->size != 1); /* Device/interface IDs must always be 1 byte */
             field = &key->type->x.s.fields[i];
-            if ((msg->type & BCMOLT_MSG_TYPE_MULTI) != 0)
+            if ((p_msg->type & BCMOLT_MSG_TYPE_MULTI) != 0)
             {
                 return group->multi->key_offset + field->offset;
             }
@@ -41355,54 +44452,61 @@ static int find_key_id_field_offset(const bcmolt_msg *msg, bcmolt_field_flags fl
     return (int)BCM_ERR_NOENT;
 }
 
-void bcmolt_devif_get(const bcmolt_msg *msg, bcmos_bool *has_device_id, bcmolt_ldid *device_id,
-    bcmos_bool *has_interface_id, bcmolt_interface *interface_id)
+void bcmolt_devif_get(
+    const bcmolt_msg *p_msg,
+    bcmos_bool *p_has_device_id,
+    bcmolt_ldid *p_device_id,
+    bcmos_bool *p_has_interface_id,
+    bcmolt_interface *p_interface_id)
 {
-    if (device_id != NULL)
+    if (p_device_id != NULL)
     {
-        int id_offset = find_key_id_field_offset(msg, BCMOLT_FIELD_FLAGS_DEVICE_ID);
+        int id_offset = _find_key_id_field_offset(p_msg, BCMOLT_FIELD_FLAGS_DEVICE_ID);
         if (id_offset >= 0)
         {
-            const uint8_t *val_ptr = (const uint8_t *)msg + id_offset;
-            *device_id = (bcmolt_ldid)*val_ptr;
-            *has_device_id = BCMOS_TRUE;
+            const uint8_t *val_ptr = (const uint8_t *)p_msg + id_offset;
+            *p_device_id = (bcmolt_ldid)*val_ptr;
+            *p_has_device_id = BCMOS_TRUE;
         }
         else
         {
-            *has_device_id = BCMOS_FALSE;
+            *p_has_device_id = BCMOS_FALSE;
         }
     }
 
-    if (interface_id != NULL)
+    if (p_interface_id != NULL)
     {
-        int id_offset = find_key_id_field_offset(msg, BCMOLT_FIELD_FLAGS_INTERFACE_ID);
+        int id_offset = _find_key_id_field_offset(p_msg, BCMOLT_FIELD_FLAGS_INTERFACE_ID);
         if (id_offset >= 0)
         {
-            const uint8_t *val_ptr = (const uint8_t *)msg + id_offset;
-            *interface_id = (bcmolt_interface)*val_ptr;
-            *has_interface_id = BCMOS_TRUE;
+            const uint8_t *val_ptr = (const uint8_t *)p_msg + id_offset;
+            *p_interface_id = (bcmolt_interface)*val_ptr;
+            *p_has_interface_id = BCMOS_TRUE;
         }
         else
         {
-            *has_interface_id = BCMOS_FALSE;
+            *p_has_interface_id = BCMOS_FALSE;
         }
     }
 }
 
-void bcmolt_devif_set(bcmolt_msg *msg, bcmolt_ldid device_id, bcmolt_interface interface_id)
+void bcmolt_devif_set(
+    bcmolt_msg *p_msg,
+    bcmolt_ldid device_id,
+    bcmolt_interface interface_id)
 {
-    int dev_id_offset = find_key_id_field_offset(msg, BCMOLT_FIELD_FLAGS_DEVICE_ID);
-    int intf_id_offset = find_key_id_field_offset(msg, BCMOLT_FIELD_FLAGS_INTERFACE_ID);
+    int dev_id_offset = _find_key_id_field_offset(p_msg, BCMOLT_FIELD_FLAGS_DEVICE_ID);
+    int intf_id_offset = _find_key_id_field_offset(p_msg, BCMOLT_FIELD_FLAGS_INTERFACE_ID);
 
     if (dev_id_offset >= 0)
     {
-        uint8_t *val_ptr = (uint8_t *)msg + dev_id_offset;
+        uint8_t *val_ptr = (uint8_t *)p_msg + dev_id_offset;
         *val_ptr = (uint8_t)device_id;
     }
 
     if (intf_id_offset >= 0)
     {
-        uint8_t *val_ptr = (uint8_t *)msg + intf_id_offset;
+        uint8_t *val_ptr = (uint8_t *)p_msg + intf_id_offset;
         *val_ptr = (uint8_t)interface_id;
     }
 }

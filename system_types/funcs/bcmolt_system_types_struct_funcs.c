@@ -26,100 +26,109 @@
 #include "bcmolt_system_types_struct_funcs.h"
 #include "bcmolt_system_types_enum_funcs.h"
 
-void bcmolt_ieee_demo_onu_llid_support_set_default(bcmolt_ieee_demo_onu_llid_support *obj)
+void bcmolt_ieee_demo_onu_llid_support_set_default(
+    bcmolt_ieee_demo_onu_llid_support *p_obj)
 {
-    obj->plid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
-    obj->mlid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
-    obj->bcast_plid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
-    obj->bcast_mlid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
+    p_obj->plid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
+    p_obj->mlid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
+    p_obj->bcast_plid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
+    p_obj->bcast_mlid = BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G;
 }
 
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_pack(const bcmolt_ieee_demo_onu_llid_support *obj, bcmolt_buf *buf)
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_pack(
+    const bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmolt_buf *p_buf)
 {
-    if (!bcmolt_ieee_demo_onu_llid_rate_pack(obj->plid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_pack(p_obj->plid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_pack(obj->mlid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_pack(p_obj->mlid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_pack(obj->bcast_plid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_pack(p_obj->bcast_plid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_pack(obj->bcast_mlid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_pack(p_obj->bcast_mlid, p_buf))
     {
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_unpack(bcmolt_ieee_demo_onu_llid_support *obj, bcmolt_buf *buf, void **extra_mem)
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_unpack(
+    bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmolt_buf *p_buf,
+    void **p_extra_mem)
 {
-    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&obj->plid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&p_obj->plid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&obj->mlid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&p_obj->mlid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&obj->bcast_plid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&p_obj->bcast_plid, p_buf))
     {
         return BCMOS_FALSE;
     }
-    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&obj->bcast_mlid, buf))
+    if (!bcmolt_ieee_demo_onu_llid_rate_unpack(&p_obj->bcast_mlid, p_buf))
     {
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;
 }
 
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_validate(const bcmolt_ieee_demo_onu_llid_support *obj, bcmos_errno *err, bcmolt_string *err_details)
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_validate(
+    const bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmos_errno *p_err,
+    bcmolt_string *p_err_details)
 {
-    switch (obj->plid)
+    switch (p_obj->plid)
     {
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_DISABLE:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_25G:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G:
         break;
     default:
-        *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "plid: enum value %d is unexpected\n", (int)obj->plid);
+        *p_err = BCM_ERR_RANGE;
+        bcmolt_string_append(p_err_details, "plid: enum value %d is unexpected\n", (int)p_obj->plid);
         return BCMOS_FALSE;
     }
-    switch (obj->mlid)
+    switch (p_obj->mlid)
     {
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_DISABLE:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_25G:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G:
         break;
     default:
-        *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "mlid: enum value %d is unexpected\n", (int)obj->mlid);
+        *p_err = BCM_ERR_RANGE;
+        bcmolt_string_append(p_err_details, "mlid: enum value %d is unexpected\n", (int)p_obj->mlid);
         return BCMOS_FALSE;
     }
-    switch (obj->bcast_plid)
+    switch (p_obj->bcast_plid)
     {
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_DISABLE:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_25G:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G:
         break;
     default:
-        *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "bcast_plid: enum value %d is unexpected\n", (int)obj->bcast_plid);
+        *p_err = BCM_ERR_RANGE;
+        bcmolt_string_append(p_err_details, "bcast_plid: enum value %d is unexpected\n", (int)p_obj->bcast_plid);
         return BCMOS_FALSE;
     }
-    switch (obj->bcast_mlid)
+    switch (p_obj->bcast_mlid)
     {
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_DISABLE:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_25G:
     case BCMOLT_IEEE_DEMO_ONU_LLID_RATE_SPEED_10G:
         break;
     default:
-        *err = BCM_ERR_RANGE;
-        bcmolt_string_append(err_details, "bcast_mlid: enum value %d is unexpected\n", (int)obj->bcast_mlid);
+        *p_err = BCM_ERR_RANGE;
+        bcmolt_string_append(p_err_details, "bcast_mlid: enum value %d is unexpected\n", (int)p_obj->bcast_mlid);
         return BCMOS_FALSE;
     }
     return BCMOS_TRUE;

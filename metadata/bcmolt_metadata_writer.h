@@ -37,6 +37,7 @@ typedef enum
     BCMOLT_METADATA_WRITE_STYLE_C_INIT = (1 << 3),
     BCMOLT_METADATA_WRITE_STYLE_CLI_INPUT = (1 << 4),
     BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY = (1 << 5),
+    BCMOLT_METADATA_WRITE_STYLE_DB = (1 << 6),
 } bcmolt_api_write_style;
 
 typedef void (*bcmolt_metadata_writer_write)(void *user_data, const char *format, va_list ap);

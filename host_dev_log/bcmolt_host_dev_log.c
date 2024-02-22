@@ -51,6 +51,21 @@
 dev_log_id log_group_bal;
 dev_log_id log_group_bal_core;
 dev_log_id log_group_bal_sw_util;
+dev_log_id log_group_bal_swext;
+dev_log_id log_group_bal_acl;
+dev_log_id log_group_bal_erps;
+dev_log_id log_group_bal_flow;
+dev_log_id log_group_bal_group;
+dev_log_id log_group_bal_inband;
+dev_log_id log_group_bal_mac_table;
+dev_log_id log_group_bal_lag;
+dev_log_id log_group_bal_nni;
+dev_log_id log_group_bal_policer;
+dev_log_id log_group_bal_protection;
+dev_log_id log_group_bal_sw_inni;
+dev_log_id log_group_bal_tm_qmp;
+dev_log_id log_group_bal_tm_queue;
+dev_log_id log_group_bal_tm_sched;
 dev_log_id log_group_bal_mac_util;
 dev_log_id log_group_user_appl;
 dev_log_id log_group_user_appl_itu;
@@ -101,10 +116,25 @@ static dev_log_id _register_user_appl_log_group(
 
 void bcmolt_host_dev_log_init(bcmolt_host_dev_log_flags flags)
 {
-    log_group_bal = _register_dev_mgmt_log_group(flags, "BAL", DEV_LOG_INVALID_ID);
-    log_group_bal_core = _register_dev_mgmt_log_group(flags, "BAL_CORE", log_group_bal);
-    log_group_bal_sw_util = _register_dev_mgmt_log_group(flags, "BAL_SW_UTIL", log_group_bal);
-    log_group_bal_mac_util = _register_dev_mgmt_log_group(flags, "BAL_MAC_UTIL", log_group_bal);
+    log_group_bal = _register_dev_mgmt_log_group(flags, "bal", DEV_LOG_INVALID_ID);
+    log_group_bal_core = _register_dev_mgmt_log_group(flags, "bal_core", log_group_bal);
+    log_group_bal_sw_util = _register_dev_mgmt_log_group(flags, "sw_util", log_group_bal);
+    log_group_bal_swext = _register_dev_mgmt_log_group(flags, "swext", log_group_bal);
+    log_group_bal_acl = _register_dev_mgmt_log_group(flags, "access_control", log_group_bal);
+    log_group_bal_erps = _register_dev_mgmt_log_group(flags, "erps", log_group_bal);
+    log_group_bal_flow = _register_dev_mgmt_log_group(flags, "flow", log_group_bal);
+    log_group_bal_group = _register_dev_mgmt_log_group(flags, "group", log_group_bal);
+    log_group_bal_inband = _register_dev_mgmt_log_group(flags, "inband", log_group_bal);
+    log_group_bal_mac_table = _register_dev_mgmt_log_group(flags, "mac_table", log_group_bal);
+    log_group_bal_lag = _register_dev_mgmt_log_group(flags, "lag", log_group_bal);
+    log_group_bal_nni = _register_dev_mgmt_log_group(flags, "nni", log_group_bal);
+    log_group_bal_policer = _register_dev_mgmt_log_group(flags, "policer", log_group_bal);
+    log_group_bal_protection = _register_dev_mgmt_log_group(flags, "protection", log_group_bal);
+    log_group_bal_sw_inni = _register_dev_mgmt_log_group(flags, "switch_inni", log_group_bal);
+    log_group_bal_tm_qmp = _register_dev_mgmt_log_group(flags, "tm_qmp", log_group_bal);
+    log_group_bal_tm_queue = _register_dev_mgmt_log_group(flags, "tm_queue", log_group_bal);
+    log_group_bal_tm_sched = _register_dev_mgmt_log_group(flags, "tm_sched", log_group_bal);
+    log_group_bal_mac_util = _register_dev_mgmt_log_group(flags, "mac_util", log_group_bal);
     log_group_user_appl = _register_user_appl_log_group(flags, "USER_APPL", DEV_LOG_INVALID_ID);
     log_group_user_appl_itu = _register_user_appl_log_group(flags, "USER_APPL_ITU", log_group_user_appl);
     log_group_user_appl_ieee = _register_user_appl_log_group(flags, "USER_APPL_IEEE", log_group_user_appl);

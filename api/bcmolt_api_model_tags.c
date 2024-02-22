@@ -25,269 +25,364 @@
 
 #ifdef BCMOLT_CONFIG_MODE_PROPRIETARY
 
-bcmolt_tag bcmolt_debug_get_active_tags(bcmolt_devid dev, const bcmolt_debug_key *key)
+bcmolt_tag bcmolt_debug_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_debug_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_DEBUG, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_DEBUG, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_internal_nni_serdes_get_active_tags(bcmolt_devid dev, const bcmolt_internal_nni_serdes_key *key)
+bcmolt_tag bcmolt_internal_nni_serdes_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_internal_nni_serdes_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_INTERNAL_NNI_SERDES, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_INTERNAL_NNI_SERDES, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_iwf_get_active_tags(bcmolt_devid dev, const bcmolt_iwf_key *key)
+bcmolt_tag bcmolt_iwf_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_iwf_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_iwf_ds_egress_flow_get_active_tags(bcmolt_devid dev, const bcmolt_iwf_ds_egress_flow_key *key)
+bcmolt_tag bcmolt_iwf_ds_egress_flow_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_iwf_ds_egress_flow_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_DS_EGRESS_FLOW, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_DS_EGRESS_FLOW, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_iwf_ds_ingress_flow_get_active_tags(bcmolt_devid dev, const bcmolt_iwf_ds_ingress_flow_key *key)
+bcmolt_tag bcmolt_iwf_ds_ingress_flow_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_iwf_ds_ingress_flow_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_DS_INGRESS_FLOW, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_DS_INGRESS_FLOW, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_iwf_mac_table_get_active_tags(bcmolt_devid dev, const bcmolt_iwf_mac_table_key *key)
+bcmolt_tag bcmolt_iwf_mac_table_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_iwf_mac_table_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_MAC_TABLE, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_MAC_TABLE, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_iwf_us_flow_get_active_tags(bcmolt_devid dev, const bcmolt_iwf_us_flow_key *key)
+bcmolt_tag bcmolt_iwf_us_flow_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_iwf_us_flow_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_US_FLOW, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IWF_US_FLOW, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_trx_calibration_get_active_tags(bcmolt_devid dev, const bcmolt_trx_calibration_key *key)
+bcmolt_tag bcmolt_trx_calibration_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_trx_calibration_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_TRX_CALIBRATION, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_TRX_CALIBRATION, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_xpon_serdes_get_active_tags(bcmolt_devid dev, const bcmolt_xpon_serdes_key *key)
+bcmolt_tag bcmolt_xpon_serdes_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_xpon_serdes_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_XPON_SERDES, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_XPON_SERDES, dev, p_key->pon_ni);
 }
 
 #endif
 
-bcmolt_tag bcmolt_device_get_active_tags(bcmolt_devid dev, const bcmolt_device_key *key)
+bcmolt_tag bcmolt_device_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_device_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_DEVICE, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_DEVICE, dev, p_key->device_id);
 }
 
 #ifdef BCMOLT_CONFIG_MODE_EPON
 
-bcmolt_tag bcmolt_epon_denied_link_get_active_tags(bcmolt_devid dev, const bcmolt_epon_denied_link_key *key)
+bcmolt_tag bcmolt_epon_denied_link_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_epon_denied_link_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_EPON_DENIED_LINK, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_EPON_DENIED_LINK, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_epon_link_get_active_tags(bcmolt_devid dev, const bcmolt_epon_link_key *key)
+bcmolt_tag bcmolt_epon_link_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_epon_link_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_EPON_LINK, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_EPON_LINK, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_ieee_25g_demo_onu_get_active_tags(bcmolt_devid dev, const bcmolt_ieee_25g_demo_onu_key *key)
+bcmolt_tag bcmolt_ieee_25g_demo_onu_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_ieee_25g_demo_onu_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IEEE_25G_DEMO_ONU, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IEEE_25G_DEMO_ONU, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_ieee_25g_demo_onu_epon_link_get_active_tags(bcmolt_devid dev, const bcmolt_ieee_25g_demo_onu_epon_link_key *key)
+bcmolt_tag bcmolt_ieee_25g_demo_onu_epon_link_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_ieee_25g_demo_onu_epon_link_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IEEE_25G_DEMO_ONU_EPON_LINK, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_IEEE_25G_DEMO_ONU_EPON_LINK, dev, p_key->pon_ni);
 }
 
 #endif
 
-bcmolt_tag bcmolt_access_control_get_active_tags(bcmolt_devid dev, const bcmolt_access_control_key *key)
+bcmolt_tag bcmolt_access_control_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_access_control_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_ACCESS_CONTROL);
 }
 
-bcmolt_tag bcmolt_flow_get_active_tags(bcmolt_devid dev, const bcmolt_flow_key *key)
+bcmolt_tag bcmolt_flow_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_flow_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_FLOW);
 }
 
-bcmolt_tag bcmolt_gpio_get_active_tags(bcmolt_devid dev, const bcmolt_gpio_key *key)
+bcmolt_tag bcmolt_gpio_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_gpio_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_GPIO, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_GPIO, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_group_get_active_tags(bcmolt_devid dev, const bcmolt_group_key *key)
+bcmolt_tag bcmolt_group_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_group_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_GROUP);
 }
 
-bcmolt_tag bcmolt_internal_nni_get_active_tags(bcmolt_devid dev, const bcmolt_internal_nni_key *key)
+bcmolt_tag bcmolt_internal_nni_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_internal_nni_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_INTERNAL_NNI, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_INTERNAL_NNI, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_itupon_alloc_get_active_tags(bcmolt_devid dev, const bcmolt_itupon_alloc_key *key)
+bcmolt_tag bcmolt_itupon_alloc_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_itupon_alloc_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ITUPON_ALLOC, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ITUPON_ALLOC, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_itupon_gem_get_active_tags(bcmolt_devid dev, const bcmolt_itupon_gem_key *key)
+bcmolt_tag bcmolt_itupon_gem_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_itupon_gem_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ITUPON_GEM, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ITUPON_GEM, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_log_get_active_tags(bcmolt_devid dev, const bcmolt_log_key *key)
+bcmolt_tag bcmolt_log_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_log_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_LOG, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_LOG, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_log_file_get_active_tags(bcmolt_devid dev, const bcmolt_log_file_key *key)
+bcmolt_tag bcmolt_log_file_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_log_file_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_LOG_FILE, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_LOG_FILE, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_ngpon2_channel_get_active_tags(bcmolt_devid dev, const bcmolt_ngpon2_channel_key *key)
+bcmolt_tag bcmolt_ngpon2_channel_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_ngpon2_channel_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_NGPON2_CHANNEL, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_NGPON2_CHANNEL, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_nni_interface_get_active_tags(bcmolt_devid dev, const bcmolt_nni_interface_key *key)
+bcmolt_tag bcmolt_nni_interface_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_nni_interface_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_NNI_INTERFACE);
 }
 
-bcmolt_tag bcmolt_olt_get_active_tags(bcmolt_devid dev, const bcmolt_olt_key *key)
+bcmolt_tag bcmolt_olt_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_olt_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_OLT);
 }
 
-bcmolt_tag bcmolt_onu_get_active_tags(bcmolt_devid dev, const bcmolt_onu_key *key)
+bcmolt_tag bcmolt_onu_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_onu_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ONU, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_ONU, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_pbit_to_tc_get_active_tags(bcmolt_devid dev, const bcmolt_pbit_to_tc_key *key)
+bcmolt_tag bcmolt_pbit_to_tc_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_pbit_to_tc_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_PBIT_TO_TC);
 }
 
-bcmolt_tag bcmolt_pon_interface_get_active_tags(bcmolt_devid dev, const bcmolt_pon_interface_key *key)
+bcmolt_tag bcmolt_pon_interface_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_pon_interface_key *p_key)
 {
-    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_PON_INTERFACE, dev, key->pon_ni);
+    return bcmolt_pon_object_get_active_tags(BCMOLT_OBJ_ID_PON_INTERFACE, dev, p_key->pon_ni);
 }
 
-bcmolt_tag bcmolt_software_error_get_active_tags(bcmolt_devid dev, const bcmolt_software_error_key *key)
+bcmolt_tag bcmolt_software_error_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_software_error_key *p_key)
 {
-    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_SOFTWARE_ERROR, dev, key->device_id);
+    return bcmolt_device_object_get_active_tags(BCMOLT_OBJ_ID_SOFTWARE_ERROR, dev, p_key->device_id);
 }
 
-bcmolt_tag bcmolt_tc_to_queue_get_active_tags(bcmolt_devid dev, const bcmolt_tc_to_queue_key *key)
+bcmolt_tag bcmolt_tc_to_queue_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_tc_to_queue_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_TC_TO_QUEUE);
 }
 
-bcmolt_tag bcmolt_tm_queue_get_active_tags(bcmolt_devid dev, const bcmolt_tm_queue_key *key)
+bcmolt_tag bcmolt_tm_queue_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_tm_queue_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_TM_QUEUE);
 }
 
-bcmolt_tag bcmolt_tm_sched_get_active_tags(bcmolt_devid dev, const bcmolt_tm_sched_key *key)
+bcmolt_tag bcmolt_tm_queue_profile_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_tm_queue_profile_key *p_key)
 {
-    (void)key;
+    (void)p_key;
+    return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_TM_QUEUE_PROFILE);
+}
+
+bcmolt_tag bcmolt_tm_sched_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_tm_sched_key *p_key)
+{
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_TM_SCHED);
 }
 
-bcmolt_tag bcmolt_tm_qmp_get_active_tags(bcmolt_devid dev, const bcmolt_tm_qmp_key *key)
+bcmolt_tag bcmolt_tm_qmp_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_tm_qmp_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_TM_QMP);
 }
 
-bcmolt_tag bcmolt_erps_interface_get_active_tags(bcmolt_devid dev, const bcmolt_erps_interface_key *key)
+bcmolt_tag bcmolt_erps_interface_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_erps_interface_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_ERPS_INTERFACE);
 }
 
-bcmolt_tag bcmolt_eth_oam_get_active_tags(bcmolt_devid dev, const bcmolt_eth_oam_key *key)
+bcmolt_tag bcmolt_eth_oam_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_eth_oam_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_ETH_OAM);
 }
 
-bcmolt_tag bcmolt_protection_interface_get_active_tags(bcmolt_devid dev, const bcmolt_protection_interface_key *key)
+bcmolt_tag bcmolt_protection_interface_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_protection_interface_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_PROTECTION_INTERFACE);
 }
 
-bcmolt_tag bcmolt_inband_mgmt_channel_get_active_tags(bcmolt_devid dev, const bcmolt_inband_mgmt_channel_key *key)
+bcmolt_tag bcmolt_inband_mgmt_channel_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_inband_mgmt_channel_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_INBAND_MGMT_CHANNEL);
 }
 
-bcmolt_tag bcmolt_policer_profile_get_active_tags(bcmolt_devid dev, const bcmolt_policer_profile_key *key)
+bcmolt_tag bcmolt_policer_profile_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_policer_profile_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_POLICER_PROFILE);
 }
 
-bcmolt_tag bcmolt_switch_inni_get_active_tags(bcmolt_devid dev, const bcmolt_switch_inni_key *key)
+bcmolt_tag bcmolt_switch_inni_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_switch_inni_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_SWITCH_INNI);
 }
 
-bcmolt_tag bcmolt_lag_interface_get_active_tags(bcmolt_devid dev, const bcmolt_lag_interface_key *key)
+bcmolt_tag bcmolt_lag_interface_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_lag_interface_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_LAG_INTERFACE);
 }
 
-bcmolt_tag bcmolt_bal_system_get_active_tags(bcmolt_devid dev, const bcmolt_bal_system_key *key)
+bcmolt_tag bcmolt_bal_system_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_bal_system_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_BAL_SYSTEM);
 }
 
-bcmolt_tag bcmolt_api_msg_get_active_tags(bcmolt_oltid olt, const bcmolt_msg *msg)
+bcmolt_tag bcmolt_api_msg_get_active_tags(
+    bcmolt_oltid olt,
+    const bcmolt_msg *p_msg)
 {
     bcmos_errno err;
     const bcmolt_obj_descr *obj;
     const bcmolt_group_descr *group;
-    void *key;
+    void *p_key;
     uint32_t tags;
 
-    err = bcmolt_api_obj_descr_get(msg->obj_type, &obj);
+    err = bcmolt_api_obj_descr_get(p_msg->obj_type, &obj);
     BUG_ON(err != BCM_ERR_OK);
 
-    err = bcmolt_api_group_descr_get(msg->obj_type, msg->group, msg->subgroup, &group);
+    err = bcmolt_api_group_descr_get(p_msg->obj_type, p_msg->group, p_msg->subgroup, &group);
     BUG_ON(err != BCM_ERR_OK);
 
-    if ((msg->type & BCMOLT_MSG_TYPE_MULTI) != 0)
+    if ((p_msg->type & BCMOLT_MSG_TYPE_MULTI) != 0)
     {
-        key = (void *)((long)msg + group->multi->key_offset);
+        p_key = (void *)((long)p_msg + group->multi->key_offset);
     }
     else
     {
-        key = (void *)((long)msg + group->key_offset);
+        p_key = (void *)((long)p_msg + group->key_offset);
     }
 
-    tags = obj->get_active_tags(olt, key);
+    tags = obj->get_active_tags(olt, p_key);
 
     return (bcmolt_tag)tags;
 }
 
-static bcmolt_tag bcmolt_chip_family_tags(bcmolt_chip_family chip)
+static bcmolt_tag _chip_family_tags(
+    bcmolt_chip_family chip)
 {
     switch (chip)
     {
@@ -302,14 +397,16 @@ static bcmolt_tag bcmolt_chip_family_tags(bcmolt_chip_family chip)
     }
 }
 
-static bcmolt_tag bcmolt_common_active_tags(bcmolt_chip_family chip_family)
+static bcmolt_tag _common_active_tags(
+    bcmolt_chip_family chip_family)
 {
     bcmolt_tag active_tags = (bcmolt_tag)(BCMOLT_TAG_DEVICE | BCMOLT_TAG_SYSTEM);
-    active_tags |= bcmolt_chip_family_tags(chip_family);
+    active_tags |= _chip_family_tags(chip_family);
     return active_tags;
 }
 
-static bcmolt_tag bcmolt_pon_type_get_tags(bcmolt_pon_type pon_type)
+static bcmolt_tag _pon_type_get_tags(
+    bcmolt_pon_type pon_type)
 {
     for (const bcmolt_enum_val *enum_val = bcmolt_pon_type_string_table;
          enum_val->name != NULL;
@@ -324,9 +421,11 @@ static bcmolt_tag bcmolt_pon_type_get_tags(bcmolt_pon_type pon_type)
     return BCMOLT_TAG__NONE;
 }
 
-bcmolt_tag bcmolt_dev_get_active_tags(bcmolt_system_mode system_mode, bcmolt_chip_family chip_family)
+bcmolt_tag bcmolt_dev_get_active_tags(
+    bcmolt_system_mode system_mode,
+    bcmolt_chip_family chip_family)
 {
-    bcmolt_tag active_tags = bcmolt_common_active_tags(chip_family);
+    bcmolt_tag active_tags = _common_active_tags(chip_family);
     active_tags |= bcmolt_system_mode_tags(system_mode);
     return active_tags;
 }
@@ -336,7 +435,7 @@ bcmolt_tag bcmolt_pon_get_active_tags(
     bcmolt_chip_family chip_family,
     bcmolt_pon_type pon_type)
 {
-    bcmolt_tag active_tags = bcmolt_common_active_tags(chip_family);
+    bcmolt_tag active_tags = _common_active_tags(chip_family);
 
     switch (pon_type)
     {
@@ -357,14 +456,16 @@ bcmolt_tag bcmolt_pon_get_active_tags(
         break;
 #endif
     default:
-        active_tags |= bcmolt_pon_type_get_tags(pon_type);
+        active_tags |= _pon_type_get_tags(pon_type);
         break;
     }
 
     return active_tags;
 }
 
-bcmolt_pon_type bcmolt_pon_get_type(bcmolt_oltid olt_id, bcmolt_pon_ni pon_ni)
+bcmolt_pon_type bcmolt_pon_get_type(
+    bcmolt_oltid olt_id,
+    bcmolt_pon_ni pon_ni)
 {
     bcmolt_pon_interface_key pon_key = { .pon_ni = pon_ni };
     bcmolt_pon_interface_cfg pon_cfg = { };
@@ -383,14 +484,27 @@ bcmolt_pon_type bcmolt_pon_get_type(bcmolt_oltid olt_id, bcmolt_pon_ni pon_ni)
     }
 }
 
-bcmolt_tag bcmolt_host_log_file_get_active_tags(bcmolt_devid dev, const bcmolt_host_log_file_key *key)
+bcmolt_tag bcmolt_host_log_file_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_host_log_file_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_HOST_LOG_FILE);
 }
 
-bcmolt_tag bcmolt_host_log_get_active_tags(bcmolt_devid dev, const bcmolt_host_log_key *key)
+bcmolt_tag bcmolt_host_log_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_host_log_key *p_key)
 {
-    (void)key;
+    (void)p_key;
     return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_HOST_LOG);
 }
+
+bcmolt_tag bcmolt_l2_mac_table_get_active_tags(
+    bcmolt_devid dev,
+    const bcmolt_l2_mac_table_key *p_key)
+{
+    (void)p_key;
+    return bcmolt_system_object_get_active_tags(BCMOLT_OBJ_ID_L2_MAC_TABLE);
+}
+

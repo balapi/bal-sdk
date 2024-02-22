@@ -27,185 +27,203 @@
 #include <bcmolt_buf.h>
 #include "bcmolt_system_types_enums.h"
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_conn_type_pack(
     bcmolt_conn_type obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_conn_type_unpack(
-    bcmolt_conn_type *obj,
-    bcmolt_buf *buf);
+    bcmolt_conn_type *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_conn_type_mask_pack(
     bcmolt_conn_type_mask obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_conn_type_mask_unpack(
-    bcmolt_conn_type_mask *obj,
-    bcmolt_buf *buf);
+    bcmolt_conn_type_mask *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_energy_detect_source_pack(
     bcmolt_energy_detect_source obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_energy_detect_source_unpack(
-    bcmolt_energy_detect_source *obj,
-    bcmolt_buf *buf);
+    bcmolt_energy_detect_source *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_epon_link_rate_pack(
     bcmolt_epon_link_rate obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_epon_link_rate_unpack(
-    bcmolt_epon_link_rate *obj,
-    bcmolt_buf *buf);
+    bcmolt_epon_link_rate *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_flow_control_mode_pack(
     bcmolt_flow_control_mode obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_flow_control_mode_unpack(
-    bcmolt_flow_control_mode *obj,
-    bcmolt_buf *buf);
+    bcmolt_flow_control_mode *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_ieee_demo_onu_llid_rate_pack(
     bcmolt_ieee_demo_onu_llid_rate obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_ieee_demo_onu_llid_rate_unpack(
-    bcmolt_ieee_demo_onu_llid_rate *obj,
-    bcmolt_buf *buf);
+    bcmolt_ieee_demo_onu_llid_rate *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_ieee_demo_onu_loopback_mode_pack(
     bcmolt_ieee_demo_onu_loopback_mode obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_ieee_demo_onu_loopback_mode_unpack(
-    bcmolt_ieee_demo_onu_loopback_mode *obj,
-    bcmolt_buf *buf);
+    bcmolt_ieee_demo_onu_loopback_mode *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_inni_mode_pack(
     bcmolt_inni_mode obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_inni_mode_unpack(
-    bcmolt_inni_mode *obj,
-    bcmolt_buf *buf);
+    bcmolt_inni_mode *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Packs an enumeration to bytes for transmission on the wire.
-  *
-  * \param obj The enumeration to pack.
-  * \param buf Pointer to the buffer to write to.
-  * \return Whether or not the pack was successful.
-  */
+/**
+ * @brief Packs an enumeration to bytes for transmission on the wire.
+ *
+ * @param[in]     obj    The enumeration to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return Whether or not the pack was successful.
+ */
 bcmos_bool bcmolt_inni_mux_pack(
     bcmolt_inni_mux obj,
-    bcmolt_buf *buf);
+    bcmolt_buf *p_buf);
 
-/** Unpacks an enumeration from bytes as received on the wire.
-  *
-  * \param obj Pointer to the enumeration to unpack.
-  * \param buf Pointer to the buffer to read from.
-  * \return Whether or not the unpack was successful.
-  */
+/**
+ * @brief Unpacks an enumeration from bytes as received on the wire.
+ *
+ * @param[in,out] p_obj  Pointer to the enumeration to unpack.
+ * @param[in,out] p_buf  Pointer to the buffer to read from.
+ * @return Whether or not the unpack was successful.
+ */
 bcmos_bool bcmolt_inni_mux_unpack(
-    bcmolt_inni_mux *obj,
-    bcmolt_buf *buf);
+    bcmolt_inni_mux *p_obj,
+    bcmolt_buf *p_buf);
 
 
 

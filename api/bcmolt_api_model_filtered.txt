@@ -200,6 +200,7 @@ Removed types:
 - alarm_status
 - alloc_type_to_scan
 - auto_rogue_detect_10g
+- ba_factors
 - ba_fairness_method
 - bandwidth_kbps
 - bcdr_resync_pattern_configuration
@@ -239,6 +240,7 @@ Removed types:
 - epon_link_alarm_state
 - epon_link_deregister_reason
 - epon_link_info
+- epon_link_rate_bitmap
 - epon_link_state
 - epon_link_status
 - epon_link_type
@@ -349,6 +351,7 @@ Removed types:
 - polling_interval
 - pon_aggregate_shaper
 - pon_dba
+- pon_eye_test_failure_reason
 - pon_protection_switching
 - pon_rx_dfe
 - pon_rx_termination

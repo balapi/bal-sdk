@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.4</span>
+   &#160;<span id="projectnumber">3.12.10</span>
    </div>
   </td>
  </tr>
@@ -138,6 +138,7 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__flow__auto__cfg.html#abfe909efa7735c120d3f71744b607827">bcmolt_flow_auto_cfg</a>
 , <a class="el" href="structbcmolt__flow__cfg.html#a80bebc9f044c5b68f4c0a63ff787b88f">bcmolt_flow_cfg</a>
 , <a class="el" href="structbcmolt__flow__send__eth__packet.html#a40d213fbc7b3a070648c13cd2e132b4f">bcmolt_flow_send_eth_packet</a>
+, <a class="el" href="structbcmolt__flow__src__binding__update.html#aef2dfbd9ddacfcddd7111ea0d4b213d9">bcmolt_flow_src_binding_update</a>
 , <a class="el" href="structbcmolt__flow__stats.html#ae96738705dd082d6d6abc3c0972820d2">bcmolt_flow_stats</a>
 , <a class="el" href="structbcmolt__flow__stats__alarm__cleared.html#a64aa347a9b714a8da510827a4649230e">bcmolt_flow_stats_alarm_cleared</a>
 , <a class="el" href="structbcmolt__flow__stats__alarm__raised.html#a941458f70493a90911ded043a863b6c1">bcmolt_flow_stats_alarm_raised</a>
@@ -163,11 +164,19 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__internal__nni__packet__captured.html#a5de9128403995f23becc4abc037ca975">bcmolt_internal_nni_packet_captured</a>
 , <a class="el" href="structbcmolt__internal__nni__send__eth__packet.html#ae2fb20d6391907ec834ac0d72eecc6bb">bcmolt_internal_nni_send_eth_packet</a>
 , <a class="el" href="structbcmolt__internal__nni__status__changed.html#a3f43a08f7edecb417aec2e1da9b7b8b0">bcmolt_internal_nni_status_changed</a>
+, <a class="el" href="structbcmolt__itupon__alloc__alloc__onu__accumulated__stats.html#a6ad961ec1d8e2d1c30063fb58d89bec7">bcmolt_itupon_alloc_alloc_onu_accumulated_stats</a>
+, <a class="el" href="structbcmolt__itupon__alloc__alloc__onu__accumulated__stats__alarm__cleared.html#a2f0a5b4607c561e3dbcdca4621b8758d">bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared</a>
+, <a class="el" href="structbcmolt__itupon__alloc__alloc__onu__accumulated__stats__alarm__raised.html#a573542891477266cf94aa29c05cbe0ed">bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised</a>
+, <a class="el" href="structbcmolt__itupon__alloc__alloc__onu__accumulated__stats__cfg.html#a655034f42ae55a3bd5557c9606a74cbb">bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg</a>
 , <a class="el" href="structbcmolt__itupon__alloc__auto__cfg.html#acbb1ba3ea2eb6b983e1cec19b0924590">bcmolt_itupon_alloc_auto_cfg</a>
 , <a class="el" href="structbcmolt__itupon__alloc__cfg.html#ae037cfb23e6479cdcb3580b2dccd71d9">bcmolt_itupon_alloc_cfg</a>
 , <a class="el" href="structbcmolt__itupon__alloc__configuration__completed.html#a1e013aa97fdeb4b2d5bbd5e6ceeb36fa">bcmolt_itupon_alloc_configuration_completed</a>
 , <a class="el" href="structbcmolt__itupon__alloc__get__alloc__stats__completed.html#a36619fc66b09a8cd26217b9f400db8c4">bcmolt_itupon_alloc_get_alloc_stats_completed</a>
 , <a class="el" href="structbcmolt__itupon__alloc__get__stats.html#a145949b9a70dfa8efc40d317c77c5752">bcmolt_itupon_alloc_get_stats</a>
+, <a class="el" href="structbcmolt__itupon__alloc__latency__stats.html#a45377e27b3f50f0852fd6c791a9d98c1">bcmolt_itupon_alloc_latency_stats</a>
+, <a class="el" href="structbcmolt__itupon__alloc__latency__stats__alarm__cleared.html#ab906ee9018540ea7b5da1ef3cd052d9a">bcmolt_itupon_alloc_latency_stats_alarm_cleared</a>
+, <a class="el" href="structbcmolt__itupon__alloc__latency__stats__alarm__raised.html#a315d78efa3b7a52cc5a189163d7d1c15">bcmolt_itupon_alloc_latency_stats_alarm_raised</a>
+, <a class="el" href="structbcmolt__itupon__alloc__latency__stats__cfg.html#a64777f0bf9c7af6b950322d92dab1584">bcmolt_itupon_alloc_latency_stats_cfg</a>
 , <a class="el" href="structbcmolt__itupon__alloc__set__state.html#a4f2dc86b2beeedcc7504ceb53dbfbb08">bcmolt_itupon_alloc_set_state</a>
 , <a class="el" href="structbcmolt__itupon__alloc__stats.html#a48404c74aea582c2a2121d2acc7ee5d8">bcmolt_itupon_alloc_stats</a>
 , <a class="el" href="structbcmolt__itupon__alloc__stats__alarm__cleared.html#ae9bd8a695215a29973c84ad56791d6da">bcmolt_itupon_alloc_stats_alarm_cleared</a>
@@ -181,6 +190,12 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__itupon__gem__stats__alarm__cleared.html#a1d2aff29317f9bff3afc3e7c84edb2e1">bcmolt_itupon_gem_stats_alarm_cleared</a>
 , <a class="el" href="structbcmolt__itupon__gem__stats__alarm__raised.html#ab460ba85d4c012f0fbe9deb8836ce0dc">bcmolt_itupon_gem_stats_alarm_raised</a>
 , <a class="el" href="structbcmolt__itupon__gem__stats__cfg.html#a608d67f82fd27fb4b7966e1bd883ca05">bcmolt_itupon_gem_stats_cfg</a>
+, <a class="el" href="structbcmolt__l2__mac__table__auto__cfg.html#a22e5370bf7a033dc77821b7d57efa150">bcmolt_l2_mac_table_auto_cfg</a>
+, <a class="el" href="structbcmolt__l2__mac__table__cfg.html#ab07d3534952be8bf2d2f43477c584f4e">bcmolt_l2_mac_table_cfg</a>
+, <a class="el" href="structbcmolt__l2__mac__table__dump.html#a9274bcdf83242c3747d38776c7b0222e">bcmolt_l2_mac_table_dump</a>
+, <a class="el" href="structbcmolt__l2__mac__table__dump__complete.html#a6873dc696607e6da969db58202bd36ea">bcmolt_l2_mac_table_dump_complete</a>
+, <a class="el" href="structbcmolt__l2__mac__table__network__events.html#a97ebb18a411d20ce1afd0b0a911a66f9">bcmolt_l2_mac_table_network_events</a>
+, <a class="el" href="structbcmolt__l2__mac__table__pon__events.html#a2888d2f130f15b623cc7bc5982cb287f">bcmolt_l2_mac_table_pon_events</a>
 , <a class="el" href="structbcmolt__lag__interface__auto__cfg.html#a3a90228b98a6c19013372e87a6134b42">bcmolt_lag_interface_auto_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__cfg.html#a2f93d86256d3ae883d4b553ee4d1de6e">bcmolt_lag_interface_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__complete__members__update.html#a02e4dca1cec989d2dee0fd23ad6af254">bcmolt_lag_interface_complete_members_update</a>
@@ -223,6 +238,10 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__onu__err.html#a439835092ce8f6fea65095bec1e76bc1">bcmolt_onu_err</a>
 , <a class="el" href="structbcmolt__onu__gpon__alarm.html#a154c78b547c723940e8c7eb3ba8e33f7">bcmolt_onu_gpon_alarm</a>
 , <a class="el" href="structbcmolt__onu__invalid__dbru__report.html#acd72b50bb670288f787f39203ea81637">bcmolt_onu_invalid_dbru_report</a>
+, <a class="el" href="structbcmolt__onu__itu__alloc__onu__accumulated__stats.html#a4b322105defa29be630c1a68a0360340">bcmolt_onu_itu_alloc_onu_accumulated_stats</a>
+, <a class="el" href="structbcmolt__onu__itu__alloc__onu__accumulated__stats__alarm__cleared.html#a102bf56ed5ed54dfb4ea990026e904e8">bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared</a>
+, <a class="el" href="structbcmolt__onu__itu__alloc__onu__accumulated__stats__alarm__raised.html#a62c60cbdc1f9b9ffcd01a3bc3e06b14f">bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised</a>
+, <a class="el" href="structbcmolt__onu__itu__alloc__onu__accumulated__stats__cfg.html#a70463864cca6699c9b11a2aba8b85646">bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg</a>
 , <a class="el" href="structbcmolt__onu__itu__pon__stats.html#ab7519773b6e462b057df730802c2af54">bcmolt_onu_itu_pon_stats</a>
 , <a class="el" href="structbcmolt__onu__itu__pon__stats__alarm__cleared.html#a6d856bb845e0a15d98928b234e2f5906">bcmolt_onu_itu_pon_stats_alarm_cleared</a>
 , <a class="el" href="structbcmolt__onu__itu__pon__stats__alarm__raised.html#a29542044d1df38d38c5fb21ca2b4ad22">bcmolt_onu_itu_pon_stats_alarm_raised</a>
@@ -317,6 +336,7 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__software__error__cfg.html#a21b8e8349f72d17b7c60524091e907d4">bcmolt_software_error_cfg</a>
 , <a class="el" href="structbcmolt__switch__inni__auto__cfg.html#af3dadf053ca41f5f6cc76aa808016ab2">bcmolt_switch_inni_auto_cfg</a>
 , <a class="el" href="structbcmolt__switch__inni__cfg.html#a1f7897200141a8c38c6dec916d8f16e2">bcmolt_switch_inni_cfg</a>
+, <a class="el" href="structbcmolt__switch__inni__link__state__change.html#af07e75c4c4e5c5c90a1bf5a1580a6201">bcmolt_switch_inni_link_state_change</a>
 , <a class="el" href="structbcmolt__switch__inni__stats.html#a2d2793e772642dcee99da43518ddd60e">bcmolt_switch_inni_stats</a>
 , <a class="el" href="structbcmolt__switch__inni__stats__alarm__cleared.html#ada9e37d6bafc721785d7242f58265e2d">bcmolt_switch_inni_stats_alarm_cleared</a>
 , <a class="el" href="structbcmolt__switch__inni__stats__alarm__raised.html#a03c2952e45a49c6b2c6be44d3eda0152">bcmolt_switch_inni_stats_alarm_raised</a>
@@ -324,6 +344,7 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 , <a class="el" href="structbcmolt__tc__to__queue__cfg.html#a4e9afcecba783a049fa8bf26b71c9746">bcmolt_tc_to_queue_cfg</a>
 , <a class="el" href="structbcmolt__tm__qmp__cfg.html#a89514bd92c16721e913a5f9a7346da90">bcmolt_tm_qmp_cfg</a>
 , <a class="el" href="structbcmolt__tm__queue__cfg.html#ad35ba72f69ce74c94ac0291517ec2a68">bcmolt_tm_queue_cfg</a>
+, <a class="el" href="structbcmolt__tm__queue__profile__cfg.html#a356d33693f10a473c08519a7168ead96">bcmolt_tm_queue_profile_cfg</a>
 , <a class="el" href="structbcmolt__tm__sched__cfg.html#a8d98648d6aa3abf10102f80628814572">bcmolt_tm_sched_cfg</a>
 </li>
 <li>data_burst_profile
@@ -356,6 +377,12 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 <li>debug
 : <a class="el" href="structbcmolt__device__cfg__data.html#a965c2513b868ce8b06b09b17d04ae0a9">bcmolt_device_cfg_data</a>
 , <a class="el" href="structbcmolt__log__level__msg__count.html#a84360ac08d9be11f221466122d8cdc65">bcmolt_log_level_msg_count</a>
+</li>
+<li>debug_bas_code
+: <a class="el" href="structbcmolt__device__cfg__data.html#aa1b8403fafcaa97b79ff27d65ef4077f">bcmolt_device_cfg_data</a>
+</li>
+<li>debug_bas_enabled
+: <a class="el" href="structbcmolt__device__cfg__data.html#a640f5662534be2f80156d3d35bef4a57">bcmolt_device_cfg_data</a>
 </li>
 <li>debug_flow_config
 : <a class="el" href="structbcmolt__itupon__gem__cfg__data.html#a4711ad327fef39df3979a65160e0f2dd">bcmolt_itupon_gem_cfg_data</a>
@@ -451,6 +478,9 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 <li>discovery
 : <a class="el" href="structbcmolt__pon__interface__cfg__data.html#a715c7cc30347063a0ce3d1979892e383">bcmolt_pon_interface_cfg_data</a>
 </li>
+<li>domain
+: <a class="el" href="structbcmolt__l2__dump__filters.html#ad8b1f9e7e5f9d25e0bed9f56907ebe2e">bcmolt_l2_dump_filters</a>
+</li>
 <li>dowi
 : <a class="el" href="structbcmolt__gpon__onu__alarm__state.html#a5666cb668f9031f07d12929f297b870f">bcmolt_gpon_onu_alarm_state</a>
 , <a class="el" href="structbcmolt__onu__auto__cfg__data.html#aaab9a9b491c43c19afcd3c8e5d2a058b">bcmolt_onu_auto_cfg_data</a>
@@ -513,6 +543,12 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
 <li>dst_port_range
 : <a class="el" href="structbcmolt__classifier.html#af841b275dd8c364a06bc914f0752db6b">bcmolt_classifier</a>
 </li>
+<li>dump_complete
+: <a class="el" href="structbcmolt__l2__mac__table__auto__cfg__data.html#adc54940ea04c01f2d7d574ea62c191aa">bcmolt_l2_mac_table_auto_cfg_data</a>
+</li>
+<li>dump_status
+: <a class="el" href="structbcmolt__l2__mac__table__cfg__data.html#ae1600a2e7e4fc1c8a2fd233f07cd0275">bcmolt_l2_mac_table_cfg_data</a>
+</li>
 <li>duplex
 : <a class="el" href="structbcmolt__nni__interface__cfg__data.html#a1de8b6713de2ad0f23cb47cf167bfb3b">bcmolt_nni_interface_cfg_data</a>
 </li>
@@ -528,7 +564,7 @@ $(document).ready(function(){initNavTree('functions_vars_d.html',''); initResiza
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.10 </li>
   </ul>
 </div>
 </body>
