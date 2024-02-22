@@ -38,6 +38,25 @@ static bcmolt_devid current_device;
  * CLI handlers
  */
 
+static bcmos_errno _bcmtr_cld_cli_get_level(bcmcli_session *session, bcmtr_cld_filter *filter, const char *desc)
+{
+    bcmtr_cld_type level;
+    bcmos_errno rc;
+
+    rc = bcmtr_cld_level_get(current_device, filter, &level);
+    if (rc != BCM_ERR_OK)
+        return rc;
+
+    bcmcli_session_print(session, "%s={capture:%s log:%s dump:%s cli:%s}\n",
+        desc,
+        (level & BCMTR_CLD_CAPTURE) ? "on" : "off",
+        (level & BCMTR_CLD_LOG) ? "on" : "off",
+        ((level & BCMTR_CLD_DUMP) == BCMTR_CLD_DUMP) ? "all" : (level & BCMTR_CLD_DUMP_HDR) ? "headers" : "off",
+        (level & BCMTR_CLD_CLI) ? "on" : "off");
+
+    return rc;
+}
+
 static bcmos_errno _bcmtr_cld_cli_setget_level(bcmcli_session *session, const bcmcli_cmd_parm parm[], uint16_t nparms)
 {
     bcmcli_number obj = bcmcli_parm_get(session, "object")->value.number;
@@ -45,9 +64,11 @@ static bcmos_errno _bcmtr_cld_cli_setget_level(bcmcli_session *session, const bc
     bcmcli_number group = grp_parm ? grp_parm->value.number : -1;
     bcmcli_cmd_parm *subgrp_parm = bcmcli_parm_get(session, "subgroup");
     bcmcli_number subgroup = subgrp_parm ? subgrp_parm->value.number : -1;
+    bcmcli_cmd_parm *msg_type_parm = bcmcli_find_named_parm(session, "msg_type");
+    bcmtr_cld_msg_type msg_type = msg_type_parm ? (bcmtr_cld_msg_type)msg_type_parm->value.number : BCMTR_CLD_MSG_TYPE_ANY;
     bcmtr_cld_type level = (bcmtr_cld_type)bcmcli_parm_get(session, "level")->value.number;
     bcmtr_cld_filter filter = {};
-    bcmos_errno rc;
+    bcmos_errno rc = BCM_ERR_OK;
 
     if (obj == -1 || !bcmcli_parm_is_set(session, bcmcli_parm_get(session, "object")))
     {
@@ -79,19 +100,32 @@ static bcmos_errno _bcmtr_cld_cli_setget_level(bcmcli_session *session, const bc
     /* Get or set level ? */
     if (bcmcli_parm_is_set(session, bcmcli_parm_get(session, "level")))
     {
-        rc = bcmtr_cld_level_set(current_device, &filter, level);
+        if (msg_type == BCMTR_CLD_MSG_TYPE_SET || msg_type == BCMTR_CLD_MSG_TYPE_ANY)
+        {
+            filter.msg_type = BCMTR_CLD_MSG_TYPE_SET;
+            rc = bcmtr_cld_level_set(current_device, &filter, level);
+        }
+        if (msg_type == BCMTR_CLD_MSG_TYPE_GET || msg_type == BCMTR_CLD_MSG_TYPE_ANY)
+        {
+            filter.msg_type = BCMTR_CLD_MSG_TYPE_GET;
+            rc = bcmtr_cld_level_set(current_device, &filter, level);
+        }
     }
     else
     {
-        rc = bcmtr_cld_level_get(current_device, &filter, &level);
-        if (rc == BCM_ERR_OK)
+        if (msg_type == BCMTR_CLD_MSG_TYPE_SET || msg_type == BCMTR_CLD_MSG_TYPE_ANY)
         {
-            bcmcli_session_print(session, "capture:%s log:%s dump:%s cli:%s\n",
-                (level & BCMTR_CLD_CAPTURE) ? "on" : "off",
-                (level & BCMTR_CLD_LOG) ? "on" : "off",
-                ((level & BCMTR_CLD_DUMP) == BCMTR_CLD_DUMP) ? "all" :
-                    (level & BCMTR_CLD_DUMP_HDR) ? "headers" : "off",
-                (level & BCMTR_CLD_CLI) ? "on" : "off");
+            filter.msg_type = BCMTR_CLD_MSG_TYPE_SET;
+            rc = _bcmtr_cld_cli_get_level(session, &filter, "SET");
+            if (rc != BCM_ERR_OK)
+                return rc;
+        }
+        if (msg_type == BCMTR_CLD_MSG_TYPE_GET || msg_type == BCMTR_CLD_MSG_TYPE_ANY)
+        {
+            filter.msg_type = BCMTR_CLD_MSG_TYPE_GET;
+            rc = _bcmtr_cld_cli_get_level(session, &filter, "GET");
+            if (rc != BCM_ERR_OK)
+                return rc;
         }
     }
 
@@ -250,9 +284,17 @@ static bcmos_errno _bcmtr_cld_add_level_cmd(bcmcli_entry *dir)
     int n_obj = 0;
     bcmolt_obj_id o;
     bcmos_errno rc = BCM_ERR_NOMEM;
+    static bcmcli_enum_val msg_type_table[] =
+    {
+        { .name = "set", .val = BCMTR_CLD_MSG_TYPE_SET },
+        { .name = "get", .val = BCMTR_CLD_MSG_TYPE_GET },
+        { .name = "any", .val = BCMTR_CLD_MSG_TYPE_ANY },
+        BCMCLI_ENUM_LAST
+    };
+    bcmcli_enum_val *msg_type_table_dup;
 
-    /* Allocate top level parameters: object selector, level, terminator */
-    cmd_parms = bcmos_calloc(sizeof(bcmcli_cmd_parm) * 3);
+    /* Allocate top level parameters: object selector, msg_type, level, terminator */
+    cmd_parms = bcmos_calloc(sizeof(bcmcli_cmd_parm) * 4);
     if (!cmd_parms)
     {
         return BCM_ERR_NOMEM;
@@ -271,9 +313,18 @@ static bcmos_errno _bcmtr_cld_add_level_cmd(bcmcli_entry *dir)
     cmd_parms[0].flags = BCMCLI_PARM_FLAG_SELECTOR;
     cmd_parms[0].enum_table = obj_selector;
 
-    rc = rc ? rc : _bcmtr_cld_copy_parm_name(&cmd_parms[1], "level", "Level bitmask: 1=capture,2=log,4=print hdr,8=print body,16=CLI");
-    cmd_parms[1].type = BCMCLI_PARM_DECIMAL;
+    rc = rc ? rc : _bcmtr_cld_copy_parm_name(&cmd_parms[1], "msg_type", "msg_type");
+    cmd_parms[1].type = BCMCLI_PARM_ENUM;
     cmd_parms[1].flags = BCMCLI_PARM_FLAG_OPTIONAL;
+    /* Because the free function _bcmtr_cld_free_level_parms() assumes all parameters are dynamically allocated (bcmos_calloc()), we duplicate the static array 'msg_type_table'. */ 
+    cmd_parms[1].enum_table = msg_type_table_dup = bcmos_calloc(sizeof(bcmcli_enum_val) * BCM_SIZEOFARRAY(msg_type_table));
+    if (!msg_type_table_dup)
+        goto cleanup;
+    memcpy(msg_type_table_dup, msg_type_table, sizeof(msg_type_table));
+
+    rc = rc ? rc : _bcmtr_cld_copy_parm_name(&cmd_parms[2], "level", "Level bitmask: 1=capture,2=log,4=print hdr,8=print body,16=CLI");
+    cmd_parms[2].type = BCMCLI_PARM_DECIMAL;
+    cmd_parms[2].flags = BCMCLI_PARM_FLAG_OPTIONAL;
 
     /* obj_selector[0] is reserved for *all */
     obj_selector[0].name = all_name;
@@ -328,8 +379,8 @@ static bcmos_errno _bcmtr_cld_add_level_cmd(bcmcli_entry *dir)
             grp_selector[n_grp].val = g;
 
             /* Skip subgroup selector for groups that don't support it */
-            if (g != BCMOLT_MGT_GROUP_AUTO      &&
-                g != BCMOLT_MGT_GROUP_OPER      &&
+            if (g != BCMOLT_MGT_GROUP_AUTO &&
+                g != BCMOLT_MGT_GROUP_OPER &&
                 g != BCMOLT_MGT_GROUP_STAT)
             {
                 continue;

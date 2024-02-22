@@ -30,9 +30,9 @@
 #include <bcmolt_api_macros.h>
 #include <bcmolt_api_internals.h>
 
-/** \defgroup api BCM6862x, BCM6865x Host API
+/** \defgroup api BCM686xx Host API
  *
- * Data Types and functions that should be used for BCM6862x device management.
+ * Data Types and functions that should be used for BCM686xx device management.
  * @{
  */
 

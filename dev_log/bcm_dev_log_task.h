@@ -31,6 +31,9 @@ typedef unsigned long dev_log_id;
 
 #define DEV_LOG_INVALID_ID              (dev_log_id)UINT_MAX
 
+/* String bigger than this size will be cut                     */
+#define MAX_DEV_LOG_ID_NAME             32  /* Maximum size of log_id name */
+
 #ifdef ENABLE_LOG
 
 /* Uncomment the following line to enable info prints for dev_log debugging */
@@ -73,8 +76,6 @@ static inline void dev_log_info_printf_ignore(const char *fmt, ...) { }
  * don't forget to add/remove _BCM_LOG_ARGS... macros in order to force number of arguments in compile time
  */
 #define DEV_LOG_MAX_ARGS                36
-/* String bigger than this size will be cut                     */
-#define MAX_DEV_LOG_ID_NAME             32  /* Maximum size of log_id name */
 #define DEV_LOG_MAX_IDS                 512
 #define DEV_LOG_MAX_FILES               2
 #define MAX_DEV_LOG_STRING_SIZE         256 /* Note that this size includes header. */
@@ -740,6 +741,12 @@ bcmos_errno bcm_dev_log_set_trigger(dev_log_id id, bcm_dev_log_level log_level, 
 #endif /* TRIGGER_LOGGER_FEATURE */
 
 void dev_log_oops_complete_cb(void);
+
+#else
+
+#define bcm_dev_log_id_register(name, default_log_level, default_log_type) DEV_LOG_INVALID_ID
+#define bcm_dev_log_group_add_log_id(group_id, log_id)
+#define bcm_dev_log_level_set_style(level, style)
 
 #endif /* ENABLE_LOG */
 

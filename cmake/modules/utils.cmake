@@ -9,6 +9,7 @@
 # - bcm_find_cmake_script                   - Finds a path to the requested script in any of the CMake module dirs
 # - bcm_string_remove_duplicates            - Convert the given string to a list and remove dups, then back to string
 # - bcm_append_additional_clean_files       - Append additional clean files in the directory, used for artifact clean
+# - bcm_merge_static_lib                    - Merge multiple static libraries into a single one
 
 #====
 # Macro to create a compile definition by taking the variable given, making it uppercase and appending to the
@@ -76,12 +77,21 @@ endmacro(bcm_find_relative_path)
 # Macro to prepend a directory to a list of files. Useful for things like prepending the ASIC revision to a
 # list of driver source files.
 #
+# This will skip any files that are already rooted (start with /).
+#
 # @param RESULT_LIST    [out] List of source paths relative to the SRC_PATH.
 # @param SRC_PATH       [in] Preamble source path to apply to each list entry.
 # @param ARGN           [in] Variable List of source files
 #====
 macro(bcm_prepend_source_path RESULT_LIST SRC_PATH)
-    string(REGEX REPLACE "([^;]+)" "${SRC_PATH}/\\1" ${RESULT_LIST} "${ARGN}")
+    unset(${RESULT_LIST})
+    foreach(_SRC ${ARGN})
+        set(_FILE ${_SRC})
+        if(NOT IS_ABSOLUTE ${_FILE})
+            STRING(CONCAT _FILE ${SRC_PATH} "/" ${_FILE})
+        endif()
+        list(APPEND ${RESULT_LIST} ${_FILE})
+    endforeach(_SRC)
 endmacro(bcm_prepend_source_path)
 
 #======
@@ -327,3 +337,75 @@ function(bcm_convert_version_to_single_number SINGLE_NUMBER VERSION_NUMBER)
 
     set(${SINGLE_NUMBER} ${_SINGLE_NUMBER} PARENT_SCOPE)
 endfunction(bcm_convert_version_to_single_number)
+
+#======
+# Add system level shared libraries to the build image. This is used when we have a dependency on
+# third party libs that build to shared libs.
+#
+# @param ARGN       [in] Libs to add
+#======
+unset(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS CACHE)
+
+function(bcm_add_third_party_libs)
+    list(APPEND PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS ${ARGN})
+    set(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS ${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS} CACHE STRING
+        "System shared libs to add to manifest" FORCE)
+endfunction(bcm_add_third_party_libs)
+
+#======
+# Convert the package manifest system share libs to a string that can be output to the manifest file
+#======
+macro(bcm_format_third_party_libs_for_manifest)
+    if(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+        list(REMOVE_DUPLICATES PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+
+        # Add the libraries to the devsys package
+        bcm_prepend_source_path(_SYSTEM_SHARED_LIBS_PATH ${CMAKE_INSTALL_PREFIX}/fs
+            ${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS})
+        bcm_release_install(${_SYSTEM_SHARED_LIBS_PATH} RELEASE ${BCM_HOST_IMAGES_RELEASE}/lib
+            DO_NOT_FOLLOW_LINKS)
+
+        # Create the variable used to fill in the manifest file with all the libraries to include
+        string(REPLACE ";" "\n" PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS "${PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS}")
+    endif(PACKAGE_MANIFEST_SYSTEM_SHARED_LIBS)
+endmacro(bcm_format_third_party_libs_for_manifest)
+
+#======
+# Add objects from one static library to another static library. This can be used when combining multiple
+# static libraries into a single one.
+#
+# @param INSTALL_DIR    [in] Directory for the install rule
+# @param UBER_LIB       [in] Uber static library to create
+# @param DEPENDS_ON     [in] What outside target does the uber lib depend on
+# @param ARGN           [in] List of static libraries to combine into UBER_LIB
+#======
+macro(bcm_merge_static_lib INSTALL_DIR UBER_LIB DEPENDS_ON)
+    # There must be at least one library to merge, otherwise what is the point?
+    set(_LIBS_TO_MERGE ${ARGN})
+    if(NOT _LIBS_TO_MERGE)
+        message(FATAL "ERROR: No libraries to merge into ${UBER_LIB}")
+    endif(NOT _LIBS_TO_MERGE)
+    list(REMOVE_DUPLICATES _LIBS_TO_MERGE)
+
+    # We will make each rule rely on the previous, so the first will rely on the outside dependency.
+    unset(_OBJECT_LIST)
+    unset(_TARGET_LIST)
+    foreach(_LIB ${_LIBS_TO_MERGE})
+        add_custom_command(
+            OUTPUT ${_LIB}_objects
+            COMMAND rm -rf ${_LIB}_objects && mkdir -p ${_LIB}_objects
+            COMMAND cd ${_LIB}_objects && ${CMAKE_AR} x $<TARGET_FILE:${_LIB}>
+            DEPENDS ${_LIB})
+        list(APPEND _OBJECT_LIST ${_LIB}_objects/*)
+        list(APPEND _TARGET_LIST ${CMAKE_CURRENT_BINARY_DIR}/${_LIB}_objects)
+    endforeach(_LIB)
+
+    add_custom_command(
+        OUTPUT lib${UBER_LIB}.a
+        COMMAND rm -f lib${UBER_LIB}.a
+        COMMAND ${CMAKE_AR} qc lib${UBER_LIB}.a ${_OBJECT_LIST}
+        DEPENDS ${DEPENDS_ON} ${_TARGET_LIST})
+    add_custom_target(${UBER_LIB} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/lib${UBER_LIB}.a)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${UBER_LIB}.a DESTINATION ${INSTALL_DIR})
+endmacro(bcm_merge_static_lib)
+

@@ -139,6 +139,16 @@ bcmos_errno bcmolt_api_prop_iter_func(const bcmolt_msg *msg, const bcmolt_api_pr
 
 #define bcmolt_api_prop_iter(msg, tree, cb, context) bcmolt_api_prop_iter_func(msg, tree, cb, context, __FUNCTION__, __LINE__)
 
+/* The recursive part of bcmolt_api_prop_iter() that can work from the 2nd level and below (especially relevant if there is no message to process). */
+bcmos_errno bcmolt_api_prop_iter_2nd_level(
+    const uint8_t *data,
+    const bcmolt_type_descr *type_descr,
+    const bcmolt_api_prop_tree *tree,
+    bcmolt_api_prop_iter_cb cb,
+    void *context,
+    bcmolt_api_prop_path *path,
+    uint32_t curr_depth);
+
 /* Recursively walk through the properties that are set in 'msg', trying to find if they are also set in 'tree'.
  * If the property is found in both 'msg' and 'tree':
  *   - Return true
@@ -147,6 +157,10 @@ bcmos_errno bcmolt_api_prop_iter_func(const bcmolt_msg *msg, const bcmolt_api_pr
  *   - Return false
  *   - In 'path' return the empty path */
 bcmos_bool bcmolt_api_prop_tree_is_set(const bcmolt_msg *msg, const bcmolt_api_prop_tree *tree, bcmolt_api_prop_path *path);
+
+/* If 'set_present' is true, this function sets all the presence masks in the path that leads to a given field.
+ * Otherwise ('set_present' is false), this function clears the bit of a given field from its parent's presence mask. */
+void bcmolt_api_prop_presence_modify_by_path(const bcmolt_api_prop_path *path, const bcmolt_type_descr *type_descr, uint8_t *data, bcmos_bool set_present);
 
 /* For each property which is both set in the message and specified in the tree:
    compare the data in to_compare to the message
@@ -179,7 +193,7 @@ void bcmolt_api_set_prop_present(bcmolt_msg *msg, const void *prop_ptr);
  */
 void bcmolt_api_clear_prop_presence(bcmolt_msg *msg, const void *prop_ptr);
 
-/* Get the the string representation of an absolute path into 'path_str'. */
+/* Get the string representation of an absolute path into 'path_str'. */
 char *bcmolt_api_prop_get_path_str(const bcmolt_api_prop_path *path, char *path_str, uint32_t max_path_str_len);
 
 /* Perform various checks to make sure a message is valid for a top-level API call. */

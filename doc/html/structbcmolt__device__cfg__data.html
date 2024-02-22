@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.4</span>
+   &#160;<span id="projectnumber">3.12.10</span>
    </div>
   </td>
  </tr>
@@ -156,6 +156,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:a84f1571060fd6d086922553c6fa77de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79c26abb802a7d4e11bbfcdc18d286c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__object__model.html#ga13fb09f1259234fb30398d9cd99e02f7">bcmolt_pon_ni</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__device__cfg__data.html#a79c26abb802a7d4e11bbfcdc18d286c5">inband_internal_nni</a></td></tr>
 <tr class="separator:a79c26abb802a7d4e11bbfcdc18d286c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1b8403fafcaa97b79ff27d65ef4077f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbcmolt__str__32.html">bcmolt_str_32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__device__cfg__data.html#aa1b8403fafcaa97b79ff27d65ef4077f">debug_bas_code</a></td></tr>
+<tr class="separator:aa1b8403fafcaa97b79ff27d65ef4077f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640f5662534be2f80156d3d35bef4a57"><td class="memItemLeft" align="right" valign="top">bcmos_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbcmolt__device__cfg__data.html#a640f5662534be2f80156d3d35bef4a57">debug_bas_enabled</a></td></tr>
+<tr class="separator:a640f5662534be2f80156d3d35bef4a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a6a0d458cf887c12e5f773ccb9a6ccec7"></a>
@@ -319,7 +323,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The selected external IRQ for protection switching </p>
+<p>Supported in BCM6862X only. The selected external IRQ for protection switching </p>
 
 </div>
 </div>
@@ -628,6 +632,36 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="aa1b8403fafcaa97b79ff27d65ef4077f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b8403fafcaa97b79ff27d65ef4077f">&#9670;&nbsp;</a></span>debug_bas_code</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbcmolt__str__32.html">bcmolt_str_32</a> debug_bas_code</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Permission code of BAS features in the device. </p>
+
+</div>
+</div>
+<a id="a640f5662534be2f80156d3d35bef4a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640f5662534be2f80156d3d35bef4a57">&#9670;&nbsp;</a></span>debug_bas_enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bcmos_bool debug_bas_enabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>BAS status in the device: enabled or not </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="bcmolt__api__model__api__structs_8h_source.html">bcmolt_api_model_api_structs.h</a></li>
 </ul>
@@ -640,7 +674,7 @@ Data Fields</h2></td></tr>
     <li class="navelem"><a class="el" href="structbcmolt__device__cfg__data.html">bcmolt_device_cfg_data</a></li>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.10 </li>
   </ul>
 </div>
 </body>

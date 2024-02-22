@@ -24,6 +24,7 @@
 #define BCMOLT_API_MACROS_H_
 
 #include <bcmolt_msg.h>
+#include <bcmolt_type_metadata.h>
 
 /** \defgroup api_macros Message Access Macros
  * \ingroup(api)
@@ -164,6 +165,9 @@
 /** Indicate that an API field is present (set/requested) */
 #define BCMOLT_FIELD_SET_PRESENT(_s_ptr, _s_type, _f_name)                      \
     (_s_ptr)->presence_mask |= (1ULL << bcmolt_ ## _s_type ## _id_ ## _f_name)
+
+#define BCMOLT_FIELD_CLEAR_PRESENT(_s_ptr, _s_type, _f_name)                    \
+    (_s_ptr)->presence_mask &= ~(1ULL << bcmolt_ ## _s_type ## _id_ ## _f_name)
 
 /** Set API field value */
 #define BCMOLT_FIELD_SET(_s_ptr, _s_type, _f_name, _field_value)                \

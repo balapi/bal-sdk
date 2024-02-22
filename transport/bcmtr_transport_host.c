@@ -81,7 +81,8 @@ static int _bcmtr_check_timeout(bcmtr_conn *conn)
                     bcmos_timestamp(),
                     NULL,
                     0,
-                    msg);
+                    msg,
+                    msg->type);
             }
             TAILQ_REMOVE(&conn->msg_list, tmsg, l);
             _bcmtr_notify_ready(conn, tmsg);

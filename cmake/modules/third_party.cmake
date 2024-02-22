@@ -306,6 +306,7 @@ macro(bcm_3rdparty_export)
 
     add_custom_target(${_${_MOD_NAME_UPPER}_TARGET} DEPENDS ${_${_MOD_NAME_UPPER}_INSTALLED_FILE})
     add_library(${_MOD_NAME} INTERFACE)
+    add_library(${_MOD_NAME}_HDRONLY ALIAS ${_MOD_NAME})
     add_dependencies(${_MOD_NAME} ${_${_MOD_NAME_UPPER}_TARGET})
 
     if(_LIBS)

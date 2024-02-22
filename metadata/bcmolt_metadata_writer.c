@@ -31,6 +31,7 @@
 #define MAX_FIELDS_FOR_SINGLE_LINE 5
 #define RETURN_IF_ERROR(rc) do { if (rc != BCM_ERR_OK) return rc; } while (0)
 #define PRESENCE_MASK_FLAGS (BCMOLT_FIELD_FLAGS_PRESENCE_MASK | BCMOLT_FIELD_FLAGS_INDEX_MASK)
+#define DB_PREFIX "%36s : "
 
 void bcmolt_metadata_write(const bcmolt_metadata_writer *writer, const char *format, ...)
 {
@@ -526,11 +527,20 @@ static bcmos_errno write_array(
     if (is_simple_type(td))
     {
         bcmolt_metadata_write(writer, prefix);
-        write_indent(writer, indent_level);
-        if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
+        if (!(style & BCMOLT_METADATA_WRITE_STYLE_DB))
         {
-            bcmolt_metadata_write(writer, "%s=", name);
+            write_indent(writer, indent_level);
+            if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
+            {
+                bcmolt_metadata_write(writer, "%s=", name);
+            }
         }
+        else
+        {
+            bcmolt_metadata_write(writer, DB_PREFIX, name);
+            write_indent(writer, indent_level);
+        }
+
         for (i = 0; i < size; ++i)
         {
             void *fdata = (void *)((long)data + (td->size * i));
@@ -573,6 +583,15 @@ static bcmos_errno write_array(
     }
     else
     {
+        if (style & BCMOLT_METADATA_WRITE_STYLE_DB)
+        {
+            bcmolt_metadata_write(writer, "%s", prefix);
+            bcmolt_metadata_write(writer, DB_PREFIX, name);
+            write_indent(writer, indent_level);
+            bcmolt_metadata_write(writer, "{");
+            indent_level++;
+        }
+
         for (i = 0; i < size; ++i)
         {
             char elem_name[BCMOLT_MAX_METADATA_NAME_LENGTH] = {};
@@ -598,6 +617,12 @@ static bcmos_errno write_array(
             rc = bcmolt_metadata_write_elem(writer, td, fdata, elem_name, style, indent_level, elem_prefix, suffix);
             RETURN_IF_ERROR(rc);
         }
+
+        if (style & BCMOLT_METADATA_WRITE_STYLE_DB)
+        {
+            bcmolt_metadata_write(writer, " }");
+        }
+
         return BCM_ERR_OK;
     }
 }
@@ -646,10 +671,18 @@ static bcmos_errno write_simple_elem(
 {
     bcmos_errno rc;
     bcmolt_metadata_write(writer, prefix);
-    write_indent(writer, indent_level);
-    if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
+    if (!(style & BCMOLT_METADATA_WRITE_STYLE_DB))
     {
-        bcmolt_metadata_write(writer, "%s=", name);
+        write_indent(writer, indent_level);
+        if (!(style & BCMOLT_METADATA_WRITE_STYLE_C_INIT))
+        {
+            bcmolt_metadata_write(writer, "%s=", name);
+        }
+    }
+    else
+    {
+        bcmolt_metadata_write(writer, DB_PREFIX, name);
+        write_indent(writer, indent_level);
     }
     rc = write_simple_value(writer, td, data, style);
     RETURN_IF_ERROR(rc);
@@ -798,38 +831,53 @@ static bcmos_errno write_struct_elem(
     BUG_ON(td->x.s.fields == NULL);
 
     /* Write the struct on one line if it's simple and small. */
-    if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED && struct_should_print_on_one_line(writer, td, data))
+    if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED && !(style & BCMOLT_METADATA_WRITE_STYLE_DB) && struct_should_print_on_one_line(writer, td, data))
     {
         style &= ~BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED;
         style |= BCMOLT_METADATA_WRITE_STYLE_SPACE_SEPARATED;
     }
 
     bcmolt_metadata_write(writer, prefix);
-    write_indent(writer, indent_level);
-    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    if (!(style & BCMOLT_METADATA_WRITE_STYLE_DB))
     {
-        bcmolt_metadata_write(writer, "{");
-    }
-    else if (name != NULL)
-    {
-        bcmolt_metadata_write(writer, "%s={", name);
-        if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+        write_indent(writer, indent_level);
+        if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
         {
-            bcmolt_metadata_write(writer, "\n");
+            bcmolt_metadata_write(writer, "{");
         }
+        else if (name != NULL)
+        {
+            bcmolt_metadata_write(writer, "%s={", name);
+            if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+            {
+                bcmolt_metadata_write(writer, "\n");
+            }
+        }
+    }
+    else
+    {
+        bcmolt_metadata_write(writer, DB_PREFIX, name ? name : "");
+        write_indent(writer, indent_level);
+        bcmolt_metadata_write(writer, "{\n");
     }
 
     rc = write_struct_fields(writer, td, td->x.s.fields, td->x.s.num_fields, data, style, indent_level);
     RETURN_IF_ERROR(rc);
 
-    if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+    if (style & BCMOLT_METADATA_WRITE_STYLE_DB)
+    {
+        bcmolt_metadata_write(writer, " ");
+    }
+    else if (style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
     {
         bcmolt_metadata_write(writer, "\n");
         write_indent(writer, indent_level);
     }
 
     if (name != NULL)
+    {
         bcmolt_metadata_write(writer, "}");
+    }
 
     bcmolt_metadata_write(writer, "%s", suffix);
 
@@ -859,22 +907,31 @@ static bcmos_errno write_union_elem(
     }
 
     bcmolt_metadata_write(writer, prefix);
-    write_indent(writer, indent_level);
-    if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+    if (!(style & BCMOLT_METADATA_WRITE_STYLE_DB))
     {
-        bcmolt_metadata_write(writer, "{");
+        write_indent(writer, indent_level);
+        if (style & BCMOLT_METADATA_WRITE_STYLE_C_INIT)
+        {
+            bcmolt_metadata_write(writer, "{");
+        }
+        else
+        {
+            if (name != NULL)
+            {
+                bcmolt_metadata_write(writer, "%s={", name);
+                if ((style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+                    && !(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
+                {
+                    bcmolt_metadata_write(writer, "\n");
+                }
+            }
+        }
     }
     else
     {
-        if (name != NULL)
-        {
-            bcmolt_metadata_write(writer, "%s={", name);
-            if ((style &BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
-                && !(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
-            {
-                bcmolt_metadata_write(writer, "\n");
-            }
-        }
+        bcmolt_metadata_write(writer, DB_PREFIX, name ? name : "");
+        write_indent(writer, indent_level);
+        bcmolt_metadata_write(writer, "{\n");
     }
 
     /* skip unions completely in mask only mode as we don't have the classifer value */
@@ -927,7 +984,11 @@ static bcmos_errno write_union_elem(
         }
     }
 
-    if ((style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
+    if (style & BCMOLT_METADATA_WRITE_STYLE_DB)
+    {
+        bcmolt_metadata_write(writer, " ");
+    }
+    else if ((style & BCMOLT_METADATA_WRITE_STYLE_LINE_SEPARATED)
         && !(style & BCMOLT_METADATA_WRITE_STYLE_MASK_ONLY))
     {
         bcmolt_metadata_write(writer, "\n");
@@ -938,6 +999,7 @@ static bcmos_errno write_union_elem(
     {
         bcmolt_metadata_write(writer, "}");
     }
+
     bcmolt_metadata_write(writer, "%s", suffix);
 
     return BCM_ERR_OK;

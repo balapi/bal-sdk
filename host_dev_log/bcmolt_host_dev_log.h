@@ -61,6 +61,21 @@ typedef enum
 extern dev_log_id log_group_bal; /* top-level BAL log group */
 extern dev_log_id log_group_bal_core; /* BAL core log group */
 extern dev_log_id log_group_bal_sw_util; /* BAL switch utils log group */
+extern dev_log_id log_group_bal_swext; /* BAL switch extensions log group */
+extern dev_log_id log_group_bal_acl; /* BAL access control object log group */
+extern dev_log_id log_group_bal_erps; /* BAL ERPS object log group */
+extern dev_log_id log_group_bal_flow; /* BAL flow object log group */
+extern dev_log_id log_group_bal_group; /* BAL group object log group */
+extern dev_log_id log_group_bal_inband; /* BAL inband management object log group */
+extern dev_log_id log_group_bal_mac_table; /* BAL L2 MAC table object log group */
+extern dev_log_id log_group_bal_lag; /* BAL LAG interface object log group */
+extern dev_log_id log_group_bal_nni; /* BAL NNI interface object log group */
+extern dev_log_id log_group_bal_policer; /* BAL policer object log group */
+extern dev_log_id log_group_bal_protection; /* BAL protection interface object log group */
+extern dev_log_id log_group_bal_sw_inni; /* BAL switch INNI object log group */
+extern dev_log_id log_group_bal_tm_qmp; /* BAL TM QMP object log group */
+extern dev_log_id log_group_bal_tm_queue; /* BAL TM queue object log group */
+extern dev_log_id log_group_bal_tm_sched; /* BAL TM sched object log group */
 extern dev_log_id log_group_bal_mac_util; /* BAL MAC utils log group */
 extern dev_log_id log_group_user_appl; /* top-level user appl log group */
 extern dev_log_id log_group_user_appl_itu; /* ITU user applications */

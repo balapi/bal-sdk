@@ -28,39 +28,51 @@
 #include <bcmolt_string.h>
 #include "bcmolt_system_types_structs.h"
 
-/** Initializes a structure to default values.
+/**
+ * @brief Initializes a structure to default values.
  *
- * \param obj Pointer to the structure to initialize.
+ * @param[out] p_obj  Pointer to the structure to initialize.
  */
-void bcmolt_ieee_demo_onu_llid_support_set_default(bcmolt_ieee_demo_onu_llid_support *obj);
+void bcmolt_ieee_demo_onu_llid_support_set_default(
+    bcmolt_ieee_demo_onu_llid_support *p_obj);
 
-/** Packs a structure to bytes for transmission on the wire.
+/**
+ * @brief Packs a structure to bytes for transmission on the wire.
  *
- * \param obj Pointer to the structure to pack.
- * \param buf Pointer to the buffer to write to.
- * \return TRUE if the pack was successful, FALSE otherwise.
+ * @param[in]     p_obj  Pointer to the structure to pack.
+ * @param[in,out] p_buf  Pointer to the buffer to write to.
+ * @return TRUE if the pack was successful, FALSE otherwise.
  */
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_pack(const bcmolt_ieee_demo_onu_llid_support *obj, bcmolt_buf *buf);
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_pack(
+    const bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmolt_buf *p_buf);
 
-/** Unpacks a structure from bytes as received on the wire.
+/**
+ * @brief Unpacks a structure from bytes as received on the wire.
  *
- * \param obj Pointer to the structure to unpack.
- * \param buf Pointer to the buffer to read from.
- * \param extra_mem Pointer to the first location in memory to use to store pointer fields that are
- *        NULL. Setting obj to NULL will cause an error when a NULL pointer is encountered.
- * \return TRUE if the unpack was successful, FALSE otherwise.
+ * @param[in,out] p_obj        Pointer to the structure to unpack.
+ * @param[in,out] p_buf        Pointer to the buffer to read from.
+ * @param[in,out] p_extra_mem  Pointer to the first location in memory to use to store pointer fields that are
+ *                             NULL. Setting p_obj to NULL will cause an error when a NULL pointer is encountered.
+ * @return TRUE if the unpack was successful, FALSE otherwise.
  */
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_unpack(bcmolt_ieee_demo_onu_llid_support *obj, bcmolt_buf *buf, void **extra_mem);
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_unpack(
+    bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmolt_buf *p_buf,
+    void **p_extra_mem);
 
-/** Checks if any field in the structure is set incorrectly (e.g. out of bounds).
+/**
+ * @brief Checks if any field in the structure is set incorrectly (e.g. out of bounds).
  *
- * \param obj Pointer to the structure to validate.
- * \param err Filled in with the error (if validation fails).
- * \param err_details Filled in with a description of the error (if validation fails).
- * \return TRUE on success, FALSE on failure.
+ * @param[in]  p_obj          Pointer to the structure to validate.
+ * @param[out] p_err          Filled in with the error (if validation fails).
+ * @param[out] p_err_details  Filled in with a description of the error (if validation fails).
+ * @return TRUE on success, FALSE on failure.
  */
-bcmos_bool bcmolt_ieee_demo_onu_llid_support_validate(const bcmolt_ieee_demo_onu_llid_support *obj, bcmos_errno *err, bcmolt_string *err_details);
-
+bcmos_bool bcmolt_ieee_demo_onu_llid_support_validate(
+    const bcmolt_ieee_demo_onu_llid_support *p_obj,
+    bcmos_errno *p_err,
+    bcmolt_string *p_err_details);
 
 
 

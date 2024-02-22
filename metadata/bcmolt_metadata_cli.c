@@ -234,17 +234,13 @@ static bcmos_errno _metacli_parm_populate_1(
         return rc;
     }
 
-    /* If the parameter is a buffer, allocate memory for it. */
+    /* If the parameter is a buffer, specify what size it should be, but leave the actual buffer pointer unassigned.
+     * This will instruct the CLI engine to handle the memory allocation. */
     if (parm->type == BCMCLI_PARM_BUFFER)
     {
-        uint32_t buf_size = td->base_type == BCMOLT_BASE_TYPE_ID_BINARY_FIXED
+        parm->value.buffer.len = td->base_type == BCMOLT_BASE_TYPE_ID_BINARY_FIXED
             ? td->x.binary_fixed.len
             : METACLI_DEFAULT_BUFFER_MAX_LENGTH;
-
-        parm->value.buffer.start = bcmos_calloc(buf_size);
-        if (!parm->value.buffer.start)
-            return BCM_ERR_NOMEM;
-        bcmolt_buf_init(&parm->value.buffer, buf_size, parm->value.buffer.start);
     }
 
     /* Arrays require more work.
@@ -543,8 +539,6 @@ static void _metacli_free_parms(bcmcli_cmd_parm *parms)
             bcmos_free(p->enum_table);
         if (p->max_array_size && p->values)
             bcmos_free(p->values);
-        if (p->type == BCMCLI_PARM_BUFFER && p->value.buffer.start)
-            bcmos_free(p->value.buffer.start);
         if (p->type == BCMCLI_PARM_STRUCT && p->value.fields)
             _metacli_free_parms(p->value.fields);
 

@@ -108,8 +108,8 @@ static void _has_dyn_arr_elem(const bcmolt_api_parse_elem *elem, void *context)
     *has_dyn_arr = bcmolt_type_has_explicit_dynamic_array(elem->elem_type, elem->data);
 }
 
-// Check if the given type contains (at any depth) any dynamically-sized arrays for which the presence mask bit is
-// SPECIFICALLY set (the overall PM is not all 0s).
+/* Check if the given type contains (at any depth) any dynamically-sized arrays for which the presence mask bit is
+ * SPECIFICALLY set (the overall PM is not all 0s). */
 static bcmos_bool bcmolt_type_has_explicit_dynamic_array(const bcmolt_type_descr *type, const void *data)
 {
     bcmos_bool has_dyn_arr = BCMOS_FALSE;
@@ -615,8 +615,7 @@ static void bcmolt_api_clear_presence_mask_bit(uint8_t *data, const bcmolt_type_
     *(bcmolt_presence_mask *)fdata &= ~(1ULL << field_id);
 }
 
-static bcmos_errno bcmolt_api_prop_iter_2nd_level(
-    const bcmolt_msg *msg,
+bcmos_errno bcmolt_api_prop_iter_2nd_level(
     const uint8_t *data,
     const bcmolt_type_descr *type_descr,
     const bcmolt_api_prop_tree *tree,
@@ -688,7 +687,6 @@ static bcmos_errno bcmolt_api_prop_iter_2nd_level(
 
                 /* Node is not a leaf. */
                 rc = bcmolt_api_prop_iter_2nd_level(
-                    msg,
                     data + field_descr->offset,
                     field_descr->type,
                     prop_match ? prop_match->sub_tree : NULL,
@@ -737,7 +735,7 @@ bcmos_errno bcmolt_api_prop_iter_func(
     msg_data = (const uint8_t *)msg + group_descr->data_offset;
 
     BCMOLT_API_UTILS_PRINTF("bcmolt_api_prop_iter() called from %s:%d\n", func, line);
-    return bcmolt_api_prop_iter_2nd_level(msg, msg_data, group_descr->type, tree, cb, context, &path, 0);
+    return bcmolt_api_prop_iter_2nd_level(msg_data, group_descr->type, tree, cb, context, &path, 0);
 }
 
 static bcmos_errno bcmolt_api_prop_tree_is_set_cb(
@@ -800,9 +798,9 @@ static bcmos_errno bcmolt_api_tree_compare_cb(
         /* this data was included and is unsupported - ensure it matches defaults */
         uint32_t byte_offset = field_data - compare_ctxt->msg_data;
         if (!bcmolt_api_check_field_equality_generic(
-                field_descr->type,
-                field_data,
-                compare_ctxt->to_compare + byte_offset))
+            field_descr->type,
+            field_data,
+            compare_ctxt->to_compare + byte_offset))
         {
             *(compare_ctxt->path) = *path;
             return BCM_ERR_MISMATCH;
@@ -946,9 +944,7 @@ bcmos_bool bcmolt_api_prop_is_set(const bcmolt_msg *msg, const void *prop_ptr, b
 static void bcmolt_api_prop_presence_modify(bcmolt_msg *msg, const void *prop_ptr, bcmos_bool set_present)
 {
     bcmos_errno rc;
-    uint32_t i;
     const bcmolt_group_descr *group_descr;
-    const bcmolt_type_descr *type_descr;
     uint8_t *data;
     bcmolt_api_prop_path path = {};
 
@@ -984,23 +980,29 @@ static void bcmolt_api_prop_presence_modify(bcmolt_msg *msg, const void *prop_pt
     /* Call _prop_is_set() just to fill in the full path. */
     _prop_is_set(data, group_descr->type, prop_ptr, &path, BCMOS_TRUE);
 
-    type_descr = group_descr->type;
-    for (i = 0; i < path.curr_depth; i++)
+    bcmolt_api_prop_presence_modify_by_path(&path, group_descr->type, data, set_present);
+}
+
+void bcmolt_api_prop_presence_modify_by_path(const bcmolt_api_prop_path *path, const bcmolt_type_descr *type_descr, uint8_t *data, bcmos_bool set_present)
+{
+    uint32_t i;
+
+    for (i = 0; i < path->curr_depth; i++)
     {
         uint16_t id = 0;
         const bcmolt_type_descr *parent_type_descr = type_descr;
         uint8_t *parent_data = data;
 
-        switch (path.nodes[i].type)
+        switch (path->nodes[i].type)
         {
         case BCMOLT_API_PROP_NODE_TYPE_FIELD:
         case BCMOLT_API_PROP_NODE_TYPE_UNION_FIELD:
-            id = path.nodes[i].u.field->id;
-            data += path.nodes[i].u.field->offset;
-            type_descr = path.nodes[i].u.field->type;
+            id = path->nodes[i].u.field->id;
+            data += path->nodes[i].u.field->offset;
+            type_descr = path->nodes[i].u.field->type;
             break;
         case BCMOLT_API_PROP_NODE_TYPE_ARRAY_INDEX:
-            id = path.nodes[i].u.array_index;
+            id = path->nodes[i].u.array_index;
             data = bcmolt_array_elem_data_get(type_descr, data, id);
             type_descr = type_descr->base_type == BCMOLT_BASE_TYPE_ID_ARR_DYN
                 ? type_descr->x.arr_dyn.elem_type
@@ -1018,7 +1020,7 @@ static void bcmolt_api_prop_presence_modify(bcmolt_msg *msg, const void *prop_pt
         }
         else
         {
-            if (i == path.curr_depth - 1) /* only clear the lowest-level presence mask */
+            if (i == path->curr_depth - 1) /* only clear the lowest-level presence mask */
             {
                 bcmolt_api_clear_presence_mask_bit(parent_data, parent_type_descr, (uint8_t)id);
             }

@@ -22,7 +22,9 @@ macro(bcm_add_subdirectory DIR)
     bcm_find_absolute_path(_BCM_ABSOLUTE_DIR ${DIR})
 
     if(IS_DIRECTORY ${_BCM_ABSOLUTE_DIR})
-        add_subdirectory(${DIR})
+        if(EXISTS ${_BCM_ABSOLUTE_DIR}/CMakeLists.txt)
+            add_subdirectory(${DIR})
+        endif()
     else()
         # See if the directory is 'optional' or 'exclude_from_release'; otherwise, fatal error
         set(_MY_ARGN ${ARGN})
@@ -79,3 +81,7 @@ endif()
 #====
 set(BCM_MAKE_PROGRAM "$(MAKE)")
 
+#====
+# RPATH settings should be the same for build artifacts and install artifacts
+#====
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)

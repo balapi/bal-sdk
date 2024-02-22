@@ -422,9 +422,9 @@ static bcmos_errno _bcmcli_parm_validate(const char *name, bcmcli_cmd_parm *parm
         }
         else if (parm->type==BCMCLI_PARM_BUFFER)
         {
-            if (!parm->value.buffer.start || !parm->value.buffer.len)
+            if (!parm->value.buffer.len)
             {
-                bcmos_printf("MON: %s> value.buffer.start is not set for BUFFER parameter %s\n", name, parm->name);
+                bcmos_printf("MON: %s> value.buffer.len is not set for BUFFER parameter %s\n", name, parm->name);
                 break;
             }
             if (parm->max_array_size)
@@ -3120,8 +3120,18 @@ static bcmos_errno _bcmcli_buffer_scan_cb(bcmcli_session *session, const bcmcli_
 {
     int n;
 
-    if (!value->buffer.start)
+    if (!value->buffer.len)
         return BCM_ERR_PARM;
+
+    if (!value->buffer.start)
+    {
+        /* Omitting the buffer start means that the CLI engine should handle memory allocation */
+        void *buf = bcmcli_session_stack_calloc(session, value->buffer.len);
+        if (!buf)
+            return BCM_ERR_NOMEM;
+        bcmolt_buf_init(&value->buffer, value->buffer.len, buf);
+    }
+
     /* coverity[misra_violation] - cross-assignment under union is OK - they're both in the same union member */
     value->buffer.curr = value->buffer.start;
     if (strcmp(string_val, BCMCLI_NO_VALUE_STR) == 0)

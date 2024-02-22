@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="broadcom.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">BCM686xx Management API
-   &#160;<span id="projectnumber">3.12.4</span>
+   &#160;<span id="projectnumber">3.12.10</span>
    </div>
   </td>
  </tr>
@@ -170,6 +170,12 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 <li>remote_mep
 : <a class="el" href="structbcmolt__eth__oam__cfg__data.html#a70c3e55e2f6db6dd842ece41716cec15">bcmolt_eth_oam_cfg_data</a>
 </li>
+<li>report_as_indication
+: <a class="el" href="structbcmolt__l2__mac__table__dump__data.html#aa1073790a0664c01f6181fbd70940cb5">bcmolt_l2_mac_table_dump_data</a>
+</li>
+<li>report_event
+: <a class="el" href="structbcmolt__l2__mac__table__cfg__data.html#abb5296789339712f218a5c84d89b0309">bcmolt_l2_mac_table_cfg_data</a>
+</li>
 <li>request
 : <a class="el" href="structbcmolt__access__control__multi__cfg.html#aeb67693c2b9aa7dfda0430114c53caba">bcmolt_access_control_multi_cfg</a>
 , <a class="el" href="structbcmolt__access__control__multi__stats.html#a3fff6f88184396510c244a1e112d9c01">bcmolt_access_control_multi_stats</a>
@@ -188,10 +194,13 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__internal__nni__multi__cfg.html#a4188cd5291a81b19cc2fb4560638dfd8">bcmolt_internal_nni_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__enet__stats.html#a277b67ff7f1696e0f9612c8badfcc865">bcmolt_internal_nni_multi_enet_stats</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__nni__stats.html#a8a271d0b74eb00e59897e13a9eb6aeca">bcmolt_internal_nni_multi_nni_stats</a>
+, <a class="el" href="structbcmolt__itupon__alloc__multi__alloc__onu__accumulated__stats.html#a0f17b9cfaa7a13a40b8a338e29224a5c">bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats</a>
 , <a class="el" href="structbcmolt__itupon__alloc__multi__cfg.html#a044e605036924bdb6ade5cbc95ab6ca8">bcmolt_itupon_alloc_multi_cfg</a>
+, <a class="el" href="structbcmolt__itupon__alloc__multi__latency__stats.html#a312b770bd972e4ecf619ee750efd7fc0">bcmolt_itupon_alloc_multi_latency_stats</a>
 , <a class="el" href="structbcmolt__itupon__alloc__multi__stats.html#aecbd93b8848ee3cebc317f8cda3cb6cf">bcmolt_itupon_alloc_multi_stats</a>
 , <a class="el" href="structbcmolt__itupon__gem__multi__cfg.html#ae803f7c4bc87190392aa6d3e3b3e9646">bcmolt_itupon_gem_multi_cfg</a>
 , <a class="el" href="structbcmolt__itupon__gem__multi__stats.html#a94c753d4728fb1497d21018628e11917">bcmolt_itupon_gem_multi_stats</a>
+, <a class="el" href="structbcmolt__l2__mac__table__multi__cfg.html#a75889a67258acf2d1bf01ec2e2f335e6">bcmolt_l2_mac_table_multi_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__multi__cfg.html#aa5c4199cc3068554acf38568bd59e9ce">bcmolt_lag_interface_multi_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__multi__stats.html#a17a0a0d11878d977681a5b8f8bf0b355">bcmolt_lag_interface_multi_stats</a>
 , <a class="el" href="structbcmolt__log__file__multi__cfg.html#a1289ac377bef6570b7bb65badb0edd31">bcmolt_log_file_multi_cfg</a>
@@ -201,6 +210,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__nni__interface__multi__stats.html#a61418d207c7a594ad183efe3bac1956b">bcmolt_nni_interface_multi_stats</a>
 , <a class="el" href="structbcmolt__olt__multi__cfg.html#aa41c7a7d7314e83bf052f27cf8e44b2e">bcmolt_olt_multi_cfg</a>
 , <a class="el" href="structbcmolt__onu__multi__cfg.html#a214bdb38029bad08505d110c6dc1366c">bcmolt_onu_multi_cfg</a>
+, <a class="el" href="structbcmolt__onu__multi__itu__alloc__onu__accumulated__stats.html#af1bb5c6f923a70ef4b32029561de82d5">bcmolt_onu_multi_itu_alloc_onu_accumulated_stats</a>
 , <a class="el" href="structbcmolt__onu__multi__itu__pon__stats.html#a0eedf2e94ad949fb7ed3cbcd6c6b0dfe">bcmolt_onu_multi_itu_pon_stats</a>
 , <a class="el" href="structbcmolt__pbit__to__tc__multi__cfg.html#a57aa4253a557f03a7ccd0cf34133f483">bcmolt_pbit_to_tc_multi_cfg</a>
 , <a class="el" href="structbcmolt__policer__profile__multi__cfg.html#ab2283a42e9bf16b39ef0c8adf430a4c8">bcmolt_policer_profile_multi_cfg</a>
@@ -214,6 +224,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__tc__to__queue__multi__cfg.html#af0fbb73bf3fb3c63fe2cadbcf15c4e9f">bcmolt_tc_to_queue_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__qmp__multi__cfg.html#a21d8d8149b52ffc521febad944bfd0ca">bcmolt_tm_qmp_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__queue__multi__cfg.html#ae1f7f53cadebebb2fe03ae84def22fc7">bcmolt_tm_queue_multi_cfg</a>
+, <a class="el" href="structbcmolt__tm__queue__profile__multi__cfg.html#aa1c1a9fce69b0a46a3452c153f9aceac">bcmolt_tm_queue_profile_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__sched__multi__cfg.html#a6e3df637c0743b28c983852f213a6082">bcmolt_tm_sched_multi_cfg</a>
 </li>
 <li>request_registration_fail_reason
@@ -259,10 +270,13 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__internal__nni__multi__cfg.html#aa2c01e5e4436553d1b2edc4585151a62">bcmolt_internal_nni_multi_cfg</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__enet__stats.html#a3642280fed8df503035588a9db88d48a">bcmolt_internal_nni_multi_enet_stats</a>
 , <a class="el" href="structbcmolt__internal__nni__multi__nni__stats.html#ae156c0ed7ce06f255430980b386dc79f">bcmolt_internal_nni_multi_nni_stats</a>
+, <a class="el" href="structbcmolt__itupon__alloc__multi__alloc__onu__accumulated__stats.html#a83bf9ddee87ff77455cbd01453c604e4">bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats</a>
 , <a class="el" href="structbcmolt__itupon__alloc__multi__cfg.html#aa619b56913d04bf81e1b806fb768a4c1">bcmolt_itupon_alloc_multi_cfg</a>
+, <a class="el" href="structbcmolt__itupon__alloc__multi__latency__stats.html#aca178ee12273b8cfb6bff8342c199d52">bcmolt_itupon_alloc_multi_latency_stats</a>
 , <a class="el" href="structbcmolt__itupon__alloc__multi__stats.html#a72319164ed558711ab6613e264a2215d">bcmolt_itupon_alloc_multi_stats</a>
 , <a class="el" href="structbcmolt__itupon__gem__multi__cfg.html#ad2db5478dcf408d09f73ac1954d6eed4">bcmolt_itupon_gem_multi_cfg</a>
 , <a class="el" href="structbcmolt__itupon__gem__multi__stats.html#afa0c0e82453203b543975570320097ee">bcmolt_itupon_gem_multi_stats</a>
+, <a class="el" href="structbcmolt__l2__mac__table__multi__cfg.html#a148fbd8f0fb8a51aa266ccaeb557f5ee">bcmolt_l2_mac_table_multi_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__multi__cfg.html#adaaf7e9d0389c658e1dcf57313289bab">bcmolt_lag_interface_multi_cfg</a>
 , <a class="el" href="structbcmolt__lag__interface__multi__stats.html#a9f61004cdda4edd20d78cad645dde791">bcmolt_lag_interface_multi_stats</a>
 , <a class="el" href="structbcmolt__log__file__multi__cfg.html#ae9c56db64631f6a9fbb852db062fe852">bcmolt_log_file_multi_cfg</a>
@@ -272,6 +286,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__nni__interface__multi__stats.html#aad1f787b0dd2ce00060b2a859d7e1b4e">bcmolt_nni_interface_multi_stats</a>
 , <a class="el" href="structbcmolt__olt__multi__cfg.html#a3c8cd1d188198b1d3c9dcc58d10be13c">bcmolt_olt_multi_cfg</a>
 , <a class="el" href="structbcmolt__onu__multi__cfg.html#a867d0725c307b81b58ae9b68169d20ef">bcmolt_onu_multi_cfg</a>
+, <a class="el" href="structbcmolt__onu__multi__itu__alloc__onu__accumulated__stats.html#a4a1a13ec155f8c154779d746b1389412">bcmolt_onu_multi_itu_alloc_onu_accumulated_stats</a>
 , <a class="el" href="structbcmolt__onu__multi__itu__pon__stats.html#ad7215e8fcc28e92b5705195e863fa8c9">bcmolt_onu_multi_itu_pon_stats</a>
 , <a class="el" href="structbcmolt__pbit__to__tc__multi__cfg.html#aecb33818e433efd629449e783b94ecff">bcmolt_pbit_to_tc_multi_cfg</a>
 , <a class="el" href="structbcmolt__policer__profile__multi__cfg.html#aa8924b5e2168d04a1c290bd632a8995d">bcmolt_policer_profile_multi_cfg</a>
@@ -285,6 +300,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__tc__to__queue__multi__cfg.html#adbbf18038651818d9818277f9ef8059f">bcmolt_tc_to_queue_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__qmp__multi__cfg.html#a49f9e3b5304dd5b71f900d572f3452eb">bcmolt_tm_qmp_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__queue__multi__cfg.html#abe886089f6b0b0f002f428de607365a9">bcmolt_tm_queue_multi_cfg</a>
+, <a class="el" href="structbcmolt__tm__queue__profile__multi__cfg.html#a7eaaa4bb0b74051324199db5bf07b134">bcmolt_tm_queue_profile_multi_cfg</a>
 , <a class="el" href="structbcmolt__tm__sched__multi__cfg.html#a88ab7f96e8d1a7d8114f3736209a3172">bcmolt_tm_sched_multi_cfg</a>
 </li>
 <li>result
@@ -294,6 +310,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__erps__interface__set__intf__opt__complete__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_erps_interface_set_intf_opt_complete_data</a>
 , <a class="el" href="structbcmolt__eth__oam__state__change__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_eth_oam_state_change_data</a>
 , <a class="el" href="structbcmolt__group__complete__members__update__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_group_complete_members_update_data</a>
+, <a class="el" href="structbcmolt__l2__mac__table__dump__complete__data.html#a547749228aace995a93294dc3a38ca4d">bcmolt_l2_mac_table_dump_complete_data</a>
 , <a class="el" href="structbcmolt__lag__interface__complete__members__update__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_lag_interface_complete_members_update_data</a>
 , <a class="el" href="structbcmolt__nni__interface__state__change__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_nni_interface_state_change_data</a>
 , <a class="el" href="structbcmolt__onu__ber__interval__configuration__completed__data.html#aa3d444927d87dbc2e70c533bd2670340">bcmolt_onu_ber_interval_configuration_completed_data</a>
@@ -407,6 +424,8 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
 , <a class="el" href="structbcmolt__onu__itu__pon__stats__data.html#a075ad6a35702e4915350d2bde959f668">bcmolt_onu_itu_pon_stats_data</a>
 , <a class="el" href="structbcmolt__pon__interface__ae__stats__cfg__data.html#ac6f4f9f900fc20d07cfa6226fd013fca">bcmolt_pon_interface_ae_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__pon__interface__ae__stats__data.html#a075ad6a35702e4915350d2bde959f668">bcmolt_pon_interface_ae_stats_data</a>
+, <a class="el" href="structbcmolt__pon__interface__itu__pon__stats__cfg__data.html#ac6f4f9f900fc20d07cfa6226fd013fca">bcmolt_pon_interface_itu_pon_stats_cfg_data</a>
+, <a class="el" href="structbcmolt__pon__interface__itu__pon__stats__data.html#a075ad6a35702e4915350d2bde959f668">bcmolt_pon_interface_itu_pon_stats_data</a>
 , <a class="el" href="structbcmolt__switch__inni__stats__cfg__data.html#ac6f4f9f900fc20d07cfa6226fd013fca">bcmolt_switch_inni_stats_cfg_data</a>
 , <a class="el" href="structbcmolt__switch__inni__stats__data.html#a075ad6a35702e4915350d2bde959f668">bcmolt_switch_inni_stats_data</a>
 </li>
@@ -819,7 +838,7 @@ $(document).ready(function(){initNavTree('functions_vars_r.html',''); initResiza
   <ul>
     <li class="footer">
     <a href="http://www.broadcom.com">
-    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.4 </li>
+    <img class="footer" alt="Broadcom BCM68620 API"/></a> 3.12.10 </li>
   </ul>
 </div>
 </body>

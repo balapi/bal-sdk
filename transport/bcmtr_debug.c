@@ -79,13 +79,19 @@ static dev_log_id bcmtr_cld_log_id;
 #endif
 
 /* Global variable: per msg_id CLD level */
-bcmtr_cld_type bcmtr_cld_active_level[BCMTR_MAX_DEVICES][BCMOLT_API_GROUP_ID__NUM_OF];
+bcmtr_cld_type bcmtr_cld_active_level[BCMTR_MAX_DEVICES][BCMOLT_API_GROUP_ID__NUM_OF][BCMTR_CLD_MSG_TYPE__NUM_OF];
 
 /* Create a dummy CLI session so we can print to a buffer internally before printing to the real CLI.
  * This way, the output can't be interrupted by another print. */
 #ifdef ENABLE_CLI
 static char bcmtr_cld_scratch_buf[BCMTR_MAX_MSG_DUMP_STR_SIZE];
 static uint32_t bcmtr_cld_scratch_pos = 0;
+
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+/* If 'bcmtr_cld_scratch_buf' is accessed directly as in bcmtr_cld_output_to_dev_log() and not from bcmcli_session context, it is not mutex protected.
+ * That is why we add the 'bcmtr_cld_scratch_buf_mutex'. */
+static bcmos_mutex bcmtr_cld_scratch_buf_mutex;
+#endif
 #endif
 static bcmcli_session *bcmtr_cld_scratch_session;
 
@@ -97,12 +103,20 @@ static bcmcli_session *bcmtr_cld_scratch_session;
 /* CLI session print callback for the scratch buffer */
 static int bcmtr_log_cli_print(bcmcli_session *session, const char *buf, uint32_t size)
 {
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+    bcmos_mutex_lock(&bcmtr_cld_scratch_buf_mutex);
+#endif
+
     size = MIN(size, BCMTR_MAX_MSG_DUMP_STR_SIZE - bcmtr_cld_scratch_pos);
     if (size > 0)
     {
         memcpy(&bcmtr_cld_scratch_buf[bcmtr_cld_scratch_pos], buf, size);
     }
     bcmtr_cld_scratch_pos += size;
+    
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+    bcmos_mutex_unlock(&bcmtr_cld_scratch_buf_mutex);
+#endif
     return size;
 }
 #endif
@@ -283,6 +297,7 @@ bcmos_errno bcmtr_cld_level_set(bcmolt_devid device, const bcmtr_cld_filter *fil
         {
             bcmtr_cld_level_set(device, &f, cld_level);
         }
+
         return BCM_ERR_OK;
     }
 
@@ -296,6 +311,7 @@ bcmos_errno bcmtr_cld_level_set(bcmolt_devid device, const bcmtr_cld_filter *fil
         {
             bcmtr_cld_level_set(device, &f, cld_level);
         }
+
         return BCM_ERR_OK;
     }
 
@@ -322,6 +338,16 @@ bcmos_errno bcmtr_cld_level_set(bcmolt_devid device, const bcmtr_cld_filter *fil
 
         return BCM_ERR_OK;
     }
+    
+    if (filter->msg_type == BCMTR_CLD_MSG_TYPE_ANY)
+    {
+        bcmtr_cld_filter f = *filter;
+
+        for (f.msg_type = BCMTR_CLD_MSG_TYPE__BEGIN; f.msg_type < BCMTR_CLD_MSG_TYPE__NUM_OF; f.msg_type++)
+            bcmtr_cld_level_set(device, &f, cld_level);
+
+        return BCM_ERR_OK;
+    }
 
     /* If we are here - it is not a wildcard */
     rc = bcmolt_api_group_id_combine(filter->object, filter->group, filter->subgroup, &msg_id);
@@ -329,7 +355,7 @@ bcmos_errno bcmtr_cld_level_set(bcmolt_devid device, const bcmtr_cld_filter *fil
         return rc;
 
     BUG_ON((unsigned)msg_id >= BCMOLT_API_GROUP_ID__NUM_OF);
-    bcmtr_cld_active_level[device][msg_id] = cld_level;
+    bcmtr_cld_active_level[device][msg_id][filter->msg_type] = cld_level;
     return BCM_ERR_OK;
 }
 
@@ -338,15 +364,18 @@ bcmos_errno bcmtr_cld_level_get(bcmolt_devid device, const bcmtr_cld_filter *fil
 {
     bcmolt_api_group_id msg_id;
     bcmos_errno rc;
+
     if ((unsigned)device >= BCMTR_MAX_DEVICES || !filter)
     {
         return BCM_ERR_PARM;
     }
+    
     rc = bcmolt_api_group_id_combine(filter->object, filter->group, filter->subgroup, &msg_id);
     if (rc)
         return rc;
+    
     BUG_ON((unsigned)msg_id >= BCMOLT_API_GROUP_ID__NUM_OF);
-    *cld_level = bcmtr_cld_active_level[device][msg_id];
+    *cld_level = bcmtr_cld_active_level[device][msg_id][filter->msg_type];
     return BCM_ERR_OK;
 }
 
@@ -595,7 +624,8 @@ bcmos_errno bcmtr_capture_dump(bcmcli_session *session, bcmolt_devid olt, uint32
     bcmos_errno rc;
 
     rc = bcmtr_capture_size_get(olt, &length);
-    BCMOS_CHECK_RETURN_ERROR(BCM_ERR_OK != rc, rc);
+    if (rc != BCM_ERR_OK)
+        return rc;
 
     bcmos_dynamic_memory_allocation_blocking_suspend();
 
@@ -741,6 +771,32 @@ static void bcmtr_log_notify(bcmolt_devid device, const bcmtr_hdr *hdr,
 #endif
 }
 
+#if defined(ENABLE_CLI) && defined(ENABLE_LOG)
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+/* Breaks 'bcmtr_cld_scratch_buf' into multiple logger lines. */
+static void bcmtr_cld_cli_output_via_dev_log(void)
+{
+    uint32_t start_pos;
+    uint32_t end_pos;
+
+    bcmos_mutex_lock(&bcmtr_cld_scratch_buf_mutex);
+    for (start_pos = 0, end_pos = start_pos + MIN(bcmtr_cld_scratch_pos, MAX_DEV_LOG_STRING_NET_SIZE - 1); start_pos < bcmtr_cld_scratch_pos && end_pos <= bcmtr_cld_scratch_pos;
+        start_pos = end_pos, end_pos = start_pos + MIN(bcmtr_cld_scratch_pos - start_pos, MAX_DEV_LOG_STRING_NET_SIZE - 1))
+    {
+        char c;
+        char last_char = bcmtr_cld_scratch_buf[end_pos - 1];
+
+        c = bcmtr_cld_scratch_buf[end_pos];
+        bcmtr_cld_scratch_buf[end_pos] = '\0';
+        /* Do not add extra '\n' if the current line is already terminated by '\n' (typically the last line is terminated by '\n', whereas the rest of the lines are not). */
+        bcm_dev_log_log(bcmtr_cld_log_id, DEV_LOG_LEVEL_INFO, BCM_LOG_FLAG_CALLER_FMT, "%s%s", &bcmtr_cld_scratch_buf[start_pos], last_char == '\n' ? "" : "\n");
+        bcmtr_cld_scratch_buf[end_pos] = c;
+    }
+    bcmos_mutex_unlock(&bcmtr_cld_scratch_buf_mutex);
+}
+#endif
+#endif
+
 /* Dump message header and/or body */
 static void bcmtr_dump_notify(
     bcmolt_devid device,
@@ -805,6 +861,7 @@ static void bcmtr_dump_notify(
 
     /* Write the scratch session's buffer to the real CLI and reset it */
     bcmcli_session_write(bcmtr_cld_session, bcmtr_cld_scratch_buf, bcmtr_cld_scratch_pos);
+
     bcmtr_cld_scratch_pos = 0;
 #endif
 }
@@ -829,8 +886,14 @@ static void bcmtr_cli_notify(const bcmolt_msg *msg)
         {
             BCMOS_TRACE_ERR("Error generating CLI command for API: %s\n", bcmos_strerror(err));
         }
+
+#ifdef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
         /* Write the scratch session's buffer to the real CLI and reset it */
         bcmcli_session_write(bcmtr_cld_session, bcmtr_cld_scratch_buf, bcmtr_cld_scratch_pos);
+#elif ENABLE_LOG
+        bcmtr_cld_cli_output_via_dev_log();
+#endif
+
         bcmtr_cld_scratch_pos = 0;
     }
 #endif
@@ -851,16 +914,108 @@ void bcmtr_cld_notify(bcmolt_devid device, bcmtr_cld_type level, const bcmtr_hdr
         bcmtr_cli_notify(msg);
 }
 
+/* Ignore GET */
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_GET
+static void bcmtr_cld_auto_exclude_msg_type_get(void)
+{
+    bcmtr_cld_filter filter =
+    {
+        .group = BCMOLT_MGT_GROUP_ANY,
+        .object = BCMOLT_OBJECT_ANY,
+        .subgroup = BCMOLT_SUBGROUP_ANY,
+        .msg_type = BCMTR_CLD_MSG_TYPE_GET
+    };
+    
+    bcmtr_cld_level_set(0, &filter, BCMTR_CLD_NONE);
+}
+#endif
+
+/* Ignore device keep-alive */
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_DEVICE_KEEP_ALIVE
+static void bcmtr_cld_auto_exclude_device_keep_alive(void)
+{
+    bcmtr_cld_filter filter =
+    {
+        .group = BCMOLT_MGT_GROUP_OPER,
+        .object = BCMOLT_OBJ_ID_DEVICE,
+        .subgroup = BCMOLT_DEVICE_OPER_SUBGROUP_HOST_KEEP_ALIVE,
+        .msg_type = BCMTR_CLD_MSG_TYPE_ANY
+    };
+
+    bcmtr_cld_level_set(0, &filter, BCMTR_CLD_NONE);
+
+    filter.group = BCMOLT_MGT_GROUP_AUTO;
+
+    bcmtr_cld_level_set(0, &filter, BCMTR_CLD_NONE);
+}
+#endif
+
+/* Ignore CPU packets (OMCI messages) */
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_CPU_PACKETS
+static void bcmtr_cld_auto_exclude_cpu_packets(void)
+{
+    bcmtr_cld_filter filter =
+    {
+        .group = BCMOLT_MGT_GROUP_OPER,
+        .object = BCMOLT_OBJ_ID_PON_INTERFACE,
+        .subgroup = BCMOLT_PON_INTERFACE_OPER_SUBGROUP_CPU_PACKETS,
+        .msg_type = BCMTR_CLD_MSG_TYPE_ANY
+    };
+
+    bcmtr_cld_level_set(0, &filter, BCMTR_CLD_NONE); 
+
+    filter.object = BCMOLT_OBJ_ID_ONU;
+    filter.subgroup = BCMOLT_ONU_OPER_SUBGROUP_CPU_PACKETS;
+
+    bcmtr_cld_level_set(0, &filter, BCMTR_CLD_NONE);
+}
+#endif
+
+/* Allows fine exclusion of certain types of messages. */
+static void bcmtr_cld_auto_exclude(void)
+{
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_GET
+    bcmtr_cld_auto_exclude_msg_type_get();
+#endif
+
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_DEVICE_KEEP_ALIVE
+    bcmtr_cld_auto_exclude_device_keep_alive();
+#endif
+
+#ifdef CONFIG_AUTO_CLD_EXCLUDE_CPU_PACKETS
+    bcmtr_cld_auto_exclude_cpu_packets();
+#endif
+}
+
 bcmos_errno bcmtr_cld_init(bcmcli_session *session)
 {
     static bcmos_bool initialized;
     bcmos_errno err;
+    bcmtr_cld_filter filter =
+    {
+        .group = BCMOLT_MGT_GROUP_ANY,
+        .object = BCMOLT_OBJECT_ANY,
+        .subgroup = BCMOLT_SUBGROUP_ANY,
+        .msg_type = BCMTR_CLD_MSG_TYPE_ANY
+    };
+    bcmtr_cld_type cld_level = BCMTR_CLD_NONE;
+#ifdef CONFIG_AUTO_CLD_CAPTURE_BUF_SIZE_BYTES
+    bcmtr_capture_parm capture_parm =
+    {
+        .size = CONFIG_AUTO_CLD_CAPTURE_BUF_SIZE_BYTES,
+        .stop_on_full = BCMOS_FALSE,
+        .activate = BCMOS_TRUE
+    };
+#endif
 
     if (initialized)
         return BCM_ERR_OK;
 
 #ifdef ENABLE_CLI
     bcmcli_session_parm scratch_session_parm = { .write = bcmtr_log_cli_print };
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+    bcmos_mutex_create(&bcmtr_cld_scratch_buf_mutex, 0, "bcmtr_cld_scratch_buf_mutex");
+#endif
 #endif
 
     err = bcmcli_session_open_user(&scratch_session_parm, &bcmtr_cld_scratch_session);
@@ -872,6 +1027,30 @@ bcmos_errno bcmtr_cld_init(bcmcli_session *session)
     bcmtr_cld_log_id = bcm_dev_log_id_register("cld", DEV_LOG_LEVEL_INFO, DEV_LOG_ID_TYPE_BOTH);
 #endif
 
+#ifdef CONFIG_AUTO_CLD_CAPTURE_BUF_SIZE_BYTES
+    if (capture_parm.size)
+    {
+        err = bcmtr_capture_init(0, &capture_parm); 
+        if (err)
+            return err;
+
+        cld_level |= BCMTR_CLD_CAPTURE;
+    }
+#endif
+#ifdef CONFIG_AUTO_CLD_LOG
+    cld_level |= BCMTR_CLD_LOG;
+#endif
+#ifdef CONFIG_AUTO_CLD_DUMP
+    cld_level |= BCMTR_CLD_DUMP;
+#endif
+#ifdef CONFIG_AUTO_CLD_CLI
+    cld_level |= BCMTR_CLD_CLI;
+#endif
+    
+    bcmtr_cld_level_set(0, &filter, cld_level);
+    
+    bcmtr_cld_auto_exclude();
+
     initialized = BCMOS_TRUE;
 
     return BCM_ERR_OK;
@@ -882,6 +1061,9 @@ bcmos_errno bcmtr_cld_init(bcmcli_session *session)
 void bcmtr_cld_exit(void)
 {
 #ifdef ENABLE_CLI
+#ifndef CONFIG_AUTO_CLD_CLI_OUTPUT_VIA_SESSION_PRINT
+    bcmos_mutex_destroy(&bcmtr_cld_scratch_buf_mutex);
+#endif
     bcmtr_cld_cli_exit();
 #endif
     if (bcmtr_cld_scratch_session)
