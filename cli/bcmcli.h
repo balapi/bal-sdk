@@ -153,8 +153,7 @@ typedef struct bcmcli_parm_value
         double d;                       /**< Double-precision floating point number */
         bcmos_mac_address mac;          /**< MAC address */
         bcmos_ipv6_address ipv6;        /**< IPv6 address */
-        bcmolt_buf buffer;              /**< Buffer: used for BCMCLI_PARM_BUFFER
-                                             (if start pointer is not set, memory will be managed by CLI engine) */
+        bcmolt_buf buffer;              /**< Buffer: used for BCMCLI_PARM_BUFFER */
         bcmolt_enum_number enum_val;    /**< Enum value (number) */
         bcmcli_cmd_parm *fields;        /**< Structure fields */
     };

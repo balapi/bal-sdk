@@ -497,16 +497,6 @@ const bcmolt_type_descr type_descr_bcmolt_arr_power_consumption_channel_report_8
     .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_power_consumption_channel_report, .data_offset = offsetof(bcmolt_arr_power_consumption_channel_report_8, arr), .size = 8 } },
 };
 
-const bcmolt_type_descr type_descr_bcmolt_arr_src_binding_info_16 =
-{
-    .name = "arr_src_binding_info_16",
-    .descr = "Fixed-Length list: 16x src_binding_info",
-    .size = sizeof(bcmolt_arr_src_binding_info_16),
-    .mask_offset = offsetof(bcmolt_arr_src_binding_info_16, arr_index_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_ARR_FIXED,
-    .x = { .arr_fixed = { .elem_type = &type_descr_bcmolt_src_binding_info, .data_offset = offsetof(bcmolt_arr_src_binding_info_16, arr), .size = 16 } },
-};
-
 const bcmolt_type_descr type_descr_bcmolt_arr_tm_queue_ref_8 =
 {
     .name = "arr_tm_queue_ref_8",
@@ -819,22 +809,6 @@ const bcmolt_type_descr type_descr_bcmolt_bin_str_8 =
     .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
     .base_type = BCMOLT_BASE_TYPE_ID_BINARY_FIXED,
     .x = { .binary_fixed = { .len = 8, .data_offset = offsetof(bcmolt_bin_str_8, arr) } },
-};
-
-const bcmolt_enum_val bcmolt_binding_command_string_table[] =
-{
-    { .name = "add", .val = BCMOLT_BINDING_COMMAND_ADD, .tags = 0 },
-    { .name = "remove", .val = BCMOLT_BINDING_COMMAND_REMOVE, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_binding_command =
-{
-    .name = "binding_command",
-    .descr = "binding command",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_binding_command),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_binding_command_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_burst_profile_type_string_table[] =
@@ -1311,22 +1285,6 @@ static bcmolt_field_descr type_descr_bcmolt_classifier_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_classifier, slow_proto_subtype),
         .type = &type_descr_uint8_t,
-    },
-    {
-        .name = "o_tpid",
-        .descr = "outer tag TPID value for classification (0x8100 or 0x88A8 only)",
-        .id = BCMOLT_CLASSIFIER_ID_O_TPID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_classifier, o_tpid),
-        .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "i_tpid",
-        .descr = "inner tag TPID value for classification (0x8100 or 0x88A8 only)",
-        .id = BCMOLT_CLASSIFIER_ID_I_TPID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_classifier, i_tpid),
-        .type = &type_descr_uint16_t,
     },
 };
 
@@ -3104,14 +3062,6 @@ static bcmolt_field_descr type_descr_bcmolt_gpon_trx_fields[] =
         .offset = offsetof(bcmolt_gpon_trx, transceiver_type),
         .type = &type_descr_bcmolt_trx_type,
     },
-    {
-        .name = "trx_name",
-        .descr = "TRX name",
-        .id = BCMOLT_GPON_TRX_ID_TRX_NAME,
-        .tags = 0,
-        .offset = offsetof(bcmolt_gpon_trx, trx_name),
-        .type = &type_descr_bcmolt_str_100,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_gpon_trx =
@@ -3312,15 +3262,6 @@ static bcmolt_field_descr type_descr_bcmolt_host_port_params_fields[] =
         .tags = 0,
         .offset = offsetof(bcmolt_host_port_params, queue_size_kbytes),
         .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "pir_kbps_actual",
-        .descr = "Actual Shaping Rate read from device (kilobits per sec)",
-        .id = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL,
-        .tags = 0,
-        .offset = offsetof(bcmolt_host_port_params, pir_kbps_actual),
-        .type = &type_descr_uint32_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
 };
 
@@ -3865,7 +3806,6 @@ const bcmolt_enum_val bcmolt_interface_type_string_table[] =
     { .name = "protection", .val = BCMOLT_INTERFACE_TYPE_PROTECTION, .tags = 0 },
     { .name = "unassigned", .val = BCMOLT_INTERFACE_TYPE_UNASSIGNED, .tags = 0 },
     { .name = "remote_pon", .val = BCMOLT_INTERFACE_TYPE_REMOTE_PON, .tags = 0 },
-    { .name = "nic", .val = BCMOLT_INTERFACE_TYPE_NIC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -3958,66 +3898,6 @@ const bcmolt_type_descr type_descr_bcmolt_intf_ref_list_u8 =
     .mask_offset = offsetof(bcmolt_intf_ref_list_u8, arr_index_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_ARR_DYN,
     .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_intf_ref, .len_type = &type_descr_uint8_t, .len_offset = offsetof(bcmolt_intf_ref_list_u8, len), .data_offset = offsetof(bcmolt_intf_ref_list_u8, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(bcmolt_intf_ref), .is_array_backend = BCMOS_FALSE } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_ip_v_4_src_binding_fields[] =
-{
-    {
-        .name = "src_ip",
-        .descr = "Source IPv4 Address",
-        .id = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP,
-        .tags = 0,
-        .offset = offsetof(bcmolt_ip_v_4_src_binding, src_ip),
-        .type = &type_descr_bcmos_ipv4_address,
-    },
-    {
-        .name = "src_ip_mask",
-        .descr = "Source IPv4 Address Mask",
-        .id = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK,
-        .tags = 0,
-        .offset = offsetof(bcmolt_ip_v_4_src_binding, src_ip_mask),
-        .type = &type_descr_bcmos_ipv4_address,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding =
-{
-    .name = "ip_v_4_src_binding",
-    .descr = "ipv4 source binding information",
-    .size = sizeof(bcmolt_ip_v_4_src_binding),
-    .mask_offset = offsetof(bcmolt_ip_v_4_src_binding, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ip_v_4_src_binding_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ip_v_4_src_binding_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_ip_v_6_src_binding_fields[] =
-{
-    {
-        .name = "src_ip_v_6",
-        .descr = "Source IPv6 address",
-        .id = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6,
-        .tags = 0,
-        .offset = offsetof(bcmolt_ip_v_6_src_binding, src_ip_v_6),
-        .type = &type_descr_bcmos_ipv6_address,
-    },
-    {
-        .name = "src_ip_v_6_mask",
-        .descr = "Source IPv6 Address mask",
-        .id = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK,
-        .tags = 0,
-        .offset = offsetof(bcmolt_ip_v_6_src_binding, src_ip_v_6_mask),
-        .type = &type_descr_bcmos_ipv6_address,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding =
-{
-    .name = "ip_v_6_src_binding",
-    .descr = "ipv6 source binding information",
-    .size = sizeof(bcmolt_ip_v_6_src_binding),
-    .mask_offset = offsetof(bcmolt_ip_v_6_src_binding, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_ip_v_6_src_binding_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_ip_v_6_src_binding_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_itu_onu_params_fields[] =
@@ -4338,14 +4218,6 @@ static bcmolt_field_descr type_descr_bcmolt_itu_pon_params_fields[] =
         .offset = offsetof(bcmolt_itu_pon_params, dba),
         .type = &type_descr_bcmolt_itupon_dba,
     },
-    {
-        .name = "bw_eligibility_stats_clear_on_read",
-        .descr = "Clear-on-read BW Eligibility Class Statistics",
-        .id = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itu_pon_params, bw_eligibility_stats_clear_on_read),
-        .type = &type_descr_bcmos_bool,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itu_pon_params =
@@ -4618,7 +4490,7 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_protection_switching_fields[]
     },
     {
         .name = "gpio_pin",
-        .descr = "GPIO pin for input/output signal. Supported in BCM6865X only. ",
+        .descr = "GPIO pin for input/output signal",
         .id = BCMOLT_ITUPON_PROTECTION_SWITCHING_ID_GPIO_PIN,
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_protection_switching, gpio_pin),
@@ -4696,243 +4568,6 @@ const bcmolt_type_descr type_descr_bcmolt_key_exchange =
     .mask_offset = offsetof(bcmolt_key_exchange, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_key_exchange_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_key_exchange_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_dump_filters_fields[] =
-{
-    {
-        .name = "o_vid",
-        .descr = "outer vlan",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_O_VID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, o_vid),
-        .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "i_vid",
-        .descr = "inner vlan",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_I_VID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, i_vid),
-        .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "interface",
-        .descr = "interface",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, interface),
-        .type = &type_descr_bcmolt_intf_ref,
-    },
-    {
-        .name = "mac_address",
-        .descr = "mac address",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, mac_address),
-        .type = &type_descr_bcmos_mac_address,
-    },
-    {
-        .name = "mac_address_mask",
-        .descr = "mac address mask",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, mac_address_mask),
-        .type = &type_descr_bcmos_mac_address,
-    },
-    {
-        .name = "domain",
-        .descr = "port domain",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, domain),
-        .type = &type_descr_bcmolt_l2_event_report_control,
-    },
-    {
-        .name = "pkt_tag_type",
-        .descr = "pkt tag type",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, pkt_tag_type),
-        .type = &type_descr_bcmolt_pkt_tag_type,
-    },
-    {
-        .name = "svc_port_id",
-        .descr = "service port id",
-        .id = BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_dump_filters, svc_port_id),
-        .type = &type_descr_uint32_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters =
-{
-    .name = "l2_dump_filters",
-    .descr = "l2 dump filters",
-    .size = sizeof(bcmolt_l2_dump_filters),
-    .mask_offset = offsetof(bcmolt_l2_dump_filters, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_dump_filters_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_dump_filters_fields } },
-};
-
-const bcmolt_enum_val bcmolt_l2_dump_mode_string_table[] =
-{
-    { .name = "none", .val = BCMOLT_L2_DUMP_MODE_NONE },
-    { .name = "dynamic", .val = BCMOLT_L2_DUMP_MODE_DYNAMIC, .tags = 0 },
-    { .name = "static", .val = BCMOLT_L2_DUMP_MODE_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_dump_mode =
-{
-    .name = "l2_dump_mode",
-    .descr = "l2 dump mode",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
-    .size = sizeof(bcmolt_l2_dump_mode),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_dump_mode_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_event_string_table[] =
-{
-    { .name = "dumped", .val = BCMOLT_L2_EVENT_DUMPED, .tags = 0 },
-    { .name = "learned", .val = BCMOLT_L2_EVENT_LEARNED, .tags = 0 },
-    { .name = "aged", .val = BCMOLT_L2_EVENT_AGED, .tags = 0 },
-    { .name = "moved", .val = BCMOLT_L2_EVENT_MOVED, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_event =
-{
-    .name = "l2_event",
-    .descr = "l2 event",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_event),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_event_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_event_report_control_string_table[] =
-{
-    { .name = "none", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_NONE },
-    { .name = "network_port", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_NETWORK_PORT, .tags = 0 },
-    { .name = "pon_port", .val = BCMOLT_L2_EVENT_REPORT_CONTROL_PON_PORT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_event_report_control =
-{
-    .name = "l2_event_report_control",
-    .descr = "l2 event report control",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
-    .size = sizeof(bcmolt_l2_event_report_control),
-    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_event_report_control_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mact_dump_status_string_table[] =
-{
-    { .name = "not_started", .val = BCMOLT_L2_MACT_DUMP_STATUS_NOT_STARTED, .tags = 0 },
-    { .name = "in_progress", .val = BCMOLT_L2_MACT_DUMP_STATUS_IN_PROGRESS, .tags = 0 },
-    { .name = "success", .val = BCMOLT_L2_MACT_DUMP_STATUS_SUCCESS, .tags = 0 },
-    { .name = "failed", .val = BCMOLT_L2_MACT_DUMP_STATUS_FAILED, .tags = 0 },
-    { .name = "aborted", .val = BCMOLT_L2_MACT_DUMP_STATUS_ABORTED, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mact_dump_status =
-{
-    .name = "l2_mact_dump_status",
-    .descr = "status of the l2 dump thread",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mact_dump_status),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mact_dump_status_string_table } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mact_entry_fields[] =
-{
-    {
-        .name = "pkt_tag_type",
-        .descr = "pkt tag type",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, pkt_tag_type),
-        .type = &type_descr_bcmolt_pkt_tag_type,
-    },
-    {
-        .name = "o_vid",
-        .descr = "outer vid",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_O_VID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, o_vid),
-        .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "i_vid",
-        .descr = "inner vid",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_I_VID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, i_vid),
-        .type = &type_descr_uint16_t,
-    },
-    {
-        .name = "interface",
-        .descr = "interface",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_INTERFACE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, interface),
-        .type = &type_descr_bcmolt_intf_ref,
-    },
-    {
-        .name = "svc_port_id",
-        .descr = "service port id",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, svc_port_id),
-        .type = &type_descr_uint32_t,
-    },
-    {
-        .name = "mac_address",
-        .descr = "mac address",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, mac_address),
-        .type = &type_descr_bcmos_mac_address,
-    },
-    {
-        .name = "event_type",
-        .descr = "event type",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, event_type),
-        .type = &type_descr_bcmolt_l2_event,
-    },
-    {
-        .name = "is_static",
-        .descr = "is static",
-        .id = BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mact_entry, is_static),
-        .type = &type_descr_bcmos_bool,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry =
-{
-    .name = "l2_mact_entry",
-    .descr = "l2 mac table entry",
-    .size = sizeof(bcmolt_l2_mact_entry),
-    .mask_offset = offsetof(bcmolt_l2_mact_entry, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mact_entry_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mact_entry_fields } },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_list_u32 =
-{
-    .name = "l2_mact_entry_list_u32",
-    .descr = "Variable-length list of l2_mact_entry",
-    .size = sizeof(bcmolt_l2_mact_entry_list_u32),
-    .mask_offset = offsetof(bcmolt_l2_mact_entry_list_u32, arr_index_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_ARR_DYN,
-    .x = { .arr_dyn = { .elem_type = &type_descr_bcmolt_l2_mact_entry, .len_type = &type_descr_uint32_t, .len_offset = offsetof(bcmolt_l2_mact_entry_list_u32, len), .data_offset = offsetof(bcmolt_l2_mact_entry_list_u32, arr), .max_size = DEFAULT_DYN_ARR_MAX_SIZE / sizeof(bcmolt_l2_mact_entry), .is_array_backend = BCMOS_FALSE } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_lag_global_parms_fields[] =
@@ -6210,7 +5845,6 @@ const bcmolt_enum_val bcmolt_onu_upgrade_status_code_string_table[] =
     { .name = "tci_mismatch", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_TCI_MISMATCH, .tags = 0 },
     { .name = "get_image_failed", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_GET_IMAGE_FAILED, .tags = 0 },
     { .name = "activation_failed", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_ACTIVATION_FAILED, .tags = 0 },
-    { .name = "onu_deactivated", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_ONU_DEACTIVATED, .tags = 0 },
     { .name = "omci_processing_error", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_PROCESSING_ERROR, .tags = 0 },
     { .name = "omci_not_supported", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_NOT_SUPPORTED, .tags = 0 },
     { .name = "omci_parameter_error", .val = BCMOLT_ONU_UPGRADE_STATUS_CODE_OMCI_PARAMETER_ERROR, .tags = 0 },
@@ -6802,7 +6436,7 @@ static bcmolt_field_descr type_descr_bcmolt_pon_available_bandwidth_fields[] =
 {
     {
         .name = "cbr_bw",
-        .descr = "Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/sec in XGPON.",
+        .descr = "Total BW available for CBR-rt (CBR real-time) traffic. In all modes except TDMA this is expressed in bytes/sec. In TDMA, it is expressed as blocks/sec in XGS or words/secin XGPON.",
         .id = BCMOLT_PON_AVAILABLE_BANDWIDTH_ID_CBR_BW,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_available_bandwidth, cbr_bw),
@@ -7795,88 +7429,6 @@ const bcmolt_type_descr type_descr_bcmolt_sign =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_sign_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_src_binding_fields_string_table[] =
-{
-    { .name = "none", .val = BCMOLT_SRC_BINDING_FIELDS_NONE },
-    { .name = "src_mac", .val = BCMOLT_SRC_BINDING_FIELDS_SRC_MAC, .tags = 0 },
-    { .name = "ip_v_4_src_ip", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP, .tags = 0 },
-    { .name = "ip_v_4_src_ip_mask", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_4_SRC_IP_MASK, .tags = 0 },
-    { .name = "ip_v_6_src_ip", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP, .tags = 0 },
-    { .name = "ip_v_6_src_ip_mask", .val = BCMOLT_SRC_BINDING_FIELDS_IP_V_6_SRC_IP_MASK, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_src_binding_fields =
-{
-    .name = "src_binding_fields",
-    .descr = "bitmap of selected src_binding fields",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM_MASK,
-    .size = sizeof(bcmolt_src_binding_fields),
-    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_src_binding_fields_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_src_binding_id_string_table[] =
-{
-    { .name = "invalid", .val = BCMOLT_SRC_BINDING_ID_INVALID, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_src_binding_id =
-{
-    .name = "src_binding_id",
-    .descr = "source binding id",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_src_binding_id),
-    .x = { .e = { .base_type = &type_descr_int32_t,.vals = bcmolt_src_binding_id_string_table } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_src_binding_info_fields[] =
-{
-    {
-        .name = "src_mac",
-        .descr = "mac address binding parameter",
-        .id = BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_src_binding_info, src_mac),
-        .type = &type_descr_bcmos_mac_address,
-    },
-    {
-        .name = "ip_v_4",
-        .descr = "ipv4 binding parameters, may not be configured at the same time as ipv6 binding parameters",
-        .id = BCMOLT_SRC_BINDING_INFO_ID_IP_V_4,
-        .tags = 0,
-        .offset = offsetof(bcmolt_src_binding_info, ip_v_4),
-        .type = &type_descr_bcmolt_ip_v_4_src_binding,
-    },
-    {
-        .name = "ip_v_6",
-        .descr = "ipv6 binding parameters, may not be configured at the same time as ipv4 binding parameters",
-        .id = BCMOLT_SRC_BINDING_INFO_ID_IP_V_6,
-        .tags = 0,
-        .offset = offsetof(bcmolt_src_binding_info, ip_v_6),
-        .type = &type_descr_bcmolt_ip_v_6_src_binding,
-    },
-    {
-        .name = "src_binding_fields",
-        .descr = "selected src binding fields (RO)",
-        .id = BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_src_binding_info, src_binding_fields),
-        .type = &type_descr_bcmolt_src_binding_fields,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_src_binding_info =
-{
-    .name = "src_binding_info",
-    .descr = "source binding information",
-    .size = sizeof(bcmolt_src_binding_info),
-    .mask_offset = offsetof(bcmolt_src_binding_info, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_src_binding_info_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_src_binding_info_fields } },
-};
-
 const bcmolt_enum_val bcmolt_stage_string_table[] =
 {
     { .name = "ingress", .val = BCMOLT_STAGE_INGRESS, .tags = 0 },
@@ -8124,15 +7676,6 @@ const bcmolt_type_descr type_descr_bcmolt_str_100 =
     .base_type = BCMOLT_BASE_TYPE_ID_STRING,
 };
 
-const bcmolt_type_descr type_descr_bcmolt_str_128 =
-{
-    .name = "str_128",
-    .descr = "ASCII string with max length 128",
-    .size = sizeof(bcmolt_str_128),
-    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
-    .base_type = BCMOLT_BASE_TYPE_ID_STRING,
-};
-
 const bcmolt_type_descr type_descr_bcmolt_str_16 =
 {
     .name = "str_16",
@@ -8264,22 +7807,6 @@ const bcmolt_type_descr type_descr_bcmolt_sw_error =
     .mask_offset = offsetof(bcmolt_sw_error, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_sw_error_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_sw_error_fields } },
-};
-
-const bcmolt_enum_val bcmolt_sw_error_severity_string_table[] =
-{
-    { .name = "high", .val = BCMOLT_SW_ERROR_SEVERITY_HIGH, .tags = 0 },
-    { .name = "fatal", .val = BCMOLT_SW_ERROR_SEVERITY_FATAL, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_sw_error_severity =
-{
-    .name = "sw_error_severity",
-    .descr = "SW Error Severity",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_sw_error_severity),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_sw_error_severity_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_switch_over_type_c_onu_state_string_table[] =
@@ -8773,42 +8300,6 @@ static bcmolt_field_descr type_descr_bcmolt_tm_shaping_fields[] =
         .offset = offsetof(bcmolt_tm_shaping, burst),
         .type = &type_descr_uint32_t,
     },
-    {
-        .name = "cir_actual",
-        .descr = "Actual CIR Rate (read from device)",
-        .id = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_shaping, cir_actual),
-        .type = &type_descr_uint32_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "cir_burst_actual",
-        .descr = "Actual CIR Max Burst (read from device)",
-        .id = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_shaping, cir_burst_actual),
-        .type = &type_descr_int32_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "eir_actual",
-        .descr = "Actual EIR (PIR-CIR) Rate (read from device)",
-        .id = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_shaping, eir_actual),
-        .type = &type_descr_uint32_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "eir_burst_actual",
-        .descr = "Actual EIR Max Burst (read from device)",
-        .id = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL,
-        .tags = 0,
-        .offset = offsetof(bcmolt_tm_shaping, eir_burst_actual),
-        .type = &type_descr_int32_t,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_tm_shaping =
@@ -8947,6 +8438,7 @@ const bcmolt_enum_val bcmolt_traffic_type_string_table[] =
     { .name = "known_unicast", .val = BCMOLT_TRAFFIC_TYPE_KNOWN_UNICAST, .tags = 0 },
     { .name = "unk_unicast", .val = BCMOLT_TRAFFIC_TYPE_UNK_UNICAST, .tags = 0 },
     { .name = "multicast", .val = BCMOLT_TRAFFIC_TYPE_MULTICAST, .tags = 0 },
+    { .name = "unk_multicast", .val = BCMOLT_TRAFFIC_TYPE_UNK_MULTICAST, .tags = 0 },
     { .name = "all_traffic", .val = BCMOLT_TRAFFIC_TYPE_ALL_TRAFFIC, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -9059,10 +8551,6 @@ const bcmolt_enum_val bcmolt_trx_type_string_table[] =
     { .name = "ltf_5306", .val = BCMOLT_TRX_TYPE_LTF_5306, .tags = 0 },
     { .name = "ltf_5308_b", .val = BCMOLT_TRX_TYPE_LTF_5308_B, .tags = 0 },
     { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
-    { .name = "combo_general_1", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_1, .tags = 0 },
-    { .name = "combo_general_2", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_2, .tags = 0 },
-    { .name = "combo_general_3", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_3, .tags = 0 },
-    { .name = "combo_general_4", .val = BCMOLT_TRX_TYPE_COMBO_GENERAL_4, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -9156,23 +8644,6 @@ const bcmolt_type_descr type_descr_bcmolt_uart_baudrate =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_uart_baudrate),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_uart_baudrate_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_um_fwrd_state_string_table[] =
-{
-    { .name = "disable", .val = BCMOLT_UM_FWRD_STATE_DISABLE, .tags = 0 },
-    { .name = "enable", .val = BCMOLT_UM_FWRD_STATE_ENABLE, .tags = 0 },
-    { .name = "igmp_icmpv6", .val = BCMOLT_UM_FWRD_STATE_IGMP_ICMPV6, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_um_fwrd_state =
-{
-    .name = "um_fwrd_state",
-    .descr = "um fwrd state",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_um_fwrd_state),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_um_fwrd_state_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_upstream_line_rate_capabilities_string_table[] =
@@ -9904,14 +9375,6 @@ static bcmolt_field_descr type_descr_bcmolt_xgpon_trx_fields[] =
         .offset = offsetof(bcmolt_xgpon_trx, transceiver_type),
         .type = &type_descr_bcmolt_xgpon_trx_type,
     },
-    {
-        .name = "trx_name",
-        .descr = "TRX name",
-        .id = BCMOLT_XGPON_TRX_ID_TRX_NAME,
-        .tags = 0,
-        .offset = offsetof(bcmolt_xgpon_trx, trx_name),
-        .type = &type_descr_bcmolt_str_100,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_xgpon_trx =
@@ -9943,14 +9406,6 @@ const bcmolt_enum_val bcmolt_xgpon_trx_type_string_table[] =
     { .name = "ltf_5308_b", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_B, .tags = 0 },
     { .name = "sdds_st_xs_cp_cdfa", .val = BCMOLT_XGPON_TRX_TYPE_SDDS_ST_XS_CP_CDFA, .tags = 0 },
     { .name = "ltf_5308_e_sl", .val = BCMOLT_XGPON_TRX_TYPE_LTF_5308_E_SL, .tags = 0 },
-    { .name = "xgs_general_1", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_1, .tags = 0 },
-    { .name = "xgs_general_2", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_2, .tags = 0 },
-    { .name = "xgs_general_3", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_3, .tags = 0 },
-    { .name = "xgs_general_4", .val = BCMOLT_XGPON_TRX_TYPE_XGS_GENERAL_4, .tags = 0 },
-    { .name = "combo_general_1", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_1, .tags = 0 },
-    { .name = "combo_general_2", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_2, .tags = 0 },
-    { .name = "combo_general_3", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_3, .tags = 0 },
-    { .name = "combo_general_4", .val = BCMOLT_XGPON_TRX_TYPE_COMBO_GENERAL_4, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -10546,7 +10001,7 @@ static bcmolt_field_descr type_descr_bcmolt_device_cfg_data_fields[] =
     },
     {
         .name = "protection_switching_ext_irq",
-        .descr = "Supported in BCM6862X only. The selected external IRQ for protection switching",
+        .descr = "The selected external IRQ for protection switching",
         .id = BCMOLT_DEVICE_CFG_DATA_ID_PROTECTION_SWITCHING_EXT_IRQ,
         .tags = 0,
         .offset = offsetof(bcmolt_device_cfg_data, protection_switching_ext_irq),
@@ -12494,16 +11949,7 @@ static bcmolt_field_descr type_descr_bcmolt_flow_cfg_data_fields[] =
         .id = BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING,
         .tags = 0,
         .offset = offsetof(bcmolt_flow_cfg_data, um_forwarding),
-        .type = &type_descr_bcmolt_um_fwrd_state,
-    },
-    {
-        .name = "src_bindings",
-        .descr = "source bindings for a flow",
-        .id = BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_flow_cfg_data, src_bindings),
-        .type = &type_descr_bcmolt_arr_src_binding_info_16,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
+        .type = &type_descr_bcmolt_control_state,
     },
 };
 
@@ -12637,36 +12083,6 @@ const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data =
     .mask_offset = offsetof(bcmolt_flow_send_eth_packet_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_send_eth_packet_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_send_eth_packet_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_flow_src_binding_update_data_fields[] =
-{
-    {
-        .name = "command",
-        .descr = "binding command",
-        .id = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND,
-        .tags = 0,
-        .offset = offsetof(bcmolt_flow_src_binding_update_data, command),
-        .type = &type_descr_bcmolt_binding_command,
-    },
-    {
-        .name = "src_binding",
-        .descr = "source binding parameters",
-        .id = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING,
-        .tags = 0,
-        .offset = offsetof(bcmolt_flow_src_binding_update_data, src_binding),
-        .type = &type_descr_bcmolt_src_binding_info,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data =
-{
-    .name = "flow_src_binding_update_data",
-    .descr = "BAL Flow: source binding update",
-    .size = sizeof(bcmolt_flow_src_binding_update_data),
-    .mask_offset = offsetof(bcmolt_flow_src_binding_update_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_flow_src_binding_update_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_flow_src_binding_update_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_flow_stats_cfg_data_fields[] =
@@ -14896,14 +14312,6 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_cfg_data_fields[] =
         .offset = offsetof(bcmolt_itupon_alloc_cfg_data, latency_sensitive),
         .type = &type_descr_bcmos_bool,
     },
-    {
-        .name = "enable_latency_stats",
-        .descr = "Enable latency statistics",
-        .id = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_cfg_data, enable_latency_stats),
-        .type = &type_descr_bcmos_bool,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_cfg_data =
@@ -15058,162 +14466,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data =
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields[] =
-{
-    {
-        .name = "tm_used",
-        .descr = "tm used",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, tm_used),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "tm_allocated",
-        .descr = "tm allocated",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, tm_allocated),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "bufocc",
-        .descr = "Buffer occupancy",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, bufocc),
-        .type = &type_descr_uint64_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_data",
-    .descr = "ITU PON Alloc: Accumulated statistics",
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_latency_stats_data_fields[] =
-{
-    {
-        .name = "onu_tcont_max_queue_size",
-        .descr = " ONU TCONT maximum queue size",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, onu_tcont_max_queue_size),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "allocation_busy",
-        .descr = "allocation busy",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, allocation_busy),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_0_100_usec",
-        .descr = "latency distribution bucket 0-0.1 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_0_100_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_100_200_usec",
-        .descr = "latency distribution bucket 0.1-0.2 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_100_200_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_200_300_usec",
-        .descr = "latency distribution bucket 0.2-0.3 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_200_300_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_300_400_usec",
-        .descr = "latency distribution bucket 0.3-0.4 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_300_400_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_400_600_usec",
-        .descr = "latency distribution bucket 0.4-0.6 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_400_600_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_600_800_usec",
-        .descr = "latency distribution bucket 0.6-0.8 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_600_800_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_800_1000_usec",
-        .descr = "latency distribution bucket 0.8-1 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_800_1000_usec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_1_3_msec",
-        .descr = "latency distribution bucket 1-3 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_1_3_msec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_3_5_msec",
-        .descr = "latency distribution bucket 3-5 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_3_5_msec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_5_10_msec",
-        .descr = "latency distribution bucket 5-10 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_5_10_msec),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "latency_bucket_more_than_10_msec",
-        .descr = "latency distribution bucket more then 10ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, latency_bucket_more_than_10_msec),
-        .type = &type_descr_uint64_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data =
-{
-    .name = "itupon_alloc_latency_stats_data",
-    .descr = "ITU PON Alloc: latency statistics",
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_latency_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_latency_stats_data_fields } },
-};
-
 static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_stats_cfg_data_fields[] =
 {
     {
@@ -15280,268 +14532,8 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data 
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields[] =
-{
-    {
-        .name = "tm_used",
-        .descr = "tm used",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, tm_used),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "tm_allocated",
-        .descr = "tm allocated",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, tm_allocated),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "bufocc",
-        .descr = "Buffer occupancy",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, bufocc),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg_data",
-    .descr = "ITU PON Alloc: Accumulated Statistics Configuration",
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data, stat),
-        .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data",
-    .descr = "ITU PON Alloc: Accumulated Statistics Alarm Raised",
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data, stat),
-        .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data",
-    .descr = "ITU PON Alloc: Accumulated Statistics Alarm Cleared",
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields[] =
-{
-    {
-        .name = "onu_tcont_max_queue_size",
-        .descr = " ONU TCONT maximum queue size",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, onu_tcont_max_queue_size),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "allocation_busy",
-        .descr = "allocation busy",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, allocation_busy),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_0_100_usec",
-        .descr = "latency distribution bucket 0-0.1 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_0_100_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_100_200_usec",
-        .descr = "latency distribution bucket 0.1-0.2 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_100_200_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_200_300_usec",
-        .descr = "latency distribution bucket 0.2-0.3 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_200_300_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_300_400_usec",
-        .descr = "latency distribution bucket 0.3-0.4 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_300_400_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_400_600_usec",
-        .descr = "latency distribution bucket 0.4-0.6 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_400_600_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_600_800_usec",
-        .descr = "latency distribution bucket 0.6-0.8 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_600_800_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_800_1000_usec",
-        .descr = "latency distribution bucket 0.8-1 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_800_1000_usec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_1_3_msec",
-        .descr = "latency distribution bucket 1-3 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_1_3_msec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_3_5_msec",
-        .descr = "latency distribution bucket 3-5 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_3_5_msec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_5_10_msec",
-        .descr = "latency distribution bucket 5-10 ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_5_10_msec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "latency_bucket_more_than_10_msec",
-        .descr = "latency distribution bucket more then 10ms",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, latency_bucket_more_than_10_msec),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data =
-{
-    .name = "itupon_alloc_latency_stats_cfg_data",
-    .descr = "ITU PON Alloc: Latency Statistics Configuration",
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data, stat),
-        .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data =
-{
-    .name = "itupon_alloc_latency_stats_alarm_raised_data",
-    .descr = "ITU PON Alloc: Latency Statistics Alarm Raised",
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data, stat),
-        .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data =
-{
-    .name = "itupon_alloc_latency_stats_alarm_cleared_data",
-    .descr = "ITU PON Alloc: Latency Statistics Alarm Cleared",
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data),
-    .mask_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_fields } },
-};
-
 static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields[] =
 {
-    {
-        .name = "alloc_onu_accumulated_stats_alarm_cleared",
-        .descr = "If true, indications of type \"alloc_onu_accumulated_stats_alarm_cleared\" will be generated.",
-        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, alloc_onu_accumulated_stats_alarm_cleared),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "alloc_onu_accumulated_stats_alarm_raised",
-        .descr = "If true, indications of type \"alloc_onu_accumulated_stats_alarm_raised\" will be generated.",
-        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, alloc_onu_accumulated_stats_alarm_raised),
-        .type = &type_descr_bcmos_bool,
-    },
     {
         .name = "configuration_completed",
         .descr = "If true, indications of type \"configuration_completed\" will be generated.",
@@ -15556,22 +14548,6 @@ static bcmolt_field_descr type_descr_bcmolt_itupon_alloc_auto_cfg_data_fields[] 
         .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED,
         .tags = 0,
         .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, get_alloc_stats_completed),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "latency_stats_alarm_cleared",
-        .descr = "If true, indications of type \"latency_stats_alarm_cleared\" will be generated.",
-        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, latency_stats_alarm_cleared),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "latency_stats_alarm_raised",
-        .descr = "If true, indications of type \"latency_stats_alarm_raised\" will be generated.",
-        .id = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_itupon_alloc_auto_cfg_data, latency_stats_alarm_raised),
         .type = &type_descr_bcmos_bool,
     },
     {
@@ -15936,243 +14912,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data =
     .mask_offset = offsetof(bcmolt_itupon_gem_auto_cfg_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_itupon_gem_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_itupon_gem_auto_cfg_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_key_fields[] =
-{
-    {
-        .name = "id",
-        .descr = "id",
-        .id = BCMOLT_FIELD_DESCR_ID_NONE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_key, id),
-        .type = &type_descr_uint8_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key =
-{
-    .name = "l2_mac_table_key",
-    .descr = "l2 mac table: key",
-    .size = sizeof(bcmolt_l2_mac_table_key),
-    .mask_offset = BCMOLT_TYPE_DESCR_NO_MASK,
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_key_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_key_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_cfg_data_fields[] =
-{
-    {
-        .name = "state",
-        .descr = "state",
-        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, state),
-        .type = &type_descr_bcmolt_config_state,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "dump_status",
-        .descr = "dump status",
-        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, dump_status),
-        .type = &type_descr_bcmolt_l2_mact_dump_status,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "last_dump_result",
-        .descr = "last dump_result",
-        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, last_dump_result),
-        .type = &type_descr_bcmolt_l2_mact_dump_status,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
-    {
-        .name = "report_event",
-        .descr = "report learning events",
-        .id = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_cfg_data, report_event),
-        .type = &type_descr_bcmolt_l2_event_report_control,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data =
-{
-    .name = "l2_mac_table_cfg_data",
-    .descr = "l2 mac table: cfg",
-    .size = sizeof(bcmolt_l2_mac_table_cfg_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_cfg_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_cfg_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_dump_data_fields[] =
-{
-    {
-        .name = "file_name",
-        .descr = "file name",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_data, file_name),
-        .type = &type_descr_bcmolt_str_128,
-    },
-    {
-        .name = "mode",
-        .descr = "dump mode",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_data, mode),
-        .type = &type_descr_bcmolt_l2_dump_mode,
-    },
-    {
-        .name = "filters",
-        .descr = "dump filters",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_data, filters),
-        .type = &type_descr_bcmolt_l2_dump_filters,
-    },
-    {
-        .name = "report_as_indication",
-        .descr = "report as indication",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_data, report_as_indication),
-        .type = &type_descr_bcmolt_control_state,
-    },
-    {
-        .name = "max_entry_per_indication",
-        .descr = "max number of entries per dump indication",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_data, max_entry_per_indication),
-        .type = &type_descr_uint16_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data =
-{
-    .name = "l2_mac_table_dump_data",
-    .descr = "l2 mac table: l2 mact dump",
-    .size = sizeof(bcmolt_l2_mac_table_dump_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_dump_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_dump_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_dump_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_dump_complete_data_fields[] =
-{
-    {
-        .name = "file_name",
-        .descr = "file name",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, file_name),
-        .type = &type_descr_bcmolt_str_128,
-    },
-    {
-        .name = "result",
-        .descr = "result",
-        .id = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, result),
-        .type = &type_descr_bcmolt_l2_mact_dump_status,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data =
-{
-    .name = "l2_mac_table_dump_complete_data",
-    .descr = "l2 mac table: l2 mact dump completed",
-    .size = sizeof(bcmolt_l2_mac_table_dump_complete_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_dump_complete_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_dump_complete_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_dump_complete_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_network_events_data_fields[] =
-{
-    {
-        .name = "entries",
-        .descr = "entries",
-        .id = BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_network_events_data, entries),
-        .type = &type_descr_bcmolt_l2_mact_entry_list_u32,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data =
-{
-    .name = "l2_mac_table_network_events_data",
-    .descr = "l2 mac table: network l2 events",
-    .size = sizeof(bcmolt_l2_mac_table_network_events_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_network_events_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_network_events_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_network_events_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_pon_events_data_fields[] =
-{
-    {
-        .name = "entries",
-        .descr = "entries",
-        .id = BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_pon_events_data, entries),
-        .type = &type_descr_bcmolt_l2_mact_entry_list_u32,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data =
-{
-    .name = "l2_mac_table_pon_events_data",
-    .descr = "l2 mac table: pon l2 events",
-    .size = sizeof(bcmolt_l2_mac_table_pon_events_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_pon_events_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_pon_events_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_pon_events_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields[] =
-{
-    {
-        .name = "dump_complete",
-        .descr = "If true, indications of type \"dump_complete\" will be generated.",
-        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, dump_complete),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "network_events",
-        .descr = "If true, indications of type \"network_events\" will be generated.",
-        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, network_events),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "pon_events",
-        .descr = "If true, indications of type \"pon_events\" will be generated.",
-        .id = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS,
-        .tags = 0,
-        .offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, pon_events),
-        .type = &type_descr_bcmos_bool,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data =
-{
-    .name = "l2_mac_table_auto_cfg_data",
-    .descr = "l2 mac table: Indication Configuration",
-    .size = sizeof(bcmolt_l2_mac_table_auto_cfg_data),
-    .mask_offset = offsetof(bcmolt_l2_mac_table_auto_cfg_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_l2_mac_table_auto_cfg_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_lag_interface_key_fields[] =
@@ -18550,15 +17289,7 @@ static bcmolt_field_descr type_descr_bcmolt_olt_sw_error_data_fields[] =
         .id = BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING,
         .tags = 0,
         .offset = offsetof(bcmolt_olt_sw_error_data, error_string),
-        .type = &type_descr_bcmolt_str_256,
-    },
-    {
-        .name = "severity",
-        .descr = "Severity",
-        .id = BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY,
-        .tags = 0,
-        .offset = offsetof(bcmolt_olt_sw_error_data, severity),
-        .type = &type_descr_bcmolt_sw_error_severity,
+        .type = &type_descr_bcmolt_str_100,
     },
 };
 
@@ -19890,7 +18621,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_err_data_fields[] =
         .id = BCMOLT_ONU_ERR_DATA_ID_BIP8_ERRORS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_err_data, bip8_errors),
-        .type = &type_descr_uint32_t,
+        .type = &type_descr_uint8_t,
     },
 };
 
@@ -20478,7 +19209,7 @@ static bcmolt_field_descr type_descr_bcmolt_onu_rei_data_fields[] =
         .id = BCMOLT_ONU_REI_DATA_ID_BIP8_ERRORS,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_rei_data, bip8_errors),
-        .type = &type_descr_uint32_t,
+        .type = &type_descr_uint8_t,
     },
 };
 
@@ -20594,44 +19325,6 @@ const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data =
     .mask_offset = offsetof(bcmolt_onu_trap_ploam_received_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_trap_ploam_received_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_trap_ploam_received_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields[] =
-{
-    {
-        .name = "tm_used",
-        .descr = "tm used",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, tm_used),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "tm_allocated",
-        .descr = "tm allocated",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, tm_allocated),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "bufocc",
-        .descr = "Buffer occupancy",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, bufocc),
-        .type = &type_descr_uint64_t,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_data",
-    .descr = "ONU: Accumulated statistics",
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data),
-    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_onu_itu_pon_stats_cfg_data_fields[] =
@@ -20876,88 +19569,6 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data =
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_fields } },
 };
 
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields[] =
-{
-    {
-        .name = "tm_used",
-        .descr = "tm used",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, tm_used),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "tm_allocated",
-        .descr = "tm allocated",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, tm_allocated),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "bufocc",
-        .descr = "Buffer occupancy",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, bufocc),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_cfg_data",
-    .descr = "ONU: Accumulated Statistics Configuration",
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data),
-    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data, stat),
-        .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised_data",
-    .descr = "ONU: Accumulated Statistics Alarm Raised",
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data),
-    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields[] =
-{
-    {
-        .name = "stat",
-        .descr = "Statistic identifier.",
-        .id = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data, stat),
-        .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data",
-    .descr = "ONU: Accumulated Statistics Alarm Cleared",
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data),
-    .mask_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_fields } },
-};
-
 static bcmolt_field_descr type_descr_bcmolt_onu_auto_cfg_data_fields[] =
 {
     {
@@ -21022,22 +19633,6 @@ static bcmolt_field_descr type_descr_bcmolt_onu_auto_cfg_data_fields[] =
         .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT,
         .tags = 0,
         .offset = offsetof(bcmolt_onu_auto_cfg_data, invalid_dbru_report),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "itu_alloc_onu_accumulated_stats_alarm_cleared",
-        .descr = "If true, indications of type \"itu_alloc_onu_accumulated_stats_alarm_cleared\" will be generated.",
-        .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_auto_cfg_data, itu_alloc_onu_accumulated_stats_alarm_cleared),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
-        .name = "itu_alloc_onu_accumulated_stats_alarm_raised",
-        .descr = "If true, indications of type \"itu_alloc_onu_accumulated_stats_alarm_raised\" will be generated.",
-        .id = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-        .tags = 0,
-        .offset = offsetof(bcmolt_onu_auto_cfg_data, itu_alloc_onu_accumulated_stats_alarm_raised),
         .type = &type_descr_bcmos_bool,
     },
     {
@@ -22041,22 +20636,6 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_data_fie
         .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS,
         .tags = 0,
         .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, rx_packets),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "tx_bytes",
-        .descr = "Transmitted bytes",
-        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, tx_bytes),
-        .type = &type_descr_uint64_t,
-    },
-    {
-        .name = "rx_bytes",
-        .descr = "Received bytes",
-        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_data, rx_bytes),
         .type = &type_descr_uint64_t,
     },
 };
@@ -23531,22 +22110,6 @@ static bcmolt_field_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data
         .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, rx_packets),
         .type = &type_descr_bcmolt_stat_alarm_config,
     },
-    {
-        .name = "tx_bytes",
-        .descr = "Transmitted bytes",
-        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, tx_bytes),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
-    {
-        .name = "rx_bytes",
-        .descr = "Received bytes",
-        .id = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES,
-        .tags = 0,
-        .offset = offsetof(bcmolt_pon_interface_itu_pon_stats_cfg_data, rx_bytes),
-        .type = &type_descr_bcmolt_stat_alarm_config,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_pon_interface_itu_pon_stats_cfg_data =
@@ -24364,15 +22927,6 @@ static bcmolt_field_descr type_descr_bcmolt_switch_inni_cfg_data_fields[] =
         .type = &type_descr_bcmolt_config_state,
         .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
     },
-    {
-        .name = "link_state",
-        .descr = "Current Link State (Link Up or Link Down)",
-        .id = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_switch_inni_cfg_data, link_state),
-        .type = &type_descr_bcmolt_link_state,
-        .flags = BCMOLT_FIELD_FLAGS_READ_ONLY,
-    },
 };
 
 const bcmolt_type_descr type_descr_bcmolt_switch_inni_cfg_data =
@@ -24709,36 +23263,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data =
     .mask_offset = offsetof(bcmolt_switch_inni_stats_data, presence_mask),
     .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
     .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_stats_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_stats_data_fields } },
-};
-
-static bcmolt_field_descr type_descr_bcmolt_switch_inni_link_state_change_data_fields[] =
-{
-    {
-        .name = "old_state",
-        .descr = "old_state",
-        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, old_state),
-        .type = &type_descr_bcmolt_link_state,
-    },
-    {
-        .name = "new_state",
-        .descr = "new_state",
-        .id = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_switch_inni_link_state_change_data, new_state),
-        .type = &type_descr_bcmolt_link_state,
-    },
-};
-
-const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data =
-{
-    .name = "switch_inni_link_state_change_data",
-    .descr = "switch inni: link_state_change",
-    .size = sizeof(bcmolt_switch_inni_link_state_change_data),
-    .mask_offset = offsetof(bcmolt_switch_inni_link_state_change_data, presence_mask),
-    .base_type = BCMOLT_BASE_TYPE_ID_STRUCT,
-    .x = { .s = { .num_fields = sizeof(type_descr_bcmolt_switch_inni_link_state_change_data_fields) / sizeof(bcmolt_field_descr), .fields = type_descr_bcmolt_switch_inni_link_state_change_data_fields } },
 };
 
 static bcmolt_field_descr type_descr_bcmolt_switch_inni_stats_cfg_data_fields[] =
@@ -25114,14 +23638,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data =
 static bcmolt_field_descr type_descr_bcmolt_switch_inni_auto_cfg_data_fields[] =
 {
     {
-        .name = "link_state_change",
-        .descr = "If true, indications of type \"link_state_change\" will be generated.",
-        .id = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE,
-        .tags = 0,
-        .offset = offsetof(bcmolt_switch_inni_auto_cfg_data, link_state_change),
-        .type = &type_descr_bcmos_bool,
-    },
-    {
         .name = "stats_alarm_cleared",
         .descr = "If true, indications of type \"stats_alarm_cleared\" will be generated.",
         .id = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED,
@@ -25456,7 +23972,6 @@ const bcmolt_enum_val bcmolt_obj_id_string_table[] =
     { .name = "internal_nni", .val = BCMOLT_OBJ_ID_INTERNAL_NNI, .tags = 0 },
     { .name = "itupon_alloc", .val = BCMOLT_OBJ_ID_ITUPON_ALLOC, .tags = 0 },
     { .name = "itupon_gem", .val = BCMOLT_OBJ_ID_ITUPON_GEM, .tags = 0 },
-    { .name = "l2_mac_table", .val = BCMOLT_OBJ_ID_L2_MAC_TABLE, .tags = 0 },
     { .name = "lag_interface", .val = BCMOLT_OBJ_ID_LAG_INTERFACE, .tags = 0 },
     { .name = "log", .val = BCMOLT_OBJ_ID_LOG, .tags = 0 },
     { .name = "log_file", .val = BCMOLT_OBJ_ID_LOG_FILE, .tags = 0 },
@@ -25548,7 +24063,6 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "flow_key", .val = BCMOLT_API_GROUP_ID_FLOW_KEY, .tags = 0 },
     { .name = "flow_stats", .val = BCMOLT_API_GROUP_ID_FLOW_STATS, .tags = 0 },
     { .name = "flow_send_eth_packet", .val = BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET, .tags = 0 },
-    { .name = "flow_src_binding_update", .val = BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE, .tags = 0 },
     { .name = "flow_stats_cfg", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_CFG, .tags = 0 },
     { .name = "flow_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "flow_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED, .tags = 0 },
@@ -25590,17 +24104,9 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "itupon_alloc_get_alloc_stats_completed", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
     { .name = "itupon_alloc_set_state", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE, .tags = 0 },
     { .name = "itupon_alloc_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS, .tags = 0 },
-    { .name = "itupon_alloc_alloc_onu_accumulated_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
-    { .name = "itupon_alloc_latency_stats", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS, .tags = 0 },
     { .name = "itupon_alloc_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG, .tags = 0 },
     { .name = "itupon_alloc_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itupon_alloc_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
-    { .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
-    { .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "itupon_alloc_latency_stats_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG, .tags = 0 },
-    { .name = "itupon_alloc_latency_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
-    { .name = "itupon_alloc_latency_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itupon_alloc_auto_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG, .tags = 0 },
     { .name = "itupon_gem_key", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY, .tags = 0 },
     { .name = "itupon_gem_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG, .tags = 0 },
@@ -25611,14 +24117,6 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "itupon_gem_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itupon_gem_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itupon_gem_auto_cfg", .val = BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG, .tags = 0 },
-    { .name = "l2_mac_table_key", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY, .tags = 0 },
-    { .name = "l2_mac_table_cfg", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG, .tags = 0 },
-    { .name = "l2_mac_table_dump", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP, .tags = 0 },
-    { .name = "l2_mac_table_dump_complete", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE, .tags = 0 },
-    { .name = "l2_mac_table_dump_abort", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT, .tags = 0 },
-    { .name = "l2_mac_table_network_events", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS, .tags = 0 },
-    { .name = "l2_mac_table_pon_events", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS, .tags = 0 },
-    { .name = "l2_mac_table_auto_cfg", .val = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG, .tags = 0 },
     { .name = "lag_interface_key", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY, .tags = 0 },
     { .name = "lag_interface_cfg", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG, .tags = 0 },
     { .name = "lag_interface_stats", .val = BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS, .tags = 0 },
@@ -25728,13 +24226,9 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "onu_range_value_changed", .val = BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED, .tags = 0 },
     { .name = "onu_xpon_unknown_ploam", .val = BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM, .tags = 0 },
     { .name = "onu_trap_ploam_received", .val = BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED, .tags = 0 },
-    { .name = "onu_itu_alloc_onu_accumulated_stats", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
     { .name = "onu_itu_pon_stats_cfg", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "onu_itu_pon_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "onu_itu_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
-    { .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
-    { .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "onu_auto_cfg", .val = BCMOLT_API_GROUP_ID_ONU_AUTO_CFG, .tags = 0 },
     { .name = "pbit_to_tc_key", .val = BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY, .tags = 0 },
     { .name = "pbit_to_tc_cfg", .val = BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG, .tags = 0 },
@@ -25797,7 +24291,6 @@ const bcmolt_enum_val bcmolt_api_group_id_string_table[] =
     { .name = "switch_inni_key", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY, .tags = 0 },
     { .name = "switch_inni_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG, .tags = 0 },
     { .name = "switch_inni_stats", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS, .tags = 0 },
-    { .name = "switch_inni_link_state_change", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "switch_inni_stats_cfg", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG, .tags = 0 },
     { .name = "switch_inni_stats_alarm_raised", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "switch_inni_stats_alarm_cleared", .val = BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED, .tags = 0 },
@@ -26097,7 +24590,6 @@ const bcmolt_enum_val bcmolt_flow_oper_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_FLOW_OPER_SUBGROUP_ALL, .tags = 0 },
     { .name = "send_eth_packet", .val = BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET, .tags = 0 },
-    { .name = "src_binding_update", .val = BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -26234,8 +24726,6 @@ const bcmolt_type_descr type_descr_bcmolt_internal_nni_oper_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_stat_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALL, .tags = 0 },
-    { .name = "alloc_onu_accumulated_stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
-    { .name = "latency_stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS, .tags = 0 },
     { .name = "stats", .val = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -26252,8 +24742,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stat_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_stat_cfg_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALL, .tags = 0 },
-    { .name = "alloc_onu_accumulated_stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
-    { .name = "latency_stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG, .tags = 0 },
     { .name = "stats_cfg", .val = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -26270,12 +24758,8 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stat_cfg_subgroup =
 const bcmolt_enum_val bcmolt_itupon_alloc_auto_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALL, .tags = 0 },
-    { .name = "alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "configuration_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED, .tags = 0 },
     { .name = "get_alloc_stats_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
-    { .name = "latency_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "latency_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -26371,41 +24855,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_oper_subgroup =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_itupon_gem_oper_subgroup),
     .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_itupon_gem_oper_subgroup_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_auto_subgroup_string_table[] =
-{
-    { .name = "all", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_ALL, .tags = 0 },
-    { .name = "dump_complete", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE, .tags = 0 },
-    { .name = "network_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS, .tags = 0 },
-    { .name = "pon_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_subgroup =
-{
-    .name = "l2_mac_table_auto_subgroup",
-    .descr = "List of all l2_mac_table groups of type auto.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_auto_subgroup),
-    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_mac_table_auto_subgroup_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_oper_subgroup_string_table[] =
-{
-    { .name = "all", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_ALL, .tags = 0 },
-    { .name = "dump", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP, .tags = 0 },
-    { .name = "dump_abort", .val = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_oper_subgroup =
-{
-    .name = "l2_mac_table_oper_subgroup",
-    .descr = "List of all l2_mac_table groups of type oper.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_oper_subgroup),
-    .x = { .e = { .base_type = &type_descr_uint16_t,.vals = bcmolt_l2_mac_table_oper_subgroup_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_interface_stat_subgroup_string_table[] =
@@ -26602,7 +25051,6 @@ const bcmolt_type_descr type_descr_bcmolt_olt_oper_subgroup =
 const bcmolt_enum_val bcmolt_onu_stat_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ONU_STAT_SUBGROUP_ALL, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats", .val = BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS, .tags = 0 },
     { .name = "itu_pon_stats", .val = BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -26619,7 +25067,6 @@ const bcmolt_type_descr type_descr_bcmolt_onu_stat_subgroup =
 const bcmolt_enum_val bcmolt_onu_stat_cfg_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ALL, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats_cfg", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG, .tags = 0 },
     { .name = "itu_pon_stats_cfg", .val = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
@@ -26644,8 +25091,6 @@ const bcmolt_enum_val bcmolt_onu_auto_subgroup_string_table[] =
     { .name = "err", .val = BCMOLT_ONU_AUTO_SUBGROUP_ERR, .tags = 0 },
     { .name = "gpon_alarm", .val = BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM, .tags = 0 },
     { .name = "invalid_dbru_report", .val = BCMOLT_ONU_AUTO_SUBGROUP_INVALID_DBRU_REPORT, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "key_exchange_completed", .val = BCMOLT_ONU_AUTO_SUBGROUP_KEY_EXCHANGE_COMPLETED, .tags = 0 },
@@ -26903,7 +25348,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stat_cfg_subgroup =
 const bcmolt_enum_val bcmolt_switch_inni_auto_subgroup_string_table[] =
 {
     { .name = "all", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_ALL, .tags = 0 },
-    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -27101,8 +25545,6 @@ const bcmolt_enum_val bcmolt_classifier_id_string_table[] =
     { .name = "ip_v_6", .val = BCMOLT_CLASSIFIER_ID_IP_V_6, .tags = 0 },
     { .name = "i2_vid", .val = BCMOLT_CLASSIFIER_ID_I2_VID, .tags = 0 },
     { .name = "slow_proto_subtype", .val = BCMOLT_CLASSIFIER_ID_SLOW_PROTO_SUBTYPE, .tags = 0 },
-    { .name = "o_tpid", .val = BCMOLT_CLASSIFIER_ID_O_TPID, .tags = 0 },
-    { .name = "i_tpid", .val = BCMOLT_CLASSIFIER_ID_I_TPID, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27529,7 +25971,6 @@ const bcmolt_type_descr type_descr_bcmolt_gpon_pon_params_id =
 const bcmolt_enum_val bcmolt_gpon_trx_id_string_table[] =
 {
     { .name = "transceiver_type", .val = BCMOLT_GPON_TRX_ID_TRANSCEIVER_TYPE, .tags = 0 },
-    { .name = "trx_name", .val = BCMOLT_GPON_TRX_ID_TRX_NAME, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27579,7 +26020,6 @@ const bcmolt_enum_val bcmolt_host_port_params_id_string_table[] =
 {
     { .name = "pir_kbps", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS, .tags = 0 },
     { .name = "queue_size_kbytes", .val = BCMOLT_HOST_PORT_PARAMS_ID_QUEUE_SIZE_KBYTES, .tags = 0 },
-    { .name = "pir_kbps_actual", .val = BCMOLT_HOST_PORT_PARAMS_ID_PIR_KBPS_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27736,38 +26176,6 @@ const bcmolt_type_descr type_descr_bcmolt_intf_ref_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_intf_ref_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_ip_v_4_src_binding_id_string_table[] =
-{
-    { .name = "src_ip", .val = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP, .tags = 0 },
-    { .name = "src_ip_mask", .val = BCMOLT_IP_V_4_SRC_BINDING_ID_SRC_IP_MASK, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_ip_v_4_src_binding_id =
-{
-    .name = "ip_v_4_src_binding_id",
-    .descr = "Identifiers for all fields in a 'ip_v_4_src_binding'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_ip_v_4_src_binding_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ip_v_4_src_binding_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_ip_v_6_src_binding_id_string_table[] =
-{
-    { .name = "src_ip_v_6", .val = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6, .tags = 0 },
-    { .name = "src_ip_v_6_mask", .val = BCMOLT_IP_V_6_SRC_BINDING_ID_SRC_IP_V_6_MASK, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_ip_v_6_src_binding_id =
-{
-    .name = "ip_v_6_src_binding_id",
-    .descr = "Identifiers for all fields in a 'ip_v_6_src_binding'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_ip_v_6_src_binding_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_ip_v_6_src_binding_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_itu_onu_params_id_string_table[] =
 {
     { .name = "serial_number", .val = BCMOLT_ITU_ONU_PARAMS_ID_SERIAL_NUMBER, .tags = 0 },
@@ -27821,7 +26229,6 @@ const bcmolt_enum_val bcmolt_itu_pon_params_id_string_table[] =
     { .name = "gpon", .val = BCMOLT_ITU_PON_PARAMS_ID_GPON, .tags = 0 },
     { .name = "bw_eligibility_class_stats", .val = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_CLASS_STATS, .tags = 0 },
     { .name = "dba", .val = BCMOLT_ITU_PON_PARAMS_ID_DBA, .tags = 0 },
-    { .name = "bw_eligibility_stats_clear_on_read", .val = BCMOLT_ITU_PON_PARAMS_ID_BW_ELIGIBILITY_STATS_CLEAR_ON_READ, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -27959,50 +26366,6 @@ const bcmolt_type_descr type_descr_bcmolt_key_exchange_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_key_exchange_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_key_exchange_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_dump_filters_id_string_table[] =
-{
-    { .name = "o_vid", .val = BCMOLT_L2_DUMP_FILTERS_ID_O_VID, .tags = 0 },
-    { .name = "i_vid", .val = BCMOLT_L2_DUMP_FILTERS_ID_I_VID, .tags = 0 },
-    { .name = "interface", .val = BCMOLT_L2_DUMP_FILTERS_ID_INTERFACE, .tags = 0 },
-    { .name = "mac_address", .val = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS, .tags = 0 },
-    { .name = "mac_address_mask", .val = BCMOLT_L2_DUMP_FILTERS_ID_MAC_ADDRESS_MASK, .tags = 0 },
-    { .name = "domain", .val = BCMOLT_L2_DUMP_FILTERS_ID_DOMAIN, .tags = 0 },
-    { .name = "pkt_tag_type", .val = BCMOLT_L2_DUMP_FILTERS_ID_PKT_TAG_TYPE, .tags = 0 },
-    { .name = "svc_port_id", .val = BCMOLT_L2_DUMP_FILTERS_ID_SVC_PORT_ID, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_dump_filters_id =
-{
-    .name = "l2_dump_filters_id",
-    .descr = "Identifiers for all fields in a 'l2_dump_filters'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_dump_filters_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_dump_filters_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mact_entry_id_string_table[] =
-{
-    { .name = "pkt_tag_type", .val = BCMOLT_L2_MACT_ENTRY_ID_PKT_TAG_TYPE, .tags = 0 },
-    { .name = "o_vid", .val = BCMOLT_L2_MACT_ENTRY_ID_O_VID, .tags = 0 },
-    { .name = "i_vid", .val = BCMOLT_L2_MACT_ENTRY_ID_I_VID, .tags = 0 },
-    { .name = "interface", .val = BCMOLT_L2_MACT_ENTRY_ID_INTERFACE, .tags = 0 },
-    { .name = "svc_port_id", .val = BCMOLT_L2_MACT_ENTRY_ID_SVC_PORT_ID, .tags = 0 },
-    { .name = "mac_address", .val = BCMOLT_L2_MACT_ENTRY_ID_MAC_ADDRESS, .tags = 0 },
-    { .name = "event_type", .val = BCMOLT_L2_MACT_ENTRY_ID_EVENT_TYPE, .tags = 0 },
-    { .name = "is_static", .val = BCMOLT_L2_MACT_ENTRY_ID_IS_STATIC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mact_entry_id =
-{
-    .name = "l2_mact_entry_id",
-    .descr = "Identifiers for all fields in a 'l2_mact_entry'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mact_entry_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mact_entry_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_global_parms_id_string_table[] =
@@ -28731,24 +27094,6 @@ const bcmolt_type_descr type_descr_bcmolt_service_discovery_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_service_discovery_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_src_binding_info_id_string_table[] =
-{
-    { .name = "src_mac", .val = BCMOLT_SRC_BINDING_INFO_ID_SRC_MAC, .tags = 0 },
-    { .name = "ip_v_4", .val = BCMOLT_SRC_BINDING_INFO_ID_IP_V_4, .tags = 0 },
-    { .name = "ip_v_6", .val = BCMOLT_SRC_BINDING_INFO_ID_IP_V_6, .tags = 0 },
-    { .name = "src_binding_fields", .val = BCMOLT_SRC_BINDING_INFO_ID_SRC_BINDING_FIELDS, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_src_binding_info_id =
-{
-    .name = "src_binding_info_id",
-    .descr = "Identifiers for all fields in a 'src_binding_info'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_src_binding_info_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_src_binding_info_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_stat_alarm_config_id_string_table[] =
 {
     { .name = "trigger", .val = BCMOLT_STAT_ALARM_CONFIG_ID_TRIGGER, .tags = 0 },
@@ -29027,10 +27372,6 @@ const bcmolt_enum_val bcmolt_tm_shaping_id_string_table[] =
     { .name = "cir", .val = BCMOLT_TM_SHAPING_ID_CIR, .tags = 0 },
     { .name = "pir", .val = BCMOLT_TM_SHAPING_ID_PIR, .tags = 0 },
     { .name = "burst", .val = BCMOLT_TM_SHAPING_ID_BURST, .tags = 0 },
-    { .name = "cir_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_ACTUAL, .tags = 0 },
-    { .name = "cir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_CIR_BURST_ACTUAL, .tags = 0 },
-    { .name = "eir_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_ACTUAL, .tags = 0 },
-    { .name = "eir_burst_actual", .val = BCMOLT_TM_SHAPING_ID_EIR_BURST_ACTUAL, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -29293,7 +27634,6 @@ const bcmolt_enum_val bcmolt_xgpon_trx_id_string_table[] =
 {
     { .name = "burst_profile", .val = BCMOLT_XGPON_TRX_ID_BURST_PROFILE, .tags = 0 },
     { .name = "transceiver_type", .val = BCMOLT_XGPON_TRX_ID_TRANSCEIVER_TYPE, .tags = 0 },
-    { .name = "trx_name", .val = BCMOLT_XGPON_TRX_ID_TRX_NAME, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -30258,7 +28598,6 @@ const bcmolt_enum_val bcmolt_flow_cfg_data_id_string_table[] =
     { .name = "mac_table_miss_action", .val = BCMOLT_FLOW_CFG_DATA_ID_MAC_TABLE_MISS_ACTION, .tags = 0 },
     { .name = "policer_profile", .val = BCMOLT_FLOW_CFG_DATA_ID_POLICER_PROFILE, .tags = 0 },
     { .name = "um_forwarding", .val = BCMOLT_FLOW_CFG_DATA_ID_UM_FORWARDING, .tags = 0 },
-    { .name = "src_bindings", .val = BCMOLT_FLOW_CFG_DATA_ID_SRC_BINDINGS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -30321,22 +28660,6 @@ const bcmolt_type_descr type_descr_bcmolt_flow_send_eth_packet_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_flow_send_eth_packet_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_flow_send_eth_packet_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_flow_src_binding_update_data_id_string_table[] =
-{
-    { .name = "command", .val = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_COMMAND, .tags = 0 },
-    { .name = "src_binding", .val = BCMOLT_FLOW_SRC_BINDING_UPDATE_DATA_ID_SRC_BINDING, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_flow_src_binding_update_data_id =
-{
-    .name = "flow_src_binding_update_data_id",
-    .descr = "Identifiers for all fields in a 'flow_src_binding_update_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_flow_src_binding_update_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_flow_src_binding_update_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_flow_stats_cfg_data_id_string_table[] =
@@ -31009,7 +29332,6 @@ const bcmolt_enum_val bcmolt_itupon_alloc_cfg_data_id_string_table[] =
     { .name = "collect_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_COLLECT_STATS, .tags = 0 },
     { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
     { .name = "latency_sensitive", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_LATENCY_SENSITIVE, .tags = 0 },
-    { .name = "enable_latency_stats", .val = BCMOLT_ITUPON_ALLOC_CFG_DATA_ID_ENABLE_LATENCY_STATS, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -31101,50 +29423,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_stats_data_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_string_table[] =
-{
-    { .name = "tm_used", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED, .tags = 0 },
-    { .name = "tm_allocated", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED, .tags = 0 },
-    { .name = "bufocc", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_data_id_string_table[] =
-{
-    { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
-    { .name = "allocation_busy", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_ALLOCATION_BUSY, .tags = 0 },
-    { .name = "latency_bucket_0_100_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_0_100_USEC, .tags = 0 },
-    { .name = "latency_bucket_100_200_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_100_200_USEC, .tags = 0 },
-    { .name = "latency_bucket_200_300_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_200_300_USEC, .tags = 0 },
-    { .name = "latency_bucket_300_400_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_300_400_USEC, .tags = 0 },
-    { .name = "latency_bucket_400_600_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_400_600_USEC, .tags = 0 },
-    { .name = "latency_bucket_600_800_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_600_800_USEC, .tags = 0 },
-    { .name = "latency_bucket_800_1000_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_800_1000_USEC, .tags = 0 },
-    { .name = "latency_bucket_1_3_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_1_3_MSEC, .tags = 0 },
-    { .name = "latency_bucket_3_5_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_3_5_MSEC, .tags = 0 },
-    { .name = "latency_bucket_5_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_5_10_MSEC, .tags = 0 },
-    { .name = "latency_bucket_more_than_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_data_id =
-{
-    .name = "itupon_alloc_latency_stats_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_data_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_itupon_alloc_stats_cfg_data_id_string_table[] =
 {
     { .name = "rx_bytes", .val = BCMOLT_ITUPON_ALLOC_STATS_CFG_DATA_ID_RX_BYTES, .tags = 0 },
@@ -31190,118 +29468,10 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data_
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_stats_alarm_cleared_data_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_string_table[] =
-{
-    { .name = "tm_used", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED, .tags = 0 },
-    { .name = "tm_allocated", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED, .tags = 0 },
-    { .name = "bufocc", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_cfg_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id =
-{
-    .name = "itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_cfg_data_id_string_table[] =
-{
-    { .name = "onu_tcont_max_queue_size", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ONU_TCONT_MAX_QUEUE_SIZE, .tags = 0 },
-    { .name = "allocation_busy", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_ALLOCATION_BUSY, .tags = 0 },
-    { .name = "latency_bucket_0_100_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_0_100_USEC, .tags = 0 },
-    { .name = "latency_bucket_100_200_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_100_200_USEC, .tags = 0 },
-    { .name = "latency_bucket_200_300_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_200_300_USEC, .tags = 0 },
-    { .name = "latency_bucket_300_400_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_300_400_USEC, .tags = 0 },
-    { .name = "latency_bucket_400_600_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_400_600_USEC, .tags = 0 },
-    { .name = "latency_bucket_600_800_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_600_800_USEC, .tags = 0 },
-    { .name = "latency_bucket_800_1000_usec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_800_1000_USEC, .tags = 0 },
-    { .name = "latency_bucket_1_3_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_1_3_MSEC, .tags = 0 },
-    { .name = "latency_bucket_3_5_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_3_5_MSEC, .tags = 0 },
-    { .name = "latency_bucket_5_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_5_10_MSEC, .tags = 0 },
-    { .name = "latency_bucket_more_than_10_msec", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_CFG_DATA_ID_LATENCY_BUCKET_MORE_THAN_10_MSEC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data_id =
-{
-    .name = "itupon_alloc_latency_stats_cfg_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_cfg_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_cfg_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id =
-{
-    .name = "itupon_alloc_latency_stats_alarm_raised_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_raised_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_alarm_raised_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id =
-{
-    .name = "itupon_alloc_latency_stats_alarm_cleared_data_id",
-    .descr = "Identifiers for all fields in a 'itupon_alloc_latency_stats_alarm_cleared_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_alloc_latency_stats_alarm_cleared_data_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_itupon_alloc_auto_cfg_data_id_string_table[] =
 {
-    { .name = "alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "configuration_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_CONFIGURATION_COMPLETED, .tags = 0 },
     { .name = "get_alloc_stats_completed", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_GET_ALLOC_STATS_COMPLETED, .tags = 0 },
-    { .name = "latency_stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "latency_stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_LATENCY_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_ITUPON_ALLOC_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -31466,121 +29636,6 @@ const bcmolt_type_descr type_descr_bcmolt_itupon_gem_auto_cfg_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_itupon_gem_auto_cfg_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_itupon_gem_auto_cfg_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_key_id_string_table[] =
-{
-    { .name = "id", .val = BCMOLT_L2_MAC_TABLE_KEY_ID_ID, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_key_id =
-{
-    .name = "l2_mac_table_key_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_key'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_key_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_key_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_cfg_data_id_string_table[] =
-{
-    { .name = "state", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_STATE, .tags = 0 },
-    { .name = "dump_status", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_DUMP_STATUS, .tags = 0 },
-    { .name = "last_dump_result", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_LAST_DUMP_RESULT, .tags = 0 },
-    { .name = "report_event", .val = BCMOLT_L2_MAC_TABLE_CFG_DATA_ID_REPORT_EVENT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_cfg_data_id =
-{
-    .name = "l2_mac_table_cfg_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_cfg_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_cfg_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_cfg_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_dump_data_id_string_table[] =
-{
-    { .name = "file_name", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILE_NAME, .tags = 0 },
-    { .name = "mode", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MODE, .tags = 0 },
-    { .name = "filters", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_FILTERS, .tags = 0 },
-    { .name = "report_as_indication", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_REPORT_AS_INDICATION, .tags = 0 },
-    { .name = "max_entry_per_indication", .val = BCMOLT_L2_MAC_TABLE_DUMP_DATA_ID_MAX_ENTRY_PER_INDICATION, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_data_id =
-{
-    .name = "l2_mac_table_dump_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_dump_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_dump_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_dump_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_dump_complete_data_id_string_table[] =
-{
-    { .name = "file_name", .val = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_FILE_NAME, .tags = 0 },
-    { .name = "result", .val = BCMOLT_L2_MAC_TABLE_DUMP_COMPLETE_DATA_ID_RESULT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_dump_complete_data_id =
-{
-    .name = "l2_mac_table_dump_complete_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_dump_complete_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_dump_complete_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_dump_complete_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_network_events_data_id_string_table[] =
-{
-    { .name = "entries", .val = BCMOLT_L2_MAC_TABLE_NETWORK_EVENTS_DATA_ID_ENTRIES, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_network_events_data_id =
-{
-    .name = "l2_mac_table_network_events_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_network_events_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_network_events_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_network_events_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_pon_events_data_id_string_table[] =
-{
-    { .name = "entries", .val = BCMOLT_L2_MAC_TABLE_PON_EVENTS_DATA_ID_ENTRIES, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_pon_events_data_id =
-{
-    .name = "l2_mac_table_pon_events_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_pon_events_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_pon_events_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_pon_events_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_l2_mac_table_auto_cfg_data_id_string_table[] =
-{
-    { .name = "dump_complete", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_DUMP_COMPLETE, .tags = 0 },
-    { .name = "network_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_NETWORK_EVENTS, .tags = 0 },
-    { .name = "pon_events", .val = BCMOLT_L2_MAC_TABLE_AUTO_CFG_DATA_ID_PON_EVENTS, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_l2_mac_table_auto_cfg_data_id =
-{
-    .name = "l2_mac_table_auto_cfg_data_id",
-    .descr = "Identifiers for all fields in a 'l2_mac_table_auto_cfg_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_l2_mac_table_auto_cfg_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_l2_mac_table_auto_cfg_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_lag_interface_key_id_string_table[] =
@@ -32270,7 +30325,6 @@ const bcmolt_enum_val bcmolt_olt_sw_error_data_id_string_table[] =
     { .name = "file_name", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_FILE_NAME, .tags = 0 },
     { .name = "line_number", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_LINE_NUMBER, .tags = 0 },
     { .name = "error_string", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_ERROR_STRING, .tags = 0 },
-    { .name = "severity", .val = BCMOLT_OLT_SW_ERROR_DATA_ID_SEVERITY, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -33283,23 +31337,6 @@ const bcmolt_type_descr type_descr_bcmolt_onu_trap_ploam_received_data_id =
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_trap_ploam_received_data_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_string_table[] =
-{
-    { .name = "tm_used", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_USED, .tags = 0 },
-    { .name = "tm_allocated", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_TM_ALLOCATED, .tags = 0 },
-    { .name = "bufocc", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_DATA_ID_BUFOCC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_data_id",
-    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_data_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_onu_itu_pon_stats_cfg_data_id_string_table[] =
 {
     { .name = "positive_drift", .val = BCMOLT_ONU_ITU_PON_STATS_CFG_DATA_ID_POSITIVE_DRIFT, .tags = 0 },
@@ -33367,53 +31404,6 @@ const bcmolt_type_descr type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data_i
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_pon_stats_alarm_cleared_data_id_string_table } },
 };
 
-const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_string_table[] =
-{
-    { .name = "tm_used", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_USED, .tags = 0 },
-    { .name = "tm_allocated", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_TM_ALLOCATED, .tags = 0 },
-    { .name = "bufocc", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG_DATA_ID_BUFOCC, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_cfg_data_id",
-    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_cfg_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id",
-    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_raised_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table[] =
-{
-    { .name = "stat", .val = BCMOLT_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED_DATA_ID_STAT, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id =
-{
-    .name = "onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id",
-    .descr = "Identifiers for all fields in a 'onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data_id_string_table } },
-};
-
 const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[] =
 {
     { .name = "ber_interval_configuration_completed", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_BER_INTERVAL_CONFIGURATION_COMPLETED, .tags = 0 },
@@ -33424,8 +31414,6 @@ const bcmolt_enum_val bcmolt_onu_auto_cfg_data_id_string_table[] =
     { .name = "err", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ERR, .tags = 0 },
     { .name = "gpon_alarm", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_GPON_ALARM, .tags = 0 },
     { .name = "invalid_dbru_report", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_INVALID_DBRU_REPORT, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED, .tags = 0 },
-    { .name = "itu_alloc_onu_accumulated_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_cleared", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "itu_pon_stats_alarm_raised", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_ITU_PON_STATS_ALARM_RAISED, .tags = 0 },
     { .name = "key_exchange_completed", .val = BCMOLT_ONU_AUTO_CFG_DATA_ID_KEY_EXCHANGE_COMPLETED, .tags = 0 },
@@ -33636,8 +31624,6 @@ const bcmolt_enum_val bcmolt_pon_interface_itu_pon_stats_data_id_string_table[] 
     { .name = "fec_codewords_uncorrected", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_FEC_CODEWORDS_UNCORRECTED, .tags = 0 },
     { .name = "rx_gem_illegal", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_GEM_ILLEGAL, .tags = 0 },
     { .name = "rx_packets", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_PACKETS, .tags = 0 },
-    { .name = "tx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_TX_BYTES, .tags = 0 },
-    { .name = "rx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_DATA_ID_RX_BYTES, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -34165,8 +32151,6 @@ const bcmolt_enum_val bcmolt_pon_interface_itu_pon_stats_cfg_data_id_string_tabl
     { .name = "fec_codewords_uncorrected", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_FEC_CODEWORDS_UNCORRECTED, .tags = 0 },
     { .name = "rx_gem_illegal", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_GEM_ILLEGAL, .tags = 0 },
     { .name = "rx_packets", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_PACKETS, .tags = 0 },
-    { .name = "tx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_TX_BYTES, .tags = 0 },
-    { .name = "rx_bytes", .val = BCMOLT_PON_INTERFACE_ITU_PON_STATS_CFG_DATA_ID_RX_BYTES, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -34440,7 +32424,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_key_id =
 const bcmolt_enum_val bcmolt_switch_inni_cfg_data_id_string_table[] =
 {
     { .name = "config_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_CONFIG_STATE, .tags = 0 },
-    { .name = "link_state", .val = BCMOLT_SWITCH_INNI_CFG_DATA_ID_LINK_STATE, .tags = 0 },
     BCMOLT_ENUM_LAST,
 };
 
@@ -34504,22 +32487,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_data_id =
     .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
     .size = sizeof(bcmolt_switch_inni_stats_data_id),
     .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_stats_data_id_string_table } },
-};
-
-const bcmolt_enum_val bcmolt_switch_inni_link_state_change_data_id_string_table[] =
-{
-    { .name = "old_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_OLD_STATE, .tags = 0 },
-    { .name = "new_state", .val = BCMOLT_SWITCH_INNI_LINK_STATE_CHANGE_DATA_ID_NEW_STATE, .tags = 0 },
-    BCMOLT_ENUM_LAST,
-};
-
-const bcmolt_type_descr type_descr_bcmolt_switch_inni_link_state_change_data_id =
-{
-    .name = "switch_inni_link_state_change_data_id",
-    .descr = "Identifiers for all fields in a 'switch_inni_link_state_change_data'.",
-    .base_type = BCMOLT_BASE_TYPE_ID_ENUM,
-    .size = sizeof(bcmolt_switch_inni_link_state_change_data_id),
-    .x = { .e = { .base_type = &type_descr_uint8_t,.vals = bcmolt_switch_inni_link_state_change_data_id_string_table } },
 };
 
 const bcmolt_enum_val bcmolt_switch_inni_stats_cfg_data_id_string_table[] =
@@ -34607,7 +32574,6 @@ const bcmolt_type_descr type_descr_bcmolt_switch_inni_stats_alarm_cleared_data_i
 
 const bcmolt_enum_val bcmolt_switch_inni_auto_cfg_data_id_string_table[] =
 {
-    { .name = "link_state_change", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_LINK_STATE_CHANGE, .tags = 0 },
     { .name = "stats_alarm_cleared", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_CLEARED, .tags = 0 },
     { .name = "stats_alarm_raised", .val = BCMOLT_SWITCH_INNI_AUTO_CFG_DATA_ID_STATS_ALARM_RAISED, .tags = 0 },
     BCMOLT_ENUM_LAST,
@@ -36156,25 +34122,6 @@ static bcmolt_group_descr group_descr_flow_send_eth_packet =
     .type = &type_descr_bcmolt_flow_send_eth_packet_data,
 };
 
-/** Group: flow - src_binding_update. */
-static bcmolt_group_descr group_descr_flow_src_binding_update =
-{
-    .container_size = sizeof(bcmolt_flow_src_binding_update),
-    .data_offset = offsetof(bcmolt_flow_src_binding_update, data),
-    .data_size = sizeof(bcmolt_flow_src_binding_update_data),
-    .descr = "source binding update.",
-    .global_id = BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE,
-    .id = 4,
-    .key_offset = offsetof(bcmolt_flow_src_binding_update, key),
-    .key_size = sizeof(bcmolt_flow_key),
-    .mgt_group = BCMOLT_MGT_GROUP_OPER,
-    .name = "src_binding_update",
-    .obj_id = BCMOLT_OBJ_ID_FLOW,
-    .subgroup_idx = BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE,
-    .tags = 0,
-    .type = &type_descr_bcmolt_flow_src_binding_update_data,
-};
-
 /** Group: flow - stats_cfg. */
 static bcmolt_group_descr group_descr_flow_stats_cfg =
 {
@@ -36257,7 +34204,6 @@ static const bcmolt_group_descr *groups_flow[] =
     &group_descr_flow_key,
     &group_descr_flow_stats,
     &group_descr_flow_send_eth_packet,
-    &group_descr_flow_src_binding_update,
     &group_descr_flow_stats_cfg,
     &group_descr_flow_stats_alarm_raised,
     &group_descr_flow_stats_alarm_cleared,
@@ -37242,70 +35188,6 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats =
     .type = &type_descr_bcmolt_itupon_alloc_stats_data,
 };
 
-/** Group: itupon_alloc - alloc_onu_accumulated_stats. */
-static bcmolt_multi_group_descr multi_descr_itupon_alloc_alloc_onu_accumulated_stats =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats),
-    .key_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, key),
-    .next_key_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, next_key),
-    .filter_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, filter),
-    .request_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, request),
-    .more_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, more),
-    .num_responses_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, num_responses),
-    .responses_offset = offsetof(bcmolt_itupon_alloc_multi_alloc_onu_accumulated_stats, responses),
-};
-
-static bcmolt_group_descr group_descr_itupon_alloc_alloc_onu_accumulated_stats =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats),
-    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data),
-    .descr = "Accumulated statistics.",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS,
-    .id = 7,
-    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_itupon_alloc_alloc_onu_accumulated_stats,
-    .name = "alloc_onu_accumulated_stats",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS,
-    .tags = BCMOLT_TAG_XGS | BCMOLT_TAG_GPON | BCMOLT_TAG_NGPON2 | BCMOLT_TAG_XGPON,
-    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_data,
-};
-
-/** Group: itupon_alloc - latency_stats. */
-static bcmolt_multi_group_descr multi_descr_itupon_alloc_latency_stats =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_multi_latency_stats),
-    .key_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, key),
-    .next_key_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, next_key),
-    .filter_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, filter),
-    .request_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, request),
-    .more_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, more),
-    .num_responses_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, num_responses),
-    .responses_offset = offsetof(bcmolt_itupon_alloc_multi_latency_stats, responses),
-};
-
-static bcmolt_group_descr group_descr_itupon_alloc_latency_stats =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats),
-    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_data),
-    .descr = "latency statistics.",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS,
-    .id = 8,
-    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_itupon_alloc_latency_stats,
-    .name = "latency_stats",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_data,
-};
-
 /** Group: itupon_alloc - stats_cfg. */
 static bcmolt_group_descr group_descr_itupon_alloc_stats_cfg =
 {
@@ -37363,120 +35245,6 @@ static bcmolt_group_descr group_descr_itupon_alloc_stats_alarm_cleared =
     .type = &type_descr_bcmolt_itupon_alloc_stats_alarm_cleared_data,
 };
 
-/** Group: itupon_alloc - alloc_onu_accumulated_stats_cfg. */
-static bcmolt_group_descr group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg),
-    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data),
-    .descr = "Accumulated Statistics Configuration.",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG,
-    .id = 4231,
-    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
-    .name = "alloc_onu_accumulated_stats",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_cfg_data,
-};
-
-/** Group: itupon_alloc - alloc_onu_accumulated_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised),
-    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data),
-    .descr = "Sent when a configured statistic alarm condition has been met..",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-    .id = 4359,
-    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "alloc_onu_accumulated_stats_alarm_raised",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised_data,
-};
-
-/** Group: itupon_alloc - alloc_onu_accumulated_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared),
-    .data_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data),
-    .descr = "Sent when a configured statistic alarm condition is no longer met..",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-    .id = 4487,
-    .key_offset = offsetof(bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "alloc_onu_accumulated_stats_alarm_cleared",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared_data,
-};
-
-/** Group: itupon_alloc - latency_stats_cfg. */
-static bcmolt_group_descr group_descr_itupon_alloc_latency_stats_cfg =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg),
-    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_cfg_data),
-    .descr = "Latency Statistics Configuration.",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG,
-    .id = 4232,
-    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_cfg, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
-    .name = "latency_stats",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_cfg_data,
-};
-
-/** Group: itupon_alloc - latency_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_itupon_alloc_latency_stats_alarm_raised =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised),
-    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_raised_data),
-    .descr = "Sent when a configured statistic alarm condition has been met..",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED,
-    .id = 4360,
-    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_raised, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "latency_stats_alarm_raised",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_alarm_raised_data,
-};
-
-/** Group: itupon_alloc - latency_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_itupon_alloc_latency_stats_alarm_cleared =
-{
-    .container_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared),
-    .data_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared, data),
-    .data_size = sizeof(bcmolt_itupon_alloc_latency_stats_alarm_cleared_data),
-    .descr = "Sent when a configured statistic alarm condition is no longer met..",
-    .global_id = BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED,
-    .id = 4488,
-    .key_offset = offsetof(bcmolt_itupon_alloc_latency_stats_alarm_cleared, key),
-    .key_size = sizeof(bcmolt_itupon_alloc_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "latency_stats_alarm_cleared",
-    .obj_id = BCMOLT_OBJ_ID_ITUPON_ALLOC,
-    .subgroup_idx = BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_itupon_alloc_latency_stats_alarm_cleared_data,
-};
-
 /** Group: itupon_alloc - auto_cfg. */
 static bcmolt_group_descr group_descr_itupon_alloc_auto_cfg =
 {
@@ -37505,17 +35273,9 @@ static const bcmolt_group_descr *groups_itupon_alloc[] =
     &group_descr_itupon_alloc_get_alloc_stats_completed,
     &group_descr_itupon_alloc_set_state,
     &group_descr_itupon_alloc_stats,
-    &group_descr_itupon_alloc_alloc_onu_accumulated_stats,
-    &group_descr_itupon_alloc_latency_stats,
     &group_descr_itupon_alloc_stats_cfg,
     &group_descr_itupon_alloc_stats_alarm_raised,
     &group_descr_itupon_alloc_stats_alarm_cleared,
-    &group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
-    &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
-    &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
-    &group_descr_itupon_alloc_latency_stats_cfg,
-    &group_descr_itupon_alloc_latency_stats_alarm_raised,
-    &group_descr_itupon_alloc_latency_stats_alarm_cleared,
     &group_descr_itupon_alloc_auto_cfg,
 };
 
@@ -37751,196 +35511,6 @@ static bcmolt_obj_descr obj_descr_itupon_gem =
     .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_itupon_gem_get_active_tags,
     .num_groups = BCM_SIZEOFARRAY(groups_itupon_gem),
     .groups = groups_itupon_gem,
-};
-
-
-/** ==== Object: l2_mac_table ==== */
-/** Group: l2_mac_table - key. */
-static bcmolt_group_descr group_descr_l2_mac_table_key =
-{
-    .container_size = 0,
-    .data_offset = 0,
-    .data_size = sizeof(bcmolt_l2_mac_table_key),
-    .descr = "key.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY,
-    .id = 0,
-    .key_offset = 0,
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_KEY,
-    .name = "key",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = 0,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_key,
-};
-
-/** Group: l2_mac_table - cfg. */
-static bcmolt_multi_group_descr multi_descr_l2_mac_table_cfg =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_multi_cfg),
-    .key_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, key),
-    .next_key_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, next_key),
-    .filter_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, filter),
-    .request_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, request),
-    .more_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, more),
-    .num_responses_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, num_responses),
-    .responses_offset = offsetof(bcmolt_l2_mac_table_multi_cfg, responses),
-};
-
-static bcmolt_group_descr group_descr_l2_mac_table_cfg =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_cfg),
-    .data_offset = offsetof(bcmolt_l2_mac_table_cfg, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_cfg_data),
-    .descr = "cfg.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG,
-    .id = 1,
-    .key_offset = offsetof(bcmolt_l2_mac_table_cfg, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_CFG,
-    .multi = &multi_descr_l2_mac_table_cfg,
-    .name = "cfg",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = 0,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_cfg_data,
-};
-
-/** Group: l2_mac_table - dump. */
-static bcmolt_group_descr group_descr_l2_mac_table_dump =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_dump),
-    .data_offset = offsetof(bcmolt_l2_mac_table_dump, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_dump_data),
-    .descr = "dump l2 tables.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP,
-    .id = 2,
-    .key_offset = offsetof(bcmolt_l2_mac_table_dump, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_OPER,
-    .name = "dump",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_dump_data,
-};
-
-/** Group: l2_mac_table - dump_complete. */
-static bcmolt_group_descr group_descr_l2_mac_table_dump_complete =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_dump_complete),
-    .data_offset = offsetof(bcmolt_l2_mac_table_dump_complete, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_dump_complete_data),
-    .descr = "l2 mact dump completed.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE,
-    .id = 3,
-    .key_offset = offsetof(bcmolt_l2_mac_table_dump_complete, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "dump_complete",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_dump_complete_data,
-};
-
-/** Group: l2_mac_table - dump_abort. */
-static bcmolt_group_descr group_descr_l2_mac_table_dump_abort =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_dump_abort),
-    .data_offset = 0,
-    .data_size = 0,
-    .descr = "dump abort.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT,
-    .id = 4,
-    .key_offset = offsetof(bcmolt_l2_mac_table_dump_abort, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_OPER,
-    .name = "dump_abort",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT,
-    .tags = 0,
-    .type = NULL,
-};
-
-/** Group: l2_mac_table - network_events. */
-static bcmolt_group_descr group_descr_l2_mac_table_network_events =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_network_events),
-    .data_offset = offsetof(bcmolt_l2_mac_table_network_events, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_network_events_data),
-    .descr = "network l2 events.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS,
-    .id = 5,
-    .key_offset = offsetof(bcmolt_l2_mac_table_network_events, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "network_events",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_network_events_data,
-};
-
-/** Group: l2_mac_table - pon_events. */
-static bcmolt_group_descr group_descr_l2_mac_table_pon_events =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_pon_events),
-    .data_offset = offsetof(bcmolt_l2_mac_table_pon_events, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_pon_events_data),
-    .descr = "pon l2 events.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS,
-    .id = 6,
-    .key_offset = offsetof(bcmolt_l2_mac_table_pon_events, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "pon_events",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_pon_events_data,
-};
-
-/** Group: l2_mac_table - auto_cfg. */
-static bcmolt_group_descr group_descr_l2_mac_table_auto_cfg =
-{
-    .container_size = sizeof(bcmolt_l2_mac_table_auto_cfg),
-    .data_offset = offsetof(bcmolt_l2_mac_table_auto_cfg, data),
-    .data_size = sizeof(bcmolt_l2_mac_table_auto_cfg_data),
-    .descr = "Indication Configuration.",
-    .global_id = BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG,
-    .id = 4096,
-    .key_offset = offsetof(bcmolt_l2_mac_table_auto_cfg, key),
-    .key_size = sizeof(bcmolt_l2_mac_table_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO_CFG,
-    .name = "auto_cfg",
-    .obj_id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .subgroup_idx = 0,
-    .tags = 0,
-    .type = &type_descr_bcmolt_l2_mac_table_auto_cfg_data,
-};
-
-static const bcmolt_group_descr *groups_l2_mac_table[] =
-{
-    &group_descr_l2_mac_table_key,
-    &group_descr_l2_mac_table_cfg,
-    &group_descr_l2_mac_table_dump,
-    &group_descr_l2_mac_table_dump_complete,
-    &group_descr_l2_mac_table_dump_abort,
-    &group_descr_l2_mac_table_network_events,
-    &group_descr_l2_mac_table_pon_events,
-    &group_descr_l2_mac_table_auto_cfg,
-};
-
-static bcmolt_obj_descr obj_descr_l2_mac_table =
-{
-    .name = "l2_mac_table",
-    .descr = "l2 mac table.",
-    .id = BCMOLT_OBJ_ID_L2_MAC_TABLE,
-    .tags = BCMOLT_TAG_SYSTEM,
-    .get_active_tags = (bcmolt_get_active_tags_cb)bcmolt_l2_mac_table_get_active_tags,
-    .num_groups = BCM_SIZEOFARRAY(groups_l2_mac_table),
-    .groups = groups_l2_mac_table,
 };
 
 
@@ -38605,7 +36175,7 @@ static bcmolt_group_descr group_descr_nni_interface_link_state_change =
     .container_size = sizeof(bcmolt_nni_interface_link_state_change),
     .data_offset = offsetof(bcmolt_nni_interface_link_state_change, data),
     .data_size = sizeof(bcmolt_nni_interface_link_state_change_data),
-    .descr = "Link State Change report.",
+    .descr = "Link State Change reported by Switch..",
     .global_id = BCMOLT_API_GROUP_ID_NNI_INTERFACE_LINK_STATE_CHANGE,
     .id = 9,
     .key_offset = offsetof(bcmolt_nni_interface_link_state_change, key),
@@ -40289,38 +37859,6 @@ static bcmolt_group_descr group_descr_onu_trap_ploam_received =
     .type = &type_descr_bcmolt_onu_trap_ploam_received_data,
 };
 
-/** Group: onu - itu_alloc_onu_accumulated_stats. */
-static bcmolt_multi_group_descr multi_descr_onu_itu_alloc_onu_accumulated_stats =
-{
-    .container_size = sizeof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats),
-    .key_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, key),
-    .next_key_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, next_key),
-    .filter_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, filter),
-    .request_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, request),
-    .more_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, more),
-    .num_responses_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, num_responses),
-    .responses_offset = offsetof(bcmolt_onu_multi_itu_alloc_onu_accumulated_stats, responses),
-};
-
-static bcmolt_group_descr group_descr_onu_itu_alloc_onu_accumulated_stats =
-{
-    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats),
-    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats, data),
-    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_data),
-    .descr = "Accumulated statistics.",
-    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS,
-    .id = 70,
-    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats, key),
-    .key_size = sizeof(bcmolt_onu_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT,
-    .multi = &multi_descr_onu_itu_alloc_onu_accumulated_stats,
-    .name = "itu_alloc_onu_accumulated_stats",
-    .obj_id = BCMOLT_OBJ_ID_ONU,
-    .subgroup_idx = BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS,
-    .tags = 0,
-    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_data,
-};
-
 /** Group: onu - itu_pon_stats_cfg. */
 static bcmolt_group_descr group_descr_onu_itu_pon_stats_cfg =
 {
@@ -40376,63 +37914,6 @@ static bcmolt_group_descr group_descr_onu_itu_pon_stats_alarm_cleared =
     .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED,
     .tags = 0,
     .type = &type_descr_bcmolt_onu_itu_pon_stats_alarm_cleared_data,
-};
-
-/** Group: onu - itu_alloc_onu_accumulated_stats_cfg. */
-static bcmolt_group_descr group_descr_onu_itu_alloc_onu_accumulated_stats_cfg =
-{
-    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg),
-    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg, data),
-    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data),
-    .descr = "Accumulated Statistics Configuration.",
-    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG,
-    .id = 4294,
-    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg, key),
-    .key_size = sizeof(bcmolt_onu_key),
-    .mgt_group = BCMOLT_MGT_GROUP_STAT_CFG,
-    .name = "itu_alloc_onu_accumulated_stats",
-    .obj_id = BCMOLT_OBJ_ID_ONU,
-    .subgroup_idx = BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG,
-    .tags = 0,
-    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_cfg_data,
-};
-
-/** Group: onu - itu_alloc_onu_accumulated_stats_alarm_raised. */
-static bcmolt_group_descr group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised =
-{
-    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised),
-    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised, data),
-    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data),
-    .descr = "Sent when a configured statistic alarm condition has been met..",
-    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-    .id = 4422,
-    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised, key),
-    .key_size = sizeof(bcmolt_onu_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "itu_alloc_onu_accumulated_stats_alarm_raised",
-    .obj_id = BCMOLT_OBJ_ID_ONU,
-    .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_raised_data,
-};
-
-/** Group: onu - itu_alloc_onu_accumulated_stats_alarm_cleared. */
-static bcmolt_group_descr group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared =
-{
-    .container_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared),
-    .data_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared, data),
-    .data_size = sizeof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data),
-    .descr = "Sent when a configured statistic alarm condition is no longer met..",
-    .global_id = BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-    .id = 4550,
-    .key_offset = offsetof(bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared, key),
-    .key_size = sizeof(bcmolt_onu_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "itu_alloc_onu_accumulated_stats_alarm_cleared",
-    .obj_id = BCMOLT_OBJ_ID_ONU,
-    .subgroup_idx = BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED,
-    .tags = 0,
-    .type = &type_descr_bcmolt_onu_itu_alloc_onu_accumulated_stats_alarm_cleared_data,
 };
 
 /** Group: onu - auto_cfg. */
@@ -40524,13 +38005,9 @@ static const bcmolt_group_descr *groups_onu[] =
     &group_descr_onu_range_value_changed,
     &group_descr_onu_xpon_unknown_ploam,
     &group_descr_onu_trap_ploam_received,
-    &group_descr_onu_itu_alloc_onu_accumulated_stats,
     &group_descr_onu_itu_pon_stats_cfg,
     &group_descr_onu_itu_pon_stats_alarm_raised,
     &group_descr_onu_itu_pon_stats_alarm_cleared,
-    &group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
-    &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
-    &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
     &group_descr_onu_auto_cfg,
 };
 
@@ -41966,25 +39443,6 @@ static bcmolt_group_descr group_descr_switch_inni_stats =
     .type = &type_descr_bcmolt_switch_inni_stats_data,
 };
 
-/** Group: switch_inni - link_state_change. */
-static bcmolt_group_descr group_descr_switch_inni_link_state_change =
-{
-    .container_size = sizeof(bcmolt_switch_inni_link_state_change),
-    .data_offset = offsetof(bcmolt_switch_inni_link_state_change, data),
-    .data_size = sizeof(bcmolt_switch_inni_link_state_change_data),
-    .descr = "Link State Change report.",
-    .global_id = BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE,
-    .id = 3,
-    .key_offset = offsetof(bcmolt_switch_inni_link_state_change, key),
-    .key_size = sizeof(bcmolt_switch_inni_key),
-    .mgt_group = BCMOLT_MGT_GROUP_AUTO,
-    .name = "link_state_change",
-    .obj_id = BCMOLT_OBJ_ID_SWITCH_INNI,
-    .subgroup_idx = BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE,
-    .tags = 0,
-    .type = &type_descr_bcmolt_switch_inni_link_state_change_data,
-};
-
 /** Group: switch_inni - stats_cfg. */
 static bcmolt_group_descr group_descr_switch_inni_stats_cfg =
 {
@@ -42066,7 +39524,6 @@ static const bcmolt_group_descr *groups_switch_inni[] =
     &group_descr_switch_inni_key,
     &group_descr_switch_inni_cfg,
     &group_descr_switch_inni_stats,
-    &group_descr_switch_inni_link_state_change,
     &group_descr_switch_inni_stats_cfg,
     &group_descr_switch_inni_stats_alarm_raised,
     &group_descr_switch_inni_stats_alarm_cleared,
@@ -42381,7 +39838,6 @@ static const bcmolt_obj_descr *lookup_obj_by_id[] =
     [BCMOLT_OBJ_ID_INTERNAL_NNI] = &obj_descr_internal_nni,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC] = &obj_descr_itupon_alloc,
     [BCMOLT_OBJ_ID_ITUPON_GEM] = &obj_descr_itupon_gem,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE] = &obj_descr_l2_mac_table,
     [BCMOLT_OBJ_ID_LAG_INTERFACE] = &obj_descr_lag_interface,
     [BCMOLT_OBJ_ID_LOG] = &obj_descr_log,
     [BCMOLT_OBJ_ID_LOG_FILE] = &obj_descr_log_file,
@@ -42467,7 +39923,6 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO][BCMOLT_FLOW_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_flow_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_flow_auto_cfg,
     [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_OPER][BCMOLT_FLOW_OPER_SUBGROUP_SEND_ETH_PACKET] = &group_descr_flow_send_eth_packet,
-    [BCMOLT_OBJ_ID_FLOW][BCMOLT_MGT_GROUP_OPER][BCMOLT_FLOW_OPER_SUBGROUP_SRC_BINDING_UPDATE] = &group_descr_flow_src_binding_update,
     [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_gpio_key,
     [BCMOLT_OBJ_ID_GPIO][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_gpio_cfg,
     [BCMOLT_OBJ_ID_GROUP][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_group_key,
@@ -42501,19 +39956,11 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_itupon_alloc_key,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_itupon_alloc_cfg,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_STATS] = &group_descr_itupon_alloc_stats,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT][BCMOLT_ITUPON_ALLOC_STAT_SUBGROUP_LATENCY_STATS] = &group_descr_itupon_alloc_latency_stats,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_itupon_alloc_stats_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ITUPON_ALLOC_STAT_CFG_SUBGROUP_LATENCY_STATS_CFG] = &group_descr_itupon_alloc_latency_stats_cfg,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_CONFIGURATION_COMPLETED] = &group_descr_itupon_alloc_configuration_completed,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_GET_ALLOC_STATS_COMPLETED] = &group_descr_itupon_alloc_get_alloc_stats_completed,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_stats_alarm_raised,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_latency_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_ALLOC_AUTO_SUBGROUP_LATENCY_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_latency_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_itupon_alloc_auto_cfg,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_GET_STATS] = &group_descr_itupon_alloc_get_stats,
     [BCMOLT_OBJ_ID_ITUPON_ALLOC][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_ALLOC_OPER_SUBGROUP_SET_STATE] = &group_descr_itupon_alloc_set_state,
@@ -42526,14 +39973,6 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ITUPON_GEM_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_itupon_gem_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_itupon_gem_auto_cfg,
     [BCMOLT_OBJ_ID_ITUPON_GEM][BCMOLT_MGT_GROUP_OPER][BCMOLT_ITUPON_GEM_OPER_SUBGROUP_SET_STATE] = &group_descr_itupon_gem_set_state,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_l2_mac_table_key,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_l2_mac_table_cfg,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_DUMP_COMPLETE] = &group_descr_l2_mac_table_dump_complete,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_NETWORK_EVENTS] = &group_descr_l2_mac_table_network_events,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO][BCMOLT_L2_MAC_TABLE_AUTO_SUBGROUP_PON_EVENTS] = &group_descr_l2_mac_table_pon_events,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_l2_mac_table_auto_cfg,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_OPER][BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP] = &group_descr_l2_mac_table_dump,
-    [BCMOLT_OBJ_ID_L2_MAC_TABLE][BCMOLT_MGT_GROUP_OPER][BCMOLT_L2_MAC_TABLE_OPER_SUBGROUP_DUMP_ABORT] = &group_descr_l2_mac_table_dump_abort,
     [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_lag_interface_key,
     [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_lag_interface_cfg,
     [BCMOLT_OBJ_ID_LAG_INTERFACE][BCMOLT_MGT_GROUP_STAT][BCMOLT_LAG_INTERFACE_STAT_SUBGROUP_STATS] = &group_descr_lag_interface_stats,
@@ -42578,9 +40017,7 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_KEY][0] = &group_descr_onu_key,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_onu_cfg,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT][BCMOLT_ONU_STAT_SUBGROUP_ITU_PON_STATS] = &group_descr_onu_itu_pon_stats,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT][BCMOLT_ONU_STAT_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS] = &group_descr_onu_itu_alloc_onu_accumulated_stats,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_PON_STATS_CFG] = &group_descr_onu_itu_pon_stats_cfg,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_ONU_STAT_CFG_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_XGPON_ALARM] = &group_descr_onu_xgpon_alarm,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_GPON_ALARM] = &group_descr_onu_gpon_alarm,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_DOWI] = &group_descr_onu_dowi,
@@ -42635,8 +40072,6 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
-    [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO][BCMOLT_ONU_AUTO_SUBGROUP_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_onu_auto_cfg,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_SET_ONU_STATE] = &group_descr_onu_set_onu_state,
     [BCMOLT_OBJ_ID_ONU][BCMOLT_MGT_GROUP_OPER][BCMOLT_ONU_OPER_SUBGROUP_RSSI_MEASUREMENT] = &group_descr_onu_rssi_measurement,
@@ -42713,7 +40148,6 @@ static const bcmolt_group_descr *lookup_group_by_subgroup_idx[][BCMOLT_MGT_GROUP
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_CFG][0] = &group_descr_switch_inni_cfg,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT][BCMOLT_SWITCH_INNI_STAT_SUBGROUP_STATS] = &group_descr_switch_inni_stats,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_STAT_CFG][BCMOLT_SWITCH_INNI_STAT_CFG_SUBGROUP_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
-    [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_LINK_STATE_CHANGE] = &group_descr_switch_inni_link_state_change,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO][BCMOLT_SWITCH_INNI_AUTO_SUBGROUP_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,
     [BCMOLT_OBJ_ID_SWITCH_INNI][BCMOLT_MGT_GROUP_AUTO_CFG][0] = &group_descr_switch_inni_auto_cfg,
@@ -42884,8 +40318,6 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_flow_stats;
         case 3:
             return &group_descr_flow_send_eth_packet;
-        case 4:
-            return &group_descr_flow_src_binding_update;
         case 4226:
             return &group_descr_flow_stats_cfg;
         case 4354:
@@ -43010,28 +40442,12 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_itupon_alloc_set_state;
         case 6:
             return &group_descr_itupon_alloc_stats;
-        case 7:
-            return &group_descr_itupon_alloc_alloc_onu_accumulated_stats;
-        case 8:
-            return &group_descr_itupon_alloc_latency_stats;
         case 4230:
             return &group_descr_itupon_alloc_stats_cfg;
         case 4358:
             return &group_descr_itupon_alloc_stats_alarm_raised;
         case 4486:
             return &group_descr_itupon_alloc_stats_alarm_cleared;
-        case 4231:
-            return &group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg;
-        case 4359:
-            return &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised;
-        case 4487:
-            return &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared;
-        case 4232:
-            return &group_descr_itupon_alloc_latency_stats_cfg;
-        case 4360:
-            return &group_descr_itupon_alloc_latency_stats_alarm_raised;
-        case 4488:
-            return &group_descr_itupon_alloc_latency_stats_alarm_cleared;
         case 4096:
             return &group_descr_itupon_alloc_auto_cfg;
         default:
@@ -43058,28 +40474,6 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_itupon_gem_stats_alarm_cleared;
         case 4096:
             return &group_descr_itupon_gem_auto_cfg;
-        default:
-            return NULL;
-        }
-    case BCMOLT_OBJ_ID_L2_MAC_TABLE:
-        switch (group)
-        {
-        case 0:
-            return &group_descr_l2_mac_table_key;
-        case 1:
-            return &group_descr_l2_mac_table_cfg;
-        case 2:
-            return &group_descr_l2_mac_table_dump;
-        case 3:
-            return &group_descr_l2_mac_table_dump_complete;
-        case 4:
-            return &group_descr_l2_mac_table_dump_abort;
-        case 5:
-            return &group_descr_l2_mac_table_network_events;
-        case 6:
-            return &group_descr_l2_mac_table_pon_events;
-        case 4096:
-            return &group_descr_l2_mac_table_auto_cfg;
         default:
             return NULL;
         }
@@ -43340,20 +40734,12 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_onu_xpon_unknown_ploam;
         case 69:
             return &group_descr_onu_trap_ploam_received;
-        case 70:
-            return &group_descr_onu_itu_alloc_onu_accumulated_stats;
         case 4226:
             return &group_descr_onu_itu_pon_stats_cfg;
         case 4354:
             return &group_descr_onu_itu_pon_stats_alarm_raised;
         case 4482:
             return &group_descr_onu_itu_pon_stats_alarm_cleared;
-        case 4294:
-            return &group_descr_onu_itu_alloc_onu_accumulated_stats_cfg;
-        case 4422:
-            return &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised;
-        case 4550:
-            return &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared;
         case 4096:
             return &group_descr_onu_auto_cfg;
         default:
@@ -43514,8 +40900,6 @@ static const bcmolt_group_descr *find_group_descr(bcmolt_meta_id obj, bcmolt_met
             return &group_descr_switch_inni_cfg;
         case 2:
             return &group_descr_switch_inni_stats;
-        case 3:
-            return &group_descr_switch_inni_link_state_change;
         case 4226:
             return &group_descr_switch_inni_stats_cfg;
         case 4354:
@@ -43634,7 +41018,6 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_FLOW_KEY] = &group_descr_flow_key,
     [BCMOLT_API_GROUP_ID_FLOW_STATS] = &group_descr_flow_stats,
     [BCMOLT_API_GROUP_ID_FLOW_SEND_ETH_PACKET] = &group_descr_flow_send_eth_packet,
-    [BCMOLT_API_GROUP_ID_FLOW_SRC_BINDING_UPDATE] = &group_descr_flow_src_binding_update,
     [BCMOLT_API_GROUP_ID_FLOW_STATS_CFG] = &group_descr_flow_stats_cfg,
     [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_RAISED] = &group_descr_flow_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_FLOW_STATS_ALARM_CLEARED] = &group_descr_flow_stats_alarm_cleared,
@@ -43676,17 +41059,9 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_GET_ALLOC_STATS_COMPLETED] = &group_descr_itupon_alloc_get_alloc_stats_completed,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_SET_STATE] = &group_descr_itupon_alloc_set_state,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS] = &group_descr_itupon_alloc_stats,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS] = &group_descr_itupon_alloc_latency_stats,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_CFG] = &group_descr_itupon_alloc_stats_cfg,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_alloc_onu_accumulated_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_CFG] = &group_descr_itupon_alloc_latency_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_RAISED] = &group_descr_itupon_alloc_latency_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_LATENCY_STATS_ALARM_CLEARED] = &group_descr_itupon_alloc_latency_stats_alarm_cleared,
     [BCMOLT_API_GROUP_ID_ITUPON_ALLOC_AUTO_CFG] = &group_descr_itupon_alloc_auto_cfg,
     [BCMOLT_API_GROUP_ID_ITUPON_GEM_KEY] = &group_descr_itupon_gem_key,
     [BCMOLT_API_GROUP_ID_ITUPON_GEM_CFG] = &group_descr_itupon_gem_cfg,
@@ -43697,14 +41072,6 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_RAISED] = &group_descr_itupon_gem_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_ITUPON_GEM_STATS_ALARM_CLEARED] = &group_descr_itupon_gem_stats_alarm_cleared,
     [BCMOLT_API_GROUP_ID_ITUPON_GEM_AUTO_CFG] = &group_descr_itupon_gem_auto_cfg,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_KEY] = &group_descr_l2_mac_table_key,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_CFG] = &group_descr_l2_mac_table_cfg,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP] = &group_descr_l2_mac_table_dump,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_COMPLETE] = &group_descr_l2_mac_table_dump_complete,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_DUMP_ABORT] = &group_descr_l2_mac_table_dump_abort,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_NETWORK_EVENTS] = &group_descr_l2_mac_table_network_events,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_PON_EVENTS] = &group_descr_l2_mac_table_pon_events,
-    [BCMOLT_API_GROUP_ID_L2_MAC_TABLE_AUTO_CFG] = &group_descr_l2_mac_table_auto_cfg,
     [BCMOLT_API_GROUP_ID_LAG_INTERFACE_KEY] = &group_descr_lag_interface_key,
     [BCMOLT_API_GROUP_ID_LAG_INTERFACE_CFG] = &group_descr_lag_interface_cfg,
     [BCMOLT_API_GROUP_ID_LAG_INTERFACE_STATS] = &group_descr_lag_interface_stats,
@@ -43814,13 +41181,9 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_ONU_RANGE_VALUE_CHANGED] = &group_descr_onu_range_value_changed,
     [BCMOLT_API_GROUP_ID_ONU_XPON_UNKNOWN_PLOAM] = &group_descr_onu_xpon_unknown_ploam,
     [BCMOLT_API_GROUP_ID_ONU_TRAP_PLOAM_RECEIVED] = &group_descr_onu_trap_ploam_received,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS] = &group_descr_onu_itu_alloc_onu_accumulated_stats,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_CFG] = &group_descr_onu_itu_pon_stats_cfg,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_RAISED] = &group_descr_onu_itu_pon_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_ONU_ITU_PON_STATS_ALARM_CLEARED] = &group_descr_onu_itu_pon_stats_alarm_cleared,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_CFG] = &group_descr_onu_itu_alloc_onu_accumulated_stats_cfg,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_RAISED] = &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_raised,
-    [BCMOLT_API_GROUP_ID_ONU_ITU_ALLOC_ONU_ACCUMULATED_STATS_ALARM_CLEARED] = &group_descr_onu_itu_alloc_onu_accumulated_stats_alarm_cleared,
     [BCMOLT_API_GROUP_ID_ONU_AUTO_CFG] = &group_descr_onu_auto_cfg,
     [BCMOLT_API_GROUP_ID_PBIT_TO_TC_KEY] = &group_descr_pbit_to_tc_key,
     [BCMOLT_API_GROUP_ID_PBIT_TO_TC_CFG] = &group_descr_pbit_to_tc_cfg,
@@ -43883,7 +41246,6 @@ static const bcmolt_group_descr *lookup_group_by_global_id[] =
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_KEY] = &group_descr_switch_inni_key,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_CFG] = &group_descr_switch_inni_cfg,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS] = &group_descr_switch_inni_stats,
-    [BCMOLT_API_GROUP_ID_SWITCH_INNI_LINK_STATE_CHANGE] = &group_descr_switch_inni_link_state_change,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_CFG] = &group_descr_switch_inni_stats_cfg,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_RAISED] = &group_descr_switch_inni_stats_alarm_raised,
     [BCMOLT_API_GROUP_ID_SWITCH_INNI_STATS_ALARM_CLEARED] = &group_descr_switch_inni_stats_alarm_cleared,

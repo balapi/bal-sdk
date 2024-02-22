@@ -1,1 +1,1 @@
-bcm_add_subdirectory(linenoise OPTIONAL)
+bcm_add_subdirectory(linenoise)
