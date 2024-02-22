@@ -51,7 +51,7 @@ static void bcmolt_api_system_mode_set(bcmolt_oltid olt, bcmolt_devid device, bc
     olt_info[olt].dev_info[device].system_mode = sys_mode;
 }
 
-static bcmolt_system_mode bcmolt_api_chip_family_get(bcmolt_oltid olt, bcmolt_devid device)
+static bcmolt_chip_family bcmolt_api_chip_family_get(bcmolt_oltid olt, bcmolt_devid device)
 {
     return olt_info[olt].dev_info[device].chip_family;
 }
